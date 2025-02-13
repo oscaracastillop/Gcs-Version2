@@ -1,0 +1,34 @@
+﻿body {
+    background-color: #f1f3f4;
+}
+
+.Titulo-Login {
+    margin-top: 40px;
+    font-size: 100px;
+    font-weight: bold;
+}
+
+.Centrar-Texto {
+    text-align: center
+}
+
+.Titulo-Login2 {
+    margin-top: -20px;
+    font-size: 13px;
+}
+
+.Tabla-Login {
+    margin-top: 40px;
+    background-color: none !important;
+}
+
+.Centrar-Objeto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+input,
+select,
+textarea {
+    max-width: 280px;
+}

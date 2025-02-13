@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<h2>Index</h2>
+
+<div class="Centrar-Texto">
+    <label class="Titulo-Login Centrar-Texto"><strong>GCS</strong></label>
+
+</div>
+<div class="Centrar-Texto Titulo-Login2">
+    <label>Sistema de gestión y control<span style="font-size:8px">&nbsp;&nbsp; V 1.0</span></label>
+</div>
+<div class="Tabla-Login">
+    <table class="table table-borderless">
+        <tr>
+            <td></td>
+        </tr>
+        <tr>
+            <td><h5 class="Centrar-Texto"><strong>Inicio Sesión</strong></h5></td>
+        </tr>
+        <tr>
+            <td><input class="form-control Centrar-Objeto" type="text" name="name" id="InputUsuario" value="" placeholder="Usuario" autocomplete="off" /></td>
+        </tr>
+        <tr>
+            <td><input class="form-control Centrar-Objeto" type="password" name="name" id="InputPassword" value="" placeholder="Contraseña" autocomplete="off" /></td>
+        </tr>
+        <tr>
+            <td align="center">
+                <input type="checkbox" name="name" id="CheckMostrarPassword" value="" />
+                <label>Mostrar Contraseña</label>
+            </td>
+        </tr>
+    </table>
+    <div class="Centrar-Texto">
+        <button class="btn btn-success btn-sm" onclick="Ingresar()"><i class="bi-person-workspace"></i> Ingresar</button>
+        <button class="btn btn-secondary btn-sm" disabled><i class="bi-exclamation-diamond"></i> Recuperar Contraseña</button>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#CheckMostrarPassword').click(function () {
+            if ($('#CheckMostrarPassword').is(':checked')) {
+                $('#InputPassword').attr('type', 'text');
+            } else {
+                $('#InputPassword').attr('type', 'password');
+            }
+        });
+    });
+</script>
