@@ -2172,6 +2172,7 @@
     <Content Include="Content\Login.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="JsApp\Goblal.js" />
     <Content Include="JsApp\Login.js" />
     <Content Include="JsApp\Menu.js" />
     <Content Include="JsApp\SubMenu.js" />
@@ -2401,6 +2402,11 @@
     <Content Include="Scripts\Sweetalert2\src\scss\_toasts.scss" />
     <Content Include="Scripts\Sweetalert2\src\sweetalert2.scss" />
     <Content Include="Scripts\Sweetalert2\src\variables.scss" />
+    <Content Include="Views\Mantenimiento\Index.cshtml" />
+    <Content Include="Views\Mirfe\Index.cshtml" />
+    <Content Include="Views\Mipe\Index.cshtml" />
+    <Content Include="Views\Produccion\Index.cshtml" />
+    <Content Include="Views\Informacion\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -2408,10 +2414,17 @@
     <Compile Include="Controllers\AlmacenController.cs" />
     <Compile Include="Controllers\ContabilidadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InformacionController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MantenimientoController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\MipeController.cs" />
+    <Compile Include="Controllers\MirfeController.cs" />
     <Compile Include="Controllers\NegocioController.cs" />
     <Compile Include="Controllers\Personal_ExternoController.cs" />
     <Compile Include="Controllers\Personal_InternoController.cs" />
+    <Compile Include="Controllers\ProduccionController.cs" />
+    <Compile Include="Controllers\SubMenuController.cs" />
     <Compile Include="Controllers\VentaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2448,6 +2461,10 @@
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{7679516C-B6DC-4787-B7DC-58A009484542}</Project>
       <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{98BD5988-C0EB-4D92-8DC8-25D2A503651E}</Project>
+      <Name>Models</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

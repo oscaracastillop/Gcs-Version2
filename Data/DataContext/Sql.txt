@@ -1,0 +1,584 @@
+﻿CREATE DATABASE GcsV2  
+GO 
+
+USE GcsV2  
+GO  
+
+/*TABLA ESTADO*/
+
+CREATE TABLE TipoEstado 
+(Id int identity(1,1) Primary key ,
+Nombre varchar(255)
+)
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoTipoEstado on TipoEstado (Nombre)
+
+GO
+
+INSERT INTO TipoEstado (Nombre) VALUES ('Activo')
+INSERT INTO TipoEstado (Nombre) VALUES ('InActivo')
+INSERT INTO TipoEstado (Nombre) VALUES ('Eliminado')
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaTipoEstado]@Tipo INT
+AS
+BEGIN
+	IF @Tipo = 1
+		BEGIN
+			SELECT Id, Nombre FROM TipoEstado WHERE Id IN (1,2) ORDER BY Nombre ASC
+		END
+	/*
+	ELSE IF @Tipo = 2
+		BEGIN
+			SELECT Id, Nombre FROM TipoEstado WHERE Id IN (1,2,3) ORDER BY Nombre ASC
+		END
+	ELSE IF @Tipo = 3
+		BEGIN
+			SELECT Id, Nombre FROM TipoEstado WHERE Id IN (4,5,6,7) ORDER BY Nombre ASC
+		END
+	ELSE IF @Tipo = 4
+		BEGIN
+			SELECT Id, Nombre FROM TipoEstado WHERE Id IN (8,9) ORDER BY Nombre ASC
+		END
+	*/
+END
+
+GO
+
+CREATE FUNCTION Fun_BuscarNombreTipoEstado(@IdEstado INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombreTipoEstado VARCHAR(255)
+	SELECT @NombreTipoEstado = Nombre FROM	TipoEstado WHERE Id = @IdEstado 
+	RETURN @NombreTipoEstado
+END
+
+GO
+
+/*TABLA TIPO DOCUMENTO*/
+
+CREATE TABLE TipoDocumento
+(Id int identity(1,1) Primary key ,
+Nombre varchar(255)
+)
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoTipoDocumento on TipoDocumento (Nombre)
+
+GO
+
+INSERT INTO TipoDocumento (Nombre) VALUES ('CC')
+INSERT INTO TipoDocumento (Nombre) VALUES ('CE')
+INSERT INTO TipoDocumento (Nombre) VALUES ('TI')
+INSERT INTO TipoDocumento (Nombre) VALUES ('RC')
+INSERT INTO TipoDocumento (Nombre) VALUES ('RUT')
+INSERT INTO TipoDocumento (Nombre) VALUES ('NIT')
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaTipoDocumento]@Tipo VARCHAR(255)
+AS
+BEGIN
+	IF @Tipo = 1 --Empleado
+		BEGIN
+			SELECT Id, Nombre AS Nombre FROM TipoDocumento WHERE Id IN (1,2,3) ORDER BY Nombre ASC
+		END
+	ELSE IF @Tipo = 2 --Empresa
+		BEGIN
+			SELECT Id, Nombre AS Nombre FROM TipoDocumento WHERE Id IN (1,2,5,6) ORDER BY Nombre ASC
+		END
+	ELSE IF @Tipo = 3 --Hijos
+		BEGIN
+			SELECT Id, Nombre AS Nombre  FROM TipoDocumento WHERE Id IN (1,2,3,4) ORDER BY Nombre ASC
+		END
+				
+END
+
+GO
+
+CREATE FUNCTION Fun_BuscarNombreTipoDocumento(@IdTipoDocumento INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombreTipoDocumento VARCHAR(255)
+	SELECT @NombreTipoDocumento = Nombre FROM TipoDocumento WHERE Id = @IdTipoDocumento
+	RETURN @NombreTipoDocumento
+END
+
+GO
+
+/*TABLA ROL*/
+
+CREATE TABLE Rol 
+(Id int identity(1,1) Primary key ,
+Nombre varchar(255),
+IdEstado int default 1
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoRol on Rol (Nombre)
+
+GO
+
+ALTER TABLE Rol ADD CONSTRAINT FK_IdEstadoRol FOREIGN KEY (IdEstado) references TipoEstado(Id)
+
+GO
+
+INSERT INTO Rol (Nombre) VALUES ('Administrador')	
+INSERT INTO Rol (Nombre) VALUES ('Usuario')
+
+go
+
+CREATE PROCEDURE [dbo].[SP_BuscarRolUsuario] @IdUser varchar(255), @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+	DECLARE		@Rol varchar(255)
+		SELECT	@Rol = R.Nombre 
+		FROM	Rol R,
+				Usuario U
+		WHERE	R.Id = U.IdRol
+				and U.IdUser = @IdUser
+	
+	SET @Resultado = @Rol
+	SELECT @Resultado
+END
+
+GO
+
+/*TABLA USUARIO*/
+
+CREATE TABLE Usuario 
+(Id int identity(1,1) Primary key ,
+IdUser varchar(255),
+Usuario varchar(255),
+Password varchar(255),
+Email varchar(255),
+Nombre varchar(255),
+IdRol int,
+ImagenPerfil varchar(255),
+CreateBy int,
+FechaCreacion datetime,
+FechaVigencia datetime,
+IdEstado int default 1
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoUsuario on Usuario (IdUser, Usuario)
+
+GO
+
+ALTER TABLE Usuario ADD CONSTRAINT FK_IdRol FOREIGN KEY (IdRol) references Rol(Id)
+ALTER TABLE Usuario ADD CONSTRAINT FK_IdCreateByUsuario FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE Usuario ADD CONSTRAINT FK_IdEstadoUsuario FOREIGN KEY (IdEstado) references TipoEstado(Id)
+
+GO
+
+--SELECT CONVERT ( VARCHAR (32), HashBytes ( 'MD5' ,  'User1' ), 2) 
+--SELECT CONVERT ( VARCHAR (32), HashBytes ( 'MD5' ,  '123456' ), 2) 
+
+INSERT INTO Usuario (IdUser,Usuario,Password,Email,Nombre,IdRol,FechaCreacion, FechaVigencia, ImagenPerfil, CreateBy) 
+VALUES 
+('E3AFED0047B08059D0FADA10F400C1E5','Admin','D035423BDB1989E8DCB8DD478D895A2F','admin@gcs.com.co','Administrador GCS',1, GETDATE(), '01-12-2030 23:59:59.000','Usuario.png',1)
+
+GO
+
+CREATE FUNCTION [dbo].[Fun_BuscarIdUsuario] (@IdUsuario varchar(255))
+RETURNS int
+AS BEGIN
+DECLARE @Id int
+	SELECT	@Id = Id
+	FROM	Usuario
+	WHERE	IdUser = @IdUsuario 
+	RETURN @Id
+END
+
+GO
+
+/*LOGIN*/
+
+CREATE TABLE Log_InicioSesion
+(Id int identity(1,1) Primary key ,
+IdUser int,
+FechaIngreso datetime
+)
+
+ALTER TABLE Log_InicioSesion ADD CONSTRAINT FK_IdUsuarioLog_InicioSesion FOREIGN KEY (IdUser) references Usuario(Id)
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_IniciarSesion] @Usuario varchar(255), @Password varchar(255), 
+@Resultado varchar(max) OUTPUT
+AS
+BEGIN
+DECLARE @ExisteUser INT, @ValidaPassword varchar(255), @IdUser varchar(255),
+	@PasswordMd5 varchar(255), @UsuarioMd5 varchar(255), @IdUsuario int, @Vigencia datetime,
+	@NombreUser varchar(255), @FechaActual datetime, @IdEstado Int
+	SELECT @UsuarioMd5 = CONVERT ( VARCHAR (32), HashBytes ( 'MD5' ,  @Usuario ), 2)
+	SELECT @PasswordMd5 = CONVERT ( VARCHAR (32), HashBytes ( 'MD5' ,  @Password ), 2)
+	SELECT @ExisteUser = COUNT(1) FROM Usuario Where IdUser = @UsuarioMd5
+	SELECT @ValidaPassword = Password  FROM Usuario WHERE IdUser = @UsuarioMd5
+	SELECT @IdUsuario = Id FROM Usuario Where IdUser = @UsuarioMd5
+	SELECT @NombreUser = Usuario FROM Usuario WHERE IdUser =  @UsuarioMd5
+	SELECT @Vigencia = FechaVigencia FROM Usuario WHERE IdUser = @UsuarioMd5
+	SELECT @FechaActual = GETDATE()
+	Select @IdEstado = IdEstado FROM Usuario WHERE Id = @IdUsuario
+	
+	IF @ExisteUser = 0
+		BEGIN
+			SET @Resultado = 'Error*El usuario ingresado no existe'
+		END
+	ELSE
+		BEGIN		
+		SELECT @IdUser = IdUser FROM Usuario where IdUser = @UsuarioMd5
+			IF @ValidaPassword = @PasswordMd5
+				BEGIN
+					IF @FechaActual < @Vigencia  
+						BEGIN
+							IF @IdEstado = 1
+								BEGIN
+									INSERT INTO Log_InicioSesion (IdUser,FechaIngreso)VALUES(@IdUsuario, GETDATE())
+									SET @Resultado = 'OK*'+@IdUser
+								END
+							ELSE
+								BEGIN
+									SET @Resultado = 'Error*El usuario se encuentra inactivo, por favor comuniquese con el administrador de la aplicación'
+								END
+						END
+					ELSE
+						BEGIN
+							SET @Resultado = 'Error*El usuario '+@NombreUser+' no tiene permisos para ingresar a la aplicación, la fecha limite de ingreso se encuentra vencida. Si desea activar un nuevo periodo de tiempo comuniquese con el administrador de la aplicación.'
+						END					
+				END
+			ELSE
+				BEGIN
+					SET @Resultado = 'Error*Contraseña incorrecta'
+				END
+		END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_UltimoIngresoUsuario] @IdUser varchar(255)
+AS
+BEGIN
+	SELECT	TOP 1 CONVERT(varchar(255),FechaIngreso,100) AS FechaUltimoIngresoUser
+	FROM	(SELECT TOP 2 A.FechaIngreso
+	FROM	Log_InicioSesion A,
+			Usuario B
+	WHERE	B.IdUser = @IdUser	
+			AND B.Id = A.IdUser
+			ORDER BY A.Id DESC) AS FechaUltimoIngresoUser 
+	ORDER BY FechaIngreso ASC
+END
+
+GO
+
+/*TABLA MENU*/
+
+CREATE TABLE Menu
+(Id int identity(1,1) Primary key ,
+Nombre varchar(255),
+Icono varchar(max),
+SizeIcono varchar(max),
+Color  varchar(max),
+Ruta varchar(max),
+Orden int,
+IdEstado int default 1
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoMenu on menu (Nombre)
+
+GO
+
+ALTER TABLE Menu ADD CONSTRAINT FK_IdEstadoMenu FOREIGN KEY (IdEstado) references TipoEstado(Id)
+
+GO
+
+
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Negocio','bi-buildings', '0.7rem', 'white','/Negocio',1)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Venta','bi-cash-coin', '0.7rem', 'white','/Venta',2)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Personal Interno','bi-person-vcard', '0.7rem', 'white','/Personal_Interno',3)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Personal Externo','bi-person-vcard-fill', '0.7rem', 'white','/Personal_Externo',4)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Contabilidad','bi-calculator', '0.7rem', 'white','/Contabilidad',5)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Almacén','bi-shop', '0.7rem', '0.7rem','/Almacen',6)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Mantenimiento','bi-wrench-adjustable', '0.7rem', 'white','/Mantenimiento',7)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Mirfe','bi-droplet-half', '0.7rem', 'white','/Mirfe',8)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Mipe','bi-radioactive', '0.7rem', 'white','/Mipe',9)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Producción','bi-gear', '0.7rem', 'white','/Produccion',10)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Configuración','bi-gear', '0.7rem', 'white','/Configuracion',11)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Información','bi-info-circle', '0.7rem', 'white','/Informacion',99)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Salir','bi-power', '0.7rem', 'red','javascript:CerrarSesion()',100)
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaMenu] @IdUsuario varchar(255)
+AS
+BEGIN
+DECLARE @Id int
+SELECT	@Id = dbo.Fun_BuscarIdUsuario(@IdUsuario)
+	SELECT	A.Id, 
+			'<i class="'+ A.Icono +'"' + 'style="font-size:' + A.SizeIcono + ';color:'+ A.Color+'"></i>' as IconoCodigoHtml,
+			A.Nombre,
+			A.Ruta
+	FROM	Menu A,
+			Permiso_Menu B
+	WHERE	B.IdUsuario = @Id
+			and B.Permiso = 1
+			and A.IdEstado =1
+			and A.Id = B.IdMenu
+			order by Orden asc
+END
+
+GO
+
+/*PERMISO MENU*/
+
+CREATE TABLE Permiso_Menu
+(Id int identity(1,1) Primary key ,
+IdMenu int,
+IdUsuario int,
+Permiso int default 1,
+
+)
+
+ALTER TABLE Permiso_Menu ADD CONSTRAINT FK_IdMenu FOREIGN KEY (IdMenu) references Menu(Id)
+ALTER TABLE Permiso_Menu ADD CONSTRAINT FK_IdUsuarioMenu FOREIGN KEY (IdUsuario) references Usuario(Id)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoPermisoMenu on Permiso_Menu (IdUsuario, IdMenu)
+
+GO
+
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (1,1,1) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (2,1,1) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (3,1,1)
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (4,1,1)
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (5,1,1) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (6,1,1)
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (7,1,1)
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (8,1,1) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (9,1,1) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (10,1,1) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (11,1,1)
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (12,1,1) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (13,1,1) 
+
+GO
+
+/* TABLA SUB MENU*/
+
+CREATE TABLE SubMenu
+(Id int identity(1,1) Primary key ,
+IdMenu int,
+Nombre varchar(255),
+Icono varchar(max),
+SizeIcono varchar(max),
+Color  varchar(max),
+Ruta varchar(255),
+IdEstado int default 1
+)
+
+GO
+
+ALTER TABLE SubMenu ADD CONSTRAINT FK_IdMenuSubmenu FOREIGN KEY (IdMenu) references Menu(Id)
+ALTER TABLE SubMenu ADD CONSTRAINT FK_IdEstadoSubMenu FOREIGN KEY (IdEstado) references TipoEstado(Id)
+
+GO
+
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (1, 'Empresa','bi-building', '2rem', '#11ABE9','/Empresa')--1
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (1, 'Sucursal','bi-houses', '2rem', '#11ABE9','/Sucursal')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (1, 'Sucursal Empleado','bi-house-gear','2rem','#11ABE9','/Sucursal_Empleado')
+
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Ciudad','bi-pin-map','2rem','#11ABE9','/Ciudad')--
+
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Actividad','bi-wrench-adjustable-circle','2rem','#11ABE9','/Actividad')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Banco','bi-bank','2rem','#11ABE9','/Banco')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Cargo','bi-person-gear','2rem','#11ABE9','/Cargo')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Caja Compensación Familiar','bi-person-raised-hand','2rem','#11ABE9','/Caja_Compensacion_Familiar')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Eps','bi-hospital','2rem','#11ABE9','/Eps')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Fondo Cesantías','bi-universal-access','2rem','#11ABE9','/Fondo_Cesantias')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Fondo Pensiones','bi-universal-access-circle','2rem','#11ABE9','/Fondo_Pensiones')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Tipo Hora Extra','bi-clock','2rem','#11ABE9','/Tipo_Hora_Extra')--
+
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (2, 'Cliente','bi-person-rolodex','2rem','#11ABE9','/Cliente')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (2, 'Cotización','bi-person-rolodex','2rem','#11ABE9','/Cotizacion')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (2, 'Detalle Cotización','bi-person-rolodex','2rem','#11ABE9','/Detalle_Cotizacion')--
+
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (5, 'Nómina Empleado','bi-file-text','2rem','#11ABE9','/Nomina_Empleado')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (5, 'Nómina Contratista','bi-file-text-fill','2rem','#11ABE9','/Nomina_Contratista')--
+
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (6, 'Entrada','bi-box-arrow-in-right','2rem','#11ABE9','/Entrada')--13
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (6, 'Salida','bi-box-arrow-left','2rem','#11ABE9','/Salida')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (6, 'Transferencia','bi-arrow-left-right                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ','2rem','#11ABE9','/Transferencia')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (6, 'Inventario','bi-clipboard2-data','2rem','#11ABE9','/Inventario')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (6, 'Categoría','bi-grid','2rem','#11ABE9','/Categoria')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (6, 'Producto','bi-dropbox','2rem','#11ABE9','/Producto')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (6, 'Proveedor','bi-truck','2rem','#11ABE9','/Proveedor')--
+
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (12, 'Información Usuario','bi-person-check','2rem','#11ABE9','/Informacion_Usuario')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (12, 'Contacto','bi-wechat','2rem','#11ABE9','/Contacto')--
+
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Empleado','bi-person','2rem','#11ABE9','/Empleado')--20
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Dia Laborado','bi-calendar-date','2rem','#11ABE9','/Dia_Laborado')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Permiso Empleado','bi-calendar-event','2rem','#11ABE9','/Permiso_Empleado')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Hora Extra Empleado','bi-clock-history','2rem','#11ABE9','/Hora_Extra_Empleado')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Bono Empleado','bi-cash-coin','2rem','#11ABE9','/Bono_Empleado')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Préstamo Empleado','bi-cash-coin','2rem','#11ABE9','/Prestamo_Empleado')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Casino Empleado','bi-cup-hot','2rem','#11ABE9','/Casino')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Hoja de Vida','bi-file-richtext','2rem','#11ABE9','/Hoja_Vida_Empleado')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Contrato Laboral Empleado','bi-file-earmark-text','2rem','#11ABE9','/Contrato_Laboral_Empleado')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Cargar Documento','bi-file-pdf-fill','2rem','red','/Cargar_Documento_Empleado')--
+
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (4, 'Contratista','bi-person-vcard-fill','2rem','#11ABE9','/Contratista')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (4, 'Préstamo','bi-cash-coin','2rem','#11ABE9','/Prestamo_Contratista')--
+
+--INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (7, 'Asignación Actividad','bi-window-plus','2rem','#11ABE9','/Asignacion_Actividad') 29
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (7, 'HV Herramienta','bi-journal-richtext','2rem','#11ABE9','/Hoja_Vida_Herramienta')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (7, 'Asignación Herramienta','bi-window-plus','2rem','#11ABE9','/Asignacion_Herramienta')--28
+
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Usuario','bi-person','2rem','#11ABE9','/Usuario')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Permiso Usuario Menu','bi-lock','2rem','#11ABE9','/Permiso_Usuario_Menu')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Permiso Usuario SubMenu','bi-lock','2rem','#11ABE9','/Permiso_Usuario_SubMenu')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Menu Web','bi-file-post','2rem','#11ABE9','/Menu')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'SubMenu Web','bi-file-post','2rem','#11ABE9','/SubMenu')--8
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaSubMenu] @IdUsuario varchar(255), @Modulo varchar(255)
+AS
+BEGIN
+DECLARE @Id int, @IdMenu int
+SELECT @IdMenu = Id From Menu WHERE Ruta = @Modulo
+SELECT	@Id = dbo.Fun_BuscarIdUsuario(@IdUsuario)
+	SELECT	A.Id,	
+			A.IdMenu,	
+			'<i class="'+ A.Icono +'"' + 'style="font-size:' + A.SizeIcono + ';color:'+ A.Color+'"></i>' as IconoCodigoHtml, 
+			A.Nombre, 
+			A.Ruta
+	FROM	SubMenu A,
+			Permiso_SubMenu B
+	WHERE	B.IdUsuario = @Id
+			and B.Permiso = 1
+			and A.IdEstado =1 
+			and A.IdMenu = @IdMenu
+			and A.Id = B.IdSubMenu
+END
+
+GO
+
+/* PERMISO SUB MENU */
+
+CREATE TABLE Permiso_SubMenu
+(Id int identity(1,1) Primary key ,
+IdSubMenu int,
+IdUsuario int,
+Permiso int default 0,
+Crear int default 0,
+Editar int default 0,
+Eliminar int default 0
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoPermisoSubMenu on Permiso_SubMenu (IdUsuario, IdSubMenu)
+
+GO
+
+ALTER TABLE Permiso_SubMenu ADD CONSTRAINT FK_IdSubMenu FOREIGN KEY (IdSubMenu) references SubMenu(Id)
+ALTER TABLE Permiso_SubMenu ADD CONSTRAINT FK_IdUsuarioSubMenu FOREIGN KEY (IdUsuario) references Usuario(Id)
+
+GO
+
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (1,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (2,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (3,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (4,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (5,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (6,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (7,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (8,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (9,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (10,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (11,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (12,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (13,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (14,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (15,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (16,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (17,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (18,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (19,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (20,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (21,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (22,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (23,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (24,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (25,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (26,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (27,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (28,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (29,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (30,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (31,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (32,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (33,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (34,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (35,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (36,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (37,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (38,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (39,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (40,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (41,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (42,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (43,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (44,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (45,1,1,1,1,1)
+
+GO
+
+CREATE FUNCTION [dbo].[Fun_PermisoUsuario](@Accion varchar(255), @IdUsuario Int, @Ruta varchar(255))
+RETURNS int
+AS
+BEGIN	
+	DECLARE @Resultado Int
+	
+	IF @Accion = 'Crear'
+	BEGIN
+		SELECT	@Resultado = P.Crear
+		FROM	Usuario U,
+				Permiso_SubMenu P,
+				SubMenu S
+		WHERE	U.Id = P.IdUsuario  and
+				S.Id = P.IdSubMenu AND
+				S.Ruta = @Ruta
+	END
+	ELSE IF @Accion = 'Editar'
+		BEGIN
+			SELECT	@Resultado = P.Editar
+			FROM	Usuario U,
+					Permiso_SubMenu P,
+					SubMenu S
+			WHERE	U.Id = P.IdUsuario  and
+					S.Id = P.IdSubMenu AND
+					S.Ruta = @Ruta
+		END
+	ELSE IF @Accion = 'Eliminar'
+	BEGIN
+		SELECT	@Resultado = P.Eliminar
+		FROM	Usuario U,
+				Permiso_SubMenu P,
+				SubMenu S
+		WHERE	U.Id = P.IdUsuario  and
+				S.Id = P.IdSubMenu AND
+				S.Ruta = @Ruta
+	END
+	RETURN @Resultado
+END

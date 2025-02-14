@@ -1,0 +1,249 @@
+﻿CREATE TABLE Usuario 
+(Id int identity(1,1) Primary key ,
+IdUser varchar(255),
+Usuario varchar(255),
+Password varchar(255),
+Email varchar(255),
+Nombre varchar(255),
+IdRol int,
+ImagenPerfil varchar(255),
+CreateBy int,
+FechaCreacion datetime,
+FechaVigencia datetime,
+IdEstado int default 1
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoUsuario on Usuario (IdUser, Usuario)
+
+GO
+
+ALTER TABLE Usuario ADD CONSTRAINT FK_IdRol FOREIGN KEY (IdRol) references Rol(Id)
+ALTER TABLE Usuario ADD CONSTRAINT FK_IdCreateByUsuario FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE Usuario ADD CONSTRAINT FK_IdEstadoUsuario FOREIGN KEY (IdEstado) references TipoEstado(Id)
+
+GO
+
+--SELECT CONVERT ( VARCHAR (32), HashBytes ( 'MD5' ,  'User1' ), 2) 
+--SELECT CONVERT ( VARCHAR (32), HashBytes ( 'MD5' ,  '123456' ), 2) 
+
+INSERT INTO Usuario (IdUser,Usuario,Password,Email,Nombre,IdRol,FechaCreacion, FechaVigencia, ImagenPerfil, CreateBy) 
+VALUES 
+('E3AFED0047B08059D0FADA10F400C1E5','Admin','D035423BDB1989E8DCB8DD478D895A2F','admin@gcs.com.co','Administrador GCS',1, GETDATE(), '01-12-2030 23:59:59.000','Usuario.png',1)
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GuardarDatosUsuario] 
+				@IdUser varchar(255),
+				@IdUsuarioLogin int, 			 
+				@Usuario varchar(255), 
+				@Password varchar(255),
+				@Email varchar(255), 				  
+				@NombreUsuarioLogin varchar(255),
+				@FechaVigencia varchar(255),
+				@IdEstado int, 
+				@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, @IdUsuario INT, @NombreUsuario VARCHAR(255), @SubMenu VARCHAR(255), 
+@UsuarioMD5 VARCHAR(255), @PasswordMD5 VARCHAR(255), @Accion VARCHAR(255), @IdUserCreado INT
+SET @SubMenu = '/Usuario'
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @NombreUsuario = Nombre FROM Usuario WHERE IdUser = @IdUser
+
+IF @IdUsuarioLogin = 0	BEGIN SET @Accion = 'Crear'	END ELSE BEGIN SET @Accion = 'Editar' END
+
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion,@IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	IF @IdUsuarioLogin = 0
+		BEGIN
+		SET @UsuarioMD5 = CONVERT ( VARCHAR (32), HashBytes ( 'MD5' ,  @Usuario ), 2)
+		SET @PasswordMD5 = CONVERT ( VARCHAR (32), HashBytes ( 'MD5' ,  @Password ), 2)
+			INSERT INTO Usuario 
+			(IdUser,Usuario,Password,Email,Nombre,IdRol,FechaCreacion, FechaVigencia, ImagenPerfil, CreateBy)
+			VALUES
+			(@UsuarioMD5,@Usuario, @PasswordMD5,@Email,@NombreUsuarioLogin,2, GETDATE(), @FechaVigencia,'Usuario.png',@IdUsuario)
+
+			SET @IdUserCreado = @@IDENTITY
+
+			INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (1,@IdUserCreado,1)
+
+			SET @Resultado = 'OK*Se a creado el usuario ' + @Usuario+ ' correctamente'
+		END
+	ELSE	
+		BEGIN
+		DECLARE @ValidarPassword VARCHAR(255)
+		SELECT @ValidarPassword = Password FROM Usuario WHERE Id = @IdUsuarioLogin
+		SET @UsuarioMD5 = CONVERT ( VARCHAR (32), HashBytes ( 'MD5' ,  @Usuario ), 2)
+		IF @Password = @ValidarPassword
+			BEGIN
+				UPDATE	Usuario 
+				SET		Email = @Email, 
+						IdUser = @UsuarioMD5,
+						Usuario = @Usuario,
+						Nombre = @NombreUsuarioLogin,
+						FechaVigencia = @FechaVigencia,
+						IdEstado = @IdEstado
+				WHERE	Id = @IdUsuarioLogin
+			END
+		ELSE
+			BEGIN
+			SET @PasswordMD5 = CONVERT ( VARCHAR (32), HashBytes ( 'MD5' ,  @Password ), 2)
+				UPDATE	Usuario 
+				SET		Password = @PasswordMD5, 							 
+						Email = @Email, 
+						Usuario = @Usuario,
+						Nombre = @NombreUsuarioLogin,
+						IdUser = @UsuarioMD5,
+						FechaVigencia = @FechaVigencia,
+						IdEstado = @IdEstado
+				WHERE	Id = @IdUsuarioLogin
+			END			
+			SET @Resultado = 'OK*Se guardaron los cambios del usuario ' + @Usuario+ ' correctamente'
+		END
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*El usuario '+ @NombreUsuario + ' no tiene permiso para realizar cambios al usuario' 
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_EliminarUsuario] @IdUser varchar(255), @IdUsuarioLogin int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Eliminar INT, @IdUsuario INT, @NombreUsuario VARCHAR(255), @validar INT, @NombreUsuarioLogin varchar(255), @SubMenu VARCHAR(255)
+SET @SubMenu = '/Usuario'
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @NombreUsuario = Nombre FROM Usuario WHERE IdUser = @IdUser
+SELECT @NombreUsuarioLogin = Nombre FROM Usuario WHERE Id = @IdUsuarioLogin
+	SELECT	@Eliminar = dbo.Fun_PermisoUsuario('Eliminar',@IdUsuario, @SubMenu)	
+		IF @Eliminar > 0
+			BEGIN	
+				SELECT @validar = 0
+				IF @validar > 0 
+					BEGIN
+						SET @Resultado = 'Error*El usuario ' + @NombreUsuarioLogin +' no se puede eliminar, actualmente se encuentra en uso'	
+					END
+				ELSE
+					BEGIN
+						DELETE Usuario WHERE Id = @IdUsuarioLogin
+						SET @Resultado = 'OK*Se elimino el usuario '
+					END								
+			END
+		ELSE
+			BEGIN
+				SET @Resultado = 'Error*El usuario '+ @NombreUsuario + ' no tiene permiso para eliminar el usuario ' + @NombreUsuarioLogin	
+			END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridUsuario]
+AS
+BEGIN
+	SELECT	Id, 
+			Usuario,
+			Password,
+			Nombre AS NombreUsuario,			
+			Email,
+			CONVERT(varchar(255),FechaVigencia,23) As FechaVigencia,
+			CONVERT(varchar(255),FechaVigencia,100) As TextoFechaVigencia,
+			IdEstado,
+			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,
+			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
+			CONVERT(varchar(255),FechaCreacion,100) As DateCreate
+	FROM Usuario
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaUsuario]
+AS
+BEGIN
+	SELECT Id, Usuario FROM Usuario WHERE IdEstado = 1
+END
+
+GO
+
+CREATE FUNCTION [dbo].[Fun_BuscarIdUsuario] (@IdUsuario varchar(255))
+RETURNS int
+AS BEGIN
+DECLARE @Id int
+	SELECT	@Id = Id
+	FROM	Usuario
+	WHERE	IdUser = @IdUsuario 
+	RETURN @Id
+END
+
+GO
+
+CREATE FUNCTION Fun_BuscarNombreUsuario(@IdUsuario INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombreUsuario VARCHAR(255)
+	SELECT	@NombreUsuario = Nombre
+	FROM	Usuario
+	WHERE	Id = @IdUsuario 
+	RETURN @NombreUsuario
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_InformacionUsuario] @IdUser varchar(255)
+AS
+BEGIN
+	SELECT	Nombre AS NombreUsuario,
+			Usuario AS NombreUserLogin,
+			Email AS EmailUserLogin,
+			CONVERT(varchar(255),FechaCreacion,100) AS FechaCreadoUser,
+			CONVERT(varchar(255),FechaVigencia,100) AS FechaVigenciaUser
+	FROM Usuario WHERE IdUser = @IdUser
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ActualizarPasswordUser] 
+				@IdUser varchar(255), 
+				@PasswordActual varchar(255), 
+				@PasswordNuevo varchar(255),  
+				@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, @IdUsuario INT, @NombreUsuario VARCHAR(255), @SubMenu VARCHAR(255), @Accion VARCHAR(255), @ExistePassword INT, @PasswordActualMD5 varchar(255), @PasswordNuevoMD5 varchar(255)
+SET @SubMenu = '/Informacion_Usuario'
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @NombreUsuario = Nombre FROM Usuario WHERE IdUser = @IdUser	
+
+SET @Accion = 'Editar'
+
+SET @PasswordActualMD5 = CONVERT ( VARCHAR (32), HashBytes ( 'MD5' ,  @PasswordActual ), 2) 
+SET @PasswordNuevoMD5 = CONVERT ( VARCHAR (32), HashBytes ( 'MD5' ,  @PasswordNuevo ), 2)
+
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion,@IdUsuario, @SubMenu)
+
+SELECT @ExistePassword = COUNT(1) FROM Usuario WHERE IdUser = @IdUser AND Password = @PasswordActualMD5
+
+IF @Permiso > 0
+	IF @ExistePassword = 1
+		BEGIN
+			UPDATE	Usuario
+			SET		Password = @PasswordNuevoMD5	
+			WHERE	@IdUsuario =Id
+
+			SET @Resultado = 'OK*Se guardaron los cambios de la nueva contraseña correctamente'
+		END
+	ELSE
+		BEGIN
+			SET @Resultado = 'Error*EL Password actual es Incorrecto, por favor valide' 
+		END
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*El usuario '+ @NombreUsuario + ' no tiene permiso para cambiar la contraseña' 
+	END
+	SELECT @Resultado
+END

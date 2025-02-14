@@ -28,11 +28,11 @@ header{
     padding:8px;
 }
 
-nav ul{
-    list-style-type:none;
-    padding:0;
-    background-color:#444;
-    overflow:hidden;
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    background-color: #666;
+    overflow: hidden;
 }
 
 nav ul li {
@@ -78,8 +78,22 @@ footer{
 }
 
 #contenedordos{
-   min-width:auto;
-   margin-left:10px;
-   float:left;
+   margin-left:160px;
+   /*float:left;*/
+   
    margin-top:10px;
+   /*max-width:85%;*/
+}
+
+.btnSubMenu {
+    font-size: 10px !important;
+    height: 110px;
+    width: 110px;
+    /*border: 1px solid black;
+    border-radius: 50% !important;
+    background-color: orangered !important;*/
+    margin:5px;
+    /*align-content: center;*/
+    /*color:white !important;*/
+    font-weight:bold !important;
 }

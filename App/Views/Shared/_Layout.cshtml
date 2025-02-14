@@ -6,24 +6,37 @@
     <title>Gcs - @ViewBag.Title</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery-3.7.1.min.js"></script>
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/js-cookie/js.cookie.js"></script>
+    <link href="~/Scripts/Sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
+    <script src="~/Scripts/Sweetalert2/dist/sweetalert2.min.js"></script>
+    <link href="~/Content/bootstrap-icons-1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+
+
+    @*  Scripts App *@
+    <script src="~/JsApp/Goblal.js"></script>
+    <script src="~/JsApp/Menu.js"></script>
+    <script src="~/JsApp/SubMenu.js"></script>
+
+
 </head>
 <body>
     <header>
-        <h4>E & G CONSTRUCCIONES SAS</h4>
+        <h4 id="TituloHeaderNombreEmpresa"></h4>
     </header>
      
     <section id="contenedoruno">
         <nav>
-            <ul>
-                <li><a href="/Home">Home</a></li>
+            <ul id="OpcionesMenu">
+                @*<li><a href="/Home">Home</a></li>
                 <li><a href="/Negocio">Negocio</a></li>
                 <li><a href="/Venta">Venta</a></li>
                 <li><a href="/Personal_Interno">Personal Interno</a></li>
                 <li><a href="/Personal_Externo">Personal Externo</a></li>
                 <li><a href="/Contabilidad">Contabilidad</a></li>
                 <li><a href="/Almacen">Almacén</a></li>
-                <li><a href="/Configuracion">Configuración</a></li>
+                <li><a href="/Configuracion">Configuración</a></li>*@
             </ul>
         </nav>
     </section>
@@ -68,3 +81,28 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
 </body>
 </html>
+
+<script>
+    $(document).ready(function () {
+
+        if (TokenUser == '' || TokenUser == undefined || TokenUser == null) {
+            Swal.fire({
+                title: TituloSwal,
+                text: "Su Sesión ya expiro, por favor vuelva a Ingresar",
+                icon: 'info',
+            }).then((result) => {
+                window.location.href = '/Login';
+            })
+        } else {
+            ListaMenu();
+        }
+
+        $('#TituloHeaderNombreEmpresa').text(NombreEmpresa);
+
+    });
+
+    function CerrarSesion() {
+        Cookies.remove('TokenUser');
+        window.location.href = '/Login';
+    }
+</script>

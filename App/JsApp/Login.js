@@ -18,7 +18,7 @@
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Cookies.set('IdUser', valor[1]);
+                    Cookies.set('TokenUser', valor[1]);
                     window.location.href = '/Home';
                 } else {
                     Swal.fire('Mensaje del Sistema', valor[1], 'info');

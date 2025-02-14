@@ -101,6 +101,9 @@
       <DependentUpon>ModeloGcs.edmx</DependentUpon>
       <LastGenOutput>ModeloGcs.cs</LastGenOutput>
     </Content>
+    <Content Include="DataContext\Sql.txt" />
+    <Content Include="Query Sql\Tipo Estado.txt" />
+    <Content Include="Query Sql\Usuario.txt" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
