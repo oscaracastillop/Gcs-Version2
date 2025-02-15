@@ -197,6 +197,18 @@ END
 
 GO
 
+CREATE FUNCTION Fun_BuscarNombreUsuario(@IdUsuario INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombreUsuario VARCHAR(255)
+	SELECT	@NombreUsuario = Nombre
+	FROM	Usuario
+	WHERE	Id = @IdUsuario 
+	RETURN @NombreUsuario
+END
+
+GO
+
 /*LOGIN*/
 
 CREATE TABLE Log_InicioSesion
@@ -392,62 +404,62 @@ ALTER TABLE SubMenu ADD CONSTRAINT FK_IdEstadoSubMenu FOREIGN KEY (IdEstado) ref
 
 GO
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (1, 'Empresa','bi-building', '2rem', '#11ABE9','/Empresa')--1
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (1, 'Sucursal','bi-houses', '2rem', '#11ABE9','/Sucursal')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (1, 'Sucursal Empleado','bi-house-gear','2rem','#11ABE9','/Sucursal_Empleado')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (1, 'Empresa','bi-building', '2rem', 'black','/Empresa')--1
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (1, 'Sucursal','bi-houses', '2rem', 'black','/Sucursal')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (1, 'Sucursal Empleado','bi-house-gear','2rem','black','/Sucursal_Empleado')
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Ciudad','bi-pin-map','2rem','#11ABE9','/Ciudad')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Ciudad','bi-pin-map','2rem','black','/Ciudad')--
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Actividad','bi-wrench-adjustable-circle','2rem','#11ABE9','/Actividad')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Banco','bi-bank','2rem','#11ABE9','/Banco')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Cargo','bi-person-gear','2rem','#11ABE9','/Cargo')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Caja Compensación Familiar','bi-person-raised-hand','2rem','#11ABE9','/Caja_Compensacion_Familiar')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Eps','bi-hospital','2rem','#11ABE9','/Eps')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Fondo Cesantías','bi-universal-access','2rem','#11ABE9','/Fondo_Cesantias')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Fondo Pensiones','bi-universal-access-circle','2rem','#11ABE9','/Fondo_Pensiones')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Tipo Hora Extra','bi-clock','2rem','#11ABE9','/Tipo_Hora_Extra')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Actividad','bi-wrench-adjustable-circle','2rem','black','/Actividad')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Banco','bi-bank','2rem','black','/Banco')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Cargo','bi-person-gear','2rem','black','/Cargo')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Caja Compensación Familiar','bi-person-raised-hand','2rem','black','/Caja_Compensacion_Familiar')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Eps','bi-hospital','2rem','black','/Eps')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Fondo Cesantías','bi-universal-access','2rem','black','/Fondo_Cesantias')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Fondo Pensiones','bi-universal-access-circle','2rem','black','/Fondo_Pensiones')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Tipo Hora Extra','bi-clock','2rem','black','/Tipo_Hora_Extra')--
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (2, 'Cliente','bi-person-rolodex','2rem','#11ABE9','/Cliente')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (2, 'Cotización','bi-person-rolodex','2rem','#11ABE9','/Cotizacion')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (2, 'Detalle Cotización','bi-person-rolodex','2rem','#11ABE9','/Detalle_Cotizacion')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (2, 'Cliente','bi-person-rolodex','2rem','black','/Cliente')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (2, 'Cotización','bi-person-rolodex','2rem','black','/Cotizacion')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (2, 'Detalle Cotización','bi-person-rolodex','2rem','black','/Detalle_Cotizacion')--
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (5, 'Nómina Empleado','bi-file-text','2rem','#11ABE9','/Nomina_Empleado')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (5, 'Nómina Contratista','bi-file-text-fill','2rem','#11ABE9','/Nomina_Contratista')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (5, 'Nómina Empleado','bi-file-text','2rem','black','/Nomina_Empleado')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (5, 'Nómina Contratista','bi-file-text-fill','2rem','black','/Nomina_Contratista')--
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (6, 'Entrada','bi-box-arrow-in-right','2rem','#11ABE9','/Entrada')--13
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (6, 'Salida','bi-box-arrow-left','2rem','#11ABE9','/Salida')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (6, 'Transferencia','bi-arrow-left-right                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ','2rem','#11ABE9','/Transferencia')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (6, 'Inventario','bi-clipboard2-data','2rem','#11ABE9','/Inventario')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (6, 'Categoría','bi-grid','2rem','#11ABE9','/Categoria')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (6, 'Producto','bi-dropbox','2rem','#11ABE9','/Producto')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (6, 'Proveedor','bi-truck','2rem','#11ABE9','/Proveedor')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (6, 'Entrada','bi-box-arrow-in-right','2rem','black','/Entrada')--13
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (6, 'Salida','bi-box-arrow-left','2rem','black','/Salida')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (6, 'Transferencia','bi-arrow-left-right                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ','2rem','black','/Transferencia')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (6, 'Inventario','bi-clipboard2-data','2rem','black','/Inventario')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (6, 'Categoría','bi-grid','2rem','black','/Categoria')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (6, 'Producto','bi-dropbox','2rem','black','/Producto')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (6, 'Proveedor','bi-truck','2rem','black','/Proveedor')--
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (12, 'Información Usuario','bi-person-check','2rem','#11ABE9','/Informacion_Usuario')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (12, 'Contacto','bi-wechat','2rem','#11ABE9','/Contacto')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (12, 'Información Usuario','bi-person-check','2rem','black','/Informacion_Usuario')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (12, 'Contacto','bi-wechat','2rem','black','/Contacto')--
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Empleado','bi-person','2rem','#11ABE9','/Empleado')--20
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Dia Laborado','bi-calendar-date','2rem','#11ABE9','/Dia_Laborado')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Permiso Empleado','bi-calendar-event','2rem','#11ABE9','/Permiso_Empleado')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Hora Extra Empleado','bi-clock-history','2rem','#11ABE9','/Hora_Extra_Empleado')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Bono Empleado','bi-cash-coin','2rem','#11ABE9','/Bono_Empleado')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Préstamo Empleado','bi-cash-coin','2rem','#11ABE9','/Prestamo_Empleado')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Casino Empleado','bi-cup-hot','2rem','#11ABE9','/Casino')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Hoja de Vida','bi-file-richtext','2rem','#11ABE9','/Hoja_Vida_Empleado')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Contrato Laboral Empleado','bi-file-earmark-text','2rem','#11ABE9','/Contrato_Laboral_Empleado')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Empleado','bi-person','2rem','black','/Empleado')--20
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Dia Laborado','bi-calendar-date','2rem','black','/Dia_Laborado')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Permiso Empleado','bi-calendar-event','2rem','black','/Permiso_Empleado')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Hora Extra Empleado','bi-clock-history','2rem','black','/Hora_Extra_Empleado')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Bono Empleado','bi-cash-coin','2rem','black','/Bono_Empleado')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Préstamo Empleado','bi-cash-coin','2rem','black','/Prestamo_Empleado')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Casino Empleado','bi-cup-hot','2rem','black','/Casino')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Hoja de Vida','bi-file-richtext','2rem','black','/Hoja_Vida_Empleado')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Contrato Laboral Empleado','bi-file-earmark-text','2rem','black','/Contrato_Laboral_Empleado')--
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (3, 'Cargar Documento','bi-file-pdf-fill','2rem','red','/Cargar_Documento_Empleado')--
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (4, 'Contratista','bi-person-vcard-fill','2rem','#11ABE9','/Contratista')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (4, 'Préstamo','bi-cash-coin','2rem','#11ABE9','/Prestamo_Contratista')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (4, 'Contratista','bi-person-vcard-fill','2rem','black','/Contratista')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (4, 'Préstamo','bi-cash-coin','2rem','black','/Prestamo_Contratista')--
 
---INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (7, 'Asignación Actividad','bi-window-plus','2rem','#11ABE9','/Asignacion_Actividad') 29
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (7, 'HV Herramienta','bi-journal-richtext','2rem','#11ABE9','/Hoja_Vida_Herramienta')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (7, 'Asignación Herramienta','bi-window-plus','2rem','#11ABE9','/Asignacion_Herramienta')--28
+--INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (7, 'Asignación Actividad','bi-window-plus','2rem','black','/Asignacion_Actividad') 29
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (7, 'HV Herramienta','bi-journal-richtext','2rem','black','/Hoja_Vida_Herramienta')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (7, 'Asignación Herramienta','bi-window-plus','2rem','black','/Asignacion_Herramienta')--28
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Usuario','bi-person','2rem','#11ABE9','/Usuario')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Permiso Usuario Menu','bi-lock','2rem','#11ABE9','/Permiso_Usuario_Menu')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Permiso Usuario SubMenu','bi-lock','2rem','#11ABE9','/Permiso_Usuario_SubMenu')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Menu Web','bi-file-post','2rem','#11ABE9','/Menu')--
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'SubMenu Web','bi-file-post','2rem','#11ABE9','/SubMenu')--8
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Usuario','bi-person','2rem','black','/Usuario')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Permiso Usuario Menu','bi-lock','2rem','black','/Permiso_Usuario_Menu')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Permiso Usuario SubMenu','bi-lock','2rem','black','/Permiso_Usuario_SubMenu')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'Menu Web','bi-file-post','2rem','black','/Menu')--
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (11, 'SubMenu Web','bi-file-post','2rem','black','/SubMenu')--8
 
 GO
 
@@ -582,3 +594,1457 @@ BEGIN
 	END
 	RETURN @Resultado
 END
+
+GO
+
+/* TABLA CIUDAD */ 
+
+CREATE TABLE Ciudad 
+(Id int identity(1,1) Primary key ,
+Nombre varchar(255),
+IdEstado int default 1,
+CreateBy int,
+DateCreate datetime
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoCiudad on Ciudad (Nombre)
+
+GO
+
+ALTER TABLE Ciudad ADD CONSTRAINT FK_IdCreateByCiudad FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE Ciudad ADD CONSTRAINT FK_IdEstadoCiudad FOREIGN KEY (IdEstado) references TipoEstado(Id)
+
+go
+
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Leticia, Amazonas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Encanto, Amazonas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Chorrera, Amazonas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Pedrera, Amazonas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Victoria, Amazonas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Arica, Amazonas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Nariño, Amazonas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Santander, Amazonas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tarapacá, Amazonas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Alegría, Amazonas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Miriti Paraná, Amazonas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Medellín, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Abejorral, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Abriaquí, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Alejandría, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Amagá, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Amalfi, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Andes, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Angelópolis, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Angostura, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Anorí, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Anza, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Apartadó, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Arboletes, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Argelia, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Armenia, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Barbosa, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Bello, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Betania, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Betulia, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ciudad Bolívar, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Briceño, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Buriticá, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cáceres, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Caicedo, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Caldas, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Campamento, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cañasgordas, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Caracolí, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Caramanta, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Carepa, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Carolina, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Caucasia, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chigorodó, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cisneros, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cocorná, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Concepción, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Concordia, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Copacabana, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Dabeiba, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Don Matías, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ebéjico, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Bagre, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Entrerrios, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Envigado, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Fredonia, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Giraldo, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Girardota, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Gómez Plata, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guadalupe, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guarne, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guatapé, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Heliconia, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Hispania, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Itagui, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ituango, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Belmira, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Jericó, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Ceja, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Estrella, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Pintada, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Unión, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Liborina, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Maceo, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Marinilla, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Montebello, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Murindó, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Mutatá, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Nariño, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Necoclí, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Nechí, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Olaya, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Peñol, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Peque, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pueblorrico, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Berrío, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Nare, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Triunfo, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Remedios, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Retiro, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Rionegro, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sabanalarga, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sabaneta, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Salgar, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Francisco, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Jerónimo, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Luis, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Pedro, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Rafael, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Roque, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Vicente, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santa Bárbara, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santo Domingo, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Santuario, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Segovia, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sopetrán, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Támesis, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tarazá, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tarso, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Titiribí, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Toledo, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Turbo, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Uramita, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Urrao, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Valdivia, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Valparaíso, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Vegachí, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Venecia, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Yalí, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Yarumal, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Yolombó, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Yondó, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Zaragoza, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Pedro de Uraba, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santafé de Antioquia, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santa Rosa de Osos, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Andrés de Cuerquía, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Vigía del Fuerte, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San José de La Montaña, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Juan de Urabá, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Carmen de Viboral, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Carlos, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Frontino, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Granada, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Jardín, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sonsón, Antioquia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Arauquita, Arauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cravo Norte, Arauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Fortul, Arauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Rondón, Arauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Saravena, Arauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tame, Arauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Arauca, Arauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Barranquilla, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Baranoa, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Candelaria, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Galapa, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Luruaco, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Malambo, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Manatí, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Piojó, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Polonuevo, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sabanagrande, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sabanalarga, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santa Lucía, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santo Tomás, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Soledad, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Suan, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tubará, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Usiacurí, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Juan de Acosta, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Palmar de Varela, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Campo de La Cruz, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Repelón, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Colombia, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ponedera, Atlántico, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Bogotá D.C., Bogotá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Achí, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Arenal, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Arjona, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Arroyohondo, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Calamar, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cantagallo, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cicuco, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Córdoba, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Clemencia, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Guamo, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Magangué, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Mahates, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Margarita, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Montecristo, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Mompós, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Morales, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Norosí, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pinillos, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Regidor, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Río Viejo, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Estanislao, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Fernando, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Juan Nepomuceno, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santa Catalina, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santa Rosa, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Simití, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Soplaviento, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Talaigua Nuevo, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tiquisio, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Turbaco, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Turbaná, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Villanueva, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Barranco de Loba, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santa Rosa del Sur, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Hatillo de Loba, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Carmen de Bolívar, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Martín de Loba, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Altos del Rosario, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Jacinto del Cauca, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Pablo de Borbur, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Jacinto, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Peñón, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cartagena, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('María la Baja, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Cristóbal, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Zambrano, Bolívar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tununguá, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Motavita, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ciénega, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tunja, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Almeida, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Aquitania, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Arcabuco, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Berbeo, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Betéitiva, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Boavita, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Boyacá, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Briceño, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Buena Vista, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Busbanzá, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Caldas, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Campohermoso, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cerinza, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chinavita, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chiquinquirá, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chiscas, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chita, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chitaraque, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chivatá, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cómbita, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Coper, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Corrales, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Covarachía, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cubará, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cucaita, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cuítiva, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chíquiza, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chivor, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Duitama, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Cocuy, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Espino, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Firavitoba, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Floresta, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Gachantivá, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Gameza, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Garagoa, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guacamayas, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guateque, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guayatá, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Güicán, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Iza, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Jenesano, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Jericó, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Labranzagrande, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Capilla, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Victoria, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Macanal, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Maripí, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Miraflores, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Mongua, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Monguí, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Moniquirá, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Muzo, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Nobsa, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Nuevo Colón, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Oicatá, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Otanche, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pachavita, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Páez, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Paipa, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pajarito, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Panqueba, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pauna, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Paya, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pesca, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pisba, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Boyacá, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Quípama, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ramiriquí, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ráquira, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Rondón, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Saboyá, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sáchica, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Samacá, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Eduardo, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Mateo, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santana, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santa María, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santa Sofía, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sativanorte, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sativasur, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Siachoque, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Soatá, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Socotá, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Socha, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sogamoso, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Somondoco, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sora, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sotaquirá, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Soracá, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Susacón, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sutamarchán, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sutatenza, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tasco, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tenza, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tibaná, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tinjacá, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tipacoque, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Toca, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tópaga, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tota, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Turmequé, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tutazá, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Umbita, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ventaquemada, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Viracachá, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Zetaquira, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Togüí, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Villa de Leyva, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Paz de Río, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santa Rosa de Viterbo, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Pablo de Borbur, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Luis de Gaceno, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San José de Pare, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Miguel de Sema, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tuta, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tibasosa, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Uvita, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Belén, Boyacá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Manizales, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Aguadas, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Anserma, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Aranzazu, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Belalcázar, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chinchiná, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Filadelfia, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Dorada, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Merced, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Manzanares, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Marmato, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Marulanda, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Neira, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Norcasia, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pácora, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Palestina, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pensilvania, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Riosucio, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Risaralda, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Salamina, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Samaná, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San José, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Supía, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Victoria, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Villamaría, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Viterbo, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Marquetalia, Caldas, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Florencia, Caquetá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Albania, Caquetá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Curillo, Caquetá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Doncello, Caquetá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Paujil, Caquetá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Morelia, Caquetá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Rico, Caquetá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Solano, Caquetá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Solita, Caquetá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Valparaíso, Caquetá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San José del Fragua, Caquetá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Belén de Los Andaquies, Caquetá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cartagena del Chairá, Caquetá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Milán, Caquetá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Montañita, Caquetá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Vicente del Caguán, Caquetá, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Yopal, Casanare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Aguazul, Casanare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chámeza, Casanare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Hato Corozal, Casanare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Salina, Casanare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Monterrey, Casanare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pore, Casanare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Recetor, Casanare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sabanalarga, Casanare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sácama, Casanare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tauramena, Casanare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Trinidad, Casanare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Villanueva, Casanare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Luis de Gaceno, Casanare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Paz de Ariporo, Casanare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Nunchía, Casanare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Maní, Casanare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Támara, Casanare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Orocué, Casanare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Popayán, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Almaguer, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Argelia, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Balboa, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Bolívar, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Buenos Aires, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cajibío, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Caldono, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Caloto, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Corinto, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Tambo, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Florencia, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guachené, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guapi, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Inzá, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Jambaló, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Sierra, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Vega, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('López, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Mercaderes, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Miranda, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Morales, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Padilla, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Patía, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Piamonte, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Piendamó, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Tejada, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puracé, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Rosas, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santa Rosa, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Silvia, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sotara, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Suárez, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sucre, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Timbío, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Timbiquí, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Toribio, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Totoró, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Villa Rica, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santander de Quilichao, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Sebastián, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Páez, Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Valledupar, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Aguachica, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Agustín Codazzi, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Astrea, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Becerril, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Bosconia, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chimichagua, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chiriguaná, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Curumaní, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Copey, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Paso, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Gamarra, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('González, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Gloria, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Manaure, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pailitas, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pelaya, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pueblo Bello, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Paz, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Alberto, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Diego, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Martín, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tamalameque, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Río de Oro, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Jagua de Ibirico, Cesar, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Istmina, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Quibdó, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Acandí, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Alto Baudo, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Atrato, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Bagadó, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Bahía Solano, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Bajo Baudó, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Bojaya, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cértegui, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Condoto, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Juradó, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Lloró, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Medio Atrato, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Medio Baudó, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Medio San Juan, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Nóvita, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Nuquí, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Río Iro, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Río Quito, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Riosucio, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sipí, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Unguía, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Litoral del San Juan, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Cantón del San Pablo, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Carmen de Atrato, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San José del Palmar, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Belén de Bajira, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Carmen del Darien, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tadó, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Unión Panamericana, Chocó, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Bernardo del Viento, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Montería, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ayapel, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Buenavista, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Canalete, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cereté, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chimá, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chinú, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cotorra, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Lorica, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Los Córdobas, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Momil, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Moñitos, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Planeta Rica, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pueblo Nuevo, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Escondido, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Purísima, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sahagún, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Andrés Sotavento, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Antero, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Pelayo, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tierralta, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tuchín, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Valencia, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San José de Uré, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ciénaga de Oro, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Carlos, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Montelíbano, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Apartada, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Libertador, Córdoba, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Anapoima, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Arbeláez, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Beltrán, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Bituima, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Bojacá, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cabrera, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cachipay, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cajicá, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Caparrapí, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Caqueza, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chaguaní, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chipaque, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Choachí, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chocontá, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cogua, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cota, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cucunubá, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Colegio, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Rosal, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Fomeque, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Fosca, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Funza, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Fúquene, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Gachala, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Gachancipá, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Gachetá, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Girardot, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Granada, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guachetá, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guaduas, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guasca, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guataquí, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guatavita, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guayabetal, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Gutiérrez, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Jerusalén, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Junín, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Calera, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Mesa, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Palma, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Peña, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Vega, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Lenguazaque, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Macheta, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Madrid, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Manta, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Medina, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Mosquera, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Nariño, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Nemocón, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Nilo, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Nimaima, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Nocaima, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Venecia, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pacho, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Paime, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pandi, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Paratebueno, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pasca, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Salgar, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pulí, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Quebradanegra, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Quetame, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Quipile, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Apulo, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ricaurte, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Bernardo, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Cayetano, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Francisco, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sesquilé, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sibaté, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Silvania, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Simijaca, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Soacha, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Subachoque, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Suesca, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Supatá, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Susa, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sutatausa, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tabio, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tausa, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tena, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tenjo, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tibacuy, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tibirita, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tocaima, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tocancipá, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Topaipí, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ubalá, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ubaque, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Une, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Útica, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Vianí, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Villagómez, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Villapinzón, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Villeta, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Viotá, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Zipacón, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Juan de Río Seco, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Villa de San Diego de Ubate, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guayabal de Siquima, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Antonio del Tequendama, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Agua de Dios, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Carmen de Carupa, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Vergara, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Albán, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Anolaima, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chía, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Peñón, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sopó, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Gama, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sasaima, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Yacopí, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Fusagasugá, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Zipaquirá, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Facatativá, Cundinamarca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Inírida, Guainía, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Barranco Minas, Guainía, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Mapiripana, Guainía, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Felipe, Guainía, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Colombia, Guainía, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Guadalupe, Guainía, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cacahual, Guainía, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pana Pana, Guainía, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Morichal, Guainía, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Calamar, Guaviare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San José del Guaviare, Guaviare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Miraflores, Guaviare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Retorno, Guaviare, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Neiva, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Acevedo, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Agrado, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Aipe, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Algeciras, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Altamira, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Baraya, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Campoalegre, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Colombia, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Elías, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Garzón, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Gigante, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guadalupe, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Hobo, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Iquira, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Isnos, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Argentina, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Plata, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Nátaga, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Oporapa, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Paicol, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Palermo, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Palestina, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pital, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pitalito, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Rivera, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Saladoblanco, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santa María, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Suaza, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tarqui, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tesalia, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tello, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Teruel, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Timaná, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Villavieja, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Yaguará, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Agustín, Huila, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Riohacha, La Guajira, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Albania, La Guajira, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Barrancas, La Guajira, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Dibula, La Guajira, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Distracción, La Guajira, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Molino, La Guajira, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Fonseca, La Guajira, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Hatonuevo, La Guajira, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Maicao, La Guajira, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Manaure, La Guajira, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Uribia, La Guajira, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Urumita, La Guajira, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Villanueva, La Guajira, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Jagua del Pilar, La Guajira, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Juan del Cesar, La Guajira, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santa Marta, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Algarrobo, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Aracataca, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ariguaní, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cerro San Antonio, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chivolo, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Concordia, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Banco, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Piñon, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Retén, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Fundación, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guamal, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Nueva Granada, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pedraza, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pivijay, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Plato, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Remolino, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Salamina, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Zenón, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santa Ana, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sitionuevo, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tenerife, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Zapayán, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Zona Bananera, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Sebastián de Buenavista, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sabanas de San Angel, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pijiño del Carmen, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santa Bárbara de Pinto, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pueblo Viejo, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ciénaga, Magdalena, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Uribe, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Villavicencio, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Acacias, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cabuyaro, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cubarral, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cumaral, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Calvario, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Castillo, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Dorado, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Granada, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guamal, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Mapiripán, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Mesetas, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Macarena, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Lejanías, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Concordia, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Gaitán, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto López, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Lleras, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Rico, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Restrepo, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Juanito, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Martín, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Vista Hermosa, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Barranca de Upía, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Fuente de Oro, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Carlos de Guaroa, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Juan de Arama, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Castilla la Nueva, Meta, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santacruz, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pasto, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Albán, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Aldana, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ancuyá, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Barbacoas, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Colón, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Consaca, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Contadero, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Córdoba, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cuaspud, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cumbal, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cumbitara, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Charco, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Peñol, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Rosario, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Tambo, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Funes, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guachucal, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guaitarilla, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Gualmatán, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Iles, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Imués, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ipiales, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Cruz, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Florida, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Llanada, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Tola, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Unión, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Leiva, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Linares, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Los Andes, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Magüí, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Mallama, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Mosquera, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Nariño, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Olaya Herrera, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ospina, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Francisco Pizarro, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Policarpa, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Potosí, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Providencia, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerres, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pupiales, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ricaurte, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Roberto Payán, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Samaniego, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sandoná, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Bernardo, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Lorenzo, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Pablo, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santa Bárbara, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sapuyes, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Taminango, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tangua, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Túquerres, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Yacuanquer, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Pedro de Cartago, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Tablón de Gómez, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Buesaco, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Andrés de Tumaco, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Belén, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chachagüí, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Arboleda, Nariño, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Silos, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cácota, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Toledo, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Mutiscua, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Zulia, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Salazar, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cucutilla, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Santander, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Gramalote, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Tarra, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Teorama, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Arboledas, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Lourdes, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Bochalema, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Convención, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Hacarí, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Herrán, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tibú, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Cayetano, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Calixto, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Playa, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chinácota, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ragonvalia, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Esperanza, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Villa del Rosario, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chitagá, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sardinata, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Abrego, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Los Patios, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ocaña, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Bucarasica, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santiago, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Labateca, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cachirá, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Villa Caro, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Durania, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pamplona, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pamplonita, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cúcuta, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Carmen, Norte de Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Mocoa, Putumayo, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Colón, Putumayo, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Orito, Putumayo, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Caicedo, Putumayo, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Guzmán, Putumayo, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Leguízamo, Putumayo, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sibundoy, Putumayo, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Francisco, Putumayo, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Miguel, Putumayo, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santiago, Putumayo, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Valle de Guamez, Putumayo, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Asís, Putumayo, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Villagarzón, Putumayo, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Armenia, Quindío, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Buenavista, Quindío, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Circasia, Quindío, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Córdoba, Quindío, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Filandia, Quindío, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Tebaida, Quindío, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Montenegro, Quindío, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pijao, Quindío, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Quimbaya, Quindío, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Salento, Quindío, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Calarcá, Quindío, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Génova, Quindío, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pereira, Risaralda, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Apía, Risaralda, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Balboa, Risaralda, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Dosquebradas, Risaralda, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guática, Risaralda, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Celia, Risaralda, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Virginia, Risaralda, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Marsella, Risaralda, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Mistrató, Risaralda, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pueblo Rico, Risaralda, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Quinchía, Risaralda, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santuario, Risaralda, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santa Rosa de Cabal, Risaralda, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Belén de Umbría, Risaralda, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Providencia, San Andrés y Providencia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Andrés, San Andrés y Providencia, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Wilches, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Parra, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Bucaramanga, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Aguada, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Albania, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Aratoca, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Barbosa, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Barichara, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Barrancabermeja, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Betulia, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Bolívar, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cabrera, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('California, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Carcasí, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cepitá, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cerrito, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Charalá, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Charta, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chipatá, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cimitarra, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Concepción, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Confines, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Contratación, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Coromoro, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Curití, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Guacamayo, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Playón, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Encino, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Enciso, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Florián, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Floridablanca, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Galán, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Gambita, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Girón, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guaca, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guadalupe, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guapotá, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guavatá, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Güepsa, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Jesús María, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Jordán, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Belleza, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Landázuri, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Paz, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Lebríja, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Los Santos, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Macaravita, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Málaga, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Matanza, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Mogotes, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Molagavita, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ocamonte, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Oiba, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Onzaga, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Palmar, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Páramo, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Piedecuesta, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pinchote, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puente Nacional, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Rionegro, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Andrés, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Gil, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Joaquín, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Miguel, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santa Bárbara, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Simacota, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Socorro, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Suaita, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sucre, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Suratá, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tona, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Vélez, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Vetas, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Villanueva, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Zapatoca, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Palmas del Socorro, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Vicente de Chucurí, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San José de Miranda, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santa Helena del Opón, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sabana de Torres, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Carmen de Chucurí, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Valle de San José, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Benito, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Hato, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chimá, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Capitanejo, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Peñón, Santander, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sincelejo, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Buenavista, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Caimito, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Coloso, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Coveñas, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chalán, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Roble, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Galeras, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guaranda, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Unión, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Los Palmitos, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Majagual, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Morroa, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ovejas, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Palmito, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Benito Abad, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Marcos, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Onofre, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Pedro, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sucre, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tolú Viejo, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Luis de Sincé, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Juan de Betulia, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santiago de Tolú, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sampués, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Corozal, Sucre, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Alpujarra, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Alvarado, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ambalema, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Armero, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ataco, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cajamarca, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Chaparral, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Coello, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Coyaima, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cunday, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Dolores, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Espinal, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Falan, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Flandes, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Fresno, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guamo, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Herveo, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Honda, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Icononzo, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Mariquita, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Melgar, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Murillo, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Natagaima, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ortega, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Palocabildo, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Piedras, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Planadas, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Prado, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Purificación, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Rio Blanco, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Roncesvalles, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Rovira, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Saldaña, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santa Isabel, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Venadillo, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Villahermosa, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Villarrica, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Valle de San Juan, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Carmen de Apicala, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Luis, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Antonio, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Casabianca, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Anzoátegui, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ibagué, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Líbano, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Lérida, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Suárez, Tolima, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Dovio, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Roldanillo, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Argelia, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Sevilla, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Zarzal, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Cerrito, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cartago, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Caicedonia, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Cairo, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Unión, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Restrepo, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Dagua, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guacarí, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ansermanuevo, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Bugalagrande, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Victoria, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ginebra, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Yumbo, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Obando, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Bolívar, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cali, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('San Pedro, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Guadalajara de Buga, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Calima, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Andalucía, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pradera, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Yotoco, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Palmira, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Riofrío, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Alcalá, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Versalles, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('El Águila, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Toro, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Candelaria, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Cumbre, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Ulloa, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Trujillo, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Vijes, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Tuluá, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Florida, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Jamundí, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Buenaventura, Valle del Cauca, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Mitú, Vaupés, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Carurú, Vaupés, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Taraira, Vaupés, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Papunahua, Vaupés, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Yavaraté, Vaupés, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Pacoa, Vaupés, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Puerto Carreño, Vichada, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('La Primavera, Vichada, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Santa Rosalía, Vichada, Colombia',1,getdate())
+INSERT INTO Ciudad (Nombre, CreateBy, DateCreate)VALUES ('Cumaribo, Vichada, Colombia',1,getdate())
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaCiudad]
+AS
+BEGIN
+	SELECT Id, Nombre FROM Ciudad WHERE IdEstado = 1 ORDER BY Nombre ASC
+END
+
+GO
+
+CREATE FUNCTION Fun_BuscarNombreCiudad(@IdCiudad INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombreCiudad VARCHAR(255)
+	SELECT	@NombreCiudad = Nombre
+	FROM	Ciudad
+	WHERE	Id = @IdCiudad 
+	RETURN @NombreCiudad
+END
+
+GO
+
+/* TABLA LOGS ACCIONES */
+
+CREATE TABLE LogsAcciones 
+(Id int identity(1,1) Primary key ,
+IdUsuario int,
+Accion varchar(255),
+Descripcion varchar(max),
+Fecha datetime
+)
+
+GO
+
+ALTER TABLE LogsAcciones ADD CONSTRAINT FK_IdUsuarioLogsAcciones FOREIGN KEY (IdUsuario ) references Usuario(Id)
+
+GO
+
+/* TABLA EMPRESA */
+
+CREATE TABLE Empresa 
+(Id int identity(1,1) Primary key ,
+Nombre varchar(255),
+IdTipoDocumento int,
+Identificacion varchar(255),
+Email varchar(255),
+Telefono varchar(255),
+Contacto varchar(255),
+IdCiudad int,
+Direccion varchar(255),
+IdEstado int default 1,
+CreateBy int,
+DateCreate datetime
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoEmpresa on Empresa (Nombre, IdTipoDocumento, Identificacion)
+
+GO
+
+ALTER TABLE Empresa ADD CONSTRAINT FK_IdCreateByEmpresa FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE Empresa ADD CONSTRAINT FK_IdCiudadEmpresa FOREIGN KEY (IdCiudad ) references Ciudad(Id)
+ALTER TABLE Empresa ADD CONSTRAINT FK_IdEstadoEmpresa FOREIGN KEY (IdEstado) references TipoEstado(Id)
+ALTER TABLE Empresa ADD CONSTRAINT FK_IdTipodocumentoEmpresa FOREIGN KEY (IdTipoDocumento) references TipoDocumento(Id)
+
+GO
+
+INSERT INTO Empresa (Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdCiudad, Direccion, CreateBy, DateCreate) VALUES ('E&G Contrucciones S.A.S', 5, '901.766.109-1','edwinfabiangarzon@hotmail.com', '321 4208189', 'Edwin Fabian Garzón López', 571, '',1, GETDATE())
+INSERT INTO Empresa (Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdCiudad, Direccion, CreateBy, DateCreate) VALUES ('Aseos de la Sabana', 5, '901.766.109-1','edwinfabiangarzon@hotmail.com', '321 4208189', 'Edwin Fabian Garzón López', 571, '',1, GETDATE())
+INSERT INTO Empresa (Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdCiudad, Direccion, CreateBy, DateCreate) VALUES ('Soluciones Integrales GCS', 6, '3167508','solintgcs@gmail.com', '315 0014586', 'Oscar Antonio Castillo Perez', 571, '',1, GETDATE())
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_CrearEmpresa] 
+				@IdUser varchar(255), 				
+				@NombreEmpresa varchar(255), 
+				@IdTipoDocumento int,
+				@Identificacion varchar(255),
+				@Email varchar(255), 
+				@Telefono varchar(255),  
+				@Contacto varchar(255),
+				@IdCiudad int,
+				@Direccion varchar(255),	
+				@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Crear'
+SET @SubMenu = '/Empresa'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN		
+		INSERT INTO Empresa
+		(Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdCiudad, Direccion, CreateBy, DateCreate) 
+		VALUES 
+		(@NombreEmpresa, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Contacto, @IdCiudad, @Direccion, @IdUsuario, GETDATE()) 
+
+		INSERT INTO LogsAcciones 
+		(IdUsuario, Accion, Descripcion, Fecha) 
+		VALUES 
+		(@IdUsuario, 
+		'Crear', 
+		'Nombres:'  + @NombreEmpresa +
+		', Tipo Doc:' + dbo.Fun_BuscarNombreTipoDocumento(@IdTipoDocumento) +
+		', Identificación:' + @Identificacion +
+		', Email:'+ @Email +
+		', Telefono:'+ @Telefono +
+		', Contacto:'+ @Contacto +
+		', Dirección:'+ @Direccion +
+		', Ciudad:'+ dbo.Fun_BuscarNombreCiudad(@IdCiudad),
+		GETDATE())
+
+		SET @Resultado = 'OK*La Empresa ' + @NombreEmpresa + 'a sido creada correctamente'
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ActualizarEmpresa]	@IdUser varchar(255),
+												@IdEmpresa int, 				
+												@NombreEmpresa varchar(255), 
+												@IdTipoDocumento int,
+												@Identificacion varchar(255),
+												@Email varchar(255), 
+												@Telefono varchar(255),  
+												@Contacto varchar(255),
+												@IdCiudad int,
+												@Direccion varchar(255),
+												@IdEstado int,			
+												@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT,
+		@Accion varchar(255), 
+		@SubMenu varchar(255),
+
+		@NombreEmpresav varchar(255) = (SELECT Nombre FROM Empresa WHERE Id = @IdEmpresa),
+		@IdTipoDocumentov varchar(255) = (SELECT IdTipoDocumento FROM Empresa WHERE Id = @IdEmpresa),
+		@Identificacionv varchar(255) = (SELECT Identificacion FROM Empresa WHERE Id = @IdEmpresa),
+		@Emailv varchar(255) = (SELECT Email FROM Empresa WHERE Id = @IdEmpresa),
+		@Telefonov varchar(255) = (SELECT Telefono FROM Empresa WHERE Id = @IdEmpresa),
+		@Contactov varchar(255) = (SELECT Contacto FROM Empresa WHERE Id = @IdEmpresa),
+		@Direccionv varchar(255) = (SELECT Direccion FROM Empresa WHERE Id = @IdEmpresa),
+		@IdCiudadv varchar(255) = (SELECT IdCiudad FROM Empresa WHERE Id = @IdEmpresa),
+		@IdEstadov varchar(255) = (SELECT IdEstado FROM Empresa WHERE Id = @IdEmpresa)	 
+
+SET @Accion = 'Crear'
+SET @SubMenu = '/Empresa'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	IF(exists(select * from Empresa where Nombre = @NombreEmpresa AND IdTipoDocumento = @IdTipoDocumento AND Identificacion = @Identificacion AND Id != @IdEmpresa))  
+	BEGIN  
+		SET @Resultado = 'Error*La Empresa ' + @NombreEmpresa +' ya existe.'
+		RETURN  
+	END
+ELSE
+	BEGIN
+		UPDATE	Empresa 
+			SET		Nombre = @NombreEmpresa, 
+					IdTipoDocumento =  @IdTipoDocumento,
+					Identificacion = @Identificacion,								 
+					Email = @Email, 
+					Telefono = @Telefono,
+					Contacto = @Contacto,
+					IdCiudad = @IdCiudad,
+					Direccion = @Direccion,
+					IdEstado = @IdEstado
+					WHERE Id = @IdEmpresa
+
+		INSERT INTO LogsAcciones 
+		(IdUsuario, Accion, Descripcion, Fecha) 
+		VALUES 
+		(@IdUsuario, 
+		'Editar', 
+		'Nombres:'  + (SELECT CASE WHEN @NombreEmpresav != @NombreEmpresa THEN '(N) '+@NombreEmpresa+' - (A) '+ @NombreEmpresav ELSE 'No' END) +
+		', Tipo Doc:' + (SELECT CASE WHEN @IdTipoDocumentov != @IdTipoDocumento THEN '(N) '+dbo.Fun_BuscarNombreTipoDocumento(@IdTipoDocumento)+' - (A) '+ dbo.Fun_BuscarNombreTipoDocumento(@IdTipoDocumentov) ELSE 'No' END) +
+		', Identificación:' + (SELECT CASE WHEN @Identificacionv != @Identificacion THEN '(N) '+@Identificacion+' - (A) '+ @Identificacionv ELSE 'No' END) +
+		', Email:'+ (SELECT CASE WHEN @Emailv != @Email THEN '(N) '+@Email+' - (A) '+ @Emailv ELSE 'No' END) +
+		', Telefono:'+ (SELECT CASE WHEN @Telefonov != @Telefono THEN '(N) '+@Telefono+' - (A) '+ @Telefonov ELSE 'No' END) +
+		', Contacto:'+ (SELECT CASE WHEN @Contactov != @Contacto THEN '(N) '+@Contacto+' - (A) '+ @Contactov ELSE 'No' END) +
+		', Dirección:'+ (SELECT CASE WHEN @Direccionv != @Direccion THEN '(N) '+@Direccion+' - (A) '+ @Direccionv ELSE 'No' END) +
+		', Ciudad:'+ (SELECT CASE WHEN @IdCiudadv != @IdCiudad THEN '(N) '+dbo.Fun_BuscarNombreCiudad(@IdCiudad)+' - (A) '+ dbo.Fun_BuscarNombreCiudad(@IdCiudadv) ELSE 'No' END) +
+		', Estado:'+ (SELECT CASE WHEN @IdEstadov != @IdEstado THEN '(N) '+dbo.Fun_BuscarNombreTipoEstado(@IdEstado)+' - (A) '+ dbo.Fun_BuscarNombreTipoEstado(@IdEstadov) ELSE 'No' END), 
+		GETDATE())		
+
+		SET @Resultado = 'OK*La Empresa ' + @NombreEmpresa + 'se actualizo correctamente'  
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_EliminarEmpresa] @IdUser varchar(255), @IdEmpresa int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@NombreEmpresa varchar(255),
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Empresa'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @NombreEmpresa = Nombre FROM Empresa WHERE Id = @IdEmpresa
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE Empresa WHERE Id = @IdEmpresa
+SET @Resultado = 'OK*Estimado Usuario la Empresa '+ @NombreEmpresa+' se elimino correctamente'	
+
+INSERT INTO LogsAcciones 
+(IdUsuario, Accion, Descripcion, Fecha) 
+VALUES 
+(@IdUsuario, 'Eliminar', 'Nombre: ' + @NombreEmpresa , GETDATE())
+
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridEmpresa]
+AS
+BEGIN
+	SELECT	Id, 
+			Nombre, 
+			IdTipoDocumento,
+			dbo.Fun_BuscarNombreTipoDocumento(IdTipoDocumento) As TipoDocumento,
+			Identificacion,
+			Email,
+			Telefono,
+			Contacto,
+			Direccion,
+			IdCiudad,
+			dbo.Fun_BuscarNombreCiudad(IdCiudad) As Ciudad,
+			IdEstado,
+			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,
+			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
+			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
+			FROM Empresa
+			ORDER BY Nombre Desc
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaEmpresa]
+AS
+BEGIN
+	SELECT Id, Nombre FROM Empresa WHERE IdEstado = 1 ORDER BY Nombre ASC
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaIdEmpresaXIdEmpleado] @IdEmpleado INT
+AS
+BEGIN
+		SELECT	A.Id,
+				A.Nombre
+		FROM	Empresa A,
+				ContratoLaboralEmpleado B
+		WHERE	B.IdEstado = 1 AND 
+				A.Id = B.IdEmpresa AND
+				B.IdEmpleado = @IdEmpleado ORDER BY Nombre ASC
+END
+
+GO
+
+CREATE FUNCTION Fun_BuscarNombreEmpresa(@IdEmpresa INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombreEmpresa VARCHAR(255)
+	SELECT	@NombreEmpresa = Nombre	FROM Empresa WHERE Id = @IdEmpresa
+	RETURN @NombreEmpresa
+END
+
+GO
+
+/* TABLA SUCURSAL */
+

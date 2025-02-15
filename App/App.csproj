@@ -2172,10 +2172,22 @@
     <Content Include="Content\Login.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\ImagenHVEmpleado\Empleado.png" />
+    <Content Include="Images\ImagenProducto\JabonRey.jpeg" />
+    <Content Include="Images\ImagenProducto\Producto.png" />
+    <Content Include="Images\ImagesApp\Favicon.png" />
+    <Content Include="Images\ImagesApp\Logo GCS.jpg" />
+    <Content Include="Images\ImagesProfileUsers\Usuario.png" />
+    <Content Include="JsApp\Ciudad.js" />
+    <Content Include="JsApp\Empresa.js" />
     <Content Include="JsApp\Goblal.js" />
     <Content Include="JsApp\Login.js" />
     <Content Include="JsApp\Menu.js" />
     <Content Include="JsApp\SubMenu.js" />
+    <Content Include="JsApp\Sucursal.js" />
+    <Content Include="JsApp\SucursalEmpleado.js" />
+    <Content Include="JsApp\TipoDocumento.js" />
+    <Content Include="JsApp\TipoEstado.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -2410,9 +2422,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CiudadController.cs" />
     <Compile Include="Controllers\ConfiguracionController.cs" />
     <Compile Include="Controllers\AlmacenController.cs" />
     <Compile Include="Controllers\ContabilidadController.cs" />
+    <Compile Include="Controllers\EmpresaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InformacionController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -2425,6 +2439,10 @@
     <Compile Include="Controllers\Personal_InternoController.cs" />
     <Compile Include="Controllers\ProduccionController.cs" />
     <Compile Include="Controllers\SubMenuController.cs" />
+    <Compile Include="Controllers\SucursalController.cs" />
+    <Compile Include="Controllers\Sucursal_EmpleadoController.cs" />
+    <Compile Include="Controllers\Tipo_DocumentoController.cs" />
+    <Compile Include="Controllers\Tipo_EstadoController.cs" />
     <Compile Include="Controllers\VentaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2439,6 +2457,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.0.0.min.map" />
+    <Content Include="Views\Empresa\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

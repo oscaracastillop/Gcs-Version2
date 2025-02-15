@@ -65,10 +65,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModeloGcs.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DataEntities\DataCiudad.cs" />
+    <Compile Include="DataEntities\DataEmpresa.cs" />
     <Compile Include="DataEntities\DataLogin.cs" />
     <Compile Include="DataEntities\DataMenu.cs" />
     <Compile Include="DataEntities\DataRol.cs" />
     <Compile Include="DataEntities\DataSubMenu.cs" />
+    <Compile Include="DataEntities\DataSucursal.cs" />
+    <Compile Include="DataEntities\DataSucursalEmpleado.cs" />
+    <Compile Include="DataEntities\DataTipoDocumento.cs" />
+    <Compile Include="DataEntities\DataTipoEstado.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

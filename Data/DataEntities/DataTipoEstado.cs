@@ -3,27 +3,26 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using static SistemaGcs.Models.Menu;
+using static SistemaGcs.Models.TipoEstado;
 
 namespace SistemaGcs.Data.DataEntities
 {
-    public class DataMenu
+    public class DataTipoEstado
     {
         readonly GcsEntities _conection = new GcsEntities();
         private readonly DataRol dataRol = new DataRol();
 
-        public List<ListaMenu> ListaMenu(string Usuario)
+        public List<ListaTipoEstado> ListaTipoEstado(int Tipo)
         {
             try
             {
-                var response = _conection.Database.SqlQuery<ListaMenu>("SP_Listamenu @IdUsuario", new SqlParameter("@IdUsuario", Usuario)).ToList();
-                return response;
+                return _conection.Database.SqlQuery<ListaTipoEstado>("SP_ListaTipoEstado @Tipo",
+                    new SqlParameter("@Tipo", Tipo)).ToList();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-
     }
 }

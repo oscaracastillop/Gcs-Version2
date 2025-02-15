@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <link rel="shortcut icon" type="image/png" href="~/Images/ImagesApp/Favicon.png" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gcs - @ViewBag.Title</title>
@@ -13,30 +14,46 @@
     <script src="~/Scripts/Sweetalert2/dist/sweetalert2.min.js"></script>
     <link href="~/Content/bootstrap-icons-1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
 
+    @*<link href="~/Content/DataTables/datatables.min.css" rel="stylesheet" />
+        <script src="~/Content/DataTables/datatables.min.js"></script>*@
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/jszip-2.5.0/dt-1.13.2/af-2.5.2/b-2.3.4/b-colvis-2.3.4/b-html5-2.3.4/b-print-2.3.4/cr-1.6.1/fc-4.2.1/fh-3.3.1/kt-2.8.0/r-2.4.0/sc-2.0.7/sb-1.4.0/sp-2.1.1/datatables.min.css" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/jszip-2.5.0/dt-1.13.2/af-2.5.2/b-2.3.4/b-colvis-2.3.4/b-html5-2.3.4/b-print-2.3.4/cr-1.6.1/fc-4.2.1/fh-3.3.1/kt-2.8.0/r-2.4.0/sc-2.0.7/sb-1.4.0/sp-2.1.1/datatables.min.js"></script>
+
+
 
     @*  Scripts App *@
     <script src="~/JsApp/Goblal.js"></script>
     <script src="~/JsApp/Menu.js"></script>
     <script src="~/JsApp/SubMenu.js"></script>
-
+    <script src="~/JsApp/Empresa.js"></script>
+    <script src="~/JsApp/Sucursal.js"></script>
+    <script src="~/JsApp/SucursalEmpleado.js"></script>
+    <script src="~/JsApp/TipoDocumento.js"></script>
+    <script src="~/JsApp/Ciudad.js"></script>
+    <script src="~/JsApp/TipoEstado.js"></script>
 
 </head>
 <body>
     <header>
-        <h4 id="TituloHeaderNombreEmpresa"></h4>
+        @*<div class="card-group" style="background-color:darkorange; width:100px !important; border-radius:5px">
+            <h1 style="color:black; margin-left:10px; font-weight:bold">G</h1>
+            <h1 style="color: red; font-weight: bold">C</h1>
+            <h1 style="color: gray; font-weight: bold">S</h1>
+        </div>*@
+        <div class="row">
+            <h1>GCS</h1>
+            <label>hola</label>
+        </div>
+        
+         
     </header>
-     
+
     <section id="contenedoruno">
         <nav>
             <ul id="OpcionesMenu">
-                @*<li><a href="/Home">Home</a></li>
-                <li><a href="/Negocio">Negocio</a></li>
-                <li><a href="/Venta">Venta</a></li>
-                <li><a href="/Personal_Interno">Personal Interno</a></li>
-                <li><a href="/Personal_Externo">Personal Externo</a></li>
-                <li><a href="/Contabilidad">Contabilidad</a></li>
-                <li><a href="/Almacen">Almacén</a></li>
-                <li><a href="/Configuracion">Configuración</a></li>*@
             </ul>
         </nav>
     </section>
@@ -70,15 +87,24 @@
         </div>*@
 
     <!--<div class="container body-content">-->
-       
-        @*<hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-            </footer>*@
+    @*<hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>*@
     <!--</div>-->
+
+
 
     <script src="~/Scripts/jquery-3.7.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+
+    @*<link href="~/Content/DataTables/datatables.min.css" rel="stylesheet" />
+        <script src="~/Content/DataTables/datatables.min.js"></script>*@
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/jszip-2.5.0/dt-1.13.2/af-2.5.2/b-2.3.4/b-colvis-2.3.4/b-html5-2.3.4/b-print-2.3.4/cr-1.6.1/fc-4.2.1/fh-3.3.1/kt-2.8.0/r-2.4.0/sc-2.0.7/sb-1.4.0/sp-2.1.1/datatables.min.css" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/jszip-2.5.0/dt-1.13.2/af-2.5.2/b-2.3.4/b-colvis-2.3.4/b-html5-2.3.4/b-print-2.3.4/cr-1.6.1/fc-4.2.1/fh-3.3.1/kt-2.8.0/r-2.4.0/sc-2.0.7/sb-1.4.0/sp-2.1.1/datatables.min.js"></script>
 </body>
 </html>
 
@@ -97,8 +123,11 @@
             ListaMenu();
         }
 
-        $('#TituloHeaderNombreEmpresa').text(NombreEmpresa);
-
+        //$('#cabeceraApp').append(
+        //    '<img src="~/Images/ImagesApp/Logo GCS.jpg" alt="Alternate Text" id="imgLogoEmpresa"/>' +
+        //    '<h4>' + NameEmpresa + '</h4>' +
+        //    '<label>' + SloganEmpresa + '</label>'
+        //);
     });
 
     function CerrarSesion() {

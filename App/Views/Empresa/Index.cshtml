@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Empresa";
+}
+
+<h6>Modulo Empresa</h6>
+
+<div class="grid" style="color:lightgray">
+    <hr />
+    <button type="button" id="btnNuevoRegistro" class="btn btn-sm" title="Crear un nuevo registro" onclick="ModalEmpresa('C')">Nuevo Registro</button>
+        
+    <table id="gridEmpresa" class="table" style="width: 150%;"></table>
+    <hr />
+</div>
+
+<!-- Modal Empresa-->
+<div class="modal fade" id="ModalEmpresa" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header stilomodal">
+                <div class="modal-title" id="TituloModalEmpresa"></div>
+            </div>
+            <div class="modal-body">
+                <label id="LabelIdEmpresa" hidden></label>
+                <div>
+                    <label><strong>Nombre </strong><label style="color:red"> *</label></label>
+                    <input class="form-control" type="text" id="InputNombreEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                </div>
+                <div>
+                    <label><strong>Documento </strong><label style="color:red"> *</label></label>
+                    <select class="form-control" id="SelectTipoDocumento" style="min-width:100%"></select>
+                </div>
+                <div>
+                    <label><strong>Identificación </strong><label style="color:red"> *</label></label>
+                    <input class="form-control" type="text" id="InputIdentificacionEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                </div>
+                <div>
+                    <label><strong>Email</strong></label>
+                    <input class="form-control" type="text" id="InputEmailEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                </div>
+                <div>
+                    <label><strong>Teléfono</strong></label>
+                    <input class="form-control" type="text" id="InputTelefonoEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                </div>
+                <div>
+                    <label><strong>Contacto</strong></label>
+                    <input class="form-control" type="text" id="InputContactoEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                </div>
+                <div>
+                    <label><strong>Dirección</strong></label>
+                    <input class="form-control" type="text" id="InputDireccionEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                </div>
+                <div>
+                    <label><strong>Ciudad </strong><label style="color:red"> *</label></label>
+                    <select class="form-control" id="SelectCiudad" style="min-width:100%"></select>
+                </div>
+                <div class="col-3" id="SelectEstadoEmpresa">
+                    <label><strong>Estado</strong></label>
+                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
+                </div>
+            </div>
+            <div class="modal-footer" id="BotonesModalEmpresa">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        ValidarSesion('Empresa');
+        GridEmpresa();
+        ListaTipoDocumento(2);
+        ListaTipoEstado(1);
+    });
+</script>
+

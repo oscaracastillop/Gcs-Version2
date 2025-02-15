@@ -3,21 +3,21 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using static SistemaGcs.Models.Menu;
+using static SistemaGcs.Models.TipoDocumento;
 
 namespace SistemaGcs.Data.DataEntities
 {
-    public class DataMenu
+    public class DataTipoDocumento
     {
         readonly GcsEntities _conection = new GcsEntities();
         private readonly DataRol dataRol = new DataRol();
 
-        public List<ListaMenu> ListaMenu(string Usuario)
+        public List<ListaTipoDocumento> ListaTipoDocumento(int Tipo)
         {
             try
             {
-                var response = _conection.Database.SqlQuery<ListaMenu>("SP_Listamenu @IdUsuario", new SqlParameter("@IdUsuario", Usuario)).ToList();
-                return response;
+                return _conection.Database.SqlQuery<ListaTipoDocumento>("SP_ListaTipoDocumento @Tipo",
+                    new SqlParameter("@Tipo", Tipo)).ToList();
             }
             catch (Exception ex)
             {
