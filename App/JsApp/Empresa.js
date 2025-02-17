@@ -189,8 +189,8 @@ function GridEmpresa() {
         buttons: [{
             extend: 'excelHtml5',
             footer: true,
-            title: tituloReporte + ' ' + NombreEmpresa,
-            filename: tituloReporte + ' - ' + NombreEmpresa + ' ' + jsDate + ' ' + hora,
+            title: tituloReporte + ' ' + NameApp,
+            filename: tituloReporte + ' - ' + NameApp + ' ' + jsDate + ' ' + hora,
             text: 'Descargar Excel',
             exportOptions: {
                 columns: [1, 3, 4, 5, 6, 7, 8, 9,10, 11],
@@ -200,7 +200,7 @@ function GridEmpresa() {
             //download: 'open',
             text: 'Descargar PDF',
             extend: 'pdfHtml5',
-            filename: tituloReporte + ' - ' + NombreEmpresa + ' ' + jsDate + ' ' + hora,
+            filename: tituloReporte + ' - ' + NameApp + ' ' + jsDate + ' ' + hora,
             orientation: 'landscape', //portrait
             pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
             exportOptions: {
@@ -226,7 +226,7 @@ function GridEmpresa() {
                                 italics: true,
                                 alignment: 'right',
                                 fontSize: 10,                                
-                                text: NombreEmpresa + ' - ' + tituloReporte
+                                text: NameApp + ' - ' + tituloReporte
                             }
                         ],
                         margin: 20

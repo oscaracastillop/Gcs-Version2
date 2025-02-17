@@ -1,11 +1,7 @@
-﻿body {
-    /*padding-top: 50px;
-    padding-bottom: 20px;*/
-    font-family: Arial, sans-serif;
-    background-color:#f0f0f0;
-    margin:0;
-    padding:0;
-    font-size:11px !important;
+﻿body {    
+    font-family: Arial, sans-serif !important;
+    font-size: 11px !important;
+    background-color: #f0f0f0;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -25,8 +21,8 @@ header{
     background-color:#333;
     color:white;
     text-align:left;
-    padding:8px;
-    /*height:45px;*/
+    padding:0px;
+    height:55px;
 }
 
 nav ul {
@@ -36,18 +32,15 @@ nav ul {
     overflow: hidden;
 }
 
-nav ul li {
-    /*float:left;*/
-}
-
-nav ul li a{
-    display:block;
-    color:white;
-    text-align:left;
-    padding:14px 16px;
-    text-decoration: none;
-    font-size:12px;
-}
+    nav ul li a {
+        font-family: Arial, sans-serif !important;
+        font-size: 11px !important;
+        display: block;
+        color: white;
+        text-align: left;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
 
 nav ul li a:hover{
     background-color:#333;
@@ -103,8 +96,9 @@ footer{
     color:black !important;
 }
 
-input, button, select{
-    font-size:11px !important;
+input, button, select {
+    font-family: Arial, sans-serif !important;
+    font-size: 11px !important;
 }
 
 #btnNuevoRegistro {
@@ -118,9 +112,21 @@ input, button, select{
     background-color: #333 !important;
 }
 
-#imgLogoEmpresa{
-    height:50px;
-    width:200px;
-    margin-right:15px;
-    border-radius:5px;
+#NameApp {
+    font-family: Pristina;
+    font-size: 40px !important;
+    color: whitesmoke;
+    margin-left: 10px;
+    font-weight:bold;
+}
+
+#SloganEmpresa {
+    font-family: Arial, sans-serif !important;
+    font-size: 11px !important;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 10px;
+    font-size: 9px;
+    margin-left: 10px;
+    color:white;
 }

@@ -37,18 +37,12 @@
 
 </head>
 <body>
-    <header>
-        @*<div class="card-group" style="background-color:darkorange; width:100px !important; border-radius:5px">
-            <h1 style="color:black; margin-left:10px; font-weight:bold">G</h1>
-            <h1 style="color: red; font-weight: bold">C</h1>
-            <h1 style="color: gray; font-weight: bold">S</h1>
-        </div>*@
-        <div class="row">
-            <h1>GCS</h1>
-            <label>hola</label>
+    <header>      
+        <div class="btn-group">
+            @*<img src="~/Images/ImagesApp/LogoSofia02.PNG" style="height:55px; width:150px"/>*@
+            <label id="NameApp"></label>
+            <label id="SloganEmpresa"></label>
         </div>
-        
-         
     </header>
 
     <section id="contenedoruno">
@@ -122,12 +116,8 @@
         } else {
             ListaMenu();
         }
-
-        //$('#cabeceraApp').append(
-        //    '<img src="~/Images/ImagesApp/Logo GCS.jpg" alt="Alternate Text" id="imgLogoEmpresa"/>' +
-        //    '<h4>' + NameEmpresa + '</h4>' +
-        //    '<label>' + SloganEmpresa + '</label>'
-        //);
+        $('#NameApp').text(NameApp);
+        $('#SloganEmpresa').text(SloganEmpresa);
     });
 
     function CerrarSesion() {
@@ -135,3 +125,4 @@
         window.location.href = '/Login';
     }
 </script>
+
