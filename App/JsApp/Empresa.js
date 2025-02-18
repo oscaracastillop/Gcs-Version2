@@ -14,12 +14,12 @@
         $("#TituloModalEmpresa").empty().append('<h6>Crear Empresa</h6>');
         $('#ModalEmpresa').modal('show');
         $("#SelectEstadoEmpresa").hide();
-        $("#BotonesModalEmpresa").empty().append('<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-success btn-sm" onclick="CrearEmpresa()">Guardar</button>');
+        $("#BotonesModalEmpresa").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearEmpresa()">Guardar</button>');
     } if (tipo == 'E') {
         $("#TituloModalEmpresa").empty().append('<h6>Editar Empresa</h6>');
         $('#ModalEmpresa').modal('show');
         $("#SelectEstadoEmpresa").show();
-        $("#BotonesModalEmpresa").empty().append('<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-success btn-sm" onclick="ActualizarEmpresa()">Guardar Cambios</button>');
+        $("#BotonesModalEmpresa").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarEmpresa()">Guardar Cambios</button>');
     }
 }
 
@@ -35,23 +35,23 @@ function CrearEmpresa() {
 
     if (NombreEmpresa == null || NombreEmpresa == '' || NombreEmpresa == undefined) {
         $('#InputNombreEmpresa').focus();
-        Swal.fire(TituloSwal, 'Ingrese nombre de la empresa', 'info');
+        VentanaMensaje('Ingrese nombre de la empresa', 'info');
     } else if (IdTipoDocumento == -1 || IdTipoDocumento == null || IdTipoDocumento == '') {
         $('#SelectTipoDocumento').focus();
-        Swal.fire(TituloSwal, 'Seleccione tipo documento', 'info');
+        VentanaMensaje('Seleccione tipo documento', 'info');
     } else if (Identificacion == null || Identificacion == '' || Identificacion == undefined) {
         $('#InputIdentificacionEmpresa').focus();
-        Swal.fire(TituloSwal, 'Ingrese la identificación', 'info');
+        VentanaMensaje('Ingrese la identificación', 'info');
     } else if (IdCiudad == -1 || IdCiudad == null || IdCiudad == '') {
         $('#SelectCiudad').focus();
-        Swal.fire(TituloSwal, 'Seleccione la ciudad', 'info');
+        VentanaMensaje('Seleccione la ciudad', 'info');
     } else {
         $.ajax({
             type: 'POST',
             dataType: 'json',
             url: '/Empresa/CrearEmpresa',
             data: {
-                IdUser: User,
+                IdUser: TokenUser,
                 NombreEmpresa: NombreEmpresa,
                 IdTipoDocumento: IdTipoDocumento,
                 Identificacion: Identificacion,
@@ -68,6 +68,8 @@ function CrearEmpresa() {
                         title: TituloSwal,
                         text: valor[1],
                         icon: 'success',
+                        position: 'top',
+                        confirmButtonColor: "orangered",
                     }).then((result) => {
                         window.location.reload();
                     })
@@ -93,23 +95,23 @@ function ActualizarEmpresa() {
 
     if (NombreEmpresa == null || NombreEmpresa == '' || NombreEmpresa == undefined) {
         $('#InputNombreEmpresa').focus();
-        Swal.fire(TituloSwal, 'Ingrese nombre de la empresa', 'info');
+        VentanaMensaje('Ingrese nombre de la empresa', 'info');
     } else if (IdTipoDocumento == -1 || IdTipoDocumento == null || IdTipoDocumento == '') {
         $('#SelectTipoDocumento').focus();
-        Swal.fire(TituloSwal, 'Seleccione tipo documento', 'info');
+        VentanaMensaje('Seleccione tipo documento', 'info');
     } else if (Identificacion == null || Identificacion == '' || Identificacion == undefined) {
         $('#InputIdentificacionEmpresa').focus();
-        Swal.fire(TituloSwal, 'Ingrese la Identificación', 'info');
+        VentanaMensaje('Ingrese la identificación', 'info');
     } else if (IdCiudad == -1 || IdCiudad == null || IdCiudad == '') {
         $('#SelectCiudad').focus();
-        Swal.fire(TituloSwal, 'Seleccione la ciudad', 'info');
+        VentanaMensaje('Seleccione la ciudad', 'info');
     } else {
         $.ajax({
             type: 'POST',
             dataType: 'json',
             url: '/Empresa/ActualizarEmpresa',
             data: {
-                IdUser: User,
+                IdUser: TokenUser,
                 IdEmpresa: IdEmpresa,
                 NombreEmpresa: NombreEmpresa,
                 IdTipoDocumento: IdTipoDocumento,
@@ -128,6 +130,8 @@ function ActualizarEmpresa() {
                         title: TituloSwal,
                         text: valor[1],
                         icon: 'success',
+                        position: 'top',
+                        confirmButtonColor: "orangered",
                     }).then((result) => {
                         window.location.reload();
                     })
@@ -145,10 +149,11 @@ function EliminarEmpresa(IdEmpresa) {
         text: "Esta seguro(a)?, No podrás revertir esta acción.!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
+        confirmButtonColor: "orangered",
+        cancelButtonColor: "#333",
         confirmButtonText: "Si, eliminar!",
-        cancelButtonText: "Cancelar"
+        cancelButtonText: "Cancelar",
+        position: 'top'
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -156,7 +161,7 @@ function EliminarEmpresa(IdEmpresa) {
                 dataType: 'json',
                 url: '/Empresa/EliminarEmpresa',
                 data: {
-                    IdUser: User,
+                    IdUser: TokenUser,
                     IdEmpresa: IdEmpresa
                 },
                 success: function (resultado) {
@@ -166,6 +171,8 @@ function EliminarEmpresa(IdEmpresa) {
                             title: TituloSwal,
                             text: valor[1],
                             icon: 'success',
+                            position: 'top',
+                            confirmButtonColor: "orangered",
                         }).then((result) => {
                             location.reload();
                         })
@@ -187,7 +194,7 @@ function GridEmpresa() {
         scrollX: true,
         dom: 'B<"clear">frtip',
         buttons: [{
-            extend: 'excelHtml5',
+            extend: 'excel', className: 'btn btn-excel-datatable',
             footer: true,
             title: tituloReporte + ' ' + NameApp,
             filename: tituloReporte + ' - ' + NameApp + ' ' + jsDate + ' ' + hora,
@@ -196,10 +203,12 @@ function GridEmpresa() {
                 columns: [1, 3, 4, 5, 6, 7, 8, 9,10, 11],
             },
         },
-        {
+            {
+            extend: 'pdf', className: 'btn btn-pdf-datatable',
             //download: 'open',
             text: 'Descargar PDF',
-            extend: 'pdfHtml5',
+            //extend: 'pdfHtml5',
+            
             filename: tituloReporte + ' - ' + NameApp + ' ' + jsDate + ' ' + hora,
             orientation: 'landscape', //portrait
             pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
@@ -217,16 +226,29 @@ function GridEmpresa() {
                     return {
                         columns: [
                             {
-                                image: logoEmpresa64bits,
-                                width: 120,
+                                text: NameApp +' '+SloganEmpresa,
+                                fontSize: 25,
+                                 /* color:'orangered',
+                              image: logoEmpresa64bits,*/
+                                width: 100,
                                 height: 30,
                                 margin: [20, 0]
+                            },
+                            {
+                                text: SloganEmpresa,
+                                fontSize: 7,
+                                italics: true,
+                                /* image: logoEmpresa64bits,*/
+                                width: 120,
+                                height: 30,
+                                margin: [-18, 18]
                             },
                             {
                                 italics: true,
                                 alignment: 'right',
                                 fontSize: 10,                                
-                                text: NameApp + ' - ' + tituloReporte
+                                text: tituloReporte,
+                                margin: [0, 18]
                             }
                         ],
                         margin: 20
@@ -238,7 +260,7 @@ function GridEmpresa() {
                             {
                                 fontSize: 5,
                                 alignment: 'left',
-                                text: GCS + ' ' + now
+                                text: ' ' + now
                             },
                             {
                                 fontSize: 5,
@@ -259,6 +281,13 @@ function GridEmpresa() {
                 doc.content[0].layout = objLayout;
             }
         },
+            {
+                
+                className: 'btn btn-excel-datatable NuevoRegistroEmpresa',
+                text: 'Nuevo Registro',
+
+            }
+            
         ],
         "order": [[1, "asc"]],
         destroy: true,
@@ -269,15 +298,18 @@ function GridEmpresa() {
         },
         columns: [
             {
-                title: "Acciones",
+                title: "Editar",
                 data: null,
-                defaultContent: '<div class="btn-group">' +
-                    '<a href="#" class= "EditarEmpresa btn" title="Editar Registro"><i class="bi-pencil-fill" style="font-size:0.7rem; color: darkorange"></i></a>' +
-                    '<a href="#" class= "EliminarEmpresa btn" title="Eliminar Registro"><i class="bi-trash-fill" style="font-size:0.7rem; color: red"></i></a>' +
-                    '</div > ',
-                className: '',
+                defaultContent: '<a href="#" class= "EditarEmpresa btn btn-editar-dt" title="Editar Registro"><i class="bi-pencil" style="color:white; font-size:0.5rem"></i></a>',
                 orderable: false,
-                width: 'auto' 
+                width: 5 
+            },
+            {
+                title: "Eliminar",
+                data: null,
+                defaultContent: '<a href="#" class="EliminarEmpresa btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash" style="color:white; font-size:0.5rem"></i></a>',
+                orderable: false,
+                width: 5
             },
             { "data": "Nombre", title: "Empresa", width: 'auto' },      
             {
@@ -301,7 +333,22 @@ function GridEmpresa() {
                 }
                 , width: 'auto'
             },
-            { "data": "Estado", title: "Estado", width: 'auto' },
+            //{ "data": "Estado", title: "Estado", width: 'auto' },
+            {
+                title: "Estado",
+                data: "Estado",
+                width: 'auto',
+                "render": function (data, type, row) {
+
+                    if (row.IdEstado == 1) {
+                        return '<label style="background-color:green; padding:2px;border-radius:5px;font-size:10px!important; color:white">&nbsp;'+data+'&nbsp;</label>';
+                    }
+                    else {
+                        return '<label style="background-color:red; padding:2px;border-radius:5px;font-size:10px!important; color: white">&nbsp;' + data + '&nbsp;</label>';
+                    }
+                }
+
+            },
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
 
@@ -333,6 +380,10 @@ function GridEmpresa() {
     $('#gridEmpresa').on('click', '.EliminarEmpresa', function () {
         let data = datatable.row($(this).parents()).data();
         EliminarEmpresa(data.Id);
+    })
+
+    $('#gridEmpresa tbody').on('click', 'button.NuevoRegistroEmpresa', function () {
+        ModalEmpresa('C');
     })
 }
 

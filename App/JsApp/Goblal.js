@@ -1,7 +1,7 @@
 ﻿var TokenUser = Cookies.get('TokenUser'); // Variable donde se almacena el Key del Usuario.
 var TituloSwal = 'Mensaje del Sistema' // Titulo mensaje notificaciones.
 
-var NameApp = 'S o f i a'; // nombre empresa
+var NameApp = 'Sofia'; // nombre empresa
 var SloganEmpresa = 'Software Administrativo'; // nombre empresa
 
 var now = new Date(); // fecha y hora colombia
@@ -22,4 +22,14 @@ function ValidarSesion(Modulo) {
     } else {
         ListaSubMenu('/' + Modulo);
     }
+}
+
+function VentanaMensaje(texto, icon) {
+    Swal.fire({
+        title: TituloSwal,
+        text: texto,
+        icon: icon,
+        position: 'top',
+        confirmButtonColor: "orangered",
+    })
 }
