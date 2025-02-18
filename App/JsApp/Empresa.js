@@ -193,7 +193,9 @@ function GridEmpresa() {
         scrollY: '800px',
         scrollX: true,
         dom: 'B<"clear">frtip',
-        buttons: [{
+        buttons: [
+
+            {
             extend: 'excel', className: 'btn btn-excel-datatable',
             footer: true,
             title: tituloReporte + ' ' + NameApp,
@@ -281,11 +283,13 @@ function GridEmpresa() {
                 doc.content[0].layout = objLayout;
             }
         },
-            {
-                
-                className: 'btn btn-excel-datatable NuevoRegistroEmpresa',
-                text: 'Nuevo Registro',
 
+            {
+                text: 'Nuevo Registro',
+                className: 'btn-pdf-datatable',
+                action: function (e, dt, node, config) {
+                    ModalEmpresa('C');
+                }
             }
             
         ],
@@ -382,9 +386,7 @@ function GridEmpresa() {
         EliminarEmpresa(data.Id);
     })
 
-    $('#gridEmpresa tbody').on('click', 'button.NuevoRegistroEmpresa', function () {
-        ModalEmpresa('C');
-    })
+    
 }
 
 function ListaEmpresa() {
