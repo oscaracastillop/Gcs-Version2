@@ -11,7 +11,7 @@
     $("#SelectCiudad").val(-1);
     $("#BotonesModalEmpresa").empty();
     if (tipo == 'C') {
-        $("#TituloModalEmpresa").empty().append('<h6>Crear Empresa</h6>');
+        $("#TituloModalEmpresa").empty().append('<label>Crear Empresa</label>');
         $('#ModalEmpresa').modal('show');
         $("#SelectEstadoEmpresa").hide();
         $("#BotonesModalEmpresa").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearEmpresa()">Guardar</button>');
@@ -199,18 +199,15 @@ function GridEmpresa() {
             extend: 'excel', className: 'btn btn-excel-datatable',
             footer: true,
             title: tituloReporte + ' ' + NameApp,
-            filename: tituloReporte + ' - ' + NameApp + ' ' + jsDate + ' ' + hora,
-            text: 'Descargar Excel',
+            filename: NameApp + ' - ' +tituloReporte + ' ' + jsDate + ' ' + hora,
+            text: 'Excel',
             exportOptions: {
                 columns: [1, 3, 4, 5, 6, 7, 8, 9,10, 11],
             },
         },
             {
-            extend: 'pdf', className: 'btn btn-pdf-datatable',
-            //download: 'open',
-            text: 'Descargar PDF',
-            //extend: 'pdfHtml5',
-            
+            extend: 'pdfHtml5', className: 'btn btn-pdf-datatable',
+            text: 'Pdf',
             filename: tituloReporte + ' - ' + NameApp + ' ' + jsDate + ' ' + hora,
             orientation: 'landscape', //portrait
             pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
@@ -222,35 +219,22 @@ function GridEmpresa() {
             customize: function (doc) {
                 doc.content.splice(0, 1.5);
                 doc.pageMargins = [40, 60, 20, 30];
-                doc.defaultStyle.fontSize = 7;
-                doc.styles.tableHeader.fontSize = 7;
+                doc.defaultStyle.fontSize = 6;
+                doc.styles.tableHeader.fontSize = 6;
                 doc['header'] = (function () {
                     return {
                         columns: [
                             {
-                                text: NameApp +' '+SloganEmpresa,
-                                fontSize: 25,
-                                 /* color:'orangered',
-                              image: logoEmpresa64bits,*/
-                                width: 100,
+                                image: logoEmpresa64bits,
+                                width: 180,
                                 height: 30,
                                 margin: [20, 0]
                             },
                             {
-                                text: SloganEmpresa,
-                                fontSize: 7,
                                 italics: true,
-                                /* image: logoEmpresa64bits,*/
-                                width: 120,
-                                height: 30,
-                                margin: [-18, 18]
-                            },
-                            {
-                                italics: true,
-                                alignment: 'right',
                                 fontSize: 10,                                
                                 text: tituloReporte,
-                                margin: [0, 18]
+                                margin: [30, 18]
                             }
                         ],
                         margin: 20
@@ -283,10 +267,9 @@ function GridEmpresa() {
                 doc.content[0].layout = objLayout;
             }
         },
-
             {
-                text: 'Nuevo Registro',
-                className: 'btn-pdf-datatable',
+                text: 'Nuevo',
+                className: 'btn btn-nuevo-datatable',
                 action: function (e, dt, node, config) {
                     ModalEmpresa('C');
                 }
@@ -302,18 +285,13 @@ function GridEmpresa() {
         },
         columns: [
             {
-                title: "Editar",
+                title: "Acción",
                 data: null,
-                defaultContent: '<a href="#" class= "EditarEmpresa btn btn-editar-dt" title="Editar Registro"><i class="bi-pencil" style="color:white; font-size:0.5rem"></i></a>',
+                defaultContent: '<div class="btn-group-sm">' +
+                                    '<a href="#" class="EditarEmpresa btn btn-editar-dt" title="Editar Registro"><i class="bi-pencil" style="color:white; font-size:0.5rem"></i></a><a href="#" class="EliminarEmpresa btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash" style="color:white; font-size:0.5rem"></i></a>' +
+                                '</div>',
                 orderable: false,
-                width: 5 
-            },
-            {
-                title: "Eliminar",
-                data: null,
-                defaultContent: '<a href="#" class="EliminarEmpresa btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash" style="color:white; font-size:0.5rem"></i></a>',
-                orderable: false,
-                width: 5
+                width: 'auto',
             },
             { "data": "Nombre", title: "Empresa", width: 'auto' },      
             {
@@ -337,7 +315,6 @@ function GridEmpresa() {
                 }
                 , width: 'auto'
             },
-            //{ "data": "Estado", title: "Estado", width: 'auto' },
             {
                 title: "Estado",
                 data: "Estado",
@@ -384,9 +361,7 @@ function GridEmpresa() {
     $('#gridEmpresa').on('click', '.EliminarEmpresa', function () {
         let data = datatable.row($(this).parents()).data();
         EliminarEmpresa(data.Id);
-    })
-
-    
+    })    
 }
 
 function ListaEmpresa() {
