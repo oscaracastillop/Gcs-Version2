@@ -2,9 +2,9 @@
 
 namespace App.Controllers
 {
-    public class Personal_ExternoController : Controller
+    public class ContratistasController : Controller
     {
-        // GET: Personal_Externo
+        // GET: Contratistas
         public ActionResult Index()
         {
             return View();

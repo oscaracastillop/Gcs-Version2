@@ -9,5 +9,20 @@ namespace App.Controllers
         {
             return View();
         }
+
+        public ActionResult Empresa()
+        {
+            return View();
+        }
+
+        public ActionResult Sucursal()
+        {
+            return View();
+        }
+
+        public ActionResult Sucursal_Empleado()
+        {
+            return View();
+        }
     }
 }

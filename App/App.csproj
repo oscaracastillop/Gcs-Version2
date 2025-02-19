@@ -2398,8 +2398,8 @@
     <Content Include="Views\Contabilidad\Index.cshtml" />
     <Content Include="Views\Almacen\Index.cshtml" />
     <Content Include="Views\Configuracion\Index.cshtml" />
-    <Content Include="Views\Personal_Interno\Index.cshtml" />
-    <Content Include="Views\Personal_Externo\Index.cshtml" />
+    <Content Include="Views\Recursos_Humanos\Index.cshtml" />
+    <Content Include="Views\Contratistas\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Scripts\Sweetalert2\LICENSE" />
@@ -2423,12 +2423,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BonoController.cs" />
+    <Compile Include="Controllers\Cargar_DocumentoController.cs" />
+    <Compile Include="Controllers\CasinoController.cs" />
     <Compile Include="Controllers\CiudadController.cs" />
+    <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ConfiguracionController.cs" />
     <Compile Include="Controllers\AlmacenController.cs" />
     <Compile Include="Controllers\ContabilidadController.cs" />
+    <Compile Include="Controllers\Contrato_LaboralController.cs" />
+    <Compile Include="Controllers\CotizacionController.cs" />
+    <Compile Include="Controllers\Detalle_CotizacionController.cs" />
+    <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\EmpresaController.cs" />
+    <Compile Include="Controllers\Hoja_de_VidaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Hora_ExtraController.cs" />
     <Compile Include="Controllers\InformacionController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MantenimientoController.cs" />
@@ -2436,8 +2446,9 @@
     <Compile Include="Controllers\MipeController.cs" />
     <Compile Include="Controllers\MirfeController.cs" />
     <Compile Include="Controllers\NegocioController.cs" />
-    <Compile Include="Controllers\Personal_ExternoController.cs" />
-    <Compile Include="Controllers\Personal_InternoController.cs" />
+    <Compile Include="Controllers\ContratistasController.cs" />
+    <Compile Include="Controllers\Recursos_HumanosController.cs" />
+    <Compile Include="Controllers\PrestamoController.cs" />
     <Compile Include="Controllers\ProduccionController.cs" />
     <Compile Include="Controllers\SubMenuController.cs" />
     <Compile Include="Controllers\SucursalController.cs" />
@@ -2459,6 +2470,21 @@
     <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.0.0.min.map" />
     <Content Include="Views\Empresa\Index.cshtml" />
+    <Content Include="Views\Sucursal\Index.cshtml" />
+    <Content Include="Views\Sucursal_Empleado\Index.cshtml" />
+    <Content Include="Views\Cliente\Index.cshtml" />
+    <Content Include="Views\Cotizacion\Index.cshtml" />
+    <Content Include="Views\Detalle_Cotizacion\Index.cshtml" />
+    <Content Include="Views\Empleado\Index.cshtml" />
+    <Content Include="Views\Bono\Index.cshtml" />
+    <Content Include="Views\Prestamo\Index.cshtml" />
+    <Content Include="Views\Casino\Index.cshtml" />
+    <Content Include="Views\Hora_Extra\Index.cshtml" />
+    <Content Include="Views\Hoja_de_Vida\Index.cshtml" />
+    <Content Include="Views\Contrato_Laboral\Index.cshtml" />
+    <Content Include="Views\Cargar_Documento\Index.cshtml" />
+    <Content Include="Views\Recursos_Humanos\Empleado.cshtml" />
+    <Content Include="Views\Negocio\Empresa.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

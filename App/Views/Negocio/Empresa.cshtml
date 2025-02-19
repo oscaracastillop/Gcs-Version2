@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "Empresa";
+}
+
+<h6><strong>Modulo Empresa</strong></h6>
+
+<div class="grid" style="color:lightgray">
+    @*<button type="button" id="btnNuevoRegistro" class="btn btn-sm" title="Crear un nuevo registro" onclick="ModalEmpresa('C')">Nuevo Registro</button>*@
+
+    <table id="gridEmpresa" class="table" style="width: 150%;"></table>
+</div>
+
+<!-- Modal Empresa-->
+<div class="modal fade" id="ModalEmpresa" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <div class="modal-title" id="TituloModalEmpresa"></div>
+            </div>
+            <div class="modal-body">
+                <label id="LabelIdEmpresa" hidden></label>
+                <div>
+                    <label><strong>Nombre </strong><label style="color:red"> *</label></label>
+                    <input class="form-control" type="text" id="InputNombreEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <label><strong>Documento </strong><label style="color:red"> *</label></label>
+                        <select class="form-control" id="SelectTipoDocumento" style="min-width:100%"></select>
+                    </div>
+                    <div class="col-7">
+                        <label><strong>Identificación </strong><label style="color:red"> *</label></label>
+                        <input class="form-control" type="text" id="InputIdentificacionEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                </div>
+
+                <div>
+                    <label><strong>Email</strong></label>
+                    <input class="form-control" type="text" id="InputEmailEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <label><strong>Teléfono</strong></label>
+                        <input class="form-control" type="text" id="InputTelefonoEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                    <div class="col-7">
+                        <label><strong>Contacto</strong></label>
+                        <input class="form-control" type="text" id="InputContactoEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                </div>
+
+                <div>
+                    <label><strong>Dirección</strong></label>
+                    <input class="form-control" type="text" id="InputDireccionEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                </div>
+                <div>
+                    <label><strong>Ciudad </strong><label style="color:red"> *</label></label>
+                    <select class="form-control" id="SelectCiudad" style="min-width:100%"></select>
+                </div>
+                <div class="col-3" id="SelectEstadoEmpresa">
+                    <label><strong>Estado</strong></label>
+                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
+                </div>
+                <br />
+                <label style="color: red">Los campos con * son obligatorios</label>
+            </div>
+
+            <div class="modal-footer" id="BotonesModalEmpresa">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        ValidarSesion('/Negocio/Empresa');
+        GridEmpresa();
+        ListaTipoDocumento(2);
+        ListaTipoEstado(1);
+        ListaCiudad();
+    });
+</script>
+
+@*'<div class="btn-group-sm">'+
+        '<a href="#" class="EditarEmpresa btn btn-editar-dt" title="Editar Registro"><i class="bi-pencil" style="color:white; font-size:0.5rem"></i></a>'+
+        '<a href="#" class="EliminarEmpresa btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash" style="color:white; font-size:0.5rem"></i></a>'+
+    '</div>'*@
+

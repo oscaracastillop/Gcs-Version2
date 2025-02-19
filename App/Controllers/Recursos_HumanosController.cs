@@ -2,10 +2,15 @@
 
 namespace App.Controllers
 {
-    public class Personal_InternoController : Controller
+    public class Recursos_HumanosController : Controller
     {
         // GET: Personal
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Empleado()
         {
             return View();
         }
