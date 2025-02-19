@@ -16,7 +16,7 @@
         $("#SelectEstadoEmpresa").hide();
         $("#BotonesModalEmpresa").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearEmpresa()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalEmpresa").empty().append('<h6>Editar Empresa</h6>');
+        $("#TituloModalEmpresa").empty().append('<label>Editar Empresa</label>');
         $('#ModalEmpresa').modal('show');
         $("#SelectEstadoEmpresa").show();
         $("#BotonesModalEmpresa").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarEmpresa()">Guardar Cambios</button>');

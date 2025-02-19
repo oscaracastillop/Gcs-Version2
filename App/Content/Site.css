@@ -119,9 +119,9 @@ input, button, select {
     background-color: orangered !important;
 }
 
-    #btnNuevoRegistro:hover {
-        background-color: #33225a !important;
-    }
+#btnNuevoRegistro:hover {
+    background-color: #33225a !important;
+}
 
 #NameApp {
     font-family: Pristina !important;
@@ -152,8 +152,8 @@ input, button, select {
     background-color: orangered;
     color: white;
     font-weight:bold;
-    height:30px;
-    font-size:12px;
+    height:33px;
+    font-size:13px;
 }
 
 .btn-modal-guardar {
