@@ -283,15 +283,14 @@ function GridEmpresa() {
             "type": "GET",
             "datatype": "json"
         },
-        columns: [
+        columns: [  
             {
-                title: "Acción",
-                data: null,
-                defaultContent: '<div class="btn-group-sm">' +
-                                    '<a href="#" class="EditarEmpresa btn btn-editar-dt" title="Editar Registro"><i class="bi-pencil" style="color:white; font-size:0.5rem"></i></a><a href="#" class="EliminarEmpresa btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash" style="color:white; font-size:0.5rem"></i></a>' +
-                                '</div>',
-                orderable: false,
-                width: 'auto',
+                title: "Logo",
+                "data": '',
+                "render": function (data, type, row, meta) {
+                    return '<a href="#" class="btn LogoEmpresa"><img src="/Images/LogoEmpresa/SinLogo.png" alt="" height="35" width="35" style="border-radius:50%"/></a>';
+                },
+                width: '50px'
             },
             { "data": "Nombre", title: "Empresa", width: 'auto' },      
             {
@@ -314,7 +313,9 @@ function GridEmpresa() {
                     return `${row.Direccion} ${row.Ciudad}`;
                 }
                 , width: 'auto'
-            },
+            },            
+            { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
+            { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
             {
                 title: "Estado",
                 data: "Estado",
@@ -322,7 +323,7 @@ function GridEmpresa() {
                 "render": function (data, type, row) {
 
                     if (row.IdEstado == 1) {
-                        return '<label style="background-color:green; padding:2px;border-radius:5px;font-size:10px!important; color:white">&nbsp;'+data+'&nbsp;</label>';
+                        return '<label style="background-color:green; padding:2px;border-radius:5px;font-size:10px!important; color:white">&nbsp;' + data + '&nbsp;</label>';
                     }
                     else {
                         return '<label style="background-color:red; padding:2px;border-radius:5px;font-size:10px!important; color: white">&nbsp;' + data + '&nbsp;</label>';
@@ -330,8 +331,24 @@ function GridEmpresa() {
                 }
 
             },
-            { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
-            { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
+            {
+                title: "",
+                data: null,
+                defaultContent: '<div class="btn-group-sm">' +
+                    '<a href="#" class="EditarEmpresa" title="Editar Registro">Editar</a>' +
+                    '</div>',
+                orderable: false,
+                width: 'auto',
+            },
+            {
+                title: "",
+                data: null,
+                defaultContent: '<div class="btn-group-sm">' +
+                    '<a href="#" class= "EliminarEmpresa" title="Eliminar Registro" style="color:red">Eliminar</a>' +
+                    '</div>',
+                orderable: false,
+                width: 'auto',
+            },
 
         ],
         "language": {
@@ -362,6 +379,17 @@ function GridEmpresa() {
         let data = datatable.row($(this).parents()).data();
         EliminarEmpresa(data.Id);
     })    
+
+    $('#gridEmpresa').on('click', '.LogoEmpresa', function () {
+        let data = datatable.row($(this).parents()).data();
+        $('#ModalLogoEmpresa').modal('show');
+        //$('#IdEmpleadoImagen').text(data.Id);
+        //$('#NombreImagenActualEmpleado').text(data.Imagen);
+        //$('#NombreEmpleadoImagen').text(data.Nombre + ' ' + data.Apellidos);
+        //$('#ImagenHVEmpleado').empty().append(
+        //    '<img src="/Images/ImagenHVEmpleado/' + data.Imagen + '" alt="" style="height:300px; width:300px; border-radius:50%; border:0px solid; background:white;padding:0px"/>'
+        //);
+    })
 }
 
 function ListaEmpresa() {
@@ -400,7 +428,57 @@ function ListaIdEmpresaXIdEmpleado(IdEmpleado) {
 }
 
 
+function GuardarLogoEmpresa() {
+    var IdEmpresa = $('#IdEmpresaLogo').text();
+    var NombreLogo = $('#NombreLogoActualEmpresa').text();
+    var photo = new Array();
+    var formData = new FormData();
 
+    var Imagen = $('#inPhoto').val();
+
+    if (Imagen == null || Imagen == '' || Imagen == undefined) {
+        $('#inPhoto').focus();
+        VentanaMensaje('El campo de imagén esta vacío', 'info');
+    } else {
+        if ($('#inPhoto')[0].files.length > 0) {
+            formData.append('Files', $('#inPhoto')[0].files[0], $('#inPhoto')[0].files[0].name);
+        }
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/Empresa/DatosEmpresa',
+            data: {
+                IdEmpresa: IdEmpresa,
+                IdUsuario: TokenUser,
+                NombreImagen: NombreImagen
+            }
+        });
+        photo.push(formData);
+        $.ajax({
+            type: 'POST',
+            data: photo[0],
+            url: '/Empresa/GuardarLogoEmpresa',
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                valor = result.split('*');
+                if (valor[0] == 'OK') {
+                    Swal.fire({
+                        title: TituloSwal,
+                        text: valor[1],
+                        icon: 'success',
+                        position: 'top',
+                        confirmButtonColor: "orangered",
+                    }).then((result) => {
+                        location.reload();
+                    })
+                } else {
+                    Swal.fire(TituloSwal, valor[1], 'info');
+                }
+            }
+        });
+    }
+}
     
 
 

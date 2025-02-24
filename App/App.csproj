@@ -2179,6 +2179,8 @@
     <Content Include="Images\ImagesApp\Logo GCS.jpg" />
     <Content Include="Images\ImagesApp\LogoSofia02.PNG" />
     <Content Include="Images\ImagesProfileUsers\Usuario.png" />
+    <Content Include="Images\LogoEmpresa\LogoEyG.png" />
+    <Content Include="Images\LogoEmpresa\SinLogo.png" />
     <Content Include="JsApp\Ciudad.js" />
     <Content Include="JsApp\Empresa.js" />
     <Content Include="JsApp\Goblal.js" />

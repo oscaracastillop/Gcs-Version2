@@ -72,6 +72,33 @@
     </div>
 </div>
 
+<!-- Modal logo Empresa-->
+<div class="modal fade" id="ModalLogoEmpresa" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <div class="modal-title"><label>Logo Empresa</label></div>
+            </div>
+            <label id="IdEmpleadoImagen" hidden></label>
+            <label id="NombreImagenActualEmpleado" hidden></label>
+            <div class="modal-body" style="text-align:center">
+                <div style="text-align:center">
+                    <h6><strong id="NombreEmpleadoImagen"></strong></h6>
+                    <div id="ImagenHVEmpleado" style="margin-top:10px; text-align:center"></div>
+                    <br />
+                </div>
+                <div style="margin-top:15px">
+                    <input type="file" class="form-control" id="inPhoto" name="name" aria-describedby="inputGroupFileAddon04" aria-label="Upload" accept="image/*" style="min-width:100%">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                <button class="btn btn-modal-guardar btn-sm" type="button" onclick="GuardarImagenHVEmpleado()">Guardar Imagen</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function () {
         ValidarSesion('/Negocio/Empresa');

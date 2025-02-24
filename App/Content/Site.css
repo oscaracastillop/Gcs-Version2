@@ -208,7 +208,7 @@ input, button, select {
 }
 
 .btn-eliminar-dt {
-    background-color: #333 !important;
+    background-color: red !important;
     font-size: 8px !important;
     color: white !important;
     margin-left: 1px;
@@ -216,3 +216,11 @@ input, button, select {
     line-height:15px;
 }
 
+.btn-logo-dt {
+    background-color: purple !important;
+    font-size: 8px !important;
+    color: white !important;
+    margin-left: 1px;
+    height: 20px;
+    line-height: 15px;
+}
