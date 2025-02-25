@@ -3,19 +3,93 @@
     ViewBag.Title = "Inicio";
 }
 
-<h6>Bienvenido Estimado Usuario</h6>
-
-<img src="~/Images/LogoEmpresa/LogoEyG.png" style="height:280px!important"/>
-
+<h6><Strong>Bienvenido Estimado Usuario</Strong></h6>
 <br />
 
-<div>
-    <H4><strong>EMPRESA:</strong><label>E&G CONSTRUCCIONES SAS</label></H4>
-    <h6><strong>Tipo Documento:</strong><label>NIT</label></h6>
-    <h6><strong>Número:</strong><label>302365842</label></h6>
-    <h6><strong>Total Sucursales:</strong><label>30</label></h6>
+<div class="row" style="margin-left:15px; border:none">
+    <div class="card" style="width:500px; border:none">
+        <img class="card-img-top" src="~/Images/LogoEmpresa/LogoEyG.png" alt="Card image">
+        <div class="card-body">
+            <h4 class="card-title" id="NombreEmpresa">E&G CONSTRUCCIONES SAS</h4>
+            <label>Nit: 123.456.789-2</label>
+            <br />
+            <label><i class="bi-envelope-fill"></i> <a href="mailto:eygconstruccionessas@gmail.com">eygconstruccionessas@gmail.com</a></label>
+            <br />
+            <label><i class="bi-telephone-fill"></i> 315 2653657</label>
+            <br />
+            <label><i class="bi-whatsapp"></i> 315 2653657</label>
+            <br />
+            <label><i class="bi-pin-map-fill"></i> Madrid, Cundinamarca</label>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row" style="margin-left:15px">
+    <div class="card" style="width:150px; padding:0px !important; margin-left:15px">
+        <div style="background-color:orangered; text-align:center; min-width:100%">
+            <i class="card-img-top bi-boxes" style="font-size:4rem; color:white"></i>
+        </div>
+        <div class="card-body" style="text-align:center">
+            <h6 class="card-title" id="NombreEmpresa"><strong>Clientes</strong></h6>
+            <h3 class="card-text" style="font-weight:bold; color:green">150</h3>
+            <label>Activos: <label></label>40</label>
+            <label>In-Activos: <label style="color:red; font-weight:bold">10</label></label>
+            @*<small>Total Empleados Creados en el Sistema</small>*@
+            @*<br />
+                <br />
+                <a href="/Empleado" class="btn btn-nuevo-datatable">Ir a Empleados</a>*@
+        </div>
+    </div>
+    <div class="card" style="width:150px; padding:0px !important; margin-left:15px">
+        <div style="background-color: orangered; text-align: center; min-width: 100%">
+            <i class="card-img-top bi-houses" style="font-size:4rem; color:white"></i>
+        </div>
+        <div class="card-body" style="text-align:center">
+            <h6 class="card-title" id="NombreEmpresa"><strong>Sucursales</strong></h6>
+            <h3 class="card-text" style="font-weight:bold; color:green">8</h3>
+            <label>Activos: <label></label>40</label>
+            <label>In-Activos: <label style="color:red; font-weight:bold">10</label></label>
+            @*<small>Total Sucursales Creadas en el Sistema</small>*@
+            @*<br />
+                <br />
+                <a href="#" class="btn btn-nuevo-datatable">Ir a Sucursales</a>*@
+        </div>
+    </div>
+
+    <div class="card" style="width:150px; padding:0px !important; margin-left:15px">
+        <div style="background-color:orangered; text-align:center; min-width:100%">
+            <i class="card-img-top bi-people" style="font-size:4rem; color:white"></i>
+        </div>
+        <div class="card-body" style="text-align:center">
+            <h6 class="card-title" id="NombreEmpresa"><strong>Empleados</strong></h6>
+            <h3 class="card-text" style="font-weight:bold; color:green">50</h3>
+            <label>Activos: <label></label>40</label>
+            <label>In-Activos: <label style="color:red; font-weight:bold">10</label></label>
+
+            @*<small>Total Empleados Creados en el Sistema</small>*@
+            @*<br />
+                <br />
+                <a href="/Empleado" class="btn btn-nuevo-datatable">Ir a Empleados</a>*@
+        </div>
+    </div>
+
+    <div class="card" style="width:150px; padding:0px !important; margin-left:15px">
+        <div style="background-color:orangered; text-align:center; min-width:100%">
+            <i class="card-img-top bi-boxes" style="font-size:4rem; color:white"></i>
+        </div>
+        <div class="card-body" style="text-align:center">
+            <h6 class="card-title" id="NombreEmpresa"><strong>Productos</strong></h6>
+            <h3 class="card-text" style="font-weight:bold; color:green">150</h3>
+            <label>Activos: <label></label>40</label>
+            <label>In-Activos: <label style="color:red; font-weight:bold">10</label></label>
+            @*<small>Total Empleados Creados en el Sistema</small>*@
+            @*<br />
+                <br />
+                <a href="/Empleado" class="btn btn-nuevo-datatable">Ir a Empleados</a>*@
+        </div>
+    </div>
 </div>
 
 
 
-
+<br /><br />
