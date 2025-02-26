@@ -188,7 +188,7 @@ function EliminarEmpresa(IdEmpresa) {
 function GridEmpresa() {
     var tituloReporte = 'LISTADO DE EMPRESAS';
     let datatable = $('#gridEmpresa').DataTable({
-        responsive: false,
+        responsive: true,
         scrollCollapse: true,
         scrollY: '800px',
         scrollX: true,
@@ -383,12 +383,13 @@ function GridEmpresa() {
     $('#gridEmpresa').on('click', '.LogoEmpresa', function () {
         let data = datatable.row($(this).parents()).data();
         $('#ModalLogoEmpresa').modal('show');
-        //$('#IdEmpleadoImagen').text(data.Id);
-        //$('#NombreImagenActualEmpleado').text(data.Imagen);
+        //$('#IdLogoEmpresa').text(data.Id);
+        //$('#NombreLogoActualEmpresa').text(data.Imagen);
         //$('#NombreEmpleadoImagen').text(data.Nombre + ' ' + data.Apellidos);
-        //$('#ImagenHVEmpleado').empty().append(
-        //    '<img src="/Images/ImagenHVEmpleado/' + data.Imagen + '" alt="" style="height:300px; width:300px; border-radius:50%; border:0px solid; background:white;padding:0px"/>'
-        //);
+        $('#ImagenLogoEmpleado').empty().append(
+            /*'<img src="/Images/ImagenHVEmpleado/' + data.Imagen + '" alt="" style="height:300px; width:300px; border-radius:50%; border:0px solid; background:white;padding:0px"/>'*/
+            '<img src="/Images/LogoEmpresa/LogoEyG.png" alt="" style="height:300px; width:300px; border-radius:50%; border:0px solid; background:white;padding:0px"/>'
+        );
     })
 }
 
