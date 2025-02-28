@@ -108,10 +108,9 @@ namespace SistemaGcs.App.Controllers
                     }
 
                 }
-                catch (Exception ex)
+                catch (Exception )
                 {
-                    throw ex;
-                    //result = "Error*No se logro guardar la imagén.";
+                                        result = "Error*No se logro guardar la imagén.";
                 }
             }
             else

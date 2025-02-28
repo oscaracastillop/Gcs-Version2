@@ -383,11 +383,11 @@ function GridEmpresa() {
     $('#gridEmpresa').on('click', '.LogoEmpresa', function () {
         let data = datatable.row($(this).parents()).data();
         $('#ModalLogoEmpresa').modal('show');
-        //$('#IdLogoEmpresa').text(data.Id);
-        //$('#NombreLogoActualEmpresa').text(data.Imagen);
+        $('#IdEmpresaLogo').text(data.Id);
+        $('#NombreLogoActualEmpresa').text(data.Logo);
         //$('#NombreEmpleadoImagen').text(data.Nombre + ' ' + data.Apellidos);
-        $('#ImagenLogoEmpleado').empty().append(            
-            '<img src="/Images/LogoEmpresa/LogoEyG.png" alt="" style="height:150px; border-radius:5%; border:0px solid; background:white;padding:0px"/>'
+        $('#ImagenLogoEmpresa').empty().append(            
+            '<img src="/Images/LogoEmpresa/' + data.Logo +'" style="width:300px; border-radius:5%; border:0px solid; background:white;padding:0px"/>'
         );
     })
 }
@@ -434,14 +434,14 @@ function GuardarLogoEmpresa() {
     var photo = new Array();
     var formData = new FormData();
 
-    var Imagen = $('#inPhoto').val();
+    var Imagen = $('#inPhotoEmpresa').val();
 
     if (Imagen == null || Imagen == '' || Imagen == undefined) {
-        $('#inPhoto').focus();
+        $('#inPhotoEmpresa').focus();
         VentanaMensaje('El campo de imagén esta vacío', 'info');
     } else {
-        if ($('#inPhoto')[0].files.length > 0) {
-            formData.append('Files', $('#inPhoto')[0].files[0], $('#inPhoto')[0].files[0].name);
+        if ($('#inPhotoEmpresa')[0].files.length > 0) {
+            formData.append('Files', $('#inPhotoEmpresa')[0].files[0], $('#inPhotoEmpresa')[0].files[0].name);
         }
         $.ajax({
             type: 'POST',
