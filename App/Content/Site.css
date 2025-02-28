@@ -200,20 +200,23 @@ input, button, select {
 }
 
 .btn-editar-dt {
-    background-color: orangered !important;
-    font-size: 8px !important;
+    background-color: #444 !important;
+    font-size: 10px !important;
     color: white !important;
-    height: 20px;
-    line-height: 15px;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    padding-left: 4px !important;
+    padding-right: 4px !important;
 }
 
 .btn-eliminar-dt {
     background-color: red !important;
-    font-size: 8px !important;
+    font-size: 10px !important;
     color: white !important;
-    margin-left: 1px;
-    height: 20px;
-    line-height:15px;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    padding-left: 4px !important;
+    padding-right: 4px !important;
 }
 
 .btn-logo-dt {

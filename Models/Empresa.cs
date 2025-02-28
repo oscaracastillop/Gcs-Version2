@@ -15,6 +15,7 @@
             public string Direccion { get; set; }
             public string Ciudad { get; set; }
             public int IdCiudad { get; set; }
+            public string Logo { get; set; }
             public int IdEstado { get; set; }
             public string Estado { get; set; }
             public string CreateBy { get; set; }
@@ -25,7 +26,7 @@
         {
             public int Id { get; set; }
             public string Nombre { get; set; }
-        }
+        }        
 
     }
 }

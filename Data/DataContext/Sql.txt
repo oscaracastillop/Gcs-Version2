@@ -405,9 +405,9 @@ ALTER TABLE SubMenu ADD CONSTRAINT FK_IdEstadoSubMenu FOREIGN KEY (IdEstado) ref
 
 GO
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (2, 'Empresa','bi-building', '2rem', 'white','/Empresa')--1
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (2, 'Sucursal','bi-houses', '2rem', 'white','/Sucursal')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (2, 'Sucursal Empleado','bi-house-gear','2rem','white','/Sucursal_Empleado')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (2, 'Empresa','bi-building', '2rem', 'white','/Negocio/Empresa')--1
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (2, 'Sucursal','bi-houses', '2rem', 'white','/Negocio/Sucursal')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (2, 'Sucursal Empleado','bi-house-gear','2rem','white','/Negocio/Sucursal_Empleado')
 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (12, 'Actividad','bi-wrench-adjustable-circle','2rem','white','/Actividad')--
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta) VALUES (12, 'Banco','bi-bank','2rem','white','/Banco')--
@@ -1790,7 +1790,7 @@ Telefono varchar(255),
 Contacto varchar(255),
 IdCiudad int,
 Direccion varchar(255),
-Logo varchar(255),
+Logo varchar(255) default 'NoImage.png',
 IdEstado int default 1,
 CreateBy int,
 DateCreate datetime
@@ -1809,7 +1809,7 @@ ALTER TABLE Empresa ADD CONSTRAINT FK_IdTipodocumentoEmpresa FOREIGN KEY (IdTipo
 
 GO
 
-INSERT INTO Empresa (Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdCiudad, Direccion, CreateBy, DateCreate) VALUES ('E&G Contrucciones S.A.S', 5, '901.766.109-1','edwinfabiangarzon@hotmail.com', '321 4208189', 'Edwin Fabian Garzón López', 571, '',1, GETDATE())
+INSERT INTO Empresa (Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdCiudad, Direccion, CreateBy, DateCreate) VALUES ('E&G Contrucciones S.A.S', 5, '901.766.109-1','edwinfabiangarzon@hotmail.com', '321 4208189', 'Edwin Fabian Garzón López', 571, '', 1, GETDATE())
 
 GO
 
@@ -1832,7 +1832,7 @@ DECLARE @Permiso INT,
 		@SubMenu varchar(255)
 
 SET @Accion = 'Crear'
-SET @SubMenu = '/Empresa'
+SET @SubMenu = '/Negocio/Empresa'
 
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
@@ -1900,7 +1900,7 @@ DECLARE @Permiso INT,
 		@IdEstadov varchar(255) = (SELECT IdEstado FROM Empresa WHERE Id = @IdEmpresa)	 
 
 SET @Accion = 'Crear'
-SET @SubMenu = '/Empresa'
+SET @SubMenu = '/Negocio/Empresa'
 
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
@@ -1962,7 +1962,7 @@ DECLARE @Permiso INT,
 		@SubMenu varchar(255)
 
 SET @Accion = 'Eliminar'
-SET @SubMenu = '/Empresa'
+SET @SubMenu = '/Negocio/Empresa'
 
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @NombreEmpresa = Nombre FROM Empresa WHERE Id = @IdEmpresa
@@ -2039,6 +2039,27 @@ AS BEGIN
 DECLARE @NombreEmpresa VARCHAR(255)
 	SELECT	@NombreEmpresa = Nombre	FROM Empresa WHERE Id = @IdEmpresa
 	RETURN @NombreEmpresa
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GuardarUrlLogoEmpresaBaseDatos] @IdUser varchar(255), @IdEmpresa int, @UrlLogoEmpresa varchar(255), @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Editar INT, @IdUsuario INT, @validar INT, @SubMenu VARCHAR(255)
+SET @SubMenu = 'Negocio/Empresa'
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+	SELECT	@Editar = dbo.Fun_PermisoUsuario('Editar',@IdUsuario, @SubMenu)	
+		IF @Editar > 0
+			BEGIN	
+				UPDATE Empresa set Logo = @UrlLogoEmpresa WHERE Id = @IdEmpresa
+				SET @Resultado = 'OK*Se guardo el Logo de la Empresa correctamente'														
+			END
+		ELSE
+			BEGIN
+				SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+			END
+	SELECT @Resultado
 END
 
 GO

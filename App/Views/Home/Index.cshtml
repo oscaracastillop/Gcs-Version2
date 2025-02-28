@@ -7,21 +7,7 @@
 <br />
 
 <div class="row" style="margin-left:15px; border:none">
-    <div class="card" style="width:500px; border:none">
-        <img class="card-img-top" src="~/Images/LogoEmpresa/LogoEyG.png" alt="Card image">
-        <div class="card-body">
-            <h4 class="card-title" id="NombreEmpresa">E&G CONSTRUCCIONES SAS</h4>
-            <label>Nit: 123.456.789-2</label>
-            <br />
-            <label><i class="bi-envelope-fill"></i> <a href="mailto:eygconstruccionessas@gmail.com">eygconstruccionessas@gmail.com</a></label>
-            <br />
-            <label><i class="bi-telephone-fill"></i> 315 2653657</label>
-            <br />
-            <label><i class="bi-whatsapp"></i> 315 2653657</label>
-            <br />
-            <label><i class="bi-pin-map-fill"></i> Madrid, Cundinamarca</label>
-        </div>
-    </div>
+    <div class="card" id="CardDatosEmpresa" style="width:500px; border:none"></div>
 </div>
 <br />
 <div class="row" style="margin-left:15px">
@@ -93,3 +79,10 @@
 
 
 <br /><br />
+
+
+<script>
+    $(document).ready(function () {       
+        CardDatosEmpresa();
+    });
+</script>

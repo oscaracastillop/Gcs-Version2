@@ -188,7 +188,7 @@ function EliminarEmpresa(IdEmpresa) {
 function GridEmpresa() {
     var tituloReporte = 'LISTADO DE EMPRESAS';
     let datatable = $('#gridEmpresa').DataTable({
-        responsive: true,
+        responsive: false,
         scrollCollapse: true,
         scrollY: '800px',
         scrollX: true,
@@ -286,9 +286,10 @@ function GridEmpresa() {
         columns: [  
             {
                 title: "Logo",
-                "data": '',
+                "data": 'Logo',
                 "render": function (data, type, row, meta) {
-                    return '<a href="#" class="btn LogoEmpresa"><img src="/Images/LogoEmpresa/SinLogo.png" alt="" height="35" width="35" style="border-radius:50%"/></a>';
+                   
+                    return '<img class="btn LogoEmpresa" src="/Images/LogoEmpresa/' + data + '" alt="" height="50px" style="border-radius:5%"/>';
                 },
                 width: '50px'
             },
@@ -334,18 +335,17 @@ function GridEmpresa() {
             {
                 title: "",
                 data: null,
-                defaultContent: '<div class="btn-group-sm">' +
-                    '<a href="#" class="EditarEmpresa" title="Editar Registro">Editar</a>' +
-                    '</div>',
+                defaultContent: 
+                    '<a class="EditarEmpresa btn btn-editar-dt" title="Editar Registro">Editar</a>',
+                    
                 orderable: false,
                 width: 'auto',
             },
             {
                 title: "",
                 data: null,
-                defaultContent: '<div class="btn-group-sm">' +
-                    '<a href="#" class= "EliminarEmpresa" title="Eliminar Registro" style="color:red">Eliminar</a>' +
-                    '</div>',
+                defaultContent: 
+                    '<a class= "EliminarEmpresa btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>',
                 orderable: false,
                 width: 'auto',
             },
@@ -386,9 +386,8 @@ function GridEmpresa() {
         //$('#IdLogoEmpresa').text(data.Id);
         //$('#NombreLogoActualEmpresa').text(data.Imagen);
         //$('#NombreEmpleadoImagen').text(data.Nombre + ' ' + data.Apellidos);
-        $('#ImagenLogoEmpleado').empty().append(
-            /*'<img src="/Images/ImagenHVEmpleado/' + data.Imagen + '" alt="" style="height:300px; width:300px; border-radius:50%; border:0px solid; background:white;padding:0px"/>'*/
-            '<img src="/Images/LogoEmpresa/LogoEyG.png" alt="" style="height:300px; width:300px; border-radius:50%; border:0px solid; background:white;padding:0px"/>'
+        $('#ImagenLogoEmpleado').empty().append(            
+            '<img src="/Images/LogoEmpresa/LogoEyG.png" alt="" style="height:150px; border-radius:5%; border:0px solid; background:white;padding:0px"/>'
         );
     })
 }
@@ -451,7 +450,7 @@ function GuardarLogoEmpresa() {
             data: {
                 IdEmpresa: IdEmpresa,
                 IdUsuario: TokenUser,
-                NombreImagen: NombreImagen
+                NombreImagen: NombreLogo
             }
         });
         photo.push(formData);
@@ -482,9 +481,39 @@ function GuardarLogoEmpresa() {
 }
     
 
+function DashboardHome() {
+    CardDatosEmpresa();
+    //CardDatosClientes();
+    //CardDatosSucursales();
+    //CardDatosEmpleados();
+    //CardDatosProductos();
+}
 
 
-
-
+function CardDatosEmpresa() {
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '/Empresa/GridEmpresa',
+        data: {},
+        success: function (resultado) {
+            $('#CardDatosEmpresa').append(
+                '<img class="card-img-top" src="/Images/LogoEmpresa/' +resultado.data[0].Logo +'">'+
+                    '<div class="card-body">'+
+                    '<h4 class="card-title" id="NombreEmpresa">' + resultado.data[0].Nombre +'</h4>'+
+                    '<label> ' + resultado.data[0].TipoDocumento +': ' + resultado.data[0].Identificacion +'</label>'+
+                        '<br />'+
+                        '<label><i class="bi-envelope-fill"></i> <a href="mailto:' + resultado.data[0].Email + '">' + resultado.data[0].Email +'</a></label>'+
+                        '<br />'+
+                        '<label><i class="bi-telephone-fill"></i> ' + resultado.data[0].Telefono +'</label>'+
+                        '<br />'+
+                        '<label><i class="bi-whatsapp"></i> ' + resultado.data[0].Telefono +'</label>'+
+                        '<br />'+
+                '<label><i class="bi-pin-map-fill"></i> ' + resultado.data[0].Direccion + ' ' + resultado.data[0].Ciudad +'</label>'+
+                    '</div>'
+            );
+        },
+    });
+}
 
 
