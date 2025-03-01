@@ -20,10 +20,6 @@
             <h3 class="card-text" style="font-weight:bold; color:green">150</h3>
             <label>Activos: <label></label>40</label>
             <label>In-Activos: <label style="color:red; font-weight:bold">10</label></label>
-            @*<small>Total Empleados Creados en el Sistema</small>*@
-            @*<br />
-                <br />
-                <a href="/Empleado" class="btn btn-nuevo-datatable">Ir a Empleados</a>*@
         </div>
     </div>
     <div class="card" style="width:150px; padding:0px !important; margin:15px">
@@ -35,10 +31,6 @@
             <h3 class="card-text" style="font-weight:bold; color:green">8</h3>
             <label>Activos: <label></label>40</label>
             <label>In-Activos: <label style="color:red; font-weight:bold">10</label></label>
-            @*<small>Total Sucursales Creadas en el Sistema</small>*@
-            @*<br />
-                <br />
-                <a href="#" class="btn btn-nuevo-datatable">Ir a Sucursales</a>*@
         </div>
     </div>
 
@@ -51,11 +43,6 @@
             <h3 class="card-text" style="font-weight:bold; color:green">50</h3>
             <label>Activos: <label></label>40</label>
             <label>In-Activos: <label style="color:red; font-weight:bold">10</label></label>
-
-            @*<small>Total Empleados Creados en el Sistema</small>*@
-            @*<br />
-                <br />
-                <a href="/Empleado" class="btn btn-nuevo-datatable">Ir a Empleados</a>*@
         </div>
     </div>
 
@@ -68,15 +55,11 @@
             <h3 class="card-text" style="font-weight:bold; color:green">150</h3>
             <label>Activos: <label></label>40</label>
             <label>In-Activos: <label style="color:red; font-weight:bold">10</label></label>
-            @*<small>Total Empleados Creados en el Sistema</small>*@
-            @*<br />
-                <br />
-                <a href="/Empleado" class="btn btn-nuevo-datatable">Ir a Empleados</a>*@
         </div>
     </div>
 </div>
 
-
+<img src="" id="LogoEmpresa"  alt="Alternate Text" />
 
 <br /><br />
 
@@ -84,5 +67,8 @@
 <script>
     $(document).ready(function () {       
         CardDatosEmpresa();
+        getBase64Image();
+        //var img = document.getElementById("LogoEmpresa");
+        //alert(img);
     });
 </script>

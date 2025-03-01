@@ -225,7 +225,7 @@ function GridEmpresa() {
                     return {
                         columns: [
                             {
-                                image: logoEmpresa64bits,
+                                image: logoEmpresabase64,
                                 width: 180,
                                 height: 30,
                                 margin: [20, 0]
@@ -385,9 +385,9 @@ function GridEmpresa() {
         $('#ModalLogoEmpresa').modal('show');
         $('#IdEmpresaLogo').text(data.Id);
         $('#NombreLogoActualEmpresa').text(data.Logo);
-        //$('#NombreEmpleadoImagen').text(data.Nombre + ' ' + data.Apellidos);
+        $('#NombreEmpresaLogo').text(data.Nombre);
         $('#ImagenLogoEmpresa').empty().append(            
-            '<img src="/Images/LogoEmpresa/' + data.Logo +'" style="width:300px; border-radius:5%; border:0px solid; background:white;padding:0px"/>'
+            '<img src="/Images/LogoEmpresa/' + data.Logo +'" style="height:200px; width:300px; border-radius:5%; border:0px solid; background:white;padding:0px"/>'
         );
     })
 }
@@ -498,7 +498,7 @@ function CardDatosEmpresa() {
         data: {},
         success: function (resultado) {
             $('#CardDatosEmpresa').append(
-                '<img class="card-img-top" src="/Images/LogoEmpresa/' +resultado.data[0].Logo +'">'+
+                '<img class="card-img-top" id="" src="/Images/LogoEmpresa/' + resultado.data[0].Logo +'" style="height:200px; width:400px">'+
                     '<div class="card-body">'+
                     '<h4 class="card-title" id="NombreEmpresa">' + resultado.data[0].Nombre +'</h4>'+
                     '<label> ' + resultado.data[0].TipoDocumento +': ' + resultado.data[0].Identificacion +'</label>'+
@@ -515,5 +515,18 @@ function CardDatosEmpresa() {
         },
     });
 }
+
+
+
+
+
+
+function myfunction() {
+    
+    var base64 = getBase64Image();
+}
+
+
+
 
 

@@ -2183,6 +2183,7 @@
     <Content Include="Images\LogoEmpresa\NoImage.png" />
     <Content Include="JsApp\Ciudad.js" />
     <Content Include="JsApp\Empresa.js" />
+    <Content Include="JsApp\getBase64FomFile.js" />
     <Content Include="JsApp\Goblal.js" />
     <Content Include="JsApp\Login.js" />
     <Content Include="JsApp\Menu.js" />
