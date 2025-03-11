@@ -11,15 +11,15 @@
     $("#BotonesModalSucursal").empty();
     $("#TituloModalSucursal").empty();
     if (tipo == 'C') {
-        $("#TituloModalSucursal").empty().append('<h6>Crear Sucursal</h6>');
-        $('#ModalCrearSucursal').modal('show');
+        $("#TituloModalSucursal").empty().append('<label>Crear Sucursal</label>');
+        $('#ModalSucursal').modal('show');
         $("#SelectEstadoSucursal").hide();
-        $("#BotonesModalSucursal").empty().append('<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-success btn-sm" onclick="CrearSucursal()">Guardar</button>');
+        $("#BotonesModalSucursal").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearSucursal()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalSucursal").empty().append('<h6>Editar Sucursal</h6>');
-        $('#ModalCrearSucursal').modal('show');
+        $("#TituloModalSucursal").empty().append('<label>Editar Sucursal</label>');
+        $('#ModalSucursal').modal('show');
         $("#SelectEstadoSucursal").show();
-        $("#BotonesModalSucursal").empty().append('<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-success btn-sm" onclick="ActualizarSucursal()">Guardar Cambios</button>');
+        $("#BotonesModalSucursal").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarSucursal()">Guardar Cambios</button>');
     }
 }
 
@@ -138,86 +138,88 @@ function GridSucursal() {
         scrollY: '800px',
         scrollX: true,
         dom: 'B<"clear">frtip',
-        buttons: [{
-            extend: 'excelHtml5',
-            footer: true,
-            title: tituloReporte + ' ' + NombreEmpresa,
-            filename: tituloReporte + ' - ' + NombreEmpresa + ' ' + jsDate + ' ' + hora,
-            text: 'Descargar Excel',
-            exportOptions: {
-                columns: [1, 2, 3, 4, 5, 6, 7, 8,9],
+        buttons: [
+
+            {
+                extend: 'excel', className: 'btn btn-excel-datatable',
+                footer: true,
+                title: tituloReporte + ' ' + NameApp,
+                filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
+                text: 'Excel',
+                exportOptions: {
+                    columns: [1, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+                },
             },
-        },
-        {
-            //download: 'open',
-            text: 'Descargar PDF',
-            extend: 'pdfHtml5',
-            filename: tituloReporte + ' - ' + NombreEmpresa + ' ' + jsDate + ' ' + hora,
-            orientation: 'landscape', //portrait
-            pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
-            exportOptions: {
-                columns: [1, 2, 3, 4, 5, 6, 7, 8,9],
-                search: 'applied',
-                order: 'applied',
+            {
+                extend: 'pdfHtml5', className: 'btn btn-pdf-datatable',
+                text: 'Pdf',
+                filename: tituloReporte + ' - ' + NameApp + ' ' + jsDate + ' ' + hora,
+                orientation: 'landscape', //portrait
+                pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
+                exportOptions: {
+                    columns: [1, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+                    search: 'applied',
+                    order: 'applied',
+                },
+                customize: function (doc) {
+                    doc.content.splice(0, 1.5);
+                    doc.pageMargins = [40, 60, 20, 30];
+                    doc.defaultStyle.fontSize = 6;
+                    doc.styles.tableHeader.fontSize = 6;
+                    doc['header'] = (function () {
+                        return {
+                            columns: [
+                                //{
+                                //    image: logoEmpresabase64,
+                                //    width: 180,
+                                //    height: 30,
+                                //    margin: [20, 0]
+                                //},
+                                {
+                                    italics: true,
+                                    fontSize: 10,
+                                    text: tituloReporte,
+                                    margin: [30, 18]
+                                }
+                            ],
+                            margin: 20
+                        }
+                    });
+                    doc['footer'] = (function (page, pages) {
+                        return {
+                            columns: [
+                                {
+                                    fontSize: 5,
+                                    alignment: 'left',
+                                    text: ' ' + now
+                                },
+                                {
+                                    fontSize: 5,
+                                    alignment: 'right',
+                                    text: ['page ', { text: page.toString() }, ' of ', { text: pages.toString() }]
+                                }
+                            ],
+                            margin: 20
+                        }
+                    });
+                    var objLayout = {};
+                    objLayout['hLineWidth'] = function (i) { return .5; };
+                    objLayout['vLineWidth'] = function (i) { return .5; };
+                    objLayout['hLineColor'] = function (i) { return '#aaa'; };
+                    objLayout['vLineColor'] = function (i) { return '#aaa'; };
+                    objLayout['paddingLeft'] = function (i) { return 4; };
+                    objLayout['paddingRight'] = function (i) { return 4; };
+                    doc.content[0].layout = objLayout;
+                }
             },
-            customize: function (doc) {
-                doc.content.splice(0, 1.5);
-                doc.pageMargins = [40, 60, 20, 30];
-                doc.defaultStyle.fontSize = 7;
-                doc.styles.tableHeader.fontSize = 7;
-                doc['header'] = (function () {
-                    return {
-                        columns: [
-                            {
-                                image: logoEmpresa64bits,
-                                width: 120,
-                                height: 30,
-                                margin: [20, 0]
-                            },
-                            //{
-                            //    alignment: 'left',
-                            //    italics: true,
-                            //    text: NombreEmpresa,
-                            //    fontSize: 18,
-                            //    margin: [30, 0]
-                            //},
-                            {
-                                italics: true,
-                                alignment: 'right',
-                                fontSize: 10,
-                                text: NombreEmpresa + ' - ' + tituloReporte
-                            }
-                        ],
-                        margin: 20
-                    }
-                });
-                doc['footer'] = (function (page, pages) {
-                    return {
-                        columns: [
-                            {
-                                fontSize: 5,
-                                alignment: 'left',
-                                text: GCS + ' ' + now
-                            },
-                            {
-                                fontSize: 5,
-                                alignment: 'right',
-                                text: ['page ', { text: page.toString() }, ' of ', { text: pages.toString() }]
-                            }
-                        ],
-                        margin: 20
-                    }
-                });
-                var objLayout = {};
-                objLayout['hLineWidth'] = function (i) { return .5; };
-                objLayout['vLineWidth'] = function (i) { return .5; };
-                objLayout['hLineColor'] = function (i) { return '#aaa'; };
-                objLayout['vLineColor'] = function (i) { return '#aaa'; };
-                objLayout['paddingLeft'] = function (i) { return 4; };
-                objLayout['paddingRight'] = function (i) { return 4; };
-                doc.content[0].layout = objLayout;
+            {
+                text: 'Nuevo',
+                className: 'btn btn-nuevo-datatable',
+                action: function (e, dt, node, config) {
+                    ModalSucursal('C');
+                }
             }
-        },
+
         ],
         "order": [[1, "asc"]],
         destroy: true,
@@ -227,15 +229,7 @@ function GridSucursal() {
             "datatype": "json"
         },
         columns: [
-            {
-                title: "Acciones",
-                data: null,
-                defaultContent: '<div class="btn-group"><a href="#" class= "EditarSucursal btn" title="Editar"> <i class="bi-pencil-fill" style="Color:green"></i></a><a href="#" class="EliminarSucursal btn" title="Eliminar"><i class="bi-trash-fill" style="Color:red"></i></a></div>',
-                className: '',
-                orderable: false,
-                width: 'auto', className: 'dt-center dt-head-center'
-            },
-            { "data": "Nombre", title: "Sucursal", width: 'auto'},
+            { "data": "Nombre", title: "Sucursal", width: 'auto' },
             { "data": "Empresa", title: "Empresa", width: 'auto' },
             { "data": "Email", title: "Email", width: 'auto' },
             { "data": "Telefono", title: "Teléfono", width: 'auto' },
@@ -252,6 +246,38 @@ function GridSucursal() {
             { "data": "Estado", title: "Estado", width: 'auto' },
             { "data": "CreateBy", title: "Creado Por", width: 'auto' },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto' },
+            {
+                title: "Estado",
+                data: "Estado",
+                width: 'auto',
+                "render": function (data, type, row) {
+
+                    if (row.IdEstado == 1) {
+                        return '<label style="background-color:green; padding:2px;border-radius:5px;font-size:10px!important; color:white">&nbsp;' + data + '&nbsp;</label>';
+                    }
+                    else {
+                        return '<label style="background-color:red; padding:2px;border-radius:5px;font-size:10px!important; color: white">&nbsp;' + data + '&nbsp;</label>';
+                    }
+                }
+
+            },
+            {
+                title: "",
+                data: null,
+                defaultContent:
+                    '<a class="EditarSucursal btn btn-editar-dt" title="Editar Registro">Editar</a>',
+
+                orderable: false,
+                width: 'auto',
+            },
+            {
+                title: "",
+                data: null,
+                defaultContent:
+                    '<a class= "EliminarSucursal btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>',
+                orderable: false,
+                width: 'auto',
+            },
 
         ],
         "language": {
@@ -262,26 +288,160 @@ function GridSucursal() {
             ['10 Filas', '25 Filas', '50 Filas', 'Ver Todo']
         ],
     });
-
-    $('#gridSucursal').on('click', '.EditarSucursal', function () {
-        let data = datatable.row($(this).parents()).data();
-        ModalSucursal('E');
-        $('#LabelIdSucursal').text(data.Id);
-        $('#SelectEmpresa').val(data.IdEmpresa);
-        $('#InputNombreSucursal').val(data.Nombre);
-        $('#InputEmailSucursal').val(data.Email);
-        $('#InputTelefonoSucursal').val(data.Telefono);
-        $('#InputContactoSucursal').val(data.Contacto);
-        $('#InputDireccionSucursal').val(data.Direccion);
-        $('#SelectCiudad').val(data.IdCiudad);
-        $('#SelectEstado').val(data.IdEstado);       
-    })
-
-    $('#gridSucursal').on('click', '.EliminarSucursal', function () {
-        let data = datatable.row($(this).parents()).data();
-        EliminarRegistroTabla(data.Id, 'Sucursal');
-    })
 }
+
+//function GridSucursal() {
+//    var tituloReporte = 'LISTADO DE SUCURSALES';
+//    let datatable = $('#gridSucursal').DataTable({
+//        responsive: false,
+//        scrollCollapse: true,
+//        scrollY: '800px',
+//        scrollX: true,
+//        dom: 'B<"clear">frtip',
+//        buttons: [{
+//            extend: 'excelHtml5',
+//            footer: true,
+//            title: tituloReporte + ' ' + NombreEmpresa,
+//            filename: tituloReporte + ' - ' + NombreEmpresa + ' ' + jsDate + ' ' + hora,
+//            text: 'Descargar Excel',
+//            exportOptions: {
+//                columns: [1, 2, 3, 4, 5, 6, 7, 8,9],
+//            },
+//        },
+//        {
+//            //download: 'open',
+//            text: 'Descargar PDF',
+//            extend: 'pdfHtml5',
+//            filename: tituloReporte + ' - ' + NombreEmpresa + ' ' + jsDate + ' ' + hora,
+//            orientation: 'landscape', //portrait
+//            pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
+//            exportOptions: {
+//                columns: [1, 2, 3, 4, 5, 6, 7, 8,9],
+//                search: 'applied',
+//                order: 'applied',
+//            },
+//            customize: function (doc) {
+//                doc.content.splice(0, 1.5);
+//                doc.pageMargins = [40, 60, 20, 30];
+//                doc.defaultStyle.fontSize = 7;
+//                doc.styles.tableHeader.fontSize = 7;
+//                doc['header'] = (function () {
+//                    return {
+//                        columns: [
+//                            {
+//                                image: logoEmpresa64bits,
+//                                width: 120,
+//                                height: 30,
+//                                margin: [20, 0]
+//                            },
+//                            //{
+//                            //    alignment: 'left',
+//                            //    italics: true,
+//                            //    text: NombreEmpresa,
+//                            //    fontSize: 18,
+//                            //    margin: [30, 0]
+//                            //},
+//                            {
+//                                italics: true,
+//                                alignment: 'right',
+//                                fontSize: 10,
+//                                text: NombreEmpresa + ' - ' + tituloReporte
+//                            }
+//                        ],
+//                        margin: 20
+//                    }
+//                });
+//                doc['footer'] = (function (page, pages) {
+//                    return {
+//                        columns: [
+//                            {
+//                                fontSize: 5,
+//                                alignment: 'left',
+//                                text: GCS + ' ' + now
+//                            },
+//                            {
+//                                fontSize: 5,
+//                                alignment: 'right',
+//                                text: ['page ', { text: page.toString() }, ' of ', { text: pages.toString() }]
+//                            }
+//                        ],
+//                        margin: 20
+//                    }
+//                });
+//                var objLayout = {};
+//                objLayout['hLineWidth'] = function (i) { return .5; };
+//                objLayout['vLineWidth'] = function (i) { return .5; };
+//                objLayout['hLineColor'] = function (i) { return '#aaa'; };
+//                objLayout['vLineColor'] = function (i) { return '#aaa'; };
+//                objLayout['paddingLeft'] = function (i) { return 4; };
+//                objLayout['paddingRight'] = function (i) { return 4; };
+//                doc.content[0].layout = objLayout;
+//            }
+//        },
+//        ],
+//        "order": [[1, "asc"]],
+//        destroy: true,
+//        "ajax": {
+//            "url": '/Sucursal/GridSucursal',
+//            "type": "GET",
+//            "datatype": "json"
+//        },
+//        columns: [
+//            {
+//                title: "Acciones",
+//                data: null,
+//                defaultContent: '<div class="btn-group"><a href="#" class= "EditarSucursal btn" title="Editar"> <i class="bi-pencil-fill" style="Color:green"></i></a><a href="#" class="EliminarSucursal btn" title="Eliminar"><i class="bi-trash-fill" style="Color:red"></i></a></div>',
+//                className: '',
+//                orderable: false,
+//                width: 'auto', className: 'dt-center dt-head-center'
+//            },
+//            { "data": "Nombre", title: "Sucursal", width: 'auto'},
+//            { "data": "Empresa", title: "Empresa", width: 'auto' },
+//            { "data": "Email", title: "Email", width: 'auto' },
+//            { "data": "Telefono", title: "Teléfono", width: 'auto' },
+//            { "data": "Contacto", title: "Contacto", width: 'auto' },
+//            {
+//                title: "Dirección",
+//                data: "nombres",
+//                render: function (data, type, row) {
+//                    // esto es lo que se va a renderizar como html
+//                    return `${row.Direccion} ${row.Ciudad}`;
+//                }
+//                , width: 'auto'
+//            },
+//            { "data": "Estado", title: "Estado", width: 'auto' },
+//            { "data": "CreateBy", title: "Creado Por", width: 'auto' },
+//            { "data": "DateCreate", title: "Fecha Creación", width: 'auto' },
+
+//        ],
+//        "language": {
+//            "url": "//cdn.datatables.net/plug-ins/1.11.2/i18n/es_es.json"
+//        },
+//        lengthMenu: [
+//            [10, 25, 50, -1],
+//            ['10 Filas', '25 Filas', '50 Filas', 'Ver Todo']
+//        ],
+//    });
+
+//    $('#gridSucursal').on('click', '.EditarSucursal', function () {
+//        let data = datatable.row($(this).parents()).data();
+//        ModalSucursal('E');
+//        $('#LabelIdSucursal').text(data.Id);
+//        $('#SelectEmpresa').val(data.IdEmpresa);
+//        $('#InputNombreSucursal').val(data.Nombre);
+//        $('#InputEmailSucursal').val(data.Email);
+//        $('#InputTelefonoSucursal').val(data.Telefono);
+//        $('#InputContactoSucursal').val(data.Contacto);
+//        $('#InputDireccionSucursal').val(data.Direccion);
+//        $('#SelectCiudad').val(data.IdCiudad);
+//        $('#SelectEstado').val(data.IdEstado);       
+//    })
+
+//    $('#gridSucursal').on('click', '.EliminarSucursal', function () {
+//        let data = datatable.row($(this).parents()).data();
+//        EliminarRegistroTabla(data.Id, 'Sucursal');
+//    })
+//}
 
 function ListaSucursal() {
     $.ajax({
@@ -356,129 +516,4 @@ function ListaSucursalXIdEmpresaXIdEmpleado(IdEmpleado) {
         },
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

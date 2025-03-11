@@ -224,12 +224,12 @@ function GridEmpresa() {
                 doc['header'] = (function () {
                     return {
                         columns: [
-                            {
-                                image: logoEmpresabase64,
-                                width: 180,
-                                height: 30,
-                                margin: [20, 0]
-                            },
+                            //{
+                            //    image: logoEmpresabase64,
+                            //    width: 180,
+                            //    height: 30,
+                            //    margin: [20, 0]
+                            //},
                             {
                                 italics: true,
                                 fontSize: 10,                                
@@ -521,8 +521,7 @@ function CardDatosEmpresa() {
 
 
 
-function myfunction() {
-    
+function myfunction() {    
     var base64 = getBase64Image();
 }
 
