@@ -1809,7 +1809,9 @@ ALTER TABLE Empresa ADD CONSTRAINT FK_IdTipodocumentoEmpresa FOREIGN KEY (IdTipo
 
 GO
 
-INSERT INTO Empresa (Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdCiudad, Direccion, CreateBy, DateCreate) VALUES ('E&G Contrucciones S.A.S', 5, '901.766.109-1','edwinfabiangarzon@hotmail.com', '321 4208189', 'Edwin Fabian Garzón López', 571, '', 1, GETDATE())
+INSERT INTO Empresa (Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdCiudad, Direccion, CreateBy, DateCreate) 
+VALUES 
+('E&G Contrucciones S.A.S', 5, '901.766.109-1','edwinfabiangarzon@hotmail.com', '321 4208189', 'Edwin Fabian Garzón López', 571, '', 1, GETDATE())
 
 GO
 
@@ -2065,4 +2067,57 @@ END
 GO
 
 /* TABLA SUCURSAL */
+
+CREATE TABLE Sucursal 
+(Id int identity(1,1) Primary key,
+IdEmpresa int,
+Nombre varchar(255),
+Email varchar(255),
+Telefono varchar(255),
+Contacto varchar(255),
+IdCiudad int,
+Direccion varchar(255),
+IdEstado int default 1,
+CreateBy int,
+DateCreate datetime
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoSucursal on Sucursal (IdEmpresa, Nombre, IdCiudad)
+
+GO
+
+ALTER TABLE Sucursal ADD CONSTRAINT FK_IdEmpresaSucursal FOREIGN KEY (IdEmpresa ) references Empresa(Id)
+ALTER TABLE Sucursal ADD CONSTRAINT FK_IdCiudadSucursal FOREIGN KEY (IdCiudad ) references Ciudad(Id)
+ALTER TABLE Sucursal ADD CONSTRAINT FK_IdCreateBySucursal FOREIGN KEY (CreateBy ) references Usuario(Id)
+
+GO
+
+INSERT INTO SUCURSAL(IdEmpresa, Nombre, Email, Telefono, Contacto, IdCiudad, Direccion, CreateBy, DateCreate) 
+VALUES 
+(1,'Sede Madrid', 'eygconstruccionessas@gmail.com','315 0014586','Oscar Antonio Castillo Perez',571,'Diagonal 18 # 5 - 44 Villa María III Etapa',1,GETDATE())
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridSucursal]
+AS
+BEGIN
+	SELECT	Id, 
+			Nombre, 
+			IdEmpresa,
+			dbo.Fun_BuscarNombreEmpresa(IdEmpresa) AS NombreEmpresa,
+			Email,
+			Telefono,
+			Contacto,
+			Direccion,
+			IdCiudad,
+			dbo.Fun_BuscarNombreCiudad(IdCiudad) As Ciudad,
+			IdEstado,
+			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,
+			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
+			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
+			FROM Sucursal
+			ORDER BY Nombre Desc
+END
 

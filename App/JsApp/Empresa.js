@@ -193,6 +193,9 @@ function GridEmpresa() {
         scrollY: '800px',
         scrollX: true,
         dom: 'B<"clear">frtip',
+        columnDefs: [
+            { targets: [0], className: 'dt-center dt-head-center' }
+        ],
         buttons: [
 
             {
@@ -289,7 +292,7 @@ function GridEmpresa() {
                 "data": 'Logo',
                 "render": function (data, type, row, meta) {
                    
-                    return '<img class="btn LogoEmpresa" src="/Images/LogoEmpresa/' + data + '" alt="" height="50px" style="border-radius:5%"/>';
+                    return '<img class="btn LogoEmpresa" src="/Images/LogoEmpresa/' + data + '" alt="" height="100px" style="border-radius:5%"/>';
                 },
                 width: '50px'
             },
@@ -324,10 +327,10 @@ function GridEmpresa() {
                 "render": function (data, type, row) {
 
                     if (row.IdEstado == 1) {
-                        return '<label style="background-color:green; padding:2px;border-radius:5px;font-size:10px!important; color:white">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label style="background-color:green; padding:2px;border-radius:5px;font-size:12px!important; color:white">&nbsp;' + data + '&nbsp;</label>';
                     }
                     else {
-                        return '<label style="background-color:red; padding:2px;border-radius:5px;font-size:10px!important; color: white">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label style="background-color:red; padding:2px;border-radius:5px;font-size:12px!important; color: white">&nbsp;' + data + '&nbsp;</label>';
                     }
                 }
 
@@ -387,7 +390,7 @@ function GridEmpresa() {
         $('#NombreLogoActualEmpresa').text(data.Logo);
         $('#NombreEmpresaLogo').text(data.Nombre);
         $('#ImagenLogoEmpresa').empty().append(            
-            '<img src="/Images/LogoEmpresa/' + data.Logo +'" style="height:200px; width:300px; border-radius:5%; border:0px solid; background:white;padding:0px"/>'
+            '<img src="/Images/LogoEmpresa/' + data.Logo +'" style="height:200px; border-radius:5%; border:0px solid; background:white;padding:0px"/>'
         );
     })
 }
@@ -498,7 +501,7 @@ function CardDatosEmpresa() {
         data: {},
         success: function (resultado) {
             $('#CardDatosEmpresa').append(
-                '<img class="card-img-top" id="" src="/Images/LogoEmpresa/' + resultado.data[0].Logo +'" style="height:200px; width:400px">'+
+                '<img class="card-img-top" id="" src="/Images/LogoEmpresa/' + resultado.data[0].Logo +'" style="height:200px">'+
                     '<div class="card-body">'+
                     '<h4 class="card-title" id="NombreEmpresa">' + resultado.data[0].Nombre +'</h4>'+
                     '<label> ' + resultado.data[0].TipoDocumento +': ' + resultado.data[0].Identificacion +'</label>'+

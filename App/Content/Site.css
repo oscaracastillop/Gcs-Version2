@@ -76,12 +76,12 @@ footer{
 #contenedordos {
     margin-left: 160px;
     display: block;
-    margin-top: 10px;
+    margin-top: 12px;
     font-family: Arial, sans-serif !important;
 }
 
 .btnSubMenu {
-    font-size: 9px !important;
+    font-size: 12px !important;
     height: 80px;
     width: 150px;
     margin: 5px;
@@ -103,7 +103,7 @@ footer{
     border-radius:5px;
     float:left;
     color:black !important;
-    font-size:10px;
+    font-size:12px;
 }
 
 input, button, select {
@@ -159,7 +159,7 @@ input, button, select {
 .btn-modal-guardar {
     background-color: orangered !important;
     color: white !important;
-    font-size:10px !important;
+    font-size:11px !important;
 }
 /*
 .btn-modal-guardar:hover {
@@ -171,7 +171,7 @@ input, button, select {
 .btn-modal-Cancelar {
     background-color: #333 !important;
     color: white !important;
-    font-size: 10px !important;
+    font-size: 11px !important;
 }
 
 
@@ -190,9 +190,10 @@ input, button, select {
 .btn-excel-datatable, .btn-pdf-datatable, .btn-nuevo-datatable {
     background-color: orangered !important;
     color: white !important;
-    font-size: 10px !important;
-    height:20px;
-    line-height:10px !important;
+    font-size: 11px !important;
+    height: 25px;
+    line-height: 10px !important;
+    font-family: Arial, sans-serif !important;
 }
 
 .btn-excel-datatable:hover, .btn-pdf-datatable:hover, .btn-nuevo-datatable:hover {
@@ -201,7 +202,7 @@ input, button, select {
 
 .btn-editar-dt {
     background-color: #444 !important;
-    font-size: 10px !important;
+    font-size: 12px !important;
     color: white !important;
     padding-top: 2px !important;
     padding-bottom: 2px !important;
@@ -211,7 +212,7 @@ input, button, select {
 
 .btn-eliminar-dt {
     background-color: red !important;
-    font-size: 10px !important;
+    font-size: 12px !important;
     color: white !important;
     padding-top: 2px !important;
     padding-bottom: 2px !important;
