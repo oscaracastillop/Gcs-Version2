@@ -312,20 +312,20 @@ ALTER TABLE Menu ADD CONSTRAINT FK_IdEstadoMenu FOREIGN KEY (IdEstado) reference
 
 GO
 
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Inicio','bi-buildings', '0.7rem', 'white','/Home',1)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Negocio','bi-buildings', '0.7rem', 'white','/Negocio',2)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Venta','bi-cash-coin', '0.7rem', 'white','/Venta',3)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Recursos Humanos','bi-person-vcard', '0.7rem', 'white','/Recursos_Humanos',4)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Contratistas','bi-person-vcard-fill', '0.7rem', 'white','/Contratistas',5)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Contabilidad','bi-calculator', '0.7rem', 'white','/Contabilidad',6)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Almacén','bi-shop', '0.7rem', '0.7rem','/Almacen',7)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Mantenimiento','bi-wrench-adjustable', '0.7rem', 'white','/Mantenimiento',8)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Mirfe','bi-droplet-half', '0.7rem', 'white','/Mirfe',9)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Mipe','bi-radioactive', '0.7rem', 'white','/Mipe',10)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Producción','bi-gear', '0.7rem', 'white','/Produccion',11)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Configuración','bi-gear', '0.7rem', 'white','/Configuracion',12)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Información','bi-info-circle', '0.7rem', 'white','/Informacion',99)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Salir','bi-power', '0.7rem', 'white','javascript:CerrarSesion()',100)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Inicio','bi-house', '1rem', 'white','/Home',1)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Negocio','bi-buildings', '1rem', 'white','/Negocio',2)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Venta','bi-cash-coin', '1rem', 'white','/Venta',3)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Recursos Humanos','bi-person-vcard', '1rem', 'white','/Recursos_Humanos',4)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Contratistas','bi-person-vcard-fill', '1rem', 'white','/Contratistas',5)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Contabilidad','bi-calculator', '1rem', 'white','/Contabilidad',6)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Almacén','bi-shop', '1rem', '1rem','/Almacen',7)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Mantenimiento','bi-wrench-adjustable', '1rem', 'white','/Mantenimiento',8)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Mirfe','bi-droplet-half', '1rem', 'white','/Mirfe',9)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Mipe','bi-radioactive', '1rem', 'white','/Mipe',10)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Producción','bi-gear', '1rem', 'white','/Produccion',11)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Configuración','bi-gear', '1rem', 'white','/Configuracion',12)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Información','bi-info-circle', '1rem', 'white','/Informacion',99)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Salir','bi-power', '1rem', 'white','javascript:CerrarSesion()',100)
 
 GO
 
@@ -1790,7 +1790,7 @@ Telefono varchar(255),
 Contacto varchar(255),
 IdCiudad int,
 Direccion varchar(255),
-Logo varchar(255) default 'NoImage.png',
+Logo varchar(255) default 'default.png',
 IdEstado int default 1,
 CreateBy int,
 DateCreate datetime
@@ -2003,6 +2003,7 @@ BEGIN
 			Direccion,
 			IdCiudad,
 			dbo.Fun_BuscarNombreCiudad(IdCiudad) As Ciudad,
+			Logo,
 			IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,
 			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
@@ -2049,7 +2050,7 @@ CREATE PROCEDURE [dbo].[SP_GuardarUrlLogoEmpresaBaseDatos] @IdUser varchar(255),
 AS
 BEGIN
 DECLARE @Editar INT, @IdUsuario INT, @validar INT, @SubMenu VARCHAR(255)
-SET @SubMenu = 'Negocio/Empresa'
+SET @SubMenu = '/Negocio/Empresa'
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 	SELECT	@Editar = dbo.Fun_PermisoUsuario('Editar',@IdUsuario, @SubMenu)	
 		IF @Editar > 0
@@ -2106,7 +2107,7 @@ BEGIN
 	SELECT	Id, 
 			Nombre, 
 			IdEmpresa,
-			dbo.Fun_BuscarNombreEmpresa(IdEmpresa) AS NombreEmpresa,
+			dbo.Fun_BuscarNombreEmpresa(IdEmpresa) AS Empresa,
 			Email,
 			Telefono,
 			Contacto,

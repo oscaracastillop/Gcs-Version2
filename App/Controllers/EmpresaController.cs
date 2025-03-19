@@ -92,7 +92,7 @@ namespace SistemaGcs.App.Controllers
                         RutaEliminar = string.Format("/Images/LogoEmpresa/{0}", NombreLogoActualEmpresa);
                         string oPathEliminar = Server.MapPath("~" + RutaEliminar);
 
-                        if (NombreLogoActualEmpresa == "NoImage.png")
+                        if (NombreLogoActualEmpresa == "default.png")
                         {
                             file.SaveAs(oPath);
                         }
@@ -110,7 +110,7 @@ namespace SistemaGcs.App.Controllers
                 }
                 catch (Exception )
                 {
-                                        result = "Error*No se logro guardar la imagén.";
+                    result = "Error*No se logro guardar la imagén.";
                 }
             }
             else

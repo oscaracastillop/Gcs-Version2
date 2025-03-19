@@ -194,7 +194,9 @@ function GridEmpresa() {
         scrollX: true,
         dom: 'B<"clear">frtip',
         columnDefs: [
-            { targets: [0], className: 'dt-center dt-head-center' }
+            { targets: [0], className: 'dt-center dt-head-center' },
+            { targets: [11], width: '150px', className: 'dt-center dt-head-center' },
+            { targets: [12], width: '50px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -292,7 +294,7 @@ function GridEmpresa() {
                 "data": 'Logo',
                 "render": function (data, type, row, meta) {
                    
-                    return '<img class="btn LogoEmpresa" src="/Images/LogoEmpresa/' + data + '" alt="" height="100px" style="border-radius:5%"/>';
+                    return '<img class="btn LogoEmpresa" src="/Images/LogoEmpresa/' + data + '" alt="" height="80px" style="border-radius:5%"/>';
                 },
                 width: '50px'
             },
@@ -327,28 +329,30 @@ function GridEmpresa() {
                 "render": function (data, type, row) {
 
                     if (row.IdEstado == 1) {
-                        return '<label style="background-color:green; padding:2px;border-radius:5px;font-size:12px!important; color:white">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label style="background-color:green; padding:2px;border-radius:5px;font-size:11px!important; color:white">&nbsp;' + data + '&nbsp;</label>';
                     }
                     else {
-                        return '<label style="background-color:red; padding:2px;border-radius:5px;font-size:12px!important; color: white">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label style="background-color:red; padding:2px;border-radius:5px;font-size:11px!important; color: white">&nbsp;' + data + '&nbsp;</label>';
                     }
                 }
 
             },
-            {
-                title: "",
-                data: null,
-                defaultContent: 
-                    '<a class="EditarEmpresa btn btn-editar-dt" title="Editar Registro">Editar</a>',
+            //{
+            //    title: "",
+            //    data: null,
+            //    defaultContent: 
+            //        '<a class="EditarEmpresa btn btn-editar-dt" title="Editar Registro">Editar</a>',
                     
-                orderable: false,
-                width: 'auto',
-            },
+            //    orderable: false,
+            //    width: 'auto',
+            //},
             {
-                title: "",
+                title: "Acciones",
                 data: null,
                 defaultContent: 
-                    '<a class= "EliminarEmpresa btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>',
+                    '<div class="btn-group-sm">'+
+                    '<a class="EditarEmpresa btn btn-editar-dt" title="Editar Registro"><i class="bi-pencil"></i></a>&nbsp;&nbsp;<a class="EliminarEmpresa btn btn-eliminar-dt" title="Eliminar Registro" style="color:red"><i class="bi-trash"></i></a>'+
+                    '</div>',
                 orderable: false,
                 width: 'auto',
             },

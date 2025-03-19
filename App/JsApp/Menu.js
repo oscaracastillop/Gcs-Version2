@@ -8,7 +8,7 @@
             var contador = 0;
             $.each(resultado, function () {
                 $("#OpcionesMenu").append('<li><a href="' + resultado[contador].Ruta + '" id = "' + resultado[contador].Id + '">' +
-                    '' + resultado[contador].IconoCodigoHtml +' '+ resultado[contador].Nombre + '</a>'
+                    '' + resultado[contador].IconoCodigoHtml +' &nbsp;&nbsp;'+ resultado[contador].Nombre + '</a>'
                 );
                 contador++;
             });

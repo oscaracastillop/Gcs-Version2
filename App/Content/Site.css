@@ -1,7 +1,7 @@
 ﻿body {
     /*font-family: Arial, sans-serif !important;*/
-    font-size: 12px !important;
-    font-family: Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-family: "Open Sans", sans-serif !important;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -16,6 +16,7 @@ select,
 textarea {
     max-width: 280px;
 }
+
 
 header {
     background-color: #33225a;
@@ -37,9 +38,18 @@ nav ul {
         display: block;
         color: white;
         text-align: left;
-        padding: 14px 16px;
+        padding: 5px 7px;
         text-decoration: none;
-        border: solid 0.5px white;
+        border: solid 2px white;
+        font-size: 12px !important;
+        font-family: "Open Sans", sans-serif;
+        /*font-family: "Quicksand", sans-serif;
+        font-family: "Open Sans", sans-serif;
+        font-family: "Montserrat", sans-serif;
+        font-family: "Roboto", sans-serif;
+        font-family: "Gidole", sans-serif;
+        font-family: "Inter", sans-serif;
+        font-family: "Raleway", sans-serif;*/
     }
 
 nav ul li a:hover{
@@ -55,39 +65,42 @@ h2{
     color:#333;
 }
 
-footer{
-    background-color:white;
-    color:black;
-    text-align:center;
-    padding:0px;
-    position:fixed;
-    bottom:0;
-    width:100%;
-    height:20px;
-    padding-top:2px;
+footer {
+    background-color: white;
+    color: black;
+    text-align: center;
+    padding: 0px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 20px;
+    padding-top: 2px;
+    font-size: 9px !important;
+    font-family: "Open Sans", sans-serif;
 }
 
 #contenedoruno {
     float: left;
     min-width: 150px;
-    font-family: Arial, sans-serif !important;
+    font-family: "Open Sans", sans-serif;
 }
 
 #contenedordos {
     margin-left: 160px;
     display: block;
     margin-top: 12px;
-    font-family: Arial, sans-serif !important;
+    font-family: "Open Sans", sans-serif;
 }
 
 .btnSubMenu {
-    font-size: 12px !important;
-    height: 80px;
+    font-size: 10px !important;
+    height: 100px;
     width: 150px;
     margin: 5px;
+    align-content: center;
     background-color: orangered !important;
     color: white !important;
-    font-family: Arial, sans-serif !important;
+    font-family: "Open Sans", sans-serif;
 }
 
 .btnSubMenu:hover {
@@ -103,13 +116,13 @@ footer{
     border-radius:5px;
     float:left;
     color:black !important;
-    font-size:12px;
+    font-size:11px !important;
 }
 
 input, button, select {
     /*font-family: Arial, sans-serif !important;*/
     font-size: 11px !important;
-    font-family: Arial, sans-serif !important;
+    font-family: "Open Sans", sans-serif;
 }
 
 #btnNuevoRegistro {
@@ -117,10 +130,12 @@ input, button, select {
     margin-bottom: 10px;
     color: white;
     background-color: orangered !important;
+    font-family: "Open Sans", sans-serif;
 }
 
 #btnNuevoRegistro:hover {
     background-color: #33225a !important;
+    font-family: "Open Sans", sans-serif;
 }
 
 #NameApp {
@@ -132,14 +147,14 @@ input, button, select {
 }
 
 #SloganEmpresa {
-   /* font-family: Arial, sans-serif !important;*/
+    font-family: "Open Sans", sans-serif;
     font-size: 15px !important;
     display: flex;
     align-items: flex-end;
     margin-bottom: 10px;
     font-size: 9px;
     margin-left: 10px;
-    color:white;
+    color: white;
 }
 
 
@@ -152,14 +167,15 @@ input, button, select {
     background-color: orangered;
     color: white;
     font-weight:bold;
-    height:33px;
-    font-size:13px;
+    /*height:33px;*/
+    font-size:15px;
 }
 
 .btn-modal-guardar {
     background-color: orangered !important;
     color: white !important;
-    font-size:11px !important;
+    font-size: 11px !important;
+    font-family: "Open Sans", sans-serif;
 }
 /*
 .btn-modal-guardar:hover {
@@ -172,11 +188,12 @@ input, button, select {
     background-color: #333 !important;
     color: white !important;
     font-size: 11px !important;
+    font-family: "Open Sans", sans-serif;
 }
 
 
 .modal {
-    font-family: 'Roboto', sans-serif !important;
+    font-family: "Open Sans", sans-serif;
     font-size: 11px !important;
 }
 
@@ -190,10 +207,10 @@ input, button, select {
 .btn-excel-datatable, .btn-pdf-datatable, .btn-nuevo-datatable {
     background-color: orangered !important;
     color: white !important;
-    font-size: 11px !important;
+    font-size: 10px !important;
     height: 25px;
     line-height: 10px !important;
-    font-family: Arial, sans-serif !important;
+    font-family: "Open Sans", sans-serif;
 }
 
 .btn-excel-datatable:hover, .btn-pdf-datatable:hover, .btn-nuevo-datatable:hover {
@@ -202,22 +219,24 @@ input, button, select {
 
 .btn-editar-dt {
     background-color: #444 !important;
-    font-size: 12px !important;
+    font-size: 11px !important;
     color: white !important;
     padding-top: 2px !important;
     padding-bottom: 2px !important;
     padding-left: 4px !important;
     padding-right: 4px !important;
+    font-family: "Open Sans", sans-serif;
 }
 
 .btn-eliminar-dt {
     background-color: red !important;
-    font-size: 12px !important;
+    font-size: 11px !important;
     color: white !important;
     padding-top: 2px !important;
     padding-bottom: 2px !important;
     padding-left: 4px !important;
     padding-right: 4px !important;
+    font-family: "Open Sans", sans-serif;
 }
 
 .btn-logo-dt {

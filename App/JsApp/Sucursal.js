@@ -138,6 +138,10 @@ function GridSucursal() {
         scrollY: '800px',
         scrollX: true,
         dom: 'B<"clear">frtip',
+        columnDefs: [
+            { targets: [9], width: '30px', className: 'dt-center dt-head-center' },
+            { targets: [10], width: '30px', className: 'dt-center dt-head-center' }
+        ],
         buttons: [
 
             {
@@ -238,7 +242,6 @@ function GridSucursal() {
                 title: "Dirección",
                 data: "nombres",
                 render: function (data, type, row) {
-                    // esto es lo que se va a renderizar como html
                     return `${row.Direccion} ${row.Ciudad}`;
                 }
                 , width: 'auto'
@@ -253,28 +256,21 @@ function GridSucursal() {
                 "render": function (data, type, row) {
 
                     if (row.IdEstado == 1) {
-                        return '<label style="background-color:green; padding:2px;border-radius:5px;font-size:10px!important; color:white">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label style="background-color:green; padding:2px;border-radius:5px;font-size:11px!important; color:white">&nbsp;' + data + '&nbsp;</label>';
                     }
                     else {
-                        return '<label style="background-color:red; padding:2px;border-radius:5px;font-size:10px!important; color: white">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label style="background-color:red; padding:2px;border-radius:5px;font-size:11px!important; color: white">&nbsp;' + data + '&nbsp;</label>';
                     }
                 }
 
             },
             {
-                title: "",
+                title: "Acciones",
                 data: null,
                 defaultContent:
-                    '<a class="EditarSucursal btn btn-editar-dt" title="Editar Registro">Editar</a>',
-
-                orderable: false,
-                width: 'auto',
-            },
-            {
-                title: "",
-                data: null,
-                defaultContent:
-                    '<a class= "EliminarSucursal btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>',
+                    '<div class="btn-group-sm">' +
+                    '<a class="EditarSucursal btn btn-editar-dt" title="Editar Registro">Editar</a>&nbsp;&nbsp;<a class= "EliminarSucursal btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>'+
+                '</div>',
                 orderable: false,
                 width: 'auto',
             },
