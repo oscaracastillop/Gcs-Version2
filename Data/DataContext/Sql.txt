@@ -2144,6 +2144,10 @@ END
 
 GO
 
+
+
+GO
+
 CREATE PROCEDURE [dbo].[SP_EliminarSucursal] @IdUser varchar(255), @IdSucursal int, @Resultado varchar(255) OUTPUT
 AS
 BEGIN
@@ -2157,7 +2161,7 @@ SET @Accion = 'Eliminar'
 SET @SubMenu = '/Negocio/Sucursal'
 
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
-SELECT @NombreSucursal = Nombre FROM Empresa WHERE Id = @IdSucursal
+SELECT @NombreSucursal = Nombre FROM Sucursal WHERE Id = @IdSucursal
 SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
 
 IF @Permiso != 1
