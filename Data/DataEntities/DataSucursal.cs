@@ -97,6 +97,34 @@ namespace SistemaGcs.Data.DataEntities
             return resultado;
         }
 
+        public string EliminarSucursal(string IdUser, int IdSucursal)
+        {
+            string resultado = String.Empty;
+            try
+            {
+                var varIdUser = new SqlParameter("@IdUser", SqlDbType.VarChar) { Value = IdUser };
+                var varIdSucursal = new SqlParameter("@IdSucursal", SqlDbType.Int) { Value = IdSucursal };
+                var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
+
+                _conection.Database.ExecuteSqlCommand("SP_EliminarSucursal @IdUser, @IdSucursal, @Resultado OUTPUT", varIdUser, varIdSucursal, varResultado);
+
+                resultado = Convert.ToString(varResultado.Value);
+            }
+            catch (Exception ex)
+            {
+                var Rol = dataRol.BuscarRolUsuario(IdUser);
+                if (Rol == "Administrador")
+                {
+                    resultado = "Error*" + ex.Message;
+                }
+                else
+                {
+                    resultado = "Error*En el momento no se puede realizar este proceso, por favor comuniquese con el Administrador";
+                }
+            }
+            return resultado;
+        }
+
         public List<GridSucursal> GridSucursal()
         {
             try

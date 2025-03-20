@@ -188,6 +188,7 @@ function EliminarEmpresa(IdEmpresa) {
 function GridEmpresa() {
     var tituloReporte = 'LISTADO DE EMPRESAS';
     let datatable = $('#gridEmpresa').DataTable({
+        
         responsive: false,
         scrollCollapse: true,
         scrollY: '800px',
@@ -196,7 +197,7 @@ function GridEmpresa() {
         columnDefs: [
             { targets: [0], className: 'dt-center dt-head-center' },
             { targets: [11], width: '150px', className: 'dt-center dt-head-center' },
-            { targets: [12], width: '50px', className: 'dt-center dt-head-center' }
+            { targets: [12], width: '100px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -351,7 +352,7 @@ function GridEmpresa() {
                 data: null,
                 defaultContent: 
                     '<div class="btn-group-sm">'+
-                    '<a class="EditarEmpresa btn btn-editar-dt" title="Editar Registro"><i class="bi-pencil"></i></a>&nbsp;&nbsp;<a class="EliminarEmpresa btn btn-eliminar-dt" title="Eliminar Registro" style="color:red"><i class="bi-trash"></i></a>'+
+                    '<a class="EditarEmpresa btn btn-editar-dt" title="Editar Registro">Editar</a>&nbsp;&nbsp;<a class="EliminarEmpresa btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>'+
                     '</div>',
                 orderable: false,
                 width: 'auto',

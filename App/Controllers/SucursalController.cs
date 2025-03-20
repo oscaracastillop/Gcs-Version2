@@ -27,6 +27,11 @@ namespace SistemaGcs.App.Controllers
             return Json(resultado);
         }
 
+        public JsonResult EliminarSucursal(string IdUser, int IdSucursal)
+        {
+            string resultado = dataSucursal.EliminarSucursal(IdUser, IdSucursal);
+            return Json(resultado);
+        }
         public ActionResult GridSucursal()
         {
             var data = dataSucursal.GridSucursal();

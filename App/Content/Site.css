@@ -2,6 +2,7 @@
     /*font-family: Arial, sans-serif !important;*/
     font-size: 13px !important;
     font-family: "Open Sans", sans-serif !important;
+    background-color: white !important;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -90,6 +91,7 @@ footer {
     display: block;
     margin-top: 12px;
     font-family: "Open Sans", sans-serif;
+
 }
 
 .btnSubMenu {
@@ -111,12 +113,31 @@ footer {
 .grid {
     width: 98%;
     padding-left: 10px;
-    padding-right: 15px;
+    padding-right: 10px;
     margin-top: 10px;
-    border-radius:5px;
-    float:left;
-    color:black !important;
-    font-size:11px !important;
+    border-radius: 0px;
+    float: left;
+    color: black !important;
+    font-size: 11px !important;
+    border: solid 1px lightgray !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    /*-webkit-box-shadow: 0px 0px 12px -5px rgba(219,102,13,1);
+    -moz-box-shadow: 0px 0px 12px -5px rgba(219,102,13,1);
+    box-shadow: 0px 0px 12px -5px rgba(219,102,13,1);*/
+    background-color: white;
+}
+
+table.dataTable thead tr {
+    background-color: #33225a;
+    color:white;
+}
+
+div.dataTables_wrapper div.dataTables_filter input {
+    margin-left: 0.5em;
+    display: inline-block;
+    width: 200px;
+    height:25px;
 }
 
 input, button, select {

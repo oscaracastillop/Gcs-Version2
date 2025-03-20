@@ -48,7 +48,7 @@ function CrearSucursal() {
             dataType: 'json',
             url: '/Sucursal/CrearSucursal',
             data: {
-                IdUser: User,
+                IdUser: TokenUser,
                 IdEmpresa: IdEmpresa,
                 NombreSucursal: NombreSucursal,
                 Email: Email,
@@ -64,6 +64,8 @@ function CrearSucursal() {
                         title: TituloSwal,
                         text: valor[1],
                         icon: 'success',
+                        position: 'top',
+                        confirmButtonColor: "orangered",
                     }).then((result) => {
                         window.location.reload();
                     })
@@ -128,6 +130,48 @@ function ActualizarSucursal() {
             }
         });
     }
+}
+
+function EliminarSucursal(IdSucursal) {
+    Swal.fire({
+        title: TituloSwal,
+        text: "Esta seguro(a)?, No podrás revertir esta acción.!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "orangered",
+        cancelButtonColor: "#333",
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "Cancelar",
+        position: 'top'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/Sucursal/EliminarSucursal',
+                data: {
+                    IdUser: TokenUser,
+                    IdSucursal: IdSucursal
+                },
+                success: function (resultado) {
+                    valor = resultado.split('*');
+                    if (valor[0] == 'OK') {
+                        Swal.fire({
+                            title: TituloSwal,
+                            text: valor[1],
+                            icon: 'success',
+                            position: 'top',
+                            confirmButtonColor: "orangered",
+                        }).then((result) => {
+                            location.reload();
+                        })
+                    } else {
+                        Swal.fire(TituloSwal, valor[1], 'info');
+                    }
+                }
+            });
+        }
+    });
 }
 
 function GridSucursal() {
@@ -284,6 +328,26 @@ function GridSucursal() {
             ['10 Filas', '25 Filas', '50 Filas', 'Ver Todo']
         ],
     });
+
+    $('#gridEmpresa').on('click', '.EditarEmpresa', function () {
+        let data = datatable.row($(this).parents()).data();
+        ModalEmpresa('E');
+        $('#LabelIdEmpresa').text(data.Id);
+        $('#InputNombreEmpresa').val(data.Nombre);
+        $('#SelectTipoDocumento').val(data.IdTipoDocumento);
+        $('#InputIdentificacionEmpresa').val(data.Identificacion);
+        $('#InputEmailEmpresa').val(data.Email);
+        $('#InputTelefonoEmpresa').val(data.Telefono);
+        $('#InputContactoEmpresa').val(data.Contacto);
+        $('#InputDireccionEmpresa').val(data.Direccion);
+        $('#SelectCiudad').val(data.IdCiudad);
+        $('#SelectEstado').val(data.IdEstado);
+    })
+
+    $('#gridSucursal').on('click', '.EliminarSucursal', function () {
+        let data = datatable.row($(this).parents()).data();
+        EliminarSucursal(data.Id);
+    })
 }
 
 //function GridSucursal() {

@@ -2097,7 +2097,80 @@ GO
 
 INSERT INTO SUCURSAL(IdEmpresa, Nombre, Email, Telefono, Contacto, IdCiudad, Direccion, CreateBy, DateCreate) 
 VALUES 
-(1,'Sede Madrid', 'eygconstruccionessas@gmail.com','315 0014586','Oscar Antonio Castillo Perez',571,'Diagonal 18 # 5 - 44 Villa María III Etapa',1,GETDATE())
+(1,'Sede Madrid', 'eygconstruccionessas@gmail.com','315 0014586','Oscar Antonio Castillo Perez',571,'Diagonal 18 # 5 - 44 Villa María III Etapa',1,GETDATE()),
+(1,'Sede Funza', 'eygconstruccionessas@gmail.com','315 0014586','Oscar Antonio Castillo Perez',571,'Diagonal 18 # 5 - 44 Villa María III Etapa',1,GETDATE()),
+(1,'Sede Cajica', 'eygconstruccionessas@gmail.com','315 0014586','Oscar Antonio Castillo Perez',571,'Diagonal 18 # 5 - 44 Villa María III Etapa',1,GETDATE())
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_CrearSucursal] 
+				@IdUser varchar(255), 	
+				@IdEmpresa int,
+				@NombreSucursal varchar(255), 
+				@Email varchar(255), 
+				@Telefono varchar(255),  
+				@Contacto varchar(255),
+				@IdCiudad int,
+				@Direccion varchar(255),	
+				@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Crear'
+SET @SubMenu = '/Negocio/Sucursal'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN		
+		INSERT INTO Sucursal
+		(IdEmpresa, Nombre, Email, Telefono, Contacto, IdCiudad, Direccion, CreateBy, DateCreate) 
+		VALUES 
+		(@IdEmpresa, @NombreSucursal, @Email, @Telefono, @Contacto, @IdCiudad, @Direccion, @IdUsuario, GETDATE()) 
+		
+		SET @Resultado = 'OK*La Sucursal ' + @NombreSucursal + ' a sido creada correctamente'
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_EliminarSucursal] @IdUser varchar(255), @IdSucursal int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@NombreSucursal varchar(255),
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Negocio/Sucursal'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @NombreSucursal = Nombre FROM Empresa WHERE Id = @IdSucursal
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE Sucursal WHERE Id = @IdSucursal
+SET @Resultado = 'OK*Estimado Usuario la Sucursal '+ @NombreSucursal+' se elimino correctamente'	
+
+SELECT @Resultado
+END
 
 GO
 
