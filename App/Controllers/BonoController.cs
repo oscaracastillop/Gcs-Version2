@@ -8,10 +8,6 @@ namespace App.Controllers
 {
     public class BonoController : Controller
     {
-        // GET: Bono
-        public ActionResult Index()
-        {
-            return View();
-        }
+        
     }
 }

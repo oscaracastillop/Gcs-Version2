@@ -75,6 +75,7 @@
     <Compile Include="DataEntities\DataSucursalEmpleado.cs" />
     <Compile Include="DataEntities\DataTipoDocumento.cs" />
     <Compile Include="DataEntities\DataTipoEstado.cs" />
+    <Compile Include="DocWord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,10 +8,6 @@ namespace App.Controllers
 {
     public class CasinoController : Controller
     {
-        // GET: Casino
-        public ActionResult Index()
-        {
-            return View();
-        }
+      
     }
 }

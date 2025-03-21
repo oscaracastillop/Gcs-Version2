@@ -196,6 +196,16 @@ function GridEmpresa() {
         dom: 'B<"clear">frtip',
         columnDefs: [
             { targets: [0], className: 'dt-center dt-head-center' },
+            { targets: [1], className: 'dt-head-center' },
+            { targets: [2], className: 'dt-head-center' },
+            { targets: [3], className: 'dt-head-center' },
+            { targets: [4], className: 'dt-head-center' },
+            { targets: [5], className: 'dt-head-center' },
+            { targets: [6], className: 'dt-head-center' },
+            { targets: [7], className: 'dt-head-center' },
+            { targets: [8], className: 'dt-head-center' },
+            { targets: [9], className: 'dt-head-center' },
+            { targets: [10], className: 'dt-head-center' },
             { targets: [11], width: '150px', className: 'dt-center dt-head-center' },
             { targets: [12], width: '100px', className: 'dt-center dt-head-center' }
         ],

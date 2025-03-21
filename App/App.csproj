@@ -52,6 +52,10 @@
       <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Word.15.0.4797.1004\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -2459,6 +2463,7 @@
     <Compile Include="Controllers\Tipo_DocumentoController.cs" />
     <Compile Include="Controllers\Tipo_EstadoController.cs" />
     <Compile Include="Controllers\VentaController.cs" />
+    <Compile Include="DocWord.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2478,18 +2483,18 @@
     <Content Include="Views\Cliente\Index.cshtml" />
     <Content Include="Views\Cotizacion\Index.cshtml" />
     <Content Include="Views\Detalle_Cotizacion\Index.cshtml" />
-    <Content Include="Views\Empleado\Index.cshtml" />
-    <Content Include="Views\Bono\Index.cshtml" />
-    <Content Include="Views\Prestamo\Index.cshtml" />
-    <Content Include="Views\Casino\Index.cshtml" />
-    <Content Include="Views\Hora_Extra\Index.cshtml" />
     <Content Include="Views\Hoja_de_Vida\Index.cshtml" />
-    <Content Include="Views\Contrato_Laboral\Index.cshtml" />
     <Content Include="Views\Cargar_Documento\Index.cshtml" />
     <Content Include="Views\Recursos_Humanos\Empleado.cshtml" />
     <Content Include="Views\Negocio\Empresa.cshtml" />
     <Content Include="Views\Negocio\Sucursal.cshtml" />
     <Content Include="Views\Negocio\Sucursal_Empleado.cshtml" />
+    <Content Include="Views\Recursos_Humanos\Bono.cshtml" />
+    <Content Include="Views\Recursos_Humanos\Prestamo.cshtml" />
+    <Content Include="Views\Recursos_Humanos\Casino.cshtml" />
+    <Content Include="Views\Recursos_Humanos\Contrato_Laboral.cshtml" />
+    <Content Include="Views\Recursos_Humanos\Hoja_de_Vida.cshtml" />
+    <Content Include="Views\Recursos_Humanos\Hora_Extra.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

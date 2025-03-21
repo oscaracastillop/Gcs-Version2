@@ -5,3 +5,42 @@
 
 <h6><strong>Modulo Empleado</strong></h6>
 
+<div class="grid">
+    <table id="gridEmpleado" class="table cell-border" cellspacing="0" style="width: 180%;"></table>
+</div>
+
+<!-- Modal Empleado-->
+<div class="modal fade" id="ModalEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <div class="modal-title" id="TituloModalEmpleado"></div>
+            </div>
+            <div class="modal-body">
+                <label id="LabelIdEmpleado" hidden></label>
+                <div>
+                    <label><strong>Nombres </strong><label style="color:red"> *</label></label>
+                    <input class="form-control" type="text" id="InputNombreEmpleado" name="name" autocomplete="off" style="min-width:100%" />
+                </div>
+                <div>
+                    <label><strong>Apellidos </strong><label style="color:red"> *</label></label>
+                    <input class="form-control" type="text" id="InputApellidosEmpleado" name="name" autocomplete="off" style="min-width:100%" />
+                </div>
+                <div>
+                    <label><strong>Documento </strong><label style="color:red"> *</label></label>
+                    <select class="form-control" id="SelectTipoDocumento" style="min-width:100%"></select>
+                </div>
+                <div>
+                    <label><strong>Identificación </strong><label style="color:red"> *</label></label>
+                    <input class="form-control" type="text" id="InputIdentificacionEmpleado" name="name" autocomplete="off" style="min-width:100%" />
+                </div>
+                <div class="col-3" id="SelectEstadoEmpleado">
+                    <label><strong>Estado</strong></label>
+                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
+                </div>
+            </div>
+            <div class="modal-footer" id="BotonesModalEmpleado">
+            </div>
+        </div>
+    </div>
+</div>

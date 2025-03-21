@@ -8,10 +8,6 @@ namespace App.Controllers
 {
     public class Contrato_LaboralController : Controller
     {
-        // GET: Contrato_Laboral
-        public ActionResult Index()
-        {
-            return View();
-        }
+        
     }
 }

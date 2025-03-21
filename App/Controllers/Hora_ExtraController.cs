@@ -8,10 +8,6 @@ namespace App.Controllers
 {
     public class Hora_ExtraController : Controller
     {
-        // GET: Hora_Extra_Personal_Interno
-        public ActionResult Index()
-        {
-            return View();
-        }
+       
     }
 }

@@ -103,7 +103,7 @@ function ActualizarSucursal() {
             dataType: 'json',
             url: '/Sucursal/ActualizarSucursal',
             data: {
-                IdUser: User,
+                IdUser: TokenUser,
                 IdSucursal: IdSucursal,
                 IdEmpresa: IdEmpresa,
                 NombreSucursal: NombreSucursal,
@@ -183,6 +183,15 @@ function GridSucursal() {
         scrollX: true,
         dom: 'B<"clear">frtip',
         columnDefs: [
+            { targets: [0], className: 'dt-head-center' },
+            { targets: [1], className: 'dt-head-center' },
+            { targets: [2], className: 'dt-head-center' },
+            { targets: [3], className: 'dt-head-center' },
+            { targets: [4], className: 'dt-head-center' },
+            { targets: [5], className: 'dt-head-center' },
+            { targets: [6], className: 'dt-head-center' },
+            { targets: [7], className: 'dt-head-center' },
+            { targets: [8], className: 'dt-head-center' },
             { targets: [9], width: '30px', className: 'dt-center dt-head-center' },
             { targets: [10], width: '30px', className: 'dt-center dt-head-center' }
         ],
@@ -328,18 +337,17 @@ function GridSucursal() {
             ['10 Filas', '25 Filas', '50 Filas', 'Ver Todo']
         ],
     });
-
-    $('#gridEmpresa').on('click', '.EditarEmpresa', function () {
+        
+    $('#gridSucursal').on('click', '.EditarSucursal', function () {
         let data = datatable.row($(this).parents()).data();
-        ModalEmpresa('E');
-        $('#LabelIdEmpresa').text(data.Id);
-        $('#InputNombreEmpresa').val(data.Nombre);
-        $('#SelectTipoDocumento').val(data.IdTipoDocumento);
-        $('#InputIdentificacionEmpresa').val(data.Identificacion);
-        $('#InputEmailEmpresa').val(data.Email);
-        $('#InputTelefonoEmpresa').val(data.Telefono);
-        $('#InputContactoEmpresa').val(data.Contacto);
-        $('#InputDireccionEmpresa').val(data.Direccion);
+        ModalSucursal('E');
+        $('#LabelIdSucursal').text(data.Id);
+        $('#SelectEmpresa').val(data.IdEmpresa);
+        $('#InputNombreSucursal').val(data.Nombre);
+        $('#InputEmailSucursal').val(data.Email);
+        $('#InputTelefonoSucursal').val(data.Telefono);
+        $('#InputContactoSucursal').val(data.Contacto);
+        $('#InputDireccionSucursal').val(data.Direccion);
         $('#SelectCiudad').val(data.IdCiudad);
         $('#SelectEstado').val(data.IdEstado);
     })

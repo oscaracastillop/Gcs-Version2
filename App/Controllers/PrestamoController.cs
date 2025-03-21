@@ -8,10 +8,6 @@ namespace App.Controllers
 {
     public class PrestamoController : Controller
     {
-        // GET: Prestamo
-        public ActionResult Index()
-        {
-            return View();
-        }
+        
     }
 }

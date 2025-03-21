@@ -2144,7 +2144,56 @@ END
 
 GO
 
+CREATE PROCEDURE [dbo].[SP_ActualizarSucursal]	@IdUser varchar(255),
+												@IdSucursal int,
+												@IdEmpresa int, 				
+												@NombreSucursal varchar(255), 
+												@Email varchar(255), 
+												@Telefono varchar(255),  
+												@Contacto varchar(255),
+												@IdCiudad int,
+												@Direccion varchar(255),
+												@IdEstado int,			
+												@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT,
+		@Accion varchar(255), 
+		@SubMenu varchar(255) 
 
+SET @Accion = 'Editar'
+SET @SubMenu = '/Negocio/Sucursal'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	IF(exists(select * from Sucursal where Nombre = @NombreSucursal AND IdEmpresa = @IdEmpresa AND IdCiudad = @IdCiudad AND Id != @IdSucursal))  
+	BEGIN  
+		SET @Resultado = 'Error*La Sucursal ' + @NombreSucursal +' ya existe.'
+		RETURN  
+	END
+ELSE
+	BEGIN
+		UPDATE	Sucursal 
+			SET		Nombre = @NombreSucursal, 								 
+					Email = @Email, 
+					Telefono = @Telefono,
+					Contacto = @Contacto,
+					IdCiudad = @IdCiudad,
+					Direccion = @Direccion,
+					IdEstado = @IdEstado
+					WHERE Id = @IdSucursal
+		
+		SET @Resultado = 'OK*La Sucursal ' + @NombreSucursal + ' se actualizo correctamente'  
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
 
 GO
 
@@ -2199,3 +2248,173 @@ BEGIN
 			ORDER BY Nombre Desc
 END
 
+/* TABLA EMPLEADO */
+
+GO
+
+CREATE TABLE Empleado 
+(Id int identity(1,1) Primary key ,
+Nombre varchar(255),
+Apellidos varchar(255),
+IdTipoDocumento int,
+Identificacion varchar(255),
+Imagen varchar(255) default 'Empleado.png',
+IdEstado int default 1,
+CreateBy int,
+DateCreate datetime
+)
+GO
+
+ALTER TABLE Empleado ADD CONSTRAINT FK_IdCreateByEmpleado FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE Empleado ADD CONSTRAINT FK_IdEstadoEmpleado FOREIGN KEY (IdEstado ) references TipoEstado(Id)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoEmpleado on Empleado (Nombre, Apellidos, IdTipoDocumento, Identificacion)
+
+GO
+
+INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CreateBy, DateCreate) VALUES ('Oscar Antonio','Castillo Perez',1,'3167508',1, GETDATE())
+INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CreateBy, DateCreate) VALUES ('Yulisa Jarleidy','Garzón Lopez',1,'1073527268',1, GETDATE())
+INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CreateBy, DateCreate) VALUES ('Edwin Fabian','Garzón Lopez',1,'10735241256',1, GETDATE())
+INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CreateBy, DateCreate) VALUES ('Adriana Marlen','Garzón Lopez',1,'1073527266',1, GETDATE())
+INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CreateBy, DateCreate) VALUES ('Yimi Fermando','Garzón Lopez',1,'1073963584',1, GETDATE())
+INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CreateBy, DateCreate) VALUES ('Michelle Sofia','Castillo Garzón',1,'125425632',1, GETDATE())
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_CrearEmpleado] 
+				@IdUser varchar(255),  
+				@Nombre varchar(255),
+				@Apellidos varchar(255),
+				@IdTipoDocumento int,
+				@Identificacion varchar(255),				
+				@Resultado varchar(255) OUTPUT     
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Crear'
+SET @SubMenu = '/Recursos_Humanos/Empleado'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN		
+		INSERT INTO Empleado
+		(Nombre, Apellidos, IdTipoDocumento, Identificacion, CreateBy, DateCreate) 
+		VALUES 
+		(@Nombre, @Apellidos, @IdTipoDocumento, @Identificacion, @IdUsuario, GETDATE()) 
+
+		SET @Resultado = 'OK*El Empleado ' + @Nombre + ' '+ @Apellidos+ ' a sido creado correctamente'
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ActualizarEmpleado]	@IdUser varchar(255),
+												@IdEmpleado int,				 
+												@Nombre varchar(255),
+												@Apellidos varchar(255),
+												@IdTipoDocumento int,
+												@Identificacion varchar(255),
+												@IdEstado int,			
+												@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT,
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Editar'
+SET @SubMenu = '/Recursos_Humanos/Empleado'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	IF(exists(select * from Empleado where IdTipoDocumento = @IdTipoDocumento AND Identificacion = @Identificacion AND Id != @IdEmpleado))  
+	BEGIN  
+		SET @Resultado = 'OK*El Empleado ' +  @Nombre + ' '+ @Apellidos +' ya existe.'
+		RETURN  
+	END
+ELSE
+	BEGIN
+		UPDATE	Empleado 
+		SET		Nombre = @Nombre, 
+				Apellidos = @Apellidos,
+				IdTipoDocumento = @IdTipoDocumento,
+				Identificacion = @Identificacion,
+				IdEstado = @IdEstado
+		WHERE	Id = @IdEmpleado
+		
+		SET @Resultado = 'OK*El Empleado ' +  @Nombre + ' '+ @Apellidos + ' se actualizo correctamente'  
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_EliminarEmpleado] @IdUser varchar(255), @IdEmpleado int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@NombreEmpleado varchar(255),
+		@ApellidoEmpleado varchar(255),
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Recursos_Humanos/Empleado'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @NombreEmpleado = Nombre FROM Empleado WHERE Id = @IdEmpleado
+SELECT @ApellidoEmpleado = Apellidos FROM Empleado WHERE Id = @IdEmpleado
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE Empleado WHERE Id = @IdEmpleado
+SET @Resultado = 'OK*Estimado Usuario el Empleqado '+ @NombreEmpleado +' ' + @ApellidoEmpleado +' se elimino correctamente'	
+
+SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridEmpleado]
+AS
+BEGIN
+	SELECT	Id, 
+			Imagen,
+			Nombre,
+			Apellidos,
+			IdTipoDocumento,
+			dbo.Fun_BuscarNombreTipoDocumento(IdTipoDocumento) As TipoDocumento,			
+			Identificacion,
+			IdEstado,
+			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,			
+			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
+			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
+			FROM Empleado
+			ORDER BY Id Desc
+END
