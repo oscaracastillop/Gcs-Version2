@@ -100,15 +100,15 @@ footer {
     width: 150px;
     margin: 5px;
     align-content: center;
-    background-color: orangered !important;
-    color: white !important;
+    /*background-color: orangered !important;*/
+    color: black !important;
     font-family: "Open Sans", sans-serif;
 }
 
-.btnSubMenu:hover {
+/*.btnSubMenu:hover {
     background-color: #33225a !important;
     color: white;
-}
+}*/
 
 .grid {
     width: 98%;
@@ -268,3 +268,4 @@ input, button, select {
     height: 20px;
     line-height: 15px;
 }
+

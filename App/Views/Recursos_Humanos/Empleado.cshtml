@@ -6,7 +6,7 @@
 <h6><strong>Modulo Empleado</strong></h6>
 
 <div class="grid">
-    <table id="gridEmpleado" class="table cell-border" cellspacing="0" style="width: 180%;"></table>
+    <table id="gridEmpleado" class="table cell-border" cellspacing="0" style="width: 120%;"></table>
 </div>
 
 <!-- Modal Empleado-->
@@ -18,22 +18,27 @@
             </div>
             <div class="modal-body">
                 <label id="LabelIdEmpleado" hidden></label>
-                <div>
-                    <label><strong>Nombres </strong><label style="color:red"> *</label></label>
-                    <input class="form-control" type="text" id="InputNombreEmpleado" name="name" autocomplete="off" style="min-width:100%" />
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Nombres </strong><label style="color:red"> *</label></label>
+                        <input class="form-control" type="text" id="InputNombreEmpleado" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Apellidos </strong><label style="color:red"> *</label></label>
+                        <input class="form-control" type="text" id="InputApellidosEmpleado" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
                 </div>
-                <div>
-                    <label><strong>Apellidos </strong><label style="color:red"> *</label></label>
-                    <input class="form-control" type="text" id="InputApellidosEmpleado" name="name" autocomplete="off" style="min-width:100%" />
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Documento </strong><label style="color:red"> *</label></label>
+                        <select class="form-control" id="SelectTipoDocumento" style="min-width:100%"></select>
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Identificación </strong><label style="color:red"> *</label></label>
+                        <input class="form-control" type="text" id="InputIdentificacionEmpleado" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
                 </div>
-                <div>
-                    <label><strong>Documento </strong><label style="color:red"> *</label></label>
-                    <select class="form-control" id="SelectTipoDocumento" style="min-width:100%"></select>
-                </div>
-                <div>
-                    <label><strong>Identificación </strong><label style="color:red"> *</label></label>
-                    <input class="form-control" type="text" id="InputIdentificacionEmpleado" name="name" autocomplete="off" style="min-width:100%" />
-                </div>
+                
                 <div class="col-3" id="SelectEstadoEmpleado">
                     <label><strong>Estado</strong></label>
                     <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
@@ -44,3 +49,40 @@
         </div>
     </div>
 </div>
+
+<!-- Modal ImagenEmpleado-->
+<div class="modal fade" id="ModalImagenEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <div class="modal-title"><label>Imagen Empleado</label></div>
+            </div>
+            <label id="IdEmpleadoImagen" hidden></label>
+            <label id="NombreImagenActualEmpleado" hidden></label>
+            <div class="modal-body" style="text-align:center">
+                <div style="text-align:center">
+                    <h6><strong id="NombreEmpleadoImagen"></strong></h6>
+                    <div id="ImagenHVEmpleado" style="margin-top:10px; text-align:center"></div>
+                    <br />
+                    <a href="#">Ver Información Empleado</a>
+                </div>
+                <div style="margin-top:15px">
+                    <input type="file" class="form-control" id="inPhoto" name="name" aria-describedby="inputGroupFileAddon04" aria-label="Upload" accept="image/*" style="min-width:100%">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                <button class="btn btn-modal-guardar btn-sm" type="button" onclick="GuardarImagenHVEmpleado()">Guardar Imagen</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        ValidarSesion('/Recursos_Humanos/Empleado');
+        GridEmpleado();
+        ListaTipoDocumento(1);
+        ListaTipoEstado(1);
+    });
+</script>

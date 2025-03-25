@@ -187,8 +187,7 @@ function EliminarEmpresa(IdEmpresa) {
 
 function GridEmpresa() {
     var tituloReporte = 'LISTADO DE EMPRESAS';
-    let datatable = $('#gridEmpresa').DataTable({
-        
+    let datatable = $('#gridEmpresa').DataTable({        
         responsive: false,
         scrollCollapse: true,
         scrollY: '800px',
@@ -348,15 +347,6 @@ function GridEmpresa() {
                 }
 
             },
-            //{
-            //    title: "",
-            //    data: null,
-            //    defaultContent: 
-            //        '<a class="EditarEmpresa btn btn-editar-dt" title="Editar Registro">Editar</a>',
-                    
-            //    orderable: false,
-            //    width: 'auto',
-            //},
             {
                 title: "Acciones",
                 data: null,

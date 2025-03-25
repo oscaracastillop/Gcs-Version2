@@ -137,12 +137,5 @@ namespace SistemaGcs.App.Controllers
 
         #endregion
 
-
-
-
-
-
-
-
     }
 }
