@@ -43,27 +43,34 @@
 
 </head>
 <body>
-    <header>      
-        <div class="btn-group">
+    <!--<header>      
+        <div class="btn-group">-->
             @*<img src="~/Images/ImagesApp/LogoSofia02.PNG" style="height:55px; width:150px"/>*@
-            <label id="NameApp"></label>
+            <!--<label id="NameApp"></label>
             <label id="SloganEmpresa"></label>
         </div>
-    </header>
+    </header>-->
 
     <section id="contenedoruno">
-        <nav>
-            <ul id="OpcionesMenu">
+        <nav style="margin-bottom:-17px!important">
+            <ul>
+                <li>
+                    <label id="NameApp"></label><label id="SloganEmpresa"></label>
+                </li>
             </ul>
+        </nav>
+        <nav>
+            <ul id="OpcionesMenu"></ul>
         </nav>
     </section>
 
     <section id="contenedordos">
+        <br />
         @RenderBody()
     </section>
-    <footer>
+    @*<footer>
         <p>&copy; @DateTime.Now.Year - Sofia Software Administrativo</p>
-    </footer>
+    </footer>*@
 
     <script src="~/Scripts/jquery-3.7.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>

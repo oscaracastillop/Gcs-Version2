@@ -2,7 +2,7 @@
     /*font-family: Arial, sans-serif !important;*/
     font-size: 13px !important;
     font-family: "Open Sans", sans-serif !important;
-    background-color: white !important;
+    /*background-color: #d4e6f1 !important;*/
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -20,12 +20,14 @@ textarea {
 
 
 header {
-    background-color: #33225a;
+    /*background-color: #33225a;*/
+    background-color: #333;
     color: white;
     text-align: left;
     padding: 0px;
-    height: 50px;
-    border: solid 0.5px white;
+    height: 60px;
+    margin-bottom:1px;
+
 }
 
 nav ul {
@@ -41,9 +43,10 @@ nav ul {
         text-align: left;
         padding: 5px 7px;
         text-decoration: none;
-        border: solid 2px white;
+        border: solid 0px white;
         font-size: 12px !important;
         font-family: "Open Sans", sans-serif;
+        height:39px;
         /*font-family: "Quicksand", sans-serif;
         font-family: "Open Sans", sans-serif;
         font-family: "Montserrat", sans-serif;
@@ -54,8 +57,9 @@ nav ul {
     }
 
 nav ul li a:hover{
-    background-color:#33225a;
+    background-color:black;
     color:white;
+    /*border: solid 1px white;*/
 }
 
 main {
@@ -89,26 +93,39 @@ footer {
 #contenedordos {
     margin-left: 160px;
     display: block;
-    margin-top: 12px;
-    font-family: "Open Sans", sans-serif;
+    /*margin-top: 12px;*/
+    font-family: "Open Sans", sans-serif;    
 
 }
 
 .btnSubMenu {
     font-size: 10px !important;
-    height: 100px;
+    height: 80px;
     width: 150px;
-    margin: 5px;
+    margin: 8px;
     align-content: center;
-    /*background-color: orangered !important;*/
-    color: black !important;
+    /*background-color: none !important;*/
+    color: white !important;
     font-family: "Open Sans", sans-serif;
+    border-radius: 0% !important;
+    box-shadow: inset 0px 0px 12px 0px rgba(0,0,0,1);
 }
 
-/*.btnSubMenu:hover {
-    background-color: #33225a !important;
-    color: white;
+/*.SpanbtnSubMenu {
+    align-content: center;
+    font-size: 11px !important;*/
+   /* background-color: black !important;*/
+    /*width: 110px !important;
+    color: white !important;
+    font-family: "Open Sans", sans-serif;
+    border-radius: 5px;
 }*/
+
+.btnSubMenu:hover {
+    background-color: #666!important;
+    color: white;
+    border: solid 1px white;
+}
 
 .grid {
     width: 98%;
@@ -129,8 +146,8 @@ footer {
 }
 
 table.dataTable thead tr {
-    background-color: #33225a;
-    color:white;
+    background-color: #888;
+    color: white;
 }
 
 div.dataTables_wrapper div.dataTables_filter input {
@@ -162,20 +179,21 @@ input, button, select {
 #NameApp {
     font-family: Pristina !important;
     font-size: 35px !important;
-    color: whitesmoke;
+    color: black;
     margin-left: 10px;
+    margin-top:10px!important;
     font-weight: bold;
 }
 
 #SloganEmpresa {
     font-family: "Open Sans", sans-serif;
-    font-size: 15px !important;
+    font-size: 10px !important;
     display: flex;
     align-items: flex-end;
     margin-bottom: 10px;
-    font-size: 9px;
+    margin-top:-12px!important;
     margin-left: 10px;
-    color: white;
+    color: black;
 }
 
 
@@ -235,11 +253,11 @@ input, button, select {
 }
 
 .btn-excel-datatable:hover, .btn-pdf-datatable:hover, .btn-nuevo-datatable:hover {
-    background-color: #33225a !important;
+    background-color: black !important;
 }
 
 .btn-editar-dt {
-    background-color: #444 !important;
+    background-color: #333 !important;
     font-size: 11px !important;
     color: white !important;
     padding-top: 2px !important;
@@ -247,6 +265,10 @@ input, button, select {
     padding-left: 4px !important;
     padding-right: 4px !important;
     font-family: "Open Sans", sans-serif;
+}
+
+.btn-editar-dt:hover {
+    background-color: #666 !important;
 }
 
 .btn-eliminar-dt {
@@ -260,6 +282,10 @@ input, button, select {
     font-family: "Open Sans", sans-serif;
 }
 
+.btn-eliminar-dt:hover {
+    background-color: #666 !important;
+}
+
 .btn-logo-dt {
     background-color: purple !important;
     font-size: 8px !important;
@@ -269,3 +295,12 @@ input, button, select {
     line-height: 15px;
 }
 
+.TituloModulo{
+  /*  font-weight:bold;*/
+    color:black!important;
+}
+
+.titu{
+    background-color:green !important;
+
+}

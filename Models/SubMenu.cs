@@ -8,6 +8,7 @@
             public string Nombre { get; set; }
             public string IconoCodigoHtml { get; set; }
             public string Ruta { get; set; }
+            public string ColorFondo { get; set; }
 
         }
     }
