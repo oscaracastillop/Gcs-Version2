@@ -51,6 +51,7 @@
     <Compile Include="SucursalEmpleado.cs" />
     <Compile Include="TipoDocumento.cs" />
     <Compile Include="TipoEstado.cs" />
+    <Compile Include="TipoHoraExtra.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

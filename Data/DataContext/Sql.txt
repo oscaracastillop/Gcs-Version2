@@ -406,60 +406,59 @@ ALTER TABLE SubMenu ADD CONSTRAINT FK_IdEstadoSubMenu FOREIGN KEY (IdEstado) ref
 
 GO
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (2, 'Empresa','bi-building', '2.5rem', 'white','/Negocio/Empresa','green')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (2, 'Sucursal','bi-houses', '2.5rem', 'white','/Negocio/Sucursal','purple')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (2, 'Sucursal Empleado','bi-house-gear','2.5rem','white','/Negocio/Sucursal_Empleado','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (2, 'Empresa','bi-building', '2rem', 'white','/Negocio/Empresa','green')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (2, 'Sucursal','bi-houses', '2rem', 'white','/Negocio/Sucursal','green')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (2, 'Sucursal Empleado','bi-house-gear','2rem','white','/Negocio/Sucursal_Empleado','cornflowerblue')
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Actividad','bi-wrench-adjustable-circle','2.5rem','white','/Actividad','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Banco','bi-bank','2.5rem','white','/Banco','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Cargo','bi-person-gear','2.5rem','white','/Cargo','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'CC Familiar','bi-person-raised-hand','2.5rem','white','/Caja_Compensacion_Familiar','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Eps','bi-hospital','2.5rem','white','/Eps','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Fondo Cesantías','bi-universal-access','2.5rem','white','/Fondo_Cesantias','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Fondo Pensiones','bi-universal-access-circle','2.5rem','white','/Fondo_Pensiones','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Tipo Hora Extra','bi-clock','2.5rem','white','/Tipo_Hora_Extra','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (3, 'Cliente','bi-person-rolodex','2rem','white','/Venta/Cliente','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (3, 'Cotización','bi-person-rolodex','2rem','white','/Venta/Cotizacion','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (3, 'Detalle Cotización','bi-person-rolodex','2rem','white','/Venta/Detalle_Cotizacion','cornflowerblue')
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (3, 'Cliente','bi-person-rolodex','2.5rem','white','/Cliente','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (3, 'Cotización','bi-person-rolodex','2.5rem','white','/Cotizacion','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (3, 'Detalle Cotización','bi-person-rolodex','2.5rem','white','/Detalle_Cotizacion','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Empleado','bi-person','2rem','white','/Recursos_Humanos/Empleado','green')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Dia Laborado','bi-calendar-date','2rem','white','/Recursos_Humanos/Dia_Laborado','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Permiso','bi-calendar-event','2rem','white','/Recursos_Humanos/Permiso','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Hora Extra','bi-clock-history','2rem','white','/Recursos_Humanos/Hora_Extra','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Bono','bi-cash-coin','2rem','white','/Recursos_Humanos/Bono','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Préstamo','bi-cash-coin','2rem','white','/Recursos_Humanos/Prestamo','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Casino','bi-cup-hot','2rem','white','/Recursos_Humanos/Casino','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Hoja de Vida','bi-file-richtext','2rem','white','/Recursos_Humanos/Hoja_de_Vida','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Contrato Laboral','bi-file-earmark-text','2rem','white','/Recursos_Humanos/Contrato_Laboral','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Cargar Documento','bi-file-pdf-fill','2rem','white','/Recursos_Humanos/Cargar_Documento','cornflowerblue')
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (6, 'Nómina Empleado','bi-file-text','2.5rem','white','/Nomina_Empleado','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (6, 'Nómina Contratista','bi-file-text-fill','2.5rem','white','/Nomina_Contratista','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (5, 'Contratista','bi-person-vcard-fill','2rem','white','/Contratistas/Contratista','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (5, 'Préstamo','bi-cash-coin','2rem','white','/Contratistas/Prestamo','cornflowerblue')
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Entrada','bi-box-arrow-in-right','2.5rem','white','/Entrada','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Salida','bi-box-arrow-left','2.5rem','white','/Salida','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Transferencia','bi-arrow-left-right','2.5rem','white','/Transferencia','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Inventario','bi-clipboard2-data','2.5rem','white','/Inventario','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Categoría','bi-grid','2.5rem','white','/Categoria','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Producto','bi-dropbox','2.5rem','white','/Producto','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Proveedor','bi-truck','2.5rem','white','/Proveedor','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (6, 'Nómina Empleado','bi-file-text','2rem','white','/Contabilidad/Nomina_Empleado','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (6, 'Nómina Contratista','bi-file-text-fill','2rem','white','/Contabilidad/Nomina_Contratista','cornflowerblue')
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (13, 'Información Usuario','bi-person-check','2.5rem','white','/Informacion_Usuario','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (13, 'Contacto','bi-wechat','2.5rem','white','/Contacto','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Entrada','bi-box-arrow-in-right','2rem','white','/Entrada','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Salida','bi-box-arrow-left','2rem','white','/Salida','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Transferencia','bi-arrow-left-right','2rem','white','/Transferencia','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Inventario','bi-clipboard2-data','2rem','white','/Inventario','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Categoría','bi-grid','2rem','white','/Categoria','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Producto','bi-dropbox','2rem','white','/Producto','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Proveedor','bi-truck','2rem','white','/Proveedor','cornflowerblue')
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Empleado','bi-person','2.5rem','white','/Recursos_Humanos/Empleado','green')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Dia Laborado','bi-calendar-date','2.5rem','white','/Recursos_Humanos/Dia_Laborado','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Permiso','bi-calendar-event','2.5rem','white','/Recursos_Humanos/Permiso','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Hora Extra','bi-clock-history','2.5rem','white','/Recursos_Humanos/Hora_Extra','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Bono','bi-cash-coin','2.5rem','white','/Recursos_Humanos/Bono','orange')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Préstamo','bi-cash-coin','2.5rem','white','/Recursos_Humanos/Prestamo','orange')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Casino','bi-cup-hot','2.5rem','white','/Recursos_Humanos/Casino','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Hoja de Vida','bi-file-richtext','2.5rem','white','/Recursos_Humanos/Hoja_Vida_Empleado','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Contrato Laboral','bi-file-earmark-text','2.5rem','white','/Recursos_Humanos/Contrato_Laboral','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Cargar Documento','bi-file-pdf-fill','2.5rem','white','/Recursos_Humanos/Cargar_Documento','cornflowerblue')
+--INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (8, 'Asignación Actividad','bi-window-plus','2rem','white','/Asignacion_Actividad') 29
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (8, 'HV Herramienta','bi-journal-richtext','2rem','white','/Hoja_Vida_Herramienta','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (8, 'Asignación Herramienta','bi-window-plus','2rem','white','/Asignacion_Herramienta','cornflowerblue')
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (5, 'Contratista','bi-person-vcard-fill','2.5rem','white','/Contratista','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (5, 'Préstamo','bi-cash-coin','2.5rem','white','/Prestamo_Contratista','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Actividad','bi-wrench-adjustable-circle','2rem','white','/Configuracion/Actividad','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Banco','bi-bank','2rem','white','/Configuracion/Banco','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Cargo','bi-person-gear','2rem','white','/Configuracion/Cargo','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'CC Familiar','bi-person-raised-hand','2rem','white','/Configuracion/CC_Familiar','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Eps','bi-hospital','2rem','white','/Configuracion/Eps','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Fondo Cesantías','bi-universal-access','2rem','white','/Configuracion/Fondo_Cesantias','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Fondo Pensiones','bi-universal-access-circle','2rem','white','/Configuracion/Fondo_Pensiones','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Tipo Hora Extra','bi-clock','2rem','white','/Configuracion/Tipo_Hora_Extra','green')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Usuario','bi-person','2rem','white','/Configuracion/Usuario','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Permiso Menu','bi-lock','2rem','white','/Configuracion/Permiso_Menu','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Permiso SubMenu','bi-lock','2rem','white','/Configuracion/Permiso_SubMenu','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Menu Web','bi-file-post','2rem','white','/Configuracion/Menu_Web','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'SubMenu Web','bi-file-post','2rem','white','/Configuracion/SubMenu_Web','cornflowerblue')
 
---INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (8, 'Asignación Actividad','bi-window-plus','2.5rem','white','/Asignacion_Actividad') 29
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (8, 'HV Herramienta','bi-journal-richtext','2.5rem','white','/Hoja_Vida_Herramienta','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (8, 'Asignación Herramienta','bi-window-plus','2.5rem','white','/Asignacion_Herramienta','cornflowerblue')
-
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Usuario','bi-person','2.5rem','white','/Usuario','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Permiso Menu','bi-lock','2.5rem','white','/Permiso_Usuario_Menu','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Permiso SubMenu','bi-lock','2.5rem','white','/Permiso_Usuario_SubMenu','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Menu Web','bi-file-post','2.5rem','white','/Menu','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'SubMenu Web','bi-file-post','2.5rem','white','/SubMenu','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (13, 'Información Usuario','bi-person-check','2rem','white','/Informacion_Usuario','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (13, 'Contacto','bi-wechat','2rem','white','/Contacto','cornflowerblue')
 
 GO
 
@@ -2347,7 +2346,7 @@ SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
 IF @Permiso > 0
 	IF(exists(select * from Empleado where IdTipoDocumento = @IdTipoDocumento AND Identificacion = @Identificacion AND Id != @IdEmpleado))  
 	BEGIN  
-		SET @Resultado = 'OK*El Empleado ' +  @Nombre + ' '+ @Apellidos +' ya existe.'
+		SET @Resultado = 'Error*El Empleado ' +  @Nombre + ' '+ @Apellidos +' ya existe.'
 		RETURN  
 	END
 ELSE
@@ -2460,6 +2459,177 @@ BEGIN
 	SELECT	Imagen
 	FROM Empleado 
 	WHERE Id = @IdEmpleado
+END
+
+GO
+
+/*TIPO HORA EXTRA*/
+
+CREATE TABLE TipoHoraExtra 
+(Id int identity(1,1) Primary key ,
+Nombre varchar(255),
+Porcentaje decimal(5,2),
+IdEstado int default 1,
+CreateBy int,
+DateCreate datetime
+)
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoTipoHoraExtra on TipoHoraExtra (Nombre, Porcentaje)
+
+GO
+
+ALTER TABLE TipoHoraExtra ADD CONSTRAINT FK_IdCreateByTipoHoraExtra FOREIGN KEY (CreateBy ) references Usuario(Id)
+
+GO
+
+INSERT INTO TipoHoraExtra (Nombre, Porcentaje, CreateBy, DateCreate) VALUES ('Diurna', 25, 1, GETDATE())
+INSERT INTO TipoHoraExtra (Nombre, Porcentaje, CreateBy, DateCreate) VALUES ('Nocturna', 75, 1, GETDATE())
+INSERT INTO TipoHoraExtra (Nombre, Porcentaje, CreateBy, DateCreate) VALUES ('Diurna Dominical o Festiva', 100, 1, GETDATE())
+INSERT INTO TipoHoraExtra (Nombre, Porcentaje, CreateBy, DateCreate) VALUES ('Nocturna Dominical o Festiva', 150, 1, GETDATE())
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaTipoHoraExtra]
+AS
+BEGIN
+	SELECT Id, Nombre + ' '+ CONVERT(varchar(255),Porcentaje) + ' %' FROM TipoHoraExtra ORDER BY Nombre ASC							
+END
+
+GO
+
+CREATE FUNCTION Fun_BuscarNombreTipoHoraExtra(@IdTipoHoraExtra INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombreTipoHoraExtra VARCHAR(255)
+	SELECT @NombreTipoHoraExtra = Nombre FROM TipoHoraExtra WHERE Id = @IdTipoHoraExtra 
+	RETURN @NombreTipoHoraExtra
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_CrearTipoHoraExtra] 
+				@IdUser varchar(255),  
+				@Nombre varchar(255),
+				@Porcentaje decimal(5,2),			
+				@Resultado varchar(255) OUTPUT     
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Crear'
+SET @SubMenu = '/Configuracion/Tipo_Hora_Extra'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN		
+		INSERT INTO TipoHoraExtra
+		(Nombre, Porcentaje, CreateBy, DateCreate) 
+		VALUES 
+		(@Nombre, @Porcentaje, @IdUsuario, GETDATE()) 
+
+		SET @Resultado = 'OK*El Tipo de Hora Extra ' + @Nombre + ' a sido creado correctamente'
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ActualizarTipoHoraExtra]	@IdUser varchar(255),	
+													@IdTipoHoraExtra int,
+													@Nombre varchar(255),
+													@Porcentaje decimal(5,2),
+													@IdEstado int,			
+													@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT,
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Editar'
+SET @SubMenu = '/Configuracion/Tipo_Hora_Extra'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	IF(exists(select * from TipoHoraExtra where Nombre = @Nombre AND Porcentaje = @Porcentaje AND Id != @IdTipoHoraExtra))  
+	BEGIN  
+		SET @Resultado = 'Error*El Tipo de Hora Extra ' +  @Nombre +' ya existe.'
+		RETURN  
+	END
+ELSE
+	BEGIN
+		UPDATE	TipoHoraExtra 
+		SET		Nombre = @Nombre, 
+				Porcentaje = @Porcentaje,
+				IdEstado = @IdEstado
+		WHERE	Id = @IdTipoHoraExtra
+		
+		SET @Resultado = 'OK*El Tipo de Hora Extra ' +  @Nombre + ' se actualizo correctamente'  
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_EliminarTipoHoraExtra] @IdUser varchar(255), @IdTipoHoraExtra int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@NombreTipoHoraExtra varchar(255),
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Configuracion/Tipo_Hora_Extra'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @NombreTipoHoraExtra = Nombre FROM TipoHoraExtra WHERE Id = @IdTipoHoraExtra
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE TipoHoraExtra WHERE Id = @IdTipoHoraExtra
+SET @Resultado = 'OK*Estimado Usuario el Tipo de Hora Extra '+ @NombreTipoHoraExtra +' se elimino correctamente'	
+
+SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridTipoHoraExtra]
+AS
+BEGIN
+	SELECT	Id, 
+			Nombre,
+			CONVERT(decimal(5,2),Porcentaje) As Porcentaje,
+			IdEstado,
+			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,			
+			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
+			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
+			FROM TipoHoraExtra
+			ORDER BY Id Desc
 END
 
 GO

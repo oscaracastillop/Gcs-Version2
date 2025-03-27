@@ -2197,6 +2197,7 @@
     <Content Include="JsApp\SucursalEmpleado.js" />
     <Content Include="JsApp\TipoDocumento.js" />
     <Content Include="JsApp\TipoEstado.js" />
+    <Content Include="JsApp\TipoHoraExtra.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -2463,6 +2464,7 @@
     <Compile Include="Controllers\Sucursal_EmpleadoController.cs" />
     <Compile Include="Controllers\Tipo_DocumentoController.cs" />
     <Compile Include="Controllers\Tipo_EstadoController.cs" />
+    <Compile Include="Controllers\Tipo_Hora_ExtraController.cs" />
     <Compile Include="Controllers\VentaController.cs" />
     <Compile Include="DocWord.cs" />
     <Compile Include="Global.asax.cs">
@@ -2517,6 +2519,8 @@
     <Content Include="Views\Configuracion\Cargo.cshtml" />
     <Content Include="Views\Configuracion\Banco.cshtml" />
     <Content Include="Views\Configuracion\Actividad.cshtml" />
+    <Content Include="Views\Contratistas\Prestamo.cshtml" />
+    <Content Include="Views\Contratistas\Contratista.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

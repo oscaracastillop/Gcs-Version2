@@ -9,5 +9,16 @@ namespace App.Controllers
         {
             return View();
         }
+
+        public ActionResult Prestamo()
+        {
+            return View();
+        }
+
+        public ActionResult Contratista()
+        {
+            return View();
+        }
+
     }
 }
