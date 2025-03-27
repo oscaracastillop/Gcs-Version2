@@ -9,5 +9,16 @@ namespace App.Controllers
         {
             return View();
         }
+
+        public ActionResult Nomina_Empleado()
+        {
+            return View();
+        }
+
+        public ActionResult Nomina_Contratista()
+        {
+            return View();
+        }
+
     }
 }

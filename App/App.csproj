@@ -2496,6 +2496,27 @@
     <Content Include="Views\Recursos_Humanos\Contrato_Laboral.cshtml" />
     <Content Include="Views\Recursos_Humanos\Hoja_de_Vida.cshtml" />
     <Content Include="Views\Recursos_Humanos\Hora_Extra.cshtml" />
+    <Content Include="Views\Contabilidad\Nomina_Contratista.cshtml" />
+    <Content Include="Views\Contabilidad\Nomina_Empleado.cshtml" />
+    <Content Include="Views\Recursos_Humanos\Cargar_Documento.cshtml" />
+    <Content Include="Views\Recursos_Humanos\Permiso.cshtml" />
+    <Content Include="Views\Recursos_Humanos\Dia_Laborado.cshtml" />
+    <Content Include="Views\Venta\Detalle_Cotizacion.cshtml" />
+    <Content Include="Views\Venta\Cotizacion.cshtml" />
+    <Content Include="Views\Venta\Cliente.cshtml" />
+    <Content Include="Views\Configuracion\SubMenu_Web.cshtml" />
+    <Content Include="Views\Configuracion\Menu_Web.cshtml" />
+    <Content Include="Views\Configuracion\Permiso_SubMenu.cshtml" />
+    <Content Include="Views\Configuracion\Permiso_Menu.cshtml" />
+    <Content Include="Views\Configuracion\Usuario.cshtml" />
+    <Content Include="Views\Configuracion\Tipo_Hora_Extra.cshtml" />
+    <Content Include="Views\Configuracion\Fondo_Pensiones.cshtml" />
+    <Content Include="Views\Configuracion\Fondo_Cesantias.cshtml" />
+    <Content Include="Views\Configuracion\Eps.cshtml" />
+    <Content Include="Views\Configuracion\CC_Familiar.cshtml" />
+    <Content Include="Views\Configuracion\Cargo.cshtml" />
+    <Content Include="Views\Configuracion\Banco.cshtml" />
+    <Content Include="Views\Configuracion\Actividad.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
