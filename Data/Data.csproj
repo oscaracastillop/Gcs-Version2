@@ -65,6 +65,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModeloGcs.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DataEntities\DataBanco.cs" />
     <Compile Include="DataEntities\DataCargo.cs" />
     <Compile Include="DataEntities\DataCiudad.cs" />
     <Compile Include="DataEntities\DataEmpleado.cs" />

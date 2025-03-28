@@ -2185,6 +2185,7 @@
     <Content Include="Images\ImagesProfileUsers\Usuario.png" />
     <Content Include="Images\LogoEmpresa\default.png" />
     <Content Include="Images\LogoEmpresa\NoImage.png" />
+    <Content Include="JsApp\Banco.js" />
     <Content Include="JsApp\Cargo.js" />
     <Content Include="JsApp\Ciudad.js" />
     <Content Include="JsApp\Empleado.js" />
@@ -2433,6 +2434,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BancoController.cs" />
     <Compile Include="Controllers\BonoController.cs" />
     <Compile Include="Controllers\Cargar_DocumentoController.cs" />
     <Compile Include="Controllers\CargoController.cs" />

@@ -443,7 +443,7 @@ INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (8, 'Asignación Herramienta','bi-window-plus','2rem','white','/Mantenimiento/Asignacion_Herramienta','cornflowerblue')
 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Actividad','bi-wrench-adjustable-circle','2rem','white','/Configuracion/Actividad','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Banco','bi-bank','2rem','white','/Configuracion/Banco','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Banco','bi-bank','2rem','white','/Configuracion/Banco','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Cargo','bi-person-gear','2rem','white','/Configuracion/Cargo','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'CC Familiar','bi-person-raised-hand','2rem','white','/Configuracion/CC_Familiar','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Eps','bi-hospital','2rem','white','/Configuracion/Eps','cornflowerblue')
@@ -2832,6 +2832,181 @@ BEGIN
 			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
 			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
 			FROM Cargo
+			ORDER BY Id Desc
+END
+
+GO
+
+/*BANCO*/
+
+CREATE TABLE Banco 
+(Id int identity(1,1) Primary key ,
+Nombre varchar(255),
+IdEstado int default 1,
+CreateBy int,
+DateCreate datetime,
+unique(Nombre)
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoBanco on Banco (Nombre)
+
+GO
+
+ALTER TABLE Banco ADD CONSTRAINT FK_IdCreateByBanco FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE Banco ADD CONSTRAINT FK_IdEstadoBanco FOREIGN KEY (IdEstado) references TipoEstado(Id)
+
+GO
+
+INSERT INTO Banco (Nombre, CreateBy, DateCreate) VALUES ('Por Definir',1, GETDATE())
+INSERT INTO Banco (Nombre, CreateBy, DateCreate) VALUES ('Banco de Bogotá',1, GETDATE())
+INSERT INTO Banco (Nombre, CreateBy, DateCreate) VALUES ('Davivienda',1, GETDATE())
+INSERT INTO Banco (Nombre, CreateBy, DateCreate) VALUES ('Bancolombia',1, GETDATE())
+INSERT INTO Banco (Nombre, CreateBy, DateCreate) VALUES ('Daviplata',1, GETDATE())
+INSERT INTO Banco (Nombre, CreateBy, DateCreate) VALUES ('Nequi',1, GETDATE())
+INSERT INTO Banco (Nombre, CreateBy, DateCreate) VALUES ('Banco Popular',1, GETDATE())
+INSERT INTO Banco (Nombre, CreateBy, DateCreate) VALUES ('AV Villas',1, GETDATE())
+INSERT INTO Banco (Nombre, CreateBy, DateCreate) VALUES ('Caja Social',1, GETDATE())
+INSERT INTO Banco (Nombre, CreateBy, DateCreate) VALUES ('BBVA',1, GETDATE())
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaBanco]
+AS
+BEGIN
+	SELECT Id, Nombre FROM Banco ORDER BY Nombre ASC							
+END
+
+GO
+
+CREATE FUNCTION Fun_BuscarNombreBanco(@IdBanco INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombreBanco VARCHAR(255)
+	SELECT @NombreBanco = Nombre FROM Banco WHERE Id = @IdBanco 
+	RETURN @NombreBanco
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_CrearBanco] 
+				@IdUser varchar(255),  
+				@Nombre varchar(255),			
+				@Resultado varchar(255) OUTPUT     
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Crear'
+SET @SubMenu = '/Configuracion/Banco'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN		
+		INSERT INTO Banco
+		(Nombre, CreateBy, DateCreate) 
+		VALUES 
+		(@Nombre, @IdUsuario, GETDATE()) 
+
+		SET @Resultado = 'OK*El Banco ' + @Nombre + ' a sido creado correctamente'
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ActualizarBanco]	@IdUser varchar(255),	
+													@IdBanco int,
+													@Nombre varchar(255),
+													@IdEstado int,			
+													@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT,
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Editar'
+SET @SubMenu = '/Configuracion/Banco'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	IF(exists(select * from Banco where Nombre = @Nombre AND Id != @IdBanco))  
+	BEGIN  
+		SET @Resultado = 'Error*El Banco ' +  @Nombre +' ya existe.'
+		RETURN  
+	END
+ELSE
+	BEGIN
+		UPDATE	Banco 
+		SET		Nombre = @Nombre, 
+				IdEstado = @IdEstado
+		WHERE	Id = @IdBanco
+		
+		SET @Resultado = 'OK*El Banco ' +  @Nombre + ' se actualizo correctamente'  
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_EliminarBanco] @IdUser varchar(255), @IdBanco int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@NombreBanco varchar(255),
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Configuracion/Banco'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @NombreBanco = Nombre FROM Banco WHERE Id = @IdBanco
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE Banco WHERE Id = @IdBanco
+SET @Resultado = 'OK*Estimado Usuario el Banco '+ @NombreBanco +' se elimino correctamente'	
+
+SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridBanco]
+AS
+BEGIN
+	SELECT	Id, 
+			Nombre,
+			IdEstado,
+			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,			
+			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
+			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
+			FROM Banco
 			ORDER BY Id Desc
 END
 
