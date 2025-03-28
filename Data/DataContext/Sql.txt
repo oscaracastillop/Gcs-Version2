@@ -431,17 +431,16 @@ INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (6, 'Nómina Empleado','bi-file-text','2rem','white','/Contabilidad/Nomina_Empleado','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (6, 'Nómina Contratista','bi-file-text-fill','2rem','white','/Contabilidad/Nomina_Contratista','cornflowerblue')
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Entrada','bi-box-arrow-in-right','2rem','white','/Entrada','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Salida','bi-box-arrow-left','2rem','white','/Salida','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Transferencia','bi-arrow-left-right','2rem','white','/Transferencia','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Inventario','bi-clipboard2-data','2rem','white','/Inventario','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Categoría','bi-grid','2rem','white','/Categoria','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Producto','bi-dropbox','2rem','white','/Producto','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Proveedor','bi-truck','2rem','white','/Proveedor','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Entrada','bi-box-arrow-in-right','2rem','white','/Almacen/Entrada','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Salida','bi-box-arrow-left','2rem','white','/Almacen/Salida','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Transferencia','bi-arrow-left-right','2rem','white','/Almacen/Transferencia','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Inventario','bi-clipboard2-data','2rem','white','/Almacen/Inventario','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Categoría','bi-grid','2rem','white','/Almacen/Categoria','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Producto','bi-dropbox','2rem','white','/Almacen/Producto','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Proveedor','bi-truck','2rem','white','/Almacen/Proveedor','cornflowerblue')
 
---INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (8, 'Asignación Actividad','bi-window-plus','2rem','white','/Asignacion_Actividad') 29
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (8, 'HV Herramienta','bi-journal-richtext','2rem','white','/Hoja_Vida_Herramienta','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (8, 'Asignación Herramienta','bi-window-plus','2rem','white','/Asignacion_Herramienta','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (8, 'HV Herramienta','bi-journal-richtext','2rem','white','/Mantenimiento/Hoja_Vida_Herramienta','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (8, 'Asignación Herramienta','bi-window-plus','2rem','white','/Mantenimiento/Asignacion_Herramienta','cornflowerblue')
 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Actividad','bi-wrench-adjustable-circle','2rem','white','/Configuracion/Actividad','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Banco','bi-bank','2rem','white','/Configuracion/Banco','cornflowerblue')
@@ -457,8 +456,8 @@ INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Menu Web','bi-file-post','2rem','white','/Configuracion/Menu_Web','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'SubMenu Web','bi-file-post','2rem','white','/Configuracion/SubMenu_Web','cornflowerblue')
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (13, 'Información Usuario','bi-person-check','2rem','white','/Informacion_Usuario','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (13, 'Contacto','bi-wechat','2rem','white','/Contacto','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (13, 'Información Usuario','bi-person-check','2rem','white','/Informacion/Informacion_Usuario','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (13, 'Contacto','bi-wechat','2rem','white','/Informacion/Contacto','cornflowerblue')
 
 GO
 
@@ -2629,6 +2628,210 @@ BEGIN
 			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
 			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
 			FROM TipoHoraExtra
+			ORDER BY Id Desc
+END
+
+GO
+
+/*CARGO*/
+
+CREATE TABLE Cargo 
+(Id int identity(1,1) Primary key ,
+Nombre varchar(255),
+IdEstado int default 1,
+CreateBy int,
+DateCreate datetime,
+unique(Nombre)
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoCargo on Cargo (Nombre)
+
+GO
+
+ALTER TABLE Cargo ADD CONSTRAINT FK_IdCreateByCargo FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE Cargo ADD CONSTRAINT FK_IdEstadoCargo FOREIGN KEY (IdEstado) references TipoEstado(Id)
+
+GO
+
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Gerente General',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Sub-Gerente',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Contador(a)',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Secretario(a)',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Representante de Ventas',1, GETDATE())
+
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Director(a) Recursos Humanos',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Director(a) Producción',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Director(a) Mipe',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Director(a) Mirfe',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Director(a) Mantenimiento',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Director(a) Almacén',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Director(a) de Proyectos',1, GETDATE())
+
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Auxiliar Administrativo(a)',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Auxiliar de Producción',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Auxiliar de Almacén',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Auxiliar de Mantenimiento',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Auxiliar Mipe',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Auxiliar Mirfe',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Auxiliar de Logística',1, GETDATE())
+
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Ingeriero(a) Agrónomo(a)',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Ingeriero(a) Sistemas',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Ingeriero(a) Civil',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Ingeriero(a) Ambiental',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Ingeriero(a) Químico(a)',1, GETDATE())
+
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Arquitecto(a)',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Oficial de Construcción',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Maestro de Construcción',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Auxiliar de Construcción',1, GETDATE())
+
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Electricista',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Soldador Eléctrico',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Operario',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Conductor',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Recepcionista',1, GETDATE())
+INSERT INTO Cargo(Nombre, CreateBy, DateCreate) VALUES ('Guarda de Seguridad',1, GETDATE())
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaCargo]
+AS
+BEGIN
+	SELECT Id, Nombre FROM Cargo ORDER BY Nombre ASC							
+END
+
+GO
+
+CREATE FUNCTION Fun_BuscarNombreCargo(@IdCargo INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombreCargo VARCHAR(255)
+	SELECT @NombreCargo = Nombre FROM Cargo WHERE Id = @IdCargo 
+	RETURN @NombreCargo
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_CrearCargo] 
+				@IdUser varchar(255),  
+				@Nombre varchar(255),			
+				@Resultado varchar(255) OUTPUT     
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Crear'
+SET @SubMenu = '/Configuracion/Cargo'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN		
+		INSERT INTO Cargo
+		(Nombre, CreateBy, DateCreate) 
+		VALUES 
+		(@Nombre, @IdUsuario, GETDATE()) 
+
+		SET @Resultado = 'OK*El Cargo ' + @Nombre + ' a sido creado correctamente'
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ActualizarCargo]	@IdUser varchar(255),	
+													@IdCargo int,
+													@Nombre varchar(255),
+													@IdEstado int,			
+													@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT,
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Editar'
+SET @SubMenu = '/Configuracion/Cargo'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	IF(exists(select * from Cargo where Nombre = @Nombre AND Id != @IdCargo))  
+	BEGIN  
+		SET @Resultado = 'Error*El Cargo ' +  @Nombre +' ya existe.'
+		RETURN  
+	END
+ELSE
+	BEGIN
+		UPDATE	Cargo 
+		SET		Nombre = @Nombre, 
+				IdEstado = @IdEstado
+		WHERE	Id = @IdCargo
+		
+		SET @Resultado = 'OK*El Cargo ' +  @Nombre + ' se actualizo correctamente'  
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_EliminarCargo] @IdUser varchar(255), @IdCargo int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@NombreCargo varchar(255),
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Configuracion/Cargo'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @NombreCargo = Nombre FROM Cargo WHERE Id = @IdCargo
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE Cargo WHERE Id = @IdCargo
+SET @Resultado = 'OK*Estimado Usuario el Cargo '+ @NombreCargo +' se elimino correctamente'	
+
+SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridCargo]
+AS
+BEGIN
+	SELECT	Id, 
+			Nombre,
+			IdEstado,
+			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,			
+			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
+			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
+			FROM Cargo
 			ORDER BY Id Desc
 END
 

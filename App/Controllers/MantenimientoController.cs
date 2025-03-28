@@ -9,5 +9,15 @@ namespace App.Controllers
         {
             return View();
         }
+
+        public ActionResult Hoja_Vida_Herramienta()
+        {
+            return View();
+        }
+
+        public ActionResult Asignacion_Herramienta()
+        {
+            return View();
+        }
     }
 }

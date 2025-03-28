@@ -2185,6 +2185,7 @@
     <Content Include="Images\ImagesProfileUsers\Usuario.png" />
     <Content Include="Images\LogoEmpresa\default.png" />
     <Content Include="Images\LogoEmpresa\NoImage.png" />
+    <Content Include="JsApp\Cargo.js" />
     <Content Include="JsApp\Ciudad.js" />
     <Content Include="JsApp\Empleado.js" />
     <Content Include="JsApp\Empresa.js" />
@@ -2434,6 +2435,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BonoController.cs" />
     <Compile Include="Controllers\Cargar_DocumentoController.cs" />
+    <Compile Include="Controllers\CargoController.cs" />
     <Compile Include="Controllers\CasinoController.cs" />
     <Compile Include="Controllers\CiudadController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
@@ -2480,14 +2482,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.0.0.min.map" />
-    <Content Include="Views\Empresa\Index.cshtml" />
-    <Content Include="Views\Sucursal\Index.cshtml" />
-    <Content Include="Views\Sucursal_Empleado\Index.cshtml" />
-    <Content Include="Views\Cliente\Index.cshtml" />
-    <Content Include="Views\Cotizacion\Index.cshtml" />
-    <Content Include="Views\Detalle_Cotizacion\Index.cshtml" />
-    <Content Include="Views\Hoja_de_Vida\Index.cshtml" />
-    <Content Include="Views\Cargar_Documento\Index.cshtml" />
     <Content Include="Views\Recursos_Humanos\Empleado.cshtml" />
     <Content Include="Views\Negocio\Empresa.cshtml" />
     <Content Include="Views\Negocio\Sucursal.cshtml" />
@@ -2521,6 +2515,17 @@
     <Content Include="Views\Configuracion\Actividad.cshtml" />
     <Content Include="Views\Contratistas\Prestamo.cshtml" />
     <Content Include="Views\Contratistas\Contratista.cshtml" />
+    <Content Include="Views\Informacion\Informacion_Usuario.cshtml" />
+    <Content Include="Views\Informacion\Contacto.cshtml" />
+    <Content Include="Views\Mantenimiento\Hoja_Vida_Herramienta.cshtml" />
+    <Content Include="Views\Mantenimiento\Asignacion_Herramienta.cshtml" />
+    <Content Include="Views\Almacen\Entrada.cshtml" />
+    <Content Include="Views\Almacen\Salida.cshtml" />
+    <Content Include="Views\Almacen\Transferencia.cshtml" />
+    <Content Include="Views\Almacen\Inventario.cshtml" />
+    <Content Include="Views\Almacen\Categoria.cshtml" />
+    <Content Include="Views\Almacen\Producto.cshtml" />
+    <Content Include="Views\Almacen\Proveedor.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

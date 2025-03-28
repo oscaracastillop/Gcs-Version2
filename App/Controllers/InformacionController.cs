@@ -13,5 +13,15 @@ namespace App.Controllers
         {
             return View();
         }
+
+        public ActionResult Informacion_Usuario()
+        {
+            return View();
+        }
+
+        public ActionResult Contacto()
+        {
+            return View();
+        }
     }
 }
