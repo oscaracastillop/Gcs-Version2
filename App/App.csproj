@@ -2190,6 +2190,8 @@
     <Content Include="JsApp\Ciudad.js" />
     <Content Include="JsApp\Empleado.js" />
     <Content Include="JsApp\Empresa.js" />
+    <Content Include="JsApp\Eps.js" />
+    <Content Include="JsApp\FondoPensiones.js" />
     <Content Include="JsApp\getBase64FomFile.js" />
     <Content Include="JsApp\Goblal.js" />
     <Content Include="JsApp\Login.js" />
@@ -2449,6 +2451,8 @@
     <Compile Include="Controllers\Detalle_CotizacionController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\EmpresaController.cs" />
+    <Compile Include="Controllers\EpsController.cs" />
+    <Compile Include="Controllers\Fondo_PensionesController.cs" />
     <Compile Include="Controllers\Hoja_de_VidaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Hora_ExtraController.cs" />

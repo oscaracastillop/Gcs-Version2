@@ -46,6 +46,8 @@
     <Compile Include="Ciudad.cs" />
     <Compile Include="Empleado.cs" />
     <Compile Include="Empresa.cs" />
+    <Compile Include="Eps.cs" />
+    <Compile Include="FondoPensiones.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubMenu.cs" />

@@ -4,12 +4,12 @@
     $("#InputNombreBanco").empty().val('');
     $("#BotonesModalBanco").empty();
     if (tipo == 'C') {
-        $("#TituloModalBanco").empty().append('<label>Crear Tipo Hora Extra</label>');
+        $("#TituloModalBanco").empty().append('<label>Crear Banco</label>');
         $('#ModalBanco').modal('show');
         $("#SelectEstadoBanco").hide();
         $("#BotonesModalBanco").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearBanco()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalBanco").empty().append('<label>Editar Tipo Hora Extra</label>');
+        $("#TituloModalBanco").empty().append('<label>Editar Banco</label>');
         $('#ModalBanco').modal('show');
         $("#SelectEstadoBanco").show();
         $("#BotonesModalBanco").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarBanco()">Guardar Cambios</button>');

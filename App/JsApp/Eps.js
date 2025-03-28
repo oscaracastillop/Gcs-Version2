@@ -1,35 +1,35 @@
-﻿function ModalCargo(tipo) {
-    $("#TituloModalCargo").empty().val('');
-    $("#LabelIdCargo").empty().val('');
-    $("#InputNombreCargo").empty().val('');
-    $("#BotonesModalCargo").empty();
+﻿function ModalEps(tipo) {
+    $("#TituloModalEps").empty().val('');
+    $("#LabelIdEps").empty().val('');
+    $("#InputNombreEps").empty().val('');
+    $("#BotonesModalEps").empty();
     if (tipo == 'C') {
-        $("#TituloModalCargo").empty().append('<label>Crear Cargo</label>');
-        $('#ModalCargo').modal('show');
-        $("#SelectEstadoCargo").hide();
-        $("#BotonesModalCargo").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearCargo()">Guardar</button>');
+        $("#TituloModalEps").empty().append('<label>Crear Eps</label>');
+        $('#ModalEps').modal('show');
+        $("#SelectEstadoEps").hide();
+        $("#BotonesModalEps").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearEps()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalCargo").empty().append('<label>Editar Cargo</label>');
-        $('#ModalCargo').modal('show');
-        $("#SelectEstadoCargo").show();
-        $("#BotonesModalCargo").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarCargo()">Guardar Cambios</button>');
+        $("#TituloModalEps").empty().append('<label>Editar Eps</label>');
+        $('#ModalEps').modal('show');
+        $("#SelectEstadoEps").show();
+        $("#BotonesModalEps").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarEps()">Guardar Cambios</button>');
     }
 }
 
-function CrearCargo() {
-    let NombreCargo = $('#InputNombreCargo').val();
+function CrearEps() {
+    let NombreEps = $('#InputNombreEps').val();
 
-    if (NombreCargo == null || NombreCargo == '' || NombreCargo == undefined) {
-        $('#InputNombreCargo').focus();
-        VentanaMensaje('Ingrese el nombre del Cargo', 'info');
+    if (NombreEps == null || NombreEps == '' || NombreEps == undefined) {
+        $('#InputNombreEps').focus();
+        VentanaMensaje('Ingrese el nombre de la Eps', 'info');
     } else {
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/Cargo/CrearCargo',
+            url: '/Eps/CrearEps',
             data: {
                 IdUser: TokenUser,
-                NombreCargo: NombreCargo
+                NombreEps: NombreEps
             },
             success: function (resultado) {
                 valor = resultado.split('*');
@@ -51,23 +51,23 @@ function CrearCargo() {
     }
 }
 
-function ActualizarCargo() {
-    let IdCargo = $('#LabelIdCargo').text();
-    let NombreCargo = $('#InputNombreCargo').val();
+function ActualizarEps() {
+    let IdEps = $('#LabelIdEps').text();
+    let NombreEps = $('#InputNombreEps').val();
     let IdEstado = $('#SelectEstado').val();
 
-    if (NombreCargo == null || NombreCargo == '' || NombreCargo == undefined) {
-        $('#InputNombreCargo').focus();
-        VentanaMensaje('Ingrese el nombre del Cargo', 'info');
+    if (NombreEps == null || NombreEps == '' || NombreEps == undefined) {
+        $('#InputNombreEps').focus();
+        VentanaMensaje('Ingrese el nombre de la Eps', 'info');
     } else {
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/Cargo/ActualizarCargo',
+            url: '/Eps/ActualizarEps',
             data: {
                 IdUser: TokenUser,
-                IdCargo: IdCargo,
-                NombreCargo: NombreCargo,
+                IdEps: IdEps,
+                NombreEps: NombreEps,
                 IdEstado: IdEstado
             },
             success: function (resultado) {
@@ -90,7 +90,7 @@ function ActualizarCargo() {
     }
 }
 
-function EliminarCargo(IdCargo) {
+function EliminarEps(IdEps) {
     Swal.fire({
         title: TituloSwal,
         text: "Esta seguro(a)?, No podrás revertir esta acción.!",
@@ -106,10 +106,10 @@ function EliminarCargo(IdCargo) {
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: '/Cargo/EliminarCargo',
+                url: '/Eps/EliminarEps',
                 data: {
                     IdUser: TokenUser,
-                    IdCargo: IdCargo
+                    IdEps: IdEps
                 },
                 success: function (resultado) {
                     valor = resultado.split('*');
@@ -132,9 +132,9 @@ function EliminarCargo(IdCargo) {
     });
 }
 
-function GridCargo() {
-    var tituloReporte = 'LISTADO DE CARGOS';
-    let datatable = $('#gridCargo').DataTable({
+function GridEps() {
+    var tituloReporte = 'LISTADO DE EPS';
+    let datatable = $('#gridEps').DataTable({
         responsive: false,
         scrollCollapse: true,
         scrollY: '800px',
@@ -219,7 +219,7 @@ function GridCargo() {
                 text: 'Nuevo',
                 className: 'btn btn-nuevo-datatable',
                 action: function (e, dt, node, config) {
-                    ModalCargo('C');
+                    ModalEps('C');
                 }
             }
 
@@ -227,12 +227,12 @@ function GridCargo() {
         /*"order": [[1, "asc"]],*/
         destroy: true,
         "ajax": {
-            "url": '/Cargo/GridCargo',
+            "url": '/Eps/GridEps',
             "type": "GET",
             "datatype": "json"
         },
         columns: [
-            { "data": "Nombre", title: "Cargo", width: 'auto' },
+            { "data": "Nombre", title: "Eps", width: 'auto' },
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
             {
@@ -255,7 +255,7 @@ function GridCargo() {
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<a class="EditarCargo btn btn-editar-dt" title="Editar Registro">Editar</a>&nbsp;&nbsp;<a class="EliminarCargo btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>' +
+                    '<a class="EditarEps btn btn-editar-dt" title="Editar Registro">Editar</a>&nbsp;&nbsp;<a class="EliminarEps btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',
@@ -271,34 +271,34 @@ function GridCargo() {
         ],
     });
 
-    $('#gridCargo').on('click', '.EditarCargo', function () {
+    $('#gridEps').on('click', '.EditarEps', function () {
         let data = datatable.row($(this).parents()).data();
-        ModalCargo('E');
-        $('#LabelIdCargo').text(data.Id);
-        $('#InputNombreCargo').val(data.Nombre);
+        ModalEps('E');
+        $('#LabelIdEps').text(data.Id);
+        $('#InputNombreEps').val(data.Nombre);
         $('#SelectEstado').val(data.IdEstado);
     })
 
-    $('#gridCargo').on('click', '.EliminarCargo', function () {
+    $('#gridEps').on('click', '.EliminarEps', function () {
         let data = datatable.row($(this).parents()).data();
-        EliminarCargo(data.Id);
+        EliminarEps(data.Id);
     })
 }
 
-function ListaCargo() {
+function ListaEps() {
     $.ajax({
         type: 'POST',
         dataType: 'json',
-        url: '/Cargo/ListaCargo',
+        url: '/Eps/ListaEps',
         data: {},
         success: function (resultado) {
             var contador = 0;
             if (resultado.length === 0) {
-                $("#SelectCargo").append('<option value="">No hay Datos</option>');
+                $("#SelectEps").append('<option value="">No hay Datos</option>');
             } else {
-                $("#SelectCargo").empty().append('<option value="-1">Seleccione ...</option>');
+                $("#SelectEps").empty().append('<option value="-1">Seleccione ...</option>');
                 $.each(resultado, function () {
-                    $("#SelectCargo ").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
+                    $("#SelectEps ").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
                     contador++;
                 });
             }

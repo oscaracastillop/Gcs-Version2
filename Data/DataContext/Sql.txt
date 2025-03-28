@@ -446,9 +446,9 @@ INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Banco','bi-bank','2rem','white','/Configuracion/Banco','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Cargo','bi-person-gear','2rem','white','/Configuracion/Cargo','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'CC Familiar','bi-person-raised-hand','2rem','white','/Configuracion/CC_Familiar','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Eps','bi-hospital','2rem','white','/Configuracion/Eps','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Eps','bi-hospital','2rem','white','/Configuracion/Eps','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Fondo Cesantías','bi-universal-access','2rem','white','/Configuracion/Fondo_Cesantias','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Fondo Pensiones','bi-universal-access-circle','2rem','white','/Configuracion/Fondo_Pensiones','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Fondo Pensiones','bi-universal-access-circle','2rem','white','/Configuracion/Fondo_Pensiones','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Tipo Hora Extra','bi-clock','2rem','white','/Configuracion/Tipo_Hora_Extra','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Usuario','bi-person','2rem','white','/Configuracion/Usuario','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Permiso Menu','bi-lock','2rem','white','/Configuracion/Permiso_Menu','cornflowerblue')
@@ -3007,6 +3007,353 @@ BEGIN
 			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
 			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
 			FROM Banco
+			ORDER BY Id Desc
+END
+
+GO
+
+/*EPS*/
+
+CREATE TABLE Eps 
+(Id int identity(1,1) Primary key ,
+Nombre varchar(255),
+IdEstado int default 1,
+CreateBy int,
+DateCreate datetime,
+unique(Nombre)
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoEps on Eps (Nombre)
+
+GO
+
+ALTER TABLE Eps ADD CONSTRAINT FK_IdCreateByEps FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE Eps ADD CONSTRAINT FK_IdEstadoEps FOREIGN KEY (IdEstado) references TipoEstado(Id)
+
+GO
+
+INSERT INTO Eps (Nombre, CreateBy, DateCreate) VALUES ('Por Definir',1, GETDATE())
+INSERT INTO Eps (Nombre, CreateBy, DateCreate) VALUES ('EPS Famisanar LTDA.',1, GETDATE())
+INSERT INTO Eps (Nombre, CreateBy, DateCreate) VALUES ('EPS Sanitas S.A.',1, GETDATE())
+INSERT INTO Eps (Nombre, CreateBy, DateCreate) VALUES ('EPS Convida',1, GETDATE())
+INSERT INTO Eps (Nombre, CreateBy, DateCreate) VALUES ('Nueva EPS S.A.',1, GETDATE())
+INSERT INTO Eps (Nombre, CreateBy, DateCreate) VALUES ('Saludvida S.A. EPS',1, GETDATE())
+INSERT INTO Eps (Nombre, CreateBy, DateCreate) VALUES ('Salud Total S.A. EPS',1, GETDATE())
+INSERT INTO Eps (Nombre, CreateBy, DateCreate) VALUES ('Savia Salud EPS',1, GETDATE())
+INSERT INTO Eps (Nombre, CreateBy, DateCreate) VALUES ('Compensar EPS',1, GETDATE())
+INSERT INTO Eps (Nombre, CreateBy, DateCreate) VALUES ('Confenalco  Valle EPS',1, GETDATE())
+INSERT INTO Eps (Nombre, CreateBy, DateCreate) VALUES ('Capresoca EPS',1, GETDATE())
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaEps]
+AS
+BEGIN
+	SELECT Id, Nombre FROM Eps ORDER BY Nombre ASC							
+END
+
+GO
+
+CREATE FUNCTION Fun_BuscarNombreEps(@IdEps INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombreEps VARCHAR(255)
+	SELECT @NombreEps = Nombre FROM Eps WHERE Id = @IdEps 
+	RETURN @NombreEps
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_CrearEps] 
+				@IdUser varchar(255),  
+				@Nombre varchar(255),			
+				@Resultado varchar(255) OUTPUT     
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Crear'
+SET @SubMenu = '/Configuracion/Eps'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN		
+		INSERT INTO Eps
+		(Nombre, CreateBy, DateCreate) 
+		VALUES 
+		(@Nombre, @IdUsuario, GETDATE()) 
+
+		SET @Resultado = 'OK*La Eps ' + @Nombre + ' a sido creado correctamente'
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ActualizarEps]	@IdUser varchar(255),	
+													@IdEps int,
+													@Nombre varchar(255),
+													@IdEstado int,			
+													@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT,
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Editar'
+SET @SubMenu = '/Configuracion/Eps'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	IF(exists(select * from Eps where Nombre = @Nombre AND Id != @IdEps))  
+	BEGIN  
+		SET @Resultado = 'Error*La Eps ' +  @Nombre +' ya existe.'
+		RETURN  
+	END
+ELSE
+	BEGIN
+		UPDATE	Eps 
+		SET		Nombre = @Nombre, 
+				IdEstado = @IdEstado
+		WHERE	Id = @IdEps
+		
+		SET @Resultado = 'OK*La Eps ' +  @Nombre + ' se actualizo correctamente'  
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_EliminarEps] @IdUser varchar(255), @IdEps int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@NombreEps varchar(255),
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Configuracion/Eps'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @NombreEps = Nombre FROM Eps WHERE Id = @IdEps
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE Eps WHERE Id = @IdEps
+SET @Resultado = 'OK*Estimado Usuario la Eps '+ @NombreEps +' se elimino correctamente'	
+
+SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridEps]
+AS
+BEGIN
+	SELECT	Id, 
+			Nombre,
+			IdEstado,
+			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,			
+			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
+			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
+			FROM Eps
+			ORDER BY Id Desc
+END
+
+GO
+
+/*FONDO PENSIONES*/
+
+CREATE TABLE FondoPensiones 
+(Id int identity(1,1) Primary key ,
+Nombre varchar(255),
+IdEstado int default 1,
+CreateBy int,
+DateCreate datetime,
+unique(Nombre)
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoFondoPensiones on FondoPensiones (Nombre)
+
+GO
+
+ALTER TABLE FondoPensiones ADD CONSTRAINT FK_IdCreateByFondoPensiones FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE FondoPensiones ADD CONSTRAINT FK_IdEstadoFondoPensiones FOREIGN KEY (IdEstado) references TipoEstado(Id)
+
+GO
+
+INSERT INTO FondoPensiones (Nombre, CreateBy, DateCreate) VALUES ('Por Definir',1, GETDATE())
+INSERT INTO FondoPensiones (Nombre, CreateBy, DateCreate) VALUES ('Porvenir',1, GETDATE())
+INSERT INTO FondoPensiones (Nombre, CreateBy, DateCreate) VALUES ('Protección',1, GETDATE())
+INSERT INTO FondoPensiones (Nombre, CreateBy, DateCreate) VALUES ('Colpensiones',1, GETDATE())
+INSERT INTO FondoPensiones (Nombre, CreateBy, DateCreate) VALUES ('Colfondos',1, GETDATE())
+INSERT INTO FondoPensiones (Nombre, CreateBy, DateCreate) VALUES ('Old Mutual',1, GETDATE())
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaFondoPensiones]
+AS
+BEGIN
+	SELECT Id, Nombre FROM FondoPensiones ORDER BY Nombre ASC							
+END
+
+GO
+
+CREATE FUNCTION Fun_BuscarNombreFondoPensiones(@IdFondoPensiones INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombreFondoPensiones VARCHAR(255)
+	SELECT @NombreFondoPensiones = Nombre FROM FondoPensiones WHERE Id = @IdFondoPensiones 
+	RETURN @NombreFondoPensiones
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_CrearFondoPensiones] 
+				@IdUser varchar(255),  
+				@Nombre varchar(255),			
+				@Resultado varchar(255) OUTPUT     
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Crear'
+SET @SubMenu = '/Configuracion/Fondo_Pensiones'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN		
+		INSERT INTO FondoPensiones
+		(Nombre, CreateBy, DateCreate) 
+		VALUES 
+		(@Nombre, @IdUsuario, GETDATE()) 
+
+		SET @Resultado = 'OK*El Fondo Pensiones ' + @Nombre + ' a sido creado correctamente'
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ActualizarFondoPensiones]	@IdUser varchar(255),	
+													@IdFondoPensiones int,
+													@Nombre varchar(255),
+													@IdEstado int,			
+													@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT,
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Editar'
+SET @SubMenu = '/Configuracion/Fondo_Pensiones'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	IF(exists(select * from FondoPensiones where Nombre = @Nombre AND Id != @IdFondoPensiones))  
+	BEGIN  
+		SET @Resultado = 'Error*El Fondo Pensiones ' +  @Nombre +' ya existe.'
+		RETURN  
+	END
+ELSE
+	BEGIN
+		UPDATE	FondoPensiones 
+		SET		Nombre = @Nombre, 
+				IdEstado = @IdEstado
+		WHERE	Id = @IdFondoPensiones
+		
+		SET @Resultado = 'OK*El Fondo Pensiones ' +  @Nombre + ' se actualizo correctamente'  
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_EliminarFondoPensiones] @IdUser varchar(255), @IdFondoPensiones int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@NombreFondoPensiones varchar(255),
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Configuracion/Fondo_Pensiones'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @NombreFondoPensiones = Nombre FROM FondoPensiones WHERE Id = @IdFondoPensiones
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE FondoPensiones WHERE Id = @IdFondoPensiones
+SET @Resultado = 'OK*Estimado Usuario el Fondo Pensiones '+ @NombreFondoPensiones +' se elimino correctamente'	
+
+SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridFondoPensiones]
+AS
+BEGIN
+	SELECT	Id, 
+			Nombre,
+			IdEstado,
+			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,			
+			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
+			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
+			FROM FondoPensiones
 			ORDER BY Id Desc
 END
 
