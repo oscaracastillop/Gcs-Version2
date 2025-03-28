@@ -444,7 +444,7 @@ INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) 
 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Actividad','bi-wrench-adjustable-circle','2rem','white','/Configuracion/Actividad','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Banco','bi-bank','2rem','white','/Configuracion/Banco','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Cargo','bi-person-gear','2rem','white','/Configuracion/Cargo','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Cargo','bi-person-gear','2rem','white','/Configuracion/Cargo','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'CC Familiar','bi-person-raised-hand','2rem','white','/Configuracion/CC_Familiar','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Eps','bi-hospital','2rem','white','/Configuracion/Eps','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Fondo Cesantías','bi-universal-access','2rem','white','/Configuracion/Fondo_Cesantias','cornflowerblue')

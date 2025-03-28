@@ -156,7 +156,7 @@ function GridCargo() {
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
                 text: 'Excel',
                 exportOptions: {
-                    columns: [0, 1, 2],
+                    columns: [0, 1, 2, 3],
                 },
             },
             {
@@ -166,7 +166,7 @@ function GridCargo() {
                 orientation: 'portrait', // landscape
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
                 exportOptions: {
-                    columns: [0, 1, 2],
+                    columns: [0, 1, 2, 3],
                     search: 'applied',
                     order: 'applied',
                 },
@@ -224,7 +224,7 @@ function GridCargo() {
             }
 
         ],
-        "order": [[1, "asc"]],
+        /*"order": [[1, "asc"]],*/
         destroy: true,
         "ajax": {
             "url": '/Cargo/GridCargo',
