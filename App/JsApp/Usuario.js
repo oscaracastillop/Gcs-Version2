@@ -25,15 +25,15 @@ function CrearUsuario() {
     let Password = $('#InputPassword').val();
     let Email = $('#InputEmailUsuario').val();
     let NombreUsuarioLogin = $('#InputNombreUsuario').val();
-    let Fecha = $('#InputFechaVigencia').val();
+    let FechaVigencia = $('#InputFechaVigencia').val();
 
-    if (NombreUsuario == null || NombreUsuario == '' || NombreUsuario == undefined) {
+    if (Usuario == null || Usuario == '' || Usuario == undefined) {
         $('#InputUsuario').focus();
         VentanaMensaje('Ingrese usuario / login', 'info');
     } else if (Password == null || Password == '' || Password == undefined) {
         $('#InputPassword').focus();
         VentanaMensaje('Ingrese el password / login', 'info');
-    } else if (Fecha == null || Fecha == '' || Fecha == undefined) {
+    } else if (FechaVigencia == null || FechaVigencia == '' || FechaVigencia == undefined) {
         $('#InputFechaVigencia').focus();
         VentanaMensaje('Ingrese la fecha de expiración del usuario', 'info');
     } else {
@@ -75,16 +75,16 @@ function ActualizarUsuario() {
     let Password = $('#InputPassword').val();
     let Email = $('#InputEmailUsuario').val();
     let NombreUsuarioLogin = $('#InputNombreUsuario').val();
-    let Fecha = $('#InputFechaVigencia').val();
+    let FechaVigencia = $('#InputFechaVigencia').val();
     let IdEstado = $('#SelectEstado').val();
 
-    if (NombreUsuario == null || NombreUsuario == '' || NombreUsuario == undefined) {
+    if (Usuario == null || Usuario == '' || Usuario == undefined) {
         $('#InputUsuario').focus();
         VentanaMensaje('Ingrese usuario / login', 'info');
     } else if (Password == null || Password == '' || Password == undefined) {
         $('#InputPassword').focus();
         VentanaMensaje('Ingrese el password / login', 'info');
-    } else if (Fecha == null || Fecha == '' || Fecha == undefined) {
+    } else if (FechaVigencia == null || FechaVigencia == '' || FechaVigencia == undefined) {
         $('#InputFechaVigencia').focus();
         VentanaMensaje('Ingrese la fecha de expiración del usuario', 'info');
     } else {
