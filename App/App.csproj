@@ -2187,10 +2187,12 @@
     <Content Include="Images\LogoEmpresa\NoImage.png" />
     <Content Include="JsApp\Banco.js" />
     <Content Include="JsApp\Cargo.js" />
+    <Content Include="JsApp\CCFamiliar.js" />
     <Content Include="JsApp\Ciudad.js" />
     <Content Include="JsApp\Empleado.js" />
     <Content Include="JsApp\Empresa.js" />
     <Content Include="JsApp\Eps.js" />
+    <Content Include="JsApp\FondoCesantias.js" />
     <Content Include="JsApp\FondoPensiones.js" />
     <Content Include="JsApp\getBase64FomFile.js" />
     <Content Include="JsApp\Goblal.js" />
@@ -2202,6 +2204,7 @@
     <Content Include="JsApp\TipoDocumento.js" />
     <Content Include="JsApp\TipoEstado.js" />
     <Content Include="JsApp\TipoHoraExtra.js" />
+    <Content Include="JsApp\Usuario.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -2441,6 +2444,7 @@
     <Compile Include="Controllers\Cargar_DocumentoController.cs" />
     <Compile Include="Controllers\CargoController.cs" />
     <Compile Include="Controllers\CasinoController.cs" />
+    <Compile Include="Controllers\CC_FamiliarController.cs" />
     <Compile Include="Controllers\CiudadController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ConfiguracionController.cs" />
@@ -2452,6 +2456,7 @@
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\EmpresaController.cs" />
     <Compile Include="Controllers\EpsController.cs" />
+    <Compile Include="Controllers\Fondo_CesantiasController.cs" />
     <Compile Include="Controllers\Fondo_PensionesController.cs" />
     <Compile Include="Controllers\Hoja_de_VidaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -2473,6 +2478,7 @@
     <Compile Include="Controllers\Tipo_DocumentoController.cs" />
     <Compile Include="Controllers\Tipo_EstadoController.cs" />
     <Compile Include="Controllers\Tipo_Hora_ExtraController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\VentaController.cs" />
     <Compile Include="DocWord.cs" />
     <Compile Include="Global.asax.cs">
@@ -2542,6 +2548,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

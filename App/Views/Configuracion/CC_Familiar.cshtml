@@ -5,3 +5,43 @@
 
 <h6>Módulo Caja Compensación Familiar</h6>
 <hr />
+
+<div class="grid">
+    <table id="gridCCFamiliar" class="table cell-border" cellspacing="0" style="width: 100%;"></table>
+</div>
+
+<div class="modal fade" id="ModalCCFamiliar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <div class="modal-title" id="TituloModalCCFamiliar"></div>
+            </div>
+            <div class="modal-body">
+                <label id="LabelIdCCFamiliar" hidden></label>
+                <div>
+                    <label><strong>Nombre </strong><label style="color:red"> *</label></label>
+                    <input class="form-control" type="text" id="InputNombreCCFamiliar" autocomplete="off" style="min-width:100%" />
+                </div>
+                <div class="col-3" id="SelectEstadoCCFamiliar">
+                    <label><strong>Estado</strong></label>
+                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
+                </div>
+                <br />
+                <label style="color: red">Los campos con * son obligatorios</label>
+            </div>
+
+            <div class="modal-footer" id="BotonesModalCCFamiliar">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        ValidarSesion('/Configuracion/CC_Familiar');
+        GridCCFamiliar();
+        ListaTipoEstado(1);
+    });
+</script>

@@ -6,3 +6,62 @@
 <h6>Módulo Usuario</h6>
 <hr />
 
+<div class="grid">
+    <table id="gridUsuario" class="table cell-border" cellspacing="0" style="width: 100%;"></table>
+</div>
+
+<div class="modal fade" id="ModalUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <div class="modal-title" id="TituloModalUsuario"></div>
+            </div>
+            <div class="modal-body">
+                <label id="LabelIdUsuario" hidden></label>
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Usuario / Login </strong><label style="color:red"> *</label></label>
+                        <input class="form-control" type="text" id="InputUsuario" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Password / Login </strong><label style="color:red"> *</label></label>
+                        <input class="form-control" type="password" id="InputPassword" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Email</strong></label>
+                        <input class="form-control" type="text" id="InputEmailUsuario" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Nombre</strong></label>
+                        <input class="form-control" type="text" id="InputNombreUsuario" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Fecha Vigencia </strong><label style="color:red"> *</label></label>
+                        <input class="form-control" type="date" id="InputFechaVigencia" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                </div>
+                <div class="col-3" id="SelectEstadoUsuario">
+                    <label><strong>Estado</strong></label>
+                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
+                </div>
+                <br />
+                <label style="color: red">Los campos con * son obligatorios</label>
+            </div>
+
+            <div class="modal-footer" id="BotonesModalUsuario">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        ValidarSesion('/Configuracion/Usuario');
+        GridUsuario();
+        ListaTipoEstado(1);
+    });
+</script>

@@ -43,10 +43,12 @@
   <ItemGroup>
     <Compile Include="Banco.cs" />
     <Compile Include="Cargo.cs" />
+    <Compile Include="CCFamiliar.cs" />
     <Compile Include="Ciudad.cs" />
     <Compile Include="Empleado.cs" />
     <Compile Include="Empresa.cs" />
     <Compile Include="Eps.cs" />
+    <Compile Include="FondoCesantias.cs" />
     <Compile Include="FondoPensiones.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -56,6 +58,7 @@
     <Compile Include="TipoDocumento.cs" />
     <Compile Include="TipoEstado.cs" />
     <Compile Include="TipoHoraExtra.cs" />
+    <Compile Include="Usuario.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

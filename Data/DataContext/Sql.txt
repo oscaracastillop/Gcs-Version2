@@ -209,6 +209,184 @@ END
 
 GO
 
+CREATE PROCEDURE [dbo].[SP_CrearUsuario] 
+				@IdUser varchar(255),  
+				@IdUsuarioLogin int, 			 
+				@Usuario varchar(255), 
+				@Password varchar(255),
+				@Email varchar(255), 				  
+				@NombreUsuarioLogin varchar(255),
+				@FechaVigencia varchar(255),			
+				@Resultado varchar(255) OUTPUT     
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@UsuarioMD5 VARCHAR(255), 
+		@PasswordMD5 VARCHAR(255), 
+		@IdUserCreado INT,
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Crear'
+SET @SubMenu = '/Configuracion/Usuario'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN	
+	
+		SET @UsuarioMD5 = CONVERT ( VARCHAR (32), HashBytes ( 'MD5' ,  @Usuario ), 2)
+		SET @PasswordMD5 = CONVERT ( VARCHAR (32), HashBytes ( 'MD5' ,  @Password ), 2)
+
+			INSERT INTO Usuario 
+			(IdUser,Usuario,Password,Email,Nombre,IdRol,FechaCreacion, FechaVigencia, ImagenPerfil, CreateBy)
+			values
+			(@UsuarioMD5,@Usuario, @PasswordMD5,@Email,@NombreUsuarioLogin,2, GETDATE(), @FechaVigencia,'Usuario.png',@IdUsuario)
+
+			SET @IdUserCreado = @@IDENTITY
+
+			insert into Permiso_Menu (IdMenu, IdUsuario, Permiso) Values (1,@IdUserCreado,1)
+			insert into Permiso_Menu (IdMenu, IdUsuario, Permiso) Values (14,@IdUserCreado,1)
+
+		SET @Resultado = 'OK*El Usuario ' + @Usuario + ' a sido creado correctamente'
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ActualizarUsuario]	@IdUser varchar(255),  
+												@IdUsuarioLogin int, 			 
+												@Usuario varchar(255), 
+												@Password varchar(255),
+												@Email varchar(255), 				  
+												@NombreUsuarioLogin varchar(255),
+												@FechaVigencia varchar(255),
+												@IdEstado int,			
+												@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT,
+		@UsuarioMD5 VARCHAR(255),
+		@PasswordMD5 VARCHAR(255),
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Editar'
+SET @SubMenu = '/Configuracion/Usuario'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	IF(exists(select * from Usuario where Usuario = @Usuario AND Email = @Email AND Id != @IdUsuario))  
+	BEGIN  
+		SET @Resultado = 'Error*El Usuario ' +  @Usuario +' ya existe.'
+		RETURN  
+	END
+ELSE
+	BEGIN
+		DECLARE @ValidarPassword VARCHAR(255)
+		SELECT @ValidarPassword = Password FROM Usuario WHERE Id = @IdUsuarioLogin
+		SET @UsuarioMD5 = CONVERT ( VARCHAR (32), HashBytes ( 'MD5' ,  @Usuario ), 2)
+		IF @Password = @ValidarPassword
+			BEGIN
+				UPDATE	Usuario 
+				SET		Email = @Email, 
+						IdUser = @UsuarioMD5,
+						Usuario = @Usuario,
+						Nombre = @NombreUsuarioLogin,
+						FechaVigencia = @FechaVigencia,
+						IdEstado = @IdEstado
+				WHERE	Id = @IdUsuarioLogin
+			END
+		ELSE
+			BEGIN
+			SET @PasswordMD5 = CONVERT ( VARCHAR (32), HashBytes ( 'MD5' ,  @Password ), 2)
+				UPDATE	Usuario 
+				SET		Password = @PasswordMD5, 							 
+						Email = @Email, 
+						Usuario = @Usuario,
+						Nombre = @NombreUsuarioLogin,
+						IdUser = @UsuarioMD5,
+						FechaVigencia = @FechaVigencia,
+						IdEstado = @IdEstado
+				WHERE	Id = @IdUsuarioLogin
+			END		
+		SET @Resultado = 'OK*El Usuario ' +  @Usuario + ' se actualizo correctamente'  
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_EliminarUsuario] @IdUser varchar(255), @IdUsuario int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuarioCrea INT, 
+		@NombreUsuario varchar(255),
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Configuracion/Usuario'
+
+SELECT @IdUsuarioCrea = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @NombreUsuario = Nombre FROM Usuario WHERE Id = @IdUsuario
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuarioCrea, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE Usuario WHERE Id = @IdUsuario
+SET @Resultado = 'OK*Estimado Usuario el Usuario '+ @NombreUsuario +' se elimino correctamente'	
+
+SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridUsuario]
+AS
+BEGIN
+	SELECT	Id, 
+			Usuario,
+			Password,
+			Nombre AS NombreUsuario,			
+			Email,
+			CONVERT(varchar(255),FechaVigencia,23) As FechaVigencia,
+			CONVERT(varchar(255),FechaVigencia,100) As TextoFechaVigencia,
+			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,			
+			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
+			CONVERT(varchar(255),FechaCreacion,100) As DateCreate
+	FROM Usuario
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaUsuario]
+AS
+BEGIN
+	SELECT Id, Usuario FROM Usuario WHERE IdEstado = 1
+END
+
+GO
+
 /*LOGIN*/
 
 CREATE TABLE Log_InicioSesion
@@ -445,9 +623,9 @@ INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Actividad','bi-wrench-adjustable-circle','2rem','white','/Configuracion/Actividad','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Banco','bi-bank','2rem','white','/Configuracion/Banco','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Cargo','bi-person-gear','2rem','white','/Configuracion/Cargo','green')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'CC Familiar','bi-person-raised-hand','2rem','white','/Configuracion/CC_Familiar','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'CC Familiar','bi-person-raised-hand','2rem','white','/Configuracion/CC_Familiar','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Eps','bi-hospital','2rem','white','/Configuracion/Eps','green')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Fondo Cesantías','bi-universal-access','2rem','white','/Configuracion/Fondo_Cesantias','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Fondo Cesantías','bi-universal-access','2rem','white','/Configuracion/Fondo_Cesantias','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Fondo Pensiones','bi-universal-access-circle','2rem','white','/Configuracion/Fondo_Pensiones','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Tipo Hora Extra','bi-clock','2rem','white','/Configuracion/Tipo_Hora_Extra','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Usuario','bi-person','2rem','white','/Configuracion/Usuario','cornflowerblue')
@@ -3354,6 +3532,346 @@ BEGIN
 			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
 			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
 			FROM FondoPensiones
+			ORDER BY Id Desc
+END
+
+GO
+
+/*FONDO CCFAMILIAR*/
+
+CREATE TABLE CCFamiliar 
+(Id int identity(1,1) Primary key ,
+Nombre varchar(255),
+IdEstado int default 1,
+CreateBy int,
+DateCreate datetime,
+unique(Nombre)
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoCCFamiliar on CCFamiliar (Nombre)
+
+GO
+
+ALTER TABLE CCFamiliar ADD CONSTRAINT FK_IdCreateByCCFamiliar FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE CCFamiliar ADD CONSTRAINT FK_IdEstadoCCFamiliar FOREIGN KEY (IdEstado) references TipoEstado(Id)
+
+GO
+
+INSERT INTO CCFamiliar (Nombre, CreateBy, DateCreate) VALUES ('Por Definir',1, GETDATE())
+INSERT INTO CCFamiliar (Nombre, CreateBy, DateCreate) VALUES ('Compensar',1, GETDATE())
+INSERT INTO CCFamiliar (Nombre, CreateBy, DateCreate) VALUES ('Cafam',1, GETDATE())
+INSERT INTO CCFamiliar (Nombre, CreateBy, DateCreate) VALUES ('Colsubsidio',1, GETDATE())
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaCCFamiliar]
+AS
+BEGIN
+	SELECT Id, Nombre FROM CCFamiliar ORDER BY Nombre ASC							
+END
+
+GO
+
+CREATE FUNCTION Fun_BuscarNombreCCFamiliar(@IdCCFamiliar INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombreCCFamiliar VARCHAR(255)
+	SELECT @NombreCCFamiliar = Nombre FROM CCFamiliar WHERE Id = @IdCCFamiliar 
+	RETURN @NombreCCFamiliar
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_CrearCCFamiliar] 
+				@IdUser varchar(255),  
+				@Nombre varchar(255),			
+				@Resultado varchar(255) OUTPUT     
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Crear'
+SET @SubMenu = '/Configuracion/CC_Familiar'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN		
+		INSERT INTO CCFamiliar
+		(Nombre, CreateBy, DateCreate) 
+		VALUES 
+		(@Nombre, @IdUsuario, GETDATE()) 
+
+		SET @Resultado = 'OK*La Caja de Compensación Familiar ' + @Nombre + ' a sido creado correctamente'
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ActualizarCCFamiliar]	@IdUser varchar(255),	
+													@IdCCFamiliar int,
+													@Nombre varchar(255),
+													@IdEstado int,			
+													@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT,
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Editar'
+SET @SubMenu = '/Configuracion/CC_Familiar'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	IF(exists(select * from CCFamiliar where Nombre = @Nombre AND Id != @IdCCFamiliar))  
+	BEGIN  
+		SET @Resultado = 'Error*La Caja de Compensación Familiar ' +  @Nombre +' ya existe.'
+		RETURN  
+	END
+ELSE
+	BEGIN
+		UPDATE	CCFamiliar 
+		SET		Nombre = @Nombre, 
+				IdEstado = @IdEstado
+		WHERE	Id = @IdCCFamiliar
+		
+		SET @Resultado = 'OK*La Caja de Compensación Familiar ' +  @Nombre + ' se actualizo correctamente'  
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_EliminarCCFamiliar] @IdUser varchar(255), @IdCCFamiliar int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@NombreCCFamiliar varchar(255),
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Configuracion/CC_Familiar'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @NombreCCFamiliar = Nombre FROM CCFamiliar WHERE Id = @IdCCFamiliar
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE CCFamiliar WHERE Id = @IdCCFamiliar
+SET @Resultado = 'OK*Estimado Usuario la Caja de Compensación Familiar '+ @NombreCCFamiliar +' se elimino correctamente'	
+
+SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridCCFamiliar]
+AS
+BEGIN
+	SELECT	Id, 
+			Nombre,
+			IdEstado,
+			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,			
+			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
+			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
+			FROM CCFamiliar
+			ORDER BY Id Desc
+END
+
+GO
+
+/*FONDO CESANTIAS*/
+
+CREATE TABLE FondoCesantias 
+(Id int identity(1,1) Primary key ,
+Nombre varchar(255),
+IdEstado int default 1,
+CreateBy int,
+DateCreate datetime,
+unique(Nombre)
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoFondoCesantias on FondoCesantias (Nombre)
+
+GO
+
+ALTER TABLE FondoCesantias ADD CONSTRAINT FK_IdCreateByFondoCesantias FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE FondoCesantias ADD CONSTRAINT FK_IdEstadoFondoCesantias FOREIGN KEY (IdEstado) references TipoEstado(Id)
+
+GO
+
+INSERT INTO FondoCesantias (Nombre, CreateBy, DateCreate) VALUES ('Por Definir',1, GETDATE())
+INSERT INTO FondoCesantias (Nombre, CreateBy, DateCreate) VALUES ('Porvenir',1, GETDATE())
+INSERT INTO FondoCesantias (Nombre, CreateBy, DateCreate) VALUES ('Protección',1, GETDATE())
+INSERT INTO FondoCesantias (Nombre, CreateBy, DateCreate) VALUES ('ColCesantias',1, GETDATE())
+INSERT INTO FondoCesantias (Nombre, CreateBy, DateCreate) VALUES ('Colfondos',1, GETDATE())
+INSERT INTO FondoCesantias (Nombre, CreateBy, DateCreate) VALUES ('Old Mutual',1, GETDATE())
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaFondoCesantias]
+AS
+BEGIN
+	SELECT Id, Nombre FROM FondoCesantias ORDER BY Nombre ASC							
+END
+
+GO
+
+CREATE FUNCTION Fun_BuscarNombreFondoCesantias(@IdFondoCesantias INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombreFondoCesantias VARCHAR(255)
+	SELECT @NombreFondoCesantias = Nombre FROM FondoCesantias WHERE Id = @IdFondoCesantias 
+	RETURN @NombreFondoCesantias
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_CrearFondoCesantias] 
+				@IdUser varchar(255),  
+				@Nombre varchar(255),			
+				@Resultado varchar(255) OUTPUT     
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Crear'
+SET @SubMenu = '/Configuracion/Fondo_Cesantias'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN		
+		INSERT INTO FondoCesantias
+		(Nombre, CreateBy, DateCreate) 
+		VALUES 
+		(@Nombre, @IdUsuario, GETDATE()) 
+
+		SET @Resultado = 'OK*El Fondo de Cesantias ' + @Nombre + ' a sido creado correctamente'
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ActualizarFondoCesantias]	@IdUser varchar(255),	
+													@IdFondoCesantias int,
+													@Nombre varchar(255),
+													@IdEstado int,			
+													@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT,
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Editar'
+SET @SubMenu = '/Configuracion/Fondo_Cesantias'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	IF(exists(select * from FondoCesantias where Nombre = @Nombre AND Id != @IdFondoCesantias))  
+	BEGIN  
+		SET @Resultado = 'Error*El Fondo de Cesantias ' +  @Nombre +' ya existe.'
+		RETURN  
+	END
+ELSE
+	BEGIN
+		UPDATE	FondoCesantias 
+		SET		Nombre = @Nombre, 
+				IdEstado = @IdEstado
+		WHERE	Id = @IdFondoCesantias
+		
+		SET @Resultado = 'OK*El Fondo de Cesantias ' +  @Nombre + ' se actualizo correctamente'  
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_EliminarFondoCesantias] @IdUser varchar(255), @IdFondoCesantias int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@NombreFondoCesantias varchar(255),
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Configuracion/Fondo_Cesantias'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @NombreFondoCesantias = Nombre FROM FondoCesantias WHERE Id = @IdFondoCesantias
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE FondoCesantias WHERE Id = @IdFondoCesantias
+SET @Resultado = 'OK*Estimado Usuario el Fondo de Cesantias '+ @NombreFondoCesantias +' se elimino correctamente'	
+
+SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridFondoCesantias]
+AS
+BEGIN
+	SELECT	Id, 
+			Nombre,
+			IdEstado,
+			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,			
+			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
+			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
+			FROM FondoCesantias
 			ORDER BY Id Desc
 END
 

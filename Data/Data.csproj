@@ -67,10 +67,12 @@
     </Compile>
     <Compile Include="DataEntities\DataBanco.cs" />
     <Compile Include="DataEntities\DataCargo.cs" />
+    <Compile Include="DataEntities\DataCCFamiliar.cs" />
     <Compile Include="DataEntities\DataCiudad.cs" />
     <Compile Include="DataEntities\DataEmpleado.cs" />
     <Compile Include="DataEntities\DataEmpresa.cs" />
     <Compile Include="DataEntities\DataEps.cs" />
+    <Compile Include="DataEntities\DataFondoCesantias.cs" />
     <Compile Include="DataEntities\DataFondoPensiones.cs" />
     <Compile Include="DataEntities\DataLogin.cs" />
     <Compile Include="DataEntities\DataMenu.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="DataEntities\DataTipoDocumento.cs" />
     <Compile Include="DataEntities\DataTipoEstado.cs" />
     <Compile Include="DataEntities\DataTipoHoraExtra.cs" />
+    <Compile Include="DataEntities\DataUsuario.cs" />
     <Compile Include="DocWord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
