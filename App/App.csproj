@@ -2198,6 +2198,8 @@
     <Content Include="JsApp\Goblal.js" />
     <Content Include="JsApp\Login.js" />
     <Content Include="JsApp\Menu.js" />
+    <Content Include="JsApp\PermisoMenu.js" />
+    <Content Include="JsApp\PermisoSubMenu.js" />
     <Content Include="JsApp\SubMenu.js" />
     <Content Include="JsApp\Sucursal.js" />
     <Content Include="JsApp\SucursalEmpleado.js" />
@@ -2469,6 +2471,8 @@
     <Compile Include="Controllers\MirfeController.cs" />
     <Compile Include="Controllers\NegocioController.cs" />
     <Compile Include="Controllers\ContratistasController.cs" />
+    <Compile Include="Controllers\Permiso_MenuController.cs" />
+    <Compile Include="Controllers\Permiso_SubMenuController.cs" />
     <Compile Include="Controllers\Recursos_HumanosController.cs" />
     <Compile Include="Controllers\PrestamoController.cs" />
     <Compile Include="Controllers\ProduccionController.cs" />

@@ -1,4 +1,5 @@
-﻿using SistemaGcs.Data.DataEntities;
+﻿using Data.DataEntities;
+using SistemaGcs.Data.DataEntities;
 using System.Web.Mvc;
 
 namespace SistemaGcs.App.Controllers
@@ -19,5 +20,10 @@ namespace SistemaGcs.App.Controllers
             return Json(resultado);
         }
 
+        public JsonResult ListaPermisoMenu()
+        {
+            var resultado = dataMenu.ListaPermisoMenu();
+            return Json(resultado);
+        }
     }
 }

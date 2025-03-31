@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using static Models.Banco;
 using static SistemaGcs.Models.Menu;
 
 namespace SistemaGcs.Data.DataEntities
@@ -18,6 +19,18 @@ namespace SistemaGcs.Data.DataEntities
             {
                 var response = _conection.Database.SqlQuery<ListaMenu>("SP_Listamenu @IdUsuario", new SqlParameter("@IdUsuario", Usuario)).ToList();
                 return response;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<ListaMenu> ListaPermisoMenu()
+        {
+            try
+            {
+                return _conection.Database.SqlQuery<ListaMenu>("SP_ListaPermisoMenu").ToList();
             }
             catch (Exception ex)
             {

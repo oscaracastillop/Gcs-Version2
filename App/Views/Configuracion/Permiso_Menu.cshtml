@@ -6,3 +6,53 @@
 <h6>Módulo Permiso Menú</h6>
 <hr />
 
+<div class="grid">
+    <table id="gridPermisoMenu" class="table cell-border" cellspacing="0" style="width: 100%;"></table>
+</div>
+
+<div class="modal fade" id="ModalPermisoMenu" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <div class="modal-title" id="TituloModalPermisoMenu"></div>
+            </div>
+            <div class="modal-body">
+                <label id="LabelIdPermisoMenu" hidden></label>
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Usuario </strong><label style="color:red"> *</label></label>
+                        <select class="form-control" id="SelectUsuario" style="min-width:100%"></select>
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Menú </strong><label style="color:red"> *</label></label>
+                        <select class="form-control" id="SelectMenu" style="min-width:100%"></select>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-3">
+                        <label><strong>Permiso</strong></label>
+                        <select class="form-control" id="SelectEstadoPermisoMenu" style="min-width:100%">
+                            <option value="0">Inactivo</option>
+                            <option value="1" selected>Activo</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <br />
+                <label style="color: red">Los campos con * son obligatorios</label>
+            </div>
+            <div class="modal-footer" id="BotonesModalPermisoMenu">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        ValidarSesion('/Configuracion/Permiso_Menu');
+        GridPermisoMenu();
+        ListaUsuario();
+        ListaPermisoMenu();
+    });
+</script>

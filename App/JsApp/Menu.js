@@ -15,3 +15,23 @@
         },
     });
 }
+function ListaPermisoMenu() {
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '/Menu/ListaPermisoMenu',
+        data: {},
+        success: function (resultado) {
+            var contador = 0;
+            if (resultado.length === 0) {
+                $("#SelectMenu").append('<option value="">No hay Datos</option>');
+            } else {
+                $("#SelectMenu").empty().append('<option value="-1">Seleccione ...</option>');
+                $.each(resultado, function () {
+                    $("#SelectMenu ").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
+                    contador++;
+                });
+            }
+        },
+    });
+}

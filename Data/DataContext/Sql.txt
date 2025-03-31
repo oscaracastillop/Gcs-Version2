@@ -180,10 +180,10 @@ GO
 --SELECT CONVERT ( VARCHAR (32), HashBytes ( 'MD5' ,  '123456' ), 2) 
 
 INSERT INTO Usuario (IdUser,Usuario,Password,Email,Nombre,IdRol,DateCreate, FechaVigencia, ImagenPerfil, CreateBy) VALUES 
-('E3AFED0047B08059D0FADA10F400C1E5','Admin','D035423BDB1989E8DCB8DD478D895A2F','','Administrador',1, GETDATE(), '01-12-2030 23:59','Usuario.png',1),
-('22A52BD87E5232E6A474D8C4AD50FC8B','Almacen','E10ADC3949BA59ABBE56E057F20F883E','','Director Almacén',2, GETDATE(), '01-12-2030 23:59','Usuario.png',1),
-('BC35C9CA4711D24181E3A9D31995878C','RecursosHumanos','E10ADC3949BA59ABBE56E057F20F883E','','Director Recursos Humanos',2, GETDATE(), '01-12-2030 23:59','Usuario.png',1),
-('53EE60E03CFF8E9AE06CEEEC004EE262','Mantenimiento','E10ADC3949BA59ABBE56E057F20F883E','','Director Mantenimiento',2, GETDATE(), '01-12-2030 23:59','Usuario.png',1)
+('E3AFED0047B08059D0FADA10F400C1E5','Admin','D035423BDB1989E8DCB8DD478D895A2F','','Administrador',1, GETDATE(), '2030-12-01 23:59','Usuario.png',1),
+('22A52BD87E5232E6A474D8C4AD50FC8B','Almacen','E10ADC3949BA59ABBE56E057F20F883E','','Director Almacén',2, GETDATE(), '2030-12-01 23:59','Usuario.png',1),
+('BC35C9CA4711D24181E3A9D31995878C','RecursosHumanos','E10ADC3949BA59ABBE56E057F20F883E','','Director Recursos Humanos',2, GETDATE(), '2030-12-01 23:59','Usuario.png',1),
+('53EE60E03CFF8E9AE06CEEEC004EE262','Mantenimiento','E10ADC3949BA59ABBE56E057F20F883E','','Director Mantenimiento',2, GETDATE(), '2030-12-01 23:59','Usuario.png',1)
 
 GO
 
@@ -248,8 +248,12 @@ IF @Permiso > 0
 
 			SET @IdUserCreado = @@IDENTITY
 
-			insert into Permiso_Menu (IdMenu, IdUsuario, Permiso) Values (1,@IdUserCreado,1)
-			insert into Permiso_Menu (IdMenu, IdUsuario, Permiso) Values (14,@IdUserCreado,1)
+			INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) Values (1,@IdUserCreado,1)
+			INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) Values (14,@IdUserCreado,1)
+			INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) Values (13,@IdUserCreado,1)
+
+			INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (43,@IdUserCreado,1,1,1,1)
+			INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (44,@IdUserCreado,1,0,0,0)
 
 		SET @Resultado = 'OK*El Usuario ' + @Usuario + ' a sido creado correctamente'
 	END	
@@ -529,6 +533,39 @@ END
 
 GO
 
+CREATE PROCEDURE [dbo].[SP_ListaPermisoMenu]
+AS
+BEGIN
+	SELECT Id, Nombre FROM Menu ORDER BY Nombre ASC							
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridPermisoMenu]
+AS
+BEGIN
+	SELECT
+	P.Id,
+	p.IdUsuario,
+	U.Usuario,
+	P.IdMenu,
+	M.Nombre AS NombreMenu,
+	P.Permiso,
+	CASE P.Permiso
+	WHEN 1 THEN 'Activo'
+	ELSE 'Inactivo'
+	END AS PermisoTexto,
+	dbo.Fun_BuscarNombreUsuario(P.CreateBy) As CreateBy,
+			CONVERT(varchar(255),P.DateCreate,105)+ ' ' + CONVERT(varchar(255),P.DateCreate,8) As DateCreate
+	FROM	Permiso_Menu P,
+			Usuario U,
+			Menu M		
+	WHERE	P.IdUsuario = U.Id AND
+			M.Id = P.IdMenu
+END
+
+GO
+
 /*PERMISO MENU*/
 
 CREATE TABLE Permiso_Menu
@@ -536,11 +573,14 @@ CREATE TABLE Permiso_Menu
 IdMenu int,
 IdUsuario int,
 Permiso int default 1,
+CreateBy int,
+DateCreate datetime
 
 )
 
 ALTER TABLE Permiso_Menu ADD CONSTRAINT FK_IdMenu FOREIGN KEY (IdMenu) references Menu(Id)
 ALTER TABLE Permiso_Menu ADD CONSTRAINT FK_IdUsuarioMenu FOREIGN KEY (IdUsuario) references Usuario(Id)
+ALTER TABLE Permiso_Menu ADD CONSTRAINT FK_IdCreateByPermiso_Menu FOREIGN KEY (CreateBy ) references Usuario(Id)
 
 GO
 
@@ -548,35 +588,72 @@ CREATE UNIQUE INDEX RegistroUnicoPermisoMenu on Permiso_Menu (IdUsuario, IdMenu)
 
 GO
 
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (1,1,1) 
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (2,1,1) 
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (3,1,1)
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (4,1,1)
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (5,1,1) 
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (6,1,1)
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (7,1,1)
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (8,1,1) 
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (9,1,1) 
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (10,1,1) 
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (11,1,1)
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (12,1,1) 
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (13,1,1) 
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (14,1,1) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (1,1,1,1,GETDATE()) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (2,1,1,1,GETDATE()) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (3,1,1,1,GETDATE())
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (4,1,1,1,GETDATE())
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (5,1,1,1,GETDATE()) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (6,1,1,1,GETDATE())
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (7,1,1,1,GETDATE())
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (8,1,1,1,GETDATE()) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (9,1,1,1,GETDATE()) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (10,1,1,1,GETDATE()) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (11,1,1,1,GETDATE())
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (12,1,1,1,GETDATE()) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (13,1,1,1,GETDATE()) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (14,1,1,1,GETDATE()) 
 
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (1,2,1) 
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (7,2,1) 
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (13,2,1) 
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (14,2,1) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (1,2,1,1,GETDATE()) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (7,2,1,1,GETDATE()) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (13,2,1,1,GETDATE()) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (14,2,1,1,GETDATE()) 
 
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (1,3,1) 
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (4,3,1) 
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (13,3,1) 
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (14,3,1) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (1,3,1,1,GETDATE()) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (4,3,1,1,GETDATE()) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (13,3,1,1,GETDATE()) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (14,3,1,1,GETDATE()) 
 
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (1,4,1) 
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (8,4,1)
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (13,4,1) 
-INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (14,4,1)
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (1,4,1,1,GETDATE()) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (8,4,1,1,GETDATE())
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (13,4,1,1,GETDATE()) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) VALUES (14,4,1,1,GETDATE())
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_CrearPermisoMenu] 
+				@IdUser varchar(255),  
+				@IdUsuarioMenu int,
+				@IdMenu int,
+				@PermisoMenu int,
+				@Resultado varchar(255) OUTPUT     
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Crear'
+SET @SubMenu = '/Configuracion/Permiso_Menu'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN		
+		INSERT INTO Permiso_Menu
+		(IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) 
+		VALUES 
+		(@IdMenu, @IdUsuarioMenu, @PermisoMenu, @IdUsuario, GETDATE()) 
+
+		SET @Resultado = 'OK*El Permiso al Menu a sido creado correctamente'
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
 
 GO
 

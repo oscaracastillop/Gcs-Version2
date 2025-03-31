@@ -181,7 +181,6 @@ function GridUsuario() {
             { targets: [7], width: '100px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
-
             {
                 extend: 'excel', className: 'btn btn-excel-datatable',
                 footer: true,
@@ -189,7 +188,7 @@ function GridUsuario() {
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
                 text: 'Excel',
                 exportOptions: {
-                    columns: [0, 1, 2, 3,,4, 5, 6],
+                    columns: [0, 1, 2, 3, 4, 5, 6],
                 },
             },
             {
