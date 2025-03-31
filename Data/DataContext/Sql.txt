@@ -159,7 +159,7 @@ Nombre varchar(255),
 IdRol int,
 ImagenPerfil varchar(255),
 CreateBy int,
-FechaCreacion datetime,
+DateCreate datetime,
 FechaVigencia datetime,
 IdEstado int default 1
 )
@@ -179,9 +179,11 @@ GO
 --SELECT CONVERT ( VARCHAR (32), HashBytes ( 'MD5' ,  'User1' ), 2) 
 --SELECT CONVERT ( VARCHAR (32), HashBytes ( 'MD5' ,  '123456' ), 2) 
 
-INSERT INTO Usuario (IdUser,Usuario,Password,Email,Nombre,IdRol,FechaCreacion, FechaVigencia, ImagenPerfil, CreateBy) 
-VALUES 
-('E3AFED0047B08059D0FADA10F400C1E5','Admin','D035423BDB1989E8DCB8DD478D895A2F','admin@gcs.com.co','Administrador GCS',1, GETDATE(), '01-12-2030 23:59:59.000','Usuario.png',1)
+INSERT INTO Usuario (IdUser,Usuario,Password,Email,Nombre,IdRol,DateCreate, FechaVigencia, ImagenPerfil, CreateBy) VALUES 
+('E3AFED0047B08059D0FADA10F400C1E5','Admin','D035423BDB1989E8DCB8DD478D895A2F','','Administrador',1, GETDATE(), '01-12-2030 23:59','Usuario.png',1),
+('22A52BD87E5232E6A474D8C4AD50FC8B','Almacen','E10ADC3949BA59ABBE56E057F20F883E','','Director Almacén',2, GETDATE(), '01-12-2030 23:59','Usuario.png',1),
+('BC35C9CA4711D24181E3A9D31995878C','RecursosHumanos','E10ADC3949BA59ABBE56E057F20F883E','','Director Recursos Humanos',2, GETDATE(), '01-12-2030 23:59','Usuario.png',1),
+('53EE60E03CFF8E9AE06CEEEC004EE262','Mantenimiento','E10ADC3949BA59ABBE56E057F20F883E','','Director Mantenimiento',2, GETDATE(), '01-12-2030 23:59','Usuario.png',1)
 
 GO
 
@@ -210,8 +212,7 @@ END
 GO
 
 CREATE PROCEDURE [dbo].[SP_CrearUsuario] 
-				@IdUser varchar(255),  
-				@IdUsuarioLogin int, 			 
+				@IdUser varchar(255),  		 
 				@Usuario varchar(255), 
 				@Password varchar(255),
 				@Email varchar(255), 				  
@@ -241,9 +242,9 @@ IF @Permiso > 0
 		SET @PasswordMD5 = CONVERT ( VARCHAR (32), HashBytes ( 'MD5' ,  @Password ), 2)
 
 			INSERT INTO Usuario 
-			(IdUser,Usuario,Password,Email,Nombre,IdRol,FechaCreacion, FechaVigencia, ImagenPerfil, CreateBy)
+			(IdUser,Usuario,Password,Email,Nombre,IdRol,DateCreate, FechaVigencia, ImagenPerfil, CreateBy)
 			values
-			(@UsuarioMD5,@Usuario, @PasswordMD5,@Email,@NombreUsuarioLogin,2, GETDATE(), @FechaVigencia,'Usuario.png',@IdUsuario)
+			(@UsuarioMD5,@Usuario, @PasswordMD5,@Email,@NombreUsuarioLogin,2, GETDATE(), @FechaVigencia + ' 23:59','Usuario.png',@IdUsuario)
 
 			SET @IdUserCreado = @@IDENTITY
 
@@ -286,7 +287,7 @@ SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
 
 IF @Permiso > 0
-	IF(exists(select * from Usuario where Usuario = @Usuario AND Email = @Email AND Id != @IdUsuario))  
+	IF(exists(select * from Usuario where Usuario = @Usuario AND Email = @Email AND Id != @IdUsuarioLogin))  
 	BEGIN  
 		SET @Resultado = 'Error*El Usuario ' +  @Usuario +' ya existe.'
 		RETURN  
@@ -303,7 +304,7 @@ ELSE
 						IdUser = @UsuarioMD5,
 						Usuario = @Usuario,
 						Nombre = @NombreUsuarioLogin,
-						FechaVigencia = @FechaVigencia,
+						FechaVigencia = @FechaVigencia + ' 23:59',
 						IdEstado = @IdEstado
 				WHERE	Id = @IdUsuarioLogin
 			END
@@ -316,7 +317,7 @@ ELSE
 						Usuario = @Usuario,
 						Nombre = @NombreUsuarioLogin,
 						IdUser = @UsuarioMD5,
-						FechaVigencia = @FechaVigencia,
+						FechaVigencia = @FechaVigencia + ' 23:59',
 						IdEstado = @IdEstado
 				WHERE	Id = @IdUsuarioLogin
 			END		
@@ -369,11 +370,12 @@ BEGIN
 			Password,
 			Nombre AS NombreUsuario,			
 			Email,
-			CONVERT(varchar(255),FechaVigencia,23) As FechaVigencia,
-			CONVERT(varchar(255),FechaVigencia,100) As TextoFechaVigencia,
+			CONVERT(varchar(255),FechaVigencia,23) As FechaVigencia,			
+			CONVERT(varchar(255),FechaVigencia,105)+ ' ' + CONVERT(varchar(255),FechaVigencia,8) As TextoFechaVigencia,
+			IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,			
 			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
-			CONVERT(varchar(255),FechaCreacion,100) As DateCreate
+			CONVERT(varchar(255),DateCreate,105)+ ' ' + CONVERT(varchar(255),DateCreate,8) As DateCreate
 	FROM Usuario
 END
 
@@ -561,6 +563,21 @@ INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (12,1,1)
 INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (13,1,1) 
 INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (14,1,1) 
 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (1,2,1) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (7,2,1) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (13,2,1) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (14,2,1) 
+
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (1,3,1) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (4,3,1) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (13,3,1) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (14,3,1) 
+
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (1,4,1) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (8,4,1)
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (13,4,1) 
+INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) VALUES (14,4,1)
+
 GO
 
 /* TABLA SUB MENU*/
@@ -628,7 +645,7 @@ INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Fondo Cesantías','bi-universal-access','2rem','white','/Configuracion/Fondo_Cesantias','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Fondo Pensiones','bi-universal-access-circle','2rem','white','/Configuracion/Fondo_Pensiones','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Tipo Hora Extra','bi-clock','2rem','white','/Configuracion/Tipo_Hora_Extra','green')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Usuario','bi-person','2rem','white','/Configuracion/Usuario','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Usuario','bi-person','2rem','white','/Configuracion/Usuario','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Permiso Menu','bi-lock','2rem','white','/Configuracion/Permiso_Menu','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Permiso SubMenu','bi-lock','2rem','white','/Configuracion/Permiso_SubMenu','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Menu Web','bi-file-post','2rem','white','/Configuracion/Menu_Web','cornflowerblue')
@@ -685,50 +702,79 @@ ALTER TABLE Permiso_SubMenu ADD CONSTRAINT FK_IdUsuarioSubMenu FOREIGN KEY (IdUs
 
 GO
 
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (1,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (2,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (3,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (4,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (5,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (6,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (7,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (8,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (9,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (10,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (11,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (12,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (13,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (14,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (15,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (16,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (17,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (18,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (19,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (20,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (21,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (22,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (23,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (24,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (25,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (26,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (27,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (28,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (29,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (30,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (31,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (32,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (33,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (34,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (35,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (36,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (37,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (38,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (39,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (40,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (41,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (42,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (43,1,1,1,1,1)
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (44,1,1,1,1,1)
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (1,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (2,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (3,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (4,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (5,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (6,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (7,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (8,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (9,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (10,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (11,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (12,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (13,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (14,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (15,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (16,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (17,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (18,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (19,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (20,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (21,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (22,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (23,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (24,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (25,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (26,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (27,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (28,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (29,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (30,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (31,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (32,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (33,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (34,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (35,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (36,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (37,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (38,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (39,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (40,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (41,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (42,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (43,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (44,1,1,1,1,1)-- Administrador
+
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (21,2,1,1,1,1)-- Usuario Almacen
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (22,2,1,1,1,1)-- Usuario Almacen
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (23,2,1,1,1,1)-- Usuario Almacen
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (24,2,1,1,1,1)-- Usuario Almacen
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (25,2,1,1,1,1)-- Usuario Almacen
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (26,2,1,1,1,1)-- Usuario Almacen
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (27,2,1,1,1,1)-- Usuario Almacen
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (43,2,1,0,0,0)-- Usuario Almacen
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (44,2,1,0,0,0)-- Usuario Almacen
+
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (7,3,1,1,1,1)--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (8,3,1,1,1,1)--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (9,3,1,1,1,1)--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (10,3,1,1,1,1)--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (11,3,1,1,1,1)--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (12,3,1,1,1,1)--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (13,3,1,1,1,1)--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (14,3,1,1,1,1)--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (15,3,1,1,1,1)--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (16,3,1,1,1,1)--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (43,3,1,1,1,1)--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (44,3,1,0,0,0)--Usuario Recursos Humanos
+
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (28,4,1,1,1,1)--Usuario Mantenimiento
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (29,4,1,1,1,1)--Usuario Mantenimiento
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (43,4,1,1,1,1)--Usuario Mantenimiento
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (44,4,1,0,0,0)--Usuario Mantenimiento
+
 
 GO
 
@@ -744,8 +790,9 @@ BEGIN
 		FROM	Usuario U,
 				Permiso_SubMenu P,
 				SubMenu S
-		WHERE	U.Id = P.IdUsuario  and
+		WHERE	U.Id = P.IdUsuario  AND
 				S.Id = P.IdSubMenu AND
+				P.IdUsuario = @IdUsuario AND
 				S.Ruta = @Ruta
 	END
 	ELSE IF @Accion = 'Editar'
@@ -756,6 +803,7 @@ BEGIN
 					SubMenu S
 			WHERE	U.Id = P.IdUsuario  and
 					S.Id = P.IdSubMenu AND
+					P.IdUsuario = @IdUsuario AND
 					S.Ruta = @Ruta
 		END
 	ELSE IF @Accion = 'Eliminar'
@@ -766,6 +814,7 @@ BEGIN
 				SubMenu S
 		WHERE	U.Id = P.IdUsuario  and
 				S.Id = P.IdSubMenu AND
+				P.IdUsuario = @IdUsuario AND
 				S.Ruta = @Ruta
 	END
 	RETURN @Resultado
@@ -2024,20 +2073,20 @@ IF @Permiso > 0
 		VALUES 
 		(@NombreEmpresa, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Contacto, @IdCiudad, @Direccion, @IdUsuario, GETDATE()) 
 
-		INSERT INTO LogsAcciones 
-		(IdUsuario, Accion, Descripcion, Fecha) 
-		VALUES 
-		(@IdUsuario, 
-		'Crear', 
-		'Nombres:'  + @NombreEmpresa +
-		', Tipo Doc:' + dbo.Fun_BuscarNombreTipoDocumento(@IdTipoDocumento) +
-		', Identificación:' + @Identificacion +
-		', Email:'+ @Email +
-		', Telefono:'+ @Telefono +
-		', Contacto:'+ @Contacto +
-		', Dirección:'+ @Direccion +
-		', Ciudad:'+ dbo.Fun_BuscarNombreCiudad(@IdCiudad),
-		GETDATE())
+		--INSERT INTO LogsAcciones 
+		--(IdUsuario, Accion, Descripcion, Fecha) 
+		--VALUES 
+		--(@IdUsuario, 
+		--'Crear', 
+		--'Nombres:'  + @NombreEmpresa +
+		--', Tipo Doc:' + dbo.Fun_BuscarNombreTipoDocumento(@IdTipoDocumento) +
+		--', Identificación:' + @Identificacion +
+		--', Email:'+ @Email +
+		--', Telefono:'+ @Telefono +
+		--', Contacto:'+ @Contacto +
+		--', Dirección:'+ @Direccion +
+		--', Ciudad:'+ dbo.Fun_BuscarNombreCiudad(@IdCiudad),
+		--GETDATE())
 
 		SET @Resultado = 'OK*La Empresa ' + @NombreEmpresa + ' a sido creada correctamente'
 	END	
@@ -2067,17 +2116,17 @@ BEGIN
 DECLARE @Permiso INT, 
 		@IdUsuario INT,
 		@Accion varchar(255), 
-		@SubMenu varchar(255),
+		@SubMenu varchar(255)
 
-		@NombreEmpresav varchar(255) = (SELECT Nombre FROM Empresa WHERE Id = @IdEmpresa),
-		@IdTipoDocumentov varchar(255) = (SELECT IdTipoDocumento FROM Empresa WHERE Id = @IdEmpresa),
-		@Identificacionv varchar(255) = (SELECT Identificacion FROM Empresa WHERE Id = @IdEmpresa),
-		@Emailv varchar(255) = (SELECT Email FROM Empresa WHERE Id = @IdEmpresa),
-		@Telefonov varchar(255) = (SELECT Telefono FROM Empresa WHERE Id = @IdEmpresa),
-		@Contactov varchar(255) = (SELECT Contacto FROM Empresa WHERE Id = @IdEmpresa),
-		@Direccionv varchar(255) = (SELECT Direccion FROM Empresa WHERE Id = @IdEmpresa),
-		@IdCiudadv varchar(255) = (SELECT IdCiudad FROM Empresa WHERE Id = @IdEmpresa),
-		@IdEstadov varchar(255) = (SELECT IdEstado FROM Empresa WHERE Id = @IdEmpresa)	 
+		--@NombreEmpresav varchar(255) = (SELECT Nombre FROM Empresa WHERE Id = @IdEmpresa),
+		--@IdTipoDocumentov varchar(255) = (SELECT IdTipoDocumento FROM Empresa WHERE Id = @IdEmpresa),
+		--@Identificacionv varchar(255) = (SELECT Identificacion FROM Empresa WHERE Id = @IdEmpresa),
+		--@Emailv varchar(255) = (SELECT Email FROM Empresa WHERE Id = @IdEmpresa),
+		--@Telefonov varchar(255) = (SELECT Telefono FROM Empresa WHERE Id = @IdEmpresa),
+		--@Contactov varchar(255) = (SELECT Contacto FROM Empresa WHERE Id = @IdEmpresa),
+		--@Direccionv varchar(255) = (SELECT Direccion FROM Empresa WHERE Id = @IdEmpresa),
+		--@IdCiudadv varchar(255) = (SELECT IdCiudad FROM Empresa WHERE Id = @IdEmpresa),
+		--@IdEstadov varchar(255) = (SELECT IdEstado FROM Empresa WHERE Id = @IdEmpresa)	 
 
 SET @Accion = 'Crear'
 SET @SubMenu = '/Negocio/Empresa'
@@ -2105,21 +2154,21 @@ ELSE
 					IdEstado = @IdEstado
 					WHERE Id = @IdEmpresa
 
-		INSERT INTO LogsAcciones 
-		(IdUsuario, Accion, Descripcion, Fecha) 
-		VALUES 
-		(@IdUsuario, 
-		'Editar', 
-		'Nombres:'  + (SELECT CASE WHEN @NombreEmpresav != @NombreEmpresa THEN '(N) '+@NombreEmpresa+' - (A) '+ @NombreEmpresav ELSE 'No' END) +
-		', Tipo Doc:' + (SELECT CASE WHEN @IdTipoDocumentov != @IdTipoDocumento THEN '(N) '+dbo.Fun_BuscarNombreTipoDocumento(@IdTipoDocumento)+' - (A) '+ dbo.Fun_BuscarNombreTipoDocumento(@IdTipoDocumentov) ELSE 'No' END) +
-		', Identificación:' + (SELECT CASE WHEN @Identificacionv != @Identificacion THEN '(N) '+@Identificacion+' - (A) '+ @Identificacionv ELSE 'No' END) +
-		', Email:'+ (SELECT CASE WHEN @Emailv != @Email THEN '(N) '+@Email+' - (A) '+ @Emailv ELSE 'No' END) +
-		', Telefono:'+ (SELECT CASE WHEN @Telefonov != @Telefono THEN '(N) '+@Telefono+' - (A) '+ @Telefonov ELSE 'No' END) +
-		', Contacto:'+ (SELECT CASE WHEN @Contactov != @Contacto THEN '(N) '+@Contacto+' - (A) '+ @Contactov ELSE 'No' END) +
-		', Dirección:'+ (SELECT CASE WHEN @Direccionv != @Direccion THEN '(N) '+@Direccion+' - (A) '+ @Direccionv ELSE 'No' END) +
-		', Ciudad:'+ (SELECT CASE WHEN @IdCiudadv != @IdCiudad THEN '(N) '+dbo.Fun_BuscarNombreCiudad(@IdCiudad)+' - (A) '+ dbo.Fun_BuscarNombreCiudad(@IdCiudadv) ELSE 'No' END) +
-		', Estado:'+ (SELECT CASE WHEN @IdEstadov != @IdEstado THEN '(N) '+dbo.Fun_BuscarNombreTipoEstado(@IdEstado)+' - (A) '+ dbo.Fun_BuscarNombreTipoEstado(@IdEstadov) ELSE 'No' END), 
-		GETDATE())		
+		--INSERT INTO LogsAcciones 
+		--(IdUsuario, Accion, Descripcion, Fecha) 
+		--VALUES 
+		--(@IdUsuario, 
+		--'Editar', 
+		--'Nombres:'  + (SELECT CASE WHEN @NombreEmpresav != @NombreEmpresa THEN '(N) '+@NombreEmpresa+' - (A) '+ @NombreEmpresav ELSE 'No' END) +
+		--', Tipo Doc:' + (SELECT CASE WHEN @IdTipoDocumentov != @IdTipoDocumento THEN '(N) '+dbo.Fun_BuscarNombreTipoDocumento(@IdTipoDocumento)+' - (A) '+ dbo.Fun_BuscarNombreTipoDocumento(@IdTipoDocumentov) ELSE 'No' END) +
+		--', Identificación:' + (SELECT CASE WHEN @Identificacionv != @Identificacion THEN '(N) '+@Identificacion+' - (A) '+ @Identificacionv ELSE 'No' END) +
+		--', Email:'+ (SELECT CASE WHEN @Emailv != @Email THEN '(N) '+@Email+' - (A) '+ @Emailv ELSE 'No' END) +
+		--', Telefono:'+ (SELECT CASE WHEN @Telefonov != @Telefono THEN '(N) '+@Telefono+' - (A) '+ @Telefonov ELSE 'No' END) +
+		--', Contacto:'+ (SELECT CASE WHEN @Contactov != @Contacto THEN '(N) '+@Contacto+' - (A) '+ @Contactov ELSE 'No' END) +
+		--', Dirección:'+ (SELECT CASE WHEN @Direccionv != @Direccion THEN '(N) '+@Direccion+' - (A) '+ @Direccionv ELSE 'No' END) +
+		--', Ciudad:'+ (SELECT CASE WHEN @IdCiudadv != @IdCiudad THEN '(N) '+dbo.Fun_BuscarNombreCiudad(@IdCiudad)+' - (A) '+ dbo.Fun_BuscarNombreCiudad(@IdCiudadv) ELSE 'No' END) +
+		--', Estado:'+ (SELECT CASE WHEN @IdEstadov != @IdEstado THEN '(N) '+dbo.Fun_BuscarNombreTipoEstado(@IdEstado)+' - (A) '+ dbo.Fun_BuscarNombreTipoEstado(@IdEstadov) ELSE 'No' END), 
+		--GETDATE())		
 
 		SET @Resultado = 'OK*La Empresa ' + @NombreEmpresa + ' se actualizo correctamente'  
 	END	
@@ -2157,10 +2206,10 @@ END
 DELETE Empresa WHERE Id = @IdEmpresa
 SET @Resultado = 'OK*Estimado Usuario la Empresa '+ @NombreEmpresa+' se elimino correctamente'	
 
-INSERT INTO LogsAcciones 
-(IdUsuario, Accion, Descripcion, Fecha) 
-VALUES 
-(@IdUsuario, 'Eliminar', 'Nombre: ' + @NombreEmpresa , GETDATE())
+--INSERT INTO LogsAcciones 
+--(IdUsuario, Accion, Descripcion, Fecha) 
+--VALUES 
+--(@IdUsuario, 'Eliminar', 'Nombre: ' + @NombreEmpresa , GETDATE())
 
 	SELECT @Resultado
 END
@@ -2185,7 +2234,7 @@ BEGIN
 			IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,
 			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
-			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
+			CONVERT(varchar(255),DateCreate,105)+ ' ' + CONVERT(varchar(255),DateCreate,8) As DateCreate			
 			FROM Empresa
 			ORDER BY Nombre Desc
 END
@@ -2421,7 +2470,7 @@ BEGIN
 			IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,
 			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
-			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
+			CONVERT(varchar(255),DateCreate,105)+ ' ' + CONVERT(varchar(255),DateCreate,8) As DateCreate
 			FROM Sucursal
 			ORDER BY Nombre Desc
 END
@@ -2592,7 +2641,7 @@ BEGIN
 			IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,			
 			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
-			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
+			CONVERT(varchar(255),DateCreate,105)+ ' ' + CONVERT(varchar(255),DateCreate,8) As DateCreate
 			FROM Empleado
 			ORDER BY Id Desc
 END
@@ -2804,7 +2853,7 @@ BEGIN
 			IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,			
 			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
-			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
+			CONVERT(varchar(255),DateCreate,105)+ ' ' + CONVERT(varchar(255),DateCreate,8) As DateCreate
 			FROM TipoHoraExtra
 			ORDER BY Id Desc
 END
@@ -3008,7 +3057,7 @@ BEGIN
 			IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,			
 			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
-			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
+			CONVERT(varchar(255),DateCreate,105)+ ' ' + CONVERT(varchar(255),DateCreate,8) As DateCreate
 			FROM Cargo
 			ORDER BY Id Desc
 END
@@ -3183,7 +3232,7 @@ BEGIN
 			IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,			
 			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
-			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
+			CONVERT(varchar(255),DateCreate,105)+ ' ' + CONVERT(varchar(255),DateCreate,8) As DateCreate
 			FROM Banco
 			ORDER BY Id Desc
 END
@@ -3359,7 +3408,7 @@ BEGIN
 			IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,			
 			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
-			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
+			CONVERT(varchar(255),DateCreate,105)+ ' ' + CONVERT(varchar(255),DateCreate,8) As DateCreate
 			FROM Eps
 			ORDER BY Id Desc
 END
@@ -3530,7 +3579,7 @@ BEGIN
 			IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,			
 			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
-			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
+			CONVERT(varchar(255),DateCreate,105)+ ' ' + CONVERT(varchar(255),DateCreate,8) As DateCreate
 			FROM FondoPensiones
 			ORDER BY Id Desc
 END
@@ -3699,7 +3748,7 @@ BEGIN
 			IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,			
 			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
-			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
+			CONVERT(varchar(255),DateCreate,105)+ ' ' + CONVERT(varchar(255),DateCreate,8) As DateCreate
 			FROM CCFamiliar
 			ORDER BY Id Desc
 END
@@ -3870,7 +3919,7 @@ BEGIN
 			IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,			
 			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
-			CONVERT(varchar(255), DATEPART(DAY, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, DateCreate)) As DateCreate
+			CONVERT(varchar(255),DateCreate,105)+ ' ' + CONVERT(varchar(255),DateCreate,8) As DateCreate
 			FROM FondoCesantias
 			ORDER BY Id Desc
 END

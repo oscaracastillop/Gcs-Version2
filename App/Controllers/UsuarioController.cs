@@ -11,9 +11,9 @@ namespace App.Controllers
     {
         private readonly DataUsuario dataUsuario = new DataUsuario();
 
-        public JsonResult CrearUsuario(string IdUser, int IdUsuarioLogin, string Usuario, string Password, string Email, string NombreUsuarioLogin, string FechaVigencia)
+        public JsonResult CrearUsuario(string IdUser, string Usuario, string Password, string Email, string NombreUsuarioLogin, string FechaVigencia)
         {
-            var resultado = dataUsuario.CrearUsuario(IdUser, IdUsuarioLogin, Usuario, Password, Email, NombreUsuarioLogin, FechaVigencia);
+            var resultado = dataUsuario.CrearUsuario(IdUser, Usuario, Password, Email, NombreUsuarioLogin, FechaVigencia);
 
             return Json(resultado);
         }

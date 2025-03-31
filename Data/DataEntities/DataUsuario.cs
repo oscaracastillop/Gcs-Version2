@@ -16,13 +16,12 @@ namespace Data.DataEntities
         readonly GcsEntities _conection = new GcsEntities();
         private readonly DataRol dataRol = new DataRol();
 
-        public string CrearUsuario(string IdUser, int IdUsuarioLogin, string Usuario, string Password, string Email, string NombreUsuarioLogin, string FechaVigencia)
+        public string CrearUsuario(string IdUser, string Usuario, string Password, string Email, string NombreUsuarioLogin, string FechaVigencia)
         {
             string resultado = String.Empty;
             try
             {
                 var varIdUser = new SqlParameter("@IdUser", SqlDbType.VarChar) { Value = IdUser };
-                var varIdUsuarioLogin = new SqlParameter("@IdUsuarioLogin", SqlDbType.Int) { Value = IdUsuarioLogin };
                 var varUsuario = new SqlParameter("@Usuario", SqlDbType.VarChar) { Value = Usuario };
                 var varPassword = new SqlParameter("@Password", SqlDbType.VarChar) { Value = Password };
                 var varEmail = new SqlParameter("@Email", SqlDbType.VarChar) { Value = Email };
@@ -30,7 +29,7 @@ namespace Data.DataEntities
                 var varFechaVigencia = new SqlParameter("@FechaVigencia", SqlDbType.VarChar) { Value = FechaVigencia };
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
 
-                _conection.Database.ExecuteSqlCommand("SP_CrearUsuario @IdUser, @IdUsuarioLogin, @Usuario, @Password, @Email, @NombreUsuarioLogin, @FechaVigencia, @Resultado OUTPUT", varIdUser, varIdUsuarioLogin, varUsuario, varPassword, varEmail, varNombreUsuarioLogin, varFechaVigencia, varResultado);
+                _conection.Database.ExecuteSqlCommand("SP_CrearUsuario @IdUser, @Usuario, @Password, @Email, @NombreUsuarioLogin, @FechaVigencia, @Resultado OUTPUT", varIdUser, varUsuario, varPassword, varEmail, varNombreUsuarioLogin, varFechaVigencia, varResultado);
 
                 resultado = Convert.ToString(varResultado.Value);
             }

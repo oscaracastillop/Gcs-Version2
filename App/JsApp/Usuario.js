@@ -122,7 +122,7 @@ function ActualizarUsuario() {
     }
 }
 
-function EliminarUsuario(IdUsuarioLogin) {
+function EliminarUsuario(IdUsuario) {
     Swal.fire({
         title: 'Eliminar Usuario',
         text: '¿Está seguro de eliminar el usuario seleccionado?',
@@ -139,7 +139,7 @@ function EliminarUsuario(IdUsuarioLogin) {
                 url: '/Usuario/EliminarUsuario',
                 data: {
                     IdUser: TokenUser,
-                    IdUsuarioLogin: IdUsuarioLogin
+                    IdUsuario: IdUsuario
                 },
                 success: function (resultado) {
                     valor = resultado.split('*');
@@ -268,7 +268,7 @@ function GridUsuario() {
             { "data": "NombreUsuario", title: "Propietario", width: 'auto' },
             { "data": "Usuario", title: "Usuario/Login", width: 'auto' },
             { "data": "Email", title: "Email", width: 'auto' },
-            { "data": "Nombre", title: "Fecha Expiración", width: 'auto' },
+            { "data": "TextoFechaVigencia", title: "Fecha Expiración", width: 'auto' },
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
             {
