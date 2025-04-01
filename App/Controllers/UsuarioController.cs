@@ -40,6 +40,24 @@ namespace App.Controllers
         {
             var resultado = dataUsuario.ListaUsuario();
             return Json(resultado);
-        }       
+        }
+
+        public JsonResult InformacionUsuario(string IdUser)
+        {
+            var resultado = dataUsuario.InformacionUsuario(IdUser);
+            return Json(resultado);
+        }
+
+        public JsonResult UltimoIngresoUsuario(string IdUser)
+        {
+            var resultado = dataUsuario.UltimoIngresoUsuario(IdUser);
+            return Json(resultado);
+        }
+
+        public JsonResult ModulosActivosUsuario(string IdUser)
+        {
+            var resultado = dataUsuario.ModulosActivosUsuario(IdUser);
+            return Json(resultado);
+        }
     }
 }

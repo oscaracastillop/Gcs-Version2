@@ -344,3 +344,57 @@ function ListaUsuario() {
         },
     });
 }
+
+function InformacionUsuario() {
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '/Usuario/InformacionUsuario',
+        data: {
+            IdUser: TokenUser
+        },
+        success: function (resultado) {
+            $("#NombreUsuario").text(resultado[0].NombreUsuario);
+            $("#NombreUserLogin").text(resultado[0].NombreUserLogin);
+            $("#EmailUserLogin").text(resultado[0].EmailUserLogin);
+            $("#FechaCreadoUser").text(resultado[0].FechaCreadoUser);
+            $("#FechaVigenciaUser").text(resultado[0].FechaVigenciaUser);
+        }
+    });
+}
+
+function UltimoIngresoUsuario() {
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '/Usuario/UltimoIngresoUsuario',
+        data: {
+            IdUser: TokenUser
+        },
+        success: function (resultado) {
+            $("#FechaUltimoIngresoUser").text(resultado[0].FechaUltimoIngresoUser);
+        }
+    });
+}
+
+function ModulosActivosUsuario() {
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '/Usuario/ModulosActivosUsuario',
+        data: {
+            IdUser: TokenUser
+        },
+        success: function (resultado) {
+            var contador = 0;
+            if (resultado.length === 0) {
+                $("#ModulosActivosUsuario").append('<label>No tiene Módulos Activos</label>');
+            } else {                
+                $.each(resultado, function () {
+                    $("#ModulosActivosUsuario").append('<label class="labelmodulo" style="text-align:justify">' +'<strong>'+ resultado[contador].Menu +'</strong>: '  + resultado[contador].Modulo + '</label>'+' ');
+                    contador++;
+                });
+            }
+        }
+    });
+}

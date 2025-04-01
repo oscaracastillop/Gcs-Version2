@@ -140,5 +140,41 @@ namespace Data.DataEntities
                 throw ex;
             }
         }
+
+        public List<DatosInformacionUsuario> InformacionUsuario(string IdUser)
+        {
+            try
+            {
+                return _conection.Database.SqlQuery<DatosInformacionUsuario>("SP_InformacionUsuario @IdUser", new SqlParameter("@IdUser", IdUser)).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<UltimoIngresoUsuario> UltimoIngresoUsuario(string IdUser)
+        {
+            try
+            {
+                return _conection.Database.SqlQuery<UltimoIngresoUsuario>("SP_UltimoIngresoUsuario @IdUser", new SqlParameter("@IdUser", IdUser)).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<ModulosActivosUsuario> ModulosActivosUsuario(string IdUser)
+        {
+            try
+            {
+                return _conection.Database.SqlQuery<ModulosActivosUsuario>("SP_ModulosActivosUsuario @IdUser", new SqlParameter("@IdUser", IdUser)).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

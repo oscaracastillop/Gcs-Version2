@@ -104,7 +104,8 @@ footer {
     display: block;
     /*margin-top: 12px;*/
     font-family: "Open Sans", sans-serif;    
-
+    font-size:12px!important;
+    margin-right:10px;
 }
 
 .btnSubMenu {
@@ -316,4 +317,14 @@ hr {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;*/
+}
+
+.labelmodulo{
+    background-color:green!important;
+    padding:3px;
+    margin-top:5px!important;
+    padding-left:7px;
+    padding-right:7px;
+    border-radius:5px;
+    color:white;
 }

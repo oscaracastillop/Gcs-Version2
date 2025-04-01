@@ -27,5 +27,27 @@ namespace Models
             public int Id { get; set; }
             public string Usuario { get; set; }
         }
+
+        public class DatosInformacionUsuario
+        {
+            public string NombreUsuario { get; set; }
+            public string NombreUserLogin { get; set; }
+            public string EmailUserLogin { get; set; }
+            public string FechaCreadoUser { get; set; }
+            public string FechaVigenciaUser { get; set; }
+
+        }
+
+        public class UltimoIngresoUsuario
+        {
+            public string FechaUltimoIngresoUser { get; set; }
+
+        }
+
+        public class ModulosActivosUsuario
+        {
+            public string Modulo { get; set; }
+            public string Menu { get; set; }
+        }
     }
 }

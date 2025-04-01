@@ -461,7 +461,7 @@ GO
 CREATE PROCEDURE [dbo].[SP_UltimoIngresoUsuario] @IdUser varchar(255)
 AS
 BEGIN
-	SELECT	TOP 1 CONVERT(varchar(255),FechaIngreso,100) AS FechaUltimoIngresoUser
+	SELECT	TOP 1 CONVERT(varchar(255),FechaIngreso,105)+ ' ' + CONVERT(varchar(255),FechaIngreso,8) AS FechaUltimoIngresoUser
 	FROM	(SELECT TOP 2 A.FechaIngreso
 	FROM	Log_InicioSesion A,
 			Usuario B
@@ -469,6 +469,19 @@ BEGIN
 			AND B.Id = A.IdUser
 			ORDER BY A.Id DESC) AS FechaUltimoIngresoUser 
 	ORDER BY FechaIngreso ASC
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_InformacionUsuario] @IdUser varchar(255)
+AS
+BEGIN
+	SELECT	Nombre AS NombreUsuario,
+			Usuario AS NombreUserLogin,
+			Email AS EmailUserLogin,
+			CONVERT(varchar(255),DateCreate,105)+ ' ' + CONVERT(varchar(255),DateCreate,8) AS FechaCreadoUser,
+			CONVERT(varchar(255),FechaVigencia,105)+ ' ' + CONVERT(varchar(255),FechaVigencia,8) AS FechaVigenciaUser
+	FROM Usuario WHERE IdUser = @IdUser
 END
 
 GO

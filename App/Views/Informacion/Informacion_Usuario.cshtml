@@ -6,4 +6,90 @@
 <h6>Módulo Información Usuario</h6>
 <hr />
 
+<!--<div class="" style="margin-top:20px;">
+    <div class="">
+        <span><strong>Propietario de la Cuenta:</strong></span>-->
+@*<label id="NombreUsuario"></label>*@
+<!--<br /><br />
+<span><strong>Usuario Login:</strong></span>-->
+@*<label id="NombreUserLogin"></label>*@
+<!--<br /><br />
+        <span><strong>Email:</strong></span>
+        <label id="EmailUserLogin"></label>
+        <br /><br />
+        <span><strong>Fecha Último Ingreso:</strong></span>
+        <label id="FechaUltimoIngresoUser"></label>
+        <br /><br />
+        <span><strong>Fecha Creación:</strong></span>
+        <label id="FechaCreadoUser"></label>
+        <br /><br />
+        <span><strong>Fecha Vigencia:</strong></span>
+        <label id="FechaVigenciaUser"></label>
+    </div>
+</div>-->
 
+<table class="" width="300">
+    <tr>
+        <td>
+            <span><strong>Propietario de la Cuenta:</strong></span>
+        </td>
+        <td>
+            <label id="NombreUsuario"></label>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <span><strong>Usuario Login:</strong></span>
+        </td>
+        <td>
+            <label id="NombreUserLogin"></label>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <span><strong>Email:</strong></span>
+        </td>
+        <td>
+            <label id="EmailUserLogin"></label>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <span><strong>Fecha Último Ingreso:</strong></span>
+        </td>
+        <td>
+            <label id="FechaUltimoIngresoUser"></label>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <span><strong>Fecha Creación:</strong></span>
+        </td>
+        <td>
+            <label id="FechaCreadoUser"></label>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <span><strong>Fecha Vigencia:</strong></span>
+        </td>
+        <td>
+            <label id="FechaVigenciaUser"></label>
+        </td>
+    </tr>
+</table>
+<br />
+<br />
+
+<h6>Módulos Activos</h6>
+<hr />
+<div style="text-align:justify" id="ModulosActivosUsuario"></div>
+
+<script>
+    $(document).ready(function () {
+        ValidarSesion('/Informacion/Informacion_Usuario');
+        InformacionUsuario();
+        UltimoIngresoUsuario();
+        ModulosActivosUsuario();
+    });
+</script>
