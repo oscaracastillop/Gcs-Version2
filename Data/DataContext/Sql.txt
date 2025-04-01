@@ -657,6 +657,78 @@ END
 
 GO
 
+CREATE PROCEDURE [dbo].[SP_ActualizarPermisoMenu]	@IdUser varchar(255),  
+													@IdPermisoMenu int,
+													@IdUsuarioMenu int,
+													@IdMenu int,
+													@PermisoMenu int,
+													@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT,
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Editar'
+SET @SubMenu = '/Configuracion/Permiso_Menu'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	IF(exists(select * from Permiso_Menu where IdMenu = @IdMenu AND IdUsuario = @IdUsuarioMenu AND Id != @IdPermisoMenu))  
+	BEGIN  
+		SET @Resultado = 'Error*El Permiso ya existe.'
+		RETURN  
+	END
+ELSE
+	BEGIN
+		UPDATE	Permiso_Menu 
+		SET		IdMenu = @IdMenu, 
+				IdUsuario = @IdUsuarioMenu,
+				Permiso = @PermisoMenu
+		WHERE	Id = @IdPermisoMenu
+		
+		SET @Resultado = 'OK*El Permiso se actualizo correctamente'  
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_EliminarPermisoMenu] @IdUser varchar(255), @IdPermisoMenu int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Configuracion/Permiso_Menu'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE Permiso_Menu WHERE Id = @IdPermisoMenu
+SET @Resultado = 'OK*Estimado Usuario el Permiso se elimino correctamente'	
+
+SELECT @Resultado
+END
+
+GO
+
 /* TABLA SUB MENU*/
 
 CREATE TABLE SubMenu
@@ -723,13 +795,13 @@ INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Fondo Pensiones','bi-universal-access-circle','2rem','white','/Configuracion/Fondo_Pensiones','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Tipo Hora Extra','bi-clock','2rem','white','/Configuracion/Tipo_Hora_Extra','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Usuario','bi-person','2rem','white','/Configuracion/Usuario','green')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Permiso Menu','bi-lock','2rem','white','/Configuracion/Permiso_Menu','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Permiso Menu','bi-lock','2rem','white','/Configuracion/Permiso_Menu','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Permiso SubMenu','bi-lock','2rem','white','/Configuracion/Permiso_SubMenu','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Menu Web','bi-file-post','2rem','white','/Configuracion/Menu_Web','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'SubMenu Web','bi-file-post','2rem','white','/Configuracion/SubMenu_Web','cornflowerblue')
 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (13, 'Información Usuario','bi-person-check','2rem','white','/Informacion/Informacion_Usuario','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (13, 'Contacto','bi-wechat','2rem','white','/Informacion/Contacto','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (13, 'Contacto','bi-wechat','2rem','white','/Informacion/Contacto','green')
 
 GO
 

@@ -37,7 +37,7 @@ function CrearPermisoMenu() {
                 IdUser: TokenUser,
                 IdUsuarioMenu: IdUsuarioMenu,
                 IdMenu: IdMenu,
-                IdPermiso: IdPermiso
+                Permiso: IdPermiso
             },
             success: function (resultado) {
                 valor = resultado.split('*');
@@ -59,6 +59,89 @@ function CrearPermisoMenu() {
     }
 }
 
+function ActualizarPermisoMenu() {
+    let IdUsuarioMenu = $('#SelectUsuario').val();
+    let IdMenu = $('#SelectMenu').val();
+    let IdPermiso = $('#SelectEstadoPermisoMenu').val();
+
+    if (IdUsuarioMenu == -1 || IdUsuarioMenu == null || IdUsuarioMenu == '') {
+        $('#SelectUsuario').focus();
+        VentanaMensaje('Seleccione un Usuario', 'info');
+    } else if (IdMenu == -1 || IdMenu == null || IdMenu == '') {
+        $('#SelectMenu').focus();
+        VentanaMensaje('Seleccione un Menú', 'info');
+    } else {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/Permiso_Menu/ActualizarPermisoMenu',
+            data: {
+                IdUser: TokenUser,
+                IdUsuarioMenu: IdUsuarioMenu,
+                IdMenu: IdMenu,
+                Permiso: IdPermiso
+            },
+            success: function (resultado) {
+                valor = resultado.split('*');
+                if (valor[0] == 'OK') {
+                    Swal.fire({
+                        title: TituloSwal,
+                        text: valor[1],
+                        icon: 'success',
+                        position: 'top',
+                        confirmButtonColor: "orangered",
+                    }).then((result) => {
+                        window.location.reload();
+                    })
+                } else {
+                    Swal.fire(TituloSwal, valor[1], 'info');
+                }
+            }
+        });
+    }
+}
+
+function EliminarPermisoMenu(IdPermisoMenu) {
+    Swal.fire({
+        title: TituloSwal,
+        text: "Esta seguro(a)?, No podrás revertir esta acción.!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "orangered",
+        cancelButtonColor: "#333",
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "Cancelar",
+        position: 'top'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/Permiso_Menu/EliminarPermisoMenu',
+                data: {
+                    IdUser: TokenUser,
+                    IdPermisoMenu: IdPermisoMenu
+                },
+                success: function (resultado) {
+                    valor = resultado.split('*');
+                    if (valor[0] == 'OK') {
+                        Swal.fire({
+                            title: TituloSwal,
+                            text: valor[1],
+                            icon: 'success',
+                            position: 'top',
+                            confirmButtonColor: "orangered",
+                        }).then((result) => {
+                            location.reload();
+                        })
+                    } else {
+                        Swal.fire(TituloSwal, valor[1], 'info');
+                    }
+                }
+            });
+        }
+    });
+}
 
 function GridPermisoMenu() {
     var tituloReporte = 'LISTADO DE PERMISO MENU';

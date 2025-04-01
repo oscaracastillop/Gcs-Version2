@@ -22,16 +22,16 @@ namespace App.Controllers
             return Json(resultado);
         }
 
-        //public JsonResult ActualizarPermisoMenu(string IdUser, int IdPermisoMenu, int IdUsuarioMenu, int IdMenu, int Permiso)
-        //{
-        //    var resultado = dataPermisoMenu.ActualizarPermisoMenu(IdUser, IdPermisoMenu, IdUsuarioMenu, IdMenu, Permiso);
-        //    return Json(resultado);
-        //}
+        public JsonResult ActualizarPermisoMenu(string IdUser, int IdPermisoMenu, int IdUsuarioMenu, int IdMenu, int Permiso)
+        {
+            var resultado = dataPermisoMenu.ActualizarPermisoMenu(IdUser, IdPermisoMenu, IdUsuarioMenu, IdMenu, Permiso);
+            return Json(resultado);
+        }
 
-        //public JsonResult EliminarPermisoMenu(string IdUser, int IdPermisoMenu)
-        //{
-        //    string resultado = dataPermisoMenu.EliminarPermisoMenu(IdUser, IdPermisoMenu);
-        //    return Json(resultado);
-        //}
+        public JsonResult EliminarPermisoMenu(string IdUser, int IdPermisoMenu)
+        {
+            string resultado = dataPermisoMenu.EliminarPermisoMenu(IdUser, IdPermisoMenu);
+            return Json(resultado);
+        }
     }
 }

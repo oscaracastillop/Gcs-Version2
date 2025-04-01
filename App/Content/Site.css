@@ -33,20 +33,25 @@ header {
 nav ul {
     list-style-type: none;
     padding: 0;
-    background-color: orangered;
+    /*background-color: orangered;*/
     overflow: hidden;
+    /*box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.75);*/
+    
 }
 
     nav ul li a {
         display: block;
         color: white;
         text-align: left;
-        padding: 5px 7px;
+        padding: 7px 10px;
         text-decoration: none;
         border: solid 0px white;
         font-size: 12px !important;
         font-family: "Open Sans", sans-serif;
-        height:39px;
+        height: 39px;
+        margin-top: 3px;
+        margin-bottom: 3px;
+        background-color: orangered;
         /*font-family: "Quicksand", sans-serif;
         font-family: "Open Sans", sans-serif;
         font-family: "Montserrat", sans-serif;
@@ -54,6 +59,8 @@ nav ul {
         font-family: "Gidole", sans-serif;
         font-family: "Inter", sans-serif;
         font-family: "Raleway", sans-serif;*/
+        /*box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);*/
+        border-radius:5px;
     }
 
 nav ul li a:hover{
@@ -88,10 +95,12 @@ footer {
     float: left;
     min-width: 150px;
     font-family: "Open Sans", sans-serif;
+    margin-left:5px;
+    margin-top:5px
 }
 
 #contenedordos {
-    margin-left: 160px;
+    margin-left: 170px;
     display: block;
     /*margin-top: 12px;*/
     font-family: "Open Sans", sans-serif;    
@@ -106,14 +115,14 @@ footer {
     align-content: center;
     color: white !important;
     font-family: "Open Sans", sans-serif;
-    border-radius: 0% !important;
-    box-shadow: inset 0px 0px 15px 0px rgba(0,0,0,1);
+    border-radius: 0px !important;
+    box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,1);
 }
 
 .btnSubMenu:hover {
     background-color: #666!important;
-    color: white;
-    border: solid 1px white;
+   /* color: white;*/
+    /*border: solid 1px white;*/
 }
 
 .grid {
@@ -167,8 +176,8 @@ input, button, select {
 
 #NameApp {
     font-family: Pristina !important;
-    font-size: 35px !important;
-    color: black;
+    font-size: 50px !important;
+    color: white;
     margin-left: 10px;
     margin-top:10px!important;
     font-weight: bold;
@@ -182,7 +191,7 @@ input, button, select {
     margin-bottom: 10px;
     margin-top:-12px!important;
     margin-left: 10px;
-    color: black;
+    color: white;
 }
 
 
@@ -298,4 +307,13 @@ hr {
     margin-top: -5px !important;
     border: solid 1px orangered!important;
     opacity: 1!important;
+}
+
+.fondo {
+    background-color: #f0f0f0;
+    /* background-image: url('../../images/imagesapp/fondo.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;*/
 }

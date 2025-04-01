@@ -2180,6 +2180,7 @@
     <Content Include="Images\ImagenProducto\JabonRey.jpeg" />
     <Content Include="Images\ImagenProducto\Producto.png" />
     <Content Include="Images\ImagesApp\Favicon.png" />
+    <Content Include="Images\ImagesApp\fondo.jpg" />
     <Content Include="Images\ImagesApp\Logo GCS.jpg" />
     <Content Include="Images\ImagesApp\LogoSofia02.PNG" />
     <Content Include="Images\ImagesProfileUsers\Usuario.png" />
