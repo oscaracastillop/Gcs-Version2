@@ -398,3 +398,12 @@ function ModulosActivosUsuario() {
         }
     });
 }
+
+function ModalActualizarPass() {
+    $("#TituloModalActualizarPass").empty().append('<label>Actualizar Contraseña</label>'); 
+    $("#PasswordActual").empty().val('');
+    $("#PasswordNuevo").empty().val('');
+    $("#PasswordNuevoConfirmar").empty().val('');
+    $('#ModalActualizarPass').modal('show'); 
+    $("#BotonesModalActualizarPass").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="ActualizarPassUsuario()">Guardar</button>');
+}

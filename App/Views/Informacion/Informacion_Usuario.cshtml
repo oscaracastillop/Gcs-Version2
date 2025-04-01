@@ -78,12 +78,48 @@
         </td>
     </tr>
 </table>
-<br />
-<br />
+<button class="btn btn-modal-guardar btn-sm" type="button" onclick="ModalActualizarPass()">Cambiar Contraseña</button>
 
+
+<br />
+<br />
 <h6>Módulos Activos</h6>
 <hr />
 <div style="text-align:justify" id="ModulosActivosUsuario"></div>
+
+
+
+
+<div class="modal fade" id="ModalActualizarPass" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <div class="modal-title" id="TituloModalActualizarPass"></div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Contraseña Actual </strong><label style="font-size:9px!important; color:red"> * requerido</label></label>
+                        <input class="form-control" type="password" name="name" value="" id="PasswordActual" autocomplete="off" style="min-width:100%!important" />
+                    </div>
+                </div>                
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Nueva Contraseña </strong><label style="font-size:9px!important; color:red"> * requerido</label></label>
+                        <input class="form-control" type="password" name="name" value="" id="PasswordNuevo" autocomplete="off" style="min-width:100%!important" />
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Confirmar Contraseña </strong><label style="font-size:9px!important; color:red"> * requerido</label></label>
+                        <input class="form-control" type="password" name="name" value="" id="PasswordNuevoConfirmar" autocomplete="off" style="min-width:100%!important" />
+                    </div>
+                </div>               
+                <label style="color: red">Los campos con * son obligatorios</label>
+            </div>
+            <div class="modal-footer" id="BotonesModalActualizarPass"></div>
+        </div>
+    </div>
+</div>
+
 
 <script>
     $(document).ready(function () {
