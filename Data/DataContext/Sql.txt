@@ -486,6 +486,30 @@ END
 
 GO
 
+CREATE PROCEDURE [dbo].[SP_ModulosActivosUsuario] @IdUser varchar(255)
+AS
+BEGIN
+
+DECLARE @IdUsuario INT
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+
+SELECT 
+		M.Nombre As Menu,
+		A.Nombre AS Modulo
+	FROM
+			Menu M,
+			SubMenu A,
+			Permiso_SubMenu P,
+			Usuario U
+	WHERE	U.Id = @IdUsuario AND 
+			P.Permiso = 1 AND
+			U.ID = P.IdUsuario AND
+			P.IdSubMenu = A.Id AND
+			M.Id = A.IdMenu
+END
+
+GO
+
 /*TABLA MENU*/
 
 CREATE TABLE Menu
