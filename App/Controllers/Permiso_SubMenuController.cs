@@ -10,11 +10,11 @@ namespace App.Controllers
     public class Permiso_SubMenuController : Controller
     {
         private readonly DataPermisoSubMenu dataPermisoSubMenu = new DataPermisoSubMenu();
-        public ActionResult GridPermisoSubMenu()
-        {
-            var data = dataPermisoSubMenu.GridPermisoSubMenu();
-            return Json(new { data = data }, JsonRequestBehavior.AllowGet);
-        }
+        //public ActionResult GridPermisoSubMenu()
+        //{
+        //    var data = dataPermisoSubMenu.GridPermisoSubMenu();
+        //    return Json(new { data = data }, JsonRequestBehavior.AllowGet);
+        //}
 
         public JsonResult CrearPermisoSubMenu(string IdUser, int IdUsuarioSubMenu, int IdSubMenu, int Permiso, int Crear, int Editar, int Eliminar)
         {

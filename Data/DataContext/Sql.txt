@@ -921,10 +921,12 @@ CREATE TABLE Permiso_SubMenu
 (Id int identity(1,1) Primary key ,
 IdSubMenu int,
 IdUsuario int,
-Permiso int default 0,
+Permiso int default 1,
 Crear int default 0,
 Editar int default 0,
-Eliminar int default 0
+Eliminar int default 0,
+CreateBy int,
+DateCreate datetime
 )
 
 GO
@@ -935,82 +937,82 @@ GO
 
 ALTER TABLE Permiso_SubMenu ADD CONSTRAINT FK_IdSubMenu FOREIGN KEY (IdSubMenu) references SubMenu(Id)
 ALTER TABLE Permiso_SubMenu ADD CONSTRAINT FK_IdUsuarioSubMenu FOREIGN KEY (IdUsuario) references Usuario(Id)
+ALTER TABLE Permiso_SubMenu ADD CONSTRAINT FK_IdCreateByPermiso_SubMenu FOREIGN KEY (CreateBy ) references Usuario(Id)
 
 GO
 
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (1,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (2,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (3,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (4,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (5,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (6,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (7,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (8,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (9,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (10,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (11,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (12,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (13,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (14,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (15,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (16,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (17,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (18,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (19,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (20,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (21,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (22,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (23,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (24,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (25,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (26,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (27,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (28,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (29,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (30,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (31,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (32,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (33,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (34,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (35,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (36,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (37,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (38,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (39,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (40,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (41,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (42,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (43,1,1,1,1,1)-- Administrador
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (44,1,1,1,1,1)-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (1,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (2,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (3,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (4,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (5,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (6,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (7,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (8,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (9,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (10,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (11,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (12,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (13,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (14,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (15,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (16,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (17,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (18,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (19,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (20,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (21,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (22,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (23,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (24,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (25,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (26,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (27,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (28,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (29,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (30,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (31,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (32,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (33,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (34,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (35,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (36,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (37,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (38,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (39,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (40,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (41,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (42,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (43,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (44,1,1,1,1,1,1,GETDATE())-- Administrador
 
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (21,2,1,1,1,1)-- Usuario Almacen
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (22,2,1,1,1,1)-- Usuario Almacen
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (23,2,1,1,1,1)-- Usuario Almacen
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (24,2,1,1,1,1)-- Usuario Almacen
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (25,2,1,1,1,1)-- Usuario Almacen
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (26,2,1,1,1,1)-- Usuario Almacen
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (27,2,1,1,1,1)-- Usuario Almacen
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (43,2,1,0,1,0)-- Usuario Almacen
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (44,2,1,0,0,0)-- Usuario Almacen
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (21,2,1,1,1,1,1,GETDATE())-- Usuario Almacen
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (22,2,1,1,1,1,1,GETDATE())-- Usuario Almacen
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (23,2,1,1,1,1,1,GETDATE())-- Usuario Almacen
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (24,2,1,1,1,1,1,GETDATE())-- Usuario Almacen
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (25,2,1,1,1,1,1,GETDATE())-- Usuario Almacen
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (26,2,1,1,1,1,1,GETDATE())-- Usuario Almacen
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (27,2,1,1,1,1,1,GETDATE())-- Usuario Almacen
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (43,2,1,0,1,0,1,GETDATE())-- Usuario Almacen
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (44,2,1,0,0,0,1,GETDATE())-- Usuario Almacen
 
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (7,3,1,1,1,1)--Usuario Recursos Humanos
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (8,3,1,1,1,1)--Usuario Recursos Humanos
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (9,3,1,1,1,1)--Usuario Recursos Humanos
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (10,3,1,1,1,1)--Usuario Recursos Humanos
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (11,3,1,1,1,1)--Usuario Recursos Humanos
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (12,3,1,1,1,1)--Usuario Recursos Humanos
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (13,3,1,1,1,1)--Usuario Recursos Humanos
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (14,3,1,1,1,1)--Usuario Recursos Humanos
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (15,3,1,1,1,1)--Usuario Recursos Humanos
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (16,3,1,1,1,1)--Usuario Recursos Humanos
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (43,3,1,0,1,0)--Usuario Recursos Humanos
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (44,3,1,0,0,0)--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (7,3,1,1,1,1,1,GETDATE())--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (8,3,1,1,1,1,1,GETDATE())--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (9,3,1,1,1,1,1,GETDATE())--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (10,3,1,1,1,1,1,GETDATE())--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (11,3,1,1,1,1,1,GETDATE())--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (12,3,1,1,1,1,1,GETDATE())--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (13,3,1,1,1,1,1,GETDATE())--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (14,3,1,1,1,1,1,GETDATE())--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (15,3,1,1,1,1,1,GETDATE())--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (16,3,1,1,1,1,1,GETDATE())--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (43,3,1,0,1,0,1,GETDATE())--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (44,3,1,0,0,0,1,GETDATE())--Usuario Recursos Humanos
 
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (28,4,1,1,1,1)--Usuario Mantenimiento
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (29,4,1,1,1,1)--Usuario Mantenimiento
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (43,4,1,0,1,0)--Usuario Mantenimiento
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (44,4,1,0,0,0)--Usuario Mantenimiento
-
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (28,4,1,1,1,1,1,GETDATE())--Usuario Mantenimiento
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (29,4,1,1,1,1,1,GETDATE())--Usuario Mantenimiento
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (43,4,1,0,1,0,1,GETDATE())--Usuario Mantenimiento
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (44,4,1,0,0,0,1,GETDATE())--Usuario Mantenimiento
 
 GO
 
@@ -1109,7 +1111,122 @@ END
 
 GO
 
+CREATE PROCEDURE [dbo].[SP_CrearPermisoSubMenu] 
+				@IdUser varchar(255),  
+				@IdUsuarioSubMenu int,
+				@IdSubMenu int,
+				@Ver int,
+				@Crear int,
+				@Editar int,
+				@Eliminar int,
+				@Resultado varchar(255) OUTPUT     
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Crear'
+SET @SubMenu = '/Configuracion/Permiso_SubMenu'
 
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN		
+		INSERT INTO Permiso_SubMenu
+		(IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar, CreateBy, DateCreate) 
+		VALUES 
+		(@IdSubMenu, @IdUsuarioSubMenu, @Ver, @Crear, @Editar, @Eliminar, @IdUsuario, GETDATE()) 
+
+		SET @Resultado = 'OK*El Permiso al Menu a sido creado correctamente'
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_ActualizarPermisoSubMenu]	@IdUser varchar(255),  
+														@IdPermisoSubMenu int,
+														@IdUsuarioSubMenu int,
+														@IdSubMenu int,
+														@Ver int,
+														@Crear int,
+														@Editar int,
+														@Eliminar int,
+														@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT,
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Editar'
+SET @SubMenu = '/Configuracion/Permiso_SubMenu'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	IF(exists(select * from Permiso_SubMenu where IdSubMenu = @IdSubMenu AND IdUsuario = @IdUsuarioSubMenu AND Id != @IdPermisoSubMenu))  
+	BEGIN  
+		SET @Resultado = 'Error*El Permiso ya existe.'
+		RETURN  
+	END
+ELSE
+	BEGIN
+		UPDATE	Permiso_SubMenu 
+		SET		IdSubMenu = @IdSubMenu, 
+				IdUsuario = @IdUsuarioSubMenu,
+				Permiso = @Ver,
+				Crear = @Crear,
+				Editar = @Editar,
+				Eliminar = @Eliminar
+		WHERE	Id = @IdPermisoSubMenu
+		
+		SET @Resultado = 'OK*El Permiso se actualizo correctamente'  
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_EliminarPermisoSubMenu] @IdUser varchar(255), @IdPermisoSubMenu int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Configuracion/Permiso_SubMenu'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE Permiso_SubMenu WHERE Id = @IdPermisoSubMenu
+SET @Resultado = 'OK*Estimado Usuario el Permiso se elimino correctamente'	
+
+SELECT @Resultado
+END
 
 GO
 

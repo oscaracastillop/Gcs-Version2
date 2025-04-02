@@ -60,9 +60,11 @@ function CrearPermisoMenu() {
 }
 
 function ActualizarPermisoMenu() {
+    let IdPermisoMenu = $('#LabelIdPermisoMenu').text();//Id Tabla Permiso_Menu
     let IdUsuarioMenu = $('#SelectUsuario').val();
     let IdMenu = $('#SelectMenu').val();
     let IdPermiso = $('#SelectEstadoPermisoMenu').val();
+    
 
     if (IdUsuarioMenu == -1 || IdUsuarioMenu == null || IdUsuarioMenu == '') {
         $('#SelectUsuario').focus();
@@ -77,6 +79,7 @@ function ActualizarPermisoMenu() {
             url: '/Permiso_Menu/ActualizarPermisoMenu',
             data: {
                 IdUser: TokenUser,
+                IdPermisoMenu: IdPermisoMenu,
                 IdUsuarioMenu: IdUsuarioMenu,
                 IdMenu: IdMenu,
                 Permiso: IdPermiso
