@@ -510,6 +510,56 @@ END
 
 GO
 
+CREATE PROCEDURE [dbo].[SP_ActualizarPassUsuario] 
+				@IdUser varchar(255), 
+				@PasswordActual varchar(255), 
+				@PasswordNuevo varchar(255),  
+				@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 	
+		@ExistePassword INT, 
+		@PasswordActualMD5 varchar(255), 
+		@PasswordNuevoMD5 varchar(255),
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Editar'
+SET @SubMenu = '/Informacion/Informacion_Usuario'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+SET @PasswordActualMD5 = CONVERT ( VARCHAR (32), HashBytes ( 'MD5' ,  @PasswordActual ), 2) 
+SET @PasswordNuevoMD5 = CONVERT ( VARCHAR (32), HashBytes ( 'MD5' ,  @PasswordNuevo ), 2)
+
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion,@IdUsuario, @SubMenu)
+
+SELECT @ExistePassword = COUNT(1) FROM Usuario WHERE IdUser = @IdUser AND Password = @PasswordActualMD5
+
+IF @Permiso > 0
+	IF @ExistePassword = 1
+		BEGIN
+			UPDATE	Usuario
+			SET		Password = @PasswordNuevoMD5	
+			WHERE	@IdUsuario =Id
+
+			SET @Resultado = 'OK*La contraseña se actualizo correctamente'  
+		END
+	ELSE
+		BEGIN
+			SET @Resultado = 'Error*EL Password actual es Incorrecto, por favor valide' 
+		END
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
 /*TABLA MENU*/
 
 CREATE TABLE Menu
@@ -837,7 +887,7 @@ INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Menu Web','bi-file-post','2rem','white','/Configuracion/Menu_Web','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'SubMenu Web','bi-file-post','2rem','white','/Configuracion/SubMenu_Web','cornflowerblue')
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (13, 'Información Usuario','bi-person-check','2rem','white','/Informacion/Informacion_Usuario','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (13, 'Información Usuario','bi-person-check','2rem','white','/Informacion/Informacion_Usuario','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (13, 'Contacto','bi-wechat','2rem','white','/Informacion/Contacto','green')
 
 GO
@@ -940,7 +990,7 @@ INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Elimi
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (25,2,1,1,1,1)-- Usuario Almacen
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (26,2,1,1,1,1)-- Usuario Almacen
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (27,2,1,1,1,1)-- Usuario Almacen
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (43,2,1,0,0,0)-- Usuario Almacen
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (43,2,1,0,1,0)-- Usuario Almacen
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (44,2,1,0,0,0)-- Usuario Almacen
 
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (7,3,1,1,1,1)--Usuario Recursos Humanos
@@ -953,12 +1003,12 @@ INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Elimi
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (14,3,1,1,1,1)--Usuario Recursos Humanos
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (15,3,1,1,1,1)--Usuario Recursos Humanos
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (16,3,1,1,1,1)--Usuario Recursos Humanos
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (43,3,1,1,1,1)--Usuario Recursos Humanos
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (43,3,1,0,1,0)--Usuario Recursos Humanos
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (44,3,1,0,0,0)--Usuario Recursos Humanos
 
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (28,4,1,1,1,1)--Usuario Mantenimiento
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (29,4,1,1,1,1)--Usuario Mantenimiento
-INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (43,4,1,1,1,1)--Usuario Mantenimiento
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (43,4,1,0,1,0)--Usuario Mantenimiento
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (44,4,1,0,0,0)--Usuario Mantenimiento
 
 

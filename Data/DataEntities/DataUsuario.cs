@@ -176,5 +176,35 @@ namespace Data.DataEntities
                 throw ex;
             }
         }
+
+        public string ActualizarPassUsuario(string IdUser, string PasswordActual, string PasswordNuevo)
+        {
+            string resultado = String.Empty;
+            try
+            {
+                var varIdUser = new SqlParameter("@IdUser", SqlDbType.VarChar) { Value = IdUser };
+                var varPasswordActual = new SqlParameter("@PasswordActual", SqlDbType.VarChar) { Value = PasswordActual };
+                var varPasswordNuevo = new SqlParameter("@PasswordNuevo", SqlDbType.VarChar) { Value = PasswordNuevo };
+                var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
+
+                _conection.Database.ExecuteSqlCommand("SP_ActualizarPassUsuario @IdUser, @PasswordActual, @PasswordNuevo, @Resultado OUTPUT", varIdUser, varPasswordActual, varPasswordNuevo, varResultado);
+
+                resultado = Convert.ToString(varResultado.Value);
+            }
+            catch (Exception ex)
+            {
+                var Rol = dataRol.BuscarRolUsuario(IdUser);
+                if (Rol == "Administrador")
+                {
+                    resultado = "Error*" + ex.Message;
+                }
+                else
+                {
+                    resultado = "Error*En el momento no se puede realizar este proceso, por favor comuniquese con el Administrador";
+
+                }
+            }
+            return resultado;
+        }
     }
 }

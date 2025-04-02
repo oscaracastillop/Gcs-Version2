@@ -59,5 +59,12 @@ namespace App.Controllers
             var resultado = dataUsuario.ModulosActivosUsuario(IdUser);
             return Json(resultado);
         }
+
+        public JsonResult ActualizarPassUsuario(string IdUser, string PasswordActual, string PasswordNuevo)
+        {
+            var resultado = dataUsuario.ActualizarPassUsuario(IdUser, PasswordActual, PasswordNuevo);
+
+            return Json(resultado);
+        }
     }
 }

@@ -407,3 +407,49 @@ function ModalActualizarPass() {
     $('#ModalActualizarPass').modal('show'); 
     $("#BotonesModalActualizarPass").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="ActualizarPassUsuario()">Guardar</button>');
 }
+
+function ActualizarPassUsuario() {
+    let PasswordActual = $('#PasswordActual').val();
+    let PasswordNuevo = $('#PasswordNuevo').val();
+    let PasswordNuevoConfirmar = $('#PasswordNuevoConfirmar').val();
+
+    if (PasswordActual == null || PasswordActual == '' || PasswordActual == undefined) {
+        $('#PasswordActual').focus();
+        VentanaMensaje('Ingrese la contraseña actual', 'info');
+    } else if (PasswordNuevo == null || PasswordNuevo == '' || PasswordNuevo == undefined) {
+        $('#PasswordNuevo').focus();
+        VentanaMensaje('Ingrese la contraseña nueva', 'info');
+    } else if (PasswordNuevoConfirmar == null || PasswordNuevoConfirmar == '' || PasswordNuevoConfirmar == undefined) {
+        $('#PasswordNuevoConfirmar').focus();
+        VentanaMensaje('Ingrese la confirmación de la contraseña nueva', 'info');
+    } else if (PasswordNuevo != PasswordNuevoConfirmar) {
+        VentanaMensaje('Las contraseñas no coinciden, por favor valide', 'info');
+    } else {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/Usuario/ActualizarPassUsuario',
+            data: {
+                IdUser: TokenUser,
+                PasswordActual: PasswordActual,
+                PasswordNuevo: PasswordNuevo
+            },
+            success: function (resultado) {
+                valor = resultado.split('*');
+                if (valor[0] == 'OK') {
+                    Swal.fire({
+                        title: TituloSwal,
+                        text: valor[1],
+                        icon: 'success',
+                        position: 'top',
+                        confirmButtonColor: "orangered",
+                    }).then((result) => {
+                        window.location.reload();
+                    })
+                } else {
+                    Swal.fire(TituloSwal, valor[1], 'info');
+                }
+            }
+        });
+    }
+}

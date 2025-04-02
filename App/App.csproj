@@ -2185,7 +2185,6 @@
     <Content Include="Images\ImagesApp\LogoSofia02.PNG" />
     <Content Include="Images\ImagesProfileUsers\Usuario.png" />
     <Content Include="Images\LogoEmpresa\default.png" />
-    <Content Include="Images\LogoEmpresa\NoImage.png" />
     <Content Include="JsApp\Banco.js" />
     <Content Include="JsApp\Cargo.js" />
     <Content Include="JsApp\CCFamiliar.js" />
