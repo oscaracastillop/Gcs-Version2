@@ -1058,6 +1058,61 @@ END
 
 GO
 
+CREATE PROCEDURE [dbo].[SP_GridPermisoSubMenu]
+AS
+BEGIN
+	SELECT
+	A.Id,
+	P.IdUsuario,
+	U.Usuario,
+	P.IdMenu,
+	M.Nombre AS NombreMenu,
+	A.IdSubMenu,
+	S.Nombre AS NombreSubMenu,
+	P.Permiso,
+	CASE P.Permiso
+	WHEN 1 THEN 'Activo'
+	ELSE 'Inactivo'
+	END AS PermisoTexto,
+
+	A.Permiso,
+	CASE A.Permiso
+	WHEN 1 THEN 'Activo'
+	ELSE 'Inactivo'
+	END AS PermisoTexto,
+
+	A.Crear,
+	CASE A.Crear
+	WHEN 1 THEN 'Activo'
+	ELSE 'Inactivo'
+	END AS CrearTexto,
+
+	A.Eliminar,
+	CASE A.Eliminar
+	WHEN 1 THEN 'Activo'
+	ELSE 'Inactivo'
+	END AS EliminarTexto,
+
+	dbo.Fun_BuscarNombreUsuario(P.CreateBy) As CreateBy,
+			CONVERT(varchar(255),P.DateCreate,105)+ ' ' + CONVERT(varchar(255),P.DateCreate,8) As DateCreate
+	FROM	Permiso_Menu P,
+			Usuario U,
+			Menu M,	
+			SubMenu S,
+			Permiso_SubMenu A
+	WHERE	P.IdUsuario = U.Id AND
+			M.Id = P.IdMenu AND
+			S.IdMenu = M.Id AND
+			S.Id = A.IdSubMenu AND
+			U.Id = A.IdUsuario
+END
+
+GO
+
+
+
+GO
+
 /* TABLA CIUDAD */ 
 
 CREATE TABLE Ciudad 

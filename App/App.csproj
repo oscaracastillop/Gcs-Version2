@@ -2552,7 +2552,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Informacion_Usuario\" />
     <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>
