@@ -7,7 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Models.PermisoMenu;
+using static Models.PermisoSubMenu;
 
 namespace Data.DataEntities
 {
@@ -132,17 +132,17 @@ namespace Data.DataEntities
             return resultado;
         }
 
-        //public List<GridPermisoMenu> GridPermisoSubMenu()
-        //{
-        //    try
-        //    {
-        //        var response = _conection.Database.SqlQuery<GridPermisoSubMenu>("SP_GridPermisoSubMenu").ToList();
-        //        return response;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
+        public List<GridPermisoSubMenu> GridPermisoSubMenu()
+        {
+            try
+            {
+                var response = _conection.Database.SqlQuery<GridPermisoSubMenu>("SP_GridPermisoSubMenu").ToList();
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

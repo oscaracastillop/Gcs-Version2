@@ -19,5 +19,17 @@ namespace SistemaGcs.App.Controllers
             var resultado = dataSubMenu.ListaSubMenu(Usuario, Modulo);
             return Json(resultado);
         }
+
+        public JsonResult ListaPermisoSubMenu()
+        {
+            var resultado = dataSubMenu.ListaPermisoSubMenu();
+            return Json(resultado);
+        }
+
+        public JsonResult ListaSubMenuxIdMenu(int IdMenu)
+        {
+            var resultado = dataSubMenu.ListaSubMenuxIdMenu(IdMenu);
+            return Json(resultado);
+        }
     }
 }

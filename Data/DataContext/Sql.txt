@@ -1071,14 +1071,8 @@ BEGIN
 	M.Nombre AS NombreMenu,
 	A.IdSubMenu,
 	S.Nombre AS NombreSubMenu,
-	P.Permiso,
-	CASE P.Permiso
-	WHEN 1 THEN 'Activo'
-	ELSE 'Inactivo'
-	END AS PermisoTexto,
-
 	A.Permiso,
-	CASE A.Permiso
+	CASE P.Permiso
 	WHEN 1 THEN 'Activo'
 	ELSE 'Inactivo'
 	END AS PermisoTexto,
@@ -1088,6 +1082,12 @@ BEGIN
 	WHEN 1 THEN 'Activo'
 	ELSE 'Inactivo'
 	END AS CrearTexto,
+
+	A.Editar,
+	CASE A.Editar
+	WHEN 1 THEN 'Activo'
+	ELSE 'Inactivo'
+	END AS EditarTexto,
 
 	A.Eliminar,
 	CASE A.Eliminar
@@ -1226,6 +1226,22 @@ DELETE Permiso_SubMenu WHERE Id = @IdPermisoSubMenu
 SET @Resultado = 'OK*Estimado Usuario el Permiso se elimino correctamente'	
 
 SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaPermisoSubMenu]
+AS
+BEGIN
+	SELECT Id, Nombre FROM SubMenu ORDER BY Nombre ASC							
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaSubMenuxIdMenu] @IdMenu int
+AS
+BEGIN
+	SELECT Id, Nombre FROM SubMenu WHERE IdMenu = @IdMenu ORDER BY Nombre ASC							
 END
 
 GO

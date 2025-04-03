@@ -8,7 +8,7 @@ namespace Models
 {
     public class PermisoSubMenu
     {
-        public class GridPermisoMenu
+        public class GridPermisoSubMenu
         {
             public int Id { get; set; }
             public int IdUsuario { get; set; }

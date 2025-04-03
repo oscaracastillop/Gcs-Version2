@@ -11,10 +11,16 @@
     $("#BotonesModalPermisoSubMenu").empty();
     if (tipo == 'C') {
         $("#TituloModalPermisoSubMenu").empty().append('<label>Crear Permiso Sub Menu</label>');
+        $("#SelectUsuario").prop("disabled", false);
+        $("#SelectMenu").prop("disabled", false);
+        $("#SelectSubMenu").prop("disabled", true);
         $('#ModalPermisoSubMenu').modal('show');
         $("#BotonesModalPermisoSubMenu").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearPermisoSubMenu()">Guardar</button>');
     } if (tipo == 'E') {
         $("#TituloModalPermisoSubMenu").empty().append('<label>Editar Permiso Sub Menu</label>');
+        $("#SelectUsuario").prop("disabled", true);
+        $("#SelectMenu").prop("disabled", true);
+        $("#SelectSubMenu").prop("disabled", true);
         $('#ModalPermisoSubMenu').modal('show');
         $("#BotonesModalPermisoSubMenu").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarPermisoSubMenu()">Guardar Cambios</button>');
     }
@@ -249,7 +255,7 @@ function GridPermisoSubMenu() {
                 text: 'Nuevo',
                 className: 'btn btn-nuevo-datatable',
                 action: function (e, dt, node, config) {
-                    ModalPermisoMenu('C');
+                    ModalPermisoSubMenu('C');
                 }
             }
 
@@ -266,8 +272,8 @@ function GridPermisoSubMenu() {
             { "data": "NombreMenu", title: "Menú", width: 'auto' },
             { "data": "NombreSubMenu", title: "Sub Menú", width: 'auto' },
             {
-                title: "Ver",
-                data: "VerTexto",
+                title: "Permiso",
+                data: "PermisoTexto",
                 width: 'auto',
                 "render": function (data, type, row) {
 
@@ -286,7 +292,7 @@ function GridPermisoSubMenu() {
                 width: 'auto',
                 "render": function (data, type, row) {
 
-                    if (row.Permiso == 1) {
+                    if (row.Crear == 1) {
                         return '<label style="background-color:green; padding:2px;border-radius:5px;font-size:11px!important; color:white">&nbsp;' + data + '&nbsp;</label>';
                     }
                     else {
@@ -301,7 +307,7 @@ function GridPermisoSubMenu() {
                 width: 'auto',
                 "render": function (data, type, row) {
 
-                    if (row.Permiso == 1) {
+                    if (row.Editar == 1) {
                         return '<label style="background-color:green; padding:2px;border-radius:5px;font-size:11px!important; color:white">&nbsp;' + data + '&nbsp;</label>';
                     }
                     else {
@@ -316,7 +322,7 @@ function GridPermisoSubMenu() {
                 width: 'auto',
                 "render": function (data, type, row) {
 
-                    if (row.Permiso == 1) {
+                    if (row.Eliminar == 1) {
                         return '<label style="background-color:green; padding:2px;border-radius:5px;font-size:11px!important; color:white">&nbsp;' + data + '&nbsp;</label>';
                     }
                     else {
@@ -333,7 +339,7 @@ function GridPermisoSubMenu() {
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<a class="EditarPermisoMenu btn btn-editar-dt" title="Editar Registro">Editar</a>&nbsp;&nbsp;<a class="EliminarPermisoMenu btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>' +
+                    '<a class="EditarPermisoSubMenu btn btn-editar-dt" title="Editar Registro">Editar</a>&nbsp;&nbsp;<a class="EliminarPermisoSubMenu btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',
@@ -357,10 +363,13 @@ function GridPermisoSubMenu() {
         $('#SelectMenu').val(data.IdMenu);
         $('#SelectSubMenu').val(data.IdSubMenu);
         $('#SelectEstadoPermisoSubMenu').val(data.Permiso);
+        $('#SelectEstadoCrearSubMenu').val(data.Crear);
+        $('#SelectEstadoEditarSubMenu').val(data.Editar);
+        $('#SelectEstadoEliminarSubMenu').val(data.Eliminar);
     })
 
-    $('#gridPermisoMenu').on('click', '.EliminarPermisoMenu', function () {
+    $('#gridPermisoSubMenu').on('click', '.EliminarPermisoSubMenu', function () {
         let data = datatable.row($(this).parents()).data();
-        EliminarPermisoMenu(data.Id);
+        EliminarPermisoSubMenu(data.Id);
     })
 }
