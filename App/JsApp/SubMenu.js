@@ -43,8 +43,10 @@ function ListaPermisoSubMenu() {
 }
 
 function ListaSubMenuxIdMenu(IdMenu) {
+    $("#SelectSubMenu").empty().append();
     if (IdMenu == -1) {
         $("#SelectSubMenu").prop("disabled", true);
+        $("#SelectSubMenu").append('<option value="">No hay Datos</option>');
     } else {
         $("#SelectSubMenu").prop("disabled", false);
         $.ajax({

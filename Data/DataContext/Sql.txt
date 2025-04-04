@@ -1,4 +1,5 @@
-﻿CREATE DATABASE GcsV2  
+﻿
+CREATE DATABASE GcsV2  
 GO 
 
 USE GcsV2  
@@ -883,7 +884,7 @@ INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Tipo Hora Extra','bi-clock','2rem','white','/Configuracion/Tipo_Hora_Extra','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Usuario','bi-person','2rem','white','/Configuracion/Usuario','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Permiso Menu','bi-lock','2rem','white','/Configuracion/Permiso_Menu','green')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Permiso SubMenu','bi-lock','2rem','white','/Configuracion/Permiso_SubMenu','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Permiso SubMenu','bi-lock','2rem','white','/Configuracion/Permiso_SubMenu','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'Menu Web','bi-file-post','2rem','white','/Configuracion/Menu_Web','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (12, 'SubMenu Web','bi-file-post','2rem','white','/Configuracion/SubMenu_Web','cornflowerblue')
 
@@ -1125,22 +1126,40 @@ BEGIN
 DECLARE @Permiso INT, 
 		@IdUsuario INT, 
 		@Accion VARCHAR(255),
-		@SubMenu VARCHAR(255)
+		@SubMenu VARCHAR(255),
+		@IdMenu INT,
+		@Validar INT
 	
 SET @Accion = 'Crear'
 SET @SubMenu = '/Configuracion/Permiso_SubMenu'
 
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+SELECT @IdMenu = IdMenu FROM SubMenu WHERE Id = @IdSubMenu 
+SELECT @Validar = COUNT(1) 
 
 IF @Permiso > 0
 	BEGIN		
-		INSERT INTO Permiso_SubMenu
-		(IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar, CreateBy, DateCreate) 
-		VALUES 
-		(@IdSubMenu, @IdUsuarioSubMenu, @Ver, @Crear, @Editar, @Eliminar, @IdUsuario, GETDATE()) 
+	IF(exists(select * from Permiso_Menu where IdMenu = @IdMenu AND IdUsuario = @IdUsuarioSubMenu))  
+		BEGIN  
+			INSERT INTO Permiso_SubMenu
+			(IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar, CreateBy, DateCreate) 
+			VALUES 
+			(@IdSubMenu, @IdUsuarioSubMenu, @Ver, @Crear, @Editar, @Eliminar, @IdUsuario, GETDATE()) 
+			SET @Resultado = 'OK*El Permiso al Menu a sido creado correctamente'
+			RETURN
+		END
+	ELSE
+		BEGIN
+			INSERT INTO Permiso_Menu (IdMenu, IdUsuario, CreateBy, DateCreate) VALUES (@IdMenu, @IdUsuarioSubMenu, @IdUsuario, GETDATE())
 
-		SET @Resultado = 'OK*El Permiso al Menu a sido creado correctamente'
+			INSERT INTO Permiso_SubMenu
+			(IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar, CreateBy, DateCreate) 
+			VALUES 
+			(@IdSubMenu, @IdUsuarioSubMenu, @Ver, @Crear, @Editar, @Eliminar, @IdUsuario, GETDATE()) 
+
+			SET @Resultado = 'OK*El Permiso al Menu a sido creado correctamente'
+		END
 	END	
 ELSE
 	BEGIN
@@ -1150,7 +1169,6 @@ ELSE
 END
 
 GO
-
 
 CREATE PROCEDURE [dbo].[SP_ActualizarPermisoSubMenu]	@IdUser varchar(255),  
 														@IdPermisoSubMenu int,

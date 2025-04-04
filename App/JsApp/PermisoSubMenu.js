@@ -28,7 +28,7 @@
 
 function CrearPermisoSubMenu() {
     let IdUsuarioSubMenu = $('#SelectUsuario').val();
-    let IdSubMenu = $('#SelectMenu').val();
+    let IdSubMenu = $('#SelectSubMenu').val();
     let IdPermiso = $('#SelectEstadoPermisoSubMenu').val();
     let IdCrear = $('#SelectEstadoCrearSubMenu').val();
     let IdEditar = $('#SelectEstadoEditarSubMenu').val();
@@ -47,8 +47,8 @@ function CrearPermisoSubMenu() {
             url: '/Permiso_SubMenu/CrearPermisoSubMenu',
             data: {
                 IdUser: TokenUser,
-                IdUsuarioMenu: IdUsuarioMenu,
-                IdMenu: IdMenu,
+                IdUsuarioSubMenu: IdUsuarioSubMenu,
+                IdSubMenu: IdSubMenu,
                 Permiso: IdPermiso,
                 Crear: IdCrear,
                 Editar: IdEditar,
@@ -77,17 +77,16 @@ function CrearPermisoSubMenu() {
 function ActualizarPermisoSubMenu() {
     let IdPermisoSubMenu = $('#LabelIdPermisoSubMenu').text();//Id Tabla Permiso_SubMenu
     let IdUsuarioSubMenu = $('#SelectUsuario').val();
-    let IdSubMenu = $('#SelectMenu').val();
+    let IdSubMenu = $('#SelectSubMenu').val();
     let IdPermiso = $('#SelectEstadoPermisoSubMenu').val();
     let IdCrear = $('#SelectEstadoCrearSubMenu').val();
     let IdEditar = $('#SelectEstadoEditarSubMenu').val();
     let IdEliminar = $('#SelectEstadoEliminarSubMenu').val();   
-
-    if (IdUsuarioMenu == -1 || IdUsuarioMenu == null || IdUsuarioMenu == '') {
+    if (IdUsuarioSubMenu == -1 || IdUsuarioSubMenu == null || IdUsuarioSubMenu == '') {
         $('#SelectUsuario').focus();
         VentanaMensaje('Seleccione un Usuario', 'info');
-    } else if (IdMenu == -1 || IdMenu == null || IdMenu == '') {
-        $('#SelectMenu').focus();
+    } else if (IdSubMenu == -1 || IdSubMenu == null || IdSubMenu == '') {
+        $('#SelectSubMenu').focus();
         VentanaMensaje('Seleccione un Menú', 'info');
     } else {
         $.ajax({
@@ -97,8 +96,8 @@ function ActualizarPermisoSubMenu() {
             data: {
                 IdUser: TokenUser,
                 IdPermisoSubMenu: IdPermisoSubMenu,
-                IdUsuarioMenu: IdUsuarioMenu,
-                IdMenu: IdMenu,
+                IdUsuarioSubMenu: IdUsuarioSubMenu,
+                IdSubMenu: IdSubMenu,
                 Permiso: IdPermiso,
                 Crear: IdCrear,
                 Editar: IdEditar,
@@ -178,10 +177,13 @@ function GridPermisoSubMenu() {
             { targets: [0], className: 'dt-head-center' },//Usuario
             { targets: [1], className: 'dt-head-center' },//Menu
             { targets: [2], className: 'dt-head-center' },//Sub Menu
-            { targets: [2], width: '150px', className: 'dt-center dt-head-center' },//Estado
-            { targets: [3], className: 'dt-head-center' },//Creado Por
-            { targets: [4], className: 'dt-head-center' },//Date Create            
-            { targets: [5], width: '100px', className: 'dt-center dt-head-center' }//Acciones
+            { targets: [3], className: 'dt-center dt-head-center' },//Permiso
+            { targets: [4], className: 'dt-center dt-head-center' },//Crear
+            { targets: [5], className: 'dt-center dt-head-center' },//Editar
+            { targets: [6], className: 'dt-center dt-head-center' },//Eliminar
+            { targets: [7], className: 'dt-head-center' },//Creado Por
+            { targets: [8], className: 'dt-head-center' },//Date Create            
+            { targets: [9], width: '100px', className: 'dt-center dt-head-center' }//Acciones
         ],
         buttons: [
 
@@ -192,17 +194,17 @@ function GridPermisoSubMenu() {
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
                 text: 'Excel',
                 exportOptions: {
-                    columns: [0, 1, 2, 3],
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
                 },
             },
             {
                 extend: 'pdfHtml5', className: 'btn btn-pdf-datatable',
                 text: 'Pdf',
                 filename: tituloReporte + ' - ' + NameApp + ' ' + jsDate + ' ' + hora,
-                orientation: 'portrait', // landscape
+                orientation: 'portrait', // landscape portrait
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
                 exportOptions: {
-                    columns: [0, 1, 2, 3],
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
                     search: 'applied',
                     order: 'applied',
                 },
@@ -272,7 +274,7 @@ function GridPermisoSubMenu() {
             { "data": "NombreMenu", title: "Menú", width: 'auto' },
             { "data": "NombreSubMenu", title: "Sub Menú", width: 'auto' },
             {
-                title: "Permiso",
+                title: "Ver",
                 data: "PermisoTexto",
                 width: 'auto',
                 "render": function (data, type, row) {
