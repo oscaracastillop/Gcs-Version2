@@ -45,6 +45,7 @@
     <Compile Include="Cargo.cs" />
     <Compile Include="CCFamiliar.cs" />
     <Compile Include="Ciudad.cs" />
+    <Compile Include="Cliente.cs" />
     <Compile Include="Empleado.cs" />
     <Compile Include="Empresa.cs" />
     <Compile Include="Eps.cs" />

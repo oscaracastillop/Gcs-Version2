@@ -2189,6 +2189,7 @@
     <Content Include="JsApp\Cargo.js" />
     <Content Include="JsApp\CCFamiliar.js" />
     <Content Include="JsApp\Ciudad.js" />
+    <Content Include="JsApp\Cliente.js" />
     <Content Include="JsApp\Empleado.js" />
     <Content Include="JsApp\Empresa.js" />
     <Content Include="JsApp\Eps.js" />

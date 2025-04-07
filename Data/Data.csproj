@@ -69,6 +69,7 @@
     <Compile Include="DataEntities\DataCargo.cs" />
     <Compile Include="DataEntities\DataCCFamiliar.cs" />
     <Compile Include="DataEntities\DataCiudad.cs" />
+    <Compile Include="DataEntities\DataCliente.cs" />
     <Compile Include="DataEntities\DataEmpleado.cs" />
     <Compile Include="DataEntities\DataEmpresa.cs" />
     <Compile Include="DataEntities\DataEps.cs" />

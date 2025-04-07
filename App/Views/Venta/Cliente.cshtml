@@ -5,3 +5,80 @@
 
 <h6>Módulo Cliente</h6>
 <hr />
+
+<div class="grid">
+    <table id="gridCliente" class="table cell-border" cellspacing="0" style="width: 180%;"></table>
+</div>
+
+<!-- Modal Cliente-->
+<div class="modal fade" id="ModalCliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <div class="modal-title" id="TituloModalCliente"></div>
+            </div>
+            <div class="modal-body">
+                <label id="LabelIdCliente" hidden></label>
+                <div>
+                    <label><strong>Nombre </strong><label style="color:red"> *</label></label>
+                    <input class="form-control" type="text" id="InputNombreCliente" name="name" autocomplete="off" style="min-width:100%" />
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <label><strong>Documento </strong><label style="color:red"> *</label></label>
+                        <select class="form-control" id="SelectTipoDocumento" style="min-width:100%"></select>
+                    </div>
+                    <div class="col-7">
+                        <label><strong>Identificación </strong><label style="color:red"> *</label></label>
+                        <input class="form-control" type="text" id="InputIdentificacionCliente" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                </div>
+
+                <div>
+                    <label><strong>Email</strong></label>
+                    <input class="form-control" type="text" id="InputEmailCliente" name="name" autocomplete="off" style="min-width:100%" />
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <label><strong>Teléfono</strong></label>
+                        <input class="form-control" type="text" id="InputTelefonoCliente" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                    <div class="col-7">
+                        <label><strong>Contacto</strong></label>
+                        <input class="form-control" type="text" id="InputContactoCliente" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                </div>
+
+                <div>
+                    <label><strong>Dirección</strong></label>
+                    <input class="form-control" type="text" id="InputDireccionCliente" name="name" autocomplete="off" style="min-width:100%" />
+                </div>
+                <div>
+                    <label><strong>Ciudad </strong><label style="color:red"> *</label></label>
+                    <select class="form-control" id="SelectCiudad" style="min-width:100%"></select>
+                </div>
+                <div class="col-3" id="SelectEstadoCliente">
+                    <label><strong>Estado</strong></label>
+                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
+                </div>
+                <br />
+                <label style="color: red">Los campos con * son obligatorios</label>
+            </div>
+
+            <div class="modal-footer" id="BotonesModalCliente">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        ValidarSesion('/Venta/Cliente');
+        GridCliente();
+        ListaTipoDocumento(2);
+        ListaTipoEstado(1);
+        ListaCiudad();
+    });
+</script>
+

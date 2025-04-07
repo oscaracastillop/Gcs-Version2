@@ -842,7 +842,7 @@ INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (2, 'Sucursal','bi-houses', '2rem', 'white','/Negocio/Sucursal','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (2, 'Sucursal Empleado','bi-house-gear','2rem','white','/Negocio/Sucursal_Empleado','cornflowerblue')
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (3, 'Cliente','bi-person-rolodex','2rem','white','/Venta/Cliente','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (3, 'Cliente','bi-person-rolodex','2rem','white','/Venta/Cliente','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (3, 'Cotización','bi-person-rolodex','2rem','white','/Venta/Cotizacion','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (3, 'Detalle Cotización','bi-person-rolodex','2rem','white','/Venta/Detalle_Cotizacion','cornflowerblue')
 
@@ -2570,7 +2570,7 @@ DECLARE @Permiso INT,
 		--@IdCiudadv varchar(255) = (SELECT IdCiudad FROM Empresa WHERE Id = @IdEmpresa),
 		--@IdEstadov varchar(255) = (SELECT IdEstado FROM Empresa WHERE Id = @IdEmpresa)	 
 
-SET @Accion = 'Crear'
+SET @Accion = 'Editar'
 SET @SubMenu = '/Negocio/Empresa'
 
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
@@ -4364,6 +4364,213 @@ BEGIN
 			CONVERT(varchar(255),DateCreate,105)+ ' ' + CONVERT(varchar(255),DateCreate,8) As DateCreate
 			FROM FondoCesantias
 			ORDER BY Id Desc
+END
+
+GO
+
+/* TABLA CLIENTE */
+
+CREATE TABLE Cliente 
+(Id int identity(1,1) Primary key ,
+Nombre varchar(255),
+IdTipoDocumento int,
+Identificacion varchar(255),
+Email varchar(255),
+Telefono varchar(255),
+Contacto varchar(255),
+IdCiudad int,
+Direccion varchar(255),
+IdEstado int default 1,
+CreateBy int,
+DateCreate datetime
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoCliente on Cliente (Nombre, IdTipoDocumento, Identificacion)
+
+GO
+
+ALTER TABLE Cliente ADD CONSTRAINT FK_IdCreateByCliente FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE Cliente ADD CONSTRAINT FK_IdCiudadCliente FOREIGN KEY (IdCiudad ) references Ciudad(Id)
+ALTER TABLE Cliente ADD CONSTRAINT FK_IdEstadoCliente FOREIGN KEY (IdEstado) references TipoEstado(Id)
+ALTER TABLE Cliente ADD CONSTRAINT FK_IdTipodocumentoCliente FOREIGN KEY (IdTipoDocumento) references TipoDocumento(Id)
+
+GO
+
+INSERT INTO Cliente (Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdCiudad, Direccion, CreateBy, DateCreate) 
+VALUES 
+('MG Construcciones', 5, '901.766.109-1','mgcontrucciones@gmailmail.com', '310 2583698', '', 571, '', 1, GETDATE()),
+('Ingenieros & Asociados', 5, '901.766.109-1','iya@gmailmail.com', '310 2583698', '', 571, '', 1, GETDATE())
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_CrearCliente] 
+				@IdUser varchar(255), 				
+				@NombreCliente varchar(255), 
+				@IdTipoDocumento int,
+				@Identificacion varchar(255),
+				@Email varchar(255), 
+				@Telefono varchar(255),  
+				@Contacto varchar(255),
+				@IdCiudad int,
+				@Direccion varchar(255),	
+				@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Crear'
+SET @SubMenu = '/Venta/Cliente'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN		
+		INSERT INTO Cliente
+		(Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdCiudad, Direccion, CreateBy, DateCreate) 
+		VALUES 
+		(@NombreCliente, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Contacto, @IdCiudad, @Direccion, @IdUsuario, GETDATE())		
+
+		SET @Resultado = 'OK*El Cliente ' + @NombreCliente + ' a sido creado correctamente'
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ActualizarCliente]	@IdUser varchar(255),
+												@IdCliente int, 				
+												@NombreCliente varchar(255), 
+												@IdTipoDocumento int,
+												@Identificacion varchar(255),
+												@Email varchar(255), 
+												@Telefono varchar(255),  
+												@Contacto varchar(255),
+												@IdCiudad int,
+												@Direccion varchar(255),
+												@IdEstado int,			
+												@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT,
+		@Accion varchar(255), 
+		@SubMenu varchar(255)			 
+
+SET @Accion = 'Editar'
+SET @SubMenu = '/Venta/Cliente'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	IF(exists(select * from Cliente where Nombre = @NombreCliente AND IdTipoDocumento = @IdTipoDocumento AND Identificacion = @Identificacion AND Id != @IdCliente))  
+	BEGIN  
+		SET @Resultado = 'Error*El Cliente ' + @NombreCliente +' ya existe.'
+		RETURN  
+	END
+ELSE
+	BEGIN
+		UPDATE	Cliente 
+			SET		Nombre = @NombreCliente, 
+					IdTipoDocumento =  @IdTipoDocumento,
+					Identificacion = @Identificacion,								 
+					Email = @Email, 
+					Telefono = @Telefono,
+					Contacto = @Contacto,
+					IdCiudad = @IdCiudad,
+					Direccion = @Direccion,
+					IdEstado = @IdEstado
+					WHERE Id = @IdCliente
+							
+		SET @Resultado = 'OK*El Cliente ' + @NombreCliente + ' se actualizo correctamente'  
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_EliminarCliente] @IdUser varchar(255), @IdCliente int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@NombreCliente varchar(255),
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Venta/Cliente'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @NombreCliente = Nombre FROM Cliente WHERE Id = @IdCliente
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE Cliente WHERE Id = @IdCliente
+SET @Resultado = 'OK*Estimado Usuario el Cliente '+ @NombreCliente+' se elimino correctamente'	
+
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridCliente]
+AS
+BEGIN
+	SELECT	Id, 
+			Nombre, 
+			IdTipoDocumento,
+			dbo.Fun_BuscarNombreTipoDocumento(IdTipoDocumento) As TipoDocumento,
+			Identificacion,
+			Email,
+			Telefono,
+			Contacto,
+			Direccion,
+			IdCiudad,
+			dbo.Fun_BuscarNombreCiudad(IdCiudad) As Ciudad,
+			IdEstado,
+			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,
+			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
+			CONVERT(varchar(255),DateCreate,105)+ ' ' + CONVERT(varchar(255),DateCreate,8) As DateCreate			
+			FROM Cliente
+			ORDER BY Nombre Desc
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaCliente]
+AS
+BEGIN
+	SELECT Id, Nombre FROM Cliente WHERE IdEstado = 1 ORDER BY Nombre ASC
+END
+
+GO
+
+CREATE FUNCTION Fun_BuscarNombreCliente(@IdCliente INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombreCliente VARCHAR(255)
+	SELECT	@NombreCliente = Nombre	FROM Cliente WHERE Id = @IdCliente
+	RETURN @NombreCliente
 END
 
 GO
