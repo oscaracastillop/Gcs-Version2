@@ -46,6 +46,7 @@
     <Compile Include="CCFamiliar.cs" />
     <Compile Include="Ciudad.cs" />
     <Compile Include="Cliente.cs" />
+    <Compile Include="ContratoLaboral.cs" />
     <Compile Include="Empleado.cs" />
     <Compile Include="Empresa.cs" />
     <Compile Include="Eps.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="TipoDocumento.cs" />
     <Compile Include="TipoEstado.cs" />
     <Compile Include="TipoHoraExtra.cs" />
+    <Compile Include="TipoContrato.cs" />
     <Compile Include="Usuario.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

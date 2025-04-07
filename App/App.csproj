@@ -2190,6 +2190,7 @@
     <Content Include="JsApp\CCFamiliar.js" />
     <Content Include="JsApp\Ciudad.js" />
     <Content Include="JsApp\Cliente.js" />
+    <Content Include="JsApp\ContratoLaboral.js" />
     <Content Include="JsApp\Empleado.js" />
     <Content Include="JsApp\Empresa.js" />
     <Content Include="JsApp\Eps.js" />
@@ -2204,6 +2205,7 @@
     <Content Include="JsApp\SubMenu.js" />
     <Content Include="JsApp\Sucursal.js" />
     <Content Include="JsApp\SucursalEmpleado.js" />
+    <Content Include="JsApp\TipoContrato.js" />
     <Content Include="JsApp\TipoDocumento.js" />
     <Content Include="JsApp\TipoEstado.js" />
     <Content Include="JsApp\TipoHoraExtra.js" />
@@ -2480,6 +2482,7 @@
     <Compile Include="Controllers\SubMenuController.cs" />
     <Compile Include="Controllers\SucursalController.cs" />
     <Compile Include="Controllers\Sucursal_EmpleadoController.cs" />
+    <Compile Include="Controllers\Tipo_ContratoController.cs" />
     <Compile Include="Controllers\Tipo_DocumentoController.cs" />
     <Compile Include="Controllers\Tipo_EstadoController.cs" />
     <Compile Include="Controllers\Tipo_Hora_ExtraController.cs" />

@@ -58,6 +58,43 @@ END
 
 GO
 
+/* TIPO CONTRATO*/
+
+CREATE TABLE TipoContrato 
+(Id int identity(1,1) Primary key ,
+Nombre varchar(255)
+)
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoTipoContrato on TipoContrato (Nombre)
+
+GO
+
+INSERT INTO TipoContrato (Nombre) VALUES ('Fijo')
+INSERT INTO TipoContrato (Nombre) VALUES ('Indefinido')
+INSERT INTO TipoContrato (Nombre) VALUES ('Obra Labor')
+INSERT INTO TipoContrato (Nombre) VALUES ('Aprendiz')
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaTipoContrato]
+AS
+BEGIN
+	SELECT Id, Nombre FROM TipoContrato ORDER BY Nombre ASC						
+END
+
+GO
+
+CREATE FUNCTION Fun_BuscarNombreTipoContrato(@IdContrato INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombreTipoContrato VARCHAR(255)
+	SELECT @NombreTipoContrato = Nombre FROM TipoContrato WHERE Id = @IdContrato 
+	RETURN @NombreTipoContrato
+END
+
+GO
+
 /*TABLA TIPO DOCUMENTO*/
 
 CREATE TABLE TipoDocumento
@@ -3131,6 +3168,14 @@ END
 
 GO
 
+CREATE PROCEDURE [dbo].[SP_ListaEmpleado]
+AS
+BEGIN
+	SELECT Id, Nombre FROM Empleado ORDER BY Nombre ASC							
+END
+
+GO
+
 /*TIPO HORA EXTRA*/
 
 CREATE TABLE TipoHoraExtra 
@@ -4574,3 +4619,175 @@ DECLARE @NombreCliente VARCHAR(255)
 END
 
 GO
+
+/* CONTRATO LABORAL */
+
+
+CREATE TABLE ContratoLaboral
+(Id int identity(1,1) Primary key ,
+IdEmpleado int,
+IdEmpresa int,
+IdCargo int,
+IdTipoContrato int,
+SalarioMensual int,
+FechaInicio DATE,
+FechaFin DATE,
+IdEps INT,
+PorcentajeEps DECIMAL(10,2),
+IdFondoPension INT,
+PorcentajeFondoPension DECIMAL(10,2),
+IdFondoCesantias INT,
+IdBanco INT,
+NumeroCuenta VARCHAR(255),
+SubTransporte MONEY,
+Observacion varchar(255),
+IdEstado int default 1,
+CreateBy int,
+DateCreate datetime
+)
+
+ALTER TABLE ContratoLaboral ADD CONSTRAINT FK_IdCreateByContratoLaboral FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE ContratoLaboral ADD CONSTRAINT FK_IdEmpleadoContratoLaboral FOREIGN KEY (IdEmpleado ) references Empleado(Id)
+ALTER TABLE ContratoLaboral ADD CONSTRAINT FK_IdEmpresaContratoLaboral FOREIGN KEY (IdEmpresa ) references Empresa(Id)
+ALTER TABLE ContratoLaboral ADD CONSTRAINT FK_IdCargoContratoLaboral FOREIGN KEY (IdCargo ) references Cargo(Id)
+ALTER TABLE ContratoLaboral ADD CONSTRAINT FK_IdTipoContratoContratoLaboral FOREIGN KEY (IdTipoContrato ) references TipoContrato(Id)
+ALTER TABLE ContratoLaboral ADD CONSTRAINT FK_IdEpsContratoLaboral FOREIGN KEY (IdEps ) references Eps(Id)
+ALTER TABLE ContratoLaboral ADD CONSTRAINT FK_IdFondoPensionContratoLaboral FOREIGN KEY (IdFondoPension ) references FondoPension(Id)
+ALTER TABLE ContratoLaboral ADD CONSTRAINT FK_IdFondoCesantiasContratoLaboral FOREIGN KEY (IdFondoCesantias ) references FondoCesantias(Id)
+ALTER TABLE ContratoLaboral ADD CONSTRAINT FK_IdBancoContratoLaboral FOREIGN KEY (IdBanco ) references Banco(Id)
+ALTER TABLE ContratoLaboral ADD CONSTRAINT FK_IdEstadoContratoLaboral FOREIGN KEY (IdEstado ) references TipoEstado(Id)
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_CrearCLE] 
+				@IdUser varchar(255), 			
+				@IdEmpleado int,
+				@IdEmpresa int,
+				@IdCargo int,
+				@IdTipoContrato int,
+				@SalarioMensual int,
+				@FechaIni varchar(255),
+				@FechaEnd varchar(255), 
+				@IdEps INT,
+				@PorcentajeContEps DECIMAL(10,2),
+				@IdFondoPension INT, 
+				@PorcentajeContFP DECIMAL(10,2), 
+				@IdBanco INT,
+				@NumeroCuentaPago VARCHAR(255), 
+				@SubTransporte int,
+				@IdCesantias INT,
+				@Observacion varchar(255), 	
+				@Resultado varchar(MAX) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@ExisteRegistroTablaPrincipal INT,
+		@IdContratoLaboral INT,
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255),
+		@FechaInicio varchar(255) = CONVERT(VARCHAR(255),DATEPART(YEAR,@FechaIni))+'-'+CONVERT(VARCHAR(255),DATEPART(MONTH,@FechaIni))+'-'+CONVERT(VARCHAR(255),DATEPART(DAY,@FechaIni)),
+		@FechaFin varchar(255) = CONVERT(VARCHAR(255),DATEPART(YEAR,@FechaEnd))+'-'+CONVERT(VARCHAR(255),DATEPART(MONTH,@FechaEnd))+'-'+CONVERT(VARCHAR(255),DATEPART(DAY,@FechaEnd))
+		
+	
+SET @Accion = 'Crear'
+SET @SubMenu = '/Recursos_Humanos/Contrato_Laboral'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+SELECT @ExisteRegistroTablaPrincipal = COUNT(1) FROM ContratoLaboral WHERE IdEmpleado = @IdEmpleado AND IdEstado = 1
+
+IF @Permiso > 0
+	BEGIN
+		IF @ExisteRegistroTablaPrincipal = 0
+			BEGIN
+				INSERT INTO ContratoLaboral
+				(IdEmpleado, IdEmpresa, IdCargo, IdTipoContrato, SalarioMensual, FechaInicio,FechaFin, IdEps, PorcentajeEps, IdFondoPension, PorcentajeFondoPension,
+				IdBanco, NumeroCuenta,SubTransporte,IdFondoCesantias,Observacion, CreateBy, DateCreate) 
+				VALUES 
+				(@IdEmpleado, @IdEmpresa, @IdCargo, @IdTipoContrato, @SalarioMensual, @FechaInicio, @FechaFin, @IdEps, @PorcentajeContEps,
+				@IdFondoPension, @PorcentajeContFP,@IdBanco,@NumeroCuentaPago, @SubTransporte, @IdCesantias,@Observacion, @IdUsuario, GETDATE()) 
+				
+				--SET @IdContratoLaboral = @@IDENTITY
+
+				--INSERT INTO PrimaEmpleado
+				--(IdContratoLaboral, FechaInicio, FechaFin, CreateBy, DateCreate)
+				--VALUES
+				--(@IdContratoLaboral, @FechaInicio, @FechaFin, @IdUsuario, GETDATE())
+
+				--INSERT INTO VacacionesEmpleado
+				--(IdContratoLaboral, FechaInicio, FechaFin, CreateBy, DateCreate)
+				--VALUES
+				--(@IdContratoLaboral, @FechaInicio, @FechaFin, @IdUsuario, GETDATE())
+
+				--INSERT INTO CesantiasEmpleado
+				--(IdContratoLaboral, FechaInicio, FechaFin, CreateBy, DateCreate)
+				--VALUES
+				--(@IdContratoLaboral, @FechaInicio, @FechaFin, @IdUsuario, GETDATE())
+				
+				SET @Resultado = 'OK*El Contrato Laboral para el Empleado a sido creado correctamente'
+			END													
+		ELSE
+			BEGIN
+				SET @Resultado = 'Error*El Empleado se encuentra Activo con una Sucursal, para Asignarle una nueva Sucursal finalice la actual'
+			END
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridCLE]
+AS
+BEGIN
+SELECT	A.Id,	 
+			A.IdEmpleado,
+			--dbo.Fun_BuscarNombreEmpleado(D.IdEmpleado) AS Empleado,	
+			C.Id AS IdEmpresa,
+			dbo.Fun_BuscarNombreEmpresa(C.Id) AS Empresa,						
+			A.IdCargo,
+			dbo.Fun_BuscarNombreCargo(A.IdCargo) AS Cargo,
+			A.IdTipoContrato,
+			dbo.Fun_BuscarNombreTipoContrato(A.IdTipoContrato) AS Contrato,
+			A.SalarioMensual,
+			A.IdEps,
+			A.IdFondoPension,
+			A.IdFondoCesantias,
+			A.IdBanco,
+			A.PorcentajeEps,
+			A.PorcentajeFondoPension,
+			A.NumeroCuenta,
+			A.SubTransporte,
+			'$ ' + CONVERT(varchar(255),A.SalarioMensual) As TextoSalarioMensual,
+			CONVERT(varchar(255),A.FechaInicio,23) As FechaInicio,
+			CONVERT(varchar(255), DATEPART(DAY, A.FechaInicio))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, A.FechaInicio))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, A.FechaInicio)) As TextoFechaInicio,
+			CASE A.FechaFin
+			WHEN '1900-01-01 00:00:00.000' THEN '0000-00-00'
+			ELSE CONVERT(varchar(255),A.FechaFin,23)
+			END as FechaFin,			
+			CASE A.FechaFin
+			WHEN '1900-01-01 00:00:00.000' THEN 'Por Definir'
+			ELSE CONVERT(varchar(255), DATEPART(DAY, A.FechaFin))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, A.FechaFin))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, A.FechaFin))						
+			END as TextoFechaFin,
+			CASE A.FechaFin
+			WHEN '1900-01-01 00:00:00.000' THEN CONVERT(varchar(255),DATEDIFF(DAY,A.FechaInicio,GETDATE())+1) + ' Día(s)'
+			ELSE CONVERT(varchar(255),DATEDIFF(DAY,A.FechaInicio,A.FechaFin)+1) + ' Día(s)'
+			END AS Permanencia,			
+			A.Observacion,
+			A.IdEstado,
+			dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,
+			--dbo.Fun_BuscarNombreUsuario(A.CreateBy) As CreateBy,
+			CONVERT(varchar(255), DATEPART(DAY, A.DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, A.DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, A.DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, A.DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, A.DateCreate)) As DateCreate,		
+			D.Imagen
+			FROM ContratoLaboral A,
+			Empresa C,
+			Empleado D
+	WHERE	A.IdEmpresa = C.Id
+			AND D.Id = A.IdEmpleado
+			ORDER BY Id Desc
+END

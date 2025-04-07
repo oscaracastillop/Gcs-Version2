@@ -70,6 +70,7 @@
     <Compile Include="DataEntities\DataCCFamiliar.cs" />
     <Compile Include="DataEntities\DataCiudad.cs" />
     <Compile Include="DataEntities\DataCliente.cs" />
+    <Compile Include="DataEntities\DataContratoLaboral.cs" />
     <Compile Include="DataEntities\DataEmpleado.cs" />
     <Compile Include="DataEntities\DataEmpresa.cs" />
     <Compile Include="DataEntities\DataEps.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="DataEntities\DataSubMenu.cs" />
     <Compile Include="DataEntities\DataSucursal.cs" />
     <Compile Include="DataEntities\DataSucursalEmpleado.cs" />
+    <Compile Include="DataEntities\DataTipoContrato.cs" />
     <Compile Include="DataEntities\DataTipoDocumento.cs" />
     <Compile Include="DataEntities\DataTipoEstado.cs" />
     <Compile Include="DataEntities\DataTipoHoraExtra.cs" />
