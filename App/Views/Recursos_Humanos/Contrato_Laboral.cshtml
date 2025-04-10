@@ -12,7 +12,7 @@
 
 <div class="modal fade" id="ModalCLE" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content">           
             <div class="modal-header header-modal">
                 <div class="modal-title" id="TituloModalCLE"></div>
             </div>
@@ -22,102 +22,103 @@
                     <img src="~/Images/ImagenHVEmpleado/Empleado.png" alt="" style="height:200px; width:200px; border-radius:5px; border:1px solid; background:white;padding:0px" />
                 </div>
                 @*<br />
-                <a href="#">Ver Información Empleado</a>*@
-            
-            <br />
-            <br />
-            <div>
-                <label><strong>Empleado</strong><label style="color:red" id=""> *</label></label>
-                <select class="form-control" id="SelectEmpleado" onchange="CargarDatosCLE($('#SelectEmpleado').val())"></select>
-            </div>
-            <div>
-                <label><strong>Empresa</strong><label style="color:red" id=""> *</label></label>
-                <select class="form-control" id="SelectEmpresa" style="min-width:100%"></select>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <label><strong>Cargo</strong><label style="color:red" id=""> *</label></label>
-                    <select class="form-control" id="SelectCargo" style="min-width:100%"></select>
-                </div>
-                <div class="col-6">
-                    <label><strong>Contrato</strong><label style="color:red" id=""> *</label></label>
-                    <select class="form-control" id="SelectTipoContrato" style="min-width:100%"></select>
-                </div>
-            </div>
+        <a href="#">Ver Información Empleado</a>*@
 
-            <div class="row">
-                <div class="col-6">
-                    <label><strong>Salario Mensual</strong><label style="color:red" id=""> *</label></label>
-                    <input class="form-control" type="number" id="InputSalarioCLE" name="name" autocomplete="off" style="min-width:100%" onchange="CalcularValorDia()" />
+                <br />
+                <br />
+                <div>
+                    <label><strong>Empleado</strong><label style="color:red" id=""> *</label></label>
+                    <select class="form-control" id="SelectEmpleado" onchange="CargarDatosCLE($('#SelectEmpleado').val())"></select>
                 </div>
-                <div class="col-6">
-                    <label><strong>Valor Día</strong></label>
-                    <input class="form-control" type="text" id="InputValorDiaSalarioCLE" name="name" autocomplete="off" style="min-width:100%" disabled />
+                <div>
+                    <label><strong>Empresa</strong><label style="color:red" id=""> *</label></label>
+                    <select class="form-control" id="SelectEmpresa" style="min-width:100%"></select>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <label><strong>Fecha Inicio Contrato</strong><label style="color:red" id=""> *</label></label>
-                    <input class="form-control" type="date" id="InputFechaInicioCLE" name="name" autocomplete="off" style="min-width:100%" />
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Cargo</strong><label style="color:red" id=""> *</label></label>
+                        <select class="form-control" id="SelectCargo" style="min-width:100%"></select>
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Contrato</strong><label style="color:red" id=""> *</label></label>
+                        <select class="form-control" id="SelectTipoContrato" style="min-width:100%"></select>
+                    </div>
                 </div>
-                <div class="col-6">
-                    <label><strong>Fecha Fin Contrato</strong></label>
-                    <input class="form-control" type="date" id="InputFechaFinCLE" name="name" autocomplete="off" style="min-width:100%" />
+
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Salario Mensual</strong><label style="color:red" id=""> *</label></label>
+                        <input class="form-control" type="number" id="InputSalarioCLE" name="name" autocomplete="off" style="min-width:100%" onchange="CalcularValorDia()" />
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Valor Día</strong></label>
+                        <input class="form-control" type="text" id="InputValorDiaSalarioCLE" name="name" autocomplete="off" style="min-width:100%" disabled />
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-8">
-                    <label><strong>Eps</strong><label style="color:red" id=""> *</label></label>
-                    <select class="form-control" id="SelectEps" style="min-width:100%"></select>
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Fecha Inicio Contrato</strong><label style="color:red" id=""> *</label></label>
+                        <input class="form-control" type="date" id="InputFechaInicioCLE" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Fecha Fin Contrato</strong></label>
+                        <input class="form-control" type="date" id="InputFechaFinCLE" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
                 </div>
-                <div class="col-4">
-                    <label><strong>% Contribución</strong><label style="color:red" id=""> *</label></label>
-                    <input class="form-control" type="number" id="InputPorcentajeContribucionEpsCLE" name="name" autocomplete="off" style="min-width:100%" value="" />
+                <div class="row">
+                    <div class="col-8">
+                        <label><strong>Eps</strong><label style="color:red" id=""> *</label></label>
+                        <select class="form-control" id="SelectEps" style="min-width:100%"></select>
+                    </div>
+                    <div class="col-4">
+                        <label><strong>% Contribución</strong><label style="color:red" id=""> *</label></label>
+                        <input class="form-control" type="number" id="InputPorcentajeContribucionEpsCLE" name="name" autocomplete="off" style="min-width:100%" value="" />
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-8">
-                    <label><strong>Fondo Pensión</strong><label style="color:red" id=""> *</label></label>
-                    <select class="form-control" id="SelectFondoPensiones" style="min-width:100%"></select>
+                <div class="row">
+                    <div class="col-8">
+                        <label><strong>Fondo Pensión</strong><label style="color:red" id=""> *</label></label>
+                        <select class="form-control" id="SelectFondoPensiones" style="min-width:100%"></select>
+                    </div>
+                    <div class="col-4">
+                        <label><strong>% Contribución</strong><label style="color:red" id=""> *</label></label>
+                        <input class="form-control" type="number" id="InputPorcentajeContribucionFPCLE" name="name" autocomplete="off" style="min-width:100%" value="" />
+                    </div>
                 </div>
-                <div class="col-4">
-                    <label><strong>% Contribución</strong><label style="color:red" id=""> *</label></label>
-                    <input class="form-control" type="number" id="InputPorcentajeContribucionFPCLE" name="name" autocomplete="off" style="min-width:100%" value="" />
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Banco</strong><label style="color:red" id=""> *</label></label>
+                        <select class="form-control" id="SelectBanco" style="min-width:100%"></select>
+                    </div>
+                    <div class="col-6">
+                        <label><strong># Cuenta Pago</strong><label style="color:red" id=""> *</label></label>
+                        <input class="form-control" type="number" id="InputNumeroCuentaPagoCLE" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <label><strong>Banco</strong><label style="color:red" id=""> *</label></label>
-                    <select class="form-control" id="SelectBanco" style="min-width:100%"></select>
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>SubTransporte Mensual</strong><label style="color:red" id=""> *</label></label>
+                        <input class="form-control" type="number" id="InputSubTransporteCLE" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Fondo Cesantías</strong><label style="color:red" id=""> *</label></label>
+                        <select class="form-control" id="SelectFondoCesantias" style="min-width:50%"></select>
+                    </div>
                 </div>
-                <div class="col-6">
-                    <label><strong># Cuenta Pago</strong><label style="color:red" id=""> *</label></label>
-                    <input class="form-control" type="number" id="InputNumeroCuentaPagoCLE" name="name" autocomplete="off" style="min-width:100%" />
+                <div>
+                    <label><strong>Observación</strong></label>
+                    <input class="form-control" type="text" id="InputObservacionCLE" name="name" autocomplete="off" style="min-width:100%" />
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <label><strong>SubTransporte Mensual</strong><label style="color:red" id=""> *</label></label>
-                    <input class="form-control" type="number" id="InputSubTransporteCLE" name="name" autocomplete="off" style="min-width:100%" />
+                <div class="col-3" id="SelectEstadoCLE">
+                    <label><strong>Estado</strong></label>
+                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
                 </div>
-                <div class="col-6">
-                    <label><strong>Fondo Cesantías</strong><label style="color:red" id=""> *</label></label>
-                    <select class="form-control" id="SelectFondoCesantias" style="min-width:50%"></select>
-                </div>
-            </div>
-            <div>
-                <label><strong>Observación</strong></label>
-                <input class="form-control" type="text" id="InputObservacionCLE" name="name" autocomplete="off" style="min-width:100%" />
-            </div>
-            <div class="col-3" id="SelectEstadoCLE">
-                <label><strong>Estado</strong></label>
-                <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
-            </div>
-            <div class="modal-footer" id="BotonesModalCLE"></div>
+                <div class="modal-footer" id="BotonesModalCLE"></div>
+            </div>            
         </div>
     </div>
 </div>
-
+    
 <script>
     $(document).ready(function () {
         ValidarSesion('/Recursos_Humanos/Contrato_Laboral');
@@ -125,7 +126,7 @@
         ListaEmpleado();
         ListaEmpresa();
         ListaCargo();
-        ListaTipoEstado(2);
+        ListaTipoEstado(1);
         ListaTipoContrato();
         ListaEps();
         ListaFondoPensiones();

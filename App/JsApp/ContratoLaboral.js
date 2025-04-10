@@ -15,7 +15,6 @@
 
 
     if (tipo == 'C') {
-        $("#SelectCargo").prop("disabled", false);
         $("#SelectEmpresa").prop("disabled", false);
         $("#SelectEmpleado").prop("disabled", false);
         $("#InputFechaInicioCLE").prop("disabled", false);
@@ -39,7 +38,6 @@
        
 
     } if (tipo == 'E') {
-        $("#SelectCargo").prop("disabled", true);
         $("#SelectEmpresa").prop("disabled", true);
         $("#SelectEmpleado").prop("disabled", true);
         $("#InputFechaInicioCLE").prop("disabled", true);
@@ -169,12 +167,13 @@ function CrearCLE() {
 
 function ActualizarCLE() {
     let IdCLE = $('#LabelIdCLE').text();
+    let IdCargo = $('#SelectCargo').val(); 
     let SalarioMensual = $('#InputSalarioCLE').val();
     let IdTipoContrato = $('#SelectTipoContrato').val();  
     let FechaFin = $('#InputFechaFinCLE').val();
     let IdEps = $('#SelectEps').val();
     let PorcentajeContEps = $('#InputPorcentajeContribucionEpsCLE').val();
-    let IdFondoPension = $('#SelectFondoPension').val();
+    let IdFondoPension = $('#SelectFondoPensiones').val();
     let PorcentajeContFP = $('#InputPorcentajeContribucionFPCLE').val();
     let IdBanco = $('#SelectBanco').val();
     let NumeroCuentaPago = $('#InputNumeroCuentaPagoCLE').val();
@@ -187,10 +186,11 @@ function ActualizarCLE() {
     $.ajax({
         type: 'POST',
         dataType: 'json',
-        url: '/Contrato_Laboral_Empleado/ActualizarCLE',
+        url: '/Contrato_Laboral/ActualizarCLE',
         data: {
-            IdUser: User,
+            IdUser: TokenUser,
             IdCLE: IdCLE, 
+            IdCargo: IdCargo,
             SalarioMensual: SalarioMensual,
             IdTipoContrato: IdTipoContrato,
             FechaFin: FechaFin,
@@ -222,6 +222,50 @@ function ActualizarCLE() {
     });      
 }
 
+
+
+
+function EliminarCLE(IdCLE) {
+    Swal.fire({
+        title: TituloSwal,
+        text: "Esta seguro(a)?, No podrás revertir esta acción.!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "orangered",
+        cancelButtonColor: "#333",
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "Cancelar",
+        position: 'top'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/Contrato_Laboral/EliminarCLE',
+                data: {
+                    IdUser: TokenUser,
+                    IdCLE: IdCLE
+                },
+                success: function (resultado) {
+                    valor = resultado.split('*');
+                    if (valor[0] == 'OK') {
+                        Swal.fire({
+                            title: TituloSwal,
+                            text: valor[1],
+                            icon: 'success',
+                            position: 'top',
+                            confirmButtonColor: "orangered",
+                        }).then((result) => {
+                            location.reload();
+                        })
+                    } else {
+                        Swal.fire(TituloSwal, valor[1], 'info');
+                    }
+                }
+            });
+        }
+    });
+}
 
 function GridCLE() {
     var tituloReporte = 'LISTADO DE CONTRATOS LABORALES';
@@ -256,17 +300,17 @@ function GridCLE() {
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
                 text: 'Excel',
                 exportOptions: {
-                    columns: [0, 1, 2, 3],
+                    columns: [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13],
                 },
             },
             {
                 extend: 'pdfHtml5', className: 'btn btn-pdf-datatable',
                 text: 'Pdf',
                 filename: tituloReporte + ' - ' + NameApp + ' ' + jsDate + ' ' + hora,
-                orientation: 'portrait', // landscape
+                orientation: 'landscape', // landscape  portrait
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
                 exportOptions: {
-                    columns: [0, 1, 2, 3],
+                    columns: [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13],
                     search: 'applied',
                     order: 'applied',
                 },
@@ -274,7 +318,7 @@ function GridCLE() {
                     doc.content.splice(0, 1.5);
                     doc.pageMargins = [40, 60, 20, 30];
                     doc.defaultStyle.fontSize = 6;
-                    doc.styles.tableHeader.fontSize = 12;
+                    doc.styles.tableHeader.fontSize = 8;
                     doc['header'] = (function () {
                         return {
                             columns: [
@@ -362,9 +406,9 @@ function GridCLE() {
             { "data": "TextoFechaInicio", title: "Fecha Inicio", width: 'auto' },//7
             { "data": "TextoFechaFin", title: "Fecha Fin", width: 'auto' },//8
             { "data": "Permanencia", title: "Permanencia", width: 'auto' },//9
-            { "data": "Observacion", title: "Observación", width: 'auto' },           
-            { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
-            { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
+            { "data": "Observacion", title: "Observación", width: 'auto' },//10        
+            { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },//11
+            { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },//12
             {
                 title: "Estado",
                 data: "Estado",
@@ -379,17 +423,17 @@ function GridCLE() {
                     }
                 }
 
-            },
+            },//13
             {
                 title: "Acciones",
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<a class="Editar btn btn-editar-dt" title="Editar Registro">Editar</a>&nbsp;&nbsp;<a class="EliminarCLE btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>' +
+                    '<a class="EditarCLE btn btn-editar-dt" title="Editar Registro">Editar</a>&nbsp;&nbsp;<a class="EliminarCLE btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',
-            },
+            },//14
 
         ],
         "language": {
@@ -401,17 +445,37 @@ function GridCLE() {
         ],
     });
 
-    $('#gridBanco').on('click', '.EditarBanco', function () {
+    $('#gridCLE').on('click', '.EditarCLE', function () {
         let data = datatable.row($(this).parents()).data();
-        ModalBanco('E');
-        $('#LabelIdBanco').text(data.Id);
-        $('#InputNombreBanco').val(data.Nombre);
-        $('#SelectEstado').val(data.IdEstado);
+        ModalCLE('E');
+        $('#LabelIdCLE').text(data.Id);
+        $('#LabelIdCLE').text(data.Id);
+        $('#ImagenEmpleado').empty().append(
+            '<img src="/Images/ImagenHVEmpleado/' + data.Imagen + '" alt="" style="height:200px; width:200px; border-radius:50%; border:0px solid; background:white;padding:0px" id="ImagenEmpleado"/>'
+        );
+        $('#SelectEmpleado').val(data.IdEmpleado);
+        $('#SelectEmpresa').val(data.IdEmpresa);
+        $('#SelectCargo').val(data.IdCargo);
+        $('#SelectTipoContrato').val(data.IdTipoContrato);
+        $('#InputSalarioCLE').val(data.SalarioMensual);
+        $('#InputValorDiaSalarioCLE').val(Math.round(data.SalarioMensual / 30));
+        $("#InputFechaInicioCLE").val(data.FechaInicio);
+        $("#InputFechaFinCLE").val(data.FechaFin);
+        $('#SelectEps').val(data.IdEps);
+        $('#SelectFondoPension').val(data.IdFondoPension);
+        $('#SelectFondoCesantias').val(data.IdFondoCesantias);
+        $('#SelectBanco').val(data.IdBanco);
+        $('#InputPorcentajeContribucionEpsCLE').val(data.PorcentajeEps);
+        $('#InputPorcentajeContribucionFPCLE').val(data.PorcentajeFondoPension);
+        $('#InputNumeroCuentaPagoCLE').val(data.NumeroCuenta);
+        $('#InputSubTransporteCLE').val(data.SubTransporte);
+        $("#InputObservacionCLE").val(data.Observacion);
+        $('#SelectEstado').val(data.IdEstado); 
     })
 
-    $('#gridBanco').on('click', '.EliminarBanco', function () {
+    $('#gridCLE').on('click', '.EliminarCLE', function () {
         let data = datatable.row($(this).parents()).data();
-        EliminarBanco(data.Id);
+        EliminarCLE(data.Id);
     })
 }
 

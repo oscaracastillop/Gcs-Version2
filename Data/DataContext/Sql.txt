@@ -4737,6 +4737,34 @@ END
 
 GO
 
+CREATE PROCEDURE [dbo].[SP_EliminarCLE] @IdUser varchar(255), @IdCLE int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Recursos_Humanos/Contrato_Laboral'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE ContratoLaboral WHERE Id = @IdCLE
+SET @Resultado = 'OK*Estimado Usuario el Contrato Laboral se elimino correctamente'	
+
+SELECT @Resultado
+END
+
+GO
+
 CREATE PROCEDURE [dbo].[SP_GridCLE]
 AS
 BEGIN

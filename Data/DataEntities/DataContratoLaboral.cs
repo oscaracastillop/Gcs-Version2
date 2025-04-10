@@ -14,23 +14,9 @@ namespace Data.DataEntities
         readonly GcsEntities _conection = new GcsEntities();
         private readonly DataRol dataRol = new DataRol();
 
-        public string CrearCLE(string IdUser,
-                                    int IdEmpleado,
-                                    int IdEmpresa,
-                                    int IdCargo,
-                                    int IdTipoContrato,
-                                    int SalarioMensual,
-                                    string FechaInicio,
-                                    string FechaFin,
-                                    int IdEps,
-                                    decimal PorcentajeContEps,
-                                    int IdFondoPension,
-                                    decimal PorcentajeContFP,
-                                    int IdBanco,
-                                    string NumeroCuentaPago,
-                                    int SubTransporte,
-                                    int IdCesantias,
-                                    string Observacion)
+        public string CrearCLE( string IdUser, int IdEmpleado, int IdEmpresa, int IdCargo, int IdTipoContrato, int SalarioMensual, string FechaInicio,
+                                string FechaFin, int IdEps, decimal PorcentajeContEps, int IdFondoPension, decimal PorcentajeContFP, int IdBanco,
+                                string NumeroCuentaPago, int SubTransporte, int IdCesantias, string Observacion)
         {
             string resultado = String.Empty;
             try
@@ -115,13 +101,8 @@ namespace Data.DataEntities
             return resultado;
         }
 
-        public string ActualizarCLE(string IdUser, int IdCLE, int IdTipoContrato, int SalarioMensual, string FechaFin, int IdEps,
-                                    decimal PorcentajeContEps,
-                                    int IdFondoPension,
-                                    decimal PorcentajeContFP,
-                                    int IdBanco,
-                                    string NumeroCuentaPago,
-                                    int SubTransporte,
+        public string ActualizarCLE(string IdUser, int IdCLE, int IdCargo, int IdTipoContrato, int SalarioMensual, string FechaFin, int IdEps, decimal PorcentajeContEps,
+                                    int IdFondoPension, decimal PorcentajeContFP, int IdBanco, string NumeroCuentaPago, int SubTransporte,
                                     int IdCesantias, string Observacion, int IdEstado)
         {
             string resultado = String.Empty;
@@ -129,6 +110,7 @@ namespace Data.DataEntities
             {
                 var varIdUser = new SqlParameter("@IdUser", SqlDbType.VarChar) { Value = IdUser };
                 var varIdCLE = new SqlParameter("@IdCLE", SqlDbType.Int) { Value = IdCLE };
+                var varIdCargo = new SqlParameter("@IdCargo", SqlDbType.Int) { Value = IdCargo };
                 var varIdTipoContrato = new SqlParameter("@IdTipoContrato", SqlDbType.Int) { Value = IdTipoContrato };
                 var varSalarioMensual = new SqlParameter("@SalarioMensual", SqlDbType.Int) { Value = SalarioMensual };
                 var varFechaFin = new SqlParameter("@FechaEnd", SqlDbType.VarChar) { Value = FechaFin };
@@ -144,7 +126,12 @@ namespace Data.DataEntities
                 var varIdEstado = new SqlParameter("@IdEstado", SqlDbType.Int) { Value = IdEstado };
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
 
-                _conection.Database.ExecuteSqlCommand("SP_ActualizarCLE @IdUser, @IdCLE, @IdTipoContrato, @SalarioMensual, @FechaEnd, @IdEps,@PorcentajeContEps,@IdFondoPension, @PorcentajeContFP,@IdBanco,@NumeroCuentaPago,@SubTransporte,@IdCesantias,@Observacion, @IdEstado, @Resultado OUTPUT", varIdUser, varIdCLE, varIdTipoContrato, varSalarioMensual, varFechaFin, varIdEps, varPorcentajeContEps, varIdFondoPension, varPorcentajeContFP, varIdBanco, varNumeroCuentaPago, varSubTransporte, varIdCesantias, varObservacion, varIdEstado, varResultado);
+                _conection.Database.ExecuteSqlCommand("SP_ActualizarCLE @IdUser, @IdCLE, @IdCargo, @IdTipoContrato, @SalarioMensual, @FechaEnd, @IdEps," +
+                                                        "@PorcentajeContEps,@IdFondoPension, @PorcentajeContFP,@IdBanco,@NumeroCuentaPago," +
+                                                        "@SubTransporte,@IdCesantias,@Observacion, @IdEstado, @Resultado OUTPUT", 
+                                                        varIdUser, varIdCLE, varIdCargo, varIdTipoContrato, varSalarioMensual, varFechaFin, varIdEps, 
+                                                        varPorcentajeContEps, varIdFondoPension, varPorcentajeContFP, varIdBanco, varNumeroCuentaPago, 
+                                                        varSubTransporte, varIdCesantias, varObservacion, varIdEstado, varResultado);
 
                 resultado = Convert.ToString(varResultado.Value);
             }
@@ -166,6 +153,25 @@ namespace Data.DataEntities
                         resultado = "Error*En el momento no se puede realizar este proceso, por favor comuniquese con el Administrador";
                     }
                 }
+            }
+            return resultado;
+        }
+
+
+        public string EliminarCLE(string IdUser, int IdCLE)
+        {
+            string resultado = String.Empty;
+            try
+            {
+                var varIdUser = new SqlParameter("@IdUser", SqlDbType.VarChar) { Value = IdUser };
+                var varIdCLE = new SqlParameter("@IdCLE", SqlDbType.Int) { Value = IdCLE };
+                var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
+                _conection.Database.ExecuteSqlCommand("SP_EliminarCLE @IdUser, @IdCLE, @Resultado OUTPUT", varIdUser, varIdCLE, varResultado);
+                resultado = Convert.ToString(varResultado.Value);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
             return resultado;
         }
