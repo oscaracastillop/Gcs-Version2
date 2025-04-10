@@ -21,7 +21,7 @@
         $("#InputFechaInicioCLE").prop("disabled", false);
         $("#SelectEps").val(1);
         $("#SelectBanco").val(1);
-        $("#SelectFondoPension").val(1);
+        $("#SelectFondoPensiones").val(1);
         $("#SelectFondoCesantias").val(1);
         $("#InputSalarioCLE").empty().val('0');
         $("#InputPorcentajeContribucionEpsCLE").empty().val('0');
@@ -35,7 +35,7 @@
         $("#TituloModalCLE").empty().append('<h6>Crear Contrato Laboral Empleado</h6>');
         $('#ModalCLE').modal('show');
         $("#SelectEstadoCLE").hide();
-        $("#BotonesModalCLE").empty().append('<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-success btn-sm" onclick="CrearCLE()">Guardar</button>');
+        $("#BotonesModalCLE").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearCLE()">Guardar</button>');
        
 
     } if (tipo == 'E') {
@@ -46,7 +46,7 @@
         $("#TituloModalCLE").empty().append('<h6>Editar Contrato Laboral Empleado</h6>');
         $('#ModalCLE').modal('show');
         $("#SelectEstadoCLE").show();
-        $("#BotonesModalCLE").empty().append('<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-success btn-sm" onclick="ActualizarCLE()">Guardar Cambios</button>');      
+        $("#BotonesModalCLE").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="ActualizarCLE()">Guardar Cambios</button>');      
     }
 }
 
@@ -60,6 +60,7 @@ function CalcularValorDia() {
 
 
 function CrearCLE() {
+    /*debugger;*/
     let IdEmpleado = $('#SelectEmpleado').val();
     let IdEmpresa = $('#SelectEmpresa').val();
     let IdCargo = $('#SelectCargo').val();  
@@ -69,7 +70,7 @@ function CrearCLE() {
     let FechaFin = $('#InputFechaFinCLE').val();
     let IdEps = $('#SelectEps').val();
     let PorcentajeContEps = $('#InputPorcentajeContribucionEpsCLE').val();
-    let IdFondoPension = $('#SelectFondoPension').val();
+    let IdFondoPension = $('#SelectFondoPensiones').val();
     let PorcentajeContFP = $('#InputPorcentajeContribucionFPCLE').val();
     let IdBanco = $('#SelectBanco').val();
     let NumeroCuentaPago = $('#InputNumeroCuentaPagoCLE').val();
@@ -79,54 +80,54 @@ function CrearCLE() {
 
     if (IdEmpleado == -1 || IdEmpleado == null || IdEmpleado == '') {
         $('#SelectEmpleado').focus();
-        Swal.fire(TituloSwal, 'Seleccione el Empleado', 'info');
+        VentanaMensaje('Seleccione el Empleado', 'info');
     } else if (IdEmpresa == -1 || IdEmpresa == null || IdEmpresa == '') {
-        $('#SelectSucursal').focus();
-        Swal.fire(TituloSwal, 'Seleccione la Empresa en la que va a Laborar el Empleado', 'info');
+        $('#SelectEmpresa').focus();
+        VentanaMensaje('Seleccione la Empresa', 'info');
     } else if (IdCargo == -1 || IdCargo == null || IdCargo == '') {
         $('#SelectCargo').focus();
-        Swal.fire(TituloSwal, 'Seleccione el Cargo del Empleado', 'info');
+        VentanaMensaje('Seleccione el Cargo del Empleado', 'info');
     } else if (IdTipoContrato == -1 || IdTipoContrato == null || IdTipoContrato == '') {
         $('#SelectTipoContrato').focus();
-        Swal.fire(TituloSwal, 'Seleccione el Tipo de Contrato del Empleado', 'info');
+        VentanaMensaje('Seleccione el Tipo de Contrato', 'info');
     } else if (SalarioMensual == null || SalarioMensual == '' || SalarioMensual == undefined) {
         $('#InputSalarioCLE').focus();
-        Swal.fire(TituloSwal, 'Ingrese el Salario Mensual del Empleado', 'info');
+        VentanaMensaje('Ingrese el Salario Mensual del Empleado', 'info');
     } else if (FechaInicio == null || FechaInicio == '' || FechaInicio == undefined) {
         $('#InputFechaInicioSE').focus();
-        Swal.fire(TituloSwal, 'Ingrese la Fecha Inicio del Contrato', 'info');
+        VentanaMensaje('Ingrese la fecha de Incio del Contrato', 'info');
     } else if (IdEps == -1 || IdEps == null || IdEps == '') {
         $('#SelectEps').focus();
-        Swal.fire(TituloSwal, 'Seleccione la Eps', 'info');
+        VentanaMensaje('Seleccione la Eps', 'info');
     } else if (PorcentajeContEps == null || PorcentajeContEps == '' || PorcentajeContEps == undefined) {
         $('#InputPorcentajeContribucionEpsCLE').focus();
-        Swal.fire(TituloSwal, 'El porcentaje de contribución no púede ser Vacio', 'info');
+        VentanaMensaje('El porcentaje de contribución no púede ser Vacio', 'info');        
     } else if (IdFondoPension == -1 || IdFondoPension == null || IdFondoPension == '') {
-        $('#SelectFondoPension').focus();
-        Swal.fire(TituloSwal, 'Seleccione el Fondo de Pensiones', 'info');
+        $('#SelectFondoPensiones').focus();
+        VentanaMensaje('Seleccione el Fondo de Pensiones', 'info');
     } else if (PorcentajeContFP == null || PorcentajeContFP == '' || PorcentajeContFP == undefined) {
         $('#InputPorcentajeContribucionFPCLE').focus();
-        Swal.fire(TituloSwal, 'El porcentaje de contribución no púede ser Vacio', 'info');
+        VentanaMensaje('El porcentaje de contribución no púede ser Vacio', 'info'); 
     } else if (IdBanco == -1 || IdBanco == null || IdBanco == '') {
         $('#SelectBanco').focus();
-        Swal.fire(TituloSwal, 'Seleccione el Banco donde le realizara el pago al Empleado', 'info');
+        VentanaMensaje('Seleccione el Banco en donde se le realizara el pago al Empleado', 'info');
     } else if (NumeroCuentaPago == null || NumeroCuentaPago == '' || NumeroCuentaPago == undefined) {
         $('#InputNumeroCuentaPagoCLE').focus();
-        Swal.fire(TituloSwal, 'Ingrese número de cuenta del Banco o Número Celular para Billeteras Digitales', 'info');
+        VentanaMensaje('Ingrese número de cuenta del Banco o Número Celular para Billeteras Digitales', 'info');
     } else if (SubTransporte == null || SubTransporte == '' || SubTransporte == undefined) {
         $('#InputSubTransporteCLE').focus();
-        Swal.fire(TituloSwal, 'Ingrese el valor del Subsidio de Transporte', 'info');
+        VentanaMensaje('Ingrese el valor del Subsidio de Transporte', 'info');
     } else if (IdCesantias == -1 || IdCesantias == null || IdCesantias == '') {
         $('#SelectFondoCesantias').focus();
-        Swal.fire(TituloSwal, 'Seleccione el Fondo de Cesantías', 'info');
+        VentanaMensaje('Seleccione el Fondo de Cesantías', 'info');
     } else {
         if (FechaFin == FechaInicio || FechaFin == '' || FechaFin > FechaInicio) {
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: '/Contrato_Laboral_Empleado/CrearCLE',
+                url: '/Contrato_Laboral/CrearCLE',
                 data: {
-                    IdUser: User,
+                    IdUser: TokenUser,
                     IdEmpleado: IdEmpleado,
                     IdEmpresa: IdEmpresa,
                     IdCargo: IdCargo,
@@ -231,11 +232,20 @@ function GridCLE() {
         scrollX: true,
         dom: 'B<"clear">frtip',
         columnDefs: [
-            { targets: [0], className: 'dt-head-center' },
-            { targets: [1], className: 'dt-head-center' },
-            { targets: [2], className: 'dt-head-center' },
-            { targets: [3], width: '150px', className: 'dt-center dt-head-center' },
-            { targets: [4], width: '100px', className: 'dt-center dt-head-center' }
+            { targets: [0], className: 'dt-center dt-head-center' },//Imagen Empleado
+            { targets: [1], className: 'dt-head-center' },//Nombre empleado
+            { targets: [2], className: 'dt-head-center' },//Empresa
+            { targets: [3], className: 'dt-head-center' },//Cargo
+            { targets: [4], className: 'dt-head-center' },//TipoContrato
+            { targets: [6], className: 'dt-head-center' },//Salario Mensual
+            { targets: [7], className: 'dt-head-center' },//Fecha Inicio
+            { targets: [7], className: 'dt-head-center' },//Fecha Fin
+            { targets: [8], className: 'dt-head-center' },//Permanencia
+            { targets: [9], className: 'dt-head-center' },//Observacion
+            { targets: [10], className: 'dt-head-center' },//Creado por
+            { targets: [11], className: 'dt-head-center' },//Fecha Creación
+            { targets: [12], width: '150px', className: 'dt-center dt-head-center' },//Estado
+            { targets: [13], width: '100px', className: 'dt-center dt-head-center' }//Acciones
         ],
         buttons: [
 
@@ -321,7 +331,7 @@ function GridCLE() {
             "type": "GET",
             "datatype": "json"
         },
-        columns: [
+        columns: [            
             {
                 title: "Imagén",
                 data: "Imagen",
@@ -336,24 +346,23 @@ function GridCLE() {
                     }
                 }
 
-            },
-            { "data": "Empleado", title: "Empleado", width: 'auto' },
-            { "data": "Empresa", title: "Empresa", width: 'auto' },
-            { "data": "Cargo", title: "Cargo", width: 'auto' },
-            { "data": "Contrato", title: "Contrato", width: 'auto' },
+            },//0
+            { "data": "Empleado", title: "Empleado", width: 'auto' },//1
+            { "data": "Empresa", title: "Empresa", width: 'auto' },//2
+            { "data": "Cargo", title: "Cargo", width: 'auto' },//3
+            { "data": "Contrato", title: "Contrato", width: 'auto' },//4
             {
                 "data": "null",
                 title: "Salario Mensual",
                 "render": function (data, type, row, meta) {
                     return '$ ' + new Intl.NumberFormat('en-US').format(row.SalarioMensual);
                 }
-            },
-            { "data": "SalarioMensual", title: "Salario Mensual", width: 'auto', visible: false },
-            { "data": "TextoFechaInicio", title: "Fecha Inicio", width: 'auto' },
-            { "data": "TextoFechaFin", title: "Fecha Fin", width: 'auto' },
-            { "data": "Permanencia", title: "Permanencia", width: 'auto' },
-            { "data": "Observacion", title: "Observación", width: 'auto' },
-            { "data": "Estado", title: "Estado", width: 'auto' },            
+            },//5
+            { "data": "SalarioMensual", title: "Salario Mensual", width: 'auto', visible: false },//6
+            { "data": "TextoFechaInicio", title: "Fecha Inicio", width: 'auto' },//7
+            { "data": "TextoFechaFin", title: "Fecha Fin", width: 'auto' },//8
+            { "data": "Permanencia", title: "Permanencia", width: 'auto' },//9
+            { "data": "Observacion", title: "Observación", width: 'auto' },           
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
             {

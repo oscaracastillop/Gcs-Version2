@@ -18,7 +18,7 @@ CREATE UNIQUE INDEX RegistroUnicoTipoEstado on TipoEstado (Nombre)
 GO
 
 INSERT INTO TipoEstado (Nombre) VALUES ('Activo')
-INSERT INTO TipoEstado (Nombre) VALUES ('InActivo')
+INSERT INTO TipoEstado (Nombre) VALUES ('Inactivo')
 INSERT INTO TipoEstado (Nombre) VALUES ('Eliminado')
 
 GO
@@ -3176,6 +3176,18 @@ END
 
 GO
 
+CREATE FUNCTION Fun_BuscarNombreEmpleado(@IdEmpleado INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombreEmpleado VARCHAR(255)
+	SELECT	@NombreEmpleado = Nombre + ' ' + Apellidos
+	FROM	Empleado
+	WHERE	Id = @IdEmpleado
+	RETURN @NombreEmpleado
+END
+
+GO
+
 /*TIPO HORA EXTRA*/
 
 CREATE TABLE TipoHoraExtra 
@@ -4682,7 +4694,7 @@ AS
 BEGIN
 DECLARE @Permiso INT, 
 		@IdUsuario INT, 
-		@ExisteRegistroTablaPrincipal INT,
+		@ExisteCLEActivo INT,
 		@IdContratoLaboral INT,
 		@Accion VARCHAR(255),
 		@SubMenu VARCHAR(255),
@@ -4696,11 +4708,11 @@ SET @SubMenu = '/Recursos_Humanos/Contrato_Laboral'
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
 
-SELECT @ExisteRegistroTablaPrincipal = COUNT(1) FROM ContratoLaboral WHERE IdEmpleado = @IdEmpleado AND IdEstado = 1
+SELECT @ExisteCLEActivo = COUNT(1) FROM ContratoLaboral WHERE IdEmpleado = @IdEmpleado AND IdEstado = 1
 
 IF @Permiso > 0
 	BEGIN
-		IF @ExisteRegistroTablaPrincipal = 0
+		IF @ExisteCLEActivo = 0
 			BEGIN
 				INSERT INTO ContratoLaboral
 				(IdEmpleado, IdEmpresa, IdCargo, IdTipoContrato, SalarioMensual, FechaInicio,FechaFin, IdEps, PorcentajeEps, IdFondoPension, PorcentajeFondoPension,
@@ -4708,29 +4720,12 @@ IF @Permiso > 0
 				VALUES 
 				(@IdEmpleado, @IdEmpresa, @IdCargo, @IdTipoContrato, @SalarioMensual, @FechaInicio, @FechaFin, @IdEps, @PorcentajeContEps,
 				@IdFondoPension, @PorcentajeContFP,@IdBanco,@NumeroCuentaPago, @SubTransporte, @IdCesantias,@Observacion, @IdUsuario, GETDATE()) 
-				
-				--SET @IdContratoLaboral = @@IDENTITY
-
-				--INSERT INTO PrimaEmpleado
-				--(IdContratoLaboral, FechaInicio, FechaFin, CreateBy, DateCreate)
-				--VALUES
-				--(@IdContratoLaboral, @FechaInicio, @FechaFin, @IdUsuario, GETDATE())
-
-				--INSERT INTO VacacionesEmpleado
-				--(IdContratoLaboral, FechaInicio, FechaFin, CreateBy, DateCreate)
-				--VALUES
-				--(@IdContratoLaboral, @FechaInicio, @FechaFin, @IdUsuario, GETDATE())
-
-				--INSERT INTO CesantiasEmpleado
-				--(IdContratoLaboral, FechaInicio, FechaFin, CreateBy, DateCreate)
-				--VALUES
-				--(@IdContratoLaboral, @FechaInicio, @FechaFin, @IdUsuario, GETDATE())
-				
+											
 				SET @Resultado = 'OK*El Contrato Laboral para el Empleado a sido creado correctamente'
 			END													
 		ELSE
 			BEGIN
-				SET @Resultado = 'Error*El Empleado se encuentra Activo con una Sucursal, para Asignarle una nueva Sucursal finalice la actual'
+				SET @Resultado = 'Error*El Empleado ya cuenta con un Contrato Laboral Activo, solo se permite un contrato Laboral Activo'
 			END
 	END	
 ELSE
@@ -4747,7 +4742,7 @@ AS
 BEGIN
 SELECT	A.Id,	 
 			A.IdEmpleado,
-			--dbo.Fun_BuscarNombreEmpleado(D.IdEmpleado) AS Empleado,	
+			dbo.Fun_BuscarNombreEmpleado(D.Id) AS Empleado,	
 			C.Id AS IdEmpresa,
 			dbo.Fun_BuscarNombreEmpresa(C.Id) AS Empresa,						
 			A.IdCargo,
@@ -4781,8 +4776,8 @@ SELECT	A.Id,
 			A.Observacion,
 			A.IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,
-			--dbo.Fun_BuscarNombreUsuario(A.CreateBy) As CreateBy,
-			CONVERT(varchar(255), DATEPART(DAY, A.DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, A.DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, A.DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, A.DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, A.DateCreate)) As DateCreate,		
+			dbo.Fun_BuscarNombreUsuario(A.CreateBy) As CreateBy,
+			CONVERT(varchar(255),A.DateCreate,105)+ ' ' + CONVERT(varchar(255),A.DateCreate,8) As DateCreate,		
 			D.Imagen
 			FROM ContratoLaboral A,
 			Empresa C,
