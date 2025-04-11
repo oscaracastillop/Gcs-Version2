@@ -4814,3 +4814,92 @@ SELECT	A.Id,
 			AND D.Id = A.IdEmpleado
 			ORDER BY Id Desc
 END
+
+
+
+
+
+
+
+
+
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ActualizarCLE]	@IdUser varchar(255),
+											@IdCLE int,	
+											@IdCargo int,	
+											@IdTipoContrato int,
+											@SalarioMensual int,
+											@FechaEnd varchar(255),
+											@IdEps INT,
+											@PorcentajeContEps DECIMAL(10,2),
+											@IdFondoPension INT, 
+											@PorcentajeContFP DECIMAL(10,2), 
+											@IdBanco INT,
+											@NumeroCuentaPago VARCHAR(255), 
+											@SubTransporte int,
+											@IdCesantias INT,
+											@Observacion varchar(255),
+											@IdEstado int,			
+											@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT,
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255),
+		@Existe int,
+		@IdEmpleado int,
+		@FechaFin varchar(255) = CONVERT(VARCHAR(255),DATEPART(YEAR,@FechaEnd))+'-'+CONVERT(VARCHAR(255),DATEPART(MONTH,@FechaEnd))+'-'+CONVERT(VARCHAR(255),DATEPART(DAY,@FechaEnd))
+	
+SET @Accion = 'Editar'
+SET @SubMenu = '/Recursos_Humanos/Contrato_Laboral'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+SELECT @IdEmpleado = IdEmpleado FROM ContratoLaboral WHERE Id = @IdCLE
+
+SELECT @Existe = COUNT(1) FROM ContratoLaboral WHERE IdEmpleado = @IdEmpleado AND IdEstado != 2
+
+
+IF @Permiso > 0
+	IF @Existe > 0  
+	BEGIN  
+		SET @Resultado = 'Error*El Empleado tiene un Contrato Laboral ya vigente, solo puede tener 1 Contrato Laboral ACTIVO a la vez.'
+		RETURN  
+	END
+
+	--IF(exists(select * from ContratoLaboral where IdEmpleado = @IdEstado AND IdEstado = 2 AND Id != @IdCLE))  
+	--BEGIN  
+	--	SET @Resultado = 'Error*El Empleado tiene un Contrato Laboral ya vigente, solo puede tener 1 Contrato Laboral ACTIVO a la vez.'
+	--	RETURN  
+	--END
+ELSE
+	BEGIN
+		UPDATE	ContratoLaboral
+			SET		IdCargo = @IdCargo,
+					IdTipoContrato = @IdTipoContrato,
+					SalarioMensual = @SalarioMensual,
+					FechaFin = @FechaFin,
+					IdEps = @IdEps,
+					PorcentajeEps = @PorcentajeContEps,
+					IdFondoPension = @IdFondoPension,
+					PorcentajeFondoPension = @PorcentajeContFP,
+					IdBanco = @IdBanco,
+					NumeroCuenta = @NumeroCuentaPago,
+					SubTransporte = @SubTransporte,
+					IdFondoCesantias = @IdCesantias,
+					Observacion = @Observacion,
+					IdEstado = @IdEstado
+			WHERE	Id = @IdCLE
+		
+		SET @Resultado = 'OK*El Contrato Laboral se actualizo correctamente'  
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
