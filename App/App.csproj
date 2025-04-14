@@ -2445,10 +2445,10 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BancoController.cs" />
-    <Compile Include="Controllers\BonoController.cs" />
+    <Compile Include="Controllers\Bono_EmpleadoController.cs" />
     <Compile Include="Controllers\Cargar_DocumentoController.cs" />
     <Compile Include="Controllers\CargoController.cs" />
-    <Compile Include="Controllers\CasinoController.cs" />
+    <Compile Include="Controllers\Casino_EmpleadoController.cs" />
     <Compile Include="Controllers\CC_FamiliarController.cs" />
     <Compile Include="Controllers\CiudadController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
@@ -2477,7 +2477,7 @@
     <Compile Include="Controllers\Permiso_MenuController.cs" />
     <Compile Include="Controllers\Permiso_SubMenuController.cs" />
     <Compile Include="Controllers\Recursos_HumanosController.cs" />
-    <Compile Include="Controllers\PrestamoController.cs" />
+    <Compile Include="Controllers\Prestamo_EmpleadoController.cs" />
     <Compile Include="Controllers\ProduccionController.cs" />
     <Compile Include="Controllers\SubMenuController.cs" />
     <Compile Include="Controllers\SucursalController.cs" />

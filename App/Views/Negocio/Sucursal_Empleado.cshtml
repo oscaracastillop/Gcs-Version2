@@ -6,3 +6,78 @@
 <h6>Módulo Sucursal Empleado</h6>
 <hr />
 
+<div class="grid">
+    <table id="gridSucursalEmpleado" class="table cell-border stripe" cellspacing="0" style="width: 100%;"></table>
+</div>
+
+<div class="modal fade" id="ModalSucursalEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <div class="modal-title" id="TituloModalSucursalEmpleado"></div>
+            </div>
+            <div class="modal-body">
+                <label id="LabelIdSucursalEmpleado" hidden></label>
+                <div style="text-align:center">
+                    <label id="LabelIdSucursalEmpleado" hidden></label>
+                    <div id="ImagenEmpleado">
+                        <img src="~/Images/ImagenHVEmpleado/Empleado.png" alt="" style="height:200px; width:200px; border-radius:5px; border:1px solid; background:white;padding:0px" />
+                    </div>
+                    <br />
+                    <a href="#">Ver Información Empleado</a>
+                </div>
+                <br />
+                <br />
+                <div>
+                    <label><strong>Empleado</strong><label style="color:red" id=""> *</label></label>
+                    <select class="form-control" id="SelectContratoLaboralEmpleado" style="min-width:100%" onchange="BuscarDatosEmpleado($('#SelectContratoLaboralEmpleado').val())"></select>
+                    <input class="form-control" type="text" id="InputEmpleado" autocomplete="off" style="min-width:100%" disabled />
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Empresa Actual</strong><label style="color:red"> *</label></label>
+                        <input class="form-control" type="text" id="InputEmpresa" name="name" autocomplete="off" style="min-width:100%" disabled />
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Sucursal </strong><label style="color:red"> *</label></label>
+                        <select class="form-control" id="SelectSucursalXIdEmpresaXIdEmpleado" style="min-width:100%" disabled></select>
+                        <input class="form-control" type="text" id="InputSucursal" autocomplete="off" style="min-width:100%" disabled />
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Fecha Inicio</strong></label>
+                        <input class="form-control" type="date" id="InputFechaInicioSE" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Fecha Fin</strong></label>
+                        <input class="form-control" type="date" id="InputFechaFinSE" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                </div>
+                <div>
+                    <label><strong>Observación</strong></label>
+                    <input class="form-control" type="text" id="InputObservacionSE" name="name" autocomplete="off" style="min-width:100%" />
+                </div>
+
+                <div class="col-3" id="SelectEstadoSucursalEmpleado">
+                    <label><strong>Estado</strong></label>
+                    <select class="form-control" id="SelectEstado" style="min-width:180%"></select>
+                </div>
+                <br />
+                <label style="color: red">Los campos con * son obligatorios</label>
+            </div>
+            <div class="modal-footer" id="BotonesModalSucursalEmpleado">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        ValidarSesion('/Negocio/Sucursal_Empleado');
+        GridSucursalEmpleado();
+        ListaTipoEstado(1);
+        ListaContratoLaboralEmpleado();
+    });
+</script>

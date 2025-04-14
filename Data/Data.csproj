@@ -66,7 +66,9 @@
       <DependentUpon>ModeloGcs.edmx</DependentUpon>
     </Compile>
     <Compile Include="DataEntities\DataBanco.cs" />
+    <Compile Include="DataEntities\DataBonoEmpleado.cs" />
     <Compile Include="DataEntities\DataCargo.cs" />
+    <Compile Include="DataEntities\DataCasinoEmpleado.cs" />
     <Compile Include="DataEntities\DataCCFamiliar.cs" />
     <Compile Include="DataEntities\DataCiudad.cs" />
     <Compile Include="DataEntities\DataCliente.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="DataEntities\DataMenu.cs" />
     <Compile Include="DataEntities\DataPermisoMenu.cs" />
     <Compile Include="DataEntities\DataPermisoSubMenu.cs" />
+    <Compile Include="DataEntities\DataPrestamoEmpleado.cs" />
     <Compile Include="DataEntities\DataRol.cs" />
     <Compile Include="DataEntities\DataSubMenu.cs" />
     <Compile Include="DataEntities\DataSucursal.cs" />

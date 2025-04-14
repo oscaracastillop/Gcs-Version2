@@ -637,7 +637,7 @@ function ListaContratoLaboralEmpleado() {
     $.ajax({
         type: 'POST',
         dataType: 'json',
-        url: '/Contrato_Laboral_Empleado/ListaContratoLaboralEmpleado',
+        url: '/Contrato_Laboral/ListaContratoLaboralEmpleado',
         data: {},
         success: function (resultado) {
             var contador = 0;
