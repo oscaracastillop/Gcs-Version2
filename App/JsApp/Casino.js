@@ -1,35 +1,60 @@
-﻿function ModalBanco(tipo) {
-    $("#TituloModalBanco").empty().val('');
-    $("#LabelIdBanco").empty().val('');
-    $("#InputNombreBanco").empty().val('');
-    $("#BotonesModalBanco").empty();
+﻿function ModalCasinoEmpleado(tipo) {
+    $("#TituloModalCasinoEmpleado").empty().val('');
+    $("#LabelIdCasinoEmpleado").empty().val('');
+    $("#InputCasinoEmpleadoEmpleado").empty().val('');
+    $("#InputCasinoEmpleadoValor").empty().val('');
+    $("#InputCasinoEmpleadoFecha").empty().val(''); 
+    $("#InputCasinoEmpleadoFechaPago").empty().val(''); 
+    $("#InputCasinoEmpleadoObservacion").empty().val(''); 
+    $("#SelectContratoLaboralEmpleado").val(-1);
+    $("#BotonesModalCasinoEmpleado").empty();
     if (tipo == 'C') {
-        $("#TituloModalBanco").empty().append('<label>Crear Banco</label>');
-        $('#ModalBanco').modal('show');
-        $("#SelectEstadoBanco").hide();
-        $("#BotonesModalBanco").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearBanco()">Guardar</button>');
+        $("#TituloModalCasinoEmpleado").empty().append('<label>Crear Casino Empleado</label>');
+        $('#ModalCasinoEmpleado').modal('show');
+        $("#InputCasinoEmpleadoEmpleado").hide();
+        $("#SelectContratoLaboralEmpleado").show();
+        $("#SelectEstadoCasinoEmpleado").hide();
+        $("#BotonesModalCasinoEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearCasinoEmpleado()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalBanco").empty().append('<label>Editar Banco</label>');
-        $('#ModalBanco').modal('show');
-        $("#SelectEstadoBanco").show();
-        $("#BotonesModalBanco").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="ActualizarBanco()">Guardar Cambios</button>');
+        $("#TituloModalCasinoEmpleado").empty().append('<label>Editar Casino Empleado</label>');
+        $('#ModalCasinoEmpleado').modal('show');
+        $("#InputCasinoEmpleadoEmpleado").show();
+        $("#SelectContratoLaboralEmpleado").hide();
+        $("#SelectEstadoCasinoEmpleado").show();
+        $("#BotonesModalCasinoEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' +'<button type="button" class="btn btn-sm btn-modal-guardar" onclick="ActualizarCasinoEmpleado()">Guardar Cambios</button>');
     }
 }
 
-function CrearBanco() {
-    let NombreBanco = $('#InputNombreBanco').val();
-
-    if (NombreBanco == null || NombreBanco == '' || NombreBanco == undefined) {
-        $('#InputNombreBanco').focus();
-        VentanaMensaje('Ingrese el nombre del Banco', 'info');
+function CrearCasinoEmpleado() {
+    let IdEmpleado = $('#SelectContratoLaboralEmpleado').val();
+    let Valor = $('#InputCasinoEmpleadoValor').val();
+    let Fecha = $('#InputCasinoEmpleadoFecha').val();
+    let FechaPago = $('#InputCasinoEmpleadoFechaPago').val();
+    let Observacion = $('#InputCasinoEmpleadoObservacion').val();
+    if (IdEmpleado == -1 || IdEmpleado == null || IdEmpleado == '') {
+        $('#SelectContratoLaboralEmpleado').focus();
+        VentanaMensaje('Seleccione el Empleado', 'info');
+    } else if (Valor == null || Valor == '' || Valor == undefined) {
+        $('#InputCasinoEmpleadoValor').focus();
+        VentanaMensaje('Ingrese el Valor', 'info');
+    } else if (Fecha == null || Fecha == '' || Fecha == undefined) {
+        $('#InputCasinoEmpleadoFecha').focus();
+        VentanaMensaje('Ingrese la Fecha', 'info');
+    } else if (FechaPago == null || FechaPago == '' || FechaPago == undefined) {
+        $('#InputCasinoEmpleadoFecha').focus();
+        VentanaMensaje('Ingrese la Fecha de Pago', 'info');
     } else {
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/Banco/CrearBanco',
+            url: '/Casino_Empleado/CrearCasinoEmpleado',
             data: {
                 IdUser: TokenUser,
-                NombreBanco: NombreBanco
+                IdEmpleado: IdEmpleado,
+                Valor: Valor,
+                Fecha: Fecha,
+                FechaPago: FechaPago,
+                Observacion: Observacion
             },
             success: function (resultado) {
                 valor = resultado.split('*');
@@ -51,23 +76,35 @@ function CrearBanco() {
     }
 }
 
-function ActualizarBanco() {
-    let IdBanco = $('#LabelIdBanco').text();
-    let NombreBanco = $('#InputNombreBanco').val();
-    let IdEstado = $('#SelectEstado').val();
 
-    if (NombreBanco == null || NombreBanco == '' || NombreBanco == undefined) {
-        $('#InputNombreBanco').focus();
-        VentanaMensaje('Ingrese el nombre del Banco', 'info');
+function ActualizarCasinoEmpleado() {
+    let IdCasinoEmpleado = $('#LabelIdCasinoEmpleado').text();
+    let Valor = $('#InputCasinoEmpleadoValor').val();
+    let Fecha = $('#InputCasinoEmpleadoFecha').val();
+    let FechaPago = $('#InputCasinoEmpleadoFechaPago').val();
+    let Observacion = $('#InputCasinoEmpleadoObservacion').val();
+    let IdEstado = $('#SelectEstado').val();
+    if (Valor == null || Valor == '' || Valor == undefined) {
+        $('#InputCasinoEmpleadoValor').focus();
+        VentanaMensaje('Ingrese el Valor', 'info');
+    } else if (Fecha == null || Fecha == '' || Fecha == undefined) {
+        $('#InputCasinoEmpleadoFecha').focus();
+        VentanaMensaje('Ingrese la Fecha', 'info');
+    } else if (FechaPago == null || FechaPago == '' || FechaPago == undefined) {
+        $('#InputCasinoEmpleadoFecha').focus();
+        VentanaMensaje('Ingrese la Fecha de Pago', 'info');
     } else {
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/Banco/ActualizarBanco',
+            url: '/Casino_Empleado/ActualizarCasinoEmpleado',
             data: {
                 IdUser: TokenUser,
-                IdBanco: IdBanco,
-                NombreBanco: NombreBanco,
+                IdCasinoEmpleado: IdCasinoEmpleado,
+                Valor: Valor,
+                Fecha: Fecha,
+                FechaPago: FechaPago,
+                Observacion: Observacion,
                 IdEstado: IdEstado
             },
             success: function (resultado) {
@@ -90,7 +127,7 @@ function ActualizarBanco() {
     }
 }
 
-function EliminarBanco(IdBanco) {
+function EliminarCasinoEmpleado(IdCasinoEmpleado) {
     Swal.fire({
         title: TituloSwal,
         text: "Esta seguro(a)?, No podrás revertir esta acción.!",
@@ -106,10 +143,10 @@ function EliminarBanco(IdBanco) {
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: '/Banco/EliminarBanco',
+                url: '/Casino_Empleado/EliminarCasinoEmpleado',
                 data: {
                     IdUser: TokenUser,
-                    IdBanco: IdBanco
+                    IdCasinoEmpleado: IdCasinoEmpleado
                 },
                 success: function (resultado) {
                     valor = resultado.split('*');
@@ -132,9 +169,9 @@ function EliminarBanco(IdBanco) {
     });
 }
 
-function GridBanco() {
-    var tituloReporte = 'LISTADO DE BANCOS';
-    let datatable = $('#gridBanco').DataTable({
+function GridCasinoEmpleado() {
+    var tituloReporte = 'LISTADO DE CONSUMOS CASINO EMPLEADOS';
+    let datatable = $('#gridCasinoEmpleado').DataTable({
         responsive: false,
         scrollCollapse: true,
         scrollY: '800px',
@@ -143,9 +180,15 @@ function GridBanco() {
         columnDefs: [
             { targets: [0], className: 'dt-head-center' },
             { targets: [1], className: 'dt-head-center' },
-            { targets: [2], className: 'dt-head-center' },
-            { targets: [3], width: '150px', className: 'dt-center dt-head-center' },
-            { targets: [4], width: '100px', className: 'dt-center dt-head-center' }
+            { targets: [3], className: 'dt-head-center' },
+            { targets: [4], className: 'dt-head-center', className: 'dt-center dt-head-center' },
+            { targets: [5], className: 'dt-head-center', className: 'dt-center dt-head-center' },
+            { targets: [6], className: 'dt-head-center' },
+            { targets: [7], className: 'dt-head-center' },
+            { targets: [8], className: 'dt-head-center' },
+            { targets: [9], className: 'dt-head-center', className: 'dt-center dt-head-center' },
+            { targets: [10], width: '150px', className: 'dt-center dt-head-center' },
+            { targets: [11], width: '100px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -156,17 +199,17 @@ function GridBanco() {
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
                 text: 'Excel',
                 exportOptions: {
-                    columns: [0, 1, 2, 3],
+                    columns: [0, 1, 2, 4, 5, 6, 7, 8, 9, 10],
                 },
             },
             {
                 extend: 'pdfHtml5', className: 'btn btn-pdf-datatable',
                 text: 'Pdf',
                 filename: tituloReporte + ' - ' + NameApp + ' ' + jsDate + ' ' + hora,
-                orientation: 'portrait', // landscape
+                orientation: 'landscape', // landscape portrait
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
                 exportOptions: {
-                    columns: [0, 1, 2, 3],
+                    columns: [0, 1, 2, 4, 5, 6, 7, 8, 9, 10],
                     search: 'applied',
                     order: 'applied',
                 },
@@ -174,7 +217,7 @@ function GridBanco() {
                     doc.content.splice(0, 1.5);
                     doc.pageMargins = [40, 60, 20, 30];
                     doc.defaultStyle.fontSize = 6;
-                    doc.styles.tableHeader.fontSize = 12;
+                    doc.styles.tableHeader.fontSize = 8;
                     doc['header'] = (function () {
                         return {
                             columns: [
@@ -219,7 +262,7 @@ function GridBanco() {
                 text: 'Nuevo',
                 className: 'btn btn-nuevo-datatable',
                 action: function (e, dt, node, config) {
-                    ModalBanco('C');
+                    ModalCasinoEmpleado('C');
                 }
             }
 
@@ -227,14 +270,27 @@ function GridBanco() {
         /*"order": [[1, "asc"]],*/
         destroy: true,
         "ajax": {
-            "url": '/Banco/GridBanco',
+            "url": '/Casino_Empleado/GridCasinoEmpleado',
             "type": "GET",
             "datatype": "json"
         },
         columns: [
-            { "data": "Nombre", title: "Banco", width: 'auto' },
-            { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
-            { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
+            { "data": "Empleado", title: "Empleado", width: 'auto' },//0
+            { "data": "Sucursal", title: "Sucursal", width: 'auto' },//1
+            { "data": "Valor", title: "Valor", width: 'auto', visible: false },//2
+            {
+                "data": "null",
+                title: "Valor",
+                "render": function (data, type, row, meta) {
+                    return '$ ' + new Intl.NumberFormat('en-US').format(row.Valor);
+                }
+            },//3
+            { "data": "TextoFecha", title: "Fecha Pedido", width: 'auto' },//4
+            { "data": "TextoFechaPago", title: "Fecha Cobro", width: 'auto' },//5
+            { "data": "ComprobanteNomina", title: "# Comprobante Nómina", width: 'auto' },//6
+            { "data": "Observacion", title: "Observación", width: 'auto' },//7
+            { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },//8
+            { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },//9
             {
                 title: "Estado",
                 data: "Estado",
@@ -249,17 +305,17 @@ function GridBanco() {
                     }
                 }
 
-            },
+            },//10
             {
                 title: "Acciones",
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<a class="EditarBanco btn btn-editar-dt" title="Editar Registro">Editar</a>&nbsp;&nbsp;<a class="EliminarBanco btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>' +
+                    '<a class="EditarCasinoEmpleado btn btn-editar-dt" title="Editar Registro">Editar</a>&nbsp;&nbsp;<a class="EliminarCasinoEmpleado btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',
-            },
+            },//11
 
         ],
         "language": {
@@ -271,37 +327,21 @@ function GridBanco() {
         ],
     });
 
-    $('#gridBanco').on('click', '.EditarBanco', function () {
+    $('#gridCasinoEmpleado').on('click', '.EditarCasinoEmpleado', function () {
         let data = datatable.row($(this).parents()).data();
-        ModalBanco('E');
-        $('#LabelIdBanco').text(data.Id);
-        $('#InputNombreBanco').val(data.Nombre);
+        ModalCasinoEmpleado('E');
+        $('#LabelIdCasinoEmpleado').text(data.Id);
+        $('#InputCasinoEmpleadoEmpleado').val(data.Empleado);
+        $('#InputCasinoEmpleadoValor').val(data.Valor);
+        $('#InputCasinoEmpleadoFecha').val(data.Fecha);
+        $('#InputCasinoEmpleadoFechaPago').val(data.FechaPago);
+        $('#InputCasinoEmpleadoObservacion').val(data.Observacion);
         $('#SelectEstado').val(data.IdEstado);
     })
 
-    $('#gridBanco').on('click', '.EliminarBanco', function () {
+    $('#gridCasinoEmpleado').on('click', '.EliminarCasinoEmpleado', function () {
         let data = datatable.row($(this).parents()).data();
-        EliminarBanco(data.Id);
+        EliminarCasinoEmpleado(data.Id);
     })
 }
 
-function ListaBanco() {
-    $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        url: '/Banco/ListaBanco',
-        data: {},
-        success: function (resultado) {
-            var contador = 0;
-            if (resultado.length === 0) {
-                $("#SelectBanco").append('<option value="">No hay Datos</option>');
-            } else {
-                $("#SelectBanco").empty().append('<option value="-1">Seleccione ...</option>');
-                $.each(resultado, function () {
-                    $("#SelectBanco ").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
-                    contador++;
-                });
-            }
-        },
-    });
-}

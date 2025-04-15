@@ -2187,6 +2187,7 @@
     <Content Include="Images\LogoEmpresa\default.png" />
     <Content Include="JsApp\Banco.js" />
     <Content Include="JsApp\Cargo.js" />
+    <Content Include="JsApp\Casino.js" />
     <Content Include="JsApp\CCFamiliar.js" />
     <Content Include="JsApp\Ciudad.js" />
     <Content Include="JsApp\Cliente.js" />

@@ -889,7 +889,7 @@ INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Hora Extra','bi-clock-history','2rem','white','/Recursos_Humanos/Hora_Extra','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Bono','bi-cash-coin','2rem','white','/Recursos_Humanos/Bono','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Préstamo','bi-cash-coin','2rem','white','/Recursos_Humanos/Prestamo','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Casino','bi-cup-hot','2rem','white','/Recursos_Humanos/Casino','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Casino','bi-cup-hot','2rem','white','/Recursos_Humanos/Casino','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Hoja de Vida','bi-file-richtext','2rem','white','/Recursos_Humanos/Hoja_de_Vida','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Contrato Laboral','bi-file-earmark-text','2rem','white','/Recursos_Humanos/Contrato_Laboral','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Cargar Documento','bi-file-pdf-fill','2rem','white','/Recursos_Humanos/Cargar_Documento','cornflowerblue')
@@ -5087,7 +5087,7 @@ BEGIN
 END	
 
 DELETE SucursalEmpleado WHERE Id = @IdSucursalEmpleado
-SET @Resultado = 'OK*El registro de elimino correctamente de la base de datos'	
+SET @Resultado = 'OK*El registro se elimino correctamente de la base de datos'	
 
 SELECT @Resultado
 END
@@ -5145,9 +5145,10 @@ IdSucursal Int,
 Valor Int,
 Fecha Date,
 FechaPago Date,
+NumeroComprobanteNomina Int,
 Observacion varchar(max),
-IdEstado int default 9,
-CreateBy int,
+IdEstado Int default 1,
+CreateBy Int,
 DateCreate datetime
 )
 GO
@@ -5252,3 +5253,58 @@ END
 
 GO
 
+CREATE PROCEDURE [dbo].[SP_EliminarCasinoEmpleado] @IdUser varchar(255), @IdCasinoEmpleado int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Recursos_Humanos/Casino'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE CasinoEmpleado WHERE Id = @IdCasinoEmpleado
+SET @Resultado = 'OK*El registro se elimino correctamente de la base de datos'
+
+SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridCasinoEmpleado]
+AS
+BEGIN
+SELECT	A.Id,	 
+		dbo.Fun_BuscarNombreEmpleado(A.IdEmpleado) AS Empleado,	
+		B.Nombre + ' - ' + C.Nombre AS Sucursal,	
+		A.Valor As Valor,
+		CONVERT(varchar(255),A.Fecha,23) As Fecha,
+		CONVERT(varchar(255), DATEPART(DAY, A.Fecha))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, A.Fecha))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, A.Fecha)) As TextoFecha,		
+		CONVERT(varchar(255),A.FechaPago,23) As FechaPago,
+		CONVERT(varchar(255), DATEPART(DAY, A.FechaPago))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, A.FechaPago))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, A.FechaPago)) As TextoFechaPago,		
+		CASE A.NumeroComprobanteNomina
+		WHEN '' THEN 'Por Definir'
+		ELSE A.NumeroComprobanteNomina
+		END as ComprobanteNomina,
+		A.Observacion,
+		A.IdEstado,
+		dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,
+		dbo.Fun_BuscarNombreUsuario(A.CreateBy) As CreateBy,
+		CONVERT(varchar(255), DATEPART(DAY, A.DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, A.DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, A.DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, A.DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, A.DateCreate)) As DateCreate
+FROM	CasinoEmpleado A,
+		Empresa B,
+		Sucursal C
+WHERE	A.IdSucursal = C.Id AND
+		B.Id = C.IdEmpresa
+		ORDER BY Id Desc
+END
