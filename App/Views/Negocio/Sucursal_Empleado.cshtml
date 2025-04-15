@@ -7,7 +7,7 @@
 <hr />
 
 <div class="grid">
-    <table id="gridSucursalEmpleado" class="table cell-border stripe" cellspacing="0" style="width: 100%;"></table>
+    <table id="gridSucursalEmpleado" class="table cell-border stripe" cellspacing="0" style="width: 150%;"></table>
 </div>
 
 <div class="modal fade" id="ModalSucursalEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -29,25 +29,25 @@
                 <br />
                 <br />
                 <div>
-                    <label><strong>Empleado</strong><label style="color:red" id=""> *</label></label>
+                    <label><strong>Empleado </strong><label style="color:red" id="">*</label></label>
                     <select class="form-control" id="SelectContratoLaboralEmpleado" style="min-width:100%" onchange="BuscarDatosEmpleado($('#SelectContratoLaboralEmpleado').val())"></select>
                     <input class="form-control" type="text" id="InputEmpleado" autocomplete="off" style="min-width:100%" disabled />
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <label><strong>Empresa Actual</strong><label style="color:red"> *</label></label>
+                        <label><strong>Empresa Actual </strong><label style="color:red">*</label></label>
                         <input class="form-control" type="text" id="InputEmpresa" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
                     <div class="col-6">
-                        <label><strong>Sucursal </strong><label style="color:red"> *</label></label>
+                        <label><strong>Sucursal </strong><label style="color:red">*</label></label>
                         <select class="form-control" id="SelectSucursalXIdEmpresaXIdEmpleado" style="min-width:100%" disabled></select>
                         <input class="form-control" type="text" id="InputSucursal" autocomplete="off" style="min-width:100%" disabled />
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-6">
-                        <label><strong>Fecha Inicio</strong></label>
+                        <label><strong>Fecha Inicio </strong><label style="color:red">*</label></label>
                         <input class="form-control" type="date" id="InputFechaInicioSE" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
                     <div class="col-6">
@@ -65,7 +65,15 @@
                     <select class="form-control" id="SelectEstado" style="min-width:180%"></select>
                 </div>
                 <br />
-                <label style="color: red">Los campos con * son obligatorios</label>
+
+                
+
+                <ul>
+                    <li><label style="color: red">Los campos con * son obligatorios.</label></li>
+                    <li>En el selector <strong>Empleado</strong> apareceran los empleados que tengan un <strong>Contrato Laboral Activo</strong>.</li>
+                    <li>La <strong>Empresa</strong> Actual sera tomada Automaticamente del <strong>contrato Laboral</strong> que tenga Activo en el momento el Empleado.</li>
+                </ul>
+
             </div>
             <div class="modal-footer" id="BotonesModalSucursalEmpleado">
             </div>
