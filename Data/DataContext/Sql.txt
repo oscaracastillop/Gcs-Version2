@@ -4931,6 +4931,21 @@ BEGIN
 			B.IdEstado = 1 ORDER BY Nombre ASC
 END
 
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaContratoLaboralSucursalEmpleado]
+AS
+BEGIN
+		SELECT A.Id, A.Nombre + ' ' + A.Apellidos As Nombre 
+	FROM	Empleado A,
+			ContratoLaboral B,
+			SucursalEmpleado C
+	WHERE	A.Id = B.IdEmpleado AND
+			A.IdEstado = 1 AND
+			A.Id = C.IdEmpleado AND
+			C.IdEstado = 1 AND
+			B.IdEstado = 1 ORDER BY Nombre ASC
+END
 
 GO	
 

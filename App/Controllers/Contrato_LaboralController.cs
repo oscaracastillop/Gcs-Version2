@@ -50,7 +50,13 @@ namespace App.Controllers
         {
             var resultado = dataContratoLaboral.ListaContratoLaboral();
             return Json(resultado);
-        }     
-       
+        }
+
+        public JsonResult ListaContratoLaboralSucursalEmpleado()
+        {
+            var resultado = dataContratoLaboral.ListaContratoLaboralSucursalEmpleado();
+            return Json(resultado);
+        }
+
     }
 }

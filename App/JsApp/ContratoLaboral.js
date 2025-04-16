@@ -503,6 +503,27 @@ function ListaContratoLaboralEmpleado() {
     });
 }
 
+function ListaContratoLaboralSucursalEmpleado() {
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '/Contrato_Laboral/ListaContratoLaboralSucursalEmpleado',
+        data: {},
+        success: function (resultado) {
+            var contador = 0;
+            if (resultado.length == 0) {
+                $("#SelectContratoLaboralSucursalEmpleado").append('<option value="">No hay Datos</option>');
+            } else {
+                $("#SelectContratoLaboralSucursalEmpleado").empty().append('<option value="-1">Seleccione ...</option>');
+                $.each(resultado, function () {
+                    $("#SelectContratoLaboralSucursalEmpleado").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
+                    contador++;
+                });
+            }
+        },
+    });
+}
+
 function CargarDatosCLE(IdEmpleado){
     BuscarImagenEmpleado(IdEmpleado);
     $("#SelectEmpresa").val(-1);

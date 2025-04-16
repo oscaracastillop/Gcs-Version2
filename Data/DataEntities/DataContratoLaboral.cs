@@ -201,5 +201,17 @@ namespace Data.DataEntities
             }
         }
 
+        public List<ListaContratoLaboral> ListaContratoLaboralSucursalEmpleado()
+        {
+            try
+            {
+                return _conection.Database.SqlQuery<ListaContratoLaboral>("SP_ListaContratoLaboralSucursalEmpleado").ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }
