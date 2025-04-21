@@ -137,7 +137,7 @@ function EliminarBonoEmpleado(IdBonoEmpleado) {
                 url: '/Bono_Empleado/EliminarBonoEmpleado',
                 data: {
                     IdUser: TokenUser,
-                    IdCasinoEmpleado: IdCasinoEmpleado
+                    IdBonoEmpleado: IdBonoEmpleado
                 },
                 success: function (resultado) {
                     valor = resultado.split('*');
@@ -177,10 +177,9 @@ function GridBonoEmpleado() {
             { targets: [5], className: 'dt-head-center', className: 'dt-center dt-head-center' },
             { targets: [6], className: 'dt-head-center' },
             { targets: [7], className: 'dt-head-center' },
-            { targets: [8], className: 'dt-head-center' },
-            { targets: [9], className: 'dt-head-center', className: 'dt-center dt-head-center' },
-            { targets: [10], width: '150px', className: 'dt-center dt-head-center' },
-            { targets: [11], width: '100px', className: 'dt-center dt-head-center' }
+            { targets: [8], className: 'dt-head-center', className: 'dt-center dt-head-center' },
+            { targets: [9], width: '150px', className: 'dt-center dt-head-center' },
+            { targets: [10], width: '100px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
