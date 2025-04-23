@@ -887,7 +887,7 @@ INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Dia Laborado','bi-calendar-date','2rem','white','/Recursos_Humanos/Dia_Laborado','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Permiso','bi-calendar-event','2rem','white','/Recursos_Humanos/Permiso','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Hora Extra','bi-clock-history','2rem','white','/Recursos_Humanos/Hora_Extra','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Bono','bi-cash-coin','2rem','white','/Recursos_Humanos/Bono','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Bono','bi-cash-coin','2rem','white','/Recursos_Humanos/Bono','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Préstamo','bi-cash-coin','2rem','white','/Recursos_Humanos/Prestamo','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Casino','bi-cup-hot','2rem','white','/Recursos_Humanos/Casino','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Hoja de Vida','bi-file-richtext','2rem','white','/Recursos_Humanos/Hoja_de_Vida','cornflowerblue')
@@ -5188,34 +5188,25 @@ BEGIN
 DECLARE @Permiso INT, 
 		@IdUsuario INT, 
 		@IdSucursal INT,
-		@ExisteSucursal INT,
 		@Accion VARCHAR(255),
-		@SubMenu VARCHAR(255),
-		@FechaArreglada varchar(255) = CONVERT(VARCHAR(255),DATEPART(YEAR,@Fecha))+'-'+CONVERT(VARCHAR(255),DATEPART(MONTH,@Fecha))+'-'+CONVERT(VARCHAR(255),DATEPART(DAY,@Fecha)),
-		@FechaPagoArreglada varchar(255) = CONVERT(VARCHAR(255),DATEPART(YEAR,@FechaPago))+'-'+CONVERT(VARCHAR(255),DATEPART(MONTH,@FechaPago))+'-'+CONVERT(VARCHAR(255),DATEPART(DAY,@FechaPago))
+		@SubMenu VARCHAR(255)
 
 SET @Accion = 'Crear'
-SET @SubMenu = '/Recursos_Humanos/Casino'
-SELECT @ExisteSucursal = COUNT(1) FROM SucursalEmpleado WHERE IdEmpleado = @IdEmpleado AND IdEstado = 1			   	
+SET @SubMenu = '/Recursos_Humanos/Casino'		   	
 
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
 
-IF @Permiso > 0
-	IF @ExisteSucursal > 0	
-		BEGIN	
-			SELECT	@IdSucursal = IdSucursal FROM SucursalEmpleado WHERE IdEmpleado = @IdEmpleado AND IdEstado = 1
+IF @Permiso > 0	
+	BEGIN	
+		SELECT	@IdSucursal = IdSucursal FROM SucursalEmpleado WHERE IdEmpleado = @IdEmpleado AND IdEstado = 1
 
-			INSERT INTO CasinoEmpleado
-			(IdEmpleado, IdSucursal, Valor, Fecha, FechaPago, Observacion, CreateBy, DateCreate) 
-			VALUES 
-			(@IdEmpleado, @IdSucursal, @Valor, @FechaArreglada, @FechaPagoArreglada, @Observacion, @IdUsuario, GETDATE()) 
-			SET @Resultado = 'OK*Los datos se crearon correctamente'		
-		END	
-	ELSE
-		BEGIN
-			SET @Resultado = 'Error*El Empleado no tiene Asignada una Sucursal, para ingresar registros de Casino al Empleado debe asignarle una Sucursal, en el Modulo Sucursal Empleado'
-		END
+		INSERT INTO CasinoEmpleado
+		(IdEmpleado, IdSucursal, Valor, Fecha, FechaPago, Observacion, CreateBy, DateCreate) 
+		VALUES 
+		(@IdEmpleado, @IdSucursal, @Valor, @Fecha, @FechaPago, @Observacion, @IdUsuario, GETDATE()) 
+		SET @Resultado = 'OK*Los datos se crearon correctamente'		
+	END	
 ELSE
 	BEGIN
 		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
@@ -5237,8 +5228,6 @@ AS
 BEGIN
 DECLARE @Permiso INT, 
 		@IdUsuario INT,
-		@FechaArreglada varchar(255) = CONVERT(VARCHAR(255),DATEPART(YEAR,@Fecha))+'-'+CONVERT(VARCHAR(255),DATEPART(MONTH,@Fecha))+'-'+CONVERT(VARCHAR(255),DATEPART(DAY,@Fecha)),
-		@FechaPagoArreglada varchar(255) = CONVERT(VARCHAR(255),DATEPART(YEAR,@FechaPago))+'-'+CONVERT(VARCHAR(255),DATEPART(MONTH,@FechaPago))+'-'+CONVERT(VARCHAR(255),DATEPART(DAY,@FechaPago)),
 		@Accion VARCHAR(255),
 		@SubMenu VARCHAR(255)
 
@@ -5252,8 +5241,8 @@ IF @Permiso > 0
 		BEGIN
 			UPDATE	CasinoEmpleado 
 			SET		Valor = @Valor, 
-					Fecha = @FechaArreglada,
-					FechaPago = @FechaPagoArreglada,
+					Fecha = @Fecha,
+					FechaPago = @FechaPago,
 					Observacion = @Observacion,
 					IdEstado = @IdEstado
 			WHERE Id = @IdCasinoEmpleado
@@ -5304,9 +5293,9 @@ SELECT	A.Id,
 		B.Nombre + ' - ' + C.Nombre AS Sucursal,	
 		A.Valor As Valor,
 		CONVERT(varchar(255),A.Fecha,23) As Fecha,
-		CONVERT(varchar(255), DATEPART(DAY, A.Fecha))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, A.Fecha))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, A.Fecha)) As TextoFecha,		
+		CONVERT(varchar(255),A.Fecha,105) As TextoFecha,		
 		CONVERT(varchar(255),A.FechaPago,23) As FechaPago,
-		CONVERT(varchar(255), DATEPART(DAY, A.FechaPago))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, A.FechaPago))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, A.FechaPago)) As TextoFechaPago,		
+		CONVERT(varchar(255),A.FechaPago,105) As TextoFechaPago,		
 		CASE A.NumeroComprobanteNomina
 		WHEN '' THEN 'Por Definir'
 		ELSE A.NumeroComprobanteNomina
@@ -5315,7 +5304,7 @@ SELECT	A.Id,
 		A.IdEstado,
 		dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,
 		dbo.Fun_BuscarNombreUsuario(A.CreateBy) As CreateBy,
-		CONVERT(varchar(255), DATEPART(DAY, A.DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, A.DateCreate))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, A.DateCreate))+' '+ CONVERT(varchar(255),DATEPART(HOUR, A.DateCreate))+':'+ CONVERT(varchar(255),DATEPART(MINUTE, A.DateCreate)) As DateCreate
+		CONVERT(varchar(255),A.DateCreate,105)+ ' ' + CONVERT(varchar(255),A.DateCreate,8) As DateCreate		
 FROM	CasinoEmpleado A,
 		Empresa B,
 		Sucursal C
@@ -5349,30 +5338,84 @@ ALTER TABLE BonoEmpleado ADD CONSTRAINT FK_IdEstadoBonoEmpleado FOREIGN KEY (IdE
 
 GO
 
-CREATE PROCEDURE [dbo].[SP_EliminarBonoEmpleado] @IdUser varchar(255), @IdBonoEmpleado int, @Resultado varchar(255) OUTPUT
+CREATE PROCEDURE [dbo].[SP_CrearBonoEmpleado] 
+				@IdUser varchar(255), 			
+				@IdEmpleado int,
+				@Valor int,
+				@FechaPago varchar(255),
+				@Observacion varchar(255), 	
+				@Resultado varchar(MAX) OUTPUT
 AS
 BEGIN
 DECLARE @Permiso INT, 
 		@IdUsuario INT, 
-		@Accion varchar(255), 
-		@SubMenu varchar(255)
+		@IdSucursal INT,
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)		
+			   	
+SET @Accion = 'Crear'
+SET @SubMenu = '/Recursos_Humanos/Bono'		   	
 
-SET @Accion = 'Eliminar'
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+		BEGIN	
+				SELECT	@IdSucursal = IdSucursal
+				FROM	SucursalEmpleado
+				WHERE	IdEmpleado = @IdEmpleado
+						AND IdEstado = 1
+
+			INSERT INTO BonoEmpleado
+			(IdEmpleado, IdSucursal, Valor, FechaPago,  Observacion, CreateBy, DateCreate) 
+			VALUES 
+			(@IdEmpleado, @IdSucursal, @Valor, @FechaPago, @Observacion, @IdUsuario, GETDATE()) 
+			SET @Resultado = 'OK*Los datos se crearon correctamente'	
+		END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ActualizarBonoEmpleado] @IdUser varchar(255),
+													@IdBonoEmpleado int,	
+													@Valor Int,
+													@FechaPago varchar(255),
+													@Observacion varchar(max), 
+													@IdEstado int,			
+													@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT,
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+
+SET @Accion = 'Editar'
 SET @SubMenu = '/Recursos_Humanos/Bono'
 
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
-SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
 
-IF @Permiso != 1
-BEGIN
-	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
-	RETURN
-END	
-
-DELETE BonoEmpleado WHERE Id = @IdBonoEmpleado
-SET @Resultado = 'OK*El registro se elimino correctamente de la base de datos'
-
-SELECT @Resultado
+IF @Permiso > 0
+		BEGIN
+			UPDATE	BonoEmpleado 
+			SET		Valor = @Valor, 
+					FechaPago = @FechaPago,
+					Observacion = @Observacion,
+					IdEstado = @IdEstado
+			WHERE Id = @IdBonoEmpleado
+			SET @Resultado = 'OK*Los datos se actualizaron correctamente' 
+		END
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
 END
 
 GO
@@ -5385,7 +5428,7 @@ SELECT	A.Id,
 		B.Nombre + ' - ' + C.Nombre AS Sucursal,	
 		A.Valor As Valor,
 		CONVERT(varchar(255),A.FechaPago,23) As FechaPago,
-		CONVERT(varchar(255),A.FechaPago,105)+ ' ' + CONVERT(varchar(255),A.FechaPago,8) As TextoFechaPago,
+		CONVERT(varchar(255),A.FechaPago,105) As TextoFechaPago,		
 		CASE A.NumeroComprobanteNomina
 		WHEN '' THEN 'Por Definir'
 		ELSE A.NumeroComprobanteNomina

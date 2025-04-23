@@ -273,10 +273,10 @@ function GridBonoEmpleado() {
                 "data": "null",
                 title: "Valor",
                 "render": function (data, type, row, meta) {
-                    return '$ ' + new Intl.NumberFormat('en-US').format(row.Valor);
+                    return '$ ' + new Intl.NumberFormat('en-US').format(row.Valor); // formatter.format(date)
                 }//3
             },
-            { "data": "TextoFechaPago", title: "Fecha Pago", width: 'auto' },//4
+            { "data": "TextoFechaPago", title: "Fecha Cobro", width: 'auto' },//4
             { "data": "ComprobanteNomina", title: "# Comprobante Nómina", width: 'auto' },//5
             { "data": "Observacion", title: "Observación", width: 'auto' },//6
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },//7

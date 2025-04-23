@@ -326,7 +326,7 @@ function GridEmpleado() {
                 title: "Imagén",
                 "data": 'Imagen',
                 "render": function (data, type, row, meta) {
-                    return '<img class="btn CambiarImagenEmpleado" src="/Images/ImagenHVEmpleado/' + data + '" alt="" style="border-radius:0%; height:30px; width:50px"/>';                   
+                    return '<img class="btn CambiarImagenEmpleado" src="/Images/ImagenHVEmpleado/' + data + '" alt="" style="height:57px; width:70px; border-radius:50%"/>';                   
                 },
                 width: '50px'
             },
