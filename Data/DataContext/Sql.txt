@@ -5420,6 +5420,34 @@ END
 
 GO
 
+CREATE PROCEDURE [dbo].[SP_EliminarBonoEmpleado] @IdUser varchar(255), @IdBonoEmpleado int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Recursos_Humanos/Bono'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE BonoEmpleado WHERE Id = @IdBonoEmpleado
+SET @Resultado = 'OK*El registro se elimino correctamente de la base de datos'
+
+SELECT @Resultado
+END
+
+GO
+
 CREATE PROCEDURE [dbo].[SP_GridBonoEmpleado]
 AS
 BEGIN
@@ -5439,6 +5467,175 @@ SELECT	A.Id,
 		dbo.Fun_BuscarNombreUsuario(A.CreateBy) As CreateBy,
 		CONVERT(varchar(255),A.DateCreate,105)+ ' ' + CONVERT(varchar(255),A.DateCreate,8) As DateCreate
 FROM	BonoEmpleado A,
+		Empresa B,
+		Sucursal C
+WHERE	A.IdSucursal = C.Id AND
+		B.Id = C.IdEmpresa
+		ORDER BY Id Desc
+END
+
+GO
+
+/* PRESTAMO EMPLEADO */
+
+CREATE TABLE PrestamoEmpleado 
+(Id int identity(1,1) Primary key ,
+IdEmpleado Int,
+IdSucursal Int,
+Valor Int,
+FechaPrestamo Date,
+FechaPago Date,
+Cuotas int,
+NumeroComprobanteNomina Int,
+Observacion varchar(max),
+IdEstado int default 1,
+CreateBy int,
+DateCreate datetime
+)
+GO
+
+ALTER TABLE PrestamoEmpleado ADD CONSTRAINT FK_IdEmpleadoPrestamoEmpleado FOREIGN KEY (IdEmpleado ) references Empleado(Id)
+ALTER TABLE PrestamoEmpleado ADD CONSTRAINT FK_IdSucursalPrestamoEmpleado FOREIGN KEY (IdSucursal ) references Sucursal(Id)
+ALTER TABLE PrestamoEmpleado ADD CONSTRAINT FK_IdCreateByPrestamoEmpleado FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE PrestamoEmpleado ADD CONSTRAINT FK_IdEstadoPrestamoEmpleado FOREIGN KEY (IdEstado ) references TipoEstado(Id)
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_CrearPrestamoEmpleado] 
+				@IdUser varchar(255), 			
+				@IdEmpleado int,
+				@Valor int,
+				@FechaPrestamo varchar(255),
+				@FechaPago varchar(255),
+				@Cuotas int,
+				@Observacion varchar(255), 	
+				@Resultado varchar(MAX) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@IdSucursal INT,
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+			   	
+SET @Accion = 'Crear'
+SET @SubMenu = '/Recursos_Humanos/Prestamo'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+		BEGIN	
+			SELECT	@IdSucursal = IdSucursal FROM SucursalEmpleado WHERE IdEmpleado = @IdEmpleado AND IdEstado = 1
+
+			INSERT INTO PrestamoEmpleado
+			(IdEmpleado, IdSucursal, Valor, FechaPrestamo, FechaPago, Cuotas, Observacion, CreateBy, DateCreate) 
+			VALUES 
+			(@IdEmpleado, @IdSucursal, @Valor, @FechaPrestamo, @FechaPago, @Cuotas, @Observacion, @IdUsuario, GETDATE()) 
+			SET @Resultado = 'OK*Los datos se crearon correctamente'		
+		END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ActualizarPrestamoEmpleado] @IdUser varchar(255),
+													@IdPrestamoEmpleado int,	
+													@Valor Int,
+													@FechaPrestamo varchar(255),
+													@FechaPago varchar(255),
+													@Cuotas int, 
+													@Observacion varchar(max), 
+													@IdEstado int,			
+													@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT,
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+
+SET @Accion = 'Editar'
+SET @SubMenu = '/Recursos_Humanos/Prestamo'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+		BEGIN
+			UPDATE	PrestamoEmpleado 
+			SET		Valor = @Valor, 
+					FechaPrestamo = @FechaPrestamo,
+					FechaPago = @FechaPago,
+					Cuotas = @Cuotas,
+					Observacion = @Observacion,
+					IdEstado = @IdEstado
+			WHERE Id = @IdPrestamoEmpleado
+			SET @Resultado = 'OK*Los datos se actualizaron correctamente' 
+		END
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_EliminarPrestamoEmpleado] @IdUser varchar(255), @IdPrestamoEmpleado int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Recursos_Humanos/Prestamo'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE PrestamoEmpleado WHERE Id = @IdPrestamoEmpleado
+SET @Resultado = 'OK*El registro se elimino correctamente de la base de datos'
+
+SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridPrestamoEmpleado]
+AS
+BEGIN
+SELECT	A.Id,	 
+		dbo.Fun_BuscarNombreEmpleado(A.IdEmpleado) AS Empleado,	
+		B.Nombre + ' - ' + C.Nombre AS Sucursal,	
+		A.Valor As Valor,
+		CONVERT(varchar(255),A.FechaPrestamo,23) As FechaPrestamo,
+		CONVERT(varchar(255),A.FechaPrestamo,105) As TextoFechaPrestamo,		
+		CONVERT(varchar(255),A.FechaPago,23) As FechaPago,
+		CONVERT(varchar(255),A.FechaPago,105) As TextoFechaPago,			
+		A.Cuotas,
+		CASE A.NumeroComprobanteNomina
+		WHEN '' THEN 'Por Definir'
+		ELSE A.NumeroComprobanteNomina
+		END as ComprobanteNomina,
+		A.Observacion,
+		A.IdEstado,
+		dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,
+		dbo.Fun_BuscarNombreUsuario(A.CreateBy) As CreateBy,
+		CONVERT(varchar(255),A.DateCreate,105)+ ' ' + CONVERT(varchar(255),A.DateCreate,8) As DateCreate
+FROM	PrestamoEmpleado A,
 		Empresa B,
 		Sucursal C
 WHERE	A.IdSucursal = C.Id AND

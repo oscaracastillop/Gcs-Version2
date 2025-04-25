@@ -10,19 +10,19 @@
     $("#SelectContratoLaboralEmpleado").val(-1);
     $("#BotonesModalPrestamoEmpleado").empty();
     if (tipo == 'C') {
-        $("#TituloModalPrestamoEmpleado").empty().append('<h6>Crear Préstamo Empleado</h6>');
-        $('#ModalCrearPrestamoEmpleado').modal('show');
+        $("#TituloModalPrestamoEmpleado").empty().append('<label>Crear Préstamo Empleado</label>');
+        $('#ModalPrestamoEmpleado').modal('show');
         $("#InputPrestamoEmpleadoEmpleado").hide();
         $("#SelectContratoLaboralEmpleado").show();
         $("#SelectEstadoPrestamoEmpleado").hide();
-        $("#BotonesModalPrestamoEmpleado").empty().append('<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-success btn-sm" onclick="CrearPrestamoEmpleado()">Guardar</button>');
+        $("#BotonesModalPrestamoEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearPrestamoEmpleado()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalPrestamoEmpleado").empty().append('<h5>Editar Préstamo Empleado</h5>');
-        $('#ModalCrearPrestamoEmpleado').modal('show');
+        $("#TituloModalPrestamoEmpleado").empty().append('<label>Editar Préstamo Empleado</label>');
+        $('#ModalPrestamoEmpleado').modal('show');
         $("#InputPrestamoEmpleadoEmpleado").show();
         $("#SelectContratoLaboralEmpleado").hide();
         $("#SelectEstadoPrestamoEmpleado").show();
-        $("#BotonesModalPrestamoEmpleado").empty().append('<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-success btn-sm" onclick="ActualizarPrestamoEmpleado()">Guardar Cambios</button>');
+        $("#BotonesModalPrestamoEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="ActualizarPrestamoEmpleado()">Guardar Cambios</button>');
     }
 }
 
@@ -31,7 +31,7 @@
 
 
 function CrearPrestamoEmpleado() {
-    let IdEmpleado = $('#SelectContratoLaboralEmpleado').val();
+    let IdEmpleado = $('#SelectContratoLaboralSucursalEmpleado').val();
     let Valor = $('#InputPrestamoEmpleadoValor').val();
     let FechaPrestamo = $('#InputPrestamoEmpleadoFechaPrestamo').val();
     let FechaPago = $('#InputPrestamoEmpleadoFechaPago').val();
@@ -39,26 +39,26 @@ function CrearPrestamoEmpleado() {
     let Observacion = $('#InputPrestamoEmpleadoObservacion').val();
     if (IdEmpleado == -1 || IdEmpleado == null || IdEmpleado == '') {
         $('#SelectContratoLaboralEmpleado').focus();
-        Swal.fire(TituloSwal, 'Seleccione el Empleado', 'info');
+        VentanaMensaje('Seleccione el Empleado', 'info');
     } else if (Valor == null || Valor == '' || Valor == undefined) {
         $('#InputPrestamoEmpleadoValor').focus();
-        Swal.fire(TituloSwal, 'Ingrese el Valor', 'info');
+        VentanaMensaje('Ingrese el Valor', 'info');
     } else if (FechaPrestamo == null || FechaPrestamo == '' || FechaPrestamo == undefined) {
         $('#InputPrestamoEmpleadoFechaPrestamo').focus();
-        Swal.fire(TituloSwal, 'Ingrese la Fecha', 'info');
+        VentanaMensaje('Ingrese la Fecha', 'info');
     } else if (FechaPago == null || FechaPago == '' || FechaPago == undefined) {
         $('#InputPrestamoEmpleadoFechaPago').focus();
-        Swal.fire(TituloSwal, 'Ingrese la Fecha de Pago', 'info');
+        VentanaMensaje('Ingrese la Fecha de Cobro', 'info');
     } else if (Cuotas == null || Cuotas == '' || Cuotas == undefined) {
         $('#InputPrestamoEmpleadoNumeroCuotas').focus();
-        Swal.fire(TituloSwal, 'Ingrese el número de Cuotas', 'info');
+        VentanaMensaje('Ingrese el número de Cuotas', 'info');
     } else {
         $.ajax({
             type: 'POST',
             dataType: 'json',
             url: '/Prestamo_Empleado/CrearPrestamoEmpleado',
             data: {
-                IdUser: User,
+                IdUser: TokenUser,
                 IdEmpleado: IdEmpleado,
                 Valor: Valor,
                 FechaPrestamo: FechaPrestamo,
@@ -95,23 +95,23 @@ function ActualizarPrestamoEmpleado() {
     let IdEstado = $('#SelectEstado').val();
     if (Valor == null || Valor == '' || Valor == undefined) {
         $('#InputPrestamoEmpleadoValor').focus();
-        Swal.fire(TituloSwal, 'Ingrese el Valor', 'info');
+        VentanaMensaje('Ingrese el Valor', 'info');
     } else if (FechaPrestamo == null || FechaPrestamo == '' || FechaPrestamo == undefined) {
         $('#InputPrestamoEmpleadoFechaPrestamo').focus();
-        Swal.fire(TituloSwal, 'Ingrese la Fecha', 'info');
+        VentanaMensaje('Ingrese la Fecha', 'info');
     } else if (FechaPago == null || FechaPago == '' || FechaPago == undefined) {
         $('#InputPrestamoEmpleadoFechaPago').focus();
-        Swal.fire(TituloSwal, 'Ingrese la Fecha de Pago', 'info');
+        VentanaMensaje('Ingrese la Fecha de Cobro', 'info');
     } else if (Cuotas == null || Cuotas == '' || Cuotas == undefined) {
         $('#InputPrestamoEmpleadoNumeroCuotas').focus();
-        Swal.fire(TituloSwal, 'Ingrese el número de Cuotas', 'info');
+        VentanaMensaje('Ingrese el número de Cuotas', 'info');
     } else {
         $.ajax({
             type: 'POST',
             dataType: 'json',
             url: '/Prestamo_Empleado/ActualizarPrestamoEmpleado',
             data: {
-                IdUser: User,
+                IdUser: TokenUser,
                 IdPrestamoEmpleado: IdPrestamoEmpleado,
                 Valor: Valor,
                 FechaPrestamo: FechaPrestamo,
@@ -138,99 +138,148 @@ function ActualizarPrestamoEmpleado() {
     }
 }
 
+function EliminarPrestamoEmpleado(IdPrestamoEmpleado) {
+    Swal.fire({
+        title: TituloSwal,
+        text: "Esta seguro(a)?, No podrás revertir esta acción.!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "orangered",
+        cancelButtonColor: "#333",
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "Cancelar",
+        position: 'top'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/Prestamo_Empleado/EliminarPrestamoEmpleado',
+                data: {
+                    IdUser: TokenUser,
+                    IdPrestamoEmpleado: IdPrestamoEmpleado
+                },
+                success: function (resultado) {
+                    valor = resultado.split('*');
+                    if (valor[0] == 'OK') {
+                        Swal.fire({
+                            title: TituloSwal,
+                            text: valor[1],
+                            icon: 'success',
+                            position: 'top',
+                            confirmButtonColor: "orangered",
+                        }).then((result) => {
+                            location.reload();
+                        })
+                    } else {
+                        Swal.fire(TituloSwal, valor[1], 'info');
+                    }
+                }
+            });
+        }
+    });
+}
 
-//#endregion
-
-//#region funciones Grid
 function GridPrestamoEmpleado() {
-    var tituloReporte = 'LISTADO PRÉSTAMO EMPLEADO';
+    var tituloReporte = 'LISTADO DE PRESTAMOS EMPLEADOS';
     let datatable = $('#gridPrestamoEmpleado').DataTable({
+        responsive: false,
         scrollCollapse: true,
         scrollY: '800px',
         scrollX: true,
         dom: 'B<"clear">frtip',
-        buttons: [{
-            extend: 'excelHtml5',
-            footer: true,
-            title: tituloReporte + ' ' + NombreEmpresa,
-            filename: tituloReporte + ' - ' + NombreEmpresa + ' ' + jsDate + ' ' + hora,
-            text: 'Descargar Excel',
-            exportOptions: {
-                columns: [1, 2, 3, 5, 6, 7, 8,9,10,11,12],
-            },
-        },
-        {
-            //download: 'open',
-            text: 'Descargar PDF',
-            extend: 'pdfHtml5',
-            filename: tituloReporte + ' - ' + NombreEmpresa + ' ' + jsDate + ' ' + hora,
-            orientation: 'landscape', //portrait  landscape
-            pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
-            exportOptions: {
-                columns: [1, 2, 3, 5, 6, 7, 8,9,10,11,12],
-                search: 'applied',
-                order: 'applied',
-            },
-            customize: function (doc) {
-                doc.content.splice(0, 1.5);
-                doc.pageMargins = [40, 60, 20, 30];
-                doc.defaultStyle.fontSize = 7;
-                doc.styles.tableHeader.fontSize = 7;
-                doc['header'] = (function () {
-                    return {
-                        columns: [
-                            {
-                                image: logoEmpresa64bits,
-                                width: 120,
-                                height: 30,
-                                margin: [20, 0]
-                            },
-                            //{
-                            //    alignment: 'left',
-                            //    italics: true,
-                            //    text: NombreEmpresa,
-                            //    fontSize: 18,
-                            //    margin: [30, 0]
-                            //},
-                            {
-                                italics: true,
-                                alignment: 'right',
-                                fontSize: 10,
-                                text: NombreEmpresa + ' - ' + tituloReporte
-                            }
-                        ],
-                        margin: 20
-                    }
-                });
-                doc['footer'] = (function (page, pages) {
-                    return {
-                        columns: [
-                            {
-                                fontSize: 5,
-                                alignment: 'left',
-                                text: GCS + ' ' + now
-                            },
-                            {
-                                fontSize: 5,
-                                alignment: 'right',
-                                text: ['page ', { text: page.toString() }, ' of ', { text: pages.toString() }]
-                            }
-                        ],
-                        margin: 20
-                    }
-                });
-                var objLayout = {};
-                objLayout['hLineWidth'] = function (i) { return .5; };
-                objLayout['vLineWidth'] = function (i) { return .5; };
-                objLayout['hLineColor'] = function (i) { return '#aaa'; };
-                objLayout['vLineColor'] = function (i) { return '#aaa'; };
-                objLayout['paddingLeft'] = function (i) { return 4; };
-                objLayout['paddingRight'] = function (i) { return 4; };
-                doc.content[0].layout = objLayout;
-            }
-        },
+        columnDefs: [
+            { targets: [0], className: 'dt-head-center' },
+            { targets: [1], className: 'dt-head-center' },
+            { targets: [3], className: 'dt-head-center' },
+            { targets: [4], className: 'dt-head-center', className: 'dt-center dt-head-center' },
+            { targets: [5], className: 'dt-head-center', className: 'dt-center dt-head-center' },
+            { targets: [6], className: 'dt-head-center' },
+            { targets: [7], className: 'dt-head-center' },
+            { targets: [8], className: 'dt-head-center' },
+            { targets: [9], className: 'dt-head-center' },
+            { targets: [10], className: 'dt-head-center', className: 'dt-center dt-head-center' },
+            { targets: [11], width: '150px', className: 'dt-center dt-head-center' },
+            { targets: [12], width: '100px', className: 'dt-center dt-head-center' }
         ],
-        "order": [[1, "asc"]],
+        buttons: [
+
+            {
+                extend: 'excel', className: 'btn btn-excel-datatable',
+                footer: true,
+                title: tituloReporte + ' ' + NameApp,
+                filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
+                text: 'Excel',
+                exportOptions: {
+                    columns: [0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11],
+                },
+            },
+            {
+                extend: 'pdfHtml5', className: 'btn btn-pdf-datatable',
+                text: 'Pdf',
+                filename: tituloReporte + ' - ' + NameApp + ' ' + jsDate + ' ' + hora,
+                orientation: 'landscape', // landscape portrait
+                pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
+                exportOptions: {
+                    columns: [0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11],
+                    search: 'applied',
+                    order: 'applied',
+                },
+                customize: function (doc) {
+                    doc.content.splice(0, 1.5);
+                    doc.pageMargins = [40, 60, 20, 30];
+                    doc.defaultStyle.fontSize = 6;
+                    doc.styles.tableHeader.fontSize = 8;
+                    doc['header'] = (function () {
+                        return {
+                            columns: [
+                                {
+                                    italics: true,
+                                    fontSize: 10,
+                                    text: tituloReporte,
+                                    margin: [30, 18]
+                                }
+                            ],
+                            margin: 20
+                        }
+                    });
+                    doc['footer'] = (function (page, pages) {
+                        return {
+                            columns: [
+                                {
+                                    fontSize: 5,
+                                    alignment: 'left',
+                                    text: ' ' + now
+                                },
+                                {
+                                    fontSize: 5,
+                                    alignment: 'right',
+                                    text: ['page ', { text: page.toString() }, ' of ', { text: pages.toString() }]
+                                }
+                            ],
+                            margin: 20
+                        }
+                    });
+                    var objLayout = {};
+                    objLayout['hLineWidth'] = function (i) { return .5; };
+                    objLayout['vLineWidth'] = function (i) { return .5; };
+                    objLayout['hLineColor'] = function (i) { return '#aaa'; };
+                    objLayout['vLineColor'] = function (i) { return '#aaa'; };
+                    objLayout['paddingLeft'] = function (i) { return 4; };
+                    objLayout['paddingRight'] = function (i) { return 4; };
+                    doc.content[0].layout = objLayout;
+                }
+            },
+            {
+                text: 'Nuevo',
+                className: 'btn btn-nuevo-datatable',
+                action: function (e, dt, node, config) {
+                    ModalPrestamoEmpleado('C');
+                }
+            }
+
+        ],
+        /*"order": [[1, "asc"]],*/
         destroy: true,
         "ajax": {
             "url": '/Prestamo_Empleado/GridPrestamoEmpleado',
@@ -238,32 +287,49 @@ function GridPrestamoEmpleado() {
             "datatype": "json"
         },
         columns: [
-            {
-                title: "Acciones",
-                data: null,
-                defaultContent: '<div class="btn-group"><a href="#" class= "EditarPrestamoEmpleado btn" title="Editar"> <i class="bi-pencil-fill" style="Color:green"></i></a><a href="#" class="EliminarPrestamoEmpleado btn" title="Eliminar"><i class="bi-trash-fill" style=";Color:red"></i></a></div>',
-                className: '',
-                orderable: false,
-                width: 'auto'
-            },
-            { "data": "Empleado", title: "Empleado", width: 'auto' },
-            { "data": "Sucursal", title: "Sucursal", width: 'auto' },
-            { "data": "Valor", title: "Valor", width: 'auto', visible: false },
+            { "data": "Empleado", title: "Empleado", width: 'auto' },//0
+            { "data": "Sucursal", title: "Sucursal", width: 'auto' },//1
+            { "data": "Valor", title: "Valor", width: 'auto', visible: false },//2
             {
                 "data": "null",
                 title: "Valor",
                 "render": function (data, type, row, meta) {
-                    return '$ ' + new Intl.NumberFormat('en-US').format(row.Valor);
-                }
+                    return '$ ' + new Intl.NumberFormat('en-US').format(row.Valor); // formatter.format(date)
+                }//3
             },
-            { "data": "TextoFechaPrestamo", title: "Fecha Préstamo", width: 'auto' },
-            { "data": "TextoFechaPago", title: "Fecha Pago", width: 'auto' },
-            { "data": "Cuotas", title: "# Cuotas", width: 'auto' },
-            { "data": "ComprobanteNomina", title: "# Comprobante Nómina", width: 'auto' },
-            { "data": "Observacion", title: "Observación", width: 'auto' },
-            { "data": "Estado", title: "Estado", width: 'auto' },
-            { "data": "CreateBy", title: "Creado Por", width: 'auto'},
-            { "data": "DateCreate", title: "Fecha Creación", width: 'auto'},
+            { "data": "Cuotas", title: "# Cuotas", width: 'auto' },//4
+            { "data": "TextoFechaPrestamo", title: "Fecha Préstamo", width: 'auto' },//5
+            { "data": "TextoFechaPago", title: "Fecha Cobro", width: 'auto' },//6
+            { "data": "ComprobanteNomina", title: "# Comprobante Nómina", width: 'auto' },//7
+            { "data": "Observacion", title: "Observación", width: 'auto' },//8
+            { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },//9
+            { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },//10
+            {
+                title: "Estado",
+                data: "Estado",
+                width: 'auto',
+                "render": function (data, type, row) {
+
+                    if (row.IdEstado == 1) {
+                        return '<label style="background-color:green; padding:2px;border-radius:5px;font-size:11px!important; color:white">&nbsp;' + data + '&nbsp;</label>';
+                    }
+                    else {
+                        return '<label style="background-color:red; padding:2px;border-radius:5px;font-size:11px!important; color: white">&nbsp;' + data + '&nbsp;</label>';
+                    }
+                }
+
+            },//11
+            {
+                title: "Acciones",
+                data: null,
+                defaultContent:
+                    '<div class="btn-group-sm">' +
+                    '<a class="EditarPrestamoEmpleado btn btn-editar-dt" title="Editar Registro">Editar</a>&nbsp;&nbsp;<a class="EliminarPrestamoEmpleado btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>' +
+                    '</div>',
+                orderable: false,
+                width: 'auto',
+            },//12
+
         ],
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.11.2/i18n/es_es.json"
@@ -273,6 +339,7 @@ function GridPrestamoEmpleado() {
             ['10 Filas', '25 Filas', '50 Filas', 'Ver Todo']
         ],
     });
+
     $('#gridPrestamoEmpleado').on('click', '.EditarPrestamoEmpleado', function () {
         let data = datatable.row($(this).parents()).data();
         ModalPrestamoEmpleado('E');
@@ -288,68 +355,6 @@ function GridPrestamoEmpleado() {
 
     $('#gridPrestamoEmpleado').on('click', '.EliminarPrestamoEmpleado', function () {
         let data = datatable.row($(this).parents()).data();
-        EliminarRegistroTabla(data.Id, 'Prestamo_Empleado');
+        EliminarPrestamoEmpleado(data.Id);
     })
 }
-
-//#endregion
-
-//#region lista/buscar
-function DashboardPrestamoEmpleado() {
-    $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        url: '/Prestamo_Empleado/UltimoPrestamoEmpleadoCreado',
-        data: {},
-        success: function (resultado) {
-            $('#CardPrestamoEmpleadoEmpleado').text(resultado[0].Empleado);
-            $('#CardPrestamoEmpleadoSucursal').text(resultado[0].Sucursal);
-            $('#CardPrestamoEmpleadoValor').text(resultado[0].Valor);
-            $('#CardPrestamoEmpleadoFechaPrestamo').text(resultado[0].FechaPrestamo);
-            $('#CardPrestamoEmpleadoFechaPago').text(resultado[0].FechaPago);
-            $('#CardPrestamoNumeroPagosEmpleado').text(resultado[0].Cuotas);
-            $('#CardPrestamoEmpleadoObservacion').text(resultado[0].Observacion);
-            $('#CardPrestamoEmpleadoCreate').text(resultado[0].DateCreate);
-        },
-    });
-    $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        url: '/Prestamo_Empleado/DatosTablaTotalPrestamo',
-        data: {
-        },
-        success: function (data) {
-            var contador = 0;
-
-            cant = data.length;
-
-            if (cant == 0) {
-                $("#DatosTablaTotalPrestamo").append('<td>No hay datos</td><td>No hay datos</td><td>No hay datos</td>');
-            } else {
-                $.each(data, function () {
-                    if (data[contador].Estado == 'Paz y Salvo') {
-                        $("#DatosTablaTotalPrestamo").append(
-                            '<tr>' +
-                            '<td style="color:green;">' + data[contador].Estado + '</td>' +
-                            '<td style="color:green">' + data[contador].Cantidad + '</td>' +
-                            '<td style="color:green">' + data[contador].Valor + '</td>' +
-                            '</tr>'
-                        );
-                    } else {
-                        $("#DatosTablaTotalPrestamo").append(
-                            '<tr>' +
-                            '<td style="color:red;font-weight:bold">' + data[contador].Estado + '</td>' +
-                            '<td style="color:red;font-weight:bold">' + data[contador].Cantidad + '</td>' +
-                            '<td style="color:red;font-weight:bold">' + data[contador].Valor + '</td>' +
-                            '</tr>'
-                        );
-                    }
-                    contador++;
-                });
-            }
-        }
-    });
-}
-
-//#endregion
-
