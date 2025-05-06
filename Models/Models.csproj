@@ -54,11 +54,14 @@
     <Compile Include="Eps.cs" />
     <Compile Include="FondoCesantias.cs" />
     <Compile Include="FondoPensiones.cs" />
+    <Compile Include="FormaPago.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="PermisoMenu.cs" />
     <Compile Include="PermisoSubMenu.cs" />
+    <Compile Include="PlazoPago.cs" />
     <Compile Include="PrestamoEmpleado.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proveedor.cs" />
     <Compile Include="SubMenu.cs" />
     <Compile Include="Sucursal.cs" />
     <Compile Include="SucursalEmpleado.cs" />

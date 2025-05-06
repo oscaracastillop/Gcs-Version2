@@ -156,7 +156,7 @@ div.dataTables_wrapper div.dataTables_filter input {
     height:25px;
 }
 
-input, button, select {
+input, button, select, textarea {
     /*font-family: Arial, sans-serif !important;*/
     font-size: 11px !important;
     font-family: "Open Sans", sans-serif;

@@ -5645,5 +5645,282 @@ END
 
 GO
 
+/* FORMA PAGO */
+
+CREATE TABLE FormaPago(
+Id int identity(1,1) Primary key ,
+Nombre varchar(255)
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoFormaPago on FormaPago (Nombre)
+
+GO
+
+INSERT INTO FormaPago (Nombre) VALUES
+('Contado'),
+('Crédito')
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaFormaPago]
+AS
+BEGIN
+	SELECT Id, Nombre FROM FormaPago ORDER BY Nombre ASC
+END
+
+GO
+
+CREATE FUNCTION [dbo].[Fun_BuscarNombreFormaPago](@IdFormaPago INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombreFormaPago VARCHAR(255)
+	SELECT @NombreFormaPago = Nombre FROM FormaPago WHERE Id = @IdFormaPago 
+	RETURN @NombreFormaPago
+END
+
+GO
+
+/* PLAZO PAGO */
+
+CREATE TABLE PlazoPago(
+Id int identity(1,1) Primary key ,
+Nombre varchar(255)
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoPlazoPago on PlazoPago (Nombre)
+
+GO
+
+INSERT INTO PlazoPago (Nombre) VALUES
+('0 días'),
+('3 días'),
+('7 días'),
+('15 días'),
+('30 días'),
+('45 días'),
+('60 días'),
+('90 días')
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaPlazoPago]
+AS
+BEGIN
+	SELECT Id, Nombre FROM PlazoPago ORDER BY Id ASC
+END
+
+GO
+
+CREATE FUNCTION [dbo].[Fun_BuscarNombrePlazoPago](@IdPlazoPago INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombrePlazoPago VARCHAR(255)
+	SELECT @NombrePlazoPago = Nombre FROM PlazoPago WHERE Id = @IdPlazoPago 
+	RETURN @NombrePlazoPago
+END
+
+GO
+
 /* PROVEEDOR */
+
+CREATE TABLE Proveedor 
+(Id int identity(1,1) Primary key ,
+Nombre varchar(255),
+IdTipoDocumento int,
+Identificacion varchar(255),
+Email varchar(255),
+Telefono varchar(255),
+Contacto varchar(255),
+IdCiudad int,
+Direccion varchar(255),
+IdFormaPago int,
+IdPlazoPago int,
+Descripcion varchar(max),
+IdEstado int default 1,
+CreateBy int,
+DateCreate datetime
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoProveedor on Proveedor (Nombre, IdTipoDocumento, Identificacion)
+
+GO
+
+ALTER TABLE Proveedor ADD CONSTRAINT FK_IdTipoDocumentoProveedor FOREIGN KEY (IdTipoDocumento ) references TipoDocumento(Id)
+ALTER TABLE Proveedor ADD CONSTRAINT FK_IdFormaPagoProveedor FOREIGN KEY (IdFormaPago ) references FormaPago(Id)
+ALTER TABLE Proveedor ADD CONSTRAINT FK_IdPlazoPagoProveedor FOREIGN KEY (IdPlazoPago ) references PlazoPago(Id)
+ALTER TABLE Proveedor ADD CONSTRAINT FK_IdCreateByProveedor FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE Proveedor ADD CONSTRAINT FK_IdEstadoProveedor FOREIGN KEY (IdEstado ) references TipoEstado(Id)
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_CrearProveedor] 
+				@IdUser varchar(255), 				
+				@NombreProveedor varchar(255), 
+				@IdTipoDocumento int,
+				@Identificacion varchar(255),
+				@Email varchar(255), 
+				@Telefono varchar(255),  
+				@Contacto varchar(255),
+				@IdCiudad int,
+				@Direccion varchar(255),
+				@IdFormaPago int,
+				@IdPlazoPago int,
+				@Descripcion varchar(max),
+				@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Crear'
+SET @SubMenu = '/Almacen/Proveedor'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN		
+		INSERT INTO Proveedor
+		(Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdCiudad, Direccion, IdFormaPago, IdPlazoPago, Descripcion, CreateBy, DateCreate) 
+		VALUES 
+		(@NombreProveedor, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Contacto, @IdCiudad, @Direccion, @IdFormaPago, @IdPlazoPago, @Descripcion, @IdUsuario, GETDATE())		
+
+		SET @Resultado = 'OK*El Proveedor ' + @NombreProveedor + ' a sido creado correctamente'
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ActualizarProveedor]	@IdUser varchar(255),
+												@IdProveedor int, 				
+												@NombreProveedor varchar(255), 
+												@IdTipoDocumento int,
+												@Identificacion varchar(255),
+												@Email varchar(255), 
+												@Telefono varchar(255),  
+												@Contacto varchar(255),
+												@IdCiudad int,
+												@Direccion varchar(255),
+												@IdFormaPago int,
+												@IdPlazoPago int,
+												@Descripcion varchar(max),
+												@IdEstado int,			
+												@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT,
+		@Accion varchar(255), 
+		@SubMenu varchar(255)			 
+
+SET @Accion = 'Editar'
+SET @SubMenu = '/Almacen/Proveedor'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	IF(exists(select * from Proveedor where Nombre = @NombreProveedor AND IdTipoDocumento = @IdTipoDocumento AND Identificacion = @Identificacion AND Id != @IdProveedor))  
+	BEGIN  
+		SET @Resultado = 'Error*El Proveedor ' + @NombreProveedor +' ya existe.'
+		RETURN  
+	END
+ELSE
+	BEGIN
+		UPDATE	Proveedor 
+			SET		Nombre = @NombreProveedor, 
+					IdTipoDocumento =  @IdTipoDocumento,
+					Identificacion = @Identificacion,								 
+					Email = @Email, 
+					Telefono = @Telefono,
+					Contacto = @Contacto,
+					IdCiudad = @IdCiudad,
+					Direccion = @Direccion,
+					IdFormaPago = @IdFormaPago,
+					IdPlazoPago = @IdPlazoPago,
+					Descripcion = @Descripcion,
+					IdEstado = @IdEstado
+					WHERE Id = @IdProveedor
+							
+		SET @Resultado = 'OK*El Proveedor ' + @NombreProveedor + ' se actualizo correctamente'  
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_EliminarProveedor] @IdUser varchar(255), @IdProveedor int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@NombreProveedor varchar(255),
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Almacen/Proveedor'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @NombreProveedor = Nombre FROM Proveedor WHERE Id = @IdProveedor
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE Proveedor WHERE Id = @IdProveedor
+SET @Resultado = 'OK*Estimado Usuario el Proveedor '+ @NombreProveedor +' se elimino correctamente'	
+
+SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridProveedor]
+AS
+BEGIN
+	SELECT	Id, 
+			Nombre,
+			IdTipoDocumento,
+			dbo.Fun_BuscarNombreTipoDocumento(IdTipoDocumento) As TipoDocumento,
+			Identificacion,
+			ISNULL(Email,'') As Email,
+			ISNULL(Telefono,'') As Telefono,
+			ISNULL(Contacto,'') As Contacto,
+			ISNULL(Direccion,'') As Direccion,
+			IdFormaPago,
+			dbo.Fun_BuscarNombreFormaPago(IdFormaPago) As TextoFormaPago,
+			IdPlazoPago,
+			dbo.Fun_BuscarNombrePlazoPago(IdPlazoPago) As TextoPlazoPago,
+			IdCiudad,
+			dbo.Fun_BuscarNombreCiudad(IdCiudad) As Ciudad,
+			Descripcion,
+			IdEstado,
+			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,
+			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
+			CONVERT(varchar(255),DateCreate,105)+ ' ' + CONVERT(varchar(255),DateCreate,8) As DateCreate	
+			FROM Proveedor
+			ORDER BY Id Desc
+END
+
 

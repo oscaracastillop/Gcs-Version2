@@ -2198,13 +2198,16 @@
     <Content Include="JsApp\Eps.js" />
     <Content Include="JsApp\FondoCesantias.js" />
     <Content Include="JsApp\FondoPensiones.js" />
+    <Content Include="JsApp\FormaPago.js" />
     <Content Include="JsApp\getBase64FomFile.js" />
     <Content Include="JsApp\Goblal.js" />
     <Content Include="JsApp\Login.js" />
     <Content Include="JsApp\Menu.js" />
     <Content Include="JsApp\PermisoMenu.js" />
     <Content Include="JsApp\PermisoSubMenu.js" />
+    <Content Include="JsApp\PlazoPago.js" />
     <Content Include="JsApp\PrestamoEmpleado.js" />
+    <Content Include="JsApp\Proveedor.js" />
     <Content Include="JsApp\SubMenu.js" />
     <Content Include="JsApp\Sucursal.js" />
     <Content Include="JsApp\SucursalEmpleado.js" />
@@ -2466,6 +2469,7 @@
     <Compile Include="Controllers\EpsController.cs" />
     <Compile Include="Controllers\Fondo_CesantiasController.cs" />
     <Compile Include="Controllers\Fondo_PensionesController.cs" />
+    <Compile Include="Controllers\FormaPagoController.cs" />
     <Compile Include="Controllers\Hoja_de_VidaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Hora_ExtraController.cs" />
@@ -2479,6 +2483,8 @@
     <Compile Include="Controllers\ContratistasController.cs" />
     <Compile Include="Controllers\Permiso_MenuController.cs" />
     <Compile Include="Controllers\Permiso_SubMenuController.cs" />
+    <Compile Include="Controllers\PlazoPagoController.cs" />
+    <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Controllers\Recursos_HumanosController.cs" />
     <Compile Include="Controllers\Prestamo_EmpleadoController.cs" />
     <Compile Include="Controllers\ProduccionController.cs" />
@@ -2559,6 +2565,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\FormaPago\" />
+    <Folder Include="Views\PlazoPago\" />
+    <Folder Include="Views\Proveedor\" />
     <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>
