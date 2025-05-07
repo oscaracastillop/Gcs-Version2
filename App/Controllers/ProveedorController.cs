@@ -7,15 +7,15 @@ namespace App.Controllers
     {
         private readonly DataProveedor dataProveedor = new DataProveedor();
 
-        public JsonResult CrearProveedor(string IdUser, string NombreProveedor, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Contacto, int IdCiudad, string Direccion, int IdFormaPago, int IdPlazoPago, string Descripcion)
+        public JsonResult CrearProveedor(string IdUser, string NombreProveedor, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Celular, string Contacto, int IdCiudad, string Direccion, int IdFormaPago, int IdPlazoPago, string Descripcion)
         {
-            var resultado = dataProveedor.CrearProveedor(IdUser, NombreProveedor, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdCiudad, Direccion, IdFormaPago, IdPlazoPago, Descripcion);
+            var resultado = dataProveedor.CrearProveedor(IdUser, NombreProveedor, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdCiudad, Direccion, IdFormaPago, IdPlazoPago, Descripcion);
             return Json(resultado);
         }
 
-        public JsonResult ActualizarProveedor(string IdUser, int IdProveedor, string NombreProveedor, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Contacto, int IdCiudad, string Direccion, int IdFormaPago, int IdPlazoPago, string Descripcion, int Activo)
+        public JsonResult ActualizarProveedor(string IdUser, int IdProveedor, string NombreProveedor, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Celular, string Contacto, int IdCiudad, string Direccion, int IdFormaPago, int IdPlazoPago, string Descripcion, int Activo)
         {
-            var resultado = dataProveedor.ActualizarProveedor(IdUser, IdProveedor, NombreProveedor, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdCiudad, Direccion, IdFormaPago, IdPlazoPago, Descripcion, Activo);
+            var resultado = dataProveedor.ActualizarProveedor(IdUser, IdProveedor, NombreProveedor, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdCiudad, Direccion, IdFormaPago, IdPlazoPago, Descripcion, Activo);
             return Json(resultado);
         }
 

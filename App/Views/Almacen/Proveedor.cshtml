@@ -7,7 +7,7 @@
 <hr />
 
 <div class="grid">
-    <table id="gridProveedor" class="table cell-border" cellspacing="0" style="width: 200%;"></table>
+    <table id="gridProveedor" class="table cell-border" cellspacing="0" style="width: 220%;"></table>
 </div>
 
 <!-- Modal Proveedor-->
@@ -24,29 +24,34 @@
                     <input class="form-control" type="text" id="InputNombreProveedor" name="name" autocomplete="off" style="min-width:100%" />
                 </div>
                 <div class="row">
-                    <div class="col-5">
+                    <div class="col-6">
                         <label><strong>Documento </strong><label style="color:red"> *</label></label>
                         <select class="form-control" id="SelectTipoDocumento" style="min-width:100%"></select>
                     </div>
-                    <div class="col-7">
+                    <div class="col-6">
                         <label><strong>Identificación </strong><label style="color:red"> *</label></label>
                         <input class="form-control" type="text" id="InputIdentificacionProveedor" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
                 </div>
-
-                <div>
-                    <label><strong>Email</strong></label>
-                    <input class="form-control" type="text" id="InputEmailProveedor" name="name" autocomplete="off" style="min-width:100%" />
-                </div>
                 <div class="row">
-                    <div class="col-5">
-                        <label><strong>Teléfono</strong></label>
-                        <input class="form-control" type="text" id="InputTelefonoProveedor" name="name" autocomplete="off" style="min-width:100%" />
+                    <div class="col-6">
+                        <label><strong>Email</strong></label>
+                        <input class="form-control" type="text" id="InputEmailProveedor" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
-                    <div class="col-7">
+                    <div class="col-6">
                         <label><strong>Contacto</strong></label>
                         <input class="form-control" type="text" id="InputContactoProveedor" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Teléfono</strong></label>
+                        <input class="form-control" type="text" id="InputTelefonoProveedor" name="name" autocomplete="off" style="min-width:100%" maxlength="13" placeholder="(ind ciudad) + # Telefónico"/>
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Celular</strong></label>
+                        <input class="form-control" type="text" id="InputCelularProveedor" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>                    
                 </div>
 
                 <div class="row">
@@ -100,8 +105,35 @@
         ListaCiudad();
         ListaFormaPago();
         ListaPlazoPago();
-        //$('#ModalProveedor').modal('show');
     });
+
+
+    const inputCelular = document.getElementById('InputCelularProveedor');
+    const inputTelefono = document.getElementById('InputTelefonoProveedor');
+
+    inputCelular.addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, ''); // Eliminar caracteres no numéricos
+        if (value.length > 3) {
+            value = value.substring(0, 3) + ' ' + value.substring(3);
+        }
+        if (value.length > 7) {
+            value = value.substring(0, 11);
+        }
+        e.target.value = value;
+    });
+
+    inputTelefono.addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, ''); // Eliminar caracteres no numéricos
+        if (value.length > 3) {
+            value = '(' + value.substring(0, 3) + ')' + ' ' + value.substring(3);
+        }
+        if (value.length > 7) {
+            value = value.substring(0, 13);
+        }
+        e.target.value = value;
+    });
+
+
 </script>
 
 

@@ -906,7 +906,7 @@ INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Inventario','bi-clipboard2-data','2rem','white','/Almacen/Inventario','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Categoría','bi-grid','2rem','white','/Almacen/Categoria','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Producto','bi-dropbox','2rem','white','/Almacen/Producto','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Proveedor','bi-truck','2rem','white','/Almacen/Proveedor','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Proveedor','bi-truck','2rem','white','/Almacen/Proveedor','green')
 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (8, 'HV Herramienta','bi-journal-richtext','2rem','white','/Mantenimiento/Hoja_Vida_Herramienta','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (8, 'Asignación Herramienta','bi-window-plus','2rem','white','/Mantenimiento/Asignacion_Herramienta','cornflowerblue')
@@ -5734,6 +5734,7 @@ IdTipoDocumento int,
 Identificacion varchar(255),
 Email varchar(255),
 Telefono varchar(255),
+Celular varchar(255),
 Contacto varchar(255),
 IdCiudad int,
 Direccion varchar(255),
@@ -5759,6 +5760,15 @@ ALTER TABLE Proveedor ADD CONSTRAINT FK_IdEstadoProveedor FOREIGN KEY (IdEstado 
 
 GO
 
+INSERT INTO Proveedor
+(Nombre, IdTipoDocumento, Identificacion, Email,Telefono,Celular,Contacto,IdCiudad,Direccion,IdFormaPago,IdPlazoPago,Descripcion,CreateBy,DateCreate)
+VALUES	
+('DOTACIONES FUTURO SAS', 6, '901254368', 'dotacionesfuturo@gmail.com', '(601) 1234567', '326 9653684', 'Jose Flores', 548, 'Calle 20 # 25-69',1,1,'Dotaciones de Uniformes y EPPs', 1, GETDATE()),
+('FERRETERIA SAN ANDRES', 6, '902698352', 'ferreteriasanandres@gmail.com', '(601) 1234567', '326 9653684', 'Andres Martinez', 548, 'Calle 20 # 25-69',1,1,'Materiales de Construccion', 1, GETDATE()),
+('ASEOS LA SABANA', 6, '901256324', 'aseossabana@gmail.com', '(601) 1234567', '326 9653684', 'Pablo Suarez', 548, 'Calle 20 # 25-69',1,1,'Implementos de Aseos y Limpieza', 1, GETDATE())
+
+GO
+
 CREATE PROCEDURE [dbo].[SP_CrearProveedor] 
 				@IdUser varchar(255), 				
 				@NombreProveedor varchar(255), 
@@ -5766,6 +5776,7 @@ CREATE PROCEDURE [dbo].[SP_CrearProveedor]
 				@Identificacion varchar(255),
 				@Email varchar(255), 
 				@Telefono varchar(255),  
+				@Celular varchar(255), 
 				@Contacto varchar(255),
 				@IdCiudad int,
 				@Direccion varchar(255),
@@ -5789,9 +5800,9 @@ SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
 IF @Permiso > 0
 	BEGIN		
 		INSERT INTO Proveedor
-		(Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdCiudad, Direccion, IdFormaPago, IdPlazoPago, Descripcion, CreateBy, DateCreate) 
+		(Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdCiudad, Direccion, IdFormaPago, IdPlazoPago, Descripcion, CreateBy, DateCreate) 
 		VALUES 
-		(@NombreProveedor, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Contacto, @IdCiudad, @Direccion, @IdFormaPago, @IdPlazoPago, @Descripcion, @IdUsuario, GETDATE())		
+		(@NombreProveedor, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Celular, @Contacto, @IdCiudad, @Direccion, @IdFormaPago, @IdPlazoPago, @Descripcion, @IdUsuario, GETDATE())		
 
 		SET @Resultado = 'OK*El Proveedor ' + @NombreProveedor + ' a sido creado correctamente'
 	END	
@@ -5811,6 +5822,7 @@ CREATE PROCEDURE [dbo].[SP_ActualizarProveedor]	@IdUser varchar(255),
 												@Identificacion varchar(255),
 												@Email varchar(255), 
 												@Telefono varchar(255),  
+												@Celular varchar(255),  
 												@Contacto varchar(255),
 												@IdCiudad int,
 												@Direccion varchar(255),
@@ -5846,6 +5858,7 @@ ELSE
 					Identificacion = @Identificacion,								 
 					Email = @Email, 
 					Telefono = @Telefono,
+					Celular = @Celular,
 					Contacto = @Contacto,
 					IdCiudad = @IdCiudad,
 					Direccion = @Direccion,
@@ -5906,6 +5919,7 @@ BEGIN
 			Identificacion,
 			ISNULL(Email,'') As Email,
 			ISNULL(Telefono,'') As Telefono,
+			ISNULL(Celular,'') As Celular,
 			ISNULL(Contacto,'') As Contacto,
 			ISNULL(Direccion,'') As Direccion,
 			IdFormaPago,

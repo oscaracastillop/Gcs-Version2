@@ -14,7 +14,7 @@ namespace Data.DataEntities
         readonly GcsEntities _conection = new GcsEntities();
         private readonly DataRol dataRol = new DataRol();
 
-        public string CrearProveedor(string IdUser, string NombreProveedor, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Contacto, int IdCiudad, string Direccion, int IdFormaPago, int IdPlazoPago, string Descripcion)
+        public string CrearProveedor(string IdUser, string NombreProveedor, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Celular, string Contacto, int IdCiudad, string Direccion, int IdFormaPago, int IdPlazoPago, string Descripcion)
         {
             string resultado = String.Empty;
             try
@@ -25,6 +25,7 @@ namespace Data.DataEntities
                 var varIdentificacion = new SqlParameter("@Identificacion", SqlDbType.VarChar) { Value = Identificacion };
                 var varEmail = new SqlParameter("@Email", SqlDbType.VarChar) { Value = Email };
                 var varTelefono = new SqlParameter("@Telefono", SqlDbType.VarChar) { Value = Telefono };
+                var varCelular = new SqlParameter("@Celular", SqlDbType.VarChar) { Value = Celular };
                 var varContacto = new SqlParameter("@Contacto", SqlDbType.VarChar) { Value = Contacto };
                 var varIdCiudad = new SqlParameter("@IdCiudad", SqlDbType.Int) { Value = IdCiudad };
                 var varDireccion = new SqlParameter("@Direccion", SqlDbType.VarChar) { Value = Direccion };
@@ -33,7 +34,7 @@ namespace Data.DataEntities
                 var varDescripcion = new SqlParameter("@Descripcion", SqlDbType.VarChar) { Value = Descripcion };
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
 
-                _conection.Database.ExecuteSqlCommand("SP_CrearProveedor @IdUser, @NombreProveedor, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Contacto, @IdCiudad, @Direccion, @IdFormaPago, @IdPlazoPago, @Descripcion, @Resultado OUTPUT", varIdUser, varNombreProveedor, varIdTipoDocumento, varIdentificacion, varEmail, varTelefono, varContacto, varIdCiudad, varDireccion, varIdFormaPago, varIdPlazoPago, varDescripcion, varResultado);
+                _conection.Database.ExecuteSqlCommand("SP_CrearProveedor @IdUser, @NombreProveedor, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Celular, @Contacto, @IdCiudad, @Direccion, @IdFormaPago, @IdPlazoPago, @Descripcion, @Resultado OUTPUT", varIdUser, varNombreProveedor, varIdTipoDocumento, varIdentificacion, varEmail, varTelefono, varCelular, varContacto, varIdCiudad, varDireccion, varIdFormaPago, varIdPlazoPago, varDescripcion, varResultado);
 
                 resultado = Convert.ToString(varResultado.Value);
             }
@@ -59,7 +60,7 @@ namespace Data.DataEntities
             return resultado;
         }
 
-        public string ActualizarProveedor(string IdUser, int IdProveedor, string NombreProveedor, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Contacto, int IdCiudad, string Direccion, int IdFormaPago, int IdPlazoPago, string Descripcion, int Activo)
+        public string ActualizarProveedor(string IdUser, int IdProveedor, string NombreProveedor, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Celular, string Contacto, int IdCiudad, string Direccion, int IdFormaPago, int IdPlazoPago, string Descripcion, int Activo)
         {
             string resultado = String.Empty;
             try
@@ -71,6 +72,7 @@ namespace Data.DataEntities
                 var varIdentificacion = new SqlParameter("@Identificacion", SqlDbType.VarChar) { Value = Identificacion };
                 var varEmail = new SqlParameter("@Email", SqlDbType.VarChar) { Value = Email };
                 var varTelefono = new SqlParameter("@Telefono", SqlDbType.VarChar) { Value = Telefono };
+                var varCelular = new SqlParameter("@Celular", SqlDbType.VarChar) { Value = Celular };
                 var varContacto = new SqlParameter("@Contacto", SqlDbType.VarChar) { Value = Contacto };
                 var varIdCiudad = new SqlParameter("@IdCiudad", SqlDbType.Int) { Value = IdCiudad };
                 var varDireccion = new SqlParameter("@Direccion", SqlDbType.VarChar) { Value = Direccion };
@@ -80,7 +82,7 @@ namespace Data.DataEntities
                 var varActivo = new SqlParameter("@IdEstado", SqlDbType.Int) { Value = Activo };
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
 
-                _conection.Database.ExecuteSqlCommand("SP_ActualizarProveedor @IdUser, @IdProveedor, @NombreProveedor, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Contacto, @IdCiudad, @Direccion, @IdFormaPago, @IdPlazoPago, @Descripcion, @IdEstado, @Resultado OUTPUT", varIdUser, varIdProveedor, varNombreProveedor, varIdTipoDocumento, varIdentificacion, varEmail, varTelefono, varContacto, varIdCiudad, varDireccion, varIdFormaPago, varIdPlazoPago, varDescripcion, varActivo, varResultado);
+                _conection.Database.ExecuteSqlCommand("SP_ActualizarProveedor @IdUser, @IdProveedor, @NombreProveedor, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Celular, @Contacto, @IdCiudad, @Direccion, @IdFormaPago, @IdPlazoPago, @Descripcion, @IdEstado, @Resultado OUTPUT", varIdUser, varIdProveedor, varNombreProveedor, varIdTipoDocumento, varIdentificacion, varEmail, varTelefono, varCelular, varContacto, varIdCiudad, varDireccion, varIdFormaPago, varIdPlazoPago, varDescripcion, varActivo, varResultado);
 
                 resultado = Convert.ToString(varResultado.Value);
             }

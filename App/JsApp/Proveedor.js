@@ -6,6 +6,7 @@
     $("#InputIdentificacionProveedor").empty().val('');
     $("#InputEmailProveedor").empty().val('');
     $("#InputTelefonoProveedor").empty().val('');
+    $("#InputCelularProveedor").empty().val('');
     $("#InputContactoProveedor").empty().val('');
     $("#SelectFormaPago").val(-1);
     $("#SelectPlazoPago").val(-1);
@@ -32,6 +33,7 @@ function CrearProveedor() {
     let Identificacion = $('#InputIdentificacionProveedor').val();
     let Email = $('#InputEmailProveedor').val();
     let Telefono = $('#InputTelefonoProveedor').val();
+    let Celular = $('#InputCelularProveedor').val();
     let Contacto = $('#InputContactoProveedor').val();
     let Direccion = $('#InputDireccionProveedor').val();
     let IdCiudad = $('#SelectCiudad').val();
@@ -69,6 +71,7 @@ function CrearProveedor() {
                 Identificacion: Identificacion,
                 Email: Email,
                 Telefono: Telefono,
+                Celular: Celular,
                 Contacto: Contacto,
                 IdCiudad: IdCiudad,
                 Direccion: Direccion,
@@ -103,6 +106,7 @@ function ActualizarProveedor() {
     let Identificacion = $('#InputIdentificacionProveedor').val();
     let Email = $('#InputEmailProveedor').val();
     let Telefono = $('#InputTelefonoProveedor').val();
+    let Celular = $('#InputCelularProveedor').val();
     let Contacto = $('#InputContactoProveedor').val();
     let IdCiudad = $('#SelectCiudad').val();
     let IdFormaPago = $('#SelectFormaPago').val();
@@ -142,6 +146,7 @@ function ActualizarProveedor() {
                 Identificacion: Identificacion,
                 Email: Email,
                 Telefono: Telefono,
+                Celular: Celular,
                 Contacto: Contacto,
                 IdCiudad: IdCiudad,
                 Direccion: Direccion,
@@ -229,11 +234,12 @@ function GridProveedor() {
             { targets: [5], className: 'dt-head-center' },
             { targets: [6], className: 'dt-head-center' },
             { targets: [7], className: 'dt-head-center' },
-            { targets: [8], width: '280px', className: 'dt-head-center' },
-            { targets: [9], className: 'dt-head-center' },
+            { targets: [8], className: 'dt-head-center' },
+            { targets: [9], width: '280px', className: 'dt-head-center' },
             { targets: [10], className: 'dt-head-center' },
-            { targets: [11], width: '150px', className: 'dt-center dt-head-center' },
-            { targets: [12], width: '100px', className: 'dt-center dt-head-center' }
+            { targets: [11], className: 'dt-head-center' },
+            { targets: [12], width: '150px', className: 'dt-center dt-head-center' },
+            { targets: [13], width: '100px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -244,7 +250,7 @@ function GridProveedor() {
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
                 text: 'Excel',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
                 },
             },
             {
@@ -254,7 +260,7 @@ function GridProveedor() {
                 orientation: 'landscape', //  portrait
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
                     search: 'applied',
                     order: 'applied',
                 },
@@ -325,7 +331,8 @@ function GridProveedor() {
                 title: "Identificación",
                 data: "",
                 render: function (data, type, row) {
-                    return `${row.TipoDocumento}: ${Intl.NumberFormat().format(row.Identificacion)}`;
+                    return `${row.TipoDocumento}: ${row.Identificacion}`;
+                    //return `${row.TipoDocumento}: ${Intl.NumberFormat().format(row.Identificacion)}`;
                 }
                 , width: 'auto'
             },
@@ -333,6 +340,7 @@ function GridProveedor() {
             { "data": "TextoPlazoPago", title: "Plazo de Pago", width: 'auto' },
             { "data": "Email", title: "Email", width: 'auto' },
             { "data": "Telefono", title: "Teléfono", width: 'auto' },
+            { "data": "Celular", title: "Celular", width: 'auto' },
             { "data": "Contacto", title: "Contacto", width: 'auto' },
             {
                 title: "Dirección",
@@ -390,6 +398,7 @@ function GridProveedor() {
         $('#InputIdentificacionProveedor').val(data.Identificacion);
         $('#InputEmailProveedor').val(data.Email);
         $('#InputTelefonoProveedor').val(data.Telefono);
+        $('#InputCelularProveedor').val(data.Celular);
         $('#InputContactoProveedor').val(data.Contacto);
         $('#SelectFormaPago').val(data.IdFormaPago);
         $('#SelectPlazoPago').val(data.IdPlazoPago);
