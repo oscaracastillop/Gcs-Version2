@@ -904,7 +904,7 @@ INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Salida','bi-box-arrow-left','2rem','white','/Almacen/Salida','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Transferencia','bi-arrow-left-right','2rem','white','/Almacen/Transferencia','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Inventario','bi-clipboard2-data','2rem','white','/Almacen/Inventario','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Categoría','bi-grid','2rem','white','/Almacen/Categoria','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Categoría','bi-grid','2rem','white','/Almacen/Categoria','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Producto','bi-dropbox','2rem','white','/Almacen/Producto','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Proveedor','bi-truck','2rem','white','/Almacen/Proveedor','green')
 
@@ -3597,8 +3597,7 @@ CREATE TABLE Banco
 Nombre varchar(255),
 IdEstado int default 1,
 CreateBy int,
-DateCreate datetime,
-unique(Nombre)
+DateCreate datetime
 )
 
 GO
@@ -5937,4 +5936,189 @@ BEGIN
 			ORDER BY Id Desc
 END
 
+GO
+
+/* CATEGORIA */
+
+CREATE TABLE Categoria 
+(Id int identity(1,1) Primary key,
+Nombre varchar(255),
+IdEstado int default 1,
+CreateBy int,
+DateCreate datetime
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoCategoria on Categoria (Nombre)
+
+GO
+
+ALTER TABLE Categoria ADD CONSTRAINT FK_IdCreateByCategoria FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE Categoria ADD CONSTRAINT FK_IdEstadoCategoria FOREIGN KEY (IdEstado) references TipoEstado(Id)
+
+GO
+
+INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Combustibles',1, GETDATE())
+INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Muebles',1, GETDATE())
+INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Semillas',1, GETDATE())
+INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Vehículos',1, GETDATE())
+INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Herramientas',1, GETDATE())
+INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Materiales de Construcción',1, GETDATE())
+INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Fertilizantes',1, GETDATE())
+INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Agroquímicos',1, GETDATE())
+INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Papelería',1, GETDATE())
+INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Aseo',1, GETDATE())
+INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Lubricantes',1, GETDATE())
+INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Elementos de Protección Personal',1, GETDATE())
+INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Electrodomésticos',1, GETDATE())
+INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Equipos de Ofimática',1, GETDATE())
+INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Ferretería',1, GETDATE())
+INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Cafetería',1, GETDATE())
+INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Materiales de Empaque',1, GETDATE())
+INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Drogería y Medicamentos',1, GETDATE())
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_CrearCategoria] 
+				@IdUser varchar(255),  
+				@NombreCategoria varchar(255), 				
+				@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+		
+SET @Accion = 'Crear'
+SET @SubMenu = '/Almacen/Categoria'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN		
+		INSERT INTO Categoria
+		(Nombre,CreateBy, DateCreate) 
+		VALUES 
+		(@NombreCategoria, @IdUsuario, GETDATE())  
+
+		SET @Resultado = 'OK*La Categoría ' + @NombreCategoria + ' a sido creada correctamente'
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ActualizarCategoria] @IdUser varchar(255),
+														@IdCategoria int,				 
+														@NombreCategoria varchar(255), 	
+														@IdEstado int,			
+														@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+		
+SET @Accion = 'Editar'
+SET @SubMenu = '/Almacen/Categoria'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	IF(exists(select * from Categoria where Nombre = @NombreCategoria AND Id != @IdCategoria))  
+	BEGIN  
+		SET @Resultado = 'Error*La Categoría ' +  @NombreCategoria +' ya existe.'
+		RETURN  
+	END
+ELSE
+	BEGIN
+			UPDATE	Categoria 
+			SET		Nombre = @NombreCategoria, 
+					IdEstado = @IdEstado
+			WHERE	Id = @IdCategoria
+		
+		SET @Resultado = 'OK*La Categoría ' +  @NombreCategoria + ' se actualizo correctamente'  
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_EliminarCategoria] @IdUser varchar(255), @IdCategoria int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@NombreCategoria varchar(255),
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Almacen/Categoria'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @NombreCategoria = Nombre FROM Categoria WHERE Id = @IdCategoria
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE Categoria WHERE Id = @IdCategoria
+SET @Resultado = 'OK*Estimado Usuario la Categoria '+ @NombreCategoria +' se elimino correctamente'	
+
+SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridCategoria]
+AS
+BEGIN
+	SELECT	Id, 
+			Nombre, 
+			IdEstado,
+			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,
+			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
+			CONVERT(varchar(255),DateCreate,105)+ ' ' + CONVERT(varchar(255),DateCreate,8) As DateCreate
+			FROM Categoria
+			ORDER BY Nombre Desc
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaCategoria]
+AS
+BEGIN
+	SELECT Id, Nombre FROM Categoria WHERE IdEstado = 1 ORDER BY Nombre ASC
+END
+
+GO
+
+CREATE FUNCTION Fun_BuscarNombreCategoria(@IdCategoria INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombreCategoria VARCHAR(255)
+	SELECT	@NombreCategoria = Nombre
+	FROM	Categoria
+	WHERE	Id = @IdCategoria
+	RETURN @NombreCategoria
+END
+
+GO
 

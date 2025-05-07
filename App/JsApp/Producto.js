@@ -1,55 +1,68 @@
-﻿function ModalEmpleado(tipo) {
-    $("#TituloModalEmpleado").empty().val('');
-    $("#LabelIdEmpleado").empty().val('');
-    $("#InputNombreEmpleado").empty().val('');
-    $("#InputApellidosEmpleado").empty().val('');
-    $("#SelectTipoDocumento").val(-1);
-    $("#InputIdentificacionEmpleado").empty().val('');
-    $("#BotonesModalEmpleado").empty();
+﻿function ModalProducto(tipo) {
+    $("#TituloModalProducto").empty().val('');
+    $("#LabelIdProducto").empty().val('');
+    $("#SelectCategoria").val(-1);
+    $("#InputNombreProducto").empty().val('');
+    $("#InputMarcaProducto").empty().val('');
+    $("#InputReferenciaProducto").empty().val('');
+    $("#InputCodigoEANProducto").empty().val('');
+    $("#SelectUnidadMedida").val(-1);
+    $("#InputStockMinimo").empty().val('');
+    $("#InputDescripcion").empty().val('');
+    $("#BotonesModalProducto").empty();
     if (tipo == 'C') {
-        $("#ContenedorImagenHVEmpleado").hide();
-        $("#TituloModalEmpleado").empty().append('<label>Crear Empleado</label>');
-        $('#ModalEmpleado').modal('show');
-        $("#SelectEstadoEmpleado").hide();
-        $("#BotonesModalEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearEmpleado()">Guardar</button>');
+        $("#ContenedorImagenHVProducto").hide();
+        $("#TituloModalProducto").empty().append('<label>Crear Producto</label>');
+        $('#ModalProducto').modal('show');
+        $("#SelectEstadoProducto").hide();
+        $("#BotonesModalProducto").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearProducto()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#ContenedorImagenHVEmpleado").show();
-        $("#TituloModalEmpleado").empty().append('<label>Editar Empleado</label>');
-        $('#ModalEmpleado').modal('show');
-        $("#SelectEstadoEmpleado").show();
-        $("#BotonesModalEmpleado").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarEmpleado()">Guardar Cambios</button>');
+        $("#ContenedorImagenHVProducto").show();
+        $("#TituloModalProducto").empty().append('<label>Editar Producto</label>');
+        $('#ModalProducto').modal('show');
+        $("#SelectEstadoProducto").show();
+        $("#BotonesModalProducto").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarProducto()">Guardar Cambios</button>');
     }
 }
 
 
-function CrearEmpleado() {
-    let Nombre = $('#InputNombreEmpleado').val();
-    let Apellidos = $('#InputApellidosEmpleado').val();
-    let IdTipoDocumento = $('#SelectTipoDocumento').val();
-    let Identificacion = $('#InputIdentificacionEmpleado').val();
-    if (Nombre == null || Nombre == '' || Nombre == undefined) {
-        $('#InputNombreEmpleado').focus();
-        VentanaMensaje('Ingrese el Nombre del Empleado', 'info');
-    } else if (Apellidos == null || Apellidos == '' || Apellidos == undefined) {
-        $('#InputApellidosEmpleado').focus();
-        VentanaMensaje('Ingrese el Apellido del Empleado', 'info');        
-    } else if (IdTipoDocumento == -1 || IdTipoDocumento == null || IdTipoDocumento == '') {
-        $('#SelectTipoDocumento').focus();
-        VentanaMensaje('Seleccione el Tipo de Documento del Empleado', 'info');        
-    } else if (Identificacion == null || Identificacion == '' || Identificacion == undefined) {
-        $('#InputIdentificacionEmpleado').focus();
-        VentanaMensaje('Ingrese la Identificación del Empleado', 'info');        
+function CrearProducto() {
+    let IdCategoria = $('#SelectCategoria').val();
+    let NombreProducto = $('#InputNombreProducto').val();
+    let MarcaProducto = $('#InputMarcaProducto').val();
+    let ReferenciaProducto = $('#InputReferenciaProducto').val();
+    let CodigoEANProducto = $('#InputCodigoEANProducto').val();
+    let IdUnidadMedida = $('#SelectUnidadMedida').val();
+    let StockMinimo = $('#InputStockMinimo').val();
+    let Descripcion = $('#InputDescripcion').val();
+
+    if (IdCategoria == -1 || IdCategoria == null || IdCategoria == '') {
+        $('#SelectCategoria').focus();
+        VentanaMensaje('Seleccione la Categoría', 'info');
+    } else if (NombreProducto == null || NombreProducto == '' || NombreProducto == undefined) {
+        $('#InputNombreProducto').focus();
+        VentanaMensaje('Ingrese nombre del Producto', 'info');
+    } else if (IdUnidadMedida == -1 || IdUnidadMedida == null || IdUnidadMedida == '') {
+        $('#SelectUnidadMedida').focus();
+        VentanaMensaje('Seleccione la Unidad de Medida', 'info');
+    } else if (StockMinimo == -1 || StockMinimo == null || StockMinimo == '') {
+        $('#InputStockMinimo').focus();
+        VentanaMensaje('Ingrese la cantidad Mínima de Inventario', 'info');
     } else {
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/Empleado/CrearEmpleado',
+            url: '/Producto/CrearProducto',
             data: {
                 IdUser: TokenUser,
-                Nombre: Nombre,
-                Apellidos: Apellidos,
-                IdTipoDocumento: IdTipoDocumento,
-                Identificacion: Identificacion
+                IdCategoria: IdCategoria,
+                NombreProducto: NombreProducto,
+                MarcaProducto: MarcaProducto,
+                ReferenciaProducto: ReferenciaProducto,
+                CodigoEANProducto: CodigoEANProducto,
+                IdUnidadMedida: IdUnidadMedida,
+                StockMinimo: StockMinimo,
+                Descripcion: Descripcion
             },
             success: function (resultado) {
                 valor = resultado.split('*');
@@ -66,44 +79,52 @@ function CrearEmpleado() {
                 } else {
                     Swal.fire(TituloSwal, valor[1], 'info');
                 }
-            }
+            } 
         });
     }
 }
 
-
-function ActualizarEmpleado() {
-    let IdEmpleado = $('#LabelIdEmpleado').text();
-    let Nombre = $('#InputNombreEmpleado').val();
-    let Apellidos = $('#InputApellidosEmpleado').val();
-    let IdTipoDocumento = $('#SelectTipoDocumento').val();
-    let Identificacion = $('#InputIdentificacionEmpleado').val();
+function ActualizarProducto() {
+    let IdProducto = $('#LabelIdProducto').text();
+    let IdCategoria = $('#SelectCategoria').val();
+    let NombreProducto = $('#InputNombreProducto').val();
+    let MarcaProducto = $('#InputMarcaProducto').val();
+    let ReferenciaProducto = $('#InputReferenciaProducto').val();
+    let CodigoEANProducto = $('#InputCodigoEANProducto').val();
+    let IdUnidadMedida = $('#SelectUnidadMedida').val();
+    let StockMinimo = $('#InputStockMinimo').val();
     let IdEstado = $('#SelectEstado').val();
-    if (Nombre == null || Nombre == '' || Nombre == undefined) {
-        $('#InputNombreEmpleado').focus();
-        VentanaMensaje('Ingrese el Nombre del Empleado', 'info');
-    } else if (Apellidos == null || Apellidos == '' || Apellidos == undefined) {
-        VentanaMensaje('Ingrese el Apellido del Empleado', 'info'); 
-        Swal.fire(TituloSwal, 'Ingrese el Apellido del Empleado', 'info');
-    } else if (IdTipoDocumento == -1 || IdTipoDocumento == null || IdTipoDocumento == '') {
-        $('#SelectTipoDocumento').focus();
-        VentanaMensaje('Seleccione el Tipo de Documento del Empleado', 'info');   
-    } else if (Identificacion == null || Identificacion == '' || Identificacion == undefined) {
-        $('#InputIdentificacionEmpleado').focus();
-        VentanaMensaje('Ingrese la Identificación del Empleado', 'info');    
+    let Descripcion = $('#InputDescripcion').val();
+
+    if (IdCategoria == -1 || IdCategoria == null || IdCategoria == '') {
+        $('#SelectCategoria').focus();
+        VentanaMensaje('Seleccione la Categoría', 'info');
+    } else if (NombreProducto == null || NombreProducto == '' || NombreProducto == undefined) {
+        $('#InputNombreProducto').focus();
+        VentanaMensaje('Ingrese nombre del Producto', 'info');
+    } else if (IdUnidadMedida == -1 || IdUnidadMedida == null || IdUnidadMedida == '') {
+        $('#SelectUnidadMedida').focus();
+        VentanaMensaje('Seleccione la Unidad de Medida', 'info');
+    } else if (StockMinimo == -1 || StockMinimo == null || StockMinimo == '') {
+        $('#SelectUnidadMedida').focus();
+        VentanaMensaje('Ingrese la cantidad Mínima de Inventario', 'info');
     } else {
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/Empleado/ActualizarEmpleado',
+            url: '/Producto/ActualizarProducto',
             data: {
                 IdUser: TokenUser,
-                IdEmpleado: IdEmpleado,
-                Nombre: Nombre,
-                Apellidos: Apellidos,
-                IdTipoDocumento: IdTipoDocumento,
-                Identificacion: Identificacion,
-                IdEstado: IdEstado
+                IdProducto: IdProducto,
+                IdCategoria: IdCategoria,
+                NombreProducto: NombreProducto,
+                MarcaProducto: MarcaProducto,
+                ReferenciaProducto: ReferenciaProducto,
+                CodigoEANProducto: CodigoEANProducto,
+                IdUnidadMedida: IdUnidadMedida,
+                StockMinimo: StockMinimo,
+                IdEstado: IdEstado,
+                Descripcion: Descripcion
             },
             success: function (resultado) {
                 valor = resultado.split('*');
@@ -120,12 +141,12 @@ function ActualizarEmpleado() {
                 } else {
                     Swal.fire(TituloSwal, valor[1], 'info');
                 }
-            }            
+            }      
         });
     }
 }
 
-function EliminarEmpleado(IdEmpleado) {
+function EliminarProducto(IdProducto) {
     Swal.fire({
         title: TituloSwal,
         text: "Esta seguro(a)?, No podrás revertir esta acción.!",
@@ -141,10 +162,10 @@ function EliminarEmpleado(IdEmpleado) {
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: '/Empleado/EliminarEmpleado',
+                url: '/Producto/EliminarProducto',
                 data: {
                     IdUser: TokenUser,
-                    IdEmpleado: IdEmpleado
+                    IdProducto: IdProducto
                 },
                 success: function (resultado) {
                     valor = resultado.split('*');
@@ -167,9 +188,10 @@ function EliminarEmpleado(IdEmpleado) {
     });
 }
 
-function GuardarImagenHVEmpleado() {
-    var IdEmpleado = $('#IdEmpleadoImagen').text();
-    var NombreImagen = $('#NombreImagenActualEmpleado').text();
+
+
+function GuardarImagenProducto() {
+    var NombreImagen = $('#NombreImagenActualProducto').text();
     var photo = new Array();
     var formData = new FormData();
 
@@ -185,9 +207,9 @@ function GuardarImagenHVEmpleado() {
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/Empleado/DatosEmpleado',
+            url: '/Producto/DatosProducto',
             data: {
-                IdEmpleado: IdEmpleado,
+                IdProducto: IdEdit,
                 IdUsuario: TokenUser,
                 NombreImagen: NombreImagen
             }
@@ -196,9 +218,9 @@ function GuardarImagenHVEmpleado() {
         $.ajax({
             type: 'POST',
             data: photo[0],
-            url: '/Empleado/GuardarImagenHVEmpleado',
+            url: '/Producto/GuardarImagenProducto',
             contentType: false,
-            processData: false,            
+            processData: false,
             success: function (result) {
                 valor = result.split('*');
                 if (valor[0] == 'OK') {
@@ -219,12 +241,9 @@ function GuardarImagenHVEmpleado() {
     }
 }
 
-//#endregion
-
-//#region funciones Grid
-function GridEmpleado() {
-    var tituloReporte = 'REPORTE EMPLEADO';
-    let datatable = $('#gridEmpleado').DataTable({
+function GridProducto() {
+    var tituloReporte = 'REPORTE PRODUCTOS';
+    let datatable = $('#gridProducto').DataTable({
         scrollCollapse: true,
         scrollY: '800px',
         scrollX: true,
@@ -246,7 +265,7 @@ function GridEmpleado() {
             filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
             text: 'Excel',
             exportOptions: {
-                columns: [1,2, 3, 5, 6, 7]
+                columns: [1, 2, 3, 5, 6, 7]
             },
         },
         {
@@ -306,48 +325,38 @@ function GridEmpleado() {
                 doc.content[0].layout = objLayout;
             }
         },
-            {
-                text: 'Nuevo',
-                className: 'btn btn-nuevo-datatable',
-                action: function (e, dt, node, config) {
-                    ModalEmpleado('C');
-                }
+        {
+            text: 'Nuevo',
+            className: 'btn btn-nuevo-datatable',
+            action: function (e, dt, node, config) {
+                ModalProducto('C');
             }
+        }
         ],
         /*"order": [[1, "asc"]],*/
         destroy: true,
         "ajax": {
-            "url": '/Empleado/GridEmpleado',
+            "url": '/Producto/GridProducto',
             "type": "GET",
             "datatype": "json"
         },
-        columns: [   
+        columns: [
             {
                 title: "Imagén",
                 "data": 'Imagen',
                 "render": function (data, type, row, meta) {
-                    return '<img class="btn CambiarImagenEmpleado" src="/Images/ImagenHVEmpleado/' + data + '" alt="" style="height:57px; width:70px; border-radius:50%"/>';                   
+                    return '<img class="btn CambiarImagenProducto" src="/Images/ImagenHVProducto/' + data + '" alt="" style="height:57px; width:70px; border-radius:50%"/>';
                 },
                 width: '50px'
             },
-            {
-                title: "Empleado",
-                data: "nombres",
-                render: function (data, type, row) {
-                    return `${row.Nombre} ${row.Apellidos}`;
-                }
-                , width: 'auto'
-            },
-            { "data": "TipoDocumento", title: "Documento", width: 'auto', visible: false },
-            { "data": "Identificacion", title: "Identificación", width: 'auto', visible: false },
-            {
-                title: "Identificación",
-                data: "",
-                render: function (data, type, row) {
-                    return `${row.TipoDocumento}: ${Intl.NumberFormat().format(row.Identificacion)}`;
-                }
-                , width: 'auto'
-            },
+            { "data": "NombreProducto", title: "Producto", width: 'auto' },
+            { "data": "MarcaProducto", title: "Marca", width: 'auto' },
+            { "data": "ReferenciaProducto", title: "Referencia", width: 'auto' },
+            { "data": "CodigoEANProducto", title: "Código", width: 'auto' },
+            { "data": "UnidadMedida", title: "Und Medida", width: 'auto' },
+            { "data": "StockMinimo", title: "Stock Mínimo", width: 'auto' },
+            { "data": "NombreCategoria", title: "Categoría", width: 'auto' },
+            { "data": "Descripcion", title: "Descripción", width: 'auto' },
             { "data": "CreateBy", title: "Creado Por", width: 'auto' },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto' },
             {
@@ -370,7 +379,7 @@ function GridEmpleado() {
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<a class="EditarEmpleado btn btn-editar-dt" title="Editar Registro">Editar</a>&nbsp;&nbsp;<a class="EliminarEmpleado btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>' +
+                    '<a class="EditarProducto btn btn-editar-dt" title="Editar Registro">Editar</a>&nbsp;&nbsp;<a class="EliminarProducto btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',
@@ -387,83 +396,53 @@ function GridEmpleado() {
     });
 
 
-    $('#gridEmpleado').on('click', '.EditarEmpleado', function () {
+    $('#gridProducto').on('click', '.EditarProducto', function () {
         let data = datatable.row($(this).parents()).data();
-        ModalEmpleado('E');
-        $('#LabelIdEmpleado').text(data.Id);
-        $('#InputNombreEmpleado').val(data.Nombre);
-        $('#InputApellidosEmpleado').val(data.Apellidos);
-        $('#SelectTipoDocumento').val(data.IdTipoDocumento);
-        $('#InputIdentificacionEmpleado').val(data.Identificacion);
+        ModalProducto('E');
+        $('#LabelIdProducto').text(data.Id);
+        $('#InputNombreProducto').val(data.NombreProducto);
+
+
+
+
         $('#SelectEstado').val(data.IdEstado);
     })
 
-    $('#gridEmpleado').on('click', '.CambiarImagenEmpleado', function () {
+    $('#gridProducto').on('click', '.CambiarImagenProducto', function () {
         let data = datatable.row($(this).parents()).data();
-        $('#ModalImagenEmpleado').modal('show');
-        $('#IdEmpleadoImagen').text(data.Id);
-        $('#NombreImagenActualEmpleado').text(data.Imagen);
-        $('#NombreEmpleadoImagen').text(data.Nombre + ' ' + data.Apellidos);
-        $('#ImagenHVEmpleado').empty().append(
-            '<img src="/Images/ImagenHVEmpleado/' + data.Imagen + '" alt="" style="height:200px; width:200px; border-radius:50%; border:0px solid; background:white;padding:0px"/>'
+        $('#ModalImagenProducto').modal('show');
+        $('#IdProductoImagen').text(data.Id);
+        $('#NombreImagenActualProducto').text(data.Imagen);
+        $('#NombreProductoImagen').text(data.NombreProducto);
+        $('#ImagenProducto').empty().append(
+            '<img src="/Images/ImagenProducto/' + data.Imagen + '" alt="" style="height:200px; width:200px; border-radius:50%; border:0px solid; background:white;padding:0px"/>'
         );
     })
 
-    $('#gridEmpleado').on('click', '.EliminarEmpleado', function () {
+    $('#gridProducto').on('click', '.EliminarProducto', function () {
         let data = datatable.row($(this).parents()).data();
-        EliminarEmpleado(data.Id);
+        EliminarProducto(data.Id);
     })
 
 }
 
-
-function ListaEmpleado() {
+function ListaProducto() {
     $.ajax({
         type: 'POST',
         dataType: 'json',
-        url: '/Empleado/ListaEmpleado',
+        url: '/Producto/ListaProducto',
         data: {},
         success: function (resultado) {
             var contador = 0;
             if (resultado.length === 0) {
-                $("#SelectEmpleado").append('<option value="">No hay Datos</option>');
+                $("#SelectProducto").append('<option value="">No hay Datos</option>');
             } else {
-                $("#SelectEmpleado").empty().append('<option value="-1">Seleccione ...</option>');
+                $("#SelectProducto").empty().append('<option value="-1">Seleccione ...</option>');
                 $.each(resultado, function () {
-                    $("#SelectEmpleado").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
+                    $("#SelectProducto").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
                     contador++;
                 });
             }
         },
     });
 }
-
-function BuscarImagenEmpleado(IdEmpleado) {
-    $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        url: '/Empleado/BuscarImagenEmpleado',
-        data: {
-            IdEmpleado: IdEmpleado
-        },
-        success: function (resultado) {
-            $("#ImagenEmpleado").empty();
-            if (IdEmpleado == -1) {
-                $('#ImagenEmpleado').empty().append(
-                    '<img src="/Images/ImagenHVEmpleado/Empleado.png" alt="" style="height:200px; width:200px; border-radius:50%; border:0px solid; background:white;padding:0px"/>'
-                );
-            } else {
-                $('#ImagenEmpleado').empty().append(
-                    '<img src="/Images/ImagenHVEmpleado/' + resultado[0].Imagen + '" alt="" style="height:200px; width:200px; border-radius:50%; border:0px solid; background:white;padding:0px"/>'
-                );
-            }
-        },
-    });
-}
-
-function InfoEmpleado() {
-    Swal.fire(TituloSwal, 'Esta Opción no esta disponible en el momento', 'info');
-}
-
-
-

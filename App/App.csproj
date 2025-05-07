@@ -2189,6 +2189,7 @@
     <Content Include="JsApp\BonoEmpleado.js" />
     <Content Include="JsApp\Cargo.js" />
     <Content Include="JsApp\CasinoEmpleado.js" />
+    <Content Include="JsApp\Categoria.js" />
     <Content Include="JsApp\CCFamiliar.js" />
     <Content Include="JsApp\Ciudad.js" />
     <Content Include="JsApp\Cliente.js" />
@@ -2207,6 +2208,7 @@
     <Content Include="JsApp\PermisoSubMenu.js" />
     <Content Include="JsApp\PlazoPago.js" />
     <Content Include="JsApp\PrestamoEmpleado.js" />
+    <Content Include="JsApp\Producto.js" />
     <Content Include="JsApp\Proveedor.js" />
     <Content Include="JsApp\SubMenu.js" />
     <Content Include="JsApp\Sucursal.js" />
@@ -2455,6 +2457,7 @@
     <Compile Include="Controllers\Cargar_DocumentoController.cs" />
     <Compile Include="Controllers\CargoController.cs" />
     <Compile Include="Controllers\Casino_EmpleadoController.cs" />
+    <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\CC_FamiliarController.cs" />
     <Compile Include="Controllers\CiudadController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
@@ -2484,6 +2487,7 @@
     <Compile Include="Controllers\Permiso_MenuController.cs" />
     <Compile Include="Controllers\Permiso_SubMenuController.cs" />
     <Compile Include="Controllers\PlazoPagoController.cs" />
+    <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Controllers\Recursos_HumanosController.cs" />
     <Compile Include="Controllers\Prestamo_EmpleadoController.cs" />
@@ -2565,10 +2569,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\FormaPago\" />
-    <Folder Include="Views\PlazoPago\" />
-    <Folder Include="Views\Proveedor\" />
-    <Folder Include="Views\Usuario\" />
+    <Folder Include="Views\Producto\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

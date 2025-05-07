@@ -69,6 +69,7 @@
     <Compile Include="DataEntities\DataBonoEmpleado.cs" />
     <Compile Include="DataEntities\DataCargo.cs" />
     <Compile Include="DataEntities\DataCasinoEmpleado.cs" />
+    <Compile Include="DataEntities\DataCategoria.cs" />
     <Compile Include="DataEntities\DataCCFamiliar.cs" />
     <Compile Include="DataEntities\DataCiudad.cs" />
     <Compile Include="DataEntities\DataCliente.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="DataEntities\DataPermisoSubMenu.cs" />
     <Compile Include="DataEntities\DataPlazoPago.cs" />
     <Compile Include="DataEntities\DataPrestamoEmpleado.cs" />
+    <Compile Include="DataEntities\DataProducto.cs" />
     <Compile Include="DataEntities\DataProveedor.cs" />
     <Compile Include="DataEntities\DataRol.cs" />
     <Compile Include="DataEntities\DataSubMenu.cs" />
