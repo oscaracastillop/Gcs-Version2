@@ -6598,7 +6598,7 @@ BEGIN
 			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,
 			Descripcion,
 			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
-			CONVERT(varchar(255),DateCreate,20) As DateCreate
+			CONVERT(varchar(255),DateCreate,105)+ ' ' + CONVERT(varchar(255),DateCreate,8) As DateCreate
 	FROM Producto ORDER BY Id DESC
 END
 
