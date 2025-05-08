@@ -18,7 +18,7 @@ namespace Data.DataEntities
         private readonly DataRol dataRol = new DataRol();
 
       
-        public string CrearProducto(string IdUser, int IdCategoria, string NombreProducto, string MarcaProducto, string ReferenciaProducto, string CodigoEANProducto, int IdUnidadMedida, int StockMinimo, string Descripcion)
+        public string CrearProducto(string IdUser, int IdCategoria, string NombreProducto, string MarcaProducto, string ReferenciaProducto, string CodigoProducto, int IdUnidadMedida, int StockMinimo, string Descripcion)
         {
             string resultado = String.Empty;
             try
@@ -28,13 +28,13 @@ namespace Data.DataEntities
                 var varNombreProducto = new SqlParameter("@NombreProducto", SqlDbType.VarChar) { Value = NombreProducto };
                 var varMarcaProducto = new SqlParameter("@MarcaProducto", SqlDbType.VarChar) { Value = MarcaProducto };
                 var varReferenciaProducto = new SqlParameter("@ReferenciaProducto", SqlDbType.VarChar) { Value = ReferenciaProducto };
-                var varCodigoEANProducto = new SqlParameter("@CodigoEANProducto", SqlDbType.VarChar) { Value = CodigoEANProducto };
+                var varCodigoProducto = new SqlParameter("@CodigoProducto", SqlDbType.VarChar) { Value = CodigoProducto };
                 var varIdUnidadMedida = new SqlParameter("@IdUnidadMedida", SqlDbType.Int) { Value = IdUnidadMedida };
                 var varStockMinimo = new SqlParameter("@StockMinimo", SqlDbType.Int) { Value = StockMinimo };
                 var varDescripcion = new SqlParameter("@Descripcion", SqlDbType.VarChar) { Value = Descripcion };
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
 
-                _conection.Database.ExecuteSqlCommand("SP_CrearProducto @IdUser, @IdCategoria, @NombreProducto, @MarcaProducto,@ReferenciaProducto,@CodigoEANProducto,@IdUnidadMedida, @StockMinimo,@Descripcion, @Resultado OUTPUT", varIdUser, varIdCategoria, varNombreProducto, varMarcaProducto, varReferenciaProducto, varCodigoEANProducto, varIdUnidadMedida, varStockMinimo, varDescripcion, varResultado);
+                _conection.Database.ExecuteSqlCommand("SP_CrearProducto @IdUser, @IdCategoria, @NombreProducto, @MarcaProducto,@ReferenciaProducto,@CodigoProducto,@IdUnidadMedida, @StockMinimo,@Descripcion, @Resultado OUTPUT", varIdUser, varIdCategoria, varNombreProducto, varMarcaProducto, varReferenciaProducto, varCodigoProducto, varIdUnidadMedida, varStockMinimo, varDescripcion, varResultado);
 
                 resultado = Convert.ToString(varResultado.Value);
             }
@@ -60,7 +60,7 @@ namespace Data.DataEntities
             return resultado;
         }
 
-        public string ActualizarProducto(string IdUser, int IdProducto, int IdCategoria, string NombreProducto, string MarcaProducto, string ReferenciaProducto, string CodigoEANProducto, int IdUnidadMedida, int StockMinimo, int IdEstado, string Descripcion)
+        public string ActualizarProducto(string IdUser, int IdProducto, int IdCategoria, string NombreProducto, string MarcaProducto, string ReferenciaProducto, string CodigoProducto, int IdUnidadMedida, int StockMinimo, int IdEstado, string Descripcion)
         {
             string resultado = String.Empty;
             try
@@ -71,14 +71,14 @@ namespace Data.DataEntities
                 var varNombreProducto = new SqlParameter("@NombreProducto", SqlDbType.VarChar) { Value = NombreProducto };
                 var varMarcaProducto = new SqlParameter("@MarcaProducto", SqlDbType.VarChar) { Value = MarcaProducto };
                 var varReferenciaProducto = new SqlParameter("@ReferenciaProducto", SqlDbType.VarChar) { Value = ReferenciaProducto };
-                var varCodigoEANProducto = new SqlParameter("@CodigoEANProducto", SqlDbType.VarChar) { Value = CodigoEANProducto };
+                var varCodigoProducto = new SqlParameter("@CodigoProducto", SqlDbType.VarChar) { Value = CodigoProducto };
                 var varIdUnidadMedida = new SqlParameter("@IdUnidadMedida", SqlDbType.Int) { Value = IdUnidadMedida };
                 var varStockMinimo = new SqlParameter("@StockMinimo", SqlDbType.Int) { Value = StockMinimo };
                 var varIdEstado = new SqlParameter("@IdEstado", SqlDbType.Int) { Value = IdEstado };
                 var varDescripcion = new SqlParameter("@Descripcion", SqlDbType.VarChar) { Value = Descripcion };
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
 
-                _conection.Database.ExecuteSqlCommand("SP_ActualizarProducto @IdUser, @IdProducto, @IdCategoria, @NombreProducto, @MarcaProducto,@ReferenciaProducto,@CodigoEANProducto,@IdUnidadMedida, @StockMinimo, @IdEstado, @Descripcion, @Resultado OUTPUT", varIdUser, varIdProducto, varIdCategoria, varNombreProducto, varMarcaProducto, varReferenciaProducto, varCodigoEANProducto, varIdUnidadMedida, varStockMinimo, varIdEstado, varDescripcion, varResultado);
+                _conection.Database.ExecuteSqlCommand("SP_ActualizarProducto @IdUser, @IdProducto, @IdCategoria, @NombreProducto, @MarcaProducto,@ReferenciaProducto,@CodigoProducto,@IdUnidadMedida, @StockMinimo, @IdEstado, @Descripcion, @Resultado OUTPUT", varIdUser, varIdProducto, varIdCategoria, varNombreProducto, varMarcaProducto, varReferenciaProducto, varCodigoProducto, varIdUnidadMedida, varStockMinimo, varIdEstado, varDescripcion, varResultado);
 
                 resultado = Convert.ToString(varResultado.Value);
             }
@@ -142,7 +142,7 @@ namespace Data.DataEntities
                 var varUrlImagenProducto = new SqlParameter("@UrlImagenProducto", SqlDbType.VarChar) { Value = UrlImagenProducto };
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
 
-                _conection.Database.ExecuteSqlCommand("SP_GuardarUrlImagenBaseDatos @IdUser, @IdProducto, @UrlImagenProducto, @Resultado OUTPUT", varIdUser, varIdProducto, varUrlImagenProducto, varResultado);
+                _conection.Database.ExecuteSqlCommand("SP_GuardarUrlImagenProductoBaseDatos @IdUser, @IdProducto, @UrlImagenProducto, @Resultado OUTPUT", varIdUser, varIdProducto, varUrlImagenProducto, varResultado);
 
                 resultado = Convert.ToString(varResultado.Value);
             }

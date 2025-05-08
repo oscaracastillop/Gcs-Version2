@@ -5,7 +5,7 @@
     $("#InputNombreProducto").empty().val('');
     $("#InputMarcaProducto").empty().val('');
     $("#InputReferenciaProducto").empty().val('');
-    $("#InputCodigoEANProducto").empty().val('');
+    $("#InputCodigoProducto").empty().val('');
     $("#SelectUnidadMedida").val(-1);
     $("#InputStockMinimo").empty().val('');
     $("#InputDescripcion").empty().val('');
@@ -15,6 +15,7 @@
         $("#TituloModalProducto").empty().append('<label>Crear Producto</label>');
         $('#ModalProducto').modal('show');
         $("#SelectEstadoProducto").hide();
+        $("#InputStockMinimo").val(0);
         $("#BotonesModalProducto").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearProducto()">Guardar</button>');
     } if (tipo == 'E') {
         $("#ContenedorImagenHVProducto").show();
@@ -31,10 +32,10 @@ function CrearProducto() {
     let NombreProducto = $('#InputNombreProducto').val();
     let MarcaProducto = $('#InputMarcaProducto').val();
     let ReferenciaProducto = $('#InputReferenciaProducto').val();
-    let CodigoEANProducto = $('#InputCodigoEANProducto').val();
+    let CodigoProducto = $('#InputCodigoProducto').val();
     let IdUnidadMedida = $('#SelectUnidadMedida').val();
     let StockMinimo = $('#InputStockMinimo').val();
-    let Descripcion = $('#InputDescripcion').val();
+    let Descripcion = $('#InputDescripcionProducto').val();
 
     if (IdCategoria == -1 || IdCategoria == null || IdCategoria == '') {
         $('#SelectCategoria').focus();
@@ -59,7 +60,7 @@ function CrearProducto() {
                 NombreProducto: NombreProducto,
                 MarcaProducto: MarcaProducto,
                 ReferenciaProducto: ReferenciaProducto,
-                CodigoEANProducto: CodigoEANProducto,
+                CodigoProducto: CodigoProducto,
                 IdUnidadMedida: IdUnidadMedida,
                 StockMinimo: StockMinimo,
                 Descripcion: Descripcion
@@ -90,11 +91,11 @@ function ActualizarProducto() {
     let NombreProducto = $('#InputNombreProducto').val();
     let MarcaProducto = $('#InputMarcaProducto').val();
     let ReferenciaProducto = $('#InputReferenciaProducto').val();
-    let CodigoEANProducto = $('#InputCodigoEANProducto').val();
+    let CodigoProducto = $('#InputCodigoProducto').val();
     let IdUnidadMedida = $('#SelectUnidadMedida').val();
     let StockMinimo = $('#InputStockMinimo').val();
     let IdEstado = $('#SelectEstado').val();
-    let Descripcion = $('#InputDescripcion').val();
+    let Descripcion = $('#InputDescripcionProducto').val();
 
     if (IdCategoria == -1 || IdCategoria == null || IdCategoria == '') {
         $('#SelectCategoria').focus();
@@ -120,7 +121,7 @@ function ActualizarProducto() {
                 NombreProducto: NombreProducto,
                 MarcaProducto: MarcaProducto,
                 ReferenciaProducto: ReferenciaProducto,
-                CodigoEANProducto: CodigoEANProducto,
+                CodigoProducto: CodigoProducto,
                 IdUnidadMedida: IdUnidadMedida,
                 StockMinimo: StockMinimo,
                 IdEstado: IdEstado,
@@ -191,6 +192,7 @@ function EliminarProducto(IdProducto) {
 
 
 function GuardarImagenProducto() {
+    var IdProducto = $('#IdProductoImagen').text();
     var NombreImagen = $('#NombreImagenActualProducto').text();
     var photo = new Array();
     var formData = new FormData();
@@ -209,7 +211,7 @@ function GuardarImagenProducto() {
             dataType: 'json',
             url: '/Producto/DatosProducto',
             data: {
-                IdProducto: IdEdit,
+                IdProducto: IdProducto,
                 IdUsuario: TokenUser,
                 NombreImagen: NombreImagen
             }
@@ -254,9 +256,13 @@ function GridProducto() {
             { targets: [2], className: 'dt-head-center' },
             { targets: [4], className: 'dt-head-center' },
             { targets: [5], className: 'dt-head-center' },
-            { targets: [6], className: 'dt-head-center' },
-            { targets: [7], width: '150px', className: 'dt-center dt-head-center' },
-            { targets: [8], width: '100px', className: 'dt-center dt-head-center' }
+            { targets: [6], className: 'dt-center dt-head-center' },
+            { targets: [7], className: 'dt-head-center' },
+            { targets: [8], className: 'dt-head-center' },
+            { targets: [9], className: 'dt-head-center' },
+            { targets: [10], className: 'dt-head-center' },
+            { targets: [11], width: '150px', className: 'dt-center dt-head-center' },
+            { targets: [12], width: '100px', className: 'dt-center dt-head-center' }
         ],
         buttons: [{
             extend: 'excel', className: 'btn btn-excel-datatable',
@@ -265,7 +271,7 @@ function GridProducto() {
             filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
             text: 'Excel',
             exportOptions: {
-                columns: [1, 2, 3, 5, 6, 7]
+                columns: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11]
             },
         },
         {
@@ -273,10 +279,10 @@ function GridProducto() {
             extend: 'pdfHtml5', className: 'btn btn-pdf-datatable',
             text: 'Pdf',
             filename: tituloReporte + ' - ' + NameApp + ' ' + jsDate + ' ' + hora,
-            orientation: 'portrait', //portrait landscape
+            orientation: 'landscape', //portrait landscape
             pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
             exportOptions: {
-                columns: [1, 2, 3, 5, 6, 7],
+                columns: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11],
                 search: 'applied',
                 order: 'applied',
             },
@@ -343,16 +349,16 @@ function GridProducto() {
         columns: [
             {
                 title: "Imagén",
-                "data": 'Imagen',
+                "data": 'ImagenProducto',
                 "render": function (data, type, row, meta) {
-                    return '<img class="btn CambiarImagenProducto" src="/Images/ImagenHVProducto/' + data + '" alt="" style="height:57px; width:70px; border-radius:50%"/>';
+                    return '<img class="btn CambiarImagenProducto" src="/Images/ImagenProducto/' + data + '" alt="" style="height:50px; border-radius:50%"/>';
                 },
                 width: '50px'
             },
             { "data": "NombreProducto", title: "Producto", width: 'auto' },
             { "data": "MarcaProducto", title: "Marca", width: 'auto' },
             { "data": "ReferenciaProducto", title: "Referencia", width: 'auto' },
-            { "data": "CodigoEANProducto", title: "Código", width: 'auto' },
+            { "data": "CodigoProducto", title: "Código", width: 'auto' },
             { "data": "UnidadMedida", title: "Und Medida", width: 'auto' },
             { "data": "StockMinimo", title: "Stock Mínimo", width: 'auto' },
             { "data": "NombreCategoria", title: "Categoría", width: 'auto' },
@@ -390,8 +396,8 @@ function GridProducto() {
             "url": "//cdn.datatables.net/plug-ins/1.11.2/i18n/es_es.json"
         },
         lengthMenu: [
-            [10, 25, 50, -1],
-            ['10 Filas', '25 Filas', '50 Filas', 'Ver Todo']
+            [5, 10, 25, 50, -1],
+            ['5 Filas', '10 Filas', '25 Filas', '50 Filas', 'Ver Todo']
         ],
     });
 
@@ -400,11 +406,14 @@ function GridProducto() {
         let data = datatable.row($(this).parents()).data();
         ModalProducto('E');
         $('#LabelIdProducto').text(data.Id);
+        $('#SelectCategoria').val(data.IdCategoria);
         $('#InputNombreProducto').val(data.NombreProducto);
-
-
-
-
+        $('#InputMarcaProducto').val(data.MarcaProducto);
+        $('#InputReferenciaProducto').val(data.ReferenciaProducto);
+        $('#InputCodigoProducto').val(data.CodigoProducto);
+        $('#SelectUnidadMedida').val(data.IdUnidadMedida);
+        $('#InputStockMinimo').val(data.StockMinimo);
+        $('#InputDescripcion').val(data.Descripcion);
         $('#SelectEstado').val(data.IdEstado);
     })
 
@@ -412,10 +421,10 @@ function GridProducto() {
         let data = datatable.row($(this).parents()).data();
         $('#ModalImagenProducto').modal('show');
         $('#IdProductoImagen').text(data.Id);
-        $('#NombreImagenActualProducto').text(data.Imagen);
+        $('#NombreImagenActualProducto').text(data.ImagenProducto);
         $('#NombreProductoImagen').text(data.NombreProducto);
         $('#ImagenProducto').empty().append(
-            '<img src="/Images/ImagenProducto/' + data.Imagen + '" alt="" style="height:200px; width:200px; border-radius:50%; border:0px solid; background:white;padding:0px"/>'
+            '<img src="/Images/ImagenProducto/' + data.ImagenProducto + '" alt="" style="height:200px; width:200px; border-radius:50%; border:0px solid; background:white;padding:0px"/>'
         );
     })
 

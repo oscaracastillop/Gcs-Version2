@@ -15,16 +15,16 @@ namespace App.Controllers
         private static string RespuestaImagenProducto = string.Empty;
         private static string NombreImagenActualProducto = string.Empty;
 
-        public JsonResult CrearProducto(string IdUser, int IdCategoria, string NombreProducto, string MarcaProducto, string ReferenciaProducto, string CodigoEANProducto, int IdUnidadMedida, int StockMinimo, string Descripcion)
+        public JsonResult CrearProducto(string IdUser, int IdCategoria, string NombreProducto, string MarcaProducto, string ReferenciaProducto, string CodigoProducto, int IdUnidadMedida, int StockMinimo, string Descripcion)
         {
-            var resultado = dataProducto.CrearProducto(IdUser, IdCategoria, NombreProducto, MarcaProducto, ReferenciaProducto, CodigoEANProducto, IdUnidadMedida, StockMinimo, Descripcion);
+            var resultado = dataProducto.CrearProducto(IdUser, IdCategoria, NombreProducto, MarcaProducto, ReferenciaProducto, CodigoProducto, IdUnidadMedida, StockMinimo, Descripcion);
 
             return Json(resultado);
         }
 
-        public JsonResult ActualizarProducto(string IdUser, int IdProducto, int IdCategoria, string NombreProducto, string MarcaProducto, string ReferenciaProducto, string CodigoEANProducto, int IdUnidadMedida, int StockMinimo, int IdEstado, string Descripcion)
+        public JsonResult ActualizarProducto(string IdUser, int IdProducto, int IdCategoria, string NombreProducto, string MarcaProducto, string ReferenciaProducto, string CodigoProducto, int IdUnidadMedida, int StockMinimo, int IdEstado, string Descripcion)
         {
-            var resultado = dataProducto.ActualizarProducto(IdUser, IdProducto, IdCategoria, NombreProducto, MarcaProducto, ReferenciaProducto, CodigoEANProducto, IdUnidadMedida, StockMinimo, IdEstado, Descripcion);
+            var resultado = dataProducto.ActualizarProducto(IdUser, IdProducto, IdCategoria, NombreProducto, MarcaProducto, ReferenciaProducto, CodigoProducto, IdUnidadMedida, StockMinimo, IdEstado, Descripcion);
 
             return Json(resultado);
         }

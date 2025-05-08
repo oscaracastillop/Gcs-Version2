@@ -2,7 +2,7 @@
     $.ajax({
         type: 'POST',
         dataType: 'json',
-        url: '/FormaPago/ListaFormaPago',
+        url: '/Forma_Pago/ListaFormaPago',
         data: {},
         success: function (resultado) {
             var contador = 0;

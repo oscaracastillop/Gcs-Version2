@@ -2217,6 +2217,7 @@
     <Content Include="JsApp\TipoDocumento.js" />
     <Content Include="JsApp\TipoEstado.js" />
     <Content Include="JsApp\TipoHoraExtra.js" />
+    <Content Include="JsApp\UnidadMedida.js" />
     <Content Include="JsApp\Usuario.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -2472,7 +2473,7 @@
     <Compile Include="Controllers\EpsController.cs" />
     <Compile Include="Controllers\Fondo_CesantiasController.cs" />
     <Compile Include="Controllers\Fondo_PensionesController.cs" />
-    <Compile Include="Controllers\FormaPagoController.cs" />
+    <Compile Include="Controllers\Forma_PagoController.cs" />
     <Compile Include="Controllers\Hoja_de_VidaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Hora_ExtraController.cs" />
@@ -2486,7 +2487,7 @@
     <Compile Include="Controllers\ContratistasController.cs" />
     <Compile Include="Controllers\Permiso_MenuController.cs" />
     <Compile Include="Controllers\Permiso_SubMenuController.cs" />
-    <Compile Include="Controllers\PlazoPagoController.cs" />
+    <Compile Include="Controllers\Plazo_PagoController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Controllers\Recursos_HumanosController.cs" />
@@ -2499,6 +2500,7 @@
     <Compile Include="Controllers\Tipo_DocumentoController.cs" />
     <Compile Include="Controllers\Tipo_EstadoController.cs" />
     <Compile Include="Controllers\Tipo_Hora_ExtraController.cs" />
+    <Compile Include="Controllers\Unidad_MedidaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\VentaController.cs" />
     <Compile Include="DocWord.cs" />
@@ -2570,6 +2572,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Producto\" />
+    <Folder Include="Views\UnidadMedida\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

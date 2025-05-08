@@ -3,7 +3,7 @@ using System.Web.Mvc;
 
 namespace App.Controllers
 {
-    public class FormaPagoController : Controller
+    public class Forma_PagoController : Controller
     {
         private readonly DataFormaPago dataFormaPago = new DataFormaPago();
         public JsonResult ListaFormaPago()

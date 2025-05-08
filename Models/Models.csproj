@@ -71,6 +71,7 @@
     <Compile Include="TipoEstado.cs" />
     <Compile Include="TipoHoraExtra.cs" />
     <Compile Include="TipoContrato.cs" />
+    <Compile Include="UnidadMedida.cs" />
     <Compile Include="Usuario.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

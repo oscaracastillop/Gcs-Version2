@@ -905,7 +905,7 @@ INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Transferencia','bi-arrow-left-right','2rem','white','/Almacen/Transferencia','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Inventario','bi-clipboard2-data','2rem','white','/Almacen/Inventario','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Categoría','bi-grid','2rem','white','/Almacen/Categoria','green')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Producto','bi-dropbox','2rem','white','/Almacen/Producto','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Producto','bi-dropbox','2rem','white','/Almacen/Producto','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Proveedor','bi-truck','2rem','white','/Almacen/Proveedor','green')
 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (8, 'HV Herramienta','bi-journal-richtext','2rem','white','/Mantenimiento/Hoja_Vida_Herramienta','cornflowerblue')
@@ -6122,3 +6122,509 @@ END
 
 GO
 
+/* UNIDAD MEDIDA */
+
+CREATE TABLE UnidadMedida 
+(Id int identity(1,1) Primary key ,
+Nombre varchar(255),
+Sigla varchar(255),
+IdEstado int default 1,
+CreateBy int,
+DateCreate datetime
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoUnidadMedida on UnidadMedida (Nombre)
+
+GO
+
+ALTER TABLE UnidadMedida ADD CONSTRAINT FK_IdCreateByUnidadMedida FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE UnidadMedida ADD CONSTRAINT FK_IdEstadoUnidadMedida FOREIGN KEY (IdEstado) references TipoEstado(Id)
+
+GO
+
+INSERT INTO UnidadMedida(Nombre, Sigla, CreateBy, DateCreate) VALUES ('Unidad','und',1, GETDATE())
+INSERT INTO UnidadMedida(Nombre, Sigla, CreateBy, DateCreate) VALUES ('Metro','m',1, GETDATE())
+INSERT INTO UnidadMedida(Nombre, Sigla, CreateBy, DateCreate) VALUES ('Milímetro','mm',1, GETDATE())
+INSERT INTO UnidadMedida(Nombre, Sigla, CreateBy, DateCreate) VALUES ('Centímetro','cm',1, GETDATE())
+INSERT INTO UnidadMedida(Nombre, Sigla, CreateBy, DateCreate) VALUES ('Kilómetro','km',1, GETDATE())
+INSERT INTO UnidadMedida(Nombre, Sigla, CreateBy, DateCreate) VALUES ('Metro Cuadrado','m²',1, GETDATE())
+INSERT INTO UnidadMedida(Nombre, Sigla, CreateBy, DateCreate) VALUES ('Centímetro Cuadrado','cm²',1, GETDATE())
+INSERT INTO UnidadMedida(Nombre, Sigla, CreateBy, DateCreate) VALUES ('Milímetro Cuadrado','mm²',1, GETDATE())
+INSERT INTO UnidadMedida(Nombre, Sigla, CreateBy, DateCreate) VALUES ('Metro Cúbico','m³',1, GETDATE())
+INSERT INTO UnidadMedida(Nombre, Sigla, CreateBy, DateCreate) VALUES ('Centímetro Cúbico','cm³',1, GETDATE())
+INSERT INTO UnidadMedida(Nombre, Sigla, CreateBy, DateCreate) VALUES ('Milímetro Cúbico','mm³',1, GETDATE())
+INSERT INTO UnidadMedida(Nombre, Sigla, CreateBy, DateCreate) VALUES ('Onza','OZ',1, GETDATE())
+INSERT INTO UnidadMedida(Nombre, Sigla, CreateBy, DateCreate) VALUES ('Kilogramo','kg',1, GETDATE())
+INSERT INTO UnidadMedida(Nombre, Sigla, CreateBy, DateCreate) VALUES ('Gramo','g',1, GETDATE())
+INSERT INTO UnidadMedida(Nombre, Sigla, CreateBy, DateCreate) VALUES ('Libra','lib',1, GETDATE())
+INSERT INTO UnidadMedida(Nombre, Sigla, CreateBy, DateCreate) VALUES ('Tonelada','t',1, GETDATE())
+INSERT INTO UnidadMedida(Nombre, Sigla, CreateBy, DateCreate) VALUES ('Galón','gal',1, GETDATE())
+INSERT INTO UnidadMedida(Nombre, Sigla, CreateBy, DateCreate) VALUES ('Litro','l',1, GETDATE())
+INSERT INTO UnidadMedida(Nombre, Sigla, CreateBy, DateCreate) VALUES ('Mililitro','ml',1, GETDATE())
+INSERT INTO UnidadMedida(Nombre, Sigla, CreateBy, DateCreate) VALUES ('Par','par',1, GETDATE())
+INSERT INTO UnidadMedida(Nombre, Sigla, CreateBy, DateCreate) VALUES ('Bulto','bul',1, GETDATE())
+
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaUnidadMedida]
+AS
+BEGIN
+	SELECT Id, Nombre +' ( '+ Sigla +' )' AS Nombre FROM UnidadMedida WHERE IdEstado = 1
+END
+
+GO
+
+CREATE FUNCTION Fun_BuscarNombreUnidadMedida(@IdUnidadMedida INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombreUnidadMedida VARCHAR(255)
+	SELECT	@NombreUnidadMedida = Nombre
+	FROM	UnidadMedida
+	WHERE	Id = @IdUnidadMedida
+	RETURN @NombreUnidadMedida
+END
+
+GO
+
+/* PRODUCTO */
+
+CREATE TABLE Producto 
+(Id int identity(1,1) Primary key ,
+IdCategoria int,
+Nombre varchar(255),
+Marca varchar(255),
+Referencia varchar(255),
+CodigoProducto varchar(255),
+IdUnidadMedida int,
+StockMinimo int default 1,
+Imagen varchar(255) default 'Producto.png',
+Descripcion varchar(max),
+IdEstado int default 1,
+CreateBy int,
+DateCreate datetime
+)
+GO
+
+ALTER TABLE Producto ADD CONSTRAINT FK_IdCreateByProducto FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE Producto ADD CONSTRAINT FK_IdUnidadMedidaProducto FOREIGN KEY (IdUnidadMedida ) references UnidadMedida(Id)
+ALTER TABLE Producto ADD CONSTRAINT FK_IdCategoriaProducto FOREIGN KEY (IdCategoria ) references Categoria(Id)
+ALTER TABLE Producto ADD CONSTRAINT FK_IdEstadoProducto FOREIGN KEY (IdEstado) references TipoEstado(Id)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoProducto on Producto (Nombre, Marca, Referencia, IdCategoria, IdUnidadMedida)
+
+GO
+
+--CATEGORIA COMBUSTIBLES ID 1
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (1,'Gasolina','Genérica','Corriente','',17,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (1,'Gasolina','Genérica','Extra','',17,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (1,'Acpm','Genérica','Corriente','',17,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (1,'Thiner','','Botella X 750 cc','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (1,'Varsol','','Botella X 750 cc','',1,1,'',1,GETDATE())
+
+
+--CATEGORIA HERRAMIENTAS ID 5
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Pala','','Punta Redonda','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Pala','','Punta Plana','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Zapapica','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Pala Draga','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Palín','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Azadón','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Martillo','','Mango Madera','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Martillo','','Bola Mango Madera','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Carretilla','','Platón Plástico','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Carretilla','','Platón Metálico','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Barra','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Alicate Punta Larga','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Alicate Corte Diagonal','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Alicate','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Pinza PelaCable','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Alicate HombreSolo','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Cincel','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Formon','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Bisturí','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Serrucho','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Segueta','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Cizalla','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Cinta Métrica','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Escuadra','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Espatula','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Cepillo de Alambre','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Pistola Silicona','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Engrapadora','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Caladora','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Taladro','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Pulidora','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Nivel','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Lima Plana','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Lima Redonda','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Lima Triangular','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Soldadora de Estaño','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Remachadora','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Equipo Soldadura Eléctrica','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Destornillador Punta Estrella','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Destornillador Punta Plana','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Juego Destornilladores','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Llave Inglesa','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Llave de Tubo','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Llave Fija','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Llana Metálica Dentada','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (5,'Llana Metálica','','','',1,1,'',1,GETDATE())
+
+
+--CATEGORIA MATERIALES DE CONSTRUCCION ID 6
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (6,'Arena Amarilla','','','',9,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (6,'Arena Gris','','','',9,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (6,'Cemento Gris','','Bulto X 50 Kilos','',21,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (6,'Ladrillo Común','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (6,'Ladrillo Prensado','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (6,'Ladrillo Recocido','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (6,'Bloque','','# 4','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (6,'Bloque','','# 5','',1,1,'',1,GETDATE())
+
+--CATEGORIA PAPELERIA ID 9
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (9,'Esfero Negro','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (9,'Esfero Rojo','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (9,'Esfero Azul','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (9,'Lapíz Negro','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (9,'Lapíz Rojo','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (9,'Marcador Permanente Negro','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (9,'Marcador Permanente Rojo','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (9,'Marcador Permanente Verde','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (9,'Marcador Permanente Azul','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (9,'Marcador Borrable Negro','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (9,'Marcador Borrable Rojo','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (9,'Marcador Borrable Verde','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (9,'Marcador Borrable Azul','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (9,'Resma Papel Bond X 500 Hojas','','Tamaño Carta','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (9,'Resma Papel Bond x 500 Hojas','','Tamaño Oficio','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (9,'Cocedora Oficina','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (9,'Perforadora Oficina','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (9,'Saca Ganchos Oficina','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (9,'Calculadora','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (9,'Legajador AZ','','Tamaño Carta','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (9,'Legajador AZ','','Tamaño Oficio','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (9,'Tijera','','','',1,1,'',1,GETDATE())
+
+
+
+
+--CATEGORIA ASEO ID 10
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Jabón Tocador','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Jabón de Barra','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Jabón en Polvo','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Escoba Suave','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Escoba Dura','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Trapero','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Recogedor de Basura','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Papel Higiénico','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Papel Higiénico Industrial','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Ambientador','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Cepillo de Mano','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Cepillo de Piso','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Jabón de Loza','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Blanqueador Desinfectante','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Suavizante','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Limpiador de Pisos','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Jabón Líquido','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Esponjilla de Brillo','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Esponjilla Fibra-Espuma','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Esponjilla de Alambre','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Toallas de Papel Cocina','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Toallas de Papel Mano','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Toalla de Tela','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Caneca Plástica','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Bayetilla Roja','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Desengrasante','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Bolsa Negra','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Bolsa Verde','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Bolsa Roja','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (10,'Bolsa Blanca','','','',1,1,'',1,GETDATE())
+
+--CATEGORIA EPPS ID 12
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Guantes de Caucho Negro Par','','Calibre 25 Talla 7','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Guantes de Caucho Negro Par','','Calibre 25 Talla 7½','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Guantes de Caucho Negro Par','','Calibre 25 Talla 8','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Guantes de Caucho Negro Par','','Calibre 25 Talla 8½','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Guantes de Caucho Negro Par','','Calibre 25 Talla 9','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Guantes de Caucho Negro Par','','Calibre 25 Talla 9½','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Guantes de Caucho Negro Par','','Calibre 35 Talla 7','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Guantes de Caucho Negro Par','','Calibre 35 Talla 7½','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Guantes de Caucho Negro Par','','Calibre 35 Talla 8','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Guantes de Caucho Negro Par','','Calibre 35 Talla 8½','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Guantes de Caucho Negro Par','','Calibre 35 Talla 9','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Guantes de Caucho Negro Par','','Calibre 35 Talla 9½','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Hombre Talla 35 Caña Alta','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Hombre Talla 36 Caña Alta','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Hombre Talla 37 Caña Alta','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Hombre Talla 38 Caña Alta','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Hombre Talla 39 Caña Alta','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Hombre Talla 40 Caña Alta','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Hombre Talla 41 Caña Alta','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Hombre Talla 42 Caña Alta','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Hombre Talla 43 Caña Alta','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Hombre Talla 35 Caña Baja','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Hombre Talla 36 Caña Baja','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Hombre Talla 37 Caña Baja','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Hombre Talla 38 Caña Baja','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Hombre Talla 39 Caña Baja','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Hombre Talla 40 Caña Baja','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Hombre Talla 41 Caña Baja','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Hombre Talla 42 Caña Baja','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Hombre Talla 43 Caña Baja','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Mujer Talla 35 Caña Alta','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Mujer Talla 36 Caña Alta','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Mujer Talla 37 Caña Alta','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Mujer Talla 38 Caña Alta','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Mujer Talla 39 Caña Alta','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Mujer Talla 40 Caña Alta','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Mujer Talla 41 Caña Alta','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Mujer Talla 42 Caña Alta','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Mujer Talla 43 Caña Alta','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Mujer Talla 35 Caña Baja','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Mujer Talla 36 Caña Baja','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Mujer Talla 37 Caña Baja','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Mujer Talla 38 Caña Baja','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Mujer Talla 39 Caña Baja','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Mujer Talla 40 Caña Baja','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Mujer Talla 41 Caña Baja','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Mujer Talla 42 Caña Baja','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (12,'Botas de Caucho Negro Par','','Mujer Talla 43 Caña Baja','',1,1,'',1,GETDATE())
+
+--CATEGORIA EQUIPOS DE OFIMATICA ID 14
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (14,'Teclado Usb','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (14,'Teclado Inalámbrico','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (14,'Mouse Usb','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (14,'Mouse Inalámbrico','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (14,'Camara Web Usb','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (14,'Impresora Laser','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (14,'Impresora Cartucho','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (14,'Pad Mouse','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (14,'Base Refrigerente','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (14,'Cable HDMI','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (14,'Computador Portatíl','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (14,'Computador Escritorio','','','',1,1,'',1,GETDATE())
+
+
+
+--CATEGORIA DROGUERIA Y MEDICAMENTOS ID 18
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (18,'Alcohol Antiséptico','','Botella X 750 cc','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (18,'Algodón','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (18,'Toallas Higiénicas','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (18,'Gasa','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (18,'Isodine Solución','','','',1,1,'',1,GETDATE())
+INSERT INTO Producto (IdCategoria,Nombre,Marca,Referencia,CodigoProducto, IdUnidadMedida,StockMinimo, Descripcion, CreateBy, DateCreate) VALUES (18,'Isodine Bucofaringeo','','','',1,1,'',1,GETDATE())
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_CrearProducto] 
+				@IdUser varchar(255),  
+				@IdCategoria int,
+				@NombreProducto varchar(255),	
+				@MarcaProducto varchar(255),
+				@ReferenciaProducto varchar(255),
+				@CodigoProducto varchar(255),
+				@IdUnidadMedida int, 
+				@StockMinimo int,
+				@Descripcion varchar(max),
+				@Resultado varchar(255) OUTPUT     
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Crear'
+SET @SubMenu = '/Almacen/Producto'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN		
+		INSERT INTO Producto
+		(IdCategoria, Nombre, Marca, Referencia, CodigoProducto, IdUnidadMedida, StockMinimo, Descripcion, CreateBy, DateCreate) 
+		VALUES 
+		(@IdCategoria, @NombreProducto, @MarcaProducto, @ReferenciaProducto, @CodigoProducto, @IdUnidadMedida, @StockMinimo, @Descripcion, @IdUsuario, GETDATE()) 
+
+		SET @Resultado = 'OK*El Producto ' + @NombreProducto + ' a sido creado correctamente'
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ActualizarProducto]	@IdUser varchar(255),	
+												@IdProducto int,
+												@IdCategoria int,
+												@NombreProducto varchar(255),
+												@MarcaProducto varchar(255),
+												@ReferenciaProducto varchar(255),
+												@CodigoProducto varchar(255),
+												@IdUnidadMedida int, 
+												@StockMinimo int,
+												@IdEstado int,	
+												@Descripcion varchar(max),														
+												@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT,
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Editar'
+SET @SubMenu = '/Almacen/Producto'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	IF(exists(select * from Producto where Nombre = @NombreProducto AND Marca = @MarcaProducto AND Referencia = @ReferenciaProducto AND IdUnidadMedida = @IdUnidadMedida AND Id != @IdProducto))  
+	BEGIN  
+		SET @Resultado = 'Error*El Producto ' +  @NombreProducto +' ya existe.'
+		RETURN  
+	END
+ELSE
+	BEGIN
+		UPDATE	Producto 
+		SET		IdCategoria = @IdCategoria,
+				Nombre = @NombreProducto, 
+				Marca = @MarcaProducto,
+				Referencia = @ReferenciaProducto,
+				CodigoProducto = @CodigoProducto,
+				IdUnidadMedida = @IdUnidadMedida,
+				StockMinimo = @StockMinimo,
+				Descripcion = @Descripcion,
+				IdEstado = @IdEstado
+		WHERE	Id = @IdProducto
+		
+		SET @Resultado = 'OK*El Producto ' +  @NombreProducto + ' se actualizo correctamente'  
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GuardarUrlImagenProductoBaseDatos]	@IdUser varchar(255), 
+																@IdProducto int, 
+																@UrlImagenProducto varchar(255), 
+																@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Editar INT, 
+		@IdUsuario INT, 
+		@validar INT, 
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Editar'
+SET @SubMenu = '/Almacen/Producto'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+	SELECT	@Editar = dbo.Fun_PermisoUsuario(@Accion,@IdUsuario, @SubMenu)	
+		IF @Editar > 0
+			BEGIN	
+				UPDATE Producto set Imagen = @UrlImagenProducto WHERE Id = @IdProducto
+				SET @Resultado = 'OK*Se guardo la Imagen del Producto correctamente'															
+			END
+		ELSE
+			BEGIN
+				SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+			END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_EliminarProducto] @IdUser varchar(255), @IdProducto int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@NombreProducto varchar(255),
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Almacen/Producto'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @NombreProducto = Nombre FROM Producto WHERE Id = @IdProducto
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE Producto WHERE Id = @IdProducto
+SET @Resultado = 'OK*Estimado Usuario el Producto '+ @NombreProducto +' se elimino correctamente'	
+
+SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridProducto]
+AS
+BEGIN
+	SELECT	Id, 
+			Nombre AS NombreProducto,
+			Imagen AS ImagenProducto,
+			IdCategoria,
+			dbo.Fun_BuscarNombreCategoria(IdCategoria) As NombreCategoria,	
+			Marca AS MarcaProducto,
+			Referencia AS ReferenciaProducto,
+			CodigoProducto,		
+			IdUnidadMedida,
+			dbo.Fun_BuscarNombreUnidadMedida(IdUnidadMedida) As UnidadMedida,
+			StockMinimo,
+			IdEstado,
+			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,
+			Descripcion,
+			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
+			CONVERT(varchar(255),DateCreate,20) As DateCreate
+	FROM Producto ORDER BY Id DESC
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaProducto]
+AS
+BEGIN	
+	SELECT	A.Id, 
+			A.Nombre+' '+A.Marca+' '+A.Referencia+' -  '+B.Nombre AS Nombre
+	FROM	Producto A, 
+			UnidadMedida B 
+	WHERE	A.IdEstado = 1 AND
+			A.IDUNIDADMEDIDA = B.ID ORDER BY Nombre
+END
+
+GO
+
+CREATE FUNCTION Fun_BuscarNombreProducto(@IdProducto INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombreProducto VARCHAR(255)
+	SELECT	@NombreProducto = Nombre
+	FROM	Sucursal
+	WHERE	Id = @IdProducto
+	RETURN @NombreProducto
+END
+
+GO

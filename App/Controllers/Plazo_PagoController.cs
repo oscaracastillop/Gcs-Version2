@@ -3,7 +3,7 @@ using System.Web.Mvc;
 
 namespace App.Controllers
 {
-    public class PlazoPagoController : Controller
+    public class Plazo_PagoController : Controller
     {
         private readonly DataPlazoPago dataPlazoPago = new DataPlazoPago();
         public JsonResult ListaPlazoPago()

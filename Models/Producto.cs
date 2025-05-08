@@ -12,12 +12,11 @@
             public string NombreCategoria { get; set; }
             public string MarcaProducto { get; set; }
             public string ReferenciaProducto { get; set; }
-            public string CodigoEANProducto { get; set; }
-            public int CodigoInternoProducto { get; set; }
+            public string CodigoProducto { get; set; }
             public int IdUnidadMedida { get; set; }
             public string UnidadMedida { get; set; }
             public int StockMinimo { get; set; }
-            public int IdActivo { get; set; }
+            public int IdEstado { get; set; }
             public string Estado { get; set; }
             public string Descripcion { get; set; }
             public string CreateBy { get; set; }

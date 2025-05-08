@@ -6,3 +6,113 @@
 <h6>Módulo Producto</h6>
 <hr />
 
+<div class="grid">
+    <table id="gridProducto" class="table cell-border" cellspacing="0" style="width: 180%;"></table>
+</div>
+
+<!-- Modal Producto-->
+<div class="modal fade" id="ModalProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <div class="modal-title" id="TituloModalProducto"></div>
+            </div>
+            <div class="modal-body">
+                <label id="LabelIdProducto" hidden></label>
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Categoría</strong><label style="color:red"> *</label></label>
+                        <select class="form-control" id="SelectCategoria" style="min-width:100%"></select>
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Nombre </strong><label style="color:red"> *</label></label>
+                        <input class="form-control" type="text" id="InputNombreProducto" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Marca</strong></label>
+                        <input class="form-control" type="text" id="InputMarcaProducto" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Referencia</strong></label>
+                        <input class="form-control" type="text" id="InputReferenciaProducto" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <label><strong>Código</strong></label>
+                        <input class="form-control" type="text" id="InputCodigoProducto" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                    <div class="col-5">
+                        <label><strong>Und. Medida</strong><label style="color:red"> *</label></label>
+                        <select class="form-control" id="SelectUnidadMedida" style="min-width:100%"></select>
+                    </div>
+                    <div class="col-3">
+                        <label><strong>Stock Mínimo</strong></label>
+                        <input class="form-control" type="number" id="InputStockMinimo" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <label><strong>Descripción</strong></label>
+                        <textarea id="InputDescripcionProducto" class="form-control" style="min-width:100%" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-3" id="SelectEstadoProducto">
+                    <label><strong>Estado</strong></label>
+                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
+                </div>
+            </div>
+            <div class="modal-footer" id="BotonesModalProducto">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal ImagenProducto-->
+<div class="modal fade" id="ModalImagenProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <div class="modal-title"><label>Imagen Producto</label></div>
+            </div>
+            <label id="IdProductoImagen" hidden></label>
+            <label id="NombreImagenActualProducto" hidden></label>
+            <div class="modal-body" style="text-align:center">
+                <div style="text-align:center">
+                    <h6><strong id="NombreProductoImagen"></strong></h6>
+                    <div id="ImagenProducto" style="margin-top:10px; text-align:center"></div>
+                    <br />
+                    <a href="#">Ver Información Producto</a>
+                </div>
+                <div style="margin-top:15px">
+                    <input type="file" class="form-control" id="inPhoto" name="name" aria-describedby="inputGroupFileAddon04" aria-label="Upload" accept="image/*" style="min-width:100%">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                <button class="btn btn-modal-guardar btn-sm" type="button" onclick="GuardarImagenProducto()">Guardar Imagen</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        ValidarSesion('/Almacen/Producto');
+        GridProducto();
+        ListaTipoEstado(1);
+        ListaUnidadMedida();
+        ListaCategoria();
+        //ModalProducto('C');
+    });
+</script>
