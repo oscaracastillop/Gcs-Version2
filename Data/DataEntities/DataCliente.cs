@@ -14,7 +14,7 @@ namespace Data.DataEntities
         readonly GcsEntities _conection = new GcsEntities();
         private readonly DataRol dataRol = new DataRol();
 
-        public string CrearCliente(string IdUser, string NombreCliente, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Contacto, int IdCiudad, string Direccion)
+        public string CrearCliente(string IdUser, string NombreCliente, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Celular, string Contacto, int IdCiudad, string Direccion, int IdFormaPago, int IdPlazoPago, string Descripcion)
         {
             string resultado = String.Empty;
             try
@@ -25,6 +25,7 @@ namespace Data.DataEntities
                 var varIdentificacion = new SqlParameter("@Identificacion", SqlDbType.VarChar) { Value = Identificacion };
                 var varEmail = new SqlParameter("@Email", SqlDbType.VarChar) { Value = Email };
                 var varTelefono = new SqlParameter("@Telefono", SqlDbType.VarChar) { Value = Telefono };
+                var varCelular = new SqlParameter("@Celular", SqlDbType.VarChar) { Value = Celular };
                 var varContacto = new SqlParameter("@Contacto", SqlDbType.VarChar) { Value = Contacto };
                 var varIdCiudad = new SqlParameter("@IdCiudad", SqlDbType.Int) { Value = IdCiudad };
                 var varDireccion = new SqlParameter("@Direccion", SqlDbType.VarChar) { Value = Direccion };

@@ -1,4 +1,5 @@
 ﻿using Data.DataEntities;
+using Models;
 using System.Web.Mvc;
 
 namespace App.Controllers
@@ -7,16 +8,16 @@ namespace App.Controllers
     {
         private readonly DataCliente dataCliente = new DataCliente();
 
-        public JsonResult CrearCliente(string IdUser, string NombreCliente, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Contacto, int IdCiudad, string Direccion)
+        public JsonResult CrearCliente(string IdUser, string NombreCliente, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Celular, string Contacto, int IdCiudad, string Direccion, int IdFormaPago, int IdPlazoPago, string Descripcion)
         {
-            var resultado = dataCliente.CrearCliente(IdUser, NombreCliente, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdCiudad, Direccion);
+            var resultado = dataCliente.CrearCliente(IdUser, NombreCliente, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdCiudad, Direccion, IdFormaPago, IdPlazoPago, Descripcion);
 
             return Json(resultado);
         }
 
-        public JsonResult ActualizarCliente(string IdUser, int IdCliente, string NombreCliente, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Contacto, int IdCiudad, string Direccion, int IdEstado)
+        public JsonResult ActualizarCliente(string IdUser, int IdCliente, string NombreCliente, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Celular, string Contacto, int IdCiudad, string Direccion, , int IdFormaPago, int IdPlazoPago, string Descripcion, int IdEstado)
         {
-            var resultado = dataCliente.ActualizarCliente(IdUser, IdCliente, NombreCliente, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdCiudad, Direccion, IdEstado);
+            var resultado = dataCliente.ActualizarCliente(IdUser, IdCliente, NombreCliente, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdCiudad, Direccion, , IdFormaPago, IdPlazoPago, Descripcion, IdEstado);
             return Json(resultado);
         }
 
