@@ -17,10 +17,16 @@ namespace Models
             public string Identificacion { get; set; }
             public string Email { get; set; }
             public string Telefono { get; set; }
+            public string Celular { get; set; }
             public string Contacto { get; set; }
+            public int IdFormaPago { get; set; }
+            public string TextoFormaPago { get; set; }
+            public int IdPlazoPago { get; set; }
+            public string TextoPlazoPago { get; set; }
             public string Direccion { get; set; }
             public string Ciudad { get; set; }
             public int IdCiudad { get; set; }
+            public string Descripcion { get; set; }
             public int IdEstado { get; set; }
             public string Estado { get; set; }
             public string CreateBy { get; set; }

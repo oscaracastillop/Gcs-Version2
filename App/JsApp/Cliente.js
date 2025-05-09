@@ -6,7 +6,11 @@
     $("#InputIdentificacionCliente").empty().val('');
     $("#InputEmailCliente").empty().val('');
     $("#InputTelefonoCliente").empty().val('');
+    $("#InputCelularCliente").empty().val('');
     $("#InputContactoCliente").empty().val('');
+    $("#SelectFormaPago").val(-1);
+    $("#SelectPlazoPago").val(-1);
+    $("#InputDescripcionCliente").empty().val('');
     $("#InputDireccionCliente").empty().val('');
     $("#SelectCiudad").val(-1);
     $("#BotonesModalCliente").empty();
@@ -29,9 +33,13 @@ function CrearCliente() {
     let Identificacion = $('#InputIdentificacionCliente').val();
     let Email = $('#InputEmailCliente').val();
     let Telefono = $('#InputTelefonoCliente').val();
+    let Celular = $('#InputCelularCliente').val();
     let Contacto = $('#InputContactoCliente').val();
     let IdCiudad = $('#SelectCiudad').val();
     let Direccion = $('#InputDireccionCliente').val();
+    let IdFormaPago = $('#SelectFormaPago').val();
+    let IdPlazoPago = $('#SelectPlazoPago').val();
+    let Descripcion = $('#InputDescripcionCliente').val();
 
     if (NombreCliente == null || NombreCliente == '' || NombreCliente == undefined) {
         $('#InputNombreCliente').focus();
@@ -57,9 +65,13 @@ function CrearCliente() {
                 Identificacion: Identificacion,
                 Email: Email,
                 Telefono: Telefono,
+                Celular: Celular,
                 Contacto: Contacto,
                 IdCiudad: IdCiudad,
-                Direccion: Direccion
+                Direccion: Direccion,
+                IdFormaPago: IdFormaPago,
+                IdPlazoPago: IdPlazoPago,
+                Descripcion: Descripcion
             },
             success: function (resultado) {
                 valor = resultado.split('*');
@@ -88,9 +100,13 @@ function ActualizarCliente() {
     let Identificacion = $('#InputIdentificacionCliente').val();
     let Email = $('#InputEmailCliente').val();
     let Telefono = $('#InputTelefonoCliente').val();
+    let Celular = $('#InputCelularCliente').val();
     let Contacto = $('#InputContactoCliente').val();
     let IdCiudad = $('#SelectCiudad').val();
     let Direccion = $('#InputDireccionCliente').val();
+    let IdFormaPago = $('#SelectFormaPago').val();
+    let IdPlazoPago = $('#SelectPlazoPago').val();
+    let Descripcion = $('#InputDescripcionCliente').val()
     let IdEstado = $('#SelectEstado').val();
 
     if (NombreCliente == null || NombreCliente == '' || NombreCliente == undefined) {
@@ -118,9 +134,13 @@ function ActualizarCliente() {
                 Identificacion: Identificacion,
                 Email: Email,
                 Telefono: Telefono,
+                Celular: Celular,
                 Contacto: Contacto,
                 IdCiudad: IdCiudad,
                 Direccion: Direccion,
+                IdFormaPago: IdFormaPago,
+                IdPlazoPago: IdPlazoPago,
+                Descripcion: Descripcion,
                 IdEstado: IdEstado
             },
             success: function (resultado) {
@@ -204,8 +224,11 @@ function GridCliente() {
             { targets: [7], className: 'dt-head-center' },
             { targets: [8], className: 'dt-head-center' },
             { targets: [9], className: 'dt-head-center' },
-            { targets: [10], width: '150px', className: 'dt-center dt-head-center' },
-            { targets: [11], width: '100px', className: 'dt-center dt-head-center' }
+            { targets: [10], className: 'dt-head-center' },
+            { targets: [11], className: 'dt-head-center' },
+            { targets: [12], className: 'dt-head-center' },
+            { targets: [13], width: '150px', className: 'dt-center dt-head-center' },
+            { targets: [14], width: '100px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -216,7 +239,7 @@ function GridCliente() {
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
                 text: 'Excel',
                 exportOptions: {
-                    columns: [0, 1, 3, 4, 5, 6, 7, 8, 9, 10],
+                    columns: [0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
                 },
             },
             {
@@ -226,7 +249,7 @@ function GridCliente() {
                 orientation: 'landscape', //portrait
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
                 exportOptions: {
-                    columns: [0, 1, 3, 4, 5, 6, 7, 8, 9, 10],
+                    columns: [0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
                     search: 'applied',
                     order: 'applied',
                 },
@@ -309,8 +332,11 @@ function GridCliente() {
             },
             { "data": "TipoDocumento", title: "Documento", width: 'auto', visible: false },
             { "data": "Identificacion", title: "Identificación", width: 'auto', visible: false },
+            { "data": "TextoFormaPago", title: "Forma de Pago", width: 'auto' },
+            { "data": "TextoPlazoPago", title: "Plazo de Pago", width: 'auto' },
             { "data": "Email", title: "Email", width: 'auto' },
             { "data": "Telefono", title: "Teléfono", width: 'auto' },
+            { "data": "Celular", title: "Celular", width: 'auto' },
             { "data": "Contacto", title: "Contacto", width: 'auto' },
             {
                 title: "Dirección",
@@ -320,6 +346,7 @@ function GridCliente() {
                 }
                 , width: 'auto'
             },
+            { "data": "Descripcion", title: "Descripción" },
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
             {
@@ -367,9 +394,13 @@ function GridCliente() {
         $('#InputIdentificacionCliente').val(data.Identificacion);
         $('#InputEmailCliente').val(data.Email);
         $('#InputTelefonoCliente').val(data.Telefono);
+        $('#InputCelularCliente').val(data.Celular);
         $('#InputContactoCliente').val(data.Contacto);
+        $('#SelectFormaPago').val(data.IdFormaPago);
+        $('#SelectPlazoPago').val(data.IdPlazoPago);
         $('#InputDireccionCliente').val(data.Direccion);
         $('#SelectCiudad').val(data.IdCiudad);
+        $('#InputDescripcionCliente').val(data.Descripcion);
         $('#SelectEstado').val(data.IdEstado);
     })
 

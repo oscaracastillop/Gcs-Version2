@@ -2484,6 +2484,86 @@ ALTER TABLE LogsAcciones ADD CONSTRAINT FK_IdUsuarioLogsAcciones FOREIGN KEY (Id
 
 GO
 
+/* FORMA PAGO */
+
+CREATE TABLE FormaPago(
+Id int identity(1,1) Primary key ,
+Nombre varchar(255)
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoFormaPago on FormaPago (Nombre)
+
+GO
+
+INSERT INTO FormaPago (Nombre) VALUES
+('Contado'),
+('Crédito')
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaFormaPago]
+AS
+BEGIN
+	SELECT Id, Nombre FROM FormaPago ORDER BY Nombre ASC
+END
+
+GO
+
+CREATE FUNCTION [dbo].[Fun_BuscarNombreFormaPago](@IdFormaPago INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombreFormaPago VARCHAR(255)
+	SELECT @NombreFormaPago = Nombre FROM FormaPago WHERE Id = @IdFormaPago 
+	RETURN @NombreFormaPago
+END
+
+GO
+
+/* PLAZO PAGO */
+
+CREATE TABLE PlazoPago(
+Id int identity(1,1) Primary key ,
+Nombre varchar(255)
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoPlazoPago on PlazoPago (Nombre)
+
+GO
+
+INSERT INTO PlazoPago (Nombre) VALUES
+('0 días'),
+('3 días'),
+('7 días'),
+('15 días'),
+('30 días'),
+('45 días'),
+('60 días'),
+('90 días')
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ListaPlazoPago]
+AS
+BEGIN
+	SELECT Id, Nombre FROM PlazoPago ORDER BY Id ASC
+END
+
+GO
+
+CREATE FUNCTION [dbo].[Fun_BuscarNombrePlazoPago](@IdPlazoPago INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombrePlazoPago VARCHAR(255)
+	SELECT @NombrePlazoPago = Nombre FROM PlazoPago WHERE Id = @IdPlazoPago 
+	RETURN @NombrePlazoPago
+END
+
+GO
+
 /* TABLA EMPRESA */
 
 CREATE TABLE Empresa 
@@ -4458,11 +4538,15 @@ CREATE TABLE Cliente
 Nombre varchar(255),
 IdTipoDocumento int,
 Identificacion varchar(255),
-Email varchar(255),
-Telefono varchar(255),
-Contacto varchar(255),
+Email varchar(255) default '',
+Telefono varchar(255) default '',
+Celular varchar(255) default '',
+Contacto varchar(255) default '',
 IdCiudad int,
-Direccion varchar(255),
+Direccion varchar(255) default '',
+IdFormaPago int default 1,
+IdPlazoPago int default 1,
+Descripcion varchar(max) default '',
 IdEstado int default 1,
 CreateBy int,
 DateCreate datetime
@@ -4478,13 +4562,15 @@ ALTER TABLE Cliente ADD CONSTRAINT FK_IdCreateByCliente FOREIGN KEY (CreateBy ) 
 ALTER TABLE Cliente ADD CONSTRAINT FK_IdCiudadCliente FOREIGN KEY (IdCiudad ) references Ciudad(Id)
 ALTER TABLE Cliente ADD CONSTRAINT FK_IdEstadoCliente FOREIGN KEY (IdEstado) references TipoEstado(Id)
 ALTER TABLE Cliente ADD CONSTRAINT FK_IdTipodocumentoCliente FOREIGN KEY (IdTipoDocumento) references TipoDocumento(Id)
+ALTER TABLE Cliente ADD CONSTRAINT FK_IdFormaPagoCliente FOREIGN KEY (IdFormaPago ) references FormaPago(Id)
+ALTER TABLE Cliente ADD CONSTRAINT FK_IdPlazoPagoCliente FOREIGN KEY (IdPlazoPago ) references PlazoPago(Id)
 
 GO
 
-INSERT INTO Cliente (Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdCiudad, Direccion, CreateBy, DateCreate) 
+INSERT INTO Cliente (Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdCiudad, Direccion, CreateBy, DateCreate) 
 VALUES 
-('MG Construcciones', 5, '901.766.109-1','mgcontrucciones@gmailmail.com', '310 2583698', '', 571, '', 1, GETDATE()),
-('Ingenieros & Asociados', 5, '901.766.109-1','iya@gmailmail.com', '310 2583698', '', 571, '', 1, GETDATE())
+('MG Construcciones', 5, '901.766.109-1','mgcontrucciones@gmailmail.com', '(601) 0000000','310 0000000', '', 571, '', 1, GETDATE()),
+('Ingenieros & Asociados', 5, '901.766.109-1','iya@gmailmail.com', '(601) 0000000', '310 0000000', '', 571, '', 1, GETDATE())
 
 GO
 
@@ -4494,10 +4580,14 @@ CREATE PROCEDURE [dbo].[SP_CrearCliente]
 				@IdTipoDocumento int,
 				@Identificacion varchar(255),
 				@Email varchar(255), 
-				@Telefono varchar(255),  
+				@Telefono varchar(255), 
+				@Celular varchar(255),
 				@Contacto varchar(255),
 				@IdCiudad int,
-				@Direccion varchar(255),	
+				@Direccion varchar(255),
+				@IdFormaPago int,
+				@IdPlazoPago int,
+				@Descripcion varchar(max),
 				@Resultado varchar(255) OUTPUT
 AS
 BEGIN
@@ -4515,9 +4605,9 @@ SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
 IF @Permiso > 0
 	BEGIN		
 		INSERT INTO Cliente
-		(Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdCiudad, Direccion, CreateBy, DateCreate) 
+		(Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdCiudad, Direccion, IdFormaPago, IdPlazoPago, Descripcion, CreateBy, DateCreate) 
 		VALUES 
-		(@NombreCliente, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Contacto, @IdCiudad, @Direccion, @IdUsuario, GETDATE())		
+		(@NombreCliente, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Celular, @Contacto, @IdCiudad, @Direccion, @IdFormaPago, @IdPlazoPago, @Descripcion, @IdUsuario, GETDATE())		
 
 		SET @Resultado = 'OK*El Cliente ' + @NombreCliente + ' a sido creado correctamente'
 	END	
@@ -4537,9 +4627,13 @@ CREATE PROCEDURE [dbo].[SP_ActualizarCliente]	@IdUser varchar(255),
 												@Identificacion varchar(255),
 												@Email varchar(255), 
 												@Telefono varchar(255),  
+												@Celular varchar(255),  
 												@Contacto varchar(255),
 												@IdCiudad int,
 												@Direccion varchar(255),
+												@IdFormaPago int,
+												@IdPlazoPago int,
+												@Descripcion varchar(max),
 												@IdEstado int,			
 												@Resultado varchar(255) OUTPUT
 AS
@@ -4569,9 +4663,13 @@ ELSE
 					Identificacion = @Identificacion,								 
 					Email = @Email, 
 					Telefono = @Telefono,
+					Celular = @Celular,
 					Contacto = @Contacto,
 					IdCiudad = @IdCiudad,
 					Direccion = @Direccion,
+					IdFormaPago = @IdFormaPago,
+					IdPlazoPago = @IdPlazoPago,
+					Descripcion = @Descripcion,
 					IdEstado = @IdEstado
 					WHERE Id = @IdCliente
 							
@@ -4624,18 +4722,24 @@ BEGIN
 			IdTipoDocumento,
 			dbo.Fun_BuscarNombreTipoDocumento(IdTipoDocumento) As TipoDocumento,
 			Identificacion,
-			Email,
-			Telefono,
-			Contacto,
-			Direccion,
+			ISNULL(Email,'') As Email,
+			ISNULL(Telefono,'') As Telefono,
+			ISNULL(Celular,'') As Celular,
+			ISNULL(Contacto,'') As Contacto,
+			ISNULL(Direccion,'') As Direccion,
+			IdFormaPago,
+			dbo.Fun_BuscarNombreFormaPago(IdFormaPago) As TextoFormaPago,
+			IdPlazoPago,
+			dbo.Fun_BuscarNombrePlazoPago(IdPlazoPago) As TextoPlazoPago,
 			IdCiudad,
 			dbo.Fun_BuscarNombreCiudad(IdCiudad) As Ciudad,
+			Descripcion,
 			IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,
 			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
 			CONVERT(varchar(255),DateCreate,105)+ ' ' + CONVERT(varchar(255),DateCreate,8) As DateCreate			
 			FROM Cliente
-			ORDER BY Nombre Desc
+			ORDER BY Id Desc
 END
 
 GO
@@ -5644,86 +5748,6 @@ END
 
 GO
 
-/* FORMA PAGO */
-
-CREATE TABLE FormaPago(
-Id int identity(1,1) Primary key ,
-Nombre varchar(255)
-)
-
-GO
-
-CREATE UNIQUE INDEX RegistroUnicoFormaPago on FormaPago (Nombre)
-
-GO
-
-INSERT INTO FormaPago (Nombre) VALUES
-('Contado'),
-('Crédito')
-
-GO
-
-CREATE PROCEDURE [dbo].[SP_ListaFormaPago]
-AS
-BEGIN
-	SELECT Id, Nombre FROM FormaPago ORDER BY Nombre ASC
-END
-
-GO
-
-CREATE FUNCTION [dbo].[Fun_BuscarNombreFormaPago](@IdFormaPago INT)
-RETURNS VARCHAR(255)
-AS BEGIN
-DECLARE @NombreFormaPago VARCHAR(255)
-	SELECT @NombreFormaPago = Nombre FROM FormaPago WHERE Id = @IdFormaPago 
-	RETURN @NombreFormaPago
-END
-
-GO
-
-/* PLAZO PAGO */
-
-CREATE TABLE PlazoPago(
-Id int identity(1,1) Primary key ,
-Nombre varchar(255)
-)
-
-GO
-
-CREATE UNIQUE INDEX RegistroUnicoPlazoPago on PlazoPago (Nombre)
-
-GO
-
-INSERT INTO PlazoPago (Nombre) VALUES
-('0 días'),
-('3 días'),
-('7 días'),
-('15 días'),
-('30 días'),
-('45 días'),
-('60 días'),
-('90 días')
-
-GO
-
-CREATE PROCEDURE [dbo].[SP_ListaPlazoPago]
-AS
-BEGIN
-	SELECT Id, Nombre FROM PlazoPago ORDER BY Id ASC
-END
-
-GO
-
-CREATE FUNCTION [dbo].[Fun_BuscarNombrePlazoPago](@IdPlazoPago INT)
-RETURNS VARCHAR(255)
-AS BEGIN
-DECLARE @NombrePlazoPago VARCHAR(255)
-	SELECT @NombrePlazoPago = Nombre FROM PlazoPago WHERE Id = @IdPlazoPago 
-	RETURN @NombrePlazoPago
-END
-
-GO
-
 /* PROVEEDOR */
 
 CREATE TABLE Proveedor 
@@ -5731,15 +5755,15 @@ CREATE TABLE Proveedor
 Nombre varchar(255),
 IdTipoDocumento int,
 Identificacion varchar(255),
-Email varchar(255),
-Telefono varchar(255),
-Celular varchar(255),
-Contacto varchar(255),
+Email varchar(255) default '',
+Telefono varchar(255) default '',
+Celular varchar(255) default '',
+Contacto varchar(255) default '',
 IdCiudad int,
-Direccion varchar(255),
-IdFormaPago int,
-IdPlazoPago int,
-Descripcion varchar(max),
+Direccion varchar(255) default '',
+IdFormaPago int default 1,
+IdPlazoPago int default 1,
+Descripcion varchar(max) default '',
 IdEstado int default 1,
 CreateBy int,
 DateCreate datetime
@@ -5762,9 +5786,9 @@ GO
 INSERT INTO Proveedor
 (Nombre, IdTipoDocumento, Identificacion, Email,Telefono,Celular,Contacto,IdCiudad,Direccion,IdFormaPago,IdPlazoPago,Descripcion,CreateBy,DateCreate)
 VALUES	
-('DOTACIONES FUTURO SAS', 6, '901254368', 'dotacionesfuturo@gmail.com', '(601) 1234567', '326 9653684', 'Jose Flores', 548, 'Calle 20 # 25-69',1,1,'Dotaciones de Uniformes y EPPs', 1, GETDATE()),
-('FERRETERIA SAN ANDRES', 6, '902698352', 'ferreteriasanandres@gmail.com', '(601) 1234567', '326 9653684', 'Andres Martinez', 548, 'Calle 20 # 25-69',1,1,'Materiales de Construccion', 1, GETDATE()),
-('ASEOS LA SABANA', 6, '901256324', 'aseossabana@gmail.com', '(601) 1234567', '326 9653684', 'Pablo Suarez', 548, 'Calle 20 # 25-69',1,1,'Implementos de Aseos y Limpieza', 1, GETDATE())
+('DOTACIONES FUTURO SAS', 6, '901254368', 'dotacionesfuturo@gmail.com', '(601) 0000000','310 0000000', 'Jose Flores', 548, 'Calle 20 # 25-69',1,1,'Dotaciones de Uniformes y EPPs', 1, GETDATE()),
+('FERRETERIA SAN ANDRES', 6, '902698352', 'ferreteriasanandres@gmail.com', '(601) 0000000','310 0000000', 'Andres Martinez', 548, 'Calle 20 # 25-69',1,1,'Materiales de Construccion', 1, GETDATE()),
+('ASEOS LA SABANA', 6, '901256324', 'aseossabana@gmail.com', '(601) 0000000','310 0000000', 'Pablo Suarez', 548, 'Calle 20 # 25-69',1,1,'Implementos de Aseos y Limpieza', 1, GETDATE())
 
 GO
 

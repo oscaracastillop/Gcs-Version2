@@ -15,9 +15,9 @@ namespace App.Controllers
             return Json(resultado);
         }
 
-        public JsonResult ActualizarCliente(string IdUser, int IdCliente, string NombreCliente, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Celular, string Contacto, int IdCiudad, string Direccion, , int IdFormaPago, int IdPlazoPago, string Descripcion, int IdEstado)
+        public JsonResult ActualizarCliente(string IdUser, int IdCliente, string NombreCliente, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Celular, string Contacto, int IdCiudad, string Direccion, int IdFormaPago, int IdPlazoPago, string Descripcion, int IdEstado)
         {
-            var resultado = dataCliente.ActualizarCliente(IdUser, IdCliente, NombreCliente, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdCiudad, Direccion, , IdFormaPago, IdPlazoPago, Descripcion, IdEstado);
+            var resultado = dataCliente.ActualizarCliente(IdUser, IdCliente, NombreCliente, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdCiudad, Direccion, IdFormaPago, IdPlazoPago, Descripcion, IdEstado);
             return Json(resultado);
         }
 

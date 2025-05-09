@@ -82,6 +82,7 @@
     <Compile Include="DataEntities\DataFormaPago.cs" />
     <Compile Include="DataEntities\DataLogin.cs" />
     <Compile Include="DataEntities\DataMenu.cs" />
+    <Compile Include="DataEntities\DataNominaEmpleado.cs" />
     <Compile Include="DataEntities\DataPermisoMenu.cs" />
     <Compile Include="DataEntities\DataPermisoSubMenu.cs" />
     <Compile Include="DataEntities\DataPlazoPago.cs" />

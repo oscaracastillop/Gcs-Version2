@@ -2485,6 +2485,7 @@
     <Compile Include="Controllers\MirfeController.cs" />
     <Compile Include="Controllers\NegocioController.cs" />
     <Compile Include="Controllers\ContratistasController.cs" />
+    <Compile Include="Controllers\Nomina_EmpleadoController.cs" />
     <Compile Include="Controllers\Permiso_MenuController.cs" />
     <Compile Include="Controllers\Permiso_SubMenuController.cs" />
     <Compile Include="Controllers\Plazo_PagoController.cs" />
@@ -2571,6 +2572,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Nomina_Empleado\" />
     <Folder Include="Views\Producto\" />
     <Folder Include="Views\UnidadMedida\" />
   </ItemGroup>

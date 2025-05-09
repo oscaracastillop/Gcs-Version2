@@ -6,3 +6,43 @@
 <h6>Módulo Nómina Empleado</h6>
 <hr />
 
+<div class="grid">
+    <table id="gridNominaEmpleado" class="table cell-border" cellspacing="0" style="width: 100%;"></table>
+</div>
+
+<div class="modal fade" id="ModalNominaEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <div class="modal-title" id="TituloModalNominaEmpleado"></div>
+            </div>
+            <div class="modal-body">
+                <label id="LabelIdNominaEmpleado" hidden></label>
+                <div>
+                    <label><strong>Nombre </strong><label style="color:red"> *</label></label>
+                    <input class="form-control" type="text" id="InputNombreNominaEmpleado" autocomplete="off" style="min-width:100%" />
+                </div>
+                <div class="col-3" id="SelectEstadoNominaEmpleado">
+                    <label><strong>Estado</strong></label>
+                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
+                </div>
+                <br />
+                <label style="color: red">Los campos con * son obligatorios</label>
+            </div>
+
+            <div class="modal-footer" id="BotonesModalNominaEmpleado">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        ValidarSesion('/Contabilidad/Nomina_Empleado');
+        //GridNominaEmpleado();
+        ListaTipoEstado(1);
+
+    });
+</script>

@@ -1,4 +1,5 @@
 ﻿using Data.DataContext;
+using Models;
 using SistemaGcs.Data.DataEntities;
 using System;
 using System.Collections.Generic;
@@ -29,9 +30,12 @@ namespace Data.DataEntities
                 var varContacto = new SqlParameter("@Contacto", SqlDbType.VarChar) { Value = Contacto };
                 var varIdCiudad = new SqlParameter("@IdCiudad", SqlDbType.Int) { Value = IdCiudad };
                 var varDireccion = new SqlParameter("@Direccion", SqlDbType.VarChar) { Value = Direccion };
+                var varIdFormaPago = new SqlParameter("@IdFormaPago", SqlDbType.Int) { Value = IdFormaPago };
+                var varIdPlazoPago = new SqlParameter("@IdPlazoPago", SqlDbType.Int) { Value = IdPlazoPago };
+                var varDescripcion = new SqlParameter("@Descripcion", SqlDbType.VarChar) { Value = Descripcion };
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
 
-                _conection.Database.ExecuteSqlCommand("SP_CrearCliente @IdUser, @NombreCliente, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Contacto, @IdCiudad, @Direccion, @Resultado OUTPUT", varIdUser, varNombreCliente, varIdTipoDocumento, varIdentificacion, varEmail, varTelefono, varContacto, varIdCiudad, varDireccion, varResultado);
+                _conection.Database.ExecuteSqlCommand("SP_CrearCliente @IdUser, @NombreCliente, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Celular, @Contacto, @IdCiudad, @Direccion, @IdFormaPago, @IdPlazoPago, @Descripcion, @Resultado OUTPUT", varIdUser, varNombreCliente, varIdTipoDocumento, varIdentificacion, varEmail, varTelefono, varContacto, varIdCiudad, varDireccion, varIdFormaPago, varIdPlazoPago, varDescripcion, varResultado);
 
                 resultado = Convert.ToString(varResultado.Value);
             }
@@ -57,7 +61,7 @@ namespace Data.DataEntities
             return resultado;
         }
 
-        public string ActualizarCliente(string IdUser, int IdCliente, string NombreCliente, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Contacto, int IdCiudad, string Direccion, int IdEstado)
+        public string ActualizarCliente(string IdUser, int IdCliente, string NombreCliente, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Celular, string Contacto, int IdCiudad, string Direccion, int IdFormaPago, int IdPlazoPago, string Descripcion, int IdEstado)
         {
             string resultado = String.Empty;
             try
@@ -69,13 +73,17 @@ namespace Data.DataEntities
                 var varIdentificacion = new SqlParameter("@Identificacion", SqlDbType.VarChar) { Value = Identificacion };
                 var varEmail = new SqlParameter("@Email", SqlDbType.VarChar) { Value = Email };
                 var varTelefono = new SqlParameter("@Telefono", SqlDbType.VarChar) { Value = Telefono };
+                var varCelular = new SqlParameter("@Celular", SqlDbType.VarChar) { Value = Celular };
                 var varContacto = new SqlParameter("@Contacto", SqlDbType.VarChar) { Value = Contacto };
                 var varIdCiudad = new SqlParameter("@IdCiudad", SqlDbType.Int) { Value = IdCiudad };
                 var varDireccion = new SqlParameter("@Direccion", SqlDbType.VarChar) { Value = Direccion };
+                var varIdFormaPago = new SqlParameter("@IdFormaPago", SqlDbType.Int) { Value = IdFormaPago };
+                var varIdPlazoPago = new SqlParameter("@IdPlazoPago", SqlDbType.Int) { Value = IdPlazoPago };
+                var varDescripcion = new SqlParameter("@Descripcion", SqlDbType.VarChar) { Value = Descripcion };
                 var varIdEstado = new SqlParameter("@IdEstado", SqlDbType.Int) { Value = IdEstado };
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
 
-                _conection.Database.ExecuteSqlCommand("SP_ActualizarCliente @IdUser, @IdCliente, @NombreCliente, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Contacto, @IdCiudad, @Direccion, @IdEstado, @Resultado OUTPUT", varIdUser, varIdCliente, varNombreCliente, varIdTipoDocumento, varIdentificacion, varEmail, varTelefono, varContacto, varIdCiudad, varDireccion, varIdEstado, varResultado);
+                _conection.Database.ExecuteSqlCommand("SP_ActualizarCliente @IdUser, @IdCliente, @NombreCliente, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Celular, @Contacto, @IdCiudad, @Direccion, @IdFormaPago, @IdPlazoPago, @Descripcion, @IdEstado, @Resultado OUTPUT", varIdUser, varIdCliente, varNombreCliente, varIdTipoDocumento, varIdentificacion, varEmail, varTelefono, varCelular, varContacto, varIdCiudad, varDireccion, varIdFormaPago, varIdPlazoPago, varDescripcion, varIdEstado, varResultado);
 
                 resultado = Convert.ToString(varResultado.Value);
             }

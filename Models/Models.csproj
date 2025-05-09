@@ -57,6 +57,7 @@
     <Compile Include="FondoPensiones.cs" />
     <Compile Include="FormaPago.cs" />
     <Compile Include="Menu.cs" />
+    <Compile Include="NominaEmpleado.cs" />
     <Compile Include="PermisoMenu.cs" />
     <Compile Include="PermisoSubMenu.cs" />
     <Compile Include="PlazoPago.cs" />
