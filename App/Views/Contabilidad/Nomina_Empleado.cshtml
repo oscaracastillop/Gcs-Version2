@@ -18,16 +18,74 @@
             </div>
             <div class="modal-body">
                 <label id="LabelIdNominaEmpleado" hidden></label>
-                <div>
-                    <label><strong>Nombre </strong><label style="color:red"> *</label></label>
-                    <input class="form-control" type="text" id="InputNombreNominaEmpleado" autocomplete="off" style="min-width:100%" />
+                <div class="row">
+                    <div class="col-8">
+                        <label><strong>Empleado</strong><label style="color:red"> *</label></label>
+                        <select class="form-control" id="SelectContratoLaboralSucursalEmpleado" style="min-width:100%"></select>
+                    </div>
+                    <div class="col-4">
+                        <label><strong>Días a Pagar</strong><label style="color:red" id=""> *</label></label>
+                        <input class="form-control" type="number" id="InputNominaEmpleadoDiasPagar" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
                 </div>
+                <br />
+                <div style="text-align:center">
+                    <label><strong>PERIODO CORTE DE NÓMINA</strong></label>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Fecha Inicio</strong><label style="color:red" id=""> *</label></label>
+                        <input class="form-control" type="date" id="InputNominaEmpleadoFechaInicio" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Fecha Fin</strong><label style="color:red" id=""> *</label></label>
+                        <input class="form-control" type="date" id="InputNominaEmpleadoFechaCorte" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                </div>
+
+                <div style="text-align:center">
+                    <label><strong>INGRESOS ADICIONALES</strong></label>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <label><strong>Bonos</strong><label style="color:red" id=""> *</label></label>
+                        <input class="form-control" type="number" id="InputNominaEmpleadoCasino" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                    <div class="col-4">
+                        <label><strong>Préstamo</strong><label style="color:red" id=""> *</label></label>
+                        <input class="form-control" type="number" id="InputNominaEmpleadoPrestamo" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                </div>
+
+                <div style="text-align:center">
+                    <label><strong>DESCUENTOS</strong></label>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <label><strong>Casino</strong><label style="color:red" id=""> *</label></label>
+                        <input class="form-control" type="number" id="InputNominaEmpleadoCasino" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                    <div class="col-4">
+                        <label><strong>Préstamo</strong><label style="color:red" id=""> *</label></label>
+                        <input class="form-control" type="number" id="InputNominaEmpleadoPrestamo" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                </div>
+
+
                 <div class="col-3" id="SelectEstadoNominaEmpleado">
                     <label><strong>Estado</strong></label>
                     <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
                 </div>
                 <br />
-                <label style="color: red">Los campos con * son obligatorios</label>
+                <div>
+                    <ul>
+                        <li><label style="color: red">Los campos con * son obligatorios.</label></li>
+                        <li>En el selector <strong>Empleado</strong> apareceran los empleados que tengan un <strong>Contrato Laboral Activo</strong>.</li>
+                        <li>El sistema tomará la fecha de Inicio y Fin para calcular <strong>Bonos, Ingresos adicionales, Horas Extras, Casino, Préstamos, y otros descuentos</strong>.</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="modal-footer" id="BotonesModalNominaEmpleado">
@@ -43,6 +101,8 @@
         ValidarSesion('/Contabilidad/Nomina_Empleado');
         //GridNominaEmpleado();
         ListaTipoEstado(1);
+        ListaContratoLaboralSucursalEmpleado();
+        $('#ModalNominaEmpleado').modal('show');
 
     });
 </script>

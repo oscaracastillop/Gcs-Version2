@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Data.DataContext;
+using static SistemaGcs.Models.NominaEmpleado;
 
 namespace Data.DataEntities
 {
