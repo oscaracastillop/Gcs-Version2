@@ -29,7 +29,7 @@
         $("#InputSubTransporteCLE").empty().val('0');
 
         $('#ImagenEmpleado').empty().append(
-            '<img src="/Images/ImagenHVEmpleado/Empleado.png" alt="" style="height:200px; width:200px; border-radius:50%; border:0px solid; background:white;padding:0px" id="ImagenEmpleado"/>'
+            '<img class="imagen-escalada-cambiar" src="/Images/ImagenHVEmpleado/Empleado.png" id="ImagenEmpleado"/>'
         );
         $("#TituloModalCLE").empty().append('<h6>Crear Contrato Laboral Empleado</h6>');
         $('#ModalCLE').modal('show');
@@ -454,7 +454,7 @@ function GridCLE() {
         $('#LabelIdCLE').text(data.Id);
         $('#LabelIdCLE').text(data.Id);
         $('#ImagenEmpleado').empty().append(
-            '<img src="/Images/ImagenHVEmpleado/' + data.Imagen + '" alt="" style="height:200px; width:200px; border-radius:50%; border:0px solid; background:white;padding:0px" id="ImagenEmpleado"/>'
+            '<img class="imagen-escalada-cambiar" src="/Images/ImagenHVEmpleado/' + data.Imagen + '" id="ImagenEmpleado"/>'
         );
         $('#SelectEmpleado').val(data.IdEmpleado);
         $('#SelectEmpresa').val(data.IdEmpresa);

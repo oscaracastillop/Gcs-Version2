@@ -326,7 +326,9 @@ function GridEmpleado() {
                 title: "Imagén",
                 "data": 'Imagen',
                 "render": function (data, type, row, meta) {
-                    return '<img class="btn CambiarImagenEmpleado" src="/Images/ImagenHVEmpleado/' + data + '" alt="" style="height:57px; width:70px; border-radius:50%"/>';                   
+                    return '<div class="contimg-grid">' +
+                        '<img class="imagen-escalada-grid btn CambiarImagenEmpleado" src="/Images/ImagenHVEmpleado/' + data + '"/>' +
+                        '</div>';
                 },
                 width: '50px'
             },
@@ -405,7 +407,7 @@ function GridEmpleado() {
         $('#NombreImagenActualEmpleado').text(data.Imagen);
         $('#NombreEmpleadoImagen').text(data.Nombre + ' ' + data.Apellidos);
         $('#ImagenHVEmpleado').empty().append(
-            '<img src="/Images/ImagenHVEmpleado/' + data.Imagen + '" alt="" style="height:200px; width:200px; border-radius:50%; border:0px solid; background:white;padding:0px"/>'
+            '<img class="imagen-escalada-cambiar" src="/Images/ImagenHVEmpleado/' + data.Imagen + '"/>'
         );
     })
 
@@ -450,11 +452,11 @@ function BuscarImagenEmpleado(IdEmpleado) {
             $("#ImagenEmpleado").empty();
             if (IdEmpleado == -1) {
                 $('#ImagenEmpleado').empty().append(
-                    '<img src="/Images/ImagenHVEmpleado/Empleado.png" alt="" style="height:200px; width:200px; border-radius:50%; border:0px solid; background:white;padding:0px"/>'
+                    '<img class="imagen-escalada-cambiar" src="/Images/ImagenHVEmpleado/Empleado.png"/>'
                 );
             } else {
                 $('#ImagenEmpleado').empty().append(
-                    '<img src="/Images/ImagenHVEmpleado/' + resultado[0].Imagen + '" alt="" style="height:200px; width:200px; border-radius:50%; border:0px solid; background:white;padding:0px"/>'
+                    '<img class="imagen-escalada-cambiar" src="/Images/ImagenHVEmpleado/' + resultado[0].Imagen + '"/>'
                 );
             }
         },

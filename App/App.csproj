@@ -2204,6 +2204,7 @@
     <Content Include="JsApp\Goblal.js" />
     <Content Include="JsApp\Login.js" />
     <Content Include="JsApp\Menu.js" />
+    <Content Include="JsApp\NominaEmpleado.js" />
     <Content Include="JsApp\PermisoMenu.js" />
     <Content Include="JsApp\PermisoSubMenu.js" />
     <Content Include="JsApp\PlazoPago.js" />

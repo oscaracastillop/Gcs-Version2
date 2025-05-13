@@ -338,3 +338,33 @@ hr {
 #ImagenEmpleado{
     text-align:center;
 }
+
+.imagen-escalada-grid {
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0px !important;
+    border-radius: 50% !important;
+}
+
+.contimg-grid {
+    width: 40px;
+    height: 40px;
+    margin-right: auto;
+    margin-left: auto;
+    
+}
+
+.contimg-cambiar-img {
+    width: 200px;
+    height: 200px;
+    margin-right: auto;
+    margin-left: auto;
+    
+}
+
+.imagen-escalada-cambiar {
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0px !important;
+    border-radius: 5px;
+}

@@ -351,9 +351,10 @@ function GridProducto() {
                 title: "Imagén",
                 "data": 'ImagenProducto',
                 "render": function (data, type, row, meta) {
-                    return '<img class="btn CambiarImagenProducto" src="/Images/ImagenProducto/' + data + '" alt="" style="height:50px; border-radius:50%"/>';
-                },
-                width: '50px'
+                    return '<div class="contimg-grid">' +
+                            '<img class="imagen-escalada-grid btn CambiarImagenProducto" src="/Images/ImagenProducto/' + data + '"/>' +
+                        '</div>';
+                }
             },
             { "data": "NombreProducto", title: "Producto", width: 'auto' },
             { "data": "MarcaProducto", title: "Marca", width: 'auto' },
@@ -424,7 +425,7 @@ function GridProducto() {
         $('#NombreImagenActualProducto').text(data.ImagenProducto);
         $('#NombreProductoImagen').text(data.NombreProducto);
         $('#ImagenProducto').empty().append(
-            '<img src="/Images/ImagenProducto/' + data.ImagenProducto + '" alt="" style="height:200px; width:200px; border-radius:50%; border:0px solid; background:white;padding:0px"/>'
+            '<img class="imagen-escalada-cambiar" src="/Images/ImagenProducto/' + data.ImagenProducto + '"/>'
         );
     })
 
