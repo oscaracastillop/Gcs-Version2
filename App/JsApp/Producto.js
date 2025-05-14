@@ -262,8 +262,9 @@ function GridProducto() {
             { targets: [8], className: 'dt-head-center' },
             { targets: [9], className: 'dt-head-center' },
             { targets: [10], className: 'dt-head-center' },
-            { targets: [11], width: '150px', className: 'dt-center dt-head-center' },
-            { targets: [12], width: '100px', className: 'dt-center dt-head-center' }
+            { targets: [11], width: '50px', className: 'dt-center dt-head-center' },
+            { targets: [12], width: '50px', className: 'dt-center dt-head-center' },
+            { targets: [13], width: '50px', className: 'dt-center dt-head-center' },
         ],
         buttons: [{
             extend: 'excel', className: 'btn btn-excel-datatable',
