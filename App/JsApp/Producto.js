@@ -246,6 +246,7 @@ function GuardarImagenProducto() {
 function GridProducto() {
     var tituloReporte = 'REPORTE PRODUCTOS';
     let datatable = $('#gridProducto').DataTable({
+        responsive:false,
         scrollCollapse: true,
         scrollY: '800px',
         scrollX: true,
@@ -373,20 +374,30 @@ function GridProducto() {
                 "render": function (data, type, row) {
 
                     if (row.IdEstado == 1) {
-                        return '<label style="background-color:green; padding:2px;border-radius:5px;font-size:11px!important; color:white">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label class="label-estado-activo">&nbsp;' + data + '&nbsp;</label>';
                     }
                     else {
-                        return '<label style="background-color:red; padding:2px;border-radius:5px;font-size:11px!important; color: white">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label class="label-estado-inactivo">&nbsp;' + data + '&nbsp;</label>';
                     }
                 }
 
             },
             {
-                title: "Acciones",
+                title: "",
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<a class="EditarProducto btn btn-editar-dt" title="Editar Registro">Editar</a>&nbsp;&nbsp;<a class="EliminarProducto btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>' +
+                    '<a class="EditarProducto btn btn-editar-dt" title="Editar Registro">Editar</a>' +
+                    '</div>',
+                orderable: false,
+                width: 'auto',
+            },
+            {
+                title: "",
+                data: null,
+                defaultContent:
+                    '<div class="btn-group-sm">' +
+                    '<a class="EliminarProducto btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',
@@ -397,8 +408,8 @@ function GridProducto() {
             "url": "//cdn.datatables.net/plug-ins/1.11.2/i18n/es_es.json"
         },
         lengthMenu: [
-            [5, 10, 25, 50, -1],
-            ['5 Filas', '10 Filas', '25 Filas', '50 Filas', 'Ver Todo']
+            [10, 25, 50, -1],
+            [ '10 Filas', '25 Filas', '50 Filas', 'Ver Todo']
         ],
     });
 

@@ -20,7 +20,6 @@ textarea {
 
 
 header {
-    /*background-color: #33225a;*/
     background-color: #333;
     color: white;
     text-align: left;
@@ -33,15 +32,13 @@ header {
 nav ul {
     list-style-type: none;
     padding: 0;
-    /*background-color: orangered;*/
     overflow: hidden;
-    /*box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.75);*/
     
 }
 
     nav ul li a {
         display: block;
-        color: white;
+        color: black;
         text-align: left;
         padding: 7px 10px;
         text-decoration: none;
@@ -51,22 +48,15 @@ nav ul {
         height: 39px;
         margin-top: 3px;
         margin-bottom: 3px;
-        background-color: orangered;
-        /*font-family: "Quicksand", sans-serif;
-        font-family: "Open Sans", sans-serif;
-        font-family: "Montserrat", sans-serif;
-        font-family: "Roboto", sans-serif;
-        font-family: "Gidole", sans-serif;
-        font-family: "Inter", sans-serif;
-        font-family: "Raleway", sans-serif;*/
-        /*box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);*/
-        border-radius:5px;
+        background-color: none;
+        border-radius:0px;
     }
 
 nav ul li a:hover{
-    background-color:black;
+    background-color:#888;
     color:white;
-    /*border: solid 1px white;*/
+    font-size:12px !important;
+    /*font-weight:bold;*/
 }
 
 main {
@@ -95,8 +85,8 @@ footer {
     float: left;
     min-width: 150px;
     font-family: "Open Sans", sans-serif;
-    margin-left:5px;
-    margin-top:5px
+    margin-left: 5px;
+    margin-top: 5px;
 }
 
 #contenedordos {
@@ -134,7 +124,7 @@ footer {
     border-radius: 0px;
     float: left;
     color: black !important;
-    font-size: 11px !important;
+    font-size: 9px !important;
     border: solid 1px lightgray !important;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -144,16 +134,20 @@ footer {
 }
 
 table.dataTable thead tr {
-    background-color: orangered;
-    color: white;
-    
+    background-color: none;
+    color: black;
+    font-size: 9px;
 }
 
 div.dataTables_wrapper div.dataTables_filter input {
     margin-left: 0.5em;
     display: inline-block;
-    width: 200px;
-    height:25px;
+    width: 180px;
+    height: 25px;
+    margin-bottom: 10px;
+    font-size: 9px !important;
+    line-height: 20px;
+    margin-top: 10px;
 }
 
 input, button, select, textarea {
@@ -178,7 +172,7 @@ input, button, select, textarea {
 #NameApp {
     font-family: Pristina !important;
     font-size: 50px !important;
-    color: white;
+    color: black;
     margin-left: 10px;
     margin-top:10px!important;
     font-weight: bold;
@@ -192,7 +186,7 @@ input, button, select, textarea {
     margin-bottom: 10px;
     margin-top:-12px!important;
     margin-left: 10px;
-    color: white;
+    color: black;
 }
 
 
@@ -205,7 +199,6 @@ input, button, select, textarea {
     background-color: orangered;
     color: white;
     font-weight:bold;
-    /*height:33px;*/
     font-size:15px;
 }
 
@@ -215,12 +208,6 @@ input, button, select, textarea {
     font-size: 11px !important;
     font-family: "Open Sans", sans-serif;
 }
-/*
-.btn-modal-guardar:hover {
-    background-color: #33225a !important;
-    color: white !important;
-}
-*/
 
 .btn-modal-Cancelar {
     background-color: #333 !important;
@@ -243,12 +230,13 @@ input, button, select, textarea {
 /*Estilos datatable*/
 
 .btn-excel-datatable, .btn-pdf-datatable, .btn-nuevo-datatable {
-    background-color: orangered !important;
+    background-color: #4682B4 !important;
     color: white !important;
-    font-size: 10px !important;
+    font-size: 9px !important;
     height: 25px;
-    line-height: 10px !important;
+    line-height: 0px !important;
     font-family: "Open Sans", sans-serif;
+    margin-top:10px;
 }
 
 .btn-excel-datatable:hover, .btn-pdf-datatable:hover, .btn-nuevo-datatable:hover {
@@ -256,14 +244,15 @@ input, button, select, textarea {
 }
 
 .btn-editar-dt {
-    background-color: #333 !important;
-    font-size: 11px !important;
-    color: white !important;
+    background-color: #4682B4 !important;
+    font-size: 9px !important;
+    color: black !important;
     padding-top: 2px !important;
     padding-bottom: 2px !important;
     padding-left: 4px !important;
     padding-right: 4px !important;
     font-family: "Open Sans", sans-serif;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
 
 .btn-editar-dt:hover {
@@ -272,13 +261,14 @@ input, button, select, textarea {
 
 .btn-eliminar-dt {
     background-color: red !important;
-    font-size: 11px !important;
+    font-size: 9px !important;
     color: white !important;
     padding-top: 2px !important;
     padding-bottom: 2px !important;
     padding-left: 4px !important;
     padding-right: 4px !important;
     font-family: "Open Sans", sans-serif;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
 
 .btn-eliminar-dt:hover {
@@ -347,8 +337,8 @@ hr {
 }
 
 .contimg-grid {
-    width: 40px;
-    height: 40px;
+    width: 25px;
+    height: 25px;
     margin-right: auto;
     margin-left: auto;
     
@@ -367,4 +357,32 @@ hr {
     height: 100% !important;
     padding: 0px !important;
     border-radius: 5px;
+}
+
+.label-estado-activo {
+    border-radius: 5px;
+    font-size: 9px !important;
+    color: black;
+    line-height: 20px;
+    align-content: center;
+    align-items: center;
+    /*width: 50px;*/
+    height: 20px;
+    background-color: #9ACD32;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    padding-left:5px;
+    padding-right:5px;
+}
+
+.label-estado-inactivo {
+    border-radius: 5px;
+    font-size: 9px !important;
+    color: white;
+    line-height: 20px;
+    align-content: center;
+    align-items: center;
+    width: 50px;
+    height: 20px;
+    background-color: red;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
