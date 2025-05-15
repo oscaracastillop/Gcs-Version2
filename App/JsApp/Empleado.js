@@ -32,13 +32,13 @@ function CrearEmpleado() {
         VentanaMensaje('Ingrese el Nombre del Empleado', 'info');
     } else if (Apellidos == null || Apellidos == '' || Apellidos == undefined) {
         $('#InputApellidosEmpleado').focus();
-        VentanaMensaje('Ingrese el Apellido del Empleado', 'info');        
+        VentanaMensaje('Ingrese el Apellido del Empleado', 'info');
     } else if (IdTipoDocumento == -1 || IdTipoDocumento == null || IdTipoDocumento == '') {
         $('#SelectTipoDocumento').focus();
-        VentanaMensaje('Seleccione el Tipo de Documento del Empleado', 'info');        
+        VentanaMensaje('Seleccione el Tipo de Documento del Empleado', 'info');
     } else if (Identificacion == null || Identificacion == '' || Identificacion == undefined) {
         $('#InputIdentificacionEmpleado').focus();
-        VentanaMensaje('Ingrese la Identificación del Empleado', 'info');        
+        VentanaMensaje('Ingrese la Identificación del Empleado', 'info');
     } else {
         $.ajax({
             type: 'POST',
@@ -83,14 +83,14 @@ function ActualizarEmpleado() {
         $('#InputNombreEmpleado').focus();
         VentanaMensaje('Ingrese el Nombre del Empleado', 'info');
     } else if (Apellidos == null || Apellidos == '' || Apellidos == undefined) {
-        VentanaMensaje('Ingrese el Apellido del Empleado', 'info'); 
+        VentanaMensaje('Ingrese el Apellido del Empleado', 'info');
         Swal.fire(TituloSwal, 'Ingrese el Apellido del Empleado', 'info');
     } else if (IdTipoDocumento == -1 || IdTipoDocumento == null || IdTipoDocumento == '') {
         $('#SelectTipoDocumento').focus();
-        VentanaMensaje('Seleccione el Tipo de Documento del Empleado', 'info');   
+        VentanaMensaje('Seleccione el Tipo de Documento del Empleado', 'info');
     } else if (Identificacion == null || Identificacion == '' || Identificacion == undefined) {
         $('#InputIdentificacionEmpleado').focus();
-        VentanaMensaje('Ingrese la Identificación del Empleado', 'info');    
+        VentanaMensaje('Ingrese la Identificación del Empleado', 'info');
     } else {
         $.ajax({
             type: 'POST',
@@ -120,7 +120,7 @@ function ActualizarEmpleado() {
                 } else {
                     Swal.fire(TituloSwal, valor[1], 'info');
                 }
-            }            
+            }
         });
     }
 }
@@ -198,7 +198,7 @@ function GuardarImagenHVEmpleado() {
             data: photo[0],
             url: '/Empleado/GuardarImagenHVEmpleado',
             contentType: false,
-            processData: false,            
+            processData: false,
             success: function (result) {
                 valor = result.split('*');
                 if (valor[0] == 'OK') {
@@ -236,8 +236,9 @@ function GridEmpleado() {
             { targets: [4], className: 'dt-head-center' },
             { targets: [5], className: 'dt-head-center' },
             { targets: [6], className: 'dt-head-center' },
-            { targets: [7], width: '150px', className: 'dt-center dt-head-center' },
-            { targets: [8], width: '100px', className: 'dt-center dt-head-center' }
+            { targets: [7], width: '50px', className: 'dt-center dt-head-center' },
+            { targets: [8], width: '50px', className: 'dt-center dt-head-center' },
+            { targets: [9], width: '50px', className: 'dt-center dt-head-center' }
         ],
         buttons: [{
             extend: 'excel', className: 'btn btn-excel-datatable',
@@ -246,7 +247,7 @@ function GridEmpleado() {
             filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
             text: 'Excel',
             exportOptions: {
-                columns: [1,2, 3, 5, 6, 7]
+                columns: [1, 2, 3, 5, 6, 7]
             },
         },
         {
@@ -306,13 +307,13 @@ function GridEmpleado() {
                 doc.content[0].layout = objLayout;
             }
         },
-            {
-                text: 'Nuevo',
-                className: 'btn btn-nuevo-datatable',
-                action: function (e, dt, node, config) {
-                    ModalEmpleado('C');
-                }
+        {
+            text: 'Nuevo',
+            className: 'btn btn-nuevo-datatable',
+            action: function (e, dt, node, config) {
+                ModalEmpleado('C');
             }
+        }
         ],
         /*"order": [[1, "asc"]],*/
         destroy: true,
@@ -321,7 +322,7 @@ function GridEmpleado() {
             "type": "GET",
             "datatype": "json"
         },
-        columns: [   
+        columns: [
             {
                 title: "Imagén",
                 "data": 'Imagen',
@@ -359,20 +360,30 @@ function GridEmpleado() {
                 "render": function (data, type, row) {
 
                     if (row.IdEstado == 1) {
-                        return '<label class="label-estado" style="background-color:green;">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label class="label-estado-activo">&nbsp;' + data + '&nbsp;</label>';
                     }
                     else {
-                        return '<label class="label-estado" style="background-color:red;">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label class="label-estado-inactivo">&nbsp;' + data + '&nbsp;</label>';
                     }
                 }
 
             },
             {
-                title: "Acciones",
+                title: "",
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<a class="EditarEmpleado btn btn-editar-dt" title="Editar Registro">Editar</a>&nbsp;&nbsp;<a class="EliminarEmpleado btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>' +
+                    '<a class="EditarEmpleado btn btn-editar-dt" title="Editar Registro">Editar</a>' +
+                    '</div>',
+                orderable: false,
+                width: 'auto',
+            },
+            {
+                title: "",
+                data: null,
+                defaultContent:
+                    '<div class="btn-group-sm">' +
+                    '<a class="EliminarEmpleado btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',

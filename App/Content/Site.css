@@ -1,73 +1,52 @@
 ﻿body {
-    /*font-family: Arial, sans-serif !important;*/
-    font-size: 13px !important;
-    font-family: "Open Sans", sans-serif !important;
-    /*background-color: #d4e6f1 !important;*/
 }
 
-/* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
     max-width: 280px;
 }
 
-
-header {
-    background-color: #333;
-    color: white;
-    text-align: left;
-    padding: 0px;
-    height: 60px;
-    margin-bottom:1px;
-
-}
-
 nav ul {
     list-style-type: none;
     padding: 0;
     overflow: hidden;
-    
 }
 
     nav ul li a {
         display: block;
-        color: black;
+        color: white;
         text-align: left;
         padding: 7px 10px;
         text-decoration: none;
-        border: solid 0px white;
+        border: solid 1px black;
         font-size: 12px !important;
-        font-family: "Open Sans", sans-serif;
         height: 39px;
         margin-top: 3px;
         margin-bottom: 3px;
-        background-color: none;
-        border-radius:0px;
+        background-color: orangered;
+        border-radius: 0px;
     }
 
-nav ul li a:hover{
-    background-color:#888;
-    color:white;
-    font-size:12px !important;
-    /*font-weight:bold;*/
-}
+        nav ul li a:hover {
+            background-color: black;
+            color: white;
+        }
 
-main {
+/*main {
     padding:20px;
-}
+}*/
 
-h2{
+/*h2{
     color:#333;
-}
+}*/
 
-footer {
+/*footer {
     background-color: white;
     color: black;
     text-align: center;
@@ -78,24 +57,20 @@ footer {
     height: 20px;
     padding-top: 2px;
     font-size: 9px !important;
-    font-family: "Open Sans", sans-serif;
-}
+}*/
 
 #contenedoruno {
     float: left;
     min-width: 150px;
-    font-family: "Open Sans", sans-serif;
     margin-left: 5px;
-    margin-top: 5px;
+    margin-top: 5px
 }
 
 #contenedordos {
     margin-left: 170px;
     display: block;
-    /*margin-top: 12px;*/
-    font-family: "Open Sans", sans-serif;    
-    font-size:12px!important;
-    margin-right:10px;
+    font-size: 12px !important;
+    margin-right: 10px;
 }
 
 .btnSubMenu {
@@ -110,11 +85,11 @@ footer {
     box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,1);
 }
 
-.btnSubMenu:hover {
-    background-color: #666!important;
-   /* color: white;*/
-    /*border: solid 1px white;*/
-}
+    .btnSubMenu:hover {
+        background-color: #666 !important;
+        /* color: white;*/
+        /*border: solid 1px white;*/
+    }
 
 .grid {
     width: 98%;
@@ -124,11 +99,11 @@ footer {
     border-radius: 0px;
     float: left;
     color: black !important;
-    font-size: 9px !important;
-    border: solid 1px lightgray !important;
+    font-size: 10px !important;
+    border: solid 1px black !important;
     padding-top: 10px;
     padding-bottom: 10px;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    /* box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);*/
     /*box-shadow: 0px 0px 12px -5px rgba(219,102,13,1);*/
     background-color: white;
 }
@@ -136,7 +111,7 @@ footer {
 table.dataTable thead tr {
     background-color: none;
     color: black;
-    font-size: 9px;
+    font-size: 10px;
 }
 
 div.dataTables_wrapper div.dataTables_filter input {
@@ -145,15 +120,10 @@ div.dataTables_wrapper div.dataTables_filter input {
     width: 180px;
     height: 25px;
     margin-bottom: 10px;
-    font-size: 9px !important;
-    line-height: 20px;
-    margin-top: 10px;
 }
 
 input, button, select, textarea {
-    /*font-family: Arial, sans-serif !important;*/
     font-size: 11px !important;
-    font-family: "Open Sans", sans-serif;
 }
 
 #btnNuevoRegistro {
@@ -161,64 +131,63 @@ input, button, select, textarea {
     margin-bottom: 10px;
     color: white;
     background-color: orangered !important;
-    font-family: "Open Sans", sans-serif;
 }
 
-#btnNuevoRegistro:hover {
-    background-color: #33225a !important;
-    font-family: "Open Sans", sans-serif;
-}
+    #btnNuevoRegistro:hover {
+        background-color: #33225a !important;
+    }
 
 #NameApp {
     font-family: Pristina !important;
     font-size: 50px !important;
-    color: black;
+    color: white;
     margin-left: 10px;
-    margin-top:10px!important;
+    margin-top: 10px !important;
     font-weight: bold;
 }
 
 #SloganEmpresa {
-    font-family: "Open Sans", sans-serif;
     font-size: 10px !important;
     display: flex;
     align-items: flex-end;
     margin-bottom: 10px;
-    margin-top:-12px!important;
+    margin-top: -12px !important;
     margin-left: 10px;
-    color: black;
+    color: white;
 }
-
-
-
-
 
 /*Stilos del modal*/
 
 .header-modal {
-    background-color: orangered;
-    color: white;
-    font-weight:bold;
-    font-size:15px;
+    background-color: none;
+    color: black;
+    font-weight: bold;
+    font-size: 15px;
 }
 
 .btn-modal-guardar {
     background-color: orangered !important;
     color: white !important;
     font-size: 11px !important;
-    font-family: "Open Sans", sans-serif;
+    border: solid 1px black !important;
 }
+/*
+.btn-modal-guardar:hover {
+    background-color: #33225a !important;
+    color: white !important;
+}
+*/
 
 .btn-modal-Cancelar {
-    background-color: #333 !important;
-    color: white !important;
+    background-color: lightgray !important;
+    color: black !important;
     font-size: 11px !important;
-    font-family: "Open Sans", sans-serif;
+    /*box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);*/
+    border: solid 1px black !important;
 }
 
 
 .modal {
-    font-family: "Open Sans", sans-serif;
     font-size: 11px !important;
 }
 
@@ -230,52 +199,49 @@ input, button, select, textarea {
 /*Estilos datatable*/
 
 .btn-excel-datatable, .btn-pdf-datatable, .btn-nuevo-datatable {
-    background-color: #4682B4 !important;
+    background-color: orangered !important;
     color: white !important;
-    font-size: 9px !important;
+    font-size: 10px !important;
     height: 25px;
     line-height: 0px !important;
-    font-family: "Open Sans", sans-serif;
-    margin-top:10px;
+    border: solid 1px black !important;
 }
 
-.btn-excel-datatable:hover, .btn-pdf-datatable:hover, .btn-nuevo-datatable:hover {
-    background-color: black !important;
-}
+    .btn-excel-datatable:hover, .btn-pdf-datatable:hover, .btn-nuevo-datatable:hover {
+        background-color: black !important;
+    }
 
 .btn-editar-dt {
-    background-color: none !important;
-    font-size: 9px !important;
-    color: black !important;
+    background-color: steelblue !important;
+    font-size: 10px !important;
+    color: white !important;
     padding-top: 2px !important;
     padding-bottom: 2px !important;
     padding-left: 4px !important;
     padding-right: 4px !important;
-    font-family: "Open Sans", sans-serif;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    margin-left: -10px;
-    margin-right: -10px;
+    /*box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);*/
+    border: solid 1px black !important;
 }
 
-.btn-editar-dt:hover {
+/*.btn-editar-dt:hover {
     background-color: #666 !important;
-}
+}*/
 
 .btn-eliminar-dt {
     background-color: red !important;
-    font-size: 9px !important;
+    font-size: 10px !important;
     color: white !important;
     padding-top: 2px !important;
     padding-bottom: 2px !important;
     padding-left: 4px !important;
     padding-right: 4px !important;
-    font-family: "Open Sans", sans-serif;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    /*box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);*/
+    border: solid 1px black !important;
 }
-
+/*
 .btn-eliminar-dt:hover {
     background-color: #666 !important;
-}
+}*/
 
 .btn-logo-dt {
     background-color: purple !important;
@@ -286,20 +252,19 @@ input, button, select, textarea {
     line-height: 15px;
 }
 
-.TituloModulo{
-  /*  font-weight:bold;*/
-    color:black!important;
+.TituloModulo {
+    /*  font-weight:bold;*/
+    color: black !important;
 }
 
-.titu{
-    background-color:green !important;
-
+.titu {
+    background-color: green !important;
 }
 
 hr {
     margin-top: -5px !important;
-    border: solid 1px orangered!important;
-    opacity: 1!important;
+    border: solid 1px orangered !important;
+    opacity: 1 !important;
 }
 
 .hruno {
@@ -317,18 +282,18 @@ hr {
     background-size: cover;*/
 }
 
-.labelmodulo{
-    background-color:green!important;
-    padding:3px;
-    margin-top:5px!important;
-    padding-left:7px;
-    padding-right:7px;
-    border-radius:5px;
-    color:white;
+.labelmodulo {
+    background-color: green !important;
+    padding: 3px;
+    margin-top: 5px !important;
+    padding-left: 7px;
+    padding-right: 7px;
+    border-radius: 5px;
+    color: white;
 }
 
-#ImagenEmpleado{
-    text-align:center;
+#ImagenEmpleado {
+    text-align: center;
 }
 
 .imagen-escalada-grid {
@@ -343,7 +308,6 @@ hr {
     height: 25px;
     margin-right: auto;
     margin-left: auto;
-    
 }
 
 .contimg-cambiar-img {
@@ -351,7 +315,6 @@ hr {
     height: 200px;
     margin-right: auto;
     margin-left: auto;
-    
 }
 
 .imagen-escalada-cambiar {
@@ -361,30 +324,43 @@ hr {
     border-radius: 5px;
 }
 
-.label-estado-activo {
+.label-estado {
+    padding: 0px;
     border-radius: 5px;
-    font-size: 9px !important;
-    color: black;
-    line-height: 20px;
-    align-content: center;
-    align-items: center;
-    /*width: 50px;*/
-    height: 20px;
-    background-color: #9ACD32;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    padding-left:5px;
-    padding-right:5px;
-}
-
-.label-estado-inactivo {
-    border-radius: 5px;
-    font-size: 9px !important;
+    font-size: 8px !important;
     color: white;
     line-height: 20px;
     align-content: center;
     align-items: center;
     width: 50px;
     height: 20px;
+}
+
+.label-estado-activo {
+    border-radius: 5px;
+    font-size: 10px !important;
+    color: black;
+    line-height: 10px;
+    align-content: center;
+    align-items: center;
+    height: 20px;
+    background-color: #9ACD32;
+    /*box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);*/
+    padding-left: 5px;
+    padding-right: 5px;
+    border: solid 1px black !important;
+}
+
+.label-estado-inactivo {
+    border-radius: 5px;
+    font-size: 10px !important;
+    color: white;
+    line-height: 10px;
+    align-content: center;
+    align-items: center;
+    width: 50px;
+    height: 20px;
     background-color: red;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    /*box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);*/
+    border: solid 1px black !important;
 }
