@@ -225,6 +225,7 @@ function GuardarImagenHVEmpleado() {
 function GridEmpleado() {
     var tituloReporte = 'REPORTE EMPLEADO';
     let datatable = $('#gridEmpleado').DataTable({
+        responsive: false,
         scrollCollapse: true,
         scrollY: '800px',
         scrollX: true,
@@ -237,23 +238,23 @@ function GridEmpleado() {
             { targets: [5], className: 'dt-head-center' },
             { targets: [6], className: 'dt-head-center' },
             { targets: [7], width: '50px', className: 'dt-center dt-head-center' },
-            { targets: [8], width: '50px', className: 'dt-center dt-head-center' },
-            { targets: [9], width: '50px', className: 'dt-center dt-head-center' }
+            { targets: [8], width: '30px', className: 'dt-center dt-head-center' },
+            { targets: [9], width: '30px', className: 'dt-center dt-head-center' }
         ],
         buttons: [{
-            extend: 'excel', className: 'btn btn-excel-datatable',
+            extend: 'excel', className: 'btn-excel-datatable',
             footer: true,
             title: tituloReporte + ' ' + NameApp,
             filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
-            text: 'Excel',
+            text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
             exportOptions: {
                 columns: [1, 2, 3, 5, 6, 7]
             },
         },
         {
             //download: 'open',
-            extend: 'pdfHtml5', className: 'btn btn-pdf-datatable',
-            text: 'Pdf',
+            extend: 'pdfHtml5', className: 'btn-pdf-datatable',
+            text: '<i class="bi-file-earmark-pdf-fill" style="color:red"></i> Descargar Pdf',
             filename: tituloReporte + ' - ' + NameApp + ' ' + jsDate + ' ' + hora,
             orientation: 'portrait', //portrait landscape
             pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
@@ -309,7 +310,7 @@ function GridEmpleado() {
         },
         {
             text: 'Nuevo',
-            className: 'btn btn-nuevo-datatable',
+            className: 'btn-nuevo-datatable',
             action: function (e, dt, node, config) {
                 ModalEmpleado('C');
             }
@@ -373,7 +374,8 @@ function GridEmpleado() {
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<a class="EditarEmpleado btn btn-editar-dt" title="Editar Registro">Editar</a>' +
+                    '<i class="bi-pencil-square btn EditarEmpleado" style="color:blue" title="Editar"></i>'+
+                    /*'<a class="EditarEmpleado btn btn-editar-dt" title="Editar Registro">Editar</a>' +*/
                     '</div>',
                 orderable: false,
                 width: 'auto',
@@ -383,7 +385,8 @@ function GridEmpleado() {
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<a class="EliminarEmpleado btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
+                    '<i class="bi-trash3-fill btn EliminarEmpleado" style="color:red" title="Eliminar"></i>' +
+                    /*'<a class="EliminarEmpleado btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +*/
                     '</div>',
                 orderable: false,
                 width: 'auto',
