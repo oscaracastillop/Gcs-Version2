@@ -20,34 +20,28 @@ nav ul {
 
 nav ul li a {
     display: block;
-    color: black;
+    color: white;
     text-align: left;
-    padding: 7px 10px;
+    padding: 0px 10px;
     text-decoration: none;
-  /*  border: solid 1px black;*/
     font-size: 12px !important;
-    height: 39px;
-    margin-top: 3px;
-    margin-bottom: 3px;
-    background-color: none;
-    border-radius: 0px;
+    height: 40px;
+    margin-top: 5px;
+    background-color: orangered;
+    border-radius: 0px 15px 0px 15px;
     box-shadow: inset 0px 0px 0px 0px rgba(0,0,0,1);
+    align-content:center !important;
+    align-items:center !important;
+   /* border:solid 1px black;*/
 }
 
     nav ul li a:hover {
-       /* background-color: black;
-        color: white;*/
-        box-shadow: inset 0px 0px 2px 0px rgba(0,0,0,1);
+        background-color: #333;
+        color: white;
         font-weight:bold;
     }
 
-/*main {
-    padding:20px;
-}*/
 
-/*h2{
-    color:#333;
-}*/
 
 /*footer {
     background-color: white;
@@ -65,9 +59,9 @@ nav ul li a {
 #contenedoruno {
     float: left;
     min-width: 150px;
-    margin-left: 0px;
-    /*margin-top: 1px;
-    box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);*/
+    margin-left: 5px;
+    margin-top: 1px;
+   /* box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);*/
 }
 
 #contenedordos {
@@ -93,7 +87,7 @@ nav ul li a {
     align-content: center;
     color: white !important;
     font-family: "Open Sans", sans-serif;
-    border-radius: 0px !important;
+    border-radius: 0px 25px 0px 25px !important;
     box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,1);
 }
 
@@ -121,10 +115,9 @@ nav ul li a {
 }
 
 table.dataTable thead tr {
-    background-color: steelblue;
-    color: white;
+    background-color: none;
+    color: black;
     font-size: 10px;
-    box-shadow: inset 0px 0px 1px 1px rgba(0,0,0,1);
 }
 
 div.dataTables_wrapper div.dataTables_filter input {
@@ -138,17 +131,6 @@ div.dataTables_wrapper div.dataTables_filter input {
 input, button, select, textarea {
     font-size: 11px !important;
 }
-
-#btnNuevoRegistro {
-    float: right;
-    margin-bottom: 10px;
-    color: white;
-    background-color: orangered !important;
-}
-
-    #btnNuevoRegistro:hover {
-        background-color: #33225a !important;
-    }
 
 #NameApp {
     font-family: Pristina !important;
@@ -173,30 +155,30 @@ input, button, select, textarea {
     background-color: none;
     color: black;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 15px;    
 }
 
 .btn-modal-guardar {
     background-color: orangered !important;
     color: white !important;
     font-size: 11px !important;
-    border: solid 1px black !important;
+   /* border-radius: 0px !important;
+    border-radius: 0px 15px 0px 0px !important;*/
+    padding-left:10px !important;
+    padding-right:10px !important;
 }
-/*
+
 .btn-modal-guardar:hover {
-    background-color: #33225a !important;
-    color: white !important;
+    background-color: #666 !important;
 }
-*/
 
 .btn-modal-Cancelar {
-    background-color: lightgray !important;
-    color: black !important;
+    background-color: black !important;
+    color: white !important;
     font-size: 11px !important;
-    /*box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);*/
-    border: solid 1px black !important;
+  /*  border-radius: 0px !important;
+    border-radius: 0px 0px 0px 15px !important;*/
 }
-
 
 .modal {
     font-size: 11px !important;
@@ -216,14 +198,9 @@ input, button, select, textarea {
     height: 25px;
     width: 120px;
     line-height: 0px !important;
-    /* border: solid 1px black !important;*/
-    border-radius: 0px !important;
+    /*border-radius: 15px 0px 0px 15px !important;*/
 }
 
-    .btn-excel-datatable:hover {
-        box-shadow: inset 0px 0px 2px 0px rgba(0,0,0,1);
-        font-weight: bold;
-    }
 
 .btn-pdf-datatable {
     background-color: none !important;
@@ -232,32 +209,22 @@ input, button, select, textarea {
     height: 25px;
     width:120px;
     line-height: 0px !important;
-    /*border: solid 1px black !important;*/
     border-radius: 0px !important;
 }
 
-    .btn-pdf-datatable:hover {
-        box-shadow: inset 0px 0px 2px 0px rgba(0,0,0,1);
-        font-weight: bold;
-    }
-
 .btn-nuevo-datatable {
-    background-color: steelblue !important;
+    background-color: orangered !important;
     color: white !important;
     font-size: 10px !important;
     height: 25px;
     line-height: 0px !important;
-    /*border: solid 1px black !important;*/
-    border-radius: 0px !important;
+   /* border-radius: 0px 15px 15px 0px !important;*/
 }
 
 .btn-nuevo-datatable:hover {
-    box-shadow: inset 0px 0px 2px 0px rgba(0,0,0,1);
-    font-weight:bold;
+    background-color:#666 !important;
 }
-
-
-.btn-editar-dt {
+    .btn-editar-dt {
     background-color: lightgray !important;
     font-size: 10px !important;
     color: black !important;
@@ -265,7 +232,6 @@ input, button, select, textarea {
     padding-bottom: 2px !important;
     padding-left: 4px !important;
     padding-right: 4px !important;
-    border: solid 1px black !important;
     border-radius: 0px !important;
     width: 50px;
     font-weight: bold !important;
@@ -283,7 +249,6 @@ input, button, select, textarea {
     padding-bottom: 2px !important;
     padding-left: 4px !important;
     padding-right: 4px !important;
-    border: solid 1px black !important;
     border-radius: 0px !important;
     width:50px;
     font-weight:bold !important;

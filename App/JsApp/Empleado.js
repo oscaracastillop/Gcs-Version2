@@ -113,7 +113,7 @@ function ActualizarEmpleado() {
                         text: valor[1],
                         icon: 'success',
                         position: 'top',
-                        confirmButtonColor: "orangered",
+                        confirmButtonColor: "orange",
                     }).then((result) => {
                         window.location.reload();
                     })
