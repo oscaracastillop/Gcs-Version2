@@ -258,21 +258,21 @@ function GridCategoria() {
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<i class="bi-pencil-square btn EditarCategoria" style="color:blue" title="Editar"></i>' +
+                    '<a class="EditarEmpleado btn btn-editar-dt" title="Editar Registro">Editar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',
             },
-            {
-                title: "",
-                data: null,
-                defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<i class="bi-trash3-fill btn EliminarCategoria" style="color:red" title="Eliminar"></i>' +
-                    '</div>',
-                orderable: false,
-                width: 'auto',
-            },
+            //{
+            //    title: "",
+            //    data: null,
+            //    defaultContent:
+            //        '<div class="btn-group-sm">' +
+            //        '<i class="bi-trash3-fill btn EliminarCategoria" style="color:red" title="Eliminar"></i>' +
+            //        '</div>',
+            //    orderable: false,
+            //    width: 'auto',
+            //},
 
         ],
         "language": {
