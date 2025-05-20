@@ -2,7 +2,7 @@
 function ModalBonoEmpleado(tipo) {
     $("#TituloModalBonoEmpleado").empty().val('');
     $("#LabelIdBonoEmpleado").empty().val('');
-    $("#InputBonoEmpleadoEmpleado").empty().val('');
+    $("#SelectContratoLaboralSucursalEmpleado").val(-1);
     $("#InputBonoEmpleadoValor").empty().val('');
     $("#InputBonoEmpleadoFechaPago").empty().val('');
     $("#InputBonoEmpleadoObservacion").empty().val('');
@@ -11,17 +11,15 @@ function ModalBonoEmpleado(tipo) {
     if (tipo == 'C') {
         $("#TituloModalBonoEmpleado").empty().append('<h6>Crear Bono Empleado</h6>');
         $('#ModalBonoEmpleado').modal('show');
-        $("#InputBonoEmpleadoEmpleado").hide();
-        $("#SelectContratoLaboralSucursalEmpleado").show();
+        $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", false);
         $("#SelectEstadoBonoEmpleado").hide();
-        $("#BotonesModalBonoEmpleado").empty().append('<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-success btn-sm" onclick="CrearBonoEmpleado()">Guardar</button>');
+        $("#BotonesModalBonoEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearBonoEmpleado()">Guardar</button>');
     } if (tipo == 'E') {
         $("#TituloModalBonoEmpleado").empty().append('<h6>Editar Bono Empleado</h6>');
         $('#ModalBonoEmpleado').modal('show');
-        $("#InputBonoEmpleadoEmpleado").show();
-        $("#SelectContratoLaboralSucursalEmpleado").hide();
+        $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", true);
         $("#SelectEstadoBonoEmpleado").show();
-        $("#BotonesModalBonoEmpleado").empty().append('<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-success btn-sm" onclick="ActualizarBonoEmpleado()">Guardar Cambios</button>');
+        $("#BotonesModalBonoEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="ActualizarBonoEmpleado()">Guardar Cambios</button>');
     }
 }
 
@@ -32,13 +30,13 @@ function CrearBonoEmpleado() {
     let Observacion = $('#InputBonoEmpleadoObservacion').val();
     if (IdEmpleado == -1 || IdEmpleado == null || IdEmpleado == '') {
         $('#SelectContratoLaboralSucursalEmpleado').focus();
-        Swal.fire(TituloSwal, 'Seleccione el Empleado', 'info');
+        VentanaMensaje('Seleccione el Empleado', 'info');
     } else if (Valor == null || Valor == '' || Valor == undefined) {
         $('#InputBonoEmpleadoValor').focus();
-        Swal.fire(TituloSwal, 'Ingrese el Valor', 'info');
+        VentanaMensaje('Ingrese el Valor', 'info');
     } else if (FechaPago == null || FechaPago == '' || FechaPago == undefined) {
         $('#InputBonoEmpleadoFechaPago').focus();
-        Swal.fire(TituloSwal, 'Ingrese la Fecha de Pago', 'info');
+        VentanaMensaje('Ingrese la Fecha de Pago', 'info');
     } else {
         $.ajax({
             type: 'POST',
@@ -80,10 +78,10 @@ function ActualizarBonoEmpleado() {
     let IdEstado = $('#SelectEstado').val();
     if (Valor == null || Valor == '' || Valor == undefined) {
         $('#InputBonoEmpleadoValor').focus();
-        Swal.fire(TituloSwal, 'Ingrese el Valor', 'info');
+        VentanaMensaje('Ingrese el Valor', 'info');
     } else if (FechaPago == null || FechaPago == '' || FechaPago == undefined) {
         $('#InputBonoEmpleadoFechaPago').focus();
-        Swal.fire(TituloSwal, 'Ingrese la Fecha de Pago', 'info');
+        VentanaMensaje('Ingrese la Fecha de Pago', 'info');
     } else {
         $.ajax({
             type: 'POST',
@@ -178,29 +176,30 @@ function GridBonoEmpleado() {
             { targets: [6], className: 'dt-head-center' },
             { targets: [7], className: 'dt-head-center' },
             { targets: [8], className: 'dt-head-center', className: 'dt-center dt-head-center' },
-            { targets: [9], width: '150px', className: 'dt-center dt-head-center' },
-            { targets: [10], width: '100px', className: 'dt-center dt-head-center' }
+            { targets: [9], width: '50px', className: 'dt-center dt-head-center' },
+            { targets: [10], width: '30px', className: 'dt-center dt-head-center' },
+            { targets: [11], width: '30px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
             {
-                extend: 'excel', className: 'btn btn-excel-datatable',
+                extend: 'excel', className: 'btn-excel-datatable',
                 footer: true,
                 title: tituloReporte + ' ' + NameApp,
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
-                text: 'Excel',
+                text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
                 exportOptions: {
-                    columns: [0, 1, 2, 4, 5, 6, 7, 8, 9, 10],
+                    columns: [0, 1, 2, 4, 5, 6, 7, 8, 9],
                 },
             },
             {
-                extend: 'pdfHtml5', className: 'btn btn-pdf-datatable',
-                text: 'Pdf',
+                extend: 'pdfHtml5', className: 'btn-pdf-datatable',
+                text: '<i class="bi-file-earmark-pdf-fill" style="color:red"></i> Descargar Pdf',
                 filename: tituloReporte + ' - ' + NameApp + ' ' + jsDate + ' ' + hora,
                 orientation: 'landscape', // landscape portrait
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
                 exportOptions: {
-                    columns: [0, 1, 2, 4, 5, 6, 7, 8, 9, 10],
+                    columns: [0, 1, 2, 4, 5, 6, 7, 8, 9],
                     search: 'applied',
                     order: 'applied',
                 },
@@ -251,7 +250,7 @@ function GridBonoEmpleado() {
             },
             {
                 text: 'Nuevo',
-                className: 'btn btn-nuevo-datatable',
+                className: 'btn-nuevo-datatable',
                 action: function (e, dt, node, config) {
                     ModalBonoEmpleado('C');
                 }
@@ -288,25 +287,34 @@ function GridBonoEmpleado() {
                 "render": function (data, type, row) {
 
                     if (row.IdEstado == 1) {
-                        return '<label style="background-color:green; padding:2px;border-radius:5px;font-size:11px!important; color:white">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label class="label-estado-activo">&nbsp;' + data + '&nbsp;</label>';
                     }
                     else {
-                        return '<label style="background-color:red; padding:2px;border-radius:5px;font-size:11px!important; color: white">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label class="label-estado-inactivo">&nbsp;' + data + '&nbsp;</label>';
                     }
                 }
 
-            },//9
+            },
             {
-                title: "Acciones",
+                title: "",
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<a class="EditarBonoEmpleado btn btn-editar-dt" title="Editar Registro">Editar</a>&nbsp;&nbsp;<a class="EliminarBonoEmpleado btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>' +
+                    '<i class="bi-pencil-square btn EditarBonoEmpleado" style="color:blue" title="Editar"></i>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',
-            },//10
-
+            },
+            {
+                title: "",
+                data: null,
+                defaultContent:
+                    '<div class="btn-group-sm">' +
+                    '<i class="bi-trash3-fill btn EliminarBonoEmpleado" style="color:red" title="Eliminar"></i>' +
+                    '</div>',
+                orderable: false,
+                width: 'auto',
+            },
         ],
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.11.2/i18n/es_es.json"
@@ -321,7 +329,7 @@ function GridBonoEmpleado() {
         let data = datatable.row($(this).parents()).data();
         ModalBonoEmpleado('E');
         $('#LabelIdBonoEmpleado').text(data.Id);
-        $('#InputBonoEmpleadoEmpleado').val(data.Empleado);
+        $('#SelectContratoLaboralSucursalEmpleado').val(data.IdEmpleado);
         $('#InputBonoEmpleadoValor').val(data.Valor);
         $('#InputBonoEmpleadoFechaPago').val(data.FechaPago);
         $('#InputBonoEmpleadoObservacion').val(data.Observacion);

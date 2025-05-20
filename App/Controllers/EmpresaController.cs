@@ -22,16 +22,16 @@ namespace SistemaGcs.App.Controllers
             return View();
         }
              
-        public JsonResult CrearEmpresa(string IdUser, string NombreEmpresa, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Contacto, int IdCiudad, string Direccion)
+        public JsonResult CrearEmpresa(string IdUser, string NombreEmpresa, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Celular, string Contacto, int IdCiudad, string Direccion, string Descripcion)
         {
-            var resultado = dataEmpresa.CrearEmpresa(IdUser, NombreEmpresa, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdCiudad, Direccion);
+            var resultado = dataEmpresa.CrearEmpresa(IdUser, NombreEmpresa, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdCiudad, Direccion, Descripcion);
 
             return Json(resultado);
         }
 
-        public JsonResult ActualizarEmpresa(string IdUser, int IdEmpresa, string NombreEmpresa, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Contacto, int IdCiudad, string Direccion, int IdEstado)
+        public JsonResult ActualizarEmpresa(string IdUser, int IdEmpresa, string NombreEmpresa, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Celular, string Contacto, int IdCiudad, string Direccion, string Descripcion, int IdEstado)
         {
-            var resultado = dataEmpresa.ActualizarEmpresa(IdUser, IdEmpresa, NombreEmpresa, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdCiudad, Direccion, IdEstado);
+            var resultado = dataEmpresa.ActualizarEmpresa(IdUser, IdEmpresa, NombreEmpresa, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdCiudad, Direccion, Descripcion, IdEstado);
             return Json(resultado);
         }
 

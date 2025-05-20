@@ -291,24 +291,25 @@ function GridCLE() {
             { targets: [9], className: 'dt-head-center' },//Observacion
             { targets: [10], className: 'dt-head-center' },//Creado por
             { targets: [11], className: 'dt-head-center' },//Fecha Creación
-            { targets: [12], width: '150px', className: 'dt-center dt-head-center' },//Estado
-            { targets: [13], width: '100px', className: 'dt-center dt-head-center' }//Acciones
+            { targets: [12], width: '50px', className: 'dt-center dt-head-center' },
+            { targets: [13], width: '30px', className: 'dt-center dt-head-center' },
+            { targets: [14], width: '30px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
             {
-                extend: 'excel', className: 'btn btn-excel-datatable',
+                extend: 'excel', className: 'btn-excel-datatable',
                 footer: true,
                 title: tituloReporte + ' ' + NameApp,
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
-                text: 'Excel',
+                text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
                 exportOptions: {
                     columns: [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13],
                 },
             },
             {
-                extend: 'pdfHtml5', className: 'btn btn-pdf-datatable',
-                text: 'Pdf',
+                extend: 'pdfHtml5', className: 'btn-pdf-datatable',
+                text: '<i class="bi-file-earmark-pdf-fill" style="color:red"></i> Descargar Pdf',
                 filename: tituloReporte + ' - ' + NameApp + ' ' + jsDate + ' ' + hora,
                 orientation: 'landscape', // landscape  portrait
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
@@ -364,7 +365,7 @@ function GridCLE() {
             },
             {
                 text: 'Nuevo',
-                className: 'btn btn-nuevo-datatable',
+                className: 'btn-nuevo-datatable',
                 action: function (e, dt, node, config) {
                     ModalCLE('C');
                 }
@@ -419,24 +420,34 @@ function GridCLE() {
                 "render": function (data, type, row) {
 
                     if (row.IdEstado == 1) {
-                        return '<label style="background-color:green; padding:2px;border-radius:5px;font-size:11px!important; color:white">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label class="label-estado-activo">&nbsp;' + data + '&nbsp;</label>';
                     }
                     else {
-                        return '<label style="background-color:red; padding:2px;border-radius:5px;font-size:11px!important; color: white">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label class="label-estado-inactivo">&nbsp;' + data + '&nbsp;</label>';
                     }
                 }
 
-            },//13
+            },
             {
-                title: "Acciones",
+                title: "",
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<a class="EditarCLE btn btn-editar-dt" title="Editar Registro">Editar</a>&nbsp;&nbsp;<a class="EliminarCLE btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>' +
+                    '<i class="bi-pencil-square btn EditarCLE" style="color:blue" title="Editar"></i>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',
-            },//14
+            },
+            {
+                title: "",
+                data: null,
+                defaultContent:
+                    '<div class="btn-group-sm">' +
+                    '<i class="bi-trash3-fill btn EliminarCLE" style="color:red" title="Eliminar"></i>' +
+                    '</div>',
+                orderable: false,
+                width: 'auto',
+            },
 
         ],
         "language": {

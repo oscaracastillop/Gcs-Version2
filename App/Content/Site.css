@@ -243,7 +243,7 @@ input, button, select, textarea {
 
 .btn-eliminar-dt {
     background-color: red !important;
-    font-size: 10px !important;
+    font-size: 5px !important;
     color: white !important;
     padding-top: 2px !important;
     padding-bottom: 2px !important;
@@ -252,6 +252,7 @@ input, button, select, textarea {
     border-radius: 0px !important;
     width:50px;
     font-weight:bold !important;
+    height:10px !important;
 }
 /**/
 .btn-eliminar-dt:hover {

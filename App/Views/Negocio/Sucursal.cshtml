@@ -27,32 +27,42 @@
                         <input class="form-control" type="text" id="InputNombreSucursal" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-6">
                         <label><strong>Email</strong></label>
                         <input class="form-control" type="text" id="InputEmailSucursal" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
                     <div class="col-6">
-                        <label><strong>Teléfono</strong></label>
-                        <input class="form-control" type="text" id="InputTelefonoSucursal" name="name" autocomplete="off" style="min-width:100%" />
+                        <label><strong>Contacto</strong></label>
+                        <input class="form-control" type="text" id="InputContactoSucursal" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <label><strong>Contacto</strong></label>
-                        <input class="form-control" type="text" id="InputContactoSucursal" name="name" autocomplete="off" style="min-width:100%" />
+                        <label><strong>Teléfono</strong></label>
+                        <input class="form-control" type="text" id="InputTelefonoSucursal" name="name" autocomplete="off" style="min-width:100%" maxlength="13" placeholder="(ind ciudad) + # Telefónico" />
                     </div>
+                    <div class="col-6">
+                        <label><strong>Celular</strong></label>
+                        <input class="form-control" type="text" id="InputCelularSucursal" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-6">
                         <label><strong>Dirección</strong></label>
                         <input class="form-control" type="text" id="InputDireccionSucursal" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
+                    <div class="col-6">
+                        <label><strong>Ciudad </strong><label style="color:red"> *</label></label>
+                        <select class="form-control" id="SelectCiudad" style="min-width:100%"></select>
+                    </div>
                 </div>
-               
-               
-                <div>
-                    <label><strong>Ciudad </strong><label style="color:red"> *</label></label>
-                    <select class="form-control" id="SelectCiudad" style="min-width:100%"></select>
+                <div class="row">
+                    <div class="col-12">
+                        <label><strong>Descripción</strong></label>
+                        <textarea id="InputDescripcionSucursal" class="form-control" style="min-width:100%" rows="3"></textarea>
+                    </div>
                 </div>
                 <div class="col-3" id="SelectEstadoSucursal">
                     <label><strong>Estado</strong></label>
@@ -75,6 +85,31 @@
         ListaEmpresa();
         ListaTipoEstado(1);
         ListaCiudad();
+    });
+
+    const inputCelular = document.getElementById('InputCelularSucursal');
+    const inputTelefono = document.getElementById('InputTelefonoSucursal');
+
+    inputCelular.addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, ''); // Eliminar caracteres no numéricos
+        if (value.length > 3) {
+            value = value.substring(0, 3) + ' ' + value.substring(3);
+        }
+        if (value.length > 7) {
+            value = value.substring(0, 11);
+        }
+        e.target.value = value;
+    });
+
+    inputTelefono.addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, ''); // Eliminar caracteres no numéricos
+        if (value.length > 3) {
+            value = '(' + value.substring(0, 3) + ')' + ' ' + value.substring(3);
+        }
+        if (value.length > 7) {
+            value = value.substring(0, 13);
+        }
+        e.target.value = value;
     });
 </script>
 

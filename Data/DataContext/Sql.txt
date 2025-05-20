@@ -2571,11 +2571,13 @@ CREATE TABLE Empresa
 Nombre varchar(255),
 IdTipoDocumento int,
 Identificacion varchar(255),
-Email varchar(255),
-Telefono varchar(255),
-Contacto varchar(255),
+Email varchar(255) default '',
+Telefono varchar(255) default '',
+Celular varchar(255) default '',
+Contacto varchar(255) default '',
 IdCiudad int,
-Direccion varchar(255),
+Direccion varchar(255) default '',
+Descripcion varchar(max) default '',
 Logo varchar(255) default 'default.png',
 IdEstado int default 1,
 CreateBy int,
@@ -2608,9 +2610,11 @@ CREATE PROCEDURE [dbo].[SP_CrearEmpresa]
 				@Identificacion varchar(255),
 				@Email varchar(255), 
 				@Telefono varchar(255),  
+				@Celular varchar(255),  
 				@Contacto varchar(255),
 				@IdCiudad int,
-				@Direccion varchar(255),	
+				@Direccion varchar(255),
+				@Descripcion varchar(max),
 				@Resultado varchar(255) OUTPUT
 AS
 BEGIN
@@ -2628,9 +2632,9 @@ SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
 IF @Permiso > 0
 	BEGIN		
 		INSERT INTO Empresa
-		(Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdCiudad, Direccion, CreateBy, DateCreate) 
+		(Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdCiudad, Direccion, Descripcion, CreateBy, DateCreate) 
 		VALUES 
-		(@NombreEmpresa, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Contacto, @IdCiudad, @Direccion, @IdUsuario, GETDATE()) 
+		(@NombreEmpresa, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Celular, @Contacto, @IdCiudad, @Direccion, @Descripcion, @IdUsuario, GETDATE()) 
 
 		--INSERT INTO LogsAcciones 
 		--(IdUsuario, Accion, Descripcion, Fecha) 
@@ -2665,9 +2669,11 @@ CREATE PROCEDURE [dbo].[SP_ActualizarEmpresa]	@IdUser varchar(255),
 												@Identificacion varchar(255),
 												@Email varchar(255), 
 												@Telefono varchar(255),  
+												@Celular varchar(255),  
 												@Contacto varchar(255),
 												@IdCiudad int,
 												@Direccion varchar(255),
+												@Descripcion varchar(max),
 												@IdEstado int,			
 												@Resultado varchar(255) OUTPUT
 AS
@@ -2707,9 +2713,11 @@ ELSE
 					Identificacion = @Identificacion,								 
 					Email = @Email, 
 					Telefono = @Telefono,
+					Celular = @Celular,
 					Contacto = @Contacto,
 					IdCiudad = @IdCiudad,
 					Direccion = @Direccion,
+					Descripcion = @Descripcion,
 					IdEstado = @IdEstado
 					WHERE Id = @IdEmpresa
 
@@ -2783,13 +2791,16 @@ BEGIN
 			IdTipoDocumento,
 			dbo.Fun_BuscarNombreTipoDocumento(IdTipoDocumento) As TipoDocumento,
 			Identificacion,
+			ISNULL(Email,'') As Email,
+			ISNULL(Telefono,'') As Telefono,
+			ISNULL(Celular,'') As Celular,
+			ISNULL(Contacto,'') As Contacto,
+			ISNULL(Direccion,'') As Direccion,
 			Email,
-			Telefono,
-			Contacto,
-			Direccion,
 			IdCiudad,
 			dbo.Fun_BuscarNombreCiudad(IdCiudad) As Ciudad,
 			Logo,
+			ISNULL(Descripcion,'') As Descripcion,
 			IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,
 			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
@@ -2859,11 +2870,13 @@ CREATE TABLE Sucursal
 (Id int identity(1,1) Primary key,
 IdEmpresa int,
 Nombre varchar(255),
-Email varchar(255),
-Telefono varchar(255),
-Contacto varchar(255),
+Email varchar(255) default '',
+Telefono varchar(255) default '',
+Celular varchar(255) default '',
+Contacto varchar(255) default '',
 IdCiudad int,
-Direccion varchar(255),
+Direccion varchar(255) default '',
+Descripcion varchar(max) default '',
 IdEstado int default 1,
 CreateBy int,
 DateCreate datetime
@@ -2895,9 +2908,11 @@ CREATE PROCEDURE [dbo].[SP_CrearSucursal]
 				@NombreSucursal varchar(255), 
 				@Email varchar(255), 
 				@Telefono varchar(255),  
+				@Celular varchar(255),  
 				@Contacto varchar(255),
 				@IdCiudad int,
 				@Direccion varchar(255),	
+				@Descripcion varchar(max),
 				@Resultado varchar(255) OUTPUT
 AS
 BEGIN
@@ -2915,9 +2930,9 @@ SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
 IF @Permiso > 0
 	BEGIN		
 		INSERT INTO Sucursal
-		(IdEmpresa, Nombre, Email, Telefono, Contacto, IdCiudad, Direccion, CreateBy, DateCreate) 
+		(IdEmpresa, Nombre, Email, Telefono, Celular, Contacto, IdCiudad, Direccion, Descripcion, CreateBy, DateCreate) 
 		VALUES 
-		(@IdEmpresa, @NombreSucursal, @Email, @Telefono, @Contacto, @IdCiudad, @Direccion, @IdUsuario, GETDATE()) 
+		(@IdEmpresa, @NombreSucursal, @Email, @Telefono, @Celular, @Contacto, @IdCiudad, @Direccion, @Descripcion, @IdUsuario, GETDATE()) 
 		
 		SET @Resultado = 'OK*La Sucursal ' + @NombreSucursal + ' a sido creada correctamente'
 	END	
@@ -2936,9 +2951,11 @@ CREATE PROCEDURE [dbo].[SP_ActualizarSucursal]	@IdUser varchar(255),
 												@NombreSucursal varchar(255), 
 												@Email varchar(255), 
 												@Telefono varchar(255),  
+												@Celular varchar(255),
 												@Contacto varchar(255),
 												@IdCiudad int,
 												@Direccion varchar(255),
+												@Descripcion varchar(max),
 												@IdEstado int,			
 												@Resultado varchar(255) OUTPUT
 AS
@@ -2966,9 +2983,11 @@ ELSE
 			SET		Nombre = @NombreSucursal, 								 
 					Email = @Email, 
 					Telefono = @Telefono,
+					Celular = @Celular,
 					Contacto = @Contacto,
 					IdCiudad = @IdCiudad,
 					Direccion = @Direccion,
+					Descripcion = @Descripcion,
 					IdEstado = @IdEstado
 					WHERE Id = @IdSucursal
 		
@@ -3020,12 +3039,14 @@ BEGIN
 			Nombre, 
 			IdEmpresa,
 			dbo.Fun_BuscarNombreEmpresa(IdEmpresa) AS Empresa,
-			Email,
-			Telefono,
-			Contacto,
-			Direccion,
+			ISNULL(Email,'') As Email,
+			ISNULL(Telefono,'') As Telefono,
+			ISNULL(Celular,'') As Celular,
+			ISNULL(Contacto,'') As Contacto,
+			ISNULL(Direccion,'') As Direccion,
 			IdCiudad,
 			dbo.Fun_BuscarNombreCiudad(IdCiudad) As Ciudad,
+			ISNULL(Descripcion,'') As Descripcion,
 			IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,
 			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
@@ -5392,6 +5413,7 @@ CREATE PROCEDURE [dbo].[SP_GridCasinoEmpleado]
 AS
 BEGIN
 SELECT	A.Id,	 
+		A.IdEmpleado,
 		dbo.Fun_BuscarNombreEmpleado(A.IdEmpleado) AS Empleado,	
 		B.Nombre + ' - ' + C.Nombre AS Sucursal,	
 		A.Valor As Valor,
@@ -5555,6 +5577,7 @@ CREATE PROCEDURE [dbo].[SP_GridBonoEmpleado]
 AS
 BEGIN
 SELECT	A.Id,	 
+		A.IdEmpleado,
 		dbo.Fun_BuscarNombreEmpleado(A.IdEmpleado) AS Empleado,	
 		B.Nombre + ' - ' + C.Nombre AS Sucursal,	
 		A.Valor As Valor,
@@ -5720,7 +5743,8 @@ GO
 CREATE PROCEDURE [dbo].[SP_GridPrestamoEmpleado]
 AS
 BEGIN
-SELECT	A.Id,	 
+SELECT	A.Id,
+		A.IdEmpleado,
 		dbo.Fun_BuscarNombreEmpleado(A.IdEmpleado) AS Empleado,	
 		B.Nombre + ' - ' + C.Nombre AS Sucursal,	
 		A.Valor As Valor,

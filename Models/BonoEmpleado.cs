@@ -11,6 +11,7 @@ namespace SistemaGcs.Models
         public class GridBonoEmpleado
         {
             public int Id { get; set; }
+            public int IdEmpleado { get; set; }
             public string Empleado { get; set; }
             public string Sucursal { get; set; }
             public int Valor { get; set; }

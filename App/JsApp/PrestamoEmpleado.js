@@ -1,26 +1,23 @@
 ﻿function ModalPrestamoEmpleado(tipo) {
     $("#TituloModalPrestamoEmpleado").empty().val('');
     $("#LabelIdPrestamoEmpleado").empty().val('');
-    $("#InputPrestamoEmpleadoEmpleado").empty().val('');
     $("#InputPrestamoEmpleadoValor").empty().val('');
     $("#InputPrestamoEmpleadoFechaPrestamo").empty().val('');
     $("#InputPrestamoEmpleadoFechaPago").empty().val('');
-    //$("#InputPrestamoEmpleadoNumeroCuotas").empty().val('');
+    //$("#InputPrestamoEmpleadoNumeroCuotas").empty().val(''); 
     $("#InputPrestamoEmpleadoObservacion").empty().val('');    
-    $("#SelectContratoLaboralEmpleado").val(-1);
+    $("#SelectContratoLaboralSucursalEmpleado").val(-1);
     $("#BotonesModalPrestamoEmpleado").empty();
     if (tipo == 'C') {
         $("#TituloModalPrestamoEmpleado").empty().append('<label>Crear Préstamo Empleado</label>');
         $('#ModalPrestamoEmpleado').modal('show');
-        $("#InputPrestamoEmpleadoEmpleado").hide();
-        $("#SelectContratoLaboralEmpleado").show();
+        $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", false);
         $("#SelectEstadoPrestamoEmpleado").hide();
         $("#BotonesModalPrestamoEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearPrestamoEmpleado()">Guardar</button>');
     } if (tipo == 'E') {
         $("#TituloModalPrestamoEmpleado").empty().append('<label>Editar Préstamo Empleado</label>');
         $('#ModalPrestamoEmpleado').modal('show');
-        $("#InputPrestamoEmpleadoEmpleado").show();
-        $("#SelectContratoLaboralEmpleado").hide();
+        $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", true);
         $("#SelectEstadoPrestamoEmpleado").show();
         $("#BotonesModalPrestamoEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="ActualizarPrestamoEmpleado()">Guardar Cambios</button>');
     }
@@ -73,6 +70,8 @@ function CrearPrestamoEmpleado() {
                         title: TituloSwal,
                         text: valor[1],
                         icon: 'success',
+                        position: 'top',
+                        confirmButtonColor: "orangered",
                     }).then((result) => {
                         window.location.reload();
                     })
@@ -127,6 +126,8 @@ function ActualizarPrestamoEmpleado() {
                         title: TituloSwal,
                         text: valor[1],
                         icon: 'success',
+                        position: 'top',
+                        confirmButtonColor: "orangered",
                     }).then((result) => {
                         window.location.reload();
                     })
@@ -199,24 +200,25 @@ function GridPrestamoEmpleado() {
             { targets: [8], className: 'dt-head-center' },
             { targets: [9], className: 'dt-head-center' },
             { targets: [10], className: 'dt-head-center', className: 'dt-center dt-head-center' },
-            { targets: [11], width: '150px', className: 'dt-center dt-head-center' },
-            { targets: [12], width: '100px', className: 'dt-center dt-head-center' }
+            { targets: [11], width: '50px', className: 'dt-center dt-head-center' },
+            { targets: [12], width: '30px', className: 'dt-center dt-head-center' },
+            { targets: [13], width: '30px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
             {
-                extend: 'excel', className: 'btn btn-excel-datatable',
+                extend: 'excel', className: 'btn-excel-datatable',
                 footer: true,
                 title: tituloReporte + ' ' + NameApp,
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
-                text: 'Excel',
+                text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
                 exportOptions: {
                     columns: [0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11],
                 },
             },
             {
-                extend: 'pdfHtml5', className: 'btn btn-pdf-datatable',
-                text: 'Pdf',
+                extend: 'pdfHtml5', className: 'btn-pdf-datatable',
+                text: '<i class="bi-file-earmark-pdf-fill" style="color:red"></i> Descargar Pdf',
                 filename: tituloReporte + ' - ' + NameApp + ' ' + jsDate + ' ' + hora,
                 orientation: 'landscape', // landscape portrait
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
@@ -272,7 +274,7 @@ function GridPrestamoEmpleado() {
             },
             {
                 text: 'Nuevo',
-                className: 'btn btn-nuevo-datatable',
+                className: 'btn-nuevo-datatable',
                 action: function (e, dt, node, config) {
                     ModalPrestamoEmpleado('C');
                 }
@@ -311,24 +313,34 @@ function GridPrestamoEmpleado() {
                 "render": function (data, type, row) {
 
                     if (row.IdEstado == 1) {
-                        return '<label style="background-color:green; padding:2px;border-radius:5px;font-size:11px!important; color:white">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label class="label-estado-activo">&nbsp;' + data + '&nbsp;</label>';
                     }
                     else {
-                        return '<label style="background-color:red; padding:2px;border-radius:5px;font-size:11px!important; color: white">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label class="label-estado-inactivo">&nbsp;' + data + '&nbsp;</label>';
                     }
                 }
 
-            },//11
+            },
             {
-                title: "Acciones",
+                title: "",
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<a class="EditarPrestamoEmpleado btn btn-editar-dt" title="Editar Registro">Editar</a>&nbsp;&nbsp;<a class="EliminarPrestamoEmpleado btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>' +
+                    '<i class="bi-pencil-square btn EditarPrestamoEmpleado" style="color:blue" title="Editar"></i>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',
-            },//12
+            },
+            {
+                title: "",
+                data: null,
+                defaultContent:
+                    '<div class="btn-group-sm">' +
+                    '<i class="bi-trash3-fill btn EliminarPrestamoEmpleado" style="color:red" title="Eliminar"></i>' +
+                    '</div>',
+                orderable: false,
+                width: 'auto',
+            },
 
         ],
         "language": {
@@ -344,7 +356,7 @@ function GridPrestamoEmpleado() {
         let data = datatable.row($(this).parents()).data();
         ModalPrestamoEmpleado('E');
         $('#LabelIdPrestamoEmpleado').text(data.Id);
-        $('#InputPrestamoEmpleadoEmpleado').val(data.Empleado);
+        $('#SelectContratoLaboralSucursalEmpleado').val(data.IdEmpleado);
         $('#InputPrestamoEmpleadoValor').val(data.Valor);
         $('#InputPrestamoEmpleadoFechaPrestamo').val(data.FechaPrestamo);
         $('#InputPrestamoEmpleadoFechaPago').val(data.FechaPago);

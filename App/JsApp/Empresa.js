@@ -6,8 +6,10 @@
     $("#InputIdentificacionEmpresa").empty().val('');
     $("#InputEmailEmpresa").empty().val('');
     $("#InputTelefonoEmpresa").empty().val('');
+    $("#InputCelularEmpresa").empty().val('');
     $("#InputContactoEmpresa").empty().val('');
     $("#InputDireccionEmpresa").empty().val('');
+    $("#InputDescripcionEmpresa").empty().val('');
     $("#SelectCiudad").val(-1);
     $("#BotonesModalEmpresa").empty();
     if (tipo == 'C') {
@@ -29,9 +31,11 @@ function CrearEmpresa() {
     let Identificacion = $('#InputIdentificacionEmpresa').val();
     let Email = $('#InputEmailEmpresa').val();
     let Telefono = $('#InputTelefonoEmpresa').val();
+    let Celular = $('#InputCelularEmpresa').val();
     let Contacto = $('#InputContactoEmpresa').val();
     let IdCiudad = $('#SelectCiudad').val();
     let Direccion = $('#InputDireccionEmpresa').val();
+    let Descripcion = $('#InputDescripcionEmpresa').val();    
 
     if (NombreEmpresa == null || NombreEmpresa == '' || NombreEmpresa == undefined) {
         $('#InputNombreEmpresa').focus();
@@ -57,9 +61,11 @@ function CrearEmpresa() {
                 Identificacion: Identificacion,
                 Email: Email,
                 Telefono: Telefono,
+                Celular: Celular,
                 Contacto: Contacto,
                 IdCiudad: IdCiudad,
-                Direccion: Direccion
+                Direccion: Direccion,
+                Descripcion: Descripcion,
             },
             success: function (resultado) {
                 valor = resultado.split('*');
@@ -88,9 +94,11 @@ function ActualizarEmpresa() {
     let Identificacion = $('#InputIdentificacionEmpresa').val();
     let Email = $('#InputEmailEmpresa').val();
     let Telefono = $('#InputTelefonoEmpresa').val();
+    let Celular = $('#InputCelularEmpresa').val();
     let Contacto = $('#InputContactoEmpresa').val();
     let IdCiudad = $('#SelectCiudad').val();
     let Direccion = $('#InputDireccionEmpresa').val();
+    let Descripcion = $('#InputDescripcionEmpresa').val();    
     let IdEstado = $('#SelectEstado').val();
 
     if (NombreEmpresa == null || NombreEmpresa == '' || NombreEmpresa == undefined) {
@@ -118,9 +126,11 @@ function ActualizarEmpresa() {
                 Identificacion: Identificacion,
                 Email: Email,
                 Telefono: Telefono,
+                Celular: Celular,
                 Contacto: Contacto,
                 IdCiudad: IdCiudad,
                 Direccion: Direccion,
+                Descripcion: Descripcion,
                 IdEstado: IdEstado
             },
             success: function (resultado) {
@@ -218,7 +228,7 @@ function GridEmpresa() {
             filename: NameApp + ' - ' +tituloReporte + ' ' + jsDate + ' ' + hora,
             text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
             exportOptions: {
-                columns: [1, 3, 4, 5, 6, 7, 8, 9,10, 11],
+                columns: [1, 3, 4, 5, 6, 7, 8, 9,10, 11,12,13],
             },
         },
             {
@@ -228,7 +238,7 @@ function GridEmpresa() {
             orientation: 'landscape', //portrait
             pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
             exportOptions: {
-                columns: [1, 3, 4, 5, 6, 7, 8,9,10, 11],
+                columns: [1, 3, 4, 5, 6, 7, 8,9,10, 11,12,13],
                 search: 'applied',
                 order: 'applied',
             },
@@ -322,6 +332,7 @@ function GridEmpresa() {
             { "data": "Identificacion", title: "Identificación", width: 'auto', visible: false },
             { "data": "Email", title: "Email", width: 'auto' },
             { "data": "Telefono", title: "Teléfono", width: 'auto' },
+            { "data": "Celular", title: "Celular", width: 'auto' },
             { "data": "Contacto", title: "Contacto", width: 'auto' },
             {
                 title: "Dirección",
@@ -330,7 +341,8 @@ function GridEmpresa() {
                     return `${row.Direccion} ${row.Ciudad}`;
                 }
                 , width: 'auto'
-            },            
+            },       
+            { "data": "Descripcion", title: "Descripción" },
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
             {
@@ -388,9 +400,11 @@ function GridEmpresa() {
         $('#InputIdentificacionEmpresa').val(data.Identificacion);
         $('#InputEmailEmpresa').val(data.Email);
         $('#InputTelefonoEmpresa').val(data.Telefono);
+        $('#InputCelularEmpresa').val(data.Celular);
         $('#InputContactoEmpresa').val(data.Contacto);
         $('#InputDireccionEmpresa').val(data.Direccion);
         $('#SelectCiudad').val(data.IdCiudad);
+        $('#InputDescripcionEmpresa').val(data.Descripcion);
         $('#SelectEstado').val(data.IdEstado);
     })
 

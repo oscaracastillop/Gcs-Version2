@@ -23,38 +23,51 @@
                     <input class="form-control" type="text" id="InputNombreEmpresa" name="name" autocomplete="off" style="min-width:100%" />
                 </div>
                 <div class="row">
-                    <div class="col-5">
+                    <div class="col-6">
                         <label><strong>Documento </strong><label style="color:red"> *</label></label>
                         <select class="form-control" id="SelectTipoDocumento" style="min-width:100%"></select>
                     </div>
-                    <div class="col-7">
+                    <div class="col-6">
                         <label><strong>Identificación </strong><label style="color:red"> *</label></label>
                         <input class="form-control" type="text" id="InputIdentificacionEmpresa" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
                 </div>
 
-                <div>
-                    <label><strong>Email</strong></label>
-                    <input class="form-control" type="text" id="InputEmailEmpresa" name="name" autocomplete="off" style="min-width:100%" />
-                </div>
                 <div class="row">
-                    <div class="col-5">
-                        <label><strong>Teléfono</strong></label>
-                        <input class="form-control" type="text" id="InputTelefonoEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                    <div class="col-6">
+                        <label><strong>Email</strong></label>
+                        <input class="form-control" type="text" id="InputEmailEmpresa" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
-                    <div class="col-7">
+                    <div class="col-6">
                         <label><strong>Contacto</strong></label>
                         <input class="form-control" type="text" id="InputContactoEmpresa" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
                 </div>
-
-                <div>
-                    <label><strong>Dirección</strong></label>
-                    <input class="form-control" type="text" id="InputDireccionEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Teléfono</strong></label>
+                        <input class="form-control" type="text" id="InputTelefonoEmpresa" name="name" autocomplete="off" style="min-width:100%" maxlength="13" placeholder="(ind ciudad) + # Telefónico" />
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Celular</strong></label>
+                        <input class="form-control" type="text" id="InputCelularEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
                 </div>
-                <div>
-                    <label><strong>Ciudad </strong><label style="color:red"> *</label></label>
-                    <select class="form-control" id="SelectCiudad" style="min-width:100%"></select>
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Dirección</strong></label>
+                        <input class="form-control" type="text" id="InputDireccionEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Ciudad </strong><label style="color:red"> *</label></label>
+                        <select class="form-control" id="SelectCiudad" style="min-width:100%"></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label><strong>Descripción</strong></label>
+                        <textarea id="InputDescripcionEmpresa" class="form-control" style="min-width:100%" rows="3"></textarea>
+                    </div>
                 </div>
                 <div class="col-3" id="SelectEstadoEmpresa">
                     <label><strong>Estado</strong></label>
@@ -104,5 +117,30 @@
         ListaTipoDocumento(2);
         ListaTipoEstado(1);
         ListaCiudad();
+    });
+
+    const inputCelular = document.getElementById('InputCelularEmpresa');
+    const inputTelefono = document.getElementById('InputTelefonoEmpresa');
+
+    inputCelular.addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, ''); // Eliminar caracteres no numéricos
+        if (value.length > 3) {
+            value = value.substring(0, 3) + ' ' + value.substring(3);
+        }
+        if (value.length > 7) {
+            value = value.substring(0, 11);
+        }
+        e.target.value = value;
+    });
+
+    inputTelefono.addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, ''); // Eliminar caracteres no numéricos
+        if (value.length > 3) {
+            value = '(' + value.substring(0, 3) + ')' + ' ' + value.substring(3);
+        }
+        if (value.length > 7) {
+            value = value.substring(0, 13);
+        }
+        e.target.value = value;
     });
 </script>

@@ -1,7 +1,7 @@
 ﻿function ModalCasinoEmpleado(tipo) {
     $("#TituloModalCasinoEmpleado").empty().val('');
     $("#LabelIdCasinoEmpleado").empty().val('');
-    $("#InputCasinoEmpleadoEmpleado").empty().val('');
+    $("#SelectContratoLaboralSucursalEmpleado").val(-1);
     $("#InputCasinoEmpleadoValor").empty().val('');
     $("#InputCasinoEmpleadoFecha").empty().val(''); 
     $("#InputCasinoEmpleadoFechaPago").empty().val(''); 
@@ -11,15 +11,13 @@
     if (tipo == 'C') {
         $("#TituloModalCasinoEmpleado").empty().append('<label>Crear Casino Empleado</label>');
         $('#ModalCasinoEmpleado').modal('show');
-        $("#InputCasinoEmpleadoEmpleado").hide();
-        $("#SelectContratoLaboralSucursalEmpleado").show();
+        $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", false);
         $("#SelectEstadoCasinoEmpleado").hide();
         $("#BotonesModalCasinoEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearCasinoEmpleado()">Guardar</button>');
     } if (tipo == 'E') {
         $("#TituloModalCasinoEmpleado").empty().append('<label>Editar Casino Empleado</label>');
         $('#ModalCasinoEmpleado').modal('show');
-        $("#InputCasinoEmpleadoEmpleado").show();
-        $("#SelectContratoLaboralSucursalEmpleado").hide();
+        $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", true);
         $("#SelectEstadoCasinoEmpleado").show();
         $("#BotonesModalCasinoEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' +'<button type="button" class="btn btn-sm btn-modal-guardar" onclick="ActualizarCasinoEmpleado()">Guardar Cambios</button>');
     }
@@ -187,24 +185,25 @@ function GridCasinoEmpleado() {
             { targets: [7], className: 'dt-head-center' },
             { targets: [8], className: 'dt-head-center' },
             { targets: [9], className: 'dt-head-center', className: 'dt-center dt-head-center' },
-            { targets: [10], width: '150px', className: 'dt-center dt-head-center' },
-            { targets: [11], width: '100px', className: 'dt-center dt-head-center' }
+            { targets: [10], width: '50px', className: 'dt-center dt-head-center' },
+            { targets: [11], width: '30px', className: 'dt-center dt-head-center' },
+            { targets: [12], width: '30px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
             {
-                extend: 'excel', className: 'btn btn-excel-datatable',
+                extend: 'excel', className: 'btn-excel-datatable',
                 footer: true,
                 title: tituloReporte + ' ' + NameApp,
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
-                text: 'Excel',
+                text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
                 exportOptions: {
                     columns: [0, 1, 2, 4, 5, 6, 7, 8, 9, 10],
                 },
             },
             {
-                extend: 'pdfHtml5', className: 'btn btn-pdf-datatable',
-                text: 'Pdf',
+                extend: 'pdfHtml5', className: 'btn-pdf-datatable',
+                text: '<i class="bi-file-earmark-pdf-fill" style="color:red"></i> Descargar Pdf',
                 filename: tituloReporte + ' - ' + NameApp + ' ' + jsDate + ' ' + hora,
                 orientation: 'landscape', // landscape portrait
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
@@ -260,7 +259,7 @@ function GridCasinoEmpleado() {
             },
             {
                 text: 'Nuevo',
-                className: 'btn btn-nuevo-datatable',
+                className: 'btn-nuevo-datatable',
                 action: function (e, dt, node, config) {
                     ModalCasinoEmpleado('C');
                 }
@@ -298,25 +297,34 @@ function GridCasinoEmpleado() {
                 "render": function (data, type, row) {
 
                     if (row.IdEstado == 1) {
-                        return '<label style="background-color:green; padding:2px;border-radius:5px;font-size:11px!important; color:white">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label class="label-estado-activo">&nbsp;' + data + '&nbsp;</label>';
                     }
                     else {
-                        return '<label style="background-color:red; padding:2px;border-radius:5px;font-size:11px!important; color: white">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label class="label-estado-inactivo">&nbsp;' + data + '&nbsp;</label>';
                     }
                 }
 
-            },//10
+            },
             {
-                title: "Acciones",
+                title: "",
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<a class="EditarCasinoEmpleado btn btn-editar-dt" title="Editar Registro">Editar</a>&nbsp;&nbsp;<a class="EliminarCasinoEmpleado btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>' +
+                    '<i class="bi-pencil-square btn EditarCasinoEmpleado" style="color:blue" title="Editar"></i>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',
-            },//11
-
+            },
+            {
+                title: "",
+                data: null,
+                defaultContent:
+                    '<div class="btn-group-sm">' +
+                    '<i class="bi-trash3-fill btn EliminarCasinoEmpleado" style="color:red" title="Eliminar"></i>' +
+                    '</div>',
+                orderable: false,
+                width: 'auto',
+            },
         ],
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.11.2/i18n/es_es.json"
@@ -331,7 +339,7 @@ function GridCasinoEmpleado() {
         let data = datatable.row($(this).parents()).data();
         ModalCasinoEmpleado('E');
         $('#LabelIdCasinoEmpleado').text(data.Id);
-        $('#InputCasinoEmpleadoEmpleado').val(data.Empleado);
+        $('#SelectContratoLaboralSucursalEmpleado').val(data.IdEmpleado);
         $('#InputCasinoEmpleadoValor').val(data.Valor);
         $('#InputCasinoEmpleadoFecha').val(data.Fecha);
         $('#InputCasinoEmpleadoFechaPago').val(data.FechaPago);

@@ -5,9 +5,11 @@
     $("#InputNombreSucursal").empty().val('');
     $("#InputEmailSucursal").empty().val('');
     $("#InputTelefonoSucursal").empty().val('');
+    $("#InputCelularSucursal").empty().val('');
     $("#InputContactoSucursal").empty().val('');
     $("#InputDireccionSucursal").empty().val('');
     $("#SelectCiudad").val(-1);
+    $("#InputDescripcionSucursal").empty().val('');
     $("#BotonesModalSucursal").empty();
     $("#TituloModalSucursal").empty();
     if (tipo == 'C') {
@@ -29,9 +31,11 @@ function CrearSucursal() {
     let NombreSucursal = $('#InputNombreSucursal').val();
     let Email = $('#InputEmailSucursal').val();
     let Telefono = $('#InputTelefonoSucursal').val();
+    let Celular = $('#InputCelularSucursal').val();
     let Contacto = $('#InputContactoSucursal').val();
     let IdCiudad = $('#SelectCiudad').val();
     let Direccion = $('#InputDireccionSucursal').val();
+    let Descripcion = $('#InputDescripcionSucursal').val();   
 
     if (IdEmpresa == -1 || IdEmpresa == null || IdEmpresa == '') {
         $('#SelectEmpresa').focus();
@@ -53,9 +57,11 @@ function CrearSucursal() {
                 NombreSucursal: NombreSucursal,
                 Email: Email,
                 Telefono: Telefono,
+                Celular: Celular,
                 Contacto: Contacto,
                 IdCiudad: IdCiudad,
-                Direccion: Direccion
+                Direccion: Direccion,
+                Descripcion: Descripcion
             },
             success: function (resultado) {
                 valor = resultado.split('*');
@@ -83,10 +89,12 @@ function ActualizarSucursal() {
     let NombreSucursal = $('#InputNombreSucursal').val();
     let Email = $('#InputEmailSucursal').val();
     let Telefono = $('#InputTelefonoSucursal').val();
+    let Celular = $('#InputCelularSucursal').val();
     let Contacto = $('#InputContactoSucursal').val();
     let IdCiudad = $('#SelectCiudad').val();
     let Direccion = $('#InputDireccionSucursal').val();
     let IdEstado = $('#SelectEstado').val();
+    let Descripcion = $('#InputDescripcionSucursal').val();   
 
     if (IdEmpresa == -1 || IdEmpresa == null || IdEmpresa == '') {
         $('#SelectEmpresa').focus();
@@ -109,9 +117,11 @@ function ActualizarSucursal() {
                 NombreSucursal: NombreSucursal,
                 Email: Email,
                 Telefono: Telefono,
+                Celular: Celular,
                 Contacto: Contacto,
                 IdCiudad: IdCiudad,
                 Direccion: Direccion,
+                Descripcion: Descripcion,
                 IdEstado: IdEstado
             },
             success: function (resultado) {
@@ -192,29 +202,31 @@ function GridSucursal() {
             { targets: [6], className: 'dt-head-center' },
             { targets: [7], className: 'dt-head-center' },
             { targets: [8], className: 'dt-head-center' },
-            { targets: [9], width: '30px', className: 'dt-center dt-head-center' },
-            { targets: [10], width: '30px', className: 'dt-center dt-head-center' }
+            { targets: [9], className: 'dt-head-center' },
+            { targets: [10], width: '50px', className: 'dt-center dt-head-center' },
+            { targets: [11], width: '30px', className: 'dt-center dt-head-center' },
+            { targets: [12], width: '30px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
             {
-                extend: 'excel', className: 'btn btn-excel-datatable',
+                extend: 'excel', className: 'btn-excel-datatable',
                 footer: true,
                 title: tituloReporte + ' ' + NameApp,
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
-                text: 'Excel',
+                text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
                 exportOptions: {
-                    columns: [0,1, 3, 4, 5, 6, 7, 8],
+                    columns: [0,1, 3, 4, 5, 6, 7, 8,9,10],
                 },
             },
             {
-                extend: 'pdfHtml5', className: 'btn btn-pdf-datatable',
-                text: 'Pdf',
+                extend: 'pdfHtml5', className: 'btn-pdf-datatable',
+                text: '<i class="bi-file-earmark-pdf-fill" style="color:red"></i> Descargar Pdf',
                 filename: tituloReporte + ' - ' + NameApp + ' ' + jsDate + ' ' + hora,
                 orientation: 'landscape', //portrait
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
                 exportOptions: {
-                    columns: [0,1, 3, 4, 5, 6, 7, 8],
+                    columns: [0,1, 3, 4, 5, 6, 7, 8,9,10],
                     search: 'applied',
                     order: 'applied',
                 },
@@ -271,7 +283,7 @@ function GridSucursal() {
             },
             {
                 text: 'Nuevo',
-                className: 'btn btn-nuevo-datatable',
+                className: 'btn-nuevo-datatable',
                 action: function (e, dt, node, config) {
                     ModalSucursal('C');
                 }
@@ -290,6 +302,7 @@ function GridSucursal() {
             { "data": "Empresa", title: "Empresa", width: 'auto' },
             { "data": "Email", title: "Email", width: 'auto' },
             { "data": "Telefono", title: "Teléfono", width: 'auto' },
+            { "data": "Celular", title: "Celular", width: 'auto' },
             { "data": "Contacto", title: "Contacto", width: 'auto' },
             {
                 title: "Dirección",
@@ -299,7 +312,7 @@ function GridSucursal() {
                 }
                 , width: 'auto'
             },
-            { "data": "Estado", title: "Estado", width: 'auto' },
+            { "data": "Descripcion", title: "Descripción" },
             { "data": "CreateBy", title: "Creado Por", width: 'auto' },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto' },
             {
@@ -309,21 +322,31 @@ function GridSucursal() {
                 "render": function (data, type, row) {
 
                     if (row.IdEstado == 1) {
-                        return '<label style="background-color:green; padding:2px;border-radius:5px;font-size:11px!important; color:white">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label class="label-estado-activo">&nbsp;' + data + '&nbsp;</label>';
                     }
                     else {
-                        return '<label style="background-color:red; padding:2px;border-radius:5px;font-size:11px!important; color: white">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label class="label-estado-inactivo">&nbsp;' + data + '&nbsp;</label>';
                     }
                 }
 
             },
             {
-                title: "Acciones",
+                title: "",
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<a class="EditarSucursal btn btn-editar-dt" title="Editar Registro">Editar</a>&nbsp;&nbsp;<a class= "EliminarSucursal btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>'+
-                '</div>',
+                    '<i class="bi-pencil-square btn EditarSucursal" style="color:blue" title="Editar"></i>' +
+                    '</div>',
+                orderable: false,
+                width: 'auto',
+            },
+            {
+                title: "",
+                data: null,
+                defaultContent:
+                    '<div class="btn-group-sm">' +
+                    '<i class="bi-trash3-fill btn EliminarSucursal" style="color:red" title="Eliminar"></i>' +
+                    '</div>',
                 orderable: false,
                 width: 'auto',
             },
@@ -346,9 +369,11 @@ function GridSucursal() {
         $('#InputNombreSucursal').val(data.Nombre);
         $('#InputEmailSucursal').val(data.Email);
         $('#InputTelefonoSucursal').val(data.Telefono);
+        $('#InputCelularSucursal').val(data.Celular);
         $('#InputContactoSucursal').val(data.Contacto);
         $('#InputDireccionSucursal').val(data.Direccion);
         $('#SelectCiudad').val(data.IdCiudad);
+        $('#InputDescripcionSucursal').val(data.Descripcion);
         $('#SelectEstado').val(data.IdEstado);
     })
 
