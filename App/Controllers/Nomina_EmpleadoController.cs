@@ -28,5 +28,12 @@ namespace App.Controllers
             var data = dataNominaEmpleado.DatosComprobanteNomina(Id);
             return Json(new { data = data }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult CargarDatosEmpleadoNomina(int IdEmpleado)
+        {
+            var resultado = dataNominaEmpleado.CargarDatosEmpleadoNomina(IdEmpleado);
+            return Json(resultado);
+        }
     }
+
 }

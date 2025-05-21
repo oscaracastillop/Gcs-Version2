@@ -255,13 +255,13 @@ input, button, select, textarea {
     background-color: green !important;
 }
 
-hr {
+/*hr {
     margin-top: -5px !important;
     border: solid 2px steelblue !important;
     opacity: 1 !important;
     color: steelblue;
     margin-bottom:-5px !important;
-}
+}*/
 
 .hruno {
     margin-top: 10px !important;

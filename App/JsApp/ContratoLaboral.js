@@ -184,45 +184,93 @@ function ActualizarCLE() {
     let Observacion = $('#InputObservacionCLE').val();
     let IdEstado = $('#SelectEstado').val();
 
-    $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        url: '/Contrato_Laboral/ActualizarCLE',
-        data: {
-            IdUser: TokenUser,
-            IdCLE: IdCLE, 
-            IdCargo: IdCargo,
-            SalarioMensual: SalarioMensual,
-            IdTipoContrato: IdTipoContrato,
-            FechaFin: FechaFin,
-            IdEps: IdEps,
-            PorcentajeContEps: PorcentajeContEps,
-            IdFondoPension: IdFondoPension,
-            PorcentajeContFP: PorcentajeContFP,
-            IdBanco: IdBanco,
-            NumeroCuentaPago: NumeroCuentaPago,
-            SubTransporte: SubTransporte,
-            IdCesantias: IdCesantias,
-            Observacion: Observacion,
-            IdEstado: IdEstado
-        },
-        success: function (resultado) {
-            valor = resultado.split('*');
-            if (valor[0] == 'OK') {
-                Swal.fire({
-                    title: TituloSwal,
-                    text: valor[1],
-                    icon: 'success',
-                    position: 'top',
-                    confirmButtonColor: "orangered",
-                }).then((result) => {
-                    window.location.reload();
-                })
-            } else {
-                Swal.fire(TituloSwal, valor[1], 'info');
-            }
+    if (IdEstado == 2) {
+        if (FechaFin == null || FechaFin == '' || FechaFin == undefined) {
+            $('#InputFechaFinCLE').focus();
+            VentanaMensaje('Ingrese la fecha de Finalización del Contrato', 'info');
         }
-    });      
+        else {
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/Contrato_Laboral/ActualizarCLE',
+                data: {
+                    IdUser: TokenUser,
+                    IdCLE: IdCLE,
+                    IdCargo: IdCargo,
+                    SalarioMensual: SalarioMensual,
+                    IdTipoContrato: IdTipoContrato,
+                    FechaFin: FechaFin,
+                    IdEps: IdEps,
+                    PorcentajeContEps: PorcentajeContEps,
+                    IdFondoPension: IdFondoPension,
+                    PorcentajeContFP: PorcentajeContFP,
+                    IdBanco: IdBanco,
+                    NumeroCuentaPago: NumeroCuentaPago,
+                    SubTransporte: SubTransporte,
+                    IdCesantias: IdCesantias,
+                    Observacion: Observacion,
+                    IdEstado: IdEstado
+                },
+                success: function (resultado) {
+                    valor = resultado.split('*');
+                    if (valor[0] == 'OK') {
+                        Swal.fire({
+                            title: TituloSwal,
+                            text: valor[1],
+                            icon: 'success',
+                            position: 'top',
+                            confirmButtonColor: "orangered",
+                        }).then((result) => {
+                            window.location.reload();
+                        })
+                    } else {
+                        Swal.fire(TituloSwal, valor[1], 'info');
+                    }
+                }
+            });
+        }
+    } else {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/Contrato_Laboral/ActualizarCLE',
+            data: {
+                IdUser: TokenUser,
+                IdCLE: IdCLE,
+                IdCargo: IdCargo,
+                SalarioMensual: SalarioMensual,
+                IdTipoContrato: IdTipoContrato,
+                FechaFin: FechaFin,
+                IdEps: IdEps,
+                PorcentajeContEps: PorcentajeContEps,
+                IdFondoPension: IdFondoPension,
+                PorcentajeContFP: PorcentajeContFP,
+                IdBanco: IdBanco,
+                NumeroCuentaPago: NumeroCuentaPago,
+                SubTransporte: SubTransporte,
+                IdCesantias: IdCesantias,
+                Observacion: Observacion,
+                IdEstado: IdEstado
+            },
+            success: function (resultado) {
+                valor = resultado.split('*');
+                if (valor[0] == 'OK') {
+                    Swal.fire({
+                        title: TituloSwal,
+                        text: valor[1],
+                        icon: 'success',
+                        position: 'top',
+                        confirmButtonColor: "orangered",
+                    }).then((result) => {
+                        window.location.reload();
+                    })
+                } else {
+                    Swal.fire(TituloSwal, valor[1], 'info');
+                }
+            }
+        });
+    } 
 }
 
 

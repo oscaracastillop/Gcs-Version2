@@ -17,7 +17,7 @@
             </div>
             <div class="modal-body">
                 <label id="LabelIdNominaEmpleado" hidden></label>
-                <div style="text-align:center">
+                <div style="text-align:left; margin-bottom:10px">
                     <label><strong>PERIODO DE NÓMINA</strong></label>
                 </div>
                 <div class="row">
@@ -33,82 +33,82 @@
                 <div class="row">
                     <div class="col-8">
                         <label><strong>Empleado</strong><label style="color:red"> *</label></label>
-                        <select class="form-control" id="SelectContratoLaboralSucursalEmpleado" style="min-width:100%"></select>
+                        <select class="form-control" id="SelectContratoLaboralSucursalEmpleado" onchange="CargarDatosEmpleadoNomina($('#SelectContratoLaboralSucursalEmpleado').val())" style="min-width:100%"></select>
                     </div>
                     <div class="col-4">
                         <label><strong>Días a Pagar</strong><label style="color:red" id=""> *</label></label>
                         <input class="form-control" type="number" id="InputNominaEmpleadoDiasPagar" name="name" autocomplete="off" style="min-width:100%" placeholder="0" />
                     </div>
                 </div>
-                <br />
+                <div class="col-3" id="SelectEstadoNominaEmpleado">
+                    <label><strong>Estado</strong></label>
+                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
+                </div>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-7">
                         <label><strong>Empresa/Sucursal</strong></label>
-                        <input class="form-control" type="number" id="txtEmpresaNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+                        <input class="form-control" type="text" id="txtEmpresaNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
+                    <div class="col-5">
                         <label><strong>Sueldo Mensual</strong></label>
-                        <input class="form-control" type="number" id="txtSueldoNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+                        <input class="form-control" type="text" id="txtSueldoNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
                 </div>
-                <br />
+
                 <hr />
-                <label><strong>INGRESOS ADICIONALES</strong></label>
+                <div style="text-align:left; margin-bottom:10px">
+                    <label><strong>INGRESOS ADICIONALES</strong></label>
+                </div>
                 <div class="row">
                     <div class="col-6">
                         <label><strong>Bonos</strong></label>
-                        <input class="form-control" type="number" id="txtBonosNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+                        <input class="form-control" type="text" id="txtBonosNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
                     <div class="col-6">
                         <label><strong>Préstamos</strong></label>
-                        <input class="form-control" type="number" id="txtPrestamosINominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+                        <input class="form-control" type="text" id="txtPrestamosINominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6">
                         <label><strong>HE Diurna</strong></label>
-                        <input class="form-control" type="number" id="txtHEDiurnaNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+                        <input class="form-control" type="text" id="txtHEDiurnaNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
                     <div class="col-6">
                         <label><strong>HE Nocturna</strong></label>
-                        <input class="form-control" type="number" id="txtHENocturnaNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+                        <input class="form-control" type="text" id="txtHENocturnaNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6">
                         <label><strong>HE Diurna D/F</strong></label>
-                        <input class="form-control" type="number" id="txtHEDiurnaDFNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+                        <input class="form-control" type="text" id="txtHEDiurnaDFNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
                     <div class="col-6">
                         <label><strong>HE Nocturna D/F</strong></label>
-                        <input class="form-control" type="number" id="txtHENocturnaDFNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+                        <input class="form-control" type="text" id="txtHENocturnaDFNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
                 </div>
-                <br />
+
                 <hr />
-                <label><strong>DESCUENTOS ADICIONALES</strong></label>
+                <div style="text-align:left; margin-bottom:10px">
+                    <label><strong>DESCUENTOS ADICIONALES</strong></label>
+                </div>
                 <div class="row">
                     <div class="col-4">
                         <label><strong>Casino</strong></label>
-                        <input class="form-control" type="number" id="txtBonosNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+                        <input class="form-control" type="text" id="txtBonosNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
                     <div class="col-4">
                         <label><strong>Préstamos</strong></label>
-                        <input class="form-control" type="number" id="txtPrestamosDNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+                        <input class="form-control" type="text" id="txtPrestamosDNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
                     <div class="col-4">
                         <label><strong>Novedades</strong></label>
-                        <input class="form-control" type="number" id="txtNovedadesNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+                        <input class="form-control" type="text" id="txtNovedadesNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
                 </div>
-                <br />
-                <div class="col-3" id="SelectEstadoNominaEmpleado">
-                    <label><strong>Estado</strong></label>
-                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
-                </div>
-                <br />
+
                 <br />
                 <div>
                     <ul>
@@ -118,7 +118,6 @@
                     </ul>
                 </div>
             </div>
-
             <div class="modal-footer" id="BotonesModalNominaEmpleado">
             </div>
         </div>

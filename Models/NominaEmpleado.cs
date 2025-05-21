@@ -63,5 +63,21 @@ namespace SistemaGcs.Models
             public string DateCreate { get; set; }
         }
 
+        public class GridDatosEmpleadoNomina
+        {
+            public string txtEmpresaNominaEmpleado { get; set; }
+            public string txtSueldoNominaEmpleado { get; set; }
+            public string txtBonosNominaEmpleado { get; set; }
+            public string txtPrestamosINominaEmpleado { get; set; }
+            public string txtHEDiurnaNominaEmpleado { get; set; }
+            public string txtHENocturnaNominaEmpleado { get; set; }
+            public string txtHEDiurnaDFNominaEmpleado { get; set; }
+            public string txtHENocturnaDFNominaEmpleado { get; set; }
+            public string txtCasinoNominaEmpleado { get; set; }
+            public string txtPrestamosDNominaEmpleado { get; set; }
+            public string txtNovedadesNominaEmpleado { get; set; }
+        }
+
+
     }
 }

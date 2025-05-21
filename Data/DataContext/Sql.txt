@@ -4936,6 +4936,14 @@ IF @Permiso > 0
 	END
 ELSE
 	BEGIN
+		IF @IdEstado = 2
+		BEGIN
+			UPDATE SucursalEmpleado 
+			SET IdEstado = 2,
+			    FechaFin = @FechaFin
+			WHERE IdEmpleado = @IdEmpleado AND IdEstado = 1
+		END
+
 		UPDATE	ContratoLaboral
 			SET		IdCargo = @IdCargo,
 					IdTipoContrato = @IdTipoContrato,
@@ -6676,3 +6684,43 @@ DECLARE @NombreProducto VARCHAR(255)
 END
 
 GO
+
+/* NOMINA EMPLEADO */
+
+CREATE PROCEDURE [dbo].[SP_GridDatosEmpleadoNomina] @IdEmpleado INT
+AS
+BEGIN 
+DECLARE @Bonos INT
+
+SELECT @Bonos = SUM(Valor) 
+				FROM	BonoEmpleado
+
+				WHERE	IdEstado = 1
+						AND IdEmpleado = @IdEmpleado
+
+	SELECT
+		A.Nombre + ' - ' + B.Nombre AS txtEmpresaNominaEmpleado,
+		CONVERT(VARCHAR(255), D.SalarioMensual) AS txtSueldoNominaEmpleado,
+		CONVERT(VARCHAR(255), @Bonos) AS txtBonosNominaEmpleado,
+		'' AS txtPrestamosINominaEmpleado,
+		'' AS txtHEDiurnaNominaEmpleado,
+		'' AS txtHENocturnaNominaEmpleado,
+		'' AS txtHEDiurnaDFNominaEmpleado,
+		'' AS txtHENocturnaDFNominaEmpleado,
+		'' AS txtCasinoNominaEmpleado,
+		'' AS txtPrestamosDNominaEmpleado,
+		'' AS txtNovedadesNominaEmpleado
+
+
+		FROM	Empresa A,
+				Sucursal B,
+				SucursalEmpleado C,
+				ContratoLaboral D
+		WHERE	D.IdEmpleado = 1
+				AND C.IdSucursal = B.Id
+				AND B.IdEmpresa = A.Id
+				AND D.IdEmpresa = A.Id
+				AND D.IdEstado = 1
+				AND C.IdEstado = 1
+END
+

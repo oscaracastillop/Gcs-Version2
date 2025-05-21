@@ -80,5 +80,18 @@ namespace Data.DataEntities
                 throw ex;
             }
         }
+
+        public List<GridDatosEmpleadoNomina> CargarDatosEmpleadoNomina(int IdEmpleado)
+        {
+            try
+            {
+                var response = _conection.Database.SqlQuery<GridDatosEmpleadoNomina>("SP_GridDatosEmpleadoNomina @IdEmpleado", new SqlParameter("@IdEmpleado", IdEmpleado)).ToList();
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
