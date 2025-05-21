@@ -215,9 +215,11 @@ function GridEmpresa() {
             { targets: [8], className: 'dt-head-center' },
             { targets: [9], className: 'dt-head-center' },
             { targets: [10], className: 'dt-head-center' },
-            { targets: [11], width: '50px', className: 'dt-center dt-head-center' },
-            { targets: [12], width: '30px', className: 'dt-center dt-head-center' },
-            { targets: [13], width: '30px', className: 'dt-center dt-head-center' }
+            { targets: [11], className: 'dt-head-center' },
+            { targets: [12], className: 'dt-head-center' },
+            { targets: [13], width: '50px', className: 'dt-center dt-head-center' },
+            { targets: [14], width: '30px', className: 'dt-center dt-head-center' },
+            { targets: [15], width: '30px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -365,7 +367,7 @@ function GridEmpresa() {
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<i class="bi-pencil-square btn EditarEmpresa" style="color:blue" title="Editar"></i>' +
+                    '<a class="EditarEmpresa btn btn-editar-dt" title="editar registro">Editar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',
@@ -375,7 +377,7 @@ function GridEmpresa() {
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<i class="bi-trash3-fill btn EliminarEmpresa" style="color:red" title="Eliminar"></i>' +
+                    '<a class="EliminarEmpresa btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',

@@ -267,19 +267,19 @@ function GridProducto() {
             { targets: [13], width: '50px', className: 'dt-center dt-head-center' },
         ],
         buttons: [{
-            extend: 'excel', className: 'btn btn-excel-datatable',
+            extend: 'excel', className: 'btn-excel-datatable',
             footer: true,
             title: tituloReporte + ' ' + NameApp,
             filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
-            text: 'Excel',
+            text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
             exportOptions: {
                 columns: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11]
             },
         },
         {
             //download: 'open',
-            extend: 'pdfHtml5', className: 'btn btn-pdf-datatable',
-            text: 'Pdf',
+            extend: 'pdfHtml5', className: 'btn-pdf-datatable',
+            text: '<i class="bi-file-earmark-pdf-fill" style="color:red"></i> Descargar Pdf',
             filename: tituloReporte + ' - ' + NameApp + ' ' + jsDate + ' ' + hora,
             orientation: 'landscape', //portrait landscape
             pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
@@ -335,7 +335,7 @@ function GridProducto() {
         },
         {
             text: 'Nuevo',
-            className: 'btn btn-nuevo-datatable',
+            className: 'btn-nuevo-datatable',
             action: function (e, dt, node, config) {
                 ModalProducto('C');
             }
@@ -403,7 +403,6 @@ function GridProducto() {
                 orderable: false,
                 width: 'auto',
             },
-
         ],
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.11.2/i18n/es_es.json"

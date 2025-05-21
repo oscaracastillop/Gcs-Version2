@@ -300,7 +300,7 @@ function GridBonoEmpleado() {
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<i class="bi-pencil-square btn EditarBonoEmpleado" style="color:blue" title="Editar"></i>' +
+                    '<a class="EditarBonoEmpleado btn btn-editar-dt" title="Editar Registro">Editar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',
@@ -310,7 +310,7 @@ function GridBonoEmpleado() {
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<i class="bi-trash3-fill btn EliminarBonoEmpleado" style="color:red" title="Eliminar"></i>' +
+                    '<a class="EliminarBonoEmpleado btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',

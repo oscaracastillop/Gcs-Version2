@@ -291,9 +291,10 @@ function GridCLE() {
             { targets: [9], className: 'dt-head-center' },//Observacion
             { targets: [10], className: 'dt-head-center' },//Creado por
             { targets: [11], className: 'dt-head-center' },//Fecha Creación
-            { targets: [12], width: '50px', className: 'dt-center dt-head-center' },
-            { targets: [13], width: '30px', className: 'dt-center dt-head-center' },
-            { targets: [14], width: '30px', className: 'dt-center dt-head-center' }
+            { targets: [12], className: 'dt-head-center' },//Fecha Creación
+            { targets: [13], width: '50px', className: 'dt-center dt-head-center' },
+            { targets: [14], width: '30px', className: 'dt-center dt-head-center' },
+            { targets: [15], width: '30px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -433,7 +434,7 @@ function GridCLE() {
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<i class="bi-pencil-square btn EditarCLE" style="color:blue" title="Editar"></i>' +
+                    '<a class="EditarCLE btn btn-editar-dt" title="Editar Registro">Editar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',
@@ -443,12 +444,11 @@ function GridCLE() {
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<i class="bi-trash3-fill btn EliminarCLE" style="color:red" title="Eliminar"></i>' +
+                    '<a class="EliminarCLE btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',
             },
-
         ],
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.11.2/i18n/es_es.json"

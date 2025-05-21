@@ -156,24 +156,25 @@ function GridTipoHoraExtra() {
             { targets: [1], className: 'dt-head-center' },
             { targets: [2], className: 'dt-head-center' },
             { targets: [3], className: 'dt-head-center' },
-            { targets: [4], width: '150px', className: 'dt-center dt-head-center' },
-            { targets: [5], width: '100px', className: 'dt-center dt-head-center' }
+            { targets: [4], width: '50px', className: 'dt-center dt-head-center' },
+            { targets: [5], width: '30px', className: 'dt-center dt-head-center' },
+            { targets: [6], width: '30px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
             {
-                extend: 'excel', className: 'btn btn-excel-datatable',
+                extend: 'excel', className: 'btn-excel-datatable',
                 footer: true,
                 title: tituloReporte + ' ' + NameApp,
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
-                text: 'Excel',
+                text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
                 exportOptions: {
                     columns: [0, 1, 2, 3],
                 },
             },
             {
-                extend: 'pdfHtml5', className: 'btn btn-pdf-datatable',
-                text: 'Pdf',
+                extend: 'pdfHtml5', className: 'btn-pdf-datatable',
+                text: '<i class="bi-file-earmark-pdf-fill" style="color:red"></i> Descargar Pdf',
                 filename: tituloReporte + ' - ' + NameApp + ' ' + jsDate + ' ' + hora,
                 orientation: 'portrait', // landscape
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
@@ -229,7 +230,7 @@ function GridTipoHoraExtra() {
             },
             {
                 text: 'Nuevo',
-                className: 'btn btn-nuevo-datatable',
+                className: 'btn-nuevo-datatable',
                 action: function (e, dt, node, config) {
                     ModalTipoHoraExtra('C');
                 }
@@ -255,20 +256,30 @@ function GridTipoHoraExtra() {
                 "render": function (data, type, row) {
 
                     if (row.IdEstado == 1) {
-                        return '<label style="background-color:green; padding:2px;border-radius:5px;font-size:11px!important; color:white">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label class="label-estado-activo">&nbsp;' + data + '&nbsp;</label>';
                     }
                     else {
-                        return '<label style="background-color:red; padding:2px;border-radius:5px;font-size:11px!important; color: white">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label class="label-estado-inactivo">&nbsp;' + data + '&nbsp;</label>';
                     }
                 }
 
             },
             {
-                title: "Acciones",
+                title: "",
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<a class="EditarTipoHoraExtra btn btn-editar-dt" title="Editar Registro">Editar</a>&nbsp;&nbsp;<a class="EliminarTipoHoraExtra btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>' +
+                    '<a class="EditarTipoHoraExtra btn btn-editar-dt" title="Editar Registro">Editar</a>' +
+                    '</div>',
+                orderable: false,
+                width: 'auto',
+            },
+            {
+                title: "",
+                data: null,
+                defaultContent:
+                    '<div class="btn-group-sm">' +
+                    '<a class="EliminarTipoHoraExtra btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',

@@ -258,22 +258,21 @@ function GridCategoria() {
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<a class="EditarEmpleado btn btn-editar-dt" title="Editar Registro">Editar</a>' +
+                    '<a class="EditarCategoria btn btn-editar-dt" title="Editar Registro">Editar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',
             },
-            //{
-            //    title: "",
-            //    data: null,
-            //    defaultContent:
-            //        '<div class="btn-group-sm">' +
-            //        '<i class="bi-trash3-fill btn EliminarCategoria" style="color:red" title="Eliminar"></i>' +
-            //        '</div>',
-            //    orderable: false,
-            //    width: 'auto',
-            //},
-
+            {
+                title: "",
+                data: null,
+                defaultContent:
+                    '<div class="btn-group-sm">' +
+                    '<a class="EliminarCategoria btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
+                    '</div>',
+                orderable: false,
+                width: 'auto',
+            },
         ],
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.11.2/i18n/es_es.json"

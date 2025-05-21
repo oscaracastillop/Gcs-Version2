@@ -144,8 +144,9 @@ function GridCCFamiliar() {
             { targets: [0], className: 'dt-head-center' },
             { targets: [1], className: 'dt-head-center' },
             { targets: [2], className: 'dt-head-center' },
-            { targets: [3], width: '150px', className: 'dt-center dt-head-center' },
-            { targets: [4], width: '100px', className: 'dt-center dt-head-center' }
+            { targets: [3], width: '50px', className: 'dt-center dt-head-center' },
+            { targets: [4], width: '30px', className: 'dt-center dt-head-center' },
+            { targets: [5], width: '30px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -154,14 +155,14 @@ function GridCCFamiliar() {
                 footer: true,
                 title: tituloReporte + ' ' + NameApp,
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
-                text: 'Excel',
+                text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
                 exportOptions: {
                     columns: [0, 1, 2, 3],
                 },
             },
             {
                 extend: 'pdfHtml5', className: 'btn btn-pdf-datatable',
-                text: 'Pdf',
+                text: '<i class="bi-file-earmark-pdf-fill" style="color:red"></i> Descargar Pdf',
                 filename: tituloReporte + ' - ' + NameApp + ' ' + jsDate + ' ' + hora,
                 orientation: 'portrait', // landscape
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
@@ -242,25 +243,34 @@ function GridCCFamiliar() {
                 "render": function (data, type, row) {
 
                     if (row.IdEstado == 1) {
-                        return '<label style="background-color:green; padding:2px;border-radius:5px;font-size:11px!important; color:white">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label class="label-estado-activo">&nbsp;' + data + '&nbsp;</label>';
                     }
                     else {
-                        return '<label style="background-color:red; padding:2px;border-radius:5px;font-size:11px!important; color: white">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label class="label-estado-inactivo">&nbsp;' + data + '&nbsp;</label>';
                     }
                 }
 
             },
             {
-                title: "Acciones",
+                title: "",
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<a class="EditarCCFamiliar btn btn-editar-dt" title="Editar Registro">Editar</a>&nbsp;&nbsp;<a class="EliminarCCFamiliar btn btn-eliminar-dt" title="Eliminar Registro" style="color:red">Eliminar</a>' +
+                    '<a class="EditarCCFamiliar btn btn-editar-dt" title="Editar Registro">Editar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',
             },
-
+            {
+                title: "",
+                data: null,
+                defaultContent:
+                    '<div class="btn-group-sm">' +
+                    '<a class="EliminarCCFamiliar btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
+                    '</div>',
+                orderable: false,
+                width: 'auto',
+            },
         ],
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.11.2/i18n/es_es.json"

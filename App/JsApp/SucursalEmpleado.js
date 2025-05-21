@@ -334,7 +334,7 @@ function GridSucursalEmpleado() {
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<i class="bi-pencil-square btn EditarSucursalEmpleado" style="color:blue" title="Editar"></i>' +
+                    '<a class="EditarSucursalEmpleado btn btn-editar-dt" title="editar registro">Editar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',
@@ -344,12 +344,11 @@ function GridSucursalEmpleado() {
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<i class="bi-trash3-fill btn EliminarSucursalEmpleado" style="color:red" title="Eliminar"></i>' +
+                    '<a class="EliminarSucursalEmpleado btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',
             },
-
         ],
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.11.2/i18n/es_es.json"

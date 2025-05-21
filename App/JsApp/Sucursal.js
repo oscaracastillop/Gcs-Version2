@@ -335,7 +335,7 @@ function GridSucursal() {
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<i class="bi-pencil-square btn EditarSucursal" style="color:blue" title="Editar"></i>' +
+                    '<a class="EditarSucursal btn btn-editar-dt" title="editar registro">Editar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',
@@ -345,7 +345,7 @@ function GridSucursal() {
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<i class="bi-trash3-fill btn EliminarSucursal" style="color:red" title="Eliminar"></i>' +
+                    '<a class="EliminarSucursal btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',

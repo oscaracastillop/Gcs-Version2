@@ -310,7 +310,7 @@ function GridCasinoEmpleado() {
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<i class="bi-pencil-square btn EditarCasinoEmpleado" style="color:blue" title="Editar"></i>' +
+                    '<a class="EditarCasinoEmpleado btn btn-editar-dt" title="Editar Registro">Editar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',
@@ -320,7 +320,7 @@ function GridCasinoEmpleado() {
                 data: null,
                 defaultContent:
                     '<div class="btn-group-sm">' +
-                    '<i class="bi-trash3-fill btn EliminarCasinoEmpleado" style="color:red" title="Eliminar"></i>' +
+                    '<a class="EliminarCasinoEmpleado btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
                     '</div>',
                 orderable: false,
                 width: 'auto',
