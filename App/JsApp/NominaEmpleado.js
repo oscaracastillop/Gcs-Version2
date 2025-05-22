@@ -23,27 +23,41 @@
 
 
 function CargarDatosEmpleadoNomina(IdEmpleado) {
-    $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        url: '/Nomina_Empleado/CargarDatosEmpleadoNomina',
-        data: {
-            IdEmpleado: IdEmpleado
-        },
-        success: function (resultado) {
-            $('#txtEmpresaNominaEmpleado').val(resultado[0].txtEmpresaNominaEmpleado);
-            $('#txtSueldoNominaEmpleado').val(resultado[0].txtSueldoNominaEmpleado);
+    $('#txtEmpresaNominaEmpleado').empty().val('');
+    $('#txtSueldoNominaEmpleado').empty().val('');
+    $('#txtBonosNominaEmpleado').empty().val('');
+    $('#txtPrestamosINominaEmpleado').empty().val('');
+    $('#txtHEDiurnaNominaEmpleado').empty().val('');
+    $('#txtHENocturnaNominaEmpleado').empty().val('');
+    $('#txtHEDiurnaDFNominaEmpleado').empty().val('');
+    $('#txtHENocturnaDFNominaEmpleado').empty().val('');
+    $('#txtCasinoNominaEmpleado').empty().val('');
+    $('#txtPrestamosDNominaEmpleado').empty().val('');
+    $('#txtNovedadesNominaEmpleado').empty().val('');
 
-            $('#txtBonosNominaEmpleado').val(resultado[0].txtBonosNominaEmpleado);
-            $('#txtPrestamosINominaEmpleado').val(resultado[0].txtPrestamosINominaEmpleado);
-            $('#txtHEDiurnaNominaEmpleado').val(resultado[0].txtHEDiurnaNominaEmpleado);
-            $('#txtHENocturnaNominaEmpleado').val(resultado[0].txtHENocturnaNominaEmpleado);
-            $('#txtHEDiurnaDFNominaEmpleado').val(resultado[0].txtHEDiurnaDFNominaEmpleado);
-            $('#txtHENocturnaDFNominaEmpleado').val(resultado[0].txtHENocturnaDFNominaEmpleado);
+    if (IdEmpleado > 0) {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/Nomina_Empleado/CargarDatosEmpleadoNomina',
+            data: {
+                IdEmpleado: IdEmpleado
+            },
+            success: function (resultado) {
+                $('#txtEmpresaNominaEmpleado').val(resultado[0].txtEmpresaNominaEmpleado);
+                $('#txtSueldoNominaEmpleado').val(resultado[0].txtSueldoNominaEmpleado);
 
-            $('#txtCasinoNominaEmpleado').val(resultado[0].txtCasinoNominaEmpleado);
-            $('#txtPrestamosDNominaEmpleado').val(resultado[0].txtPrestamosDNominaEmpleado);
-            $('#txtNovedadesNominaEmpleado').val(resultado[0].txtNovedadesNominaEmpleado);
-        },
-    });
+                $('#txtBonosNominaEmpleado').val(resultado[0].txtBonosNominaEmpleado);
+                $('#txtPrestamosINominaEmpleado').val(resultado[0].txtPrestamosINominaEmpleado);
+                $('#txtHEDiurnaNominaEmpleado').val(resultado[0].txtHEDiurnaNominaEmpleado);
+                $('#txtHENocturnaNominaEmpleado').val(resultado[0].txtHENocturnaNominaEmpleado);
+                $('#txtHEDiurnaDFNominaEmpleado').val(resultado[0].txtHEDiurnaDFNominaEmpleado);
+                $('#txtHENocturnaDFNominaEmpleado').val(resultado[0].txtHENocturnaDFNominaEmpleado);
+
+                $('#txtCasinoNominaEmpleado').val(resultado[0].txtCasinoNominaEmpleado);
+                $('#txtPrestamosDNominaEmpleado').val(resultado[0].txtPrestamosDNominaEmpleado);
+                $('#txtNovedadesNominaEmpleado').val(resultado[0].txtNovedadesNominaEmpleado);
+            },
+        });
+    }     
 }
