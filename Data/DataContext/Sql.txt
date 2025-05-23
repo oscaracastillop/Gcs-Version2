@@ -6690,37 +6690,32 @@ GO
 CREATE PROCEDURE [dbo].[SP_GridDatosEmpleadoNomina] @IdEmpleado INT
 AS
 BEGIN 
-DECLARE @Bonos INT
+DECLARE @Bonos INT, @Casino INT, @PrestamosIngreso INT, @PrestamosDescuento INT, @FechaInicio Date = '2025-04-01', @FechaFin Date = '2025-06-01'
 
-SELECT @Bonos = SUM(Valor) 
-				FROM	BonoEmpleado
+SELECT @Bonos = SUM(Valor) FROM	BonoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
+SELECT @PrestamosIngreso = SUM(Valor) FROM	PrestamoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
+SELECT @PrestamosDescuento = SUM(Valor) FROM PrestamoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
+SELECT @Casino = SUM(Valor) FROM CasinoEmpleado WHERE IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
 
-				WHERE	IdEstado = 1
-						AND IdEmpleado = @IdEmpleado
+SELECT 
+B.Nombre +' - '+D.Nombre AS txtEmpresaNominaEmpleado,
+CONVERT(VARCHAR(255),A.SalarioMensual) AS txtSueldoNominaEmpleado,
+CONVERT(VARCHAR(255),ISNULL(@Bonos,0)) AS txtBonosNominaEmpleado,
+CONVERT(VARCHAR(255),ISNULL(@PrestamosIngreso,0)) AS txtPrestamosINominaEmpleado,
+CONVERT(VARCHAR(255),ISNULL(@PrestamosDescuento,0)) AS txtPrestamosDNominaEmpleado,
+CONVERT(VARCHAR(255),ISNULL(@Casino,0)) AS txtCasinoNominaEmpleado
 
-	SELECT
-		A.Nombre + ' - ' + B.Nombre AS txtEmpresaNominaEmpleado,
-		CONVERT(VARCHAR(255), D.SalarioMensual) AS txtSueldoNominaEmpleado,
-		CONVERT(VARCHAR(255), @Bonos) AS txtBonosNominaEmpleado,
-		'' AS txtPrestamosINominaEmpleado,
-		'' AS txtHEDiurnaNominaEmpleado,
-		'' AS txtHENocturnaNominaEmpleado,
-		'' AS txtHEDiurnaDFNominaEmpleado,
-		'' AS txtHENocturnaDFNominaEmpleado,
-		'' AS txtCasinoNominaEmpleado,
-		'' AS txtPrestamosDNominaEmpleado,
-		'' AS txtNovedadesNominaEmpleado
-
-
-		FROM	Empresa A,
-				Sucursal B,
-				SucursalEmpleado C,
-				ContratoLaboral D
-		WHERE	D.IdEmpleado = 1
-				AND C.IdSucursal = B.Id
-				AND B.IdEmpresa = A.Id
-				AND D.IdEmpresa = A.Id
-				AND D.IdEstado = 1
-				AND C.IdEstado = 1
+FROM	ContratoLaboral A,
+		Empresa B,
+		SucursalEmpleado C,
+		Sucursal D
+		
+WHERE	A.IdEmpleado = @IdEmpleado
+		AND A.IdEstado = 1
+		AND A.IdEmpresa = B.Id	
+		AND C.IdEmpleado = @IdEmpleado 
+		AND C.IdEstado = 1
+		AND D.Id = C.IdSucursal
 END
+
 
