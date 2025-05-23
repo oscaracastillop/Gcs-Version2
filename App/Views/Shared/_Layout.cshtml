@@ -114,6 +114,7 @@
 
 <script>
     $(document).ready(function () {
+        reducirTamaño(100);
 
         if (TokenUser == '' || TokenUser == undefined || TokenUser == null) {
             Swal.fire({
@@ -134,5 +135,17 @@
         Cookies.remove('TokenUser');
         window.location.href = '/Login';
     }
+
+    function reducirTamaño(porcentaje) {
+        // Calcula el nuevo factor de zoom.
+        const factorZoom = porcentaje / 100;
+        // Obtiene el elemento HTML.
+        const html = document.documentElement;
+        // Establece el zoom del elemento HTML.
+        html.style.zoom = factorZoom;
+    }
+
+    // Ejemplo: Reducir el tamaño a un 90%
+    
 </script>
 
