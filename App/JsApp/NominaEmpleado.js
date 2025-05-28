@@ -58,6 +58,8 @@ function CargarDatosEmpleadoNomina(IdEmpleado) {
                 $('#txtCasinoNominaEmpleado').val('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtCasinoNominaEmpleado));
                 $('#txtPrestamosDNominaEmpleado').val('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtPrestamosDNominaEmpleado));
                 $('#txtNovedadesNominaEmpleado').val('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtNovedadesNominaEmpleado));
+
+                $('#TotalIngresos').text('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtBonosNominaEmpleado));
             },
         });
     }     

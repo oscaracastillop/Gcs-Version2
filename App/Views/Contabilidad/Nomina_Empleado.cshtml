@@ -9,8 +9,8 @@
     <table id="gridNominaEmpleado" class="table cell-border" cellspacing="0" style="width: 100%;"></table>
 </div>
 
-<div class="modal fade" id="ModalNominaEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" style="background: rgba(40, 40, 40, 0.8);" id="ModalNominaEmpleado" data-bs-backdrop="false" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
             <div class="modal-header header-modal">
                 <div class="modal-title" id="TituloModalNominaEmpleado"></div>
@@ -21,21 +21,29 @@
                     <label><strong>PERIODO DE NÓMINA</strong></label>
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-3">
                         <label><strong>Fecha Inicio</strong><label style="color:red" id=""> *</label></label>
                         <input class="form-control" type="date" id="InputNominaEmpleadoFechaInicio" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
-                    <div class="col-6">
+                    <div class="col-3">
                         <label><strong>Fecha Fin</strong><label style="color:red" id=""> *</label></label>
                         <input class="form-control" type="date" id="InputNominaEmpleadoFechaCorte" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-8">
+                    <div class="col-6">
                         <label><strong>Empleado</strong><label style="color:red"> *</label></label>
                         <select class="form-control" id="SelectContratoLaboralSucursalEmpleado" onchange="CargarDatosEmpleadoNomina($('#SelectContratoLaboralSucursalEmpleado').val())" style="min-width:100%"></select>
                     </div>
-                    <div class="col-4">
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Empresa/Sucursal</strong></label>
+                        <input class="form-control" type="text" id="txtEmpresaNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+                    </div>
+                    <div class="col-3">
+                        <label><strong>Salario Mensual</strong></label>
+                        <input class="form-control" type="text" id="txtSueldoNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+                    </div>
+                    <div class="col-2">
                         <label><strong>Días a Pagar</strong><label style="color:red" id=""> *</label></label>
                         <input class="form-control" type="number" id="InputNominaEmpleadoDiasPagar" name="name" autocomplete="off" style="min-width:100%" placeholder="0" />
                     </div>
@@ -44,70 +52,137 @@
                     <label><strong>Estado</strong></label>
                     <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
                 </div>
-                <div class="row">
-                    <div class="col-7">
-                        <label><strong>Empresa/Sucursal</strong></label>
-                        <input class="form-control" type="text" id="txtEmpresaNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
-                    </div>
-                    <div class="col-5">
-                        <label><strong>Sueldo Mensual</strong></label>
-                        <input class="form-control" type="text" id="txtSueldoNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
-                    </div>
-                </div>
+                @*<div class="row">
+            <div class="col-7">
+                <label><strong>Empresa/Sucursal</strong></label>
+                <input class="form-control" type="text" id="txtEmpresaNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+            </div>
+            <div class="col-5">
+                <label><strong>Sueldo Mensual</strong></label>
+                <input class="form-control" type="text" id="txtSueldoNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+            </div>
+        </div>*@
 
                 <hr />
                 <div style="text-align:left; margin-bottom:10px">
                     <label><strong>INGRESOS ADICIONALES</strong></label>
                 </div>
+                @*<div class="row">
+            <div class="col-2">
+                <label><strong>Bonos</strong></label>
+                <input class="form-control" type="text" id="txtBonosNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+            </div>
+            <div class="col-2">
+                <label><strong>Préstamos</strong></label>
+                <input class="form-control" type="text" id="txtPrestamosINominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+            </div>
+        </div>*@
                 <div class="row">
-                    <div class="col-6">
-                        <label><strong>Bonos</strong></label>
-                        <input class="form-control" type="text" id="txtBonosNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+                    <div class="col-2">
+                        <label><strong>Sueldo</strong></label>
+                        <input class="form-control" type="text" id="txtSueldoaPagarNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
-                    <div class="col-6">
-                        <label><strong>Préstamos</strong></label>
-                        <input class="form-control" type="text" id="txtPrestamosINominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+                    <div class="col-2">
+                        <label><strong>Aux Transporte</strong></label>
+                        <input class="form-control" type="text" id="txtAuxTransporteNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
+                    <div class="col-2">
                         <label><strong>HE Diurna</strong></label>
                         <input class="form-control" type="text" id="txtHEDiurnaNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
-                    <div class="col-6">
+                    <div class="col-2">
                         <label><strong>HE Nocturna</strong></label>
                         <input class="form-control" type="text" id="txtHENocturnaNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
+                    <div class="col-2">
                         <label><strong>HE Diurna D/F</strong></label>
                         <input class="form-control" type="text" id="txtHEDiurnaDFNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
-                    <div class="col-6">
+                    <div class="col-2">
                         <label><strong>HE Nocturna D/F</strong></label>
                         <input class="form-control" type="text" id="txtHENocturnaDFNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-2">
+                        <label><strong>Bonos</strong></label>
+                        <input class="form-control" type="text" id="txtBonosNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+                    </div>
+                    <div class="col-2">
+                        <label><strong>Préstamos</strong></label>
+                        <input class="form-control" type="text" id="txtPrestamosINominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+                    </div>
+                    @*<div class="col-2">
+            <label><strong>Préstamos</strong></label>
+            <input class="form-control" type="text" id="txtPrestamosINominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+        </div>
+        <div class="col-2">
+            <label><strong>HE Diurna</strong></label>
+            <input class="form-control" type="text" id="txtHEDiurnaNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+        </div>
+        <div class="col-2">
+            <label><strong>HE Nocturna</strong></label>
+            <input class="form-control" type="text" id="txtHENocturnaNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+        </div>
+        <div class="col-2">
+            <label><strong>HE Diurna D/F</strong></label>
+            <input class="form-control" type="text" id="txtHEDiurnaDFNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+        </div>
+        <div class="col-2">
+            <label><strong>HE Nocturna D/F</strong></label>
+            <input class="form-control" type="text" id="txtHENocturnaDFNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+        </div>*@
+                </div>
+                @*<div class="row">
+            <div class="col-6">
+                <label><strong>HE Diurna D/F</strong></label>
+                <input class="form-control" type="text" id="txtHEDiurnaDFNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+            </div>
+            <div class="col-6">
+                <label><strong>HE Nocturna D/F</strong></label>
+                <input class="form-control" type="text" id="txtHENocturnaDFNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+            </div>
+        </div>*@
+            <div>
+                <div style="float:right">
+                    <label style="font-size:15px"><strong>Total Ingresos: <label id="TotalIngresos"></label></strong></label>                    
+                </div>
+            </div>
+
+            <div style="clear:both"></div>
 
                 <hr />
                 <div style="text-align:left; margin-bottom:10px">
                     <label><strong>DESCUENTOS ADICIONALES</strong></label>
                 </div>
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-2">
                         <label><strong>Casino</strong></label>
                         <input class="form-control" type="text" id="txtCasinoNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
-                    <div class="col-4">
+                    <div class="col-2">
                         <label><strong>Préstamos</strong></label>
                         <input class="form-control" type="text" id="txtPrestamosDNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
-                    <div class="col-4">
+                    <div class="col-2">
                         <label><strong>Novedades</strong></label>
                         <input class="form-control" type="text" id="txtNovedadesNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
                 </div>
+                @*<div class="row">
+            <div class="col-4">
+                <label><strong>Casino</strong></label>
+                <input class="form-control" type="text" id="txtCasinoNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+            </div>
+            <div class="col-4">
+                <label><strong>Préstamos</strong></label>
+                <input class="form-control" type="text" id="txtPrestamosDNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+            </div>
+            <div class="col-4">
+                <label><strong>Novedades</strong></label>
+                <input class="form-control" type="text" id="txtNovedadesNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+            </div>
+        </div>*@
 
                 <br />
                 <div>
