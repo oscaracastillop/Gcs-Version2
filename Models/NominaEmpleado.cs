@@ -66,16 +66,31 @@ namespace SistemaGcs.Models
         public class GridDatosEmpleadoNomina
         {
             public string txtEmpresaNominaEmpleado { get; set; }
-            public string txtSueldoNominaEmpleado { get; set; }
-            public string txtBonosNominaEmpleado { get; set; }
-            public string txtPrestamosINominaEmpleado { get; set; }
+            public string txtSalarioNominaEmpleado { get; set; }
+            public string txtSueldoaPagarNominaEmpleado { get; set; }
+            public string txtAuxTransporteNominaEmpleado { get; set; }                        
             public string txtHEDiurnaNominaEmpleado { get; set; }
             public string txtHENocturnaNominaEmpleado { get; set; }
             public string txtHEDiurnaDFNominaEmpleado { get; set; }
             public string txtHENocturnaDFNominaEmpleado { get; set; }
+            public string txtBonosNominaEmpleado { get; set; }
+            public string txtPrestamosINominaEmpleado { get; set; }
+            public string txtTotalIngresos { get; set; }
+
+
+            public string txtEpsNominaEmpleado { get; set; }
+            public string txtPensionNominaEmpleado { get; set; }
             public string txtCasinoNominaEmpleado { get; set; }
             public string txtPrestamosDNominaEmpleado { get; set; }
             public string txtNovedadesNominaEmpleado { get; set; }
+            public string txtTotalDescuentos { get; set; }
+            public string txtTotalPagoNominaEmpleado { get; set; }
+
+
+
+
+
+
         }
 
 
