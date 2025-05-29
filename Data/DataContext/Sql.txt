@@ -5289,6 +5289,7 @@ CREATE TABLE CasinoEmpleado
 (Id int identity(1,1) Primary key ,
 IdEmpleado Int,
 IdSucursal Int,
+IdContratoLaboral Int,
 Valor Int,
 Fecha Date,
 FechaPago Date,
@@ -5302,6 +5303,7 @@ GO
 
 ALTER TABLE CasinoEmpleado ADD CONSTRAINT FK_IdEmpleadoCasinoEmpleado FOREIGN KEY (IdEmpleado ) references Empleado(Id)
 ALTER TABLE CasinoEmpleado ADD CONSTRAINT FK_IdSucursalCasinoEmpleado FOREIGN KEY (IdSucursal ) references Sucursal(Id)
+ALTER TABLE CasinoEmpleado ADD CONSTRAINT FK_IdContratoLaboralCasinoEmpleado FOREIGN KEY (IdContratoLaboral ) references ContratoLaboral(Id)
 ALTER TABLE CasinoEmpleado ADD CONSTRAINT FK_IdCreateByCasinoEmpleado FOREIGN KEY (CreateBy ) references Usuario(Id)
 ALTER TABLE CasinoEmpleado ADD CONSTRAINT FK_IdEstadoCasinoEmpleado FOREIGN KEY (IdEstado ) references TipoEstado(Id)
 
@@ -5320,6 +5322,7 @@ BEGIN
 DECLARE @Permiso INT, 
 		@IdUsuario INT, 
 		@IdSucursal INT,
+		@IdContratoLaboral INT,
 		@Accion VARCHAR(255),
 		@SubMenu VARCHAR(255)
 
@@ -5328,15 +5331,16 @@ SET @SubMenu = '/Recursos_Humanos/Casino'
 
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+SELECT @IdContratoLaboral = Id FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
 
 IF @Permiso > 0	
 	BEGIN	
 		SELECT	@IdSucursal = IdSucursal FROM SucursalEmpleado WHERE IdEmpleado = @IdEmpleado AND IdEstado = 1
 
 		INSERT INTO CasinoEmpleado
-		(IdEmpleado, IdSucursal, Valor, Fecha, FechaPago, Observacion, CreateBy, DateCreate) 
+		(IdEmpleado, IdSucursal, IdContratoLaboral, Valor, Fecha, FechaPago, Observacion, CreateBy, DateCreate) 
 		VALUES 
-		(@IdEmpleado, @IdSucursal, @Valor, @Fecha, @FechaPago, @Observacion, @IdUsuario, GETDATE()) 
+		(@IdEmpleado, @IdSucursal, @IdContratoLaboral, @Valor, @Fecha, @FechaPago, @Observacion, @IdUsuario, GETDATE()) 
 		SET @Resultado = 'OK*Los datos se crearon correctamente'		
 	END	
 ELSE
@@ -5454,6 +5458,7 @@ CREATE TABLE BonoEmpleado
 (Id int identity(1,1) Primary key ,
 IdEmpleado Int,
 IdSucursal Int,
+IdContratoLaboral Int,
 Valor Int,
 FechaPago Date,
 NumeroComprobanteNomina Int,
@@ -5466,6 +5471,7 @@ GO
 
 ALTER TABLE BonoEmpleado ADD CONSTRAINT FK_IdEmpleadoBonoEmpleado FOREIGN KEY (IdEmpleado ) references Empleado(Id)
 ALTER TABLE BonoEmpleado ADD CONSTRAINT FK_IdSucursalBonoEmpleado FOREIGN KEY (IdSucursal ) references Sucursal(Id)
+ALTER TABLE BonoEmpleado ADD CONSTRAINT FK_IdContratoLaboralBonoEmpleado FOREIGN KEY (IdContratoLaboral ) references ContratoLaboral(Id)
 ALTER TABLE BonoEmpleado ADD CONSTRAINT FK_IdCreateByBonoEmpleado FOREIGN KEY (CreateBy ) references Usuario(Id)
 ALTER TABLE BonoEmpleado ADD CONSTRAINT FK_IdEstadoBonoEmpleado FOREIGN KEY (IdEstado ) references TipoEstado(Id)
 
@@ -5483,6 +5489,7 @@ BEGIN
 DECLARE @Permiso INT, 
 		@IdUsuario INT, 
 		@IdSucursal INT,
+		@IdContratoLaboral INT,
 		@Accion VARCHAR(255),
 		@SubMenu VARCHAR(255)		
 			   	
@@ -5491,6 +5498,7 @@ SET @SubMenu = '/Recursos_Humanos/Bono'
 
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+SELECT @IdContratoLaboral = Id FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
 
 IF @Permiso > 0
 		BEGIN	
@@ -5500,9 +5508,9 @@ IF @Permiso > 0
 						AND IdEstado = 1
 
 			INSERT INTO BonoEmpleado
-			(IdEmpleado, IdSucursal, Valor, FechaPago,  Observacion, CreateBy, DateCreate) 
+			(IdEmpleado, IdSucursal, IdContratoLaboral, Valor, FechaPago,  Observacion, CreateBy, DateCreate) 
 			VALUES 
-			(@IdEmpleado, @IdSucursal, @Valor, @FechaPago, @Observacion, @IdUsuario, GETDATE()) 
+			(@IdEmpleado, @IdSucursal, @IdContratoLaboral, @Valor, @FechaPago, @Observacion, @IdUsuario, GETDATE()) 
 			SET @Resultado = 'OK*Los datos se crearon correctamente'	
 		END	
 ELSE
@@ -5616,6 +5624,7 @@ CREATE TABLE PrestamoEmpleado
 (Id int identity(1,1) Primary key ,
 IdEmpleado Int,
 IdSucursal Int,
+IdContratoLaboral Int,
 Valor Int,
 FechaPrestamo Date,
 FechaPago Date,
@@ -5630,6 +5639,7 @@ GO
 
 ALTER TABLE PrestamoEmpleado ADD CONSTRAINT FK_IdEmpleadoPrestamoEmpleado FOREIGN KEY (IdEmpleado ) references Empleado(Id)
 ALTER TABLE PrestamoEmpleado ADD CONSTRAINT FK_IdSucursalPrestamoEmpleado FOREIGN KEY (IdSucursal ) references Sucursal(Id)
+ALTER TABLE PrestamoEmpleado ADD CONSTRAINT FK_IdContratoLaboralPrestamoEmpleado FOREIGN KEY (IdContratoLaboral ) references ContratoLaboral(Id)
 ALTER TABLE PrestamoEmpleado ADD CONSTRAINT FK_IdCreateByPrestamoEmpleado FOREIGN KEY (CreateBy ) references Usuario(Id)
 ALTER TABLE PrestamoEmpleado ADD CONSTRAINT FK_IdEstadoPrestamoEmpleado FOREIGN KEY (IdEstado ) references TipoEstado(Id)
 
@@ -5649,6 +5659,7 @@ BEGIN
 DECLARE @Permiso INT, 
 		@IdUsuario INT, 
 		@IdSucursal INT,
+		@IdContratoLaboral INT,
 		@Accion VARCHAR(255),
 		@SubMenu VARCHAR(255)
 			   	
@@ -5657,15 +5668,16 @@ SET @SubMenu = '/Recursos_Humanos/Prestamo'
 
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+SELECT @IdContratoLaboral = Id FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
 
 IF @Permiso > 0
 		BEGIN	
 			SELECT	@IdSucursal = IdSucursal FROM SucursalEmpleado WHERE IdEmpleado = @IdEmpleado AND IdEstado = 1
 
 			INSERT INTO PrestamoEmpleado
-			(IdEmpleado, IdSucursal, Valor, FechaPrestamo, FechaPago, Cuotas, Observacion, CreateBy, DateCreate) 
+			(IdEmpleado, IdSucursal, IdContratoLaboral, Valor, FechaPrestamo, FechaPago, Cuotas, Observacion, CreateBy, DateCreate) 
 			VALUES 
-			(@IdEmpleado, @IdSucursal, @Valor, @FechaPrestamo, @FechaPago, @Cuotas, @Observacion, @IdUsuario, GETDATE()) 
+			(@IdEmpleado, @IdSucursal, @IdContratoLaboral, @Valor, @FechaPrestamo, @FechaPago, @Cuotas, @Observacion, @IdUsuario, GETDATE()) 
 			SET @Resultado = 'OK*Los datos se crearon correctamente'		
 		END	
 ELSE
@@ -6687,23 +6699,60 @@ GO
 
 /* NOMINA EMPLEADO */
 
-CREATE PROCEDURE [dbo].[SP_GridDatosEmpleadoNomina] @IdEmpleado INT
+CREATE PROCEDURE [dbo].[SP_GridDatosEmpleadoNomina] @IdEmpleado INT, @FechaInicio date, @FechaFin date, @DiasaPagar int
 AS
 BEGIN 
-DECLARE @Bonos INT, @Casino INT, @PrestamosIngreso INT, @PrestamosDescuento INT, @FechaInicio Date = '2025-04-01', @FechaFin Date = '2025-06-01'
+DECLARE 
+@IdContratoLaboral INT,
+@SalarioMensual INT,
+@Sueldo INT,
+@SubTransporte INT,
+@Eps INT,
+@PorcentajeEps INT,
+@PorcentajePension INT,
+@Pension INT,
+@Bonos INT, @Casino INT, @PrestamosIngreso INT, @PrestamosDescuento INT, @TotalIngresos INT, @TotalDescuentos INT
 
-SELECT @Bonos = SUM(Valor) FROM	BonoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
-SELECT @PrestamosIngreso = SUM(Valor) FROM	PrestamoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
-SELECT @PrestamosDescuento = SUM(Valor) FROM PrestamoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
-SELECT @Casino = SUM(Valor) FROM CasinoEmpleado WHERE IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
+SELECT @IdContratoLaboral = Id FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
+
+SELECT @SalarioMensual =  SalarioMensual FROM ContratoLaboral where Id = @IdContratoLaboral
+SET @Sueldo = (@SalarioMensual/30)*@DiasaPagar
+SELECT @SubTransporte = (SubTransporte/30)*@DiasaPagar FROM ContratoLaboral where Id = @IdContratoLaboral
+SELECT @Bonos = ISNULL(SUM(Valor),0) FROM	BonoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
+SELECT @PrestamosIngreso = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
+
+
+SELECT @PorcentajeEps = PorcentajeEps FROM ContratoLaboral where Id = @IdContratoLaboral
+SELECT @PorcentajePension = PorcentajeFondoPension FROM ContratoLaboral where Id = @IdContratoLaboral
+
+SET @Eps = ISNULL(((@SalarioMensual*@PorcentajeEps/100)/30)*@DiasaPagar,0)
+SET @Pension = ISNULL(((@SalarioMensual*@PorcentajePension/100)/30)*@DiasaPagar,0)
+SELECT @PrestamosDescuento = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
+SELECT @Casino = ISNULL(SUM(Valor),0) FROM CasinoEmpleado WHERE IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
+
+SET @TotalIngresos = ISNULL((@Sueldo + @SubTransporte + @Bonos + @PrestamosIngreso),0)
+SET @TotalDescuentos = ISNULL((@Eps + @Pension + @Casino + @PrestamosDescuento),0)
 
 SELECT 
 B.Nombre +' - '+D.Nombre AS txtEmpresaNominaEmpleado,
-CONVERT(VARCHAR(255),A.SalarioMensual) AS txtSueldoNominaEmpleado,
+CONVERT(VARCHAR(255),@SalarioMensual) AS txtSalarioNominaEmpleado,
+CONVERT(VARCHAR(255),ISNULL(@Sueldo,0)) AS txtSueldoaPagarNominaEmpleado,
+CONVERT(VARCHAR(255),ISNULL(@SubTransporte,0)) AS txtAuxTransporteNominaEmpleado,
 CONVERT(VARCHAR(255),ISNULL(@Bonos,0)) AS txtBonosNominaEmpleado,
 CONVERT(VARCHAR(255),ISNULL(@PrestamosIngreso,0)) AS txtPrestamosINominaEmpleado,
+CONVERT(VARCHAR(255),@TotalIngresos) AS txtTotalIngresosNominaEmpleado,
+
+CONVERT(VARCHAR(255),@Eps) AS txtEpsNominaEmpleado,
+CONVERT(VARCHAR(255),@Pension) AS txtPensionNominaEmpleado,
+CONVERT(VARCHAR(255),ISNULL(@Casino,0)) AS txtCasinoNominaEmpleado,
 CONVERT(VARCHAR(255),ISNULL(@PrestamosDescuento,0)) AS txtPrestamosDNominaEmpleado,
-CONVERT(VARCHAR(255),ISNULL(@Casino,0)) AS txtCasinoNominaEmpleado
+
+
+CONVERT(VARCHAR(255),@TotalDescuentos) AS txtTotalDescuentosNominaEmpleado,
+
+
+CONVERT(VARCHAR(255),ISNULL(@TotalIngresos-@TotalDescuentos,0)) AS txtTotalPagoNominaEmpleado
+
 
 FROM	ContratoLaboral A,
 		Empresa B,
@@ -6717,5 +6766,6 @@ WHERE	A.IdEmpleado = @IdEmpleado
 		AND C.IdEstado = 1
 		AND D.Id = C.IdSucursal
 END
+
 
 

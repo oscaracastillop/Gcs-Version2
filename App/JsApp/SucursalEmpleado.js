@@ -297,10 +297,10 @@ function GridSucursalEmpleado() {
                 "render": function (data, type, row) {
 
                     if (row.IdEstado == 1) {
-                        return '<img src="/Images/ImagenHVEmpleado/' + data + '" alt="" height="45" width="45" style="border-radius:50%; border: 1px solid green; padding:2px"/>';
+                        return '<img src="/Images/ImagenHVEmpleado/' + data + '" alt="" height="35" width="35" style="border-radius:50%; border: 1px solid green; padding:2px"/>';
                     }
                     else {
-                        return '<img src="/Images/ImagenHVEmpleado/' + data + '" alt="" height="45" width="45" style="border-radius: 50%; border: 1px solid red; padding:2px" />';
+                        return '<img src="/Images/ImagenHVEmpleado/' + data + '" alt="" height="35" width="35" style="border-radius: 50%; border: 1px solid red; padding:2px" />';
                     }
                 }
 

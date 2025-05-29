@@ -21,20 +21,29 @@
                     <label><strong>PERIODO DE NÓMINA</strong></label>
                 </div>
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-2">
                         <label><strong>Fecha Inicio</strong><label style="color:red" id=""> *</label></label>
                         <input class="form-control" type="date" id="InputNominaEmpleadoFechaInicio" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <label><strong>Fecha Fin</strong><label style="color:red" id=""> *</label></label>
                         <input class="form-control" type="date" id="InputNominaEmpleadoFechaCorte" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
-                    <div class="col-6">
+                    <div class="col-2">
+                        <label><strong>Días a Pagar</strong><label style="color:red" id=""> *</label></label>
+                        <input class="form-control" type="number" id="InputNominaEmpleadoDiasPagar" name="name" autocomplete="off" style="min-width:100%" placeholder="0" />
+                    </div>
+                    <div class="col-4">
                         <label><strong>Empleado</strong><label style="color:red"> *</label></label>
-                        <select class="form-control" id="SelectContratoLaboralSucursalEmpleado" onchange="CargarDatosEmpleadoNomina($('#SelectContratoLaboralSucursalEmpleado').val())" style="min-width:100%"></select>
+                        <select class="form-control" id="SelectContratoLaboralSucursalEmpleado" style="min-width:100%"></select>
+                    </div>
+                    <div class="col-2">
+                        <br />
+                        <a style="height:30px!important; font-size:11px!important; line-height:20px!important" class="btn btn-modal-Cancelar btn-sm" onclick="CargarDatosEmpleadoNomina()">Buscar</a>
                     </div>
                 </div>
                 <div class="row">
+                    
                     <div class="col-6">
                         <label><strong>Empresa/Sucursal</strong></label>
                         <input class="form-control" type="text" id="txtEmpresaNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
@@ -43,10 +52,7 @@
                         <label><strong>Salario Mensual</strong></label>
                         <input class="form-control" type="text" id="txtSalarioNominaEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
-                    <div class="col-2">
-                        <label><strong>Días a Pagar</strong><label style="color:red" id=""> *</label></label>
-                        <input class="form-control" type="number" id="InputNominaEmpleadoDiasPagar" name="name" autocomplete="off" style="min-width:100%" placeholder="0" />
-                    </div>
+                    
                 </div>
                 <div class="col-3" id="SelectEstadoNominaEmpleado">
                     <label><strong>Estado</strong></label>
@@ -94,7 +100,7 @@
                 </div>
                 <div>
                     <div style="float:right">
-                        <label><strong>Total Ingresos: <label id="txtTotalIngresos"></label></strong></label>
+                        <label><strong>Total Ingresos: <label id="txtTotalIngresosNominaEmpleado"></label></strong></label>
                     </div>
                 </div>
 
@@ -128,16 +134,18 @@
                 </div>
                 <div>
                     <div style="float:right">
-                        <label><strong>Total Descuentos: <label id="txtTotalDescuentos"></label></strong></label>
+                        <label><strong>Total Descuentos: <label id="txtTotalDescuentosNominaEmpleado"></label></strong></label>
                     </div>
                 </div>
                 <br />
                 <div style="clear:both"></div>
+                <br />
                 <div>
                     <div style="float:right">
                         <label style="font-size:15px"><strong>Total a Pagar: <label id="txtTotalPagoNominaEmpleado"></label></strong></label>
                     </div>
                 </div>
+                <br />
                 <div>
                     <ul>
                         <li><label style="color: red">Los campos con * son obligatorios.</label></li>

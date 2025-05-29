@@ -29,9 +29,9 @@ namespace App.Controllers
             return Json(new { data = data }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult CargarDatosEmpleadoNomina(int IdEmpleado)
+        public ActionResult CargarDatosEmpleadoNomina(int IdEmpleado, string FechaInicio, string FechaFin, int DiasaPagar)
         {
-            var resultado = dataNominaEmpleado.CargarDatosEmpleadoNomina(IdEmpleado);
+            var resultado = dataNominaEmpleado.CargarDatosEmpleadoNomina(IdEmpleado, FechaInicio, FechaFin, DiasaPagar);
             return Json(resultado);
         }
     }

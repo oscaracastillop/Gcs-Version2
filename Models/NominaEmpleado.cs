@@ -75,7 +75,7 @@ namespace SistemaGcs.Models
             public string txtHENocturnaDFNominaEmpleado { get; set; }
             public string txtBonosNominaEmpleado { get; set; }
             public string txtPrestamosINominaEmpleado { get; set; }
-            public string txtTotalIngresos { get; set; }
+            public string txtTotalIngresosNominaEmpleado { get; set; }
 
 
             public string txtEpsNominaEmpleado { get; set; }
@@ -83,7 +83,7 @@ namespace SistemaGcs.Models
             public string txtCasinoNominaEmpleado { get; set; }
             public string txtPrestamosDNominaEmpleado { get; set; }
             public string txtNovedadesNominaEmpleado { get; set; }
-            public string txtTotalDescuentos { get; set; }
+            public string txtTotalDescuentosNominaEmpleado { get; set; }
             public string txtTotalPagoNominaEmpleado { get; set; }
 
 
