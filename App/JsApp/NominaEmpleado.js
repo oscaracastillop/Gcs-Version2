@@ -11,7 +11,7 @@
         $("#TituloModalNominaEmpleado").empty().append('<label>Crear Nómina Empleado</label>');
         $('#ModalNominaEmpleado').modal('show');
         $("#SelectEstadoNominaEmpleado").hide();
-        $("#BotonesModalNominaEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearNominaEmpleado()">Guardar</button>');
+        $("#BotonesModalNominaEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearNominaEmpleado()">Generar Nómina</button>');
     } if (tipo == 'E') {
         $("#TituloModalNominaEmpleado").empty().append('<label>Editar Nómina Empleado</label>');
         $('#ModalNominaEmpleado').modal('show');
