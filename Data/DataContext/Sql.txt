@@ -5068,7 +5068,8 @@ GO
 CREATE PROCEDURE [dbo].[SP_ListaContratoLaboralSucursalEmpleado]
 AS
 BEGIN
-		SELECT A.Id, A.Nombre + ' ' + A.Apellidos As Nombre 
+	SELECT	B.Id, 
+			A.Nombre + ' ' + A.Apellidos As Nombre 
 	FROM	Empleado A,
 			ContratoLaboral B,
 			SucursalEmpleado C
