@@ -56,6 +56,11 @@ namespace App.Controllers
             return View();
         }
 
+        public ActionResult Contrato_Laboral_Crear_Contrato_Laboral_Empleado()
+        {
+            return View();
+        }
+
         public ActionResult Cargar_Documento()
         {
             return View();

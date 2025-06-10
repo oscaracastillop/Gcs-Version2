@@ -2563,6 +2563,7 @@
     <Content Include="Views\Almacen\Categoria.cshtml" />
     <Content Include="Views\Almacen\Producto.cshtml" />
     <Content Include="Views\Almacen\Proveedor.cshtml" />
+    <Content Include="Views\Recursos_Humanos\Contrato_Laboral_Crear_Contrato_Laboral_Empleado.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

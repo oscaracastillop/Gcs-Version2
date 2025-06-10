@@ -69,7 +69,7 @@ nav ul li a {
     display: block;
     font-size: 12px !important;
     margin-right: 10px;
-
+    width:85%!important;
 }
 
 #contenedortres {
