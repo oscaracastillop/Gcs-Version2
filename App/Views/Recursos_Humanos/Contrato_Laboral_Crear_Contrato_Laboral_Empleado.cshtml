@@ -7,88 +7,17 @@
 
 </div>
 
-<h6 >CREAR CONTRATO LABORAL</h6>
-
+<h6>CREAR CONTRATO LABORAL</h6>
 <div class="row">
-    <div style="float:left" class="col-3">
-        <div class="contimg-cambiar-img" id="ImagenEmpleado">
-            <img class="imagen-escalada-cambiar" src="~/Images/ImagenHVEmpleado/Empleado.png" />
-        </div>
+    <div class="col-3">
+        <label><strong>Nombre </strong><label style="color:red"> *</label></label>
+        <input class="form-control" type="text" id="InputNombreFondoCesantias" autocomplete="off" style="min-width:100%" />
     </div>
-    <div style="float:right" class="col-9">
-        <div class="row" style="margin-top:50px">
-            <div class="col-3">
-                <label><strong>Empleado</strong><label style="color:red" id=""> *</label></label>
-                <select class="form-control" id="SelectEmpleado" onchange="CargarDatosCLE($('#SelectEmpleado').val())" style="min-width:100%"></select>
-            </div>
-            <div class="col-3">
-                <label><strong>Empresa</strong><label style="color:red" id=""> *</label></label>
-                <select class="form-control" id="SelectEmpresa" style="min-width:100%"></select>
-            </div>
-            <div class="col-3">
-                <label><strong>Cargo</strong><label style="color:red" id=""> *</label></label>
-                <select class="form-control" id="SelectCargo" style="min-width:100%"></select>
-            </div>
-            <div class="col-3">
-                <label><strong>Contrato</strong><label style="color:red" id=""> *</label></label>
-                <select class="form-control" id="SelectTipoContrato" style="min-width:100%"></select>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-3">
-                <label><strong>Fecha Inicio Contrato</strong><label style="color:red" id=""> *</label></label>
-                <input class="form-control" type="date" id="InputFechaInicioCLE" name="name" autocomplete="off" style="min-width:100%" />
-            </div>
-            <div class="col-3">
-                <label><strong>Fecha Fin Contrato</strong></label>
-                <input class="form-control" type="date" id="InputFechaFinCLE" name="name" autocomplete="off" style="min-width:100%" />
-            </div>
-            <div class="col-3">
-                <label><strong>Salario Mensual</strong><label style="color:red" id=""> *</label></label>
-                <input class="form-control" type="number" id="InputSalarioCLE" name="name" autocomplete="off" style="min-width:100%" onchange="CalcularValorDia()" />
-            </div>
-            <div class="col-3">
-                <label><strong>Valor Día</strong></label>
-                <input class="form-control" type="text" id="InputValorDiaSalarioCLE" name="name" autocomplete="off" style="min-width:100%" disabled />
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-3">
-                <label><strong>SubTransporte Mensual</strong><label style="color:red" id=""> *</label></label>
-                <input class="form-control" type="number" id="InputSubTransporteCLE" name="name" autocomplete="off" style="min-width:100%" />
-            </div>
-            <div class="col-3">
-                <label><strong>Banco</strong><label style="color:red" id=""> *</label></label>
-                <select class="form-control" id="SelectBanco" style="min-width:100%"></select>
-            </div>
-            <div class="col-3">
-                <label><strong># Cuenta Pago</strong><label style="color:red" id=""> *</label></label>
-                <input class="form-control" type="number" id="InputNumeroCuentaPagoCLE" name="name" autocomplete="off" style="min-width:100%" />
-            </div>
-        </div>
-    </div>
-
-    <div style="clear:both"></div>
-
-    <div class="row">
-        <div class="col-2">
-            <label><strong>Eps</strong><label style="color:red" id=""> *</label></label>
-            <select class="form-control" id="SelectEps" style="min-width:100%"></select>
-        </div>
-        <div class="col-1">
-            <label><strong>%</strong><label style="color:red" id=""> *</label></label>
-            <input class="form-control" type="number" id="InputPorcentajeContribucionEpsCLE" name="name" autocomplete="off" style="min-width:100%" value="" />
-        </div>
-        <div class="col-2">
-            <label><strong>Fondo Pensión</strong><label style="color:red" id=""> *</label></label>
-            <select class="form-control" id="SelectFondoPensiones" style="min-width:100%"></select>
-        </div>
-        <div class="col-1">
-            <label><strong>%</strong><label style="color:red" id=""> *</label></label>
-            <input class="form-control" type="number" id="InputPorcentajeContribucionFPCLE" name="name" autocomplete="off" style="min-width:100%" value="" />
-        </div>
+    <div class="col-1" id="SelectEstadoFondoCesantias">
+        <label><strong>Estado</strong></label>
+        <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
     </div>
 </div>
-
+    
+    <br />
+    <label style="color: red">Los campos con * son obligatorios</label>

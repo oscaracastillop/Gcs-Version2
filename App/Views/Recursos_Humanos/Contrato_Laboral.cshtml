@@ -21,7 +21,7 @@
                 <div class="row">
                     <div style="float:left" class="col-4">
                         <div class="contimg-cambiar-img" id="ImagenEmpleado">
-                            <img class="imagen-escalada-cambiar" style="border:solid 1px black!important" src="~/Images/ImagenHVEmpleado/Empleado.png" />
+                            <img class="imagen-escalada-cambiar" src="~/Images/ImagenHVEmpleado/Empleado.png" />
                         </div>
                     </div>
                     <div style="float:right" class="col-8">
@@ -31,12 +31,14 @@
                                 <input class="form-control" type="date" id="InputFechaInicioCLE" name="name" autocomplete="off" style="min-width:100%" />
                             </div>
                         </div>
-                        <br />
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-6">
                                 <label><strong>Empleado</strong><label style="color:red" id=""> *</label></label>
                                 <select class="form-control" id="SelectEmpleado" onchange="CargarDatosCLE($('#SelectEmpleado').val())" style="min-width:100%"></select>
                             </div>
+                        </div>
+                        <div class="row">
+                           
                             <div class="col-4">
                                 <label><strong>Empresa</strong><label style="color:red" id=""> *</label></label>
                                 <select class="form-control" id="SelectEmpresa" style="min-width:100%"></select>
@@ -46,7 +48,6 @@
                                 <select class="form-control" id="SelectTipoContrato" style="min-width:100%"></select>
                             </div>
                         </div>
-                        <br />
                         <div class="row">
                             <div class="col-4">
                                 <label><strong>Cargo</strong><label style="color:red" id=""> *</label></label>
@@ -71,10 +72,9 @@
                 <label><strong>Fecha Fin Contrato</strong></label>
                 <input class="form-control" type="date" id="InputFechaFinCLE" name="name" autocomplete="off" style="min-width:100%" />
             </div>*@
-                            
-                            
+
+
                         </div>
-                        <br />
                         <div class="row">
                             <div class="col-3">
                                 <label><strong>SubTransporte Mensual</strong><label style="color:red" id=""> *</label></label>
@@ -89,42 +89,41 @@
                                 <input class="form-control" type="number" id="InputNumeroCuentaPagoCLE" name="name" autocomplete="off" style="min-width:100%" />
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <label><strong>Eps</strong><label style="color:red" id=""> *</label></label>
+                                <select class="form-control" id="SelectEps" style="min-width:100%"></select>
+                            </div>
+                            <div class="col-2">
+                                <label><strong>% Contribución</strong><label style="color:red" id=""> *</label></label>
+                                <input class="form-control" type="number" id="InputPorcentajeContribucionEpsCLE" name="name" autocomplete="off" style="min-width:100%" value="" />
+                            </div>
+                            <div class="col-4">
+                                <label><strong>Fondo Pensión</strong><label style="color:red" id=""> *</label></label>
+                                <select class="form-control" id="SelectFondoPensiones" style="min-width:100%"></select>
+                            </div>
+                            <div class="col-2">
+                                <label><strong>% Contribución</strong><label style="color:red" id=""> *</label></label>
+                                <input class="form-control" type="number" id="InputPorcentajeContribucionFPCLE" name="name" autocomplete="off" style="min-width:100%" value="" />
+                            </div>
+                        </div>
                     </div>
                 </div>
-
                 <div style="clear:both"></div>
-                <br />
                 <div class="row">
-                    <div class="col-3">
-                        <label><strong>Eps</strong><label style="color:red" id=""> *</label></label>
-                        <select class="form-control" id="SelectEps" style="min-width:100%"></select>
-                    </div>
-                    <div class="col-1">
-                        <label><strong>% </strong><label style="color:red" id=""> *</label></label>
-                        <input class="form-control" type="number" id="InputPorcentajeContribucionEpsCLE" name="name" autocomplete="off" style="min-width:100%" value="" />
-                    </div>
-                    <div class="col-3">
-                        <label><strong>Fondo Pensión</strong><label style="color:red" id=""> *</label></label>
-                        <select class="form-control" id="SelectFondoPensiones" style="min-width:100%"></select>
-                    </div>
-                    <div class="col-1">
-                        <label><strong>%</strong><label style="color:red" id=""> *</label></label>
-                        <input class="form-control" type="number" id="InputPorcentajeContribucionFPCLE" name="name" autocomplete="off" style="min-width:100%" value="" />
-                    </div>
                     <div class="col-3">
                         <label><strong>Fondo Cesantías</strong><label style="color:red" id=""> *</label></label>
                         <select class="form-control" id="SelectFondoCesantias" style="min-width:50%"></select>
                     </div>
-                </div>
-                <div>
-                    <label><strong>Observación</strong></label>
-                    <input class="form-control" type="text" id="InputObservacionCLE" name="name" autocomplete="off" style="min-width:100%" />
-                </div>
+                    <div class="col-9">
+                        <label><strong>Observación</strong></label>
+                        <input class="form-control" type="text" id="InputObservacionCLE" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                </div>                
                 <div class="col-3" id="SelectEstadoCLE">
                     <label><strong>Estado</strong></label>
                     <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
                 </div>
-
             </div>
             <div class="modal-footer" id="BotonesModalCLE"></div>
         </div>
