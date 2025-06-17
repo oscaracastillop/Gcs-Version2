@@ -320,8 +320,23 @@ function GridEmpresa() {
                     return '<img class="btn LogoEmpresa" src="/Images/LogoEmpresa/' + data + '" alt="" height="80px" style="border-radius:5%"/>';
                 },
                 width: '50px'
+            }, 
+            {
+                title: "Estado",
+                data: "Nombre",
+                width: 'auto',
+                "render": function (data, type, row) {
+
+                    if (row.IdEstado == 1) {
+                        return '<label class="label-estado-activo">&nbsp;' + data + '&nbsp;</label>';
+                    }
+                    else {
+                        return '<label class="label-estado-inactivo">&nbsp;' + data + '&nbsp;</label>';
+                    }
+                }
+
             },
-            { "data": "Nombre", title: "Empresa", width: 'auto' },      
+            /*{ "data": "Nombre", title: "Empresa", width: 'auto' }, */     
             {
                 title: "Documento",
                 data: "",

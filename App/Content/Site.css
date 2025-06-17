@@ -112,6 +112,11 @@ nav ul li a {
     /* box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);*/
     /*box-shadow: 0px 0px 12px -5px rgba(219,102,13,1);*/
     background-color: white;
+
+}
+
+table {
+    
 }
 
 table.dataTable thead tr {
@@ -340,6 +345,14 @@ input, button, select, textarea {
     border: solid 1px black !important;
 }
 
+.label-estado-activo-circle {
+    border-radius: 0% !important;
+    width: 15px;
+    background-color: #9ACD32;
+    border: solid 1px black !important;
+    height:8px;
+}
+
 .label-estado-inactivo {
     border-radius: 15px !important;
     font-size: 10px !important;
@@ -349,4 +362,17 @@ input, button, select, textarea {
     width: 60px;
     background-color: red;
     border: solid 1px black !important;
+}
+
+.label-estado-inactivo-circle {
+    border-radius: 0% !important;
+    width: 15px;
+    background-color: red;
+    border: solid 1px black !important;
+    height: 8px;
+}
+
+labelestado {
+    align-content: center !important;
+    align-items: center !important;
 }
