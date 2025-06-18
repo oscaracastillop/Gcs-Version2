@@ -231,15 +231,15 @@ function GridEmpleado() {
         scrollX: true,
         dom: 'B<"clear">frtip',
         columnDefs: [
-            { targets: [0], width: '50px', className: 'dt-head-center' },
+            { targets: [0], width: '30px', className: 'dt-center dt-head-center' },
             { targets: [1], className: 'dt-head-center' },
             { targets: [2], className: 'dt-head-center' },
             { targets: [4], className: 'dt-head-center' },
             { targets: [5], className: 'dt-head-center' },
             { targets: [6], className: 'dt-head-center' },
             { targets: [7], width: '50px', className: 'dt-center dt-head-center' },
-            { targets: [8], width: '30px', className: 'dt-center dt-head-center' },
-            { targets: [9], width: '30px', className: 'dt-center dt-head-center' }
+            { targets: [8], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [9], width: '10px', className: 'dt-center dt-head-center' }
         ],
         buttons: [{
             extend: 'excel', className: 'btn-excel-datatable',
@@ -324,31 +324,16 @@ function GridEmpleado() {
             "datatype": "json"
         },
         columns: [
-            //{
-            //    title: "Estado",
-            //    data: "Estado",
-            //    "render": function (data, type, row) {
-
-            //        if (row.IdEstado == 1) {
-            //            return '<label class="label-estado-activo-circle"></label>';
-            //        }
-            //        else {
-            //            return '<label class="label-estado-inactivo-circle"></label>';
-            //        }
-            //    }
-
-            //},
             {
                 title: "Estado",
-                data: "Nombre",
-                width: 'auto',
+                data: "Estado",
                 "render": function (data, type, row) {
 
                     if (row.IdEstado == 1) {
-                        return '<label class="label-estado-activo-circle"></label>&nbsp;&nbsp;<label class="labelestado">&nbsp;' + `${row.Nombre} ${row.Apellidos}` + '&nbsp;</label>';
+                        return '<label class="label-estado-activo">' + data + '</label>';
                     }
-                    else {
-                        return '<label class="label-estado-inactivo-circle"></label>&nbsp;&nbsp;<label class="labelestado">&nbsp;' + `${row.Nombre} ${row.Apellidos}` + '&nbsp;</label>';
+                    else if (row.IdEstado == 2) {
+                        return '<label class="label-estado-inactivo">' + data + '</label>';
                     }
                 }
 
@@ -382,27 +367,20 @@ function GridEmpleado() {
                 , width: 'auto'
             },
             { "data": "CreateBy", title: "Creado Por", width: 'auto' },
-            { "data": "DateCreate", title: "Fecha Creación", width: 'auto' },
-            
+            { "data": "DateCreate", title: "Fecha Creación", width: 'auto' },            
             {
                 title: "",
                 data: null,
                 defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<a class="EditarEmpleado btn btn-editar-dt" title="editar registro">Editar</a>' +
-                    '</div>',
+                    '<a class="EditarEmpleado btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
                 orderable: false,
-                width: 'auto',
             },
             {
                 title: "",
                 data: null,
                 defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<a class="EliminarEmpleado btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
-                    '</div>',
+                    '<a class="EliminarEmpleado btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>',
                 orderable: false,
-                width: 'auto',
             },
 
         ],

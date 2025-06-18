@@ -204,7 +204,7 @@ function GridEmpresa() {
         scrollX: true,
         dom: 'B<"clear">frtip',
         columnDefs: [
-            { targets: [0], className: 'dt-center dt-head-center' },
+            { targets: [0], width: '30px', className: 'dt-center dt-head-center' },
             { targets: [1], className: 'dt-head-center' },
             { targets: [2], className: 'dt-head-center' },
             { targets: [3], className: 'dt-head-center' },
@@ -313,6 +313,20 @@ function GridEmpresa() {
         },
         columns: [  
             {
+                title: "Estado",
+                data: "Estado",
+                "render": function (data, type, row) {
+
+                    if (row.IdEstado == 1) {
+                        return '<label class="label-estado-activo">' + data + '</label>';
+                    }
+                    else if (row.IdEstado == 2) {
+                        return '<label class="label-estado-inactivo">' + data + '</label>';
+                    }
+                }
+
+            },
+            {
                 title: "Logo",
                 "data": 'Logo',
                 "render": function (data, type, row, meta) {
@@ -321,22 +335,7 @@ function GridEmpresa() {
                 },
                 width: '50px'
             }, 
-            {
-                title: "Estado",
-                data: "Nombre",
-                width: 'auto',
-                "render": function (data, type, row) {
-
-                    if (row.IdEstado == 1) {
-                        return '<label class="label-estado-activo">&nbsp;' + data + '&nbsp;</label>';
-                    }
-                    else {
-                        return '<label class="label-estado-inactivo">&nbsp;' + data + '&nbsp;</label>';
-                    }
-                }
-
-            },
-            /*{ "data": "Nombre", title: "Empresa", width: 'auto' }, */     
+            { "data": "Nombre", title: "Empresa", width: 'auto' },      
             {
                 title: "Documento",
                 data: "",
@@ -361,43 +360,21 @@ function GridEmpresa() {
             },       
             { "data": "Descripcion", title: "Descripción" },
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
-            { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
+            { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },            
             {
-                title: "Estado",
-                data: "Estado",
-                width: 'auto',
-                "render": function (data, type, row) {
-
-                    if (row.IdEstado == 1) {
-                        return '<label class="label-estado-activo">&nbsp;' + data + '&nbsp;</label>';
-                    }
-                    else {
-                        return '<label class="label-estado-inactivo">&nbsp;' + data + '&nbsp;</label>';
-                    }
-                }
-
+                title: "",
+                data: null,
+                defaultContent:
+                    '<a class="EditarEmpresa btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
+                orderable: false,
             },
             {
                 title: "",
                 data: null,
                 defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<a class="EditarEmpresa btn btn-editar-dt" title="editar registro">Editar</a>' +
-                    '</div>',
+                    '<a class="EliminarEmpresa btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>',
                 orderable: false,
-                width: 'auto',
             },
-            {
-                title: "",
-                data: null,
-                defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<a class="EliminarEmpresa btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
-                    '</div>',
-                orderable: false,
-                width: 'auto',
-            },
-
         ],
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.11.2/i18n/es_es.json"
