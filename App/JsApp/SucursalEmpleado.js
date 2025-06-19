@@ -17,7 +17,7 @@
 
     if (tipo == 'C') {
         $('#ImagenEmpleado').empty().append(
-            '<img src="/Images/ImagenHVEmpleado/Empleado.png" alt="" style="height:200px; width:200px; border-radius:50%; border:0px solid; background:white;padding:0px" id="ImagenEmpleado"/>'
+            '<img src="/Images/ImagenHVEmpleado/Empleado.png" class="imagen-escalada-cambiar" id="ImagenEmpleado"/>'
         );
         $("#TituloModalSucursalEmpleado").empty().append('<label>Crear Sucursal Empleado</label>');
         $('#ModalSucursalEmpleado').modal('show');

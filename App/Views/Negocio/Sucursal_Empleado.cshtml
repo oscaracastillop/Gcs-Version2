@@ -6,57 +6,59 @@
 <h6>Módulo Sucursal Empleado</h6>
 
 <div class="grid">
-    <table id="gridSucursalEmpleado" class="table cell-border stripe" cellspacing="0" style="width: 150%;"></table>
+    <table id="gridSucursalEmpleado" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 150%;"></table>
 </div>
 
 <div class="modal fade" id="ModalSucursalEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header header-modal">
                 <div class="modal-title" id="TituloModalSucursalEmpleado"></div>
             </div>
             <div class="modal-body">
-                <label id="LabelIdSucursalEmpleado" hidden></label>
+                <label id="LabelIdSucursalEmpleado" hidden></label>             
+
+                <div class="row">
+                    <div style="float:left" class="col-4">
+                        <div class="contimg-cambiar-img" id="ImagenEmpleado">
+                            <img class="imagen-escalada-cambiar" src="~/Images/ImagenHVEmpleado/Empleado.png" />
+                        </div>
+                    </div>
+                    <div style="float:right" class="col-8">
+                        <div class="row">
+                            <div class="col-6">
+                                <label><strong>Empleado </strong><label style="color:red" id="">*</label></label>
+                                <select class="form-control" id="SelectContratoLaboralEmpleado" style="min-width:100%" onchange="BuscarDatosEmpleado($('#SelectContratoLaboralEmpleado').val())"></select>
+                                <input class="form-control" type="text" id="InputEmpleado" autocomplete="off" style="min-width:100%" disabled />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <label><strong>Empresa Actual </strong><label style="color:red">*</label></label>
+                                <input class="form-control" type="text" id="InputEmpresa" name="name" autocomplete="off" style="min-width:100%" disabled />
+                            </div>
+                            <div class="col-6">
+                                <label><strong>Sucursal </strong><label style="color:red">*</label></label>
+                                <select class="form-control" id="SelectSucursalXIdEmpresaXIdEmpleado" style="min-width:100%" disabled></select>
+                                <input class="form-control" type="text" id="InputSucursal" autocomplete="off" style="min-width:100%" disabled />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <label><strong>Fecha Inicio </strong><label style="color:red">*</label></label>
+                                <input class="form-control" type="date" id="InputFechaInicioSE" name="name" autocomplete="off" style="min-width:100%" />
+                            </div>
+                            <div class="col-3">
+                                <label><strong>Fecha Fin</strong></label>
+                                <input class="form-control" type="date" id="InputFechaFinSE" name="name" autocomplete="off" style="min-width:100%" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 
 
-                <div style="text-align:center">
-                    <label id="LabelIdSucursalEmpleado" hidden></label>
-                    <div class="contimg-cambiar-img" id="ImagenEmpleado">
-                        <img class="imagen-escalada-cambiar" src="~/Images/ImagenHVEmpleado/Empleado.png" />
-                    </div>
-                    <br />
-                    <a href="#">Ver Información Empleado</a>
-                </div>
-                <br />
-                <br />
-                <div>
-                    <label><strong>Empleado </strong><label style="color:red" id="">*</label></label>
-                    <select class="form-control" id="SelectContratoLaboralEmpleado" style="min-width:100%" onchange="BuscarDatosEmpleado($('#SelectContratoLaboralEmpleado').val())"></select>
-                    <input class="form-control" type="text" id="InputEmpleado" autocomplete="off" style="min-width:100%" disabled />
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <label><strong>Empresa Actual </strong><label style="color:red">*</label></label>
-                        <input class="form-control" type="text" id="InputEmpresa" name="name" autocomplete="off" style="min-width:100%" disabled />
-                    </div>
-                    <div class="col-6">
-                        <label><strong>Sucursal </strong><label style="color:red">*</label></label>
-                        <select class="form-control" id="SelectSucursalXIdEmpresaXIdEmpleado" style="min-width:100%" disabled></select>
-                        <input class="form-control" type="text" id="InputSucursal" autocomplete="off" style="min-width:100%" disabled />
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-6">
-                        <label><strong>Fecha Inicio </strong><label style="color:red">*</label></label>
-                        <input class="form-control" type="date" id="InputFechaInicioSE" name="name" autocomplete="off" style="min-width:100%" />
-                    </div>
-                    <div class="col-6">
-                        <label><strong>Fecha Fin</strong></label>
-                        <input class="form-control" type="date" id="InputFechaFinSE" name="name" autocomplete="off" style="min-width:100%" />
-                    </div>
-                </div>
+                
                 <div>
                     <label><strong>Observación</strong></label>
                     <input class="form-control" type="text" id="InputObservacionSE" name="name" autocomplete="off" style="min-width:100%" />
