@@ -306,7 +306,7 @@ function ListaBanco() {
             if (resultado.length === 0) {
                 $("#SelectBanco").append('<option value="">No hay Datos</option>');
             } else {
-                $("#SelectBanco").empty().append('<option value="-1">Seleccione ...</option>');
+                $("#SelectBanco").empty().append('<option value="-1">- Escoge un Banco -</option>');
                 $.each(resultado, function () {
                     $("#SelectBanco ").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
                     contador++;

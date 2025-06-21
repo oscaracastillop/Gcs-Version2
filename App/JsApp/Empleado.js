@@ -435,7 +435,7 @@ function ListaEmpleado() {
             if (resultado.length === 0) {
                 $("#SelectEmpleado").append('<option value="">No hay Datos</option>');
             } else {
-                $("#SelectEmpleado").empty().append('<option value="-1">Seleccione ...</option>');
+                $("#SelectEmpleado").empty().append('<option value="-1">- Escoge un Empleado -</option>');
                 $.each(resultado, function () {
                     $("#SelectEmpleado").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
                     contador++;

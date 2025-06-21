@@ -27,6 +27,7 @@
         $("#InputEmpleado").hide();
         $("#InputSucursal").hide();
         $("#InputFechaInicioSE").prop("disabled", false);
+        $("#InputFechaFinSE").prop("disabled", true);
         $("#SelectSucursalXIdEmpresa").show();
         
     } if (tipo == 'E') {
@@ -191,8 +192,8 @@ function GridSucursalEmpleado() {
         scrollX: true,
         dom: 'B<"clear">frtip',
         columnDefs: [
-            { targets: [0], className: 'dt-head-center', className: 'dt-center dt-head-center' },//Imagen Empleado
-            { targets: [1], className: 'dt-head-center' },//Nombre
+            { targets: [0], width: '30px', className: 'dt-center dt-head-center' },
+            { targets: [1], width: '30px', className: 'dt-center dt-head-center' },//Nombre
             { targets: [2], className: 'dt-head-center' },//Empresa
             { targets: [3], className: 'dt-head-center' },//Sucursal
             { targets: [4], className: 'dt-head-center', className: 'dt-center dt-head-center' },//Fecha Inicio
@@ -202,8 +203,8 @@ function GridSucursalEmpleado() {
             { targets: [8], className: 'dt-head-center' },//Observacion
             { targets: [9], className: 'dt-head-center' },//Observacion
             { targets: [10], width: '50px', className: 'dt-center dt-head-center' },
-            { targets: [11], width: '30px', className: 'dt-center dt-head-center' },
-            { targets: [12], width: '30px', className: 'dt-center dt-head-center' }
+            { targets: [11], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [12], width: '10px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -291,6 +292,20 @@ function GridSucursalEmpleado() {
         },
         columns: [
             {
+                title: "Estado",
+                data: "Estado",
+                "render": function (data, type, row) {
+
+                    if (row.IdEstado == 1) {
+                        return '<label class="label-estado-activo">' + data + '</label>';
+                    }
+                    else if (row.IdEstado == 2) {
+                        return '<label class="label-estado-inactivo">' + data + '</label>';
+                    }
+                }
+
+            },
+            {
                 title: "Imagén",
                 data: "Imagen",
                 width: 'auto',
@@ -315,39 +330,18 @@ function GridSucursalEmpleado() {
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
             {
-                title: "Estado",
-                data: "Estado",
-                width: 'auto',
-                "render": function (data, type, row) {
-
-                    if (row.IdEstado == 1) {
-                        return '<label class="label-estado-activo">&nbsp;' + data + '&nbsp;</label>';
-                    }
-                    else {
-                        return '<label class="label-estado-inactivo">&nbsp;' + data + '&nbsp;</label>';
-                    }
-                }
-
+                title: "",
+                data: null,
+                defaultContent:
+                    '<a class="EditarSucursalEmpleado btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
+                orderable: false,
             },
             {
                 title: "",
                 data: null,
                 defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<a class="EditarSucursalEmpleado btn btn-editar-dt" title="editar registro">Editar</a>' +
-                    '</div>',
+                    '<a class="EliminarSucursalEmpleado btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>',
                 orderable: false,
-                width: 'auto',
-            },
-            {
-                title: "",
-                data: null,
-                defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<a class="EliminarSucursalEmpleado btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
-                    '</div>',
-                orderable: false,
-                width: 'auto',
             },
         ],
         "language": {

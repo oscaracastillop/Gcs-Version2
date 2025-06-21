@@ -18,6 +18,7 @@
         $("#SelectEmpresa").prop("disabled", false);
         $("#SelectEmpleado").prop("disabled", false);
         $("#InputFechaInicioCLE").prop("disabled", false);
+        $("#InputFechaFinCLE").prop("disabled", true);
         $("#SelectEps").val(1);
         $("#SelectBanco").val(1);
         $("#SelectFondoPensiones").val(1);
@@ -41,6 +42,7 @@
         $("#SelectEmpresa").prop("disabled", true);
         $("#SelectEmpleado").prop("disabled", true);
         $("#InputFechaInicioCLE").prop("disabled", true);
+        $("#InputFechaFinCLE").prop("disabled", false);
         $("#TituloModalCLE").empty().append('<h6>Editar Contrato Laboral Empleado</h6>');
         $('#ModalCLE').modal('show');
         $("#SelectEstadoCLE").show();
@@ -58,7 +60,6 @@ function CalcularValorDia() {
 
 
 function CrearCLE() {
-    /*debugger;*/
     let IdEmpleado = $('#SelectEmpleado').val();
     let IdEmpresa = $('#SelectEmpresa').val();
     let IdCargo = $('#SelectCargo').val();  
@@ -327,8 +328,8 @@ function GridCLE() {
         scrollX: true,
         dom: 'B<"clear">frtip',
         columnDefs: [
-            { targets: [0], className: 'dt-center dt-head-center' },//Imagen Empleado
-            { targets: [1], className: 'dt-head-center' },//Nombre empleado
+            { targets: [0], width: '30px', className: 'dt-center dt-head-center' },
+            { targets: [1], className: 'dt-center dt-head-center' },//Nombre empleado
             { targets: [2], className: 'dt-head-center' },//Empresa
             { targets: [3], className: 'dt-head-center' },//Cargo
             { targets: [4], className: 'dt-head-center' },//TipoContrato
@@ -340,9 +341,9 @@ function GridCLE() {
             { targets: [10], className: 'dt-head-center' },//Creado por
             { targets: [11], className: 'dt-head-center' },//Fecha Creación
             { targets: [12], className: 'dt-head-center' },//Fecha Creación
-            { targets: [13], width: '50px', className: 'dt-center dt-head-center' },
-            { targets: [14], width: '30px', className: 'dt-center dt-head-center' },
-            { targets: [15], width: '30px', className: 'dt-center dt-head-center' }
+            { targets: [13], width: '50px', className: 'dt-head-center' },
+            { targets: [14], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [15], width: '10px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -428,7 +429,21 @@ function GridCLE() {
             "type": "GET",
             "datatype": "json"
         },
-        columns: [            
+        columns: [   
+            {
+                title: "Estado",
+                data: "Estado",
+                "render": function (data, type, row) {
+
+                    if (row.IdEstado == 1) {
+                        return '<label class="label-estado-activo">' + data + '</label>';
+                    }
+                    else if (row.IdEstado == 2) {
+                        return '<label class="label-estado-inactivo">' + data + '</label>';
+                    }
+                }
+
+            },
             {
                 title: "Imagén",
                 data: "Imagen",
@@ -461,41 +476,20 @@ function GridCLE() {
             { "data": "Permanencia", title: "Permanencia", width: 'auto' },//9
             { "data": "Observacion", title: "Observación", width: 'auto' },//10        
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },//11
-            { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },//12
+            { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },//12            
             {
-                title: "Estado",
-                data: "Estado",
-                width: 'auto',
-                "render": function (data, type, row) {
-
-                    if (row.IdEstado == 1) {
-                        return '<label class="label-estado-activo">&nbsp;' + data + '&nbsp;</label>';
-                    }
-                    else {
-                        return '<label class="label-estado-inactivo">&nbsp;' + data + '&nbsp;</label>';
-                    }
-                }
-
+                title: "",
+                data: null,
+                defaultContent:
+                    '<a class="EditarCLE btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
+                orderable: false,
             },
             {
                 title: "",
                 data: null,
                 defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<a class="EditarCLE btn btn-editar-dt" title="Editar Registro">Editar</a>' +
-                    '</div>',
+                    '<a class="EliminarCLE btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>',
                 orderable: false,
-                width: 'auto',
-            },
-            {
-                title: "",
-                data: null,
-                defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<a class="EliminarCLE btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
-                    '</div>',
-                orderable: false,
-                width: 'auto',
             },
         ],
         "language": {
@@ -552,7 +546,7 @@ function ListaContratoLaboralEmpleado() {
             if (resultado.length == 0) {
                 $("#SelectContratoLaboralEmpleado").append('<option value="">No hay Datos</option>');
             } else {
-                $("#SelectContratoLaboralEmpleado").empty().append('<option value="-1">Seleccione ...</option>');
+                $("#SelectContratoLaboralEmpleado").empty().append('<option value="-1">- Escoge un Empleado -</option>');
                 $.each(resultado, function () {
                     $("#SelectContratoLaboralEmpleado").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
                     contador++;

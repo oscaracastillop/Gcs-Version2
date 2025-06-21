@@ -306,7 +306,7 @@ function ListaCargo() {
             if (resultado.length === 0) {
                 $("#SelectCargo").append('<option value="">No hay Datos</option>');
             } else {
-                $("#SelectCargo").empty().append('<option value="-1">Seleccione ...</option>');
+                $("#SelectCargo").empty().append('<option value="-1">- Escoge un Cargo -</option>');
                 $.each(resultado, function () {
                     $("#SelectCargo ").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
                     contador++;

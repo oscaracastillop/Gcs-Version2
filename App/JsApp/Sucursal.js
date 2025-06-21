@@ -439,7 +439,7 @@ function ListaSucursalXIdEmpresaXIdEmpleado(IdEmpleado) {
             if (resultado.length === 0) {
                 $("#SelectSucursalXIdEmpresaXIdEmpleado").append('<option value="">No hay Datos</option>');
             } else {
-                $("#SelectSucursalXIdEmpresaXIdEmpleado").empty().append('<option value="-1">Seleccione ...</option>');
+                $("#SelectSucursalXIdEmpresaXIdEmpleado").empty().append('<option value="-1">- Escoge una Sucursal -</option>');
                 $.each(resultado, function () {
                     $("#SelectSucursalXIdEmpresaXIdEmpleado").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
                     contador++;

@@ -307,7 +307,7 @@ function ListaEps() {
             if (resultado.length === 0) {
                 $("#SelectEps").append('<option value="">No hay Datos</option>');
             } else {
-                $("#SelectEps").empty().append('<option value="-1">Seleccione ...</option>');
+                $("#SelectEps").empty().append('<option value="-1">- Escoge una EPS -</option>');
                 $.each(resultado, function () {
                     $("#SelectEps ").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
                     contador++;

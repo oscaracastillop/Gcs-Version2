@@ -6,7 +6,7 @@
 <h6>Módulo Contrato Laboral</h6>
 
 <div class="grid">
-    <table id="gridCLE" class="table cell-border" style="width: 200%;"></table>
+    <table id="gridCLE" class="table  nowrap cell-border table-striped" style="width: 200%;"></table>
 </div>
 
 <div class="modal fade" id="ModalCLE" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -29,6 +29,10 @@
                             <div class="col-3">
                                 <label><strong>Fecha Inicio Contrato</strong><label style="color:red" id=""> *</label></label>
                                 <input class="form-control" type="date" id="InputFechaInicioCLE" name="name" autocomplete="off" style="min-width:100%" />
+                            </div>
+                            <div class="col-3">
+                                <label><strong>Fecha Fin Contrato</strong></label>
+                                <input class="form-control" type="date" id="InputFechaFinCLE" name="name" autocomplete="off" style="min-width:100%" />
                             </div>
                         </div>
                         <div class="row">
@@ -61,19 +65,6 @@
                                 <label><strong>Valor Día</strong></label>
                                 <input class="form-control" type="text" id="InputValorDiaSalarioCLE" name="name" autocomplete="off" style="min-width:100%" disabled />
                             </div>
-                        </div>
-
-
-
-
-
-                        <div class="row">
-                            @*<div class="col-3">
-                <label><strong>Fecha Fin Contrato</strong></label>
-                <input class="form-control" type="date" id="InputFechaFinCLE" name="name" autocomplete="off" style="min-width:100%" />
-            </div>*@
-
-
                         </div>
                         <div class="row">
                             <div class="col-3">
@@ -119,11 +110,13 @@
                         <label><strong>Observación</strong></label>
                         <input class="form-control" type="text" id="InputObservacionCLE" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
+                </div>  
+                <div class="row">
+                    <div class="col-2" id="SelectEstadoCLE">
+                        <label><strong>Estado</strong></label>
+                        <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
+                    </div>
                 </div>                
-                <div class="col-3" id="SelectEstadoCLE">
-                    <label><strong>Estado</strong></label>
-                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
-                </div>
             </div>
             <div class="modal-footer" id="BotonesModalCLE"></div>
         </div>

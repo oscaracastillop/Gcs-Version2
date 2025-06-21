@@ -306,7 +306,7 @@ function ListaFondoCesantias() {
             if (resultado.length === 0) {
                 $("#SelectFondoCesantias").append('<option value="">No hay Datos</option>');
             } else {
-                $("#SelectFondoCesantias").empty().append('<option value="-1">Seleccione ...</option>');
+                $("#SelectFondoCesantias").empty().append('<option value="-1">- Escoge un Fondo de Cesantías -</option>');
                 $.each(resultado, function () {
                     $("#SelectFondoCesantias ").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
                     contador++;

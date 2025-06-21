@@ -430,7 +430,7 @@ function ListaEmpresa() {
             if (resultado.length === 0) {
                 $("#SelectEmpresa").append('<option value="">No hay Datos</option>');
             } else {
-                $("#SelectEmpresa").empty().append('<option value="-1">Seleccione ...</option>');
+                $("#SelectEmpresa").empty().append('<option value="-1">- Escoge una Empresa -</option>');
                 $.each(resultado, function () {
                     $("#SelectEmpresa").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
                     contador++;

@@ -306,7 +306,7 @@ function ListaFondoPensiones() {
             if (resultado.length === 0) {
                 $("#SelectFondoPensiones").append('<option value="">No hay Datos</option>');
             } else {
-                $("#SelectFondoPensiones").empty().append('<option value="-1">Seleccione ...</option>');
+                $("#SelectFondoPensiones").empty().append('<option value="-1">- Escoge un Fondo de Pensión -</option>');
                 $.each(resultado, function () {
                     $("#SelectFondoPensiones ").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
                     contador++;

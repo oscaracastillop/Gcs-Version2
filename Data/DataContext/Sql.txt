@@ -107,12 +107,14 @@ CREATE UNIQUE INDEX RegistroUnicoTipoDocumento on TipoDocumento (Nombre)
 
 GO
 
-INSERT INTO TipoDocumento (Nombre) VALUES ('CC')
-INSERT INTO TipoDocumento (Nombre) VALUES ('CE')
-INSERT INTO TipoDocumento (Nombre) VALUES ('TI')
-INSERT INTO TipoDocumento (Nombre) VALUES ('RC')
-INSERT INTO TipoDocumento (Nombre) VALUES ('RUT')
-INSERT INTO TipoDocumento (Nombre) VALUES ('NIT')
+INSERT INTO TipoDocumento (Nombre) VALUES ('CC - Cédula de ciudadanía')
+INSERT INTO TipoDocumento (Nombre) VALUES ('CE - Cédula de extranjería')
+INSERT INTO TipoDocumento (Nombre) VALUES ('TI - Tarjeta de identidad')
+INSERT INTO TipoDocumento (Nombre) VALUES ('RC - Registro civil')
+INSERT INTO TipoDocumento (Nombre) VALUES ('RUT - Registro Único Tributario')
+INSERT INTO TipoDocumento (Nombre) VALUES ('NIT - Número de idenificación tributaria')
+INSERT INTO TipoDocumento (Nombre) VALUES ('PP - Pasaporte')
+INSERT INTO TipoDocumento (Nombre) VALUES ('DNI - Documento nacional de identidad')
 
 GO
 
