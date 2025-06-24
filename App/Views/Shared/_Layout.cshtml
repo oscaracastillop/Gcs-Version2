@@ -66,10 +66,10 @@
 
 </head>
 <body class="fondo">
-    <section id="contenedortres">
+    @*<section id="contenedortres">
         <label id="NameApp"></label>
         <label id="SloganEmpresa"></label>
-    </section>
+    </section>*@
     <!--<header>      
         <div class="btn-group">-->
             @*<img src="~/Images/ImagesApp/LogoSofia02.PNG" style="height:55px; width:150px"/>*@
@@ -78,22 +78,59 @@
         </div>
     </header>-->
 
-    <section id="contenedoruno">
-        @*<nav style="margin-bottom: -15px !important;">
-            <ul>
-                <li>
-                    <label id="NameApp"></label><label id="SloganEmpresa"></label>
-                </li>
-            </ul>
-        </nav>*@
-        <nav>
-            <ul id="OpcionesMenu"></ul>
-        </nav>
-    </section>
+    <section id="container">
+        @*<nav>
+                <ul>
+                    <li style="margin-left:5px">
+                        <label id="NameApp"></label>
+                    </li>
+                </ul>
+            </nav>
+            <nav>
+                <ul id="OpcionesMenu"></ul>
+            </nav>
+        </section>
 
-    <section id="contenedordos">
-        <br />
-        @RenderBody()
+        <section id="contenedordos">
+            <br />
+            <div style="float:right">
+                <img src="~/Images/ImagesProfileUsers/Usuario.png" style="border-radius:50%" class="contimg-grid" />
+                <label>Usuario: <a href="/Informacion/Informacion_Usuario"> Administrador</a></label>
+            </div>
+            <div>
+                <br />
+
+            </div>*@
+
+
+        <div class="container">
+            <div class="Cont1">
+                <nav>
+                    <ul>
+                        <li style="margin-left:5px">
+                            <label id="NameApp"></label>
+                        </li>
+                    </ul>
+                </nav>
+                <nav>
+                    <ul id="OpcionesMenu"></ul>
+                </nav>
+            </div>
+            <div class="Cont2">
+                <div style="float:right">
+                    <img src="~/Images/ImagesProfileUsers/Usuario.png" style="border-radius:50%" class="contimg-grid" />
+                    <label>Usuario: <a href="/Informacion/Informacion_Usuario"> Administrador</a></label>
+                    
+                </div>
+                <div style="clear:both"></div>
+                <hr />
+            </div>
+            <div class="Cont3">
+                @RenderBody()
+            </div>
+        </div>
+
+
     </section>
     @*<footer>
         <p>&copy; @DateTime.Now.Year - Sofia Software Administrativo</p>

@@ -2,9 +2,13 @@
     ViewBag.Title = "Sucursal";
 }
 
-<h6>Módulo Sucursal</h6>
+<h6 style="">MODULO SUCURSAL</h6>
 
 <div class="grid">
+    <div style="align-items: center;">
+        <h6 style="text-align:center">- Lista de Sucursales -</h6>
+        <hr />
+    </div>
     <table id="gridSucursal" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 160%;"></table>
 </div>
 
@@ -78,6 +82,7 @@
 </div>
 
 
+
 <script>
     $(document).ready(function () {
         ValidarSesion('/Negocio/Sucursal');
@@ -115,4 +120,3 @@
 
 
 
-<i class="bi-pen-fill"></i>
