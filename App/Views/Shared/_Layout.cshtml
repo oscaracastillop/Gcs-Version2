@@ -78,59 +78,30 @@
         </div>
     </header>-->
 
-    <section id="container">
-        @*<nav>
-                <ul>
-                    <li style="margin-left:5px">
-                        <label id="NameApp"></label>
-                    </li>
-                </ul>
-            </nav>
-            <nav>
-                <ul id="OpcionesMenu"></ul>
-            </nav>
-        </section>
+    <section id="contenedoruno">
+        <nav>
+            <ul>
+                <li style="margin-left:15px">
+                    <label id="NameApp"></label>
+                </li>
+            </ul>
+        </nav>
+        <nav>
+            <ul id="OpcionesMenu"></ul>
+        </nav>
+     </section>
 
-        <section id="contenedordos">
-            <br />
-            <div style="float:right">
+    <section id="contenedordos">    
+        <div class="row">
+            <div style="text-align: right; margin-top: 5px;">
                 <img src="~/Images/ImagesProfileUsers/Usuario.png" style="border-radius:50%" class="contimg-grid" />
                 <label>Usuario: <a href="/Informacion/Informacion_Usuario"> Administrador</a></label>
             </div>
-            <div>
-                <br />
-
-            </div>*@
-
-
-        <div class="container">
-            <div class="Cont1">
-                <nav>
-                    <ul>
-                        <li style="margin-left:5px">
-                            <label id="NameApp"></label>
-                        </li>
-                    </ul>
-                </nav>
-                <nav>
-                    <ul id="OpcionesMenu"></ul>
-                </nav>
-            </div>
-            <div class="Cont2">
-                <div style="float:right">
-                    <img src="~/Images/ImagesProfileUsers/Usuario.png" style="border-radius:50%" class="contimg-grid" />
-                    <label>Usuario: <a href="/Informacion/Informacion_Usuario"> Administrador</a></label>
-                    
-                </div>
-                <div style="clear:both"></div>
-                <hr />
-            </div>
-            <div class="Cont3">
+            <div style="margin-top:0px;">
                 @RenderBody()
             </div>
         </div>
-
-
+       
     </section>
     @*<footer>
         <p>&copy; @DateTime.Now.Year - Sofia Software Administrativo</p>

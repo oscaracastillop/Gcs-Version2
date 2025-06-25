@@ -41,7 +41,7 @@ nav ul li a {
 #contenedoruno {
     float: left;
     min-width: 150px;
-    background-color:black;
+    background-color: black;
     min-height:100vh;
 }
 
@@ -50,10 +50,9 @@ nav ul li a {
     display: block;
     font-size: 12px !important;
     margin-right: 10px;
-    width:85%!important;
     margin-top:0px;
     display:block !important;
-    
+    width:auto;
 }
 
 #contenedortres {
@@ -237,8 +236,8 @@ input, button, select, textarea {
 }
 
 .fondo {
-    /*background-color: white;*/
-   /*  background-image: url('../../images/imagesapp/fondo.jpg');
+    background-color: #f0f0f0;
+    /*  background-image: url('../../images/imagesapp/fondo.jpg');
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -327,10 +326,10 @@ input, button, select, textarea {
 
 
 .container {
-    min-width:100%;
+    min-width: 100%;
     display: grid;
-    grid-template-columns: 0.4fr 1.6fr 1fr;
-    grid-template-rows: 0.2fr 1.8fr 1fr;
+    grid-template-columns: 25% 86.6% 50%;
+    grid-template-rows: 5.1% 94.9% 50%;
     gap: 0px 0px;
     grid-auto-flow: row;
     grid-template-areas:
@@ -341,19 +340,21 @@ input, button, select, textarea {
 
 .Cont1 {
     grid-area: Cont1;
-    background-color: black;
-    min-height:100vh;
+    
+    margin-left:-12px!important;
 }
 
 .Cont2 {
     grid-area: Cont2;
     font-size:10px;
-    align-content:center !important;
-    align-items:center !important;
+    text-align:right;
+    align-content:center!important;
+    align-content:center;
 }
 
 .Cont3 {
     grid-area: Cont3;
-    width:98%;
-    margin-left:15px;
+    width: 98%;
+    font-size: 12px !important;
+    margin-left: 15px;
 }

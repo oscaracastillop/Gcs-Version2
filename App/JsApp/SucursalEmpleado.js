@@ -1,16 +1,14 @@
 ﻿function ModalSucursalEmpleado(tipo) {
     $("#TituloModalSucursalEmpleado").empty().val('');
     $("#LabelIdSucursalEmpleado").empty().text('');
-    $("#SelectContratoLaboralEmpleado").val(-1);
-    $("#SelectSucursal").val(-1);
-    $("#SelectEmpresa").val(-1);
+    $("#SelectContratoLaboralEmpleado").val(-1);    
+    $("#SelectEmpresa").val(-1).prop("disabled", true);
+    $("#SelectSucursalXIdEmpresaXIdEmpleado").val(-1).prop("disabled", true);
     $("#InputFechaInicioSE").empty().val('');
     $("#InputFechaFinSE").empty().val('');
     $("#InputObservacionSE").empty().val('');
     $("#BotonesModalSucursalEmpleado").empty();
     $("#TituloModalSucursalEmpleado").empty();  
-    $("#SelectSucursalXIdEmpresa").empty();  
-    $("#SelectSucursalXIdEmpresa").prop("disabled", true);
     $("#InputEmpleado").empty().val('');
     $("#InputEmpresa").empty().val('');
     $("#InputSucursal").empty().val('');
@@ -28,7 +26,7 @@
         $("#InputSucursal").hide();
         $("#InputFechaInicioSE").prop("disabled", false);
         $("#InputFechaFinSE").prop("disabled", true);
-        $("#SelectSucursalXIdEmpresa").show();
+        $("#SelectSucursalXIdEmpresaXIdEmpleado").show();
         
     } if (tipo == 'E') {
         $("#TituloModalSucursalEmpleado").empty().append('<label>Editar Sucursal Empleado</label>');
@@ -40,6 +38,7 @@
         $("#InputSucursal").show();
         $("#InputEmpleado").show();
         $("#InputFechaInicioSE").prop("disabled", true);
+        $("#InputFechaFinSE").prop("disabled", false);
         
         
     }
@@ -193,18 +192,17 @@ function GridSucursalEmpleado() {
         dom: 'B<"clear">frtip',
         columnDefs: [
             { targets: [0], width: '30px', className: 'dt-center dt-head-center' },
-            { targets: [1], width: '30px', className: 'dt-center dt-head-center' },//Nombre
+            { targets: [1], width: '30px', className: 'dt-head-center' },//Nombre
             { targets: [2], className: 'dt-head-center' },//Empresa
             { targets: [3], className: 'dt-head-center' },//Sucursal
             { targets: [4], className: 'dt-head-center', className: 'dt-center dt-head-center' },//Fecha Inicio
             { targets: [5], className: 'dt-head-center', className: 'dt-center dt-head-center' },//Fecha Fin
             { targets: [6], className: 'dt-head-center', className: 'dt-center dt-head-center' },//Permanencia
             { targets: [7], className: 'dt-head-center' },//Observacion
-            { targets: [8], className: 'dt-head-center' },//Observacion
-            { targets: [9], className: 'dt-head-center' },//Observacion
-            { targets: [10], width: '50px', className: 'dt-center dt-head-center' },
-            { targets: [11], width: '10px', className: 'dt-center dt-head-center' },
-            { targets: [12], width: '10px', className: 'dt-center dt-head-center' }
+            { targets: [8], className: 'dt-head-center' },//Observacion            
+            { targets: [9], width: '50px', className: 'dt-center dt-head-center' },
+            { targets: [10], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [11], width: '10px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -215,7 +213,7 @@ function GridSucursalEmpleado() {
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
                 text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
                 exportOptions: {
-                    columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                    columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
                 },
             },
             {
@@ -225,7 +223,7 @@ function GridSucursalEmpleado() {
                 orientation: 'landscape', // landscape portrait
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
                 exportOptions: {
-                    columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                    columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
                     search: 'applied',
                     order: 'applied',
                 },
@@ -305,21 +303,21 @@ function GridSucursalEmpleado() {
                 }
 
             },
-            {
-                title: "Imagén",
-                data: "Imagen",
-                width: 'auto',
-                "render": function (data, type, row) {
+            //{
+            //    title: "Imagén",
+            //    data: "Imagen",
+            //    width: 'auto',
+            //    "render": function (data, type, row) {
 
-                    if (row.IdEstado == 1) {
-                        return '<img src="/Images/ImagenHVEmpleado/' + data + '" alt="" height="35" width="35" style="border-radius:50%; border: 1px solid green; padding:2px"/>';
-                    }
-                    else {
-                        return '<img src="/Images/ImagenHVEmpleado/' + data + '" alt="" height="35" width="35" style="border-radius: 50%; border: 1px solid red; padding:2px" />';
-                    }
-                }
+            //        if (row.IdEstado == 1) {
+            //            return '<img src="/Images/ImagenHVEmpleado/' + data + '" alt="" height="35" width="35" style="border-radius:50%; border: 1px solid green; padding:2px"/>';
+            //        }
+            //        else {
+            //            return '<img src="/Images/ImagenHVEmpleado/' + data + '" alt="" height="35" width="35" style="border-radius: 50%; border: 1px solid red; padding:2px" />';
+            //        }
+            //    }
 
-            },
+            //},
             { "data": "Empleado", title: "Empleado", width: 'auto' },
             { "data": "Empresa", title: "Empresa", width: 'auto' },
             { "data": "Sucursal", title: "Sucursal", width: 'auto' },
