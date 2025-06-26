@@ -214,12 +214,12 @@ function GridEmpresa() {
             { targets: [7], className: 'dt-head-center' },
             { targets: [8], className: 'dt-head-center' },
             { targets: [9], className: 'dt-head-center' },
-            { targets: [10], className: 'dt-head-center' },
+            { targets: [10], className: 'dt-head-center' },            
             { targets: [11], className: 'dt-head-center' },
             { targets: [12], className: 'dt-head-center' },
             { targets: [13], width: '50px', className: 'dt-center dt-head-center' },
-            { targets: [14], width: '30px', className: 'dt-center dt-head-center' },
-            { targets: [15], width: '30px', className: 'dt-center dt-head-center' }
+            { targets: [14], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [15], width: '10px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -230,7 +230,7 @@ function GridEmpresa() {
             filename: NameApp + ' - ' +tituloReporte + ' ' + jsDate + ' ' + hora,
             text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
             exportOptions: {
-                columns: [1, 3, 4, 5, 6, 7, 8, 9,10, 11,12,13],
+                columns: [0, 2, 3, 4, 5, 6, 7, 8, 9,10, 11,12,13],
             },
         },
             {
@@ -240,7 +240,7 @@ function GridEmpresa() {
             orientation: 'landscape', //portrait
             pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
             exportOptions: {
-                columns: [1, 3, 4, 5, 6, 7, 8,9,10, 11,12,13],
+                columns: [0, 2, 3, 4, 5, 6, 7, 8,9,10, 11,12,13],
                 search: 'applied',
                 order: 'applied',
             },
@@ -336,28 +336,14 @@ function GridEmpresa() {
                 width: '50px'
             }, 
             { "data": "Nombre", title: "Empresa", width: 'auto' },      
-            {
-                title: "Documento",
-                data: "",
-                render: function (data, type, row) {
-                    return `${row.TipoDocumento}:  ${row.Identificacion}`;
-                }
-                , width: 'auto'
-            },
-            { "data": "TipoDocumento", title: "Documento", width: 'auto', visible: false },
-            { "data": "Identificacion", title: "Identificación", width: 'auto', visible: false },
+            { "data": "TipoDocumento", title: "Documento", width: 'auto', visible: true },
+            { "data": "Identificacion", title: "Identificación", width: 'auto', visible: true },
             { "data": "Email", title: "Email", width: 'auto' },
             { "data": "Telefono", title: "Teléfono", width: 'auto' },
             { "data": "Celular", title: "Celular", width: 'auto' },
             { "data": "Contacto", title: "Contacto", width: 'auto' },
-            {
-                title: "Dirección",
-                data: "nombres",
-                render: function (data, type, row) {
-                    return `${row.Direccion} ${row.Ciudad}`;
-                }
-                , width: 'auto'
-            },       
+            { "data": "Direccion", title: "Dirección", width: 'auto' },
+            { "data": "Ciudad", title: "Ciudad", width: 'auto' },     
             { "data": "Descripcion", title: "Descripción" },
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },            

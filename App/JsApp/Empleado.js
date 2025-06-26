@@ -237,9 +237,8 @@ function GridEmpleado() {
             { targets: [4], className: 'dt-head-center' },
             { targets: [5], className: 'dt-head-center' },
             { targets: [6], className: 'dt-head-center' },
-            { targets: [7], width: '50px', className: 'dt-center dt-head-center' },
-            { targets: [8], width: '10px', className: 'dt-center dt-head-center' },
-            { targets: [9], width: '10px', className: 'dt-center dt-head-center' }
+            { targets: [7], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [8], width: '10px', className: 'dt-center dt-head-center' }
         ],
         buttons: [{
             extend: 'excel', className: 'btn-excel-datatable',
@@ -248,7 +247,7 @@ function GridEmpleado() {
             filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
             text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
             exportOptions: {
-                columns: [1, 2, 3, 5, 6, 7]
+                columns: [0, 2, 3, 4, 5, 6]
             },
         },
         {
@@ -259,15 +258,15 @@ function GridEmpleado() {
             orientation: 'portrait', //portrait landscape
             pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
             exportOptions: {
-                columns: [1, 2, 3, 5, 6, 7],
+                columns: [0, 2, 3, 4, 5, 6],
                 search: 'applied',
                 order: 'applied',
             },
             customize: function (doc) {
                 doc.content.splice(0, 1.5);
                 doc.pageMargins = [40, 60, 20, 30];
-                doc.defaultStyle.fontSize = 7;
-                doc.styles.tableHeader.fontSize = 7;
+                doc.defaultStyle.fontSize = 8;
+                doc.styles.tableHeader.fontSize = 8;
                 doc['header'] = (function () {
                     return {
                         columns: [
@@ -356,16 +355,16 @@ function GridEmpleado() {
                 }
                 , width: 'auto'
             },
-            { "data": "TipoDocumento", title: "Documento", width: 'auto', visible: false },
-            { "data": "Identificacion", title: "Identificación", width: 'auto', visible: false },
-            {
-                title: "Identificación",
-                data: "",
-                render: function (data, type, row) {
-                    return `${row.TipoDocumento}: ${Intl.NumberFormat().format(row.Identificacion)}`;
-                }
-                , width: 'auto'
-            },
+            { "data": "TipoDocumento", title: "Documento", width: 'auto', visible: true },
+            { "data": "Identificacion", title: "Identificación", width: 'auto', visible: true },
+            //{
+            //    title: "Identificación",
+            //    data: "",
+            //    render: function (data, type, row) {
+            //        return `${row.TipoDocumento}: ${Intl.NumberFormat().format(row.Identificacion)}`;
+            //    }
+            //    , width: 'auto'
+            //},
             { "data": "CreateBy", title: "Creado Por", width: 'auto' },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto' },            
             {

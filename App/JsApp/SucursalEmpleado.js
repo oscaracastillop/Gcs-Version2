@@ -213,7 +213,7 @@ function GridSucursalEmpleado() {
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
                 text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
                 exportOptions: {
-                    columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
                 },
             },
             {
@@ -223,7 +223,7 @@ function GridSucursalEmpleado() {
                 orientation: 'landscape', // landscape portrait
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
                 exportOptions: {
-                    columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
                     search: 'applied',
                     order: 'applied',
                 },

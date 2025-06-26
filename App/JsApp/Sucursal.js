@@ -204,8 +204,9 @@ function GridSucursal() {
             { targets: [8], className: 'dt-head-center' },
             { targets: [9], className: 'dt-head-center' },
             { targets: [10], className: 'dt-head-center' },
-            { targets: [11], width: '30px', className: 'dt-center dt-head-center' },
-            { targets: [12], width: '30px', className: 'dt-center dt-head-center' }
+            { targets: [11], className: 'dt-head-center' },
+            { targets: [12], width: '30px', className: 'dt-center dt-head-center' },
+            { targets: [13], width: '30px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -216,7 +217,7 @@ function GridSucursal() {
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
                 text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
                 exportOptions: {
-                    columns: [0,1, 3, 4, 5, 6, 7, 8,9,10],
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
                 },
             },
             {
@@ -226,7 +227,7 @@ function GridSucursal() {
                 orientation: 'landscape', //portrait
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
                 exportOptions: {
-                    columns: [0,1, 3, 4, 5, 6, 7, 8,9,10],
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
                     search: 'applied',
                     order: 'applied',
                 },
@@ -318,14 +319,8 @@ function GridSucursal() {
             { "data": "Telefono", title: "Teléfono", width: 'auto' },
             { "data": "Celular", title: "Celular", width: 'auto' },
             { "data": "Contacto", title: "Contacto", width: 'auto' },
-            {
-                title: "Dirección",
-                data: "nombres",
-                render: function (data, type, row) {
-                    return `${row.Direccion} ${row.Ciudad}`;
-                }
-                , width: 'auto'
-            },
+            { "data": "Direccion", title: "Dirección", width: 'auto' },
+            { "data": "Ciudad", title: "Ciudad", width: 'auto' },                
             { "data": "Descripcion", title: "Descripción" },
             { "data": "CreateBy", title: "Creado Por", width: 'auto' },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto' },     
