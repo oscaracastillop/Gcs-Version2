@@ -900,6 +900,7 @@ INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (5, 'Préstamo','bi-cash-coin','2rem','white','/Contratistas/Prestamo','cornflowerblue')
 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (6, 'Nómina Empleado','bi-file-text','2rem','white','/Contabilidad/Nomina_Empleado','cornflowerblue')
+
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (6, 'Nómina Contratista','bi-file-text-fill','2rem','white','/Contabilidad/Nomina_Contratista','cornflowerblue')
 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Entrada','bi-box-arrow-in-right','2rem','white','/Almacen/Entrada','cornflowerblue')
@@ -929,6 +930,8 @@ INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) 
 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (13, 'Información Usuario','bi-person-check','2rem','white','/Informacion/Informacion_Usuario','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (13, 'Contacto','bi-wechat','2rem','white','/Informacion/Contacto','green')
+
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (6, 'Liquidación Empleado','bi-file-text','2rem','white','/Contabilidad/Liquidacion_Empleado','cornflowerblue')
 
 GO
 
@@ -1025,6 +1028,7 @@ INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Elimi
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (42,1,1,1,1,1,1,GETDATE())-- Administrador
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (43,1,1,1,1,1,1,GETDATE())-- Administrador
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (44,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (45,1,1,1,1,1,1,GETDATE())-- Administrador
 
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (21,2,1,1,1,1,1,GETDATE())-- Usuario Almacen
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (22,2,1,1,1,1,1,GETDATE())-- Usuario Almacen
