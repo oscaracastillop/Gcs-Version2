@@ -358,3 +358,8 @@ input, button, select, textarea {
     font-size: 12px !important;
     margin-left: 15px;
 }
+
+.card-stilo {
+    background-color: #f0f0f0;
+    padding:10px;
+}

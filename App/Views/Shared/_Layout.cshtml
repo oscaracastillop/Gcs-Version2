@@ -67,13 +67,13 @@
 </head>
 <body class="fondo">
     @*<section id="contenedortres">
-        <label id="NameApp"></label>
-        <label id="SloganEmpresa"></label>
-    </section>*@
-    <!--<header>      
+            <label id="NameApp"></label>
+            <label id="SloganEmpresa"></label>
+        </section>*@
+    <!--<header>
         <div class="btn-group">-->
-            @*<img src="~/Images/ImagesApp/LogoSofia02.PNG" style="height:55px; width:150px"/>*@
-            <!--<label id="NameApp"></label>
+    @*<img src="~/Images/ImagesApp/LogoSofia02.PNG" style="height:55px; width:150px"/>*@
+    <!--<label id="NameApp"></label>
             <label id="SloganEmpresa"></label>
         </div>
     </header>-->
@@ -89,23 +89,24 @@
         <nav>
             <ul id="OpcionesMenu"></ul>
         </nav>
-     </section>
+    </section>
 
-    <section id="contenedordos">    
+    <section id="contenedordos">
         <div class="row">
             <div style="text-align: right; margin-top: 5px;">
-                <img src="~/Images/ImagesProfileUsers/Usuario.png" style="border-radius:50%" class="contimg-grid" />
+                @*<a href="#" onclick="ModalAyuda()">Ayuda</a>*@
+                <img src="~/Images/ImagesProfileUsers/Usuario.png" style="border-radius:50%; margin-left:15px" class="contimg-grid" />
                 <label>Usuario: <a href="/Informacion/Informacion_Usuario"> Administrador</a></label>
             </div>
             <div style="margin-top:0px;">
                 @RenderBody()
             </div>
         </div>
-       
+
     </section>
     @*<footer>
-        <p>&copy; @DateTime.Now.Year - Sofia Software Administrativo</p>
-    </footer>*@
+            <p>&copy; @DateTime.Now.Year - Sofia Software Administrativo</p>
+        </footer>*@
 
     <script src="~/Scripts/jquery-3.7.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
@@ -119,6 +120,54 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/jszip-2.5.0/dt-1.13.2/af-2.5.2/b-2.3.4/b-colvis-2.3.4/b-html5-2.3.4/b-print-2.3.4/cr-1.6.1/fc-4.2.1/fh-3.3.1/kt-2.8.0/r-2.4.0/sc-2.0.7/sb-1.4.0/sp-2.1.1/datatables.min.js"></script>
 </body>
 </html>
+
+
+<!-- Modal Datos Cliente-->
+<div class="modal fade" id="ModalAyuda" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Ayuda</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card grid">
+                    <label><strong>Estados</strong></label>
+                    <ul>
+                        <li>
+                            <label><i class="bi-circle-fill" style="color: green"></i> Activo: El registro se encuentra activo o disponible para ser usado.</label>                            
+                        </li>
+                        <li>
+                            <label><i class="bi-circle-fill" style="color: red"></i> Inactivo: El registro se encuentra inactivo o no está disponible para ser usado.</label>
+                        </li>
+                    </ul>  
+                </div>
+                <br />
+                <div class="card grid" style="padding:10px">
+                    <label><strong>Acciones</strong></label>
+                    <ul>
+                        <li>
+                            <label><i class="bi-pencil-fill" style="color: black"></i> Editar: Permite editar o actualizar datos del resgistro seleccionado.</label>
+                        </li>
+                        <li>
+                            <label><i class="bi-trash-fill" style="color: red"></i> Eliminar: Elimina todos lod datos del registro seleccionado.</label>
+                        </li>
+                        <li>
+                            <label><label style="background:green; font-size:7px; padding:2px; color:white">Nuevo</label> Nuevo: Crea un registro nuevo en la base de datos..</label>
+                        </li>
+                        <li>
+                            <label>Dependiendo de los permisos que tenga el <strong>Usuario</strong> podra realizar dichas acciones.</label>
+                        </li>
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <script>
     $(document).ready(function () {
@@ -154,6 +203,10 @@
     }
 
     // Ejemplo: Reducir el tamaño a un 90%
-    
+
+    function ModalAyuda() {
+        $('#ModalAyuda').modal('show');
+    }
+
 </script>
 

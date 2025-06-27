@@ -193,7 +193,7 @@ function GridSucursal() {
         scrollX: true,
         dom: 'B<"clear">frtip',
         columnDefs: [
-            { targets: [0], width: '30px', className: 'dt-center dt-head-center' },
+            { targets: [0], width: '10px', className: 'dt-center dt-head-center' },
             { targets: [1], className: 'dt-head-center' },
             { targets: [2], className: 'dt-head-center' },
             { targets: [3], className: 'dt-head-center' },
@@ -205,8 +205,8 @@ function GridSucursal() {
             { targets: [9], className: 'dt-head-center' },
             { targets: [10], className: 'dt-head-center' },
             { targets: [11], className: 'dt-head-center' },
-            { targets: [12], width: '30px', className: 'dt-center dt-head-center' },
-            { targets: [13], width: '30px', className: 'dt-center dt-head-center' }
+            { targets: [12], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [13], width: '10px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 

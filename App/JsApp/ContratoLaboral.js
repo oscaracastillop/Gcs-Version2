@@ -328,7 +328,7 @@ function GridCLE() {
         scrollX: true,
         dom: 'B<"clear">frtip',
         columnDefs: [
-            { targets: [0], width: '30px', className: 'dt-center dt-head-center' },
+            { targets: [0], width: '10px', className: 'dt-center dt-head-center' },
             { targets: [1], className: 'dt-center dt-head-center' },//Nombre empleado
             { targets: [2], className: 'dt-head-center' },//Empresa
             { targets: [3], className: 'dt-head-center' },//Cargo
@@ -341,7 +341,7 @@ function GridCLE() {
             { targets: [10], className: 'dt-head-center' },//Creado por
             { targets: [11], className: 'dt-head-center' },//Fecha Creación
             { targets: [12], className: 'dt-head-center' },//Fecha Creación
-            { targets: [13], width: '50px', className: 'dt-head-center' },
+            { targets: [13], className: 'dt-head-center' },
             { targets: [14], width: '10px', className: 'dt-center dt-head-center' },
             { targets: [15], width: '10px', className: 'dt-center dt-head-center' }
         ],
@@ -354,7 +354,7 @@ function GridCLE() {
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
                 text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
                 exportOptions: {
-                    columns: [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13],
+                    columns: [0, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13],
                 },
             },
             {
@@ -364,7 +364,7 @@ function GridCLE() {
                 orientation: 'landscape', // landscape  portrait
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
                 exportOptions: {
-                    columns: [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13],
+                    columns: [0, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13],
                     search: 'applied',
                     order: 'applied',
                 },
@@ -446,19 +446,14 @@ function GridCLE() {
             },
             {
                 title: "Imagén",
-                data: "Imagen",
-                width: 'auto',
-                "render": function (data, type, row) {
-
-                    if (row.IdEstado == 1) {
-                        return '<img src="/Images/ImagenHVEmpleado/' + data + '" alt="" height="35" width="35" style="border-radius:50%; border: 1px solid green; padding:2px"/>';
-                    }
-                    else {
-                        return '<img src="/Images/ImagenHVEmpleado/' + data + '" alt="" height="35" width="35" style="border-radius: 50%; border: 1px solid red; padding:2px" />';
-                    }
-                }
-
-            },//0
+                "data": 'Imagen',
+                "render": function (data, type, row, meta) {
+                    return '<div class="contimg-grid">' +
+                        '<img class="imagen-escalada-grid CambiarImagenEmpleado" src="/Images/ImagenHVEmpleado/' + data + '"/>' +
+                        '</div>';
+                },
+                width: '50px'
+            },
             { "data": "Empleado", title: "Empleado", width: 'auto' },//1
             { "data": "Empresa", title: "Empresa", width: 'auto' },//2
             { "data": "Cargo", title: "Cargo", width: 'auto' },//3

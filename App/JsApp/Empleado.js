@@ -231,7 +231,7 @@ function GridEmpleado() {
         scrollX: true,
         dom: 'B<"clear">frtip',
         columnDefs: [
-            { targets: [0], width: '30px', className: 'dt-center dt-head-center' },
+            { targets: [0], width: '10px', className: 'dt-center dt-head-center' },
             { targets: [1], className: 'dt-head-center' },
             { targets: [2], className: 'dt-head-center' },
             { targets: [4], className: 'dt-head-center' },
@@ -357,14 +357,6 @@ function GridEmpleado() {
             },
             { "data": "TipoDocumento", title: "Documento", width: 'auto', visible: true },
             { "data": "Identificacion", title: "Identificación", width: 'auto', visible: true },
-            //{
-            //    title: "Identificación",
-            //    data: "",
-            //    render: function (data, type, row) {
-            //        return `${row.TipoDocumento}: ${Intl.NumberFormat().format(row.Identificacion)}`;
-            //    }
-            //    , width: 'auto'
-            //},
             { "data": "CreateBy", title: "Creado Por", width: 'auto' },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto' },            
             {

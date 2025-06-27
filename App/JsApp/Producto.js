@@ -252,7 +252,7 @@ function GridProducto() {
         scrollX: true,
         dom: 'B<"clear">frtip',
         columnDefs: [
-            { targets: [0], className: 'dt-center dt-head-center' },
+            { targets: [0], width: '10px', className: 'dt-center dt-head-center' },
             { targets: [1], className: 'dt-head-center' },
             { targets: [2], className: 'dt-head-center' },
             { targets: [4], className: 'dt-head-center' },
@@ -262,9 +262,9 @@ function GridProducto() {
             { targets: [8], className: 'dt-head-center' },
             { targets: [9], className: 'dt-head-center' },
             { targets: [10], className: 'dt-head-center' },
-            { targets: [11], width: '50px', className: 'dt-center dt-head-center' },
-            { targets: [12], width: '50px', className: 'dt-center dt-head-center' },
-            { targets: [13], width: '50px', className: 'dt-center dt-head-center' },
+            { targets: [11], className: 'dt-center dt-head-center' },
+            { targets: [12], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [13], width: '10px', className: 'dt-center dt-head-center' }
         ],
         buttons: [{
             extend: 'excel', className: 'btn-excel-datatable',
@@ -273,7 +273,7 @@ function GridProducto() {
             filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
             text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
             exportOptions: {
-                columns: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11]
+                columns: [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
             },
         },
         {
@@ -284,7 +284,7 @@ function GridProducto() {
             orientation: 'landscape', //portrait landscape
             pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
             exportOptions: {
-                columns: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11],
+                columns: [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
                 search: 'applied',
                 order: 'applied',
             },
@@ -350,6 +350,20 @@ function GridProducto() {
         },
         columns: [
             {
+                title: "Estado",
+                data: "Estado",
+                "render": function (data, type, row) {
+
+                    if (row.IdEstado == 1) {
+                        return '<label class="label-estado-activo">' + data + '</label>';
+                    }
+                    else if (row.IdEstado == 2) {
+                        return '<label class="label-estado-inactivo">' + data + '</label>';
+                    }
+                }
+
+            },
+            {
                 title: "Imagén",
                 "data": 'ImagenProducto',
                 "render": function (data, type, row, meta) {
@@ -369,39 +383,18 @@ function GridProducto() {
             { "data": "CreateBy", title: "Creado Por", width: 'auto' },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto' },
             {
-                title: "Estado",
-                data: "Estado",
-                width: 'auto',
-                "render": function (data, type, row) {
-
-                    if (row.IdEstado == 1) {
-                        return '<label class="label-estado-activo">&nbsp;' + data + '&nbsp;</label>';
-                    }
-                    else {
-                        return '<label class="label-estado-inactivo">&nbsp;' + data + '&nbsp;</label>';
-                    }
-                }
-
+                title: "",
+                data: null,
+                defaultContent:
+                    '<a class="EditarProducto btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
+                orderable: false,
             },
             {
                 title: "",
                 data: null,
                 defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<a class="EditarProducto btn btn-editar-dt" title="Editar Registro">Editar</a>' +
-                    '</div>',
+                    '<a class="EliminarProducto btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>',
                 orderable: false,
-                width: 'auto',
-            },
-            {
-                title: "",
-                data: null,
-                defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<a class="EliminarProducto btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
-                    '</div>',
-                orderable: false,
-                width: 'auto',
             },
         ],
         "language": {

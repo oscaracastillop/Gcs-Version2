@@ -191,8 +191,8 @@ function GridSucursalEmpleado() {
         scrollX: true,
         dom: 'B<"clear">frtip',
         columnDefs: [
-            { targets: [0], width: '30px', className: 'dt-center dt-head-center' },
-            { targets: [1], width: '30px', className: 'dt-head-center' },//Nombre
+            { targets: [0], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [1], className: 'dt-head-center' },//Nombre
             { targets: [2], className: 'dt-head-center' },//Empresa
             { targets: [3], className: 'dt-head-center' },//Sucursal
             { targets: [4], className: 'dt-head-center', className: 'dt-center dt-head-center' },//Fecha Inicio
@@ -200,7 +200,7 @@ function GridSucursalEmpleado() {
             { targets: [6], className: 'dt-head-center', className: 'dt-center dt-head-center' },//Permanencia
             { targets: [7], className: 'dt-head-center' },//Observacion
             { targets: [8], className: 'dt-head-center' },//Observacion            
-            { targets: [9], width: '50px', className: 'dt-center dt-head-center' },
+            { targets: [9], className: 'dt-head-center' },
             { targets: [10], width: '10px', className: 'dt-center dt-head-center' },
             { targets: [11], width: '10px', className: 'dt-center dt-head-center' }
         ],

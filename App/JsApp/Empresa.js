@@ -204,7 +204,7 @@ function GridEmpresa() {
         scrollX: true,
         dom: 'B<"clear">frtip',
         columnDefs: [
-            { targets: [0], width: '30px', className: 'dt-center dt-head-center' },
+            { targets: [0], width: '10px', className: 'dt-center dt-head-center' },
             { targets: [1], className: 'dt-head-center' },
             { targets: [2], className: 'dt-head-center' },
             { targets: [3], className: 'dt-head-center' },
@@ -217,7 +217,7 @@ function GridEmpresa() {
             { targets: [10], className: 'dt-head-center' },            
             { targets: [11], className: 'dt-head-center' },
             { targets: [12], className: 'dt-head-center' },
-            { targets: [13], width: '50px', className: 'dt-center dt-head-center' },
+            { targets: [13], className: 'dt-head-center' },
             { targets: [14], width: '10px', className: 'dt-center dt-head-center' },
             { targets: [15], width: '10px', className: 'dt-center dt-head-center' }
         ],
@@ -334,7 +334,7 @@ function GridEmpresa() {
                     return '<img class="btn LogoEmpresa" src="/Images/LogoEmpresa/' + data + '" alt="" height="80px" style="border-radius:5%"/>';
                 },
                 width: '50px'
-            }, 
+            },             
             { "data": "Nombre", title: "Empresa", width: 'auto' },      
             { "data": "TipoDocumento", title: "Documento", width: 'auto', visible: true },
             { "data": "Identificacion", title: "Identificación", width: 'auto', visible: true },
@@ -393,6 +393,7 @@ function GridEmpresa() {
         EliminarEmpresa(data.Id);
     })    
 
+ 
     $('#gridEmpresa').on('click', '.LogoEmpresa', function () {
         let data = datatable.row($(this).parents()).data();
         $('#ModalLogoEmpresa').modal('show');

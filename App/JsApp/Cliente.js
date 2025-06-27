@@ -214,23 +214,23 @@ function GridCliente() {
         scrollX: true,
         dom: 'B<"clear">frtip',
         columnDefs: [            
-            { targets: [0], width: '30px', className: 'dt-center dt-head-center' },
+            { targets: [0], width: '10px', className: 'dt-center dt-head-center' },
             { targets: [1], className: 'dt-head-center' },
             { targets: [2], className: 'dt-head-center' },
             { targets: [3], className: 'dt-head-center' },
             { targets: [4], className: 'dt-head-center' },
             { targets: [5], className: 'dt-head-center' },
-            //{ targets: [6], className: 'dt-head-center' },
-            //{ targets: [7], className: 'dt-head-center' },
-            //{ targets: [8], className: 'dt-head-center' },
-            //{ targets: [9], className: 'dt-head-center' },
-            //{ targets: [10], className: 'dt-head-center' },
-            //{ targets: [11], className: 'dt-head-center' },
-            //{ targets: [12], className: 'dt-head-center' },
-            //{ targets: [13], width: '50px', className: 'dt-center dt-head-center' },
-            { targets: [6], width: '10px', className: 'dt-center dt-head-center' },
-            { targets: [7], width: '100px', className: 'dt-center dt-head-center' },
-       /*     { targets: [8], width: '10px', className: 'dt-center dt-head-center' }*/
+            { targets: [6], className: 'dt-head-center' },
+            { targets: [7], className: 'dt-head-center' },
+            { targets: [8], className: 'dt-head-center' },
+            { targets: [9], className: 'dt-head-center' },
+            { targets: [10], className: 'dt-head-center' },
+            { targets: [11], className: 'dt-head-center' },
+            { targets: [12], className: 'dt-head-center' },
+            { targets: [13], className: 'dt-head-center' },
+            { targets: [14], className: 'dt-head-center' },
+            { targets: [15], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [16], width: '10px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -337,44 +337,20 @@ function GridCliente() {
                 }
 
             },
-            /*{ "data": "Nombre", title: "Cliente", width: 'auto' },*/
-            {
-                "data": "Nombre",
-                title: "Cliente",
-                "render": function (data, type, row, meta) {
-                    return '<a href="" class="VerCliente">' + data + '</a>';
-                }
-            },
-
-
-            //{
-            //    title: "Documento",
-            //    data: "",
-            //    render: function (data, type, row) {
-            //        return `${row.TipoDocumento}:  ${row.Identificacion}`;
-            //    }
-            //    , width: 'auto'
-            //},
+            { "data": "Nombre", title: "Cliente", width: 'auto' },            
             { "data": "TipoDocumento", title: "Documento", width: 'auto', visible: true },
             { "data": "Identificacion", title: "Identificación", width: 'auto', visible: true },
             { "data": "TextoFormaPago", title: "Forma de Pago", width: 'auto' },
             { "data": "TextoPlazoPago", title: "Plazo de Pago", width: 'auto' },
             { "data": "Email", title: "Email", width: 'auto' },
-            //{ "data": "Telefono", title: "Teléfono", width: 'auto' },
-            //{ "data": "Celular", title: "Celular", width: 'auto' },
-            //{ "data": "Contacto", title: "Nombre Contacto", width: 'auto' },
-            //{ "data": "Direccion", title: "Dirección", width: 'auto' },
-            //{ "data": "Ciudad", title: "Ciudad", width: 'auto' },
-            //{ "data": "Descripcion", title: "Descripción" },
-            //{ "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
-            //{ "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
-            //{
-            //    title: "",
-            //    data: null,
-            //    defaultContent:
-            //        '<a class="VerCliente btn btn-editar-dt" title="Ver Datos">Ver</a>',
-            //    orderable: false,
-            //},
+            { "data": "Telefono", title: "Teléfono", width: 'auto' },
+            { "data": "Celular", title: "Celular", width: 'auto' },
+            { "data": "Contacto", title: "Nombre Contacto", width: 'auto' },
+            { "data": "Direccion", title: "Dirección", width: 'auto' },
+            { "data": "Ciudad", title: "Ciudad", width: 'auto' },
+            { "data": "Descripcion", title: "Descripción" },
+            { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
+            { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },            
             {
                 title: "",
                 data: null,
@@ -423,14 +399,6 @@ function GridCliente() {
         EliminarCliente(data.Id);
     })
 
-    $('#gridCliente').on('click', '.VerCliente', function () {
-        let data = datatable.row($(this).parents()).data();
-        
-        
-        $('#nombreCliente').text(data.Nombre);
-        $('#nombreTipoDocumento').text(data.TipoDocumento);
-        myfunction();
-    })
 }
 
 function ListaCliente() {
@@ -454,9 +422,4 @@ function ListaCliente() {
     });
 }
 
-
-
-function myfunction() {
-    $('#ModalVerCliente').modal('show');
-}
 
