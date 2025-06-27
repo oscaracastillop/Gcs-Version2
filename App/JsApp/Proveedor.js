@@ -226,7 +226,7 @@ function GridProveedor() {
         scrollX: true,
         dom: 'B<"clear">frtip',
         columnDefs: [
-            { targets: [0], className: 'dt-head-center' },
+            { targets: [0], width: '10px', className: 'dt-center dt-head-center' },
             { targets: [1], className: 'dt-head-center' },
             { targets: [2], className: 'dt-head-center' },
             { targets: [3], className: 'dt-head-center' },
@@ -235,12 +235,14 @@ function GridProveedor() {
             { targets: [6], className: 'dt-head-center' },
             { targets: [7], className: 'dt-head-center' },
             { targets: [8], className: 'dt-head-center' },
-            { targets: [9], width: '280px', className: 'dt-head-center' },
+            { targets: [9], className: 'dt-head-center' },
             { targets: [10], className: 'dt-head-center' },
             { targets: [11], className: 'dt-head-center' },
-            { targets: [12], width: '50px', className: 'dt-center dt-head-center' },
-            { targets: [13], width: '30px', className: 'dt-center dt-head-center' },
-            { targets: [14], width: '30px', className: 'dt-center dt-head-center' }
+            { targets: [12], className: 'dt-head-center' },
+            { targets: [13], className: 'dt-head-center' },
+            { targets: [14], className: 'dt-head-center' },
+            { targets: [15], width: '30px', className: 'dt-center dt-head-center' },
+            { targets: [16], width: '30px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -251,7 +253,7 @@ function GridProveedor() {
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
                 text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
                 },
             },
             {
@@ -261,15 +263,15 @@ function GridProveedor() {
                 orientation: 'landscape', //  portrait
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
                     search: 'applied',
                     order: 'applied',
                 },
                 customize: function (doc) {
                     doc.content.splice(0, 1.5);
                     doc.pageMargins = [40, 60, 20, 30];
-                    doc.defaultStyle.fontSize = 6;
-                    doc.styles.tableHeader.fontSize = 7;
+                    doc.defaultStyle.fontSize = 5;
+                    doc.styles.tableHeader.fontSize = 6;
                     doc['header'] = (function () {
                         return {
                             columns: [
@@ -327,67 +329,47 @@ function GridProveedor() {
             "datatype": "json"
         },
         columns: [
-            { "data": "Nombre", title: "Proveedor", width: 'auto' },
             {
-                title: "Identificación",
-                data: "",
-                render: function (data, type, row) {
-                    return `${row.TipoDocumento}: ${row.Identificacion}`;
-                    //return `${row.TipoDocumento}: ${Intl.NumberFormat().format(row.Identificacion)}`;
+                title: "Estado",
+                data: "Estado",
+                "render": function (data, type, row) {
+
+                    if (row.IdEstado == 1) {
+                        return '<label class="label-estado-activo">' + data + '</label>';
+                    }
+                    else if (row.IdEstado == 2) {
+                        return '<label class="label-estado-inactivo">' + data + '</label>';
+                    }
                 }
-                , width: 'auto'
+
             },
+            { "data": "Nombre", title: "Proveedor", width: 'auto' },
+            { "data": "TipoDocumento", title: "Documento", width: 'auto', visible: true },
+            { "data": "Identificacion", title: "Identificación", width: 'auto', visible: true },
             { "data": "TextoFormaPago", title: "Forma de Pago", width: 'auto' },
             { "data": "TextoPlazoPago", title: "Plazo de Pago", width: 'auto' },
             { "data": "Email", title: "Email", width: 'auto' },
             { "data": "Telefono", title: "Teléfono", width: 'auto' },
             { "data": "Celular", title: "Celular", width: 'auto' },
             { "data": "Contacto", title: "Contacto", width: 'auto' },
-            {
-                title: "Dirección",
-                data: "nombres",
-                render: function (data, type, row) {
-                    return `${row.Direccion} ${row.Ciudad}`;
-                }
-                , width: 'auto'
-            },
+            { "data": "Direccion", title: "Dirección", width: 'auto' },
+            { "data": "Ciudad", title: "Ciudad", width: 'auto' },
             { "data": "Descripcion", title: "Descripción"},
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
             {
-                title: "Estado",
-                data: "Estado",
-                width: 'auto',
-                "render": function (data, type, row) {
-
-                    if (row.IdEstado == 1) {
-                        return '<label class="label-estado-activo">&nbsp;' + data + '&nbsp;</label>';
-                    }
-                    else {
-                        return '<label class="label-estado-inactivo">&nbsp;' + data + '&nbsp;</label>';
-                    }
-                }
-
+                title: "",
+                data: null,
+                defaultContent:
+                    '<a class="EditarProveedor btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
+                orderable: false,
             },
             {
                 title: "",
                 data: null,
                 defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<a class="EditarProveedor btn btn-editar-dt" title="Editar Registro">Editar</a>' +
-                    '</div>',
+                    '<a class="EliminarProveedor btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>',
                 orderable: false,
-                width: 'auto',
-            },
-            {
-                title: "",
-                data: null,
-                defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<a class="EliminarProveedor btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
-                    '</div>',
-                orderable: false,
-                width: 'auto',
             },
         ],
         "language": {
