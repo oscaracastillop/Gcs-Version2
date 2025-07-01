@@ -152,13 +152,13 @@ function GridTipoHoraExtra() {
         scrollX: true,
         dom: 'B<"clear">frtip',
         columnDefs: [
-            { targets: [0], className: 'dt-head-center' },
+            { targets: [0], width: '10px', className: 'dt-center dt-head-center' },
             { targets: [1], className: 'dt-head-center' },
             { targets: [2], className: 'dt-head-center' },
             { targets: [3], className: 'dt-head-center' },
-            { targets: [4], width: '50px', className: 'dt-center dt-head-center' },
-            { targets: [5], width: '30px', className: 'dt-center dt-head-center' },
-            { targets: [6], width: '30px', className: 'dt-center dt-head-center' }
+            { targets: [4], className: 'dt-head-center' },
+            { targets: [5], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [6], width: '10px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -169,7 +169,7 @@ function GridTipoHoraExtra() {
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
                 text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
                 exportOptions: {
-                    columns: [0, 1, 2, 3],
+                    columns: [0, 1, 2, 3, 4],
                 },
             },
             {
@@ -179,7 +179,7 @@ function GridTipoHoraExtra() {
                 orientation: 'portrait', // landscape
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
                 exportOptions: {
-                    columns: [0, 1, 2, 3],
+                    columns: [0, 1, 2, 3, 4],
                     search: 'applied',
                     order: 'applied',
                 },
@@ -245,44 +245,37 @@ function GridTipoHoraExtra() {
             "datatype": "json"
         },
         columns: [
+            {
+                title: "Estado",
+                data: "Estado",
+                "render": function (data, type, row) {
+
+                    if (row.IdEstado == 1) {
+                        return '<label class="label-estado-activo">' + data + '</label>';
+                    }
+                    else if (row.IdEstado == 2) {
+                        return '<label class="label-estado-inactivo">' + data + '</label>';
+                    }
+                }
+
+            },
             { "data": "Nombre", title: "Tipo Hora Extra", width: 'auto' },
             { "data": "Porcentaje", title: "Porcentaje", width: 'auto', visible: true },
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
             {
-                title: "Estado",
-                data: "Estado",
-                width: 'auto',
-                "render": function (data, type, row) {
-
-                    if (row.IdEstado == 1) {
-                        return '<label class="label-estado-activo">&nbsp;' + data + '&nbsp;</label>';
-                    }
-                    else {
-                        return '<label class="label-estado-inactivo">&nbsp;' + data + '&nbsp;</label>';
-                    }
-                }
-
+                title: "",
+                data: null,
+                defaultContent:
+                    '<a class="EditarTipoHoraExtra btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
+                orderable: false,
             },
             {
                 title: "",
                 data: null,
                 defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<a class="EditarTipoHoraExtra btn btn-editar-dt" title="Editar Registro">Editar</a>' +
-                    '</div>',
+                    '<a class="EliminarTipoHoraExtra btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>',
                 orderable: false,
-                width: 'auto',
-            },
-            {
-                title: "",
-                data: null,
-                defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<a class="EliminarTipoHoraExtra btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
-                    '</div>',
-                orderable: false,
-                width: 'auto',
             },
 
         ],

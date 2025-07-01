@@ -252,7 +252,6 @@ function GridCategoria() {
             { "data": "Nombre", title: "Categoria", width: 'auto' },
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
-
             {
                 title: "",
                 data: null,
@@ -302,7 +301,7 @@ function ListaCategoria() {
             if (resultado.length === 0) {
                 $("#SelectCategoria").append('<option value="">No hay Datos</option>');
             } else {
-                $("#SelectCategoria").empty().append('<option value="-1">Seleccione ...</option>');
+                $("#SelectCategoria").empty().append('<option value="-1">- Escoge una Categoría -</option>');
                 $.each(resultado, function () {
                     $("#SelectCategoria ").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
                     contador++;

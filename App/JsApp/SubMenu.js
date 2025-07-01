@@ -32,7 +32,7 @@ function ListaPermisoSubMenu() {
             if (resultado.length === 0) {
                 $("#SelectSubMenu").append('<option value="">No hay Datos</option>');
             } else {
-                $("#SelectSubMenu").empty().append('<option value="-1">Seleccione ...</option>');
+                $("#SelectSubMenu").empty().append('<option value="-1">- Escoge un Sub Menú -</option>');
                 $.each(resultado, function () {
                     $("#SelectSubMenu ").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
                     contador++;

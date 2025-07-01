@@ -26,7 +26,7 @@ function ListaPermisoMenu() {
             if (resultado.length === 0) {
                 $("#SelectMenu").append('<option value="">No hay Datos</option>');
             } else {
-                $("#SelectMenu").empty().append('<option value="-1">Seleccione ...</option>');
+                $("#SelectMenu").empty().append('<option value="-1">- Escoge un Menú -</option>');
                 $.each(resultado, function () {
                     $("#SelectMenu ").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
                     contador++;

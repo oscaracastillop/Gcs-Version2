@@ -171,15 +171,15 @@ function GridUsuario() {
         scrollX: true,
         dom: 'B<"clear">frtip',
         columnDefs: [
-            { targets: [0], className: 'dt-head-center' },// Propietario
+            { targets: [0], width: '10px', className: 'dt-center dt-head-center' },// Propietario
             { targets: [1], className: 'dt-head-center' },// Usuario/Login
             { targets: [2], className: 'dt-head-center' },// Email
             { targets: [3], className: 'dt-head-center' },// Fecha Vigencia
             { targets: [4], className: 'dt-head-center' },// Creado por
             { targets: [5], className: 'dt-head-center' },// Fecha Creación
-            { targets: [6], width: '50px', className: 'dt-center dt-head-center' },
-            { targets: [7], width: '30px', className: 'dt-center dt-head-center' },
-            { targets: [8], width: '30px', className: 'dt-center dt-head-center' }
+            { targets: [6], className: 'dt-head-center' },
+            { targets: [7], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [8], width: '10px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
             {
@@ -207,7 +207,7 @@ function GridUsuario() {
                     doc.content.splice(0, 1.5);
                     doc.pageMargins = [40, 60, 20, 30];
                     doc.defaultStyle.fontSize = 6;
-                    doc.styles.tableHeader.fontSize = 12;
+                    doc.styles.tableHeader.fontSize = 7;
                     doc['header'] = (function () {
                         return {
                             columns: [
@@ -265,6 +265,20 @@ function GridUsuario() {
             "datatype": "json"
         },
         columns: [
+            {
+                title: "Estado",
+                data: "Estado",
+                "render": function (data, type, row) {
+
+                    if (row.IdEstado == 1) {
+                        return '<label class="label-estado-activo">' + data + '</label>';
+                    }
+                    else if (row.IdEstado == 2) {
+                        return '<label class="label-estado-inactivo">' + data + '</label>';
+                    }
+                }
+
+            },
             { "data": "NombreUsuario", title: "Propietario", width: 'auto' },
             { "data": "Usuario", title: "Usuario/Login", width: 'auto' },
             { "data": "Email", title: "Email", width: 'auto' },
@@ -272,39 +286,18 @@ function GridUsuario() {
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
             {
-                title: "Estado",
-                data: "Estado",
-                width: 'auto',
-                "render": function (data, type, row) {
-
-                    if (row.IdEstado == 1) {
-                        return '<label class="label-estado-activo">&nbsp;' + data + '&nbsp;</label>';
-                    }
-                    else {
-                        return '<label class="label-estado-inactivo">&nbsp;' + data + '&nbsp;</label>';
-                    }
-                }
-
+                title: "",
+                data: null,
+                defaultContent:
+                    '<a class="EditarUsuario btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
+                orderable: false,
             },
             {
                 title: "",
                 data: null,
                 defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<a class="EditarUsuario btn btn-editar-dt" title="Editar Registro">Editar</a>' +
-                    '</div>',
+                    '<a class="EliminarUsuario btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>',
                 orderable: false,
-                width: 'auto',
-            },
-            {
-                title: "",
-                data: null,
-                defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<a class="EliminarUsuario btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
-                    '</div>',
-                orderable: false,
-                width: 'auto',
             },
         ],
         "language": {
@@ -345,7 +338,7 @@ function ListaUsuario() {
             if (resultado.length === 0) {
                 $("#SelectUsuario").append('<option value="">No hay Datos</option>');
             } else {
-                $("#SelectUsuario").empty().append('<option value="-1">Seleccione ...</option>');
+                $("#SelectUsuario").empty().append('<option value="-1">- Escoge un Usuario -</option>');
                 $.each(resultado, function () {
                     $("#SelectUsuario ").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Usuario + '</option>');
                     contador++;

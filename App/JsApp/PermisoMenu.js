@@ -155,13 +155,13 @@ function GridPermisoMenu() {
         scrollX: true,
         dom: 'B<"clear">frtip',
         columnDefs: [
-            { targets: [0], className: 'dt-head-center' },//Usuario
+            { targets: [0], width: '10px', className: 'dt-center dt-head-center' },//Usuario
             { targets: [1], className: 'dt-head-center' },//Menu
             { targets: [2], className: 'dt-head-center' },//Creado Por
             { targets: [3], className: 'dt-head-center' },//Date Create            
-            { targets: [4], width: '50px', className: 'dt-center dt-head-center' },
-            { targets: [5], width: '30px', className: 'dt-center dt-head-center' },
-            { targets: [6], width: '30px', className: 'dt-center dt-head-center' }
+            { targets: [4], className: 'dt-center dt-head-center' },
+            { targets: [5], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [6], width: '10px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -172,7 +172,7 @@ function GridPermisoMenu() {
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
                 text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
                 exportOptions: {
-                    columns: [0, 1, 2, 3],
+                    columns: [0, 1, 2, 3, 4],
                 },
             },
             {
@@ -182,7 +182,7 @@ function GridPermisoMenu() {
                 orientation: 'portrait', // landscape
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
                 exportOptions: {
-                    columns: [0, 1, 2, 3],
+                    columns: [0, 1, 2, 3, 4],
                     search: 'applied',
                     order: 'applied',
                 },
@@ -190,7 +190,7 @@ function GridPermisoMenu() {
                     doc.content.splice(0, 1.5);
                     doc.pageMargins = [40, 60, 20, 30];
                     doc.defaultStyle.fontSize = 6;
-                    doc.styles.tableHeader.fontSize = 12;
+                    doc.styles.tableHeader.fontSize = 7;
                     doc['header'] = (function () {
                         return {
                             columns: [
@@ -248,44 +248,38 @@ function GridPermisoMenu() {
             "datatype": "json"
         },
         columns: [
-            { "data": "Usuario", title: "Usuario", width: 'auto' },
-            { "data": "NombreMenu", title: "Menu", width: 'auto' },            
-            { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
-            { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },            
             {
-                title: "Ver",
+                title: "Visualizar",
                 data: "PermisoTexto",
                 width: 'auto',
                 "render": function (data, type, row) {
 
                     if (row.Permiso == 1) {
-                        return '<label class="label-estado-activo">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label class="label-estado-activo">' + data + '</label>';
                     }
                     else {
-                        return '<label class="label-estado-inactivo">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label class="label-estado-inactivo">' + data + '</label>';
                     }
                 }
 
             },
+            { "data": "Usuario", title: "Usuario", width: 'auto' },
+            { "data": "NombreMenu", title: "Menu", width: 'auto' },            
+            { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
+            { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },            
             {
                 title: "",
                 data: null,
                 defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<a class="EditarPermisoMenu btn btn-editar-dt" title="Editar Registro">Editar</a>' +
-                    '</div>',
+                    '<a class="EditarPermisoMenu btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
                 orderable: false,
-                width: 'auto',
             },
             {
                 title: "",
                 data: null,
                 defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<a class="EliminarPermisoMenu btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
-                    '</div>',
+                    '<a class="EliminarPermisoMenu btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>',
                 orderable: false,
-                width: 'auto',
             },
         ],
         "language": {

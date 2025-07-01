@@ -141,12 +141,12 @@ function GridCCFamiliar() {
         scrollX: true,
         dom: 'B<"clear">frtip',
         columnDefs: [
-            { targets: [0], className: 'dt-head-center' },
+            { targets: [0], width: '10px', className: 'dt-center dt-head-center' },
             { targets: [1], className: 'dt-head-center' },
             { targets: [2], className: 'dt-head-center' },
-            { targets: [3], width: '50px', className: 'dt-center dt-head-center' },
-            { targets: [4], width: '30px', className: 'dt-center dt-head-center' },
-            { targets: [5], width: '30px', className: 'dt-center dt-head-center' }
+            { targets: [3], className: 'dt-head-center' },
+            { targets: [4], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [5], width: '10px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -175,7 +175,7 @@ function GridCCFamiliar() {
                     doc.content.splice(0, 1.5);
                     doc.pageMargins = [40, 60, 20, 30];
                     doc.defaultStyle.fontSize = 6;
-                    doc.styles.tableHeader.fontSize = 12;
+                    doc.styles.tableHeader.fontSize = 7;
                     doc['header'] = (function () {
                         return {
                             columns: [
@@ -233,43 +233,36 @@ function GridCCFamiliar() {
             "datatype": "json"
         },
         columns: [
-            { "data": "Nombre", title: "CC Familiar", width: 'auto' },
-            { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
-            { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
             {
                 title: "Estado",
                 data: "Estado",
-                width: 'auto',
                 "render": function (data, type, row) {
 
                     if (row.IdEstado == 1) {
-                        return '<label class="label-estado-activo">&nbsp;' + data + '&nbsp;</label>';
+                        return '<label class="label-estado-activo">' + data + '</label>';
                     }
-                    else {
-                        return '<label class="label-estado-inactivo">&nbsp;' + data + '&nbsp;</label>';
+                    else if (row.IdEstado == 2) {
+                        return '<label class="label-estado-inactivo">' + data + '</label>';
                     }
                 }
 
             },
+            { "data": "Nombre", title: "CC Familiar", width: 'auto' },
+            { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
+            { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
             {
                 title: "",
                 data: null,
                 defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<a class="EditarCCFamiliar btn btn-editar-dt" title="Editar Registro">Editar</a>' +
-                    '</div>',
+                    '<a class="EditarCCFamiliar btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
                 orderable: false,
-                width: 'auto',
             },
             {
                 title: "",
                 data: null,
                 defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<a class="EliminarCCFamiliar btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
-                    '</div>',
+                    '<a class="EliminarCCFamiliar btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>',
                 orderable: false,
-                width: 'auto',
             },
         ],
         "language": {

@@ -5,9 +5,9 @@
     $("#SelectMenu").val(-1);
     $("#SelectSubMenu").val(-1);
     $("#SelectEstadoPermisoSubMenu").val(1);
-    $("#SelectEstadoCrearSubMenu").val(0);
-    $("#SelectEstadoEditarSubMenu").val(0);
-    $("#SelectEstadoEliminarSubMenu").val(0);
+    $("#SelectEstadoCrearSubMenu").val(2);
+    $("#SelectEstadoEditarSubMenu").val(2);
+    $("#SelectEstadoEliminarSubMenu").val(2);
     $("#BotonesModalPermisoSubMenu").empty();
     if (tipo == 'C') {
         $("#TituloModalPermisoSubMenu").empty().append('<label>Crear Permiso Sub Menu</label>');
@@ -174,17 +174,17 @@ function GridPermisoSubMenu() {
         scrollX: true,
         dom: 'B<"clear">frtip',
         columnDefs: [
-            { targets: [0], className: 'dt-head-center' },//Usuario
-            { targets: [1], className: 'dt-head-center' },//Menu
-            { targets: [2], className: 'dt-head-center' },//Sub Menu
-            { targets: [3], className: 'dt-center dt-head-center' },//Permiso
-            { targets: [4], className: 'dt-center dt-head-center' },//Crear
-            { targets: [5], className: 'dt-center dt-head-center' },//Editar
-            { targets: [6], className: 'dt-center dt-head-center' },//Eliminar
+            { targets: [0], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [1], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [2], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [3], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [4], className: 'dt-head-center' },//Crear
+            { targets: [5], className: 'dt-head-center' },//Editar
+            { targets: [6], className: 'dt-head-center' },//Eliminar
             { targets: [7], className: 'dt-head-center' },//Creado Por
             { targets: [8], className: 'dt-head-center' },//Date Create            
-            { targets: [9], width: '30px', className: 'dt-center dt-head-center' },
-            { targets: [10], width: '30px', className: 'dt-center dt-head-center' }
+            { targets: [9], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [10], width: '10px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -213,7 +213,7 @@ function GridPermisoSubMenu() {
                     doc.content.splice(0, 1.5);
                     doc.pageMargins = [40, 60, 20, 30];
                     doc.defaultStyle.fontSize = 6;
-                    doc.styles.tableHeader.fontSize = 12;
+                    doc.styles.tableHeader.fontSize = 7;
                     doc['header'] = (function () {
                         return {
                             columns: [
@@ -271,11 +271,8 @@ function GridPermisoSubMenu() {
             "datatype": "json"
         },
         columns: [
-            { "data": "Usuario", title: "Usuario", width: 'auto' },
-            { "data": "NombreMenu", title: "Menú", width: 'auto' },
-            { "data": "NombreSubMenu", title: "Sub Menú", width: 'auto' },  
             {
-                title: "Ver",
+                title: "Visualizar",
                 data: "PermisoTexto",
                 width: 'auto',
                 "render": function (data, type, row) {
@@ -334,28 +331,24 @@ function GridPermisoSubMenu() {
                 }
 
             },
+            { "data": "Usuario", title: "Usuario", width: 'auto' },
+            { "data": "NombreMenu", title: "Menú", width: 'auto' },
+            { "data": "NombreSubMenu", title: "Sub Menú", width: 'auto' },              
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
-
             {
                 title: "",
                 data: null,
                 defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<a class="EditarPermisoSubMenu btn btn-editar-dt" title="Editar Registro">Editar</a>' +
-                    '</div>',
+                    '<a class="EditarPermisoSubMenu btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
                 orderable: false,
-                width: 'auto',
             },
             {
                 title: "",
                 data: null,
                 defaultContent:
-                    '<div class="btn-group-sm">' +
-                    '<a class="EliminarPermisoSubMenu btn btn-eliminar-dt" title="Eliminar Registro">Eliminar</a>' +
-                    '</div>',
+                    '<a class="EliminarPermisoSubMenu btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>',
                 orderable: false,
-                width: 'auto',
             },
         ],
         "language": {
