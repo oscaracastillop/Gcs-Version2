@@ -23,32 +23,35 @@
 
 
 function CargarDatosEmpleadoNomina() {
-
+    $('#datosNominaEmpleado').hide();
     let IdEmpleado = $('#SelectContratoLaboralSucursalEmpleado').val();
     let DiasaPagar = $('#InputNominaEmpleadoDiasPagar').val();
     let FechaInicio = $('#InputNominaEmpleadoFechaInicio').val();
     let FechaFin = $('#InputNominaEmpleadoFechaCorte').val();
 
-    $('#txtEmpresaNominaEmpleado').empty().val('');
-    $('#txtSueldoNominaEmpleado').empty().val('');
-    $('#txtBonosNominaEmpleado').empty().val('');
-    $('#txtPrestamosINominaEmpleado').empty().val('');
-    $('#txtHEDiurnaNominaEmpleado').empty().val('');
-    $('#txtHENocturnaNominaEmpleado').empty().val('');
-    $('#txtHEDiurnaDFNominaEmpleado').empty().val('');
-    $('#txtHENocturnaDFNominaEmpleado').empty().val('');
-    $('#txtCasinoNominaEmpleado').empty().val('');
-    $('#txtPrestamosDNominaEmpleado').empty().val('');
-    $('#txtNovedadesNominaEmpleado').empty().val('');
+    $('#txtEmpresaNominaEmpleado').empty().text('');
+    $('#txtSueldoNominaEmpleado').empty().text('');
+    $('#txtBonosNominaEmpleado').empty().text('');
+    $('#txtPrestamosINominaEmpleado').empty().text('');
+    $('#txtHEDiurnaNominaEmpleado').empty().text('');
+    $('#txtHENocturnaNominaEmpleado').empty().text('');
+    $('#txtHEDiurnaDFNominaEmpleado').empty().text('');
+    $('#txtHENocturnaDFNominaEmpleado').empty().text('');
+    $('#txtCasinoNominaEmpleado').empty().text('');
+    $('#txtPrestamosDNominaEmpleado').empty().text('');
+    $('#txtNovedadesNominaEmpleado').empty().text('');
 
     if (FechaInicio == null || FechaInicio == '' || FechaInicio == undefined) {
         $('#InputNominaEmpleadoFechaInicio').focus();
+        $("#SelectContratoLaboralSucursalEmpleado").val(-1);
         VentanaMensaje('Ingrese Fecha Inicio', 'info');
     } else if (FechaFin == null || FechaFin == '' || FechaFin == undefined) {
         $('#InputNominaEmpleadoFechaCorte').focus();
+        $("#SelectContratoLaboralSucursalEmpleado").val(-1);
         VentanaMensaje('Ingrese Fecha Fin', 'info');
     } else if (DiasaPagar == null || DiasaPagar == '' || DiasaPagar == undefined) {
         $('#InputNominaEmpleadoDiasPagar').focus();
+        $("#SelectContratoLaboralSucursalEmpleado").val(-1);
         VentanaMensaje('Ingrese los días a pagar', 'info');
     } else if (IdEmpleado == null || IdEmpleado == -1 || IdEmpleado == undefined) {
         $('#SelectContratoLaboralSucursalEmpleado').focus();
@@ -65,27 +68,27 @@ function CargarDatosEmpleadoNomina() {
                 DiasaPagar: DiasaPagar
             },
             success: function (resultado) {
-                $('#txtEmpresaNominaEmpleado').val(resultado[0].txtEmpresaNominaEmpleado);
-                $('#txtSalarioNominaEmpleado').val('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtSalarioNominaEmpleado));
-                $('#txtSueldoaPagarNominaEmpleado').val('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtSueldoaPagarNominaEmpleado));
-                $('#txtAuxTransporteNominaEmpleado').val('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtAuxTransporteNominaEmpleado));
-                $('#txtHEDiurnaNominaEmpleado').val('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtHEDiurnaNominaEmpleado));
-                $('#txtHENocturnaNominaEmpleado').val('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtHENocturnaNominaEmpleado));
-                $('#txtHEDiurnaDFNominaEmpleado').val('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtHEDiurnaDFNominaEmpleado));
-                $('#txtHENocturnaDFNominaEmpleado').val('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtHENocturnaDFNominaEmpleado));
-                $('#txtBonosNominaEmpleado').val('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtBonosNominaEmpleado));
-                $('#txtPrestamosINominaEmpleado').val('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtPrestamosINominaEmpleado));
+                $('#txtEmpresaNominaEmpleado').text(resultado[0].txtEmpresaNominaEmpleado);
+                $('#txtSalarioNominaEmpleado').text('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtSalarioNominaEmpleado));
+                $('#txtSueldoaPagarNominaEmpleado').text('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtSueldoaPagarNominaEmpleado));
+                $('#txtAuxTransporteNominaEmpleado').text('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtAuxTransporteNominaEmpleado));
+                $('#txtHEDiurnaNominaEmpleado').text('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtHEDiurnaNominaEmpleado));
+                $('#txtHENocturnaNominaEmpleado').text('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtHENocturnaNominaEmpleado));
+                $('#txtHEDiurnaDFNominaEmpleado').text('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtHEDiurnaDFNominaEmpleado));
+                $('#txtHENocturnaDFNominaEmpleado').text('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtHENocturnaDFNominaEmpleado));
+                $('#txtBonosNominaEmpleado').text('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtBonosNominaEmpleado));
+                $('#txtPrestamosINominaEmpleado').text('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtPrestamosINominaEmpleado));
                 $('#txtTotalIngresosNominaEmpleado').text('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtTotalIngresosNominaEmpleado));
 
-                $('#txtEpsNominaEmpleado').val('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtEpsNominaEmpleado));
-                $('#txtPensionNominaEmpleado').val('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtPensionNominaEmpleado));
-                $('#txtCasinoNominaEmpleado').val('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtCasinoNominaEmpleado));
-                $('#txtPrestamosDNominaEmpleado').val('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtPrestamosDNominaEmpleado));
-                $('#txtNovedadesNominaEmpleado').val('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtNovedadesNominaEmpleado));
+                $('#txtEpsNominaEmpleado').text('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtEpsNominaEmpleado));
+                $('#txtPensionNominaEmpleado').text('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtPensionNominaEmpleado));
+                $('#txtCasinoNominaEmpleado').text('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtCasinoNominaEmpleado));
+                $('#txtPrestamosDNominaEmpleado').text('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtPrestamosDNominaEmpleado));
+                $('#txtNovedadesNominaEmpleado').text('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtNovedadesNominaEmpleado));
                 $('#txtTotalDescuentosNominaEmpleado').text('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtTotalDescuentosNominaEmpleado));
 
                 $('#txtTotalPagoNominaEmpleado').text('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtTotalPagoNominaEmpleado));
-
+                $('#datosNominaEmpleado').show();
             },
         });
     }
