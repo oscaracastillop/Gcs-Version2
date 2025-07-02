@@ -35,12 +35,12 @@
                     </div>
                     <div class="col-4">
                         <label><strong>Empleado</strong><label style="color:red"> *</label></label>
-                        <select class="form-control" id="SelectContratoLaboralSucursalEmpleado" style="min-width:100%"></select>
+                        <select class="form-control" id="SelectContratoLaboralSucursalEmpleado" style="min-width:100%" onchange="CargarDatosEmpleadoNomina()"></select>
                     </div>
-                    <div class="col-2">
+                    @*<div class="col-2">
                         <br />
-                        <a style="height:30px!important; font-size:11px!important; line-height:20px!important" class="btn btn-modal-Cancelar btn-sm" onclick="CargarDatosEmpleadoNomina()">Buscar</a>
-                    </div>
+                        <a style="height:30px!important; font-size:11px!important; line-height:20px!important" class="btn btn-nuevo-datatable btn-sm" onclick="CargarDatosEmpleadoNomina()">Buscar</a>
+                    </div>*@
                 </div>
                 <br />
 
@@ -231,17 +231,18 @@
                         </div>
                     </div>
                 </div>
+                <br />
+                <div class="modal-footer" id="BotonesModalNominaEmpleado"></div>
             </div> 
             <br />
         <div>
             <ul>                
                 <li>Tenga presente que previamente debe ingresar los datos de <strong>Ingresos Adicionales (bonificaciones, préstamos, horas extras), Descuentos Adicionales (Casino, Préstamos, descuentos por días no laborados)</strong>, el sistema tendra en cuenta la fecha de Inicio y Fin para calcular la nómina correspondiente al Empleado seleccionado.</li>
             </ul>
-        </div>
+                </div>
 
-            </div>
-            <div class="modal-footer" id="BotonesModalNominaEmpleado">
-            </div>
+                </div>
+            
         </div>
     </div>
 </div>
