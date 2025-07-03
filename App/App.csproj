@@ -2202,6 +2202,7 @@
     <Content Include="JsApp\FormaPago.js" />
     <Content Include="JsApp\getBase64FomFile.js" />
     <Content Include="JsApp\Goblal.js" />
+    <Content Include="JsApp\HoraExtraEmpleado.js" />
     <Content Include="JsApp\Login.js" />
     <Content Include="JsApp\Menu.js" />
     <Content Include="JsApp\NominaEmpleado.js" />
@@ -2478,6 +2479,7 @@
     <Compile Include="Controllers\Hoja_de_VidaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Hora_ExtraController.cs" />
+    <Compile Include="Controllers\Hora_Extra_EmpleadoController.cs" />
     <Compile Include="Controllers\InformacionController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MantenimientoController.cs" />
@@ -2574,6 +2576,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Hora_Extra_Empleado\" />
     <Folder Include="Views\Nomina_Empleado\" />
     <Folder Include="Views\Producto\" />
     <Folder Include="Views\UnidadMedida\" />

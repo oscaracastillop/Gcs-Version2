@@ -80,6 +80,7 @@
     <Compile Include="DataEntities\DataFondoCesantias.cs" />
     <Compile Include="DataEntities\DataFondoPensiones.cs" />
     <Compile Include="DataEntities\DataFormaPago.cs" />
+    <Compile Include="DataEntities\DataHoraExtraEmpleado.cs" />
     <Compile Include="DataEntities\DataLogin.cs" />
     <Compile Include="DataEntities\DataMenu.cs" />
     <Compile Include="DataEntities\DataNominaEmpleado.cs" />

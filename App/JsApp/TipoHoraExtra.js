@@ -314,7 +314,7 @@ function ListaTipoHoraExtra() {
             if (resultado.length === 0) {
                 $("#SelectTipoHoraExtra").append('<option value="">No hay Datos</option>');
             } else {
-                $("#SelectTipoHoraExtra").empty().append('<option value="-1">Seleccione ...</option>');
+                $("#SelectTipoHoraExtra").empty().append('<option value="-1">- Escoge un Tipo HE -</option>');
                 $.each(resultado, function () {
                     $("#SelectTipoHoraExtra ").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
                     contador++;

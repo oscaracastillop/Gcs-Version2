@@ -4,3 +4,65 @@
 }
 
 <h6>Módulo Hora Extra</h6>
+
+<div class="modal fade" id="ModalHoraExtraEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <div class="modal-title" id="TituloModalHoraExtraEmpleado"></div>
+            </div>
+            <div class="modal-body">
+                <label id="LabelIdHoraExtraEmpleado" hidden></label>
+                <div>
+                    <label><strong>Empleado</strong><label style="color:red" id=""> *</label></label>
+                    <select class="form-control" id="SelectContratoLaboralSucursalEmpleado" style="min-width:100%"></select>
+                </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <label><strong>Tipo Hora Extra</strong><label style="color:red" id=""> *</label></label>
+                            <select class="form-control" id="SelectTipoHoraExtra" style="min-width:100%"></select>
+                        </div>
+                        <div class="col-4">
+                            <label><strong>Cantidad</strong><label style="color:red" id=""> *</label></label>
+                            <input class="form-control" type="number" id="InputCantidadHEEmpleado" name="name" autocomplete="off" style="min-width:100%" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <label><strong>Fecha Hora Extra</strong><label style="color:red" id=""> *</label></label>
+                            <input class="form-control" type="date" id="InputFechaHEEmpleado" name="name" autocomplete="off" style="min-width:100%" />
+                        </div>
+                        <div class="col-6">
+                            <label><strong>Fecha Pago Hora Extra</strong><label style="color:red" id=""> *</label></label>
+                            <input class="form-control" type="date" id="InputFechaPagoHEEmplado" name="name" autocomplete="off" style="min-width:100%" />
+                        </div>
+                    </div>
+                    <div>
+                        <label><strong>Observación</strong></label>
+                        <input class="form-control" type="text" id="InputHEEmpleadoObservacion" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                    <div class="col-3" id="SelectEstadoHoraExtraEmpleado">
+                        <label><strong>Estado</strong></label>
+                        <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
+                    </div>
+                </div>
+
+                <div class="modal-footer" id="BotonesModalHoraExtraEmpleado">
+                </div>
+            </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        ValidarSesion('/Recursos_Humanos/Hora_Extra');
+        //GridNominaEmpleado();
+        ListaTipoEstado(1);
+        ListaContratoLaboralSucursalEmpleado();
+        ListaTipoHoraExtra();
+        ModalHoraExtraEmpleado('C');
+
+    });
+</script>

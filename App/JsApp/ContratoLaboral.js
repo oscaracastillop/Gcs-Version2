@@ -562,7 +562,7 @@ function ListaContratoLaboralSucursalEmpleado() {
             if (resultado.length == 0) {
                 $("#SelectContratoLaboralSucursalEmpleado").append('<option value="">No hay Datos</option>');
             } else {
-                $("#SelectContratoLaboralSucursalEmpleado").empty().append('<option value="-1">Seleccione ...</option>');
+                $("#SelectContratoLaboralSucursalEmpleado").empty().append('<option value="-1">- Escoge un Empleado -</option>');
                 $.each(resultado, function () {
                     $("#SelectContratoLaboralSucursalEmpleado").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
                     contador++;
