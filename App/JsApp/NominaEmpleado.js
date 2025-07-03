@@ -23,28 +23,34 @@
 
 
 function CargarDatosEmpleadoNomina() {
-    $('#datosNominaEmpleado').hide();
+   
     let IdEmpleado = $('#SelectContratoLaboralSucursalEmpleado').val();
     let DiasaPagar = $('#InputNominaEmpleadoDiasPagar').val();
     let FechaInicio = $('#InputNominaEmpleadoFechaInicio').val();
     let FechaFin = $('#InputNominaEmpleadoFechaCorte').val();
 
-    $('#txtEmpresaNominaEmpleado').empty().text('');
-    $('#txtSueldoNominaEmpleado').empty().text('');
-    $('#txtBonosNominaEmpleado').empty().text('');
-    $('#txtPrestamosINominaEmpleado').empty().text('');
-    $('#txtHEDiurnaNominaEmpleado').empty().text('');
-    $('#txtHENocturnaNominaEmpleado').empty().text('');
-    $('#txtHEDiurnaDFNominaEmpleado').empty().text('');
-    $('#txtHENocturnaDFNominaEmpleado').empty().text('');
-    $('#txtCasinoNominaEmpleado').empty().text('');
-    $('#txtPrestamosDNominaEmpleado').empty().text('');
-    $('#txtNovedadesNominaEmpleado').empty().text('');
+    $('#txtEmpresaNominaEmpleado').text('');
+    $('#txtSalarioNominaEmpleado').text('');
+    $('#txtSueldoaPagarNominaEmpleado').text('');
+    $('#txtAuxTransporteNominaEmpleado').text('');
+    $('#txtHEDiurnaNominaEmpleado').text('');
+    $('#txtHENocturnaNominaEmpleado').text('');
+    $('#txtHEDiurnaDFNominaEmpleado').text('');
+    $('#txtHENocturnaDFNominaEmpleado').text('');
+    $('#txtBonosNominaEmpleado').text('');
+    $('#txtPrestamosINominaEmpleado').text('');
+    $('#txtTotalIngresosNominaEmpleado').text('');
 
-    if (IdEmpleado == null || IdEmpleado == -1 || IdEmpleado == undefined) {
-        $('#SelectContratoLaboralSucursalEmpleado').focus();
-        VentanaMensaje('Seleccione un Empleado', 'info');
-    } else {
+    $('#txtEpsNominaEmpleado').text('');
+    $('#txtPensionNominaEmpleado').text('');
+    $('#txtCasinoNominaEmpleado').text('');
+    $('#txtPrestamosDNominaEmpleado').text('');
+    $('#txtNovedadesNominaEmpleado').text('');
+    $('#txtTotalDescuentosNominaEmpleado').text('');
+
+    $('#txtTotalPagoNominaEmpleado').text('');
+
+    
         if (FechaInicio == null || FechaInicio == '' || FechaInicio == undefined) {
             $('#InputNominaEmpleadoFechaInicio').focus();
             $("#SelectContratoLaboralSucursalEmpleado").val(-1);
@@ -53,6 +59,10 @@ function CargarDatosEmpleadoNomina() {
             $('#InputNominaEmpleadoFechaCorte').focus();
             $("#SelectContratoLaboralSucursalEmpleado").val(-1);
             VentanaMensaje('Ingrese Fecha Fin', 'info');
+        } else if (FechaFin < FechaInicio) {
+            $('#InputNominaEmpleadoFechaCorte').focus();
+            $("#SelectContratoLaboralSucursalEmpleado").val(-1);
+            VentanaMensaje('La fecha fin no puede ser inferior a la fecha de Inicio', 'info');
         } else if (DiasaPagar == null || DiasaPagar == '' || DiasaPagar == undefined) {
             $('#InputNominaEmpleadoDiasPagar').focus();
             $("#SelectContratoLaboralSucursalEmpleado").val(-1);
@@ -92,9 +102,51 @@ function CargarDatosEmpleadoNomina() {
                     $('#txtTotalDescuentosNominaEmpleado').text('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtTotalDescuentosNominaEmpleado));
 
                     $('#txtTotalPagoNominaEmpleado').text('$ ' + new Intl.NumberFormat('en-US').format(resultado[0].txtTotalPagoNominaEmpleado));
-                    $('#datosNominaEmpleado').show();
+                    //$('#datosNominaEmpleado').show();
                 },
             });
         }
+    
+}
+
+
+function CrearNominaEmpleado() {
+    let IdEmpleado = $('#SelectContratoLaboralSucursalEmpleado').val();
+    let DiasaPagar = $('#InputNominaEmpleadoDiasPagar').val();
+    let FechaInicio = $('#InputNominaEmpleadoFechaInicio').val();
+    let FechaFin = $('#InputNominaEmpleadoFechaCorte').val();
+
+    if (FechaInicio == null || FechaInicio == '' || FechaInicio == undefined) {
+        $('#InputNominaEmpleadoFechaInicio').focus();
+        VentanaMensaje('Ingrese Fecha Inicio', 'info');
+    } else if (FechaFin == null || FechaFin == '' || FechaFin == undefined) {
+        $('#InputNominaEmpleadoFechaCorte').focus();
+        VentanaMensaje('Ingrese Fecha Fin', 'info');
+    } else if (FechaFin < FechaInicio) {
+        $('#InputNominaEmpleadoFechaCorte').focus();
+        VentanaMensaje('La fecha fin no puede ser inferior a la fecha de Inicio', 'info');
+    } else if (DiasaPagar == null || DiasaPagar == '' || DiasaPagar == undefined) {
+        $('#InputNominaEmpleadoDiasPagar').focus();
+        VentanaMensaje('Ingrese los días a pagar', 'info');
+    } else if (IdEmpleado == null || IdEmpleado == -1 || IdEmpleado == undefined) {
+        $('#SelectContratoLaboralSucursalEmpleado').focus();
+        VentanaMensaje('Seleccione un Empleado', 'info');
+    } else {
+        //$.ajax({
+        //    type: 'POST',
+        //    dataType: 'json',
+        //    url: '/Nomina_Empleado/CrearNominaEmpleado',
+        //    data: {
+        //        IdEmpleado: IdEmpleado,
+        //        FechaInicio: FechaInicio,
+        //        FechaFin: FechaFin,
+        //        DiasaPagar: DiasaPagar
+        //    },
+        //    success: function (resultado) {
+
+        //    },
+        //});
+
+        alert('message');
     }
 }
