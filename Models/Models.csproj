@@ -56,6 +56,7 @@
     <Compile Include="FondoCesantias.cs" />
     <Compile Include="FondoPensiones.cs" />
     <Compile Include="FormaPago.cs" />
+    <Compile Include="HoraExtraEmpleado.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="NominaEmpleado.cs" />
     <Compile Include="PermisoMenu.cs" />

@@ -19,9 +19,9 @@ namespace App.Controllers
             return Json(resultado);
         }
 
-        public JsonResult EliminarHoraExtraEmpleado(string IdUser, int IdCasinoEmpleado)
+        public JsonResult EliminarHoraExtraEmpleado(string IdUser, int IdHoraExtra)
         {
-            string resultado = dataHoraExtraEmpleado.EliminarHoraExtraEmpleado(IdUser, IdCasinoEmpleado);
+            string resultado = dataHoraExtraEmpleado.EliminarHoraExtraEmpleado(IdUser, IdHoraExtra);
             return Json(resultado);
         }
 

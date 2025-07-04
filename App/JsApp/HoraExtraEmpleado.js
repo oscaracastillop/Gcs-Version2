@@ -28,7 +28,7 @@ function CrearHoraExtraEmpleado() {
     let CantidadHE = $('#InputCantidadHEEmpleado').val();
     let FechaHE = $('#InputFechaHEEmpleado').val();
     let FechaPagoHE = $('#InputFechaPagoHEEmplado').val();
-    let Observacion = $('#InputCasinoEmpleadoObservacion').val();
+    let Observacion = $('#InputHEEmpleadoObservacion').val();
 
     if (IdEmpleado == -1 || IdEmpleado == null || IdEmpleado == '') {
         $('#SelectContratoLaboralSucursalEmpleado').focus();

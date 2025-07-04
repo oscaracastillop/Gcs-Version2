@@ -3352,7 +3352,7 @@ GO
 CREATE PROCEDURE [dbo].[SP_ListaTipoHoraExtra]
 AS
 BEGIN
-	SELECT Id, Nombre + ' '+ CONVERT(varchar(255),Porcentaje) + ' %' FROM TipoHoraExtra ORDER BY Nombre ASC							
+	SELECT Id, Nombre + ' '+ CONVERT(varchar(255),Porcentaje) + ' %' As Nombre FROM TipoHoraExtra ORDER BY Nombre ASC							
 END
 
 GO
@@ -5075,7 +5075,7 @@ CREATE PROCEDURE [dbo].[SP_ListaContratoLaboralSucursalEmpleado]
 AS
 BEGIN
 	SELECT	A.Id, 
-			A.Nombre + ' ' + A.Apellidos As Nombre 
+			A.Nombre + ' ' + A.Apellidos+ ' < Id: '+ A.Identificacion +' >' As Nombre 
 	FROM	Empleado A,
 			ContratoLaboral B,
 			SucursalEmpleado C
@@ -6773,6 +6773,108 @@ WHERE	A.IdEmpleado = @IdEmpleado
 		AND C.IdEstado = 1
 		AND D.Id = C.IdSucursal
 END
+
+
+
+
+
+
+
+
+/* HORA EXTRA */
+
+GO
+
+CREATE TABLE HoraExtraEmpleado 
+(Id int identity(1,1) Primary key ,
+IdEmpleado Int,
+IdSucursal Int,
+IdContratoLaboral Int,
+Sueldo int,
+HorasDefinidasxMes int,
+IdTipoHoraExtra int,
+PorcentajeHE int,
+Cantidad decimal(10,2),
+ValorHoraOrdinaria decimal(10,2),
+ValorHoraExtra decimal(10,2),
+ValorTotalHoraExtra decimal(10,2),
+FechaHE Date,
+FechaPagoHE Date,
+IdNominaEmpleado Int,
+Observacion varchar(max),
+IdEstado Int default 1,
+CreateBy Int,
+DateCreate datetime
+)
+
+GO
+
+ALTER TABLE HoraExtraEmpleado ADD CONSTRAINT FK_IdEmpleadoHoraExtraEmpleado FOREIGN KEY (IdEmpleado ) references Empleado(Id)
+ALTER TABLE HoraExtraEmpleado ADD CONSTRAINT FK_IdSucursalHoraExtraEmpleado FOREIGN KEY (IdSucursal ) references Sucursal(Id)
+ALTER TABLE HoraExtraEmpleado ADD CONSTRAINT FK_IdContratoLaboralHoraExtraEmpleado FOREIGN KEY (IdContratoLaboral ) references ContratoLaboral(Id)
+ALTER TABLE HoraExtraEmpleado ADD CONSTRAINT FK_IdTipoHoraExtraEmpleado FOREIGN KEY (IdTipoHoraExtra ) references TipoHoraExtra(Id)
+ALTER TABLE HoraExtraEmpleado ADD CONSTRAINT FK_IdCreateByHoraExtraEmpleado FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE HoraExtraEmpleado ADD CONSTRAINT FK_IdEstadoHoraExtraEmpleado FOREIGN KEY (IdEstado ) references TipoEstado(Id)
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_CrearHoraExtraEmpleado] 
+				@IdUser varchar(255), 			
+				@IdEmpleado int,
+				@IdTipoHoraExtra int,
+				@CantidadHE decimal(10,2),
+				@FechaHE varchar(255),
+				@FechaPagoHE varchar(255),
+				@Observacion varchar(255), 	
+				@Resultado varchar(MAX) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@IdSucursal INT,
+		@IdContratoLaboral INT,
+		@Sueldo INT,
+		@HorasDefinidasxMes INT,
+		@PorcentajeHE INT,
+		@ValorHoraOrdinaria DECIMAL(10,2),
+		@ValorHoraExtra DECIMAL(10,2),
+		@TotalValorHoraExtra DECIMAL(10,2),
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+
+
+SET @Accion = 'Crear'
+SET @SubMenu = '/Recursos_Humanos/Hora_Extra'		   	
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+SELECT @IdContratoLaboral = Id FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
+SELECT @Sueldo = SalarioMensual FROM ContratoLaboral WHERE IdEmpleado = @IdEmpleado
+SELECT @HorasDefinidasxMes = 220 -- (44 * 5 = 220)
+SELECT @PorcentajeHE = Porcentaje FROM TipoHoraExtra WHERE Id = @IdTipoHoraExtra
+SELECT @ValorHoraOrdinaria = (SalarioMensual/@HorasDefinidasxMes) FROM ContratoLaboral WHERE IdEmpleado = @IdEmpleado
+SELECT @ValorHoraExtra = (((@ValorHoraOrdinaria*Porcentaje)/100)+@ValorHoraOrdinaria) FROM TipoHoraExtra WHERE Id = @IdTipoHoraExtra
+SELECT @TotalValorHoraExtra = (@ValorHoraExtra*@CantidadHE)
+
+
+IF @Permiso > 0	
+	BEGIN	
+		SELECT	@IdSucursal = IdSucursal FROM SucursalEmpleado WHERE IdEmpleado = @IdEmpleado AND IdEstado = 1
+
+		INSERT INTO HoraExtraEmpleado
+		(IdEmpleado, IdSucursal, IdContratoLaboral, Sueldo, HorasDefinidasxMes, IdTipoHoraExtra, PorcentajeHE, Cantidad, ValorHoraOrdinaria, ValorHoraExtra, ValorTotalHoraExtra, FechaHE, FechaPagoHE, Observacion, CreateBy, DateCreate) 
+		VALUES 
+		(@IdEmpleado, @IdSucursal, @IdContratoLaboral, @Sueldo, @HorasDefinidasxMes, @IdTipoHoraExtra, @PorcentajeHE, @CantidadHE, @ValorHoraOrdinaria, @ValorHoraExtra, @TotalValorHoraExtra, @FechaHE, @FechaPagoHE, @Observacion, @IdUsuario, GETDATE()) 
+		SET @Resultado = 'OK*Los datos se crearon correctamente'		
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
 
 
 
