@@ -6718,7 +6718,11 @@ DECLARE
 @PorcentajeEps INT,
 @PorcentajePension INT,
 @Pension INT,
-@Bonos INT, @Casino INT, @PrestamosIngreso INT, @PrestamosDescuento INT, @TotalIngresos INT, @TotalDescuentos INT
+@Bonos INT, @Casino INT, @PrestamosIngreso INT, @PrestamosDescuento INT, @TotalIngresos INT, @TotalDescuentos INT, @ValorTotalHED DECIMAL(10,2),
+@ValorTotalHEN DECIMAL(10,2),
+@ValorTotalHEDDF DECIMAL(10,2),
+@ValorTotalHENDF DECIMAL(10,2)
+
 
 SELECT @IdContratoLaboral = Id FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
 
@@ -6728,6 +6732,10 @@ SELECT @SubTransporte = (SubTransporte/30)*@DiasaPagar FROM ContratoLaboral wher
 SELECT @Bonos = ISNULL(SUM(Valor),0) FROM	BonoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
 SELECT @PrestamosIngreso = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
 
+SELECT @ValorTotalHED = ISNULL(SUM(ValorTotalHoraExtra),0) FROM	HoraExtraEmpleado WHERE	IdEstado = 1 AND IdTipoHoraExtra = 1 AND IdEmpleado = @IdEmpleado AND FechaPagoHE BETWEEN @FechaInicio AND @FechaFin
+SELECT @ValorTotalHEN = ISNULL(SUM(ValorTotalHoraExtra),0) FROM	HoraExtraEmpleado WHERE	IdEstado = 1 AND IdTipoHoraExtra = 2 AND IdEmpleado = @IdEmpleado AND FechaPagoHE BETWEEN @FechaInicio AND @FechaFin
+SELECT @ValorTotalHEDDF = ISNULL(SUM(ValorTotalHoraExtra),0) FROM	HoraExtraEmpleado WHERE	IdEstado = 1 AND IdTipoHoraExtra = 3 AND IdEmpleado = @IdEmpleado AND FechaPagoHE BETWEEN @FechaInicio AND @FechaFin
+SELECT @ValorTotalHENDF = ISNULL(SUM(ValorTotalHoraExtra),0) FROM	HoraExtraEmpleado WHERE	IdEstado = 1 AND IdTipoHoraExtra = 4 AND IdEmpleado = @IdEmpleado AND FechaPagoHE BETWEEN @FechaInicio AND @FechaFin
 
 SELECT @PorcentajeEps = PorcentajeEps FROM ContratoLaboral where Id = @IdContratoLaboral
 SELECT @PorcentajePension = PorcentajeFondoPension FROM ContratoLaboral where Id = @IdContratoLaboral
@@ -6747,6 +6755,14 @@ CONVERT(VARCHAR(255),ISNULL(@Sueldo,0)) AS txtSueldoaPagarNominaEmpleado,
 CONVERT(VARCHAR(255),ISNULL(@SubTransporte,0)) AS txtAuxTransporteNominaEmpleado,
 CONVERT(VARCHAR(255),ISNULL(@Bonos,0)) AS txtBonosNominaEmpleado,
 CONVERT(VARCHAR(255),ISNULL(@PrestamosIngreso,0)) AS txtPrestamosINominaEmpleado,
+
+CONVERT(VARCHAR(255),ISNULL(ROUND(@ValorTotalHED,0),0)) AS txtHEDiurnaNominaEmpleado,
+CONVERT(VARCHAR(255),ISNULL(ROUND(@ValorTotalHEN,0),0)) AS txtHENocturnaNominaEmpleado,
+CONVERT(VARCHAR(255),ISNULL(ROUND(@ValorTotalHEDDF,0),0)) AS txtHEDiurnaDFNominaEmpleado,
+CONVERT(VARCHAR(255),ISNULL(ROUND(@ValorTotalHENDF,0),0)) AS txtHENocturnaDFNominaEmpleado,
+
+
+
 CONVERT(VARCHAR(255),@TotalIngresos) AS txtTotalIngresosNominaEmpleado,
 
 CONVERT(VARCHAR(255),@Eps) AS txtEpsNominaEmpleado,
@@ -6773,6 +6789,7 @@ WHERE	A.IdEmpleado = @IdEmpleado
 		AND C.IdEstado = 1
 		AND D.Id = C.IdSucursal
 END
+
 
 
 
