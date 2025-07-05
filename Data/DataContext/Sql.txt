@@ -3305,7 +3305,7 @@ GO
 CREATE PROCEDURE [dbo].[SP_ListaEmpleado]
 AS
 BEGIN
-	SELECT Id, Nombre FROM Empleado ORDER BY Nombre ASC							
+	SELECT Id, Nombre + ' ' + Apellidos + ' < Id: ' + Identificacion + ' >' As Nombre FROM Empleado ORDER BY Nombre ASC													
 END
 
 GO
@@ -6850,7 +6850,7 @@ SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
 SELECT @IdContratoLaboral = Id FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
 SELECT @Sueldo = SalarioMensual FROM ContratoLaboral WHERE IdEmpleado = @IdEmpleado
-SELECT @HorasDefinidasxMes = 220 -- (44 * 5 = 220)
+SELECT @HorasDefinidasxMes = 230 -- (44 horas semanales * 5 semanas = 220 total horas mes)
 SELECT @PorcentajeHE = Porcentaje FROM TipoHoraExtra WHERE Id = @IdTipoHoraExtra
 SELECT @ValorHoraOrdinaria = (SalarioMensual/@HorasDefinidasxMes) FROM ContratoLaboral WHERE IdEmpleado = @IdEmpleado
 SELECT @ValorHoraExtra = (((@ValorHoraOrdinaria*Porcentaje)/100)+@ValorHoraOrdinaria) FROM TipoHoraExtra WHERE Id = @IdTipoHoraExtra
