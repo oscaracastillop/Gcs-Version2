@@ -73,24 +73,18 @@ namespace SistemaGcs.Models
             public string txtHENocturnaNominaEmpleado { get; set; }
             public string txtHEDiurnaDFNominaEmpleado { get; set; }
             public string txtHENocturnaDFNominaEmpleado { get; set; }
-            public string txtBonosNominaEmpleado { get; set; }
-            public string txtPrestamosINominaEmpleado { get; set; }
+            public string txtOtrosIngresosNominaEmpleado { get; set; }
+            public string txtDesembolsoPrestamoNominaEmpleado { get; set; }
             public string txtTotalIngresosNominaEmpleado { get; set; }
 
 
             public string txtEpsNominaEmpleado { get; set; }
             public string txtPensionNominaEmpleado { get; set; }
             public string txtCasinoNominaEmpleado { get; set; }
-            public string txtPrestamosDNominaEmpleado { get; set; }
-            public string txtNovedadesNominaEmpleado { get; set; }
+            public string txtCobroPrestamoNominaEmpleado { get; set; }
+            public string txtOtrosDescuentosNominaEmpleado { get; set; }
             public string txtTotalDescuentosNominaEmpleado { get; set; }
             public string txtTotalPagoNominaEmpleado { get; set; }
-
-
-
-
-
-
         }
 
 

@@ -42,7 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Banco.cs" />
-    <Compile Include="BonoEmpleado.cs" />
+    <Compile Include="OtrosDescuentosEmpleado.cs" />
+    <Compile Include="OtrosIngresosEmpleado.cs" />
     <Compile Include="Cargo.cs" />
     <Compile Include="CasinoEmpleado.cs" />
     <Compile Include="Categoria.cs" />

@@ -70,10 +70,11 @@ CREATE UNIQUE INDEX RegistroUnicoTipoContrato on TipoContrato (Nombre)
 
 GO
 
-INSERT INTO TipoContrato (Nombre) VALUES ('Fijo')
-INSERT INTO TipoContrato (Nombre) VALUES ('Indefinido')
-INSERT INTO TipoContrato (Nombre) VALUES ('Obra Labor')
-INSERT INTO TipoContrato (Nombre) VALUES ('Aprendiz')
+INSERT INTO TipoContrato (Nombre) VALUES ('Contrato Fijo')
+INSERT INTO TipoContrato (Nombre) VALUES ('Contrato Indefinido')
+INSERT INTO TipoContrato (Nombre) VALUES ('Contrato x Obra Labor')
+INSERT INTO TipoContrato (Nombre) VALUES ('Contrato x Destajo')
+INSERT INTO TipoContrato (Nombre) VALUES ('Contrato Aprendiz')
 
 GO
 
@@ -889,7 +890,8 @@ INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Dia Laborado','bi-calendar-date','2rem','white','/Recursos_Humanos/Dia_Laborado','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Permiso','bi-calendar-event','2rem','white','/Recursos_Humanos/Permiso','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Hora Extra','bi-clock-history','2rem','white','/Recursos_Humanos/Hora_Extra','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Bono','bi-cash-coin','2rem','white','/Recursos_Humanos/Bono','green')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Otros Ingresos','bi-cash-coin','2rem','white','/Recursos_Humanos/Otros_Ingresos','green')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Otros Descuentos','bi-cash-coin','2rem','white','/Recursos_Humanos/Otros_Descuentos','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Préstamo','bi-cash-coin','2rem','white','/Recursos_Humanos/Prestamo','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Casino','bi-cup-hot','2rem','white','/Recursos_Humanos/Casino','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Hoja de Vida','bi-file-richtext','2rem','white','/Recursos_Humanos/Hoja_de_Vida','cornflowerblue')
@@ -900,7 +902,7 @@ INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (5, 'Préstamo','bi-cash-coin','2rem','white','/Contratistas/Prestamo','cornflowerblue')
 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (6, 'Nómina Empleado','bi-file-text','2rem','white','/Contabilidad/Nomina_Empleado','cornflowerblue')
-
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (6, 'Liquidación Empleado','bi-file-text','2rem','white','/Contabilidad/Liquidacion_Empleado','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (6, 'Nómina Contratista','bi-file-text-fill','2rem','white','/Contabilidad/Nomina_Contratista','cornflowerblue')
 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (7, 'Entrada','bi-box-arrow-in-right','2rem','white','/Almacen/Entrada','cornflowerblue')
@@ -931,7 +933,8 @@ INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (13, 'Información Usuario','bi-person-check','2rem','white','/Informacion/Informacion_Usuario','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (13, 'Contacto','bi-wechat','2rem','white','/Informacion/Contacto','green')
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (6, 'Liquidación Empleado','bi-file-text','2rem','white','/Contabilidad/Liquidacion_Empleado','cornflowerblue')
+
+
 
 GO
 
@@ -1029,7 +1032,9 @@ INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Elimi
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (43,1,1,1,1,1,1,GETDATE())-- Administrador
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (44,1,1,1,1,1,1,GETDATE())-- Administrador
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (45,1,1,1,1,1,1,GETDATE())-- Administrador
+INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (46,1,1,1,1,1,1,GETDATE())-- Administrador
 
+/*
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (21,2,1,1,1,1,1,GETDATE())-- Usuario Almacen
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (22,2,1,1,1,1,1,GETDATE())-- Usuario Almacen
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (23,2,1,1,1,1,1,GETDATE())-- Usuario Almacen
@@ -1057,7 +1062,7 @@ INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Elimi
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (29,4,1,1,1,1,1,GETDATE())--Usuario Mantenimiento
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (43,4,1,2,1,2,1,GETDATE())--Usuario Mantenimiento
 INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar,  CreateBy, DateCreate)  VALUES (44,4,1,2,2,2,1,GETDATE())--Usuario Mantenimiento
-
+*/
 GO
 
 CREATE FUNCTION [dbo].[Fun_PermisoUsuario](@Accion varchar(255), @IdUsuario Int, @Ruta varchar(255))
@@ -3352,7 +3357,7 @@ GO
 CREATE PROCEDURE [dbo].[SP_ListaTipoHoraExtra]
 AS
 BEGIN
-	SELECT Id, Nombre + ' '+ CONVERT(varchar(255),Porcentaje) + ' %' As Nombre FROM TipoHoraExtra ORDER BY Nombre ASC							
+	SELECT Id, Nombre + ' '+ CONVERT(varchar(255),Porcentaje) + ' %' As Nombre FROM TipoHoraExtra ORDER BY Id ASC							
 END
 
 GO
@@ -5459,9 +5464,9 @@ END
 
 GO
 
-/* BONO EMPLEADO */
+/* OTROS INGRESOS EMPLEADO */
 
-CREATE TABLE BonoEmpleado 
+CREATE TABLE OtrosIngresosEmpleado 
 (Id int identity(1,1) Primary key ,
 IdEmpleado Int,
 IdSucursal Int,
@@ -5476,15 +5481,15 @@ DateCreate datetime
 )
 GO
 
-ALTER TABLE BonoEmpleado ADD CONSTRAINT FK_IdEmpleadoBonoEmpleado FOREIGN KEY (IdEmpleado ) references Empleado(Id)
-ALTER TABLE BonoEmpleado ADD CONSTRAINT FK_IdSucursalBonoEmpleado FOREIGN KEY (IdSucursal ) references Sucursal(Id)
-ALTER TABLE BonoEmpleado ADD CONSTRAINT FK_IdContratoLaboralBonoEmpleado FOREIGN KEY (IdContratoLaboral ) references ContratoLaboral(Id)
-ALTER TABLE BonoEmpleado ADD CONSTRAINT FK_IdCreateByBonoEmpleado FOREIGN KEY (CreateBy ) references Usuario(Id)
-ALTER TABLE BonoEmpleado ADD CONSTRAINT FK_IdEstadoBonoEmpleado FOREIGN KEY (IdEstado ) references TipoEstado(Id)
+ALTER TABLE OtrosIngresosEmpleado ADD CONSTRAINT FK_IdEmpleadoOtrosIngresosEmpleado FOREIGN KEY (IdEmpleado ) references Empleado(Id)
+ALTER TABLE OtrosIngresosEmpleado ADD CONSTRAINT FK_IdSucursalOtrosIngresosEmpleado FOREIGN KEY (IdSucursal ) references Sucursal(Id)
+ALTER TABLE OtrosIngresosEmpleado ADD CONSTRAINT FK_IdContratoLaboralOtrosIngresosEmpleado FOREIGN KEY (IdContratoLaboral ) references ContratoLaboral(Id)
+ALTER TABLE OtrosIngresosEmpleado ADD CONSTRAINT FK_IdCreateByOtrosIngresosEmpleado FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE OtrosIngresosEmpleado ADD CONSTRAINT FK_IdEstadoOtrosIngresosEmpleado FOREIGN KEY (IdEstado ) references TipoEstado(Id)
 
 GO
 
-CREATE PROCEDURE [dbo].[SP_CrearBonoEmpleado] 
+CREATE PROCEDURE [dbo].[SP_CrearOtrosIngresosEmpleado] 
 				@IdUser varchar(255), 			
 				@IdEmpleado int,
 				@Valor int,
@@ -5501,7 +5506,7 @@ DECLARE @Permiso INT,
 		@SubMenu VARCHAR(255)		
 			   	
 SET @Accion = 'Crear'
-SET @SubMenu = '/Recursos_Humanos/Bono'		   	
+SET @SubMenu = '/Recursos_Humanos/Otros_Ingresos'		   	
 
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
@@ -5514,7 +5519,7 @@ IF @Permiso > 0
 				WHERE	IdEmpleado = @IdEmpleado
 						AND IdEstado = 1
 
-			INSERT INTO BonoEmpleado
+			INSERT INTO OtrosIngresosEmpleado
 			(IdEmpleado, IdSucursal, IdContratoLaboral, Valor, FechaPago,  Observacion, CreateBy, DateCreate) 
 			VALUES 
 			(@IdEmpleado, @IdSucursal, @IdContratoLaboral, @Valor, @FechaPago, @Observacion, @IdUsuario, GETDATE()) 
@@ -5529,8 +5534,8 @@ END
 
 GO
 
-CREATE PROCEDURE [dbo].[SP_ActualizarBonoEmpleado] @IdUser varchar(255),
-													@IdBonoEmpleado int,	
+CREATE PROCEDURE [dbo].[SP_ActualizarOtrosIngresosEmpleado] @IdUser varchar(255),
+													@IdOtrosIngresosEmpleado int,	
 													@Valor Int,
 													@FechaPago varchar(255),
 													@Observacion varchar(max), 
@@ -5544,19 +5549,19 @@ DECLARE @Permiso INT,
 		@SubMenu VARCHAR(255)
 
 SET @Accion = 'Editar'
-SET @SubMenu = '/Recursos_Humanos/Bono'
+SET @SubMenu = '/Recursos_Humanos/Otros_Ingresos'
 
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
 
 IF @Permiso > 0
 		BEGIN
-			UPDATE	BonoEmpleado 
+			UPDATE	OtrosIngresosEmpleado 
 			SET		Valor = @Valor, 
 					FechaPago = @FechaPago,
 					Observacion = @Observacion,
 					IdEstado = @IdEstado
-			WHERE Id = @IdBonoEmpleado
+			WHERE Id = @IdOtrosIngresosEmpleado
 			SET @Resultado = 'OK*Los datos se actualizaron correctamente' 
 		END
 ELSE
@@ -5568,7 +5573,7 @@ END
 
 GO
 
-CREATE PROCEDURE [dbo].[SP_EliminarBonoEmpleado] @IdUser varchar(255), @IdBonoEmpleado int, @Resultado varchar(255) OUTPUT
+CREATE PROCEDURE [dbo].[SP_EliminarOtrosIngresosEmpleado] @IdUser varchar(255), @IdOtrosIngresosEmpleado int, @Resultado varchar(255) OUTPUT
 AS
 BEGIN
 DECLARE @Permiso INT, 
@@ -5577,7 +5582,7 @@ DECLARE @Permiso INT,
 		@SubMenu varchar(255)
 
 SET @Accion = 'Eliminar'
-SET @SubMenu = '/Recursos_Humanos/Bono'
+SET @SubMenu = '/Recursos_Humanos/Otros_Ingresos'
 
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
@@ -5588,7 +5593,7 @@ BEGIN
 	RETURN
 END	
 
-DELETE BonoEmpleado WHERE Id = @IdBonoEmpleado
+DELETE OtrosIngresosEmpleado WHERE Id = @IdOtrosIngresosEmpleado
 SET @Resultado = 'OK*El registro se elimino correctamente de la base de datos'
 
 SELECT @Resultado
@@ -5596,7 +5601,7 @@ END
 
 GO
 
-CREATE PROCEDURE [dbo].[SP_GridBonoEmpleado]
+CREATE PROCEDURE [dbo].[SP_GridOtrosIngresosEmpleado]
 AS
 BEGIN
 SELECT	A.Id,	 
@@ -5615,7 +5620,174 @@ SELECT	A.Id,
 		dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,
 		dbo.Fun_BuscarNombreUsuario(A.CreateBy) As CreateBy,
 		CONVERT(varchar(255),A.DateCreate,105)+ ' ' + CONVERT(varchar(255),A.DateCreate,8) As DateCreate
-FROM	BonoEmpleado A,
+FROM	OtrosIngresosEmpleado A,
+		Empresa B,
+		Sucursal C
+WHERE	A.IdSucursal = C.Id AND
+		B.Id = C.IdEmpresa
+		ORDER BY Id Desc
+END
+
+GO
+
+/* OTROS DESCUENTOS EMPLEADO */
+
+
+CREATE TABLE OtrosDescuentosEmpleado 
+(Id int identity(1,1) Primary key ,
+IdEmpleado Int,
+IdSucursal Int,
+IdContratoLaboral Int,
+Valor Int,
+FechaCobro Date,
+NumeroComprobanteNomina Int,
+Observacion varchar(max),
+IdEstado int default 1,
+CreateBy int,
+DateCreate datetime
+)
+GO
+
+ALTER TABLE OtrosDescuentosEmpleado ADD CONSTRAINT FK_IdEmpleadoOtrosDescuentosEmpleado FOREIGN KEY (IdEmpleado ) references Empleado(Id)
+ALTER TABLE OtrosDescuentosEmpleado ADD CONSTRAINT FK_IdSucursalOtrosDescuentosEmpleado FOREIGN KEY (IdSucursal ) references Sucursal(Id)
+ALTER TABLE OtrosDescuentosEmpleado ADD CONSTRAINT FK_IdContratoLaboralOtrosDescuentosEmpleado FOREIGN KEY (IdContratoLaboral ) references ContratoLaboral(Id)
+ALTER TABLE OtrosDescuentosEmpleado ADD CONSTRAINT FK_IdCreateByOtrosDescuentosEmpleado FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE OtrosDescuentosEmpleado ADD CONSTRAINT FK_IdEstadoOtrosDescuentosEmpleado FOREIGN KEY (IdEstado ) references TipoEstado(Id)
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_CrearOtrosDescuentosEmpleado] 
+				@IdUser varchar(255), 			
+				@IdEmpleado int,
+				@Valor int,
+				@FechaCobro varchar(255),
+				@Observacion varchar(255), 	
+				@Resultado varchar(MAX) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@IdSucursal INT,
+		@IdContratoLaboral INT,
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)		
+			   	
+SET @Accion = 'Crear'
+SET @SubMenu = '/Recursos_Humanos/Otros_Descuentos'		   	
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+SELECT @IdContratoLaboral = Id FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
+
+IF @Permiso > 0
+		BEGIN	
+				SELECT	@IdSucursal = IdSucursal
+				FROM	SucursalEmpleado
+				WHERE	IdEmpleado = @IdEmpleado
+						AND IdEstado = 1
+
+			INSERT INTO OtrosDescuentosEmpleado
+			(IdEmpleado, IdSucursal, IdContratoLaboral, Valor, FechaCobro,  Observacion, CreateBy, DateCreate) 
+			VALUES 
+			(@IdEmpleado, @IdSucursal, @IdContratoLaboral, @Valor, @FechaCobro, @Observacion, @IdUsuario, GETDATE()) 
+			SET @Resultado = 'OK*Los datos se crearon correctamente'	
+		END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ActualizarOtrosDescuentosEmpleado] @IdUser varchar(255),
+													@IdOtrosDescuentosEmpleado int,	
+													@Valor Int,
+													@FechaCobro varchar(255),
+													@Observacion varchar(max), 
+													@IdEstado int,			
+													@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT,
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+
+SET @Accion = 'Editar'
+SET @SubMenu = '/Recursos_Humanos/Otros_Descuentos'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+		BEGIN
+			UPDATE	OtrosDescuentosEmpleado 
+			SET		Valor = @Valor, 
+					FechaCobro = @FechaCobro,
+					Observacion = @Observacion,
+					IdEstado = @IdEstado
+			WHERE Id = @IdOtrosDescuentosEmpleado
+			SET @Resultado = 'OK*Los datos se actualizaron correctamente' 
+		END
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_EliminarOtrosDescuentosEmpleado] @IdUser varchar(255), @IdOtrosDescuentosEmpleado int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Recursos_Humanos/Otros_Descuentos'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE OtrosDescuentosEmpleado WHERE Id = @IdOtrosDescuentosEmpleado
+SET @Resultado = 'OK*El registro se elimino correctamente de la base de datos'
+
+SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridOtrosDescuentosEmpleado]
+AS
+BEGIN
+SELECT	A.Id,	 
+		A.IdEmpleado,
+		dbo.Fun_BuscarNombreEmpleado(A.IdEmpleado) AS Empleado,	
+		B.Nombre + ' - ' + C.Nombre AS Sucursal,	
+		A.Valor As Valor,
+		CONVERT(varchar(255),A.FechaCobro,23) As FechaCobro,
+		CONVERT(varchar(255),A.FechaCobro,105) As TextoFechaCobro,		
+		CASE A.NumeroComprobanteNomina
+		WHEN '' THEN 'Por Definir'
+		ELSE A.NumeroComprobanteNomina
+		END as ComprobanteNomina,
+		A.Observacion,
+		A.IdEstado,
+		dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,
+		dbo.Fun_BuscarNombreUsuario(A.CreateBy) As CreateBy,
+		CONVERT(varchar(255),A.DateCreate,105)+ ' ' + CONVERT(varchar(255),A.DateCreate,8) As DateCreate
+FROM	OtrosDescuentosEmpleado A,
 		Empresa B,
 		Sucursal C
 WHERE	A.IdSucursal = C.Id AND
@@ -6718,7 +6890,14 @@ DECLARE
 @PorcentajeEps INT,
 @PorcentajePension INT,
 @Pension INT,
-@Bonos INT, @Casino INT, @PrestamosIngreso INT, @PrestamosDescuento INT, @TotalIngresos INT, @TotalDescuentos INT, @ValorTotalHED DECIMAL(10,2),
+@OtrosIngresos INT, 
+@OtrosDescuentos INT, 
+@Casino INT, 
+@DesembolsoPrestamo INT, 
+@CobroPrestamo INT, 
+@TotalIngresos INT, 
+@TotalDescuentos INT, 
+@ValorTotalHED DECIMAL(10,2),
 @ValorTotalHEN DECIMAL(10,2),
 @ValorTotalHEDDF DECIMAL(10,2),
 @ValorTotalHENDF DECIMAL(10,2)
@@ -6729,8 +6908,9 @@ SELECT @IdContratoLaboral = Id FROM ContratoLaboral where IdEmpleado = @IdEmplea
 SELECT @SalarioMensual =  SalarioMensual FROM ContratoLaboral where Id = @IdContratoLaboral
 SET @Sueldo = (@SalarioMensual/30)*@DiasaPagar
 SELECT @SubTransporte = (SubTransporte/30)*@DiasaPagar FROM ContratoLaboral where Id = @IdContratoLaboral
-SELECT @Bonos = ISNULL(SUM(Valor),0) FROM	BonoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
-SELECT @PrestamosIngreso = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
+SELECT @OtrosIngresos = ISNULL(SUM(Valor),0) FROM OtrosIngresosEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
+SELECT @OtrosDescuentos = ISNULL(SUM(Valor),0) FROM OtrosDescuentosEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaCobro BETWEEN @FechaInicio AND @FechaFin
+SELECT @DesembolsoPrestamo = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
 
 SELECT @ValorTotalHED = ISNULL(SUM(ValorTotalHoraExtra),0) FROM	HoraExtraEmpleado WHERE	IdEstado = 1 AND IdTipoHoraExtra = 1 AND IdEmpleado = @IdEmpleado AND FechaPagoHE BETWEEN @FechaInicio AND @FechaFin
 SELECT @ValorTotalHEN = ISNULL(SUM(ValorTotalHoraExtra),0) FROM	HoraExtraEmpleado WHERE	IdEstado = 1 AND IdTipoHoraExtra = 2 AND IdEmpleado = @IdEmpleado AND FechaPagoHE BETWEEN @FechaInicio AND @FechaFin
@@ -6742,39 +6922,39 @@ SELECT @PorcentajePension = PorcentajeFondoPension FROM ContratoLaboral where Id
 
 SET @Eps = ISNULL(((@SalarioMensual*@PorcentajeEps/100)/30)*@DiasaPagar,0)
 SET @Pension = ISNULL(((@SalarioMensual*@PorcentajePension/100)/30)*@DiasaPagar,0)
-SELECT @PrestamosDescuento = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
+SELECT @CobroPrestamo = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
 SELECT @Casino = ISNULL(SUM(Valor),0) FROM CasinoEmpleado WHERE IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
 
-SET @TotalIngresos = ISNULL((@Sueldo + @SubTransporte + @Bonos + @PrestamosIngreso),0)
-SET @TotalDescuentos = ISNULL((@Eps + @Pension + @Casino + @PrestamosDescuento),0)
+SET @TotalIngresos = ISNULL((@Sueldo + @SubTransporte + @OtrosIngresos + @DesembolsoPrestamo),0)
+SET @TotalDescuentos = ISNULL((@Eps + @Pension + @Casino + @CobroPrestamo + @OtrosDescuentos),0)
 
 SELECT 
 B.Nombre +' - '+D.Nombre AS txtEmpresaNominaEmpleado,
 CONVERT(VARCHAR(255),@SalarioMensual) AS txtSalarioNominaEmpleado,
+
+--INGRESOS NOMINA
 CONVERT(VARCHAR(255),ISNULL(@Sueldo,0)) AS txtSueldoaPagarNominaEmpleado,
 CONVERT(VARCHAR(255),ISNULL(@SubTransporte,0)) AS txtAuxTransporteNominaEmpleado,
-CONVERT(VARCHAR(255),ISNULL(@Bonos,0)) AS txtBonosNominaEmpleado,
-CONVERT(VARCHAR(255),ISNULL(@PrestamosIngreso,0)) AS txtPrestamosINominaEmpleado,
-
 CONVERT(VARCHAR(255),ISNULL(ROUND(@ValorTotalHED,0),0)) AS txtHEDiurnaNominaEmpleado,
 CONVERT(VARCHAR(255),ISNULL(ROUND(@ValorTotalHEN,0),0)) AS txtHENocturnaNominaEmpleado,
 CONVERT(VARCHAR(255),ISNULL(ROUND(@ValorTotalHEDDF,0),0)) AS txtHEDiurnaDFNominaEmpleado,
 CONVERT(VARCHAR(255),ISNULL(ROUND(@ValorTotalHENDF,0),0)) AS txtHENocturnaDFNominaEmpleado,
+CONVERT(VARCHAR(255),ISNULL(@OtrosIngresos,0)) AS txtOtrosIngresosNominaEmpleado,
+CONVERT(VARCHAR(255),ISNULL(@DesembolsoPrestamo,0)) AS txtDesembolsoPrestamoNominaEmpleado,
 
+CONVERT(VARCHAR(255),@TotalIngresos) AS txtTotalIngresosNominaEmpleado, -- TOTAL INGRESOS NOMINA EMPLEADO
 
-
-CONVERT(VARCHAR(255),@TotalIngresos) AS txtTotalIngresosNominaEmpleado,
-
+-- DESCUENTOS NOMINA
 CONVERT(VARCHAR(255),@Eps) AS txtEpsNominaEmpleado,
 CONVERT(VARCHAR(255),@Pension) AS txtPensionNominaEmpleado,
 CONVERT(VARCHAR(255),ISNULL(@Casino,0)) AS txtCasinoNominaEmpleado,
-CONVERT(VARCHAR(255),ISNULL(@PrestamosDescuento,0)) AS txtPrestamosDNominaEmpleado,
+CONVERT(VARCHAR(255),ISNULL(@CobroPrestamo,0)) AS txtCobroPrestamoNominaEmpleado,
+CONVERT(VARCHAR(255),ISNULL(@OtrosDescuentos,0)) AS txtOtrosDescuentosNominaEmpleado,
 
 
-CONVERT(VARCHAR(255),@TotalDescuentos) AS txtTotalDescuentosNominaEmpleado,
+CONVERT(VARCHAR(255),@TotalDescuentos) AS txtTotalDescuentosNominaEmpleado, -- TOTAL DESCUENTOS NOMINA EMPLEADO
 
-
-CONVERT(VARCHAR(255),ISNULL(@TotalIngresos-@TotalDescuentos,0)) AS txtTotalPagoNominaEmpleado
+CONVERT(VARCHAR(255),ISNULL(@TotalIngresos-@TotalDescuentos,0)) AS txtTotalPagoNominaEmpleado --TOTAL A PAGAR 
 
 
 FROM	ContratoLaboral A,

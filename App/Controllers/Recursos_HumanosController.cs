@@ -30,7 +30,7 @@ namespace App.Controllers
             return View();
         }
 
-        public ActionResult Bono()
+        public ActionResult Otros_Ingresos()
         {
             return View();
         }
@@ -66,6 +66,10 @@ namespace App.Controllers
             return View();
         }
 
+        public ActionResult Otros_Descuentos()
+        {
+            return View();
+        }
 
     }
 }

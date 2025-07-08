@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Otros Descuentos";
+}
+
+
+<h6>MODULO OTROS DESCUENTOS EMPLEADO</h6>
+
+<div class="grid">
+    <table id="gridOtrosDescuentosEmpleado" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
+</div>
+
+<div class="modal fade" id="ModalOtrosDescuentosEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <div class="modal-title" id="TituloModalOtrosDescuentosEmpleado"></div>
+            </div>
+            <div class="modal-body">
+                <label id="LabelIdOtrosDescuentosEmpleado" hidden></label>
+                <div>
+                    <label><strong>Empleado</strong><label style="color:red" id=""> *</label></label>
+                    <select class="form-control" id="SelectContratoLaboralSucursalEmpleado" style="min-width:100%"></select>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Valor</strong><label style="color:red" id=""> *</label></label>
+                        <input class="form-control" type="number" id="InputOtrosDescuentosEmpleadoValor" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Fecha Cobro</strong><label style="color:red" id=""> *</label></label>
+                        <input class="form-control" type="date" id="InputOtrosDescuentosEmpleadoFechaCobro" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                </div>
+                <div>
+                    <label><strong>Concepto</strong></label>
+                    <input class="form-control" type="text" id="InputOtrosDescuentosEmpleadoObservacion" name="name" autocomplete="off" style="min-width:100%" />
+                </div>
+                <div class="col-3" id="SelectEstadoOtrosDescuentosEmpleado">
+                    <label><strong>Estado</strong></label>
+                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
+                </div>
+            </div>
+
+            <div class="modal-footer" id="BotonesModalOtrosDescuentosEmpleado">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        ValidarSesion('/Recursos_Humanos/Otros_Descuentos');
+        ListaContratoLaboralSucursalEmpleado();
+        GridOtrosDescuentosEmpleado();
+        ListaTipoEstado(1);
+    });
+</script>

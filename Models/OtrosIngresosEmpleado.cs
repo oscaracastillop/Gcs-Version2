@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SistemaGcs.Models
+﻿namespace SistemaGcs.Models
 {
-    public class BonoEmpleado
+    public class OtrosIngresosEmpleado
     {
-        public class GridBonoEmpleado
+        public class GridOtrosIngresosEmpleado
         {
             public int Id { get; set; }
             public int IdEmpleado { get; set; }
@@ -23,7 +17,6 @@ namespace SistemaGcs.Models
             public string Estado { get; set; }
             public string CreateBy { get; set; }
             public string DateCreate { get; set; }
-            public string Imagen { get; set; }
         }
 
     }

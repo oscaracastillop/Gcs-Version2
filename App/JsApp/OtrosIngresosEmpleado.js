@@ -1,47 +1,47 @@
 ﻿
-function ModalBonoEmpleado(tipo) {
-    $("#TituloModalBonoEmpleado").empty().val('');
-    $("#LabelIdBonoEmpleado").empty().val('');
+function ModalOtrosIngresosEmpleado(tipo) {
+    $("#TituloModalOtrosIngresosEmpleado").empty().val('');
+    $("#LabelIdOtrosIngresosEmpleado").empty().val('');
     $("#SelectContratoLaboralSucursalEmpleado").val(-1);
-    $("#InputBonoEmpleadoValor").empty().val('');
-    $("#InputBonoEmpleadoFechaPago").empty().val('');
-    $("#InputBonoEmpleadoObservacion").empty().val('');
+    $("#InputOtrosIngresosEmpleadoValor").empty().val('');
+    $("#InputOtrosIngresosEmpleadoFechaPago").empty().val('');
+    $("#InputOtrosIngresosEmpleadoObservacion").empty().val('');
     $("#SelectContratoLaboralSucursalEmpleado").val(-1);
-    $("#BotonesModalBonoEmpleado").empty();
+    $("#BotonesModalOtrosIngresosEmpleado").empty();
     if (tipo == 'C') {
-        $("#TituloModalBonoEmpleado").empty().append('<h6>Crear Bono Empleado</h6>');
-        $('#ModalBonoEmpleado').modal('show');
+        $("#TituloModalOtrosIngresosEmpleado").empty().append('<h6>Crear Otros Ingresos Empleado</h6>');
+        $('#ModalOtrosIngresosEmpleado').modal('show');
         $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", false);
-        $("#SelectEstadoBonoEmpleado").hide();
-        $("#BotonesModalBonoEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearBonoEmpleado()">Guardar</button>');
+        $("#SelectEstadoOtrosIngresosEmpleado").hide();
+        $("#BotonesModalOtrosIngresosEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearOtrosIngresosEmpleado()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalBonoEmpleado").empty().append('<h6>Editar Bono Empleado</h6>');
-        $('#ModalBonoEmpleado').modal('show');
+        $("#TituloModalOtrosIngresosEmpleado").empty().append('<h6>Editar Otros Ingresos Empleado</h6>');
+        $('#ModalOtrosIngresosEmpleado').modal('show');
         $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", true);
-        $("#SelectEstadoBonoEmpleado").show();
-        $("#BotonesModalBonoEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="ActualizarBonoEmpleado()">Guardar Cambios</button>');
+        $("#SelectEstadoOtrosIngresosEmpleado").show();
+        $("#BotonesModalOtrosIngresosEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="ActualizarOtrosIngresosEmpleado()">Guardar Cambios</button>');
     }
 }
 
-function CrearBonoEmpleado() {
+function CrearOtrosIngresosEmpleado() {
     let IdEmpleado = $('#SelectContratoLaboralSucursalEmpleado').val();
-    let Valor = $('#InputBonoEmpleadoValor').val();
-    let FechaPago = $('#InputBonoEmpleadoFechaPago').val();
-    let Observacion = $('#InputBonoEmpleadoObservacion').val();
+    let Valor = $('#InputOtrosIngresosEmpleadoValor').val();
+    let FechaPago = $('#InputOtrosIngresosEmpleadoFechaPago').val();
+    let Observacion = $('#InputOtrosIngresosEmpleadoObservacion').val();
     if (IdEmpleado == -1 || IdEmpleado == null || IdEmpleado == '') {
         $('#SelectContratoLaboralSucursalEmpleado').focus();
         VentanaMensaje('Seleccione el Empleado', 'info');
     } else if (Valor == null || Valor == '' || Valor == undefined) {
-        $('#InputBonoEmpleadoValor').focus();
+        $('#InputOtrosIngresosEmpleadoValor').focus();
         VentanaMensaje('Ingrese el Valor', 'info');
     } else if (FechaPago == null || FechaPago == '' || FechaPago == undefined) {
-        $('#InputBonoEmpleadoFechaPago').focus();
+        $('#InputOtrosIngresosEmpleadoFechaPago').focus();
         VentanaMensaje('Ingrese la Fecha de Pago', 'info');
     } else {
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/Bono_Empleado/CrearBonoEmpleado',
+            url: '/Otros_Ingresos_Empleado/CrearOtrosIngresosEmpleado',
             data: {
                 IdUser: TokenUser,
                 IdEmpleado: IdEmpleado,
@@ -70,26 +70,26 @@ function CrearBonoEmpleado() {
 }
 
 
-function ActualizarBonoEmpleado() {
-    let IdBonoEmpleado = $('#LabelIdBonoEmpleado').text();
-    let Valor = $('#InputBonoEmpleadoValor').val();
-    let FechaPago = $('#InputBonoEmpleadoFechaPago').val();
-    let Observacion = $('#InputBonoEmpleadoObservacion').val();
+function ActualizarOtrosIngresosEmpleado() {
+    let IdOtrosIngresosEmpleado = $('#LabelIdOtrosIngresosEmpleado').text();
+    let Valor = $('#InputOtrosIngresosEmpleadoValor').val();
+    let FechaPago = $('#InputOtrosIngresosEmpleadoFechaPago').val();
+    let Observacion = $('#InputOtrosIngresosEmpleadoObservacion').val();
     let IdEstado = $('#SelectEstado').val();
     if (Valor == null || Valor == '' || Valor == undefined) {
-        $('#InputBonoEmpleadoValor').focus();
+        $('#InputOtrosIngresosEmpleadoValor').focus();
         VentanaMensaje('Ingrese el Valor', 'info');
     } else if (FechaPago == null || FechaPago == '' || FechaPago == undefined) {
-        $('#InputBonoEmpleadoFechaPago').focus();
+        $('#InputOtrosIngresosEmpleadoFechaPago').focus();
         VentanaMensaje('Ingrese la Fecha de Pago', 'info');
     } else {
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/Bono_Empleado/ActualizarBonoEmpleado',
+            url: '/Otros_Ingresos_Empleado/ActualizarOtrosIngresosEmpleado',
             data: {
                 IdUser: TokenUser,
-                IdBonoEmpleado: IdBonoEmpleado,
+                IdOtrosIngresosEmpleado: IdOtrosIngresosEmpleado,
                 Valor: Valor,
                 FechaPago: FechaPago,
                 Observacion: Observacion,
@@ -116,7 +116,7 @@ function ActualizarBonoEmpleado() {
 }
 
 
-function EliminarBonoEmpleado(IdBonoEmpleado) {
+function EliminarOtrosIngresosEmpleado(IdOtrosIngresosEmpleado) {
     Swal.fire({
         title: TituloSwal,
         text: "Esta seguro(a)?, No podrás revertir esta acción.!",
@@ -132,10 +132,10 @@ function EliminarBonoEmpleado(IdBonoEmpleado) {
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: '/Bono_Empleado/EliminarBonoEmpleado',
+                url: '/Otros_Ingresos_Empleado/EliminarOtrosIngresosEmpleado',
                 data: {
                     IdUser: TokenUser,
-                    IdBonoEmpleado: IdBonoEmpleado
+                    IdOtrosIngresosEmpleado: IdOtrosIngresosEmpleado
                 },
                 success: function (resultado) {
                     valor = resultado.split('*');
@@ -159,9 +159,9 @@ function EliminarBonoEmpleado(IdBonoEmpleado) {
 }
 
 
-function GridBonoEmpleado() {
-    var tituloReporte = 'LISTADO DE BONOS EMPLEADOS';
-    let datatable = $('#gridBonoEmpleado').DataTable({
+function GridOtrosIngresosEmpleado() {
+    var tituloReporte = 'LISTADO DE OTROS INGRESOS EMPLEADOS';
+    let datatable = $('#gridOtrosIngresosEmpleado').DataTable({
         responsive: false,
         scrollCollapse: true,
         scrollY: '800px',
@@ -251,7 +251,7 @@ function GridBonoEmpleado() {
                 text: 'Nuevo',
                 className: 'btn-nuevo-datatable',
                 action: function (e, dt, node, config) {
-                    ModalBonoEmpleado('C');
+                    ModalOtrosIngresosEmpleado('C');
                 }
             }
 
@@ -259,7 +259,7 @@ function GridBonoEmpleado() {
         /*"order": [[1, "asc"]],*/
         destroy: true,
         "ajax": {
-            "url": '/Bono_Empleado/GridBonoEmpleado',
+            "url": '/Otros_Ingresos_Empleado/GridOtrosIngresosEmpleado',
             "type": "GET",
             "datatype": "json"
         },
@@ -290,21 +290,21 @@ function GridBonoEmpleado() {
             },
             { "data": "TextoFechaPago", title: "Fecha Pago", width: 'auto' },//4
             { "data": "ComprobanteNomina", title: "# Comprobante Nómina", width: 'auto' },//5
-            { "data": "Observacion", title: "Observación", width: 'auto' },//6
+            { "data": "Observacion", title: "Concepto", width: 'auto' },//6
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },//7
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },//8
             {
                 title: "",
                 data: null,
                 defaultContent:
-                    '<a class="EditarBonoEmpleado btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
+                    '<a class="EditarOtrosIngresosEmpleado btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
                 orderable: false,
             },
             {
                 title: "",
                 data: null,
                 defaultContent:
-                    '<a class="EliminarBonoEmpleado btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>',
+                    '<a class="EliminarOtrosIngresosEmpleado btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>',
                 orderable: false,
             },
         ],
@@ -317,19 +317,19 @@ function GridBonoEmpleado() {
         ],
     });
 
-    $('#gridBonoEmpleado').on('click', '.EditarBonoEmpleado', function () {
+    $('#gridOtrosIngresosEmpleado').on('click', '.EditarOtrosIngresosEmpleado', function () {
         let data = datatable.row($(this).parents()).data();
-        ModalBonoEmpleado('E');
-        $('#LabelIdBonoEmpleado').text(data.Id);
+        ModalOtrosIngresosEmpleado('E');
+        $('#LabelIdOtrosIngresosEmpleado').text(data.Id);
         $('#SelectContratoLaboralSucursalEmpleado').val(data.IdEmpleado);
-        $('#InputBonoEmpleadoValor').val(data.Valor);
-        $('#InputBonoEmpleadoFechaPago').val(data.FechaPago);
-        $('#InputBonoEmpleadoObservacion').val(data.Observacion);
+        $('#InputOtrosIngresosEmpleadoValor').val(data.Valor);
+        $('#InputOtrosIngresosEmpleadoFechaPago').val(data.FechaPago);
+        $('#InputOtrosIngresosEmpleadoObservacion').val(data.Observacion);
         $('#SelectEstado').val(data.IdEstado);
     })
 
-    $('#gridBonoEmpleado').on('click', '.EliminarBonoEmpleado', function () {
+    $('#gridOtrosIngresosEmpleado').on('click', '.EliminarOtrosIngresosEmpleado', function () {
         let data = datatable.row($(this).parents()).data();
-        EliminarBonoEmpleado(data.Id);
+        EliminarOtrosIngresosEmpleado(data.Id);
     })
 }

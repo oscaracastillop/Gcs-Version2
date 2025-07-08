@@ -66,7 +66,8 @@
       <DependentUpon>ModeloGcs.edmx</DependentUpon>
     </Compile>
     <Compile Include="DataEntities\DataBanco.cs" />
-    <Compile Include="DataEntities\DataBonoEmpleado.cs" />
+    <Compile Include="DataEntities\DataOtrosDescuentosEmpleado.cs" />
+    <Compile Include="DataEntities\DataOtrosIngresosEmpleado.cs" />
     <Compile Include="DataEntities\DataCargo.cs" />
     <Compile Include="DataEntities\DataCasinoEmpleado.cs" />
     <Compile Include="DataEntities\DataCategoria.cs" />

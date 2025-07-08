@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Otros Ingresos";
+}
+
+<h6>MODULO OTROS INGRESOS EMPLEADO</h6>
+
+<div class="grid">
+    <table id="gridOtrosIngresosEmpleado" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
+</div>
+
+<div class="modal fade" id="ModalOtrosIngresosEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <div class="modal-title" id="TituloModalOtrosIngresosEmpleado"></div>
+            </div>
+            <div class="modal-body">
+                <label id="LabelIdOtrosIngresosEmpleado" hidden></label>
+                <div>
+                    <label><strong>Empleado</strong><label style="color:red" id=""> *</label></label>
+                    <select class="form-control" id="SelectContratoLaboralSucursalEmpleado" style="min-width:100%"></select>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label><strong>Valor</strong><label style="color:red" id=""> *</label></label>
+                        <input class="form-control" type="number" id="InputOtrosIngresosEmpleadoValor" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Fecha Pago</strong><label style="color:red" id=""> *</label></label>
+                        <input class="form-control" type="date" id="InputOtrosIngresosEmpleadoFechaPago" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                </div>
+                <div>
+                    <label><strong>Concepto</strong></label>
+                    <input class="form-control" type="text" id="InputOtrosIngresosEmpleadoObservacion" name="name" autocomplete="off" style="min-width:100%" />
+                </div>
+                <div class="col-3" id="SelectEstadoOtrosIngresosEmpleado">
+                    <label><strong>Estado</strong></label>
+                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
+                </div>
+            </div>
+
+            <div class="modal-footer" id="BotonesModalOtrosIngresosEmpleado">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        ValidarSesion('/Recursos_Humanos/Otros_Ingresos');
+        ListaContratoLaboralSucursalEmpleado();
+        GridOtrosIngresosEmpleado();
+        ListaTipoEstado(1);
+    });
+</script>

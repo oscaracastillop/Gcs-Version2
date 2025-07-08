@@ -2186,7 +2186,8 @@
     <Content Include="Images\ImagesProfileUsers\Usuario.png" />
     <Content Include="Images\LogoEmpresa\default.png" />
     <Content Include="JsApp\Banco.js" />
-    <Content Include="JsApp\BonoEmpleado.js" />
+    <Content Include="JsApp\OtrosDescuentosEmpleado.js" />
+    <Content Include="JsApp\OtrosIngresosEmpleado.js" />
     <Content Include="JsApp\Cargo.js" />
     <Content Include="JsApp\CasinoEmpleado.js" />
     <Content Include="JsApp\Categoria.js" />
@@ -2456,7 +2457,8 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BancoController.cs" />
-    <Compile Include="Controllers\Bono_EmpleadoController.cs" />
+    <Compile Include="Controllers\Otros_Descuentos_EmpleadoController.cs" />
+    <Compile Include="Controllers\Otros_Ingresos_EmpleadoController.cs" />
     <Compile Include="Controllers\Cargar_DocumentoController.cs" />
     <Compile Include="Controllers\CargoController.cs" />
     <Compile Include="Controllers\Casino_EmpleadoController.cs" />
@@ -2525,7 +2527,7 @@
     <Content Include="Views\Negocio\Empresa.cshtml" />
     <Content Include="Views\Negocio\Sucursal.cshtml" />
     <Content Include="Views\Negocio\Sucursal_Empleado.cshtml" />
-    <Content Include="Views\Recursos_Humanos\Bono.cshtml" />
+    <Content Include="Views\Recursos_Humanos\Otros_Ingresos.cshtml" />
     <Content Include="Views\Recursos_Humanos\Prestamo.cshtml" />
     <Content Include="Views\Recursos_Humanos\Casino.cshtml" />
     <Content Include="Views\Recursos_Humanos\Contrato_Laboral.cshtml" />
@@ -2566,6 +2568,7 @@
     <Content Include="Views\Almacen\Producto.cshtml" />
     <Content Include="Views\Almacen\Proveedor.cshtml" />
     <Content Include="Views\Recursos_Humanos\Contrato_Laboral_Crear_Contrato_Laboral_Empleado.cshtml" />
+    <Content Include="Views\Recursos_Humanos\Otros_Descuentos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
