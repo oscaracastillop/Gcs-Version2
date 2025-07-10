@@ -19,19 +19,19 @@ nav ul {
     overflow: hidden;
 }
 
-nav ul li a {
-    display: block;
-    color: white;
-    text-align: left;
-    padding: 0px 10px;
-    text-decoration: none;
-    font-size: 12px !important;
-    height: 39px;
-    margin-top: 0px;
-    align-content:center !important;
-    align-items:center !important;
-    
-}
+    nav ul li a {
+        display: block;
+        color: white;
+        text-align: left;
+        padding: 0px 10px;
+        text-decoration: none;
+        font-size: 12px !important;
+        height: 39px;
+        margin-top: 0px;
+        align-content: center !important;
+        align-items: center !important;
+        
+    }
 
     nav ul li a:hover {
         background-color: #666;

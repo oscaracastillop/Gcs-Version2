@@ -35,7 +35,7 @@ namespace Data.DataEntities
                 var varDescripcion = new SqlParameter("@Descripcion", SqlDbType.VarChar) { Value = Descripcion };
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
 
-                _conection.Database.ExecuteSqlCommand("SP_CrearCliente @IdUser, @NombreCliente, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Celular, @Contacto, @IdCiudad, @Direccion, @IdFormaPago, @IdPlazoPago, @Descripcion, @Resultado OUTPUT", varIdUser, varNombreCliente, varIdTipoDocumento, varIdentificacion, varEmail, varTelefono, varContacto, varIdCiudad, varDireccion, varIdFormaPago, varIdPlazoPago, varDescripcion, varResultado);
+                _conection.Database.ExecuteSqlCommand("SP_CrearCliente @IdUser, @NombreCliente, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Celular, @Contacto, @IdCiudad, @Direccion, @IdFormaPago, @IdPlazoPago, @Descripcion, @Resultado OUTPUT", varIdUser, varNombreCliente, varIdTipoDocumento, varIdentificacion, varEmail, varTelefono, varCelular, varContacto, varIdCiudad, varDireccion, varIdFormaPago, varIdPlazoPago, varDescripcion, varResultado);
 
                 resultado = Convert.ToString(varResultado.Value);
             }
