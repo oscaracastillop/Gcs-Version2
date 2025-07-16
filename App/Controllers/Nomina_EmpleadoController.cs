@@ -1,8 +1,4 @@
 ﻿using Data.DataEntities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace App.Controllers
@@ -10,10 +6,10 @@ namespace App.Controllers
     public class Nomina_EmpleadoController : Controller
     {
         private readonly DataNominaEmpleado dataNominaEmpleado = new DataNominaEmpleado();
-                
-        public JsonResult CrearNominaEmpleado(string IdUser, int IdEmpleado, string FechaInicio, string FechaCorte, int DiasPagar)
+
+        public JsonResult CrearNominaEmpleado(string IdUser, int IdEmpleado, string FechaInicio, string FechaCorte, int DiasaPagar)
         {
-            var resultado = dataNominaEmpleado.CrearNominaEmpleado(IdUser, IdEmpleado, FechaInicio, FechaCorte, DiasPagar);
+            var resultado = dataNominaEmpleado.CrearNominaEmpleado(IdUser, IdEmpleado, FechaInicio, FechaCorte, DiasaPagar);
             return Json(resultado);
         }
 
@@ -34,6 +30,7 @@ namespace App.Controllers
             var resultado = dataNominaEmpleado.CargarDatosEmpleadoNomina(IdEmpleado, FechaInicio, FechaFin, DiasaPagar);
             return Json(resultado);
         }
+
     }
 
 }

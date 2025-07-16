@@ -17,19 +17,19 @@ namespace Data.DataEntities
         private readonly DataRol dataRol = new DataRol();
 
        
-        public string CrearNominaEmpleado(string IdUser, int IdEmpleado, string FechaInicio, string FechaCorte, int DiasPagar)
+        public string CrearNominaEmpleado(string IdUser, int IdEmpleado, string FechaInicio, string FechaCorte, int DiasaPagar)
         {
             string resultado = String.Empty;
             try
             {
                 var varIdUser = new SqlParameter("@IdUser", SqlDbType.VarChar) { Value = IdUser };
                 var varIdEmpleado = new SqlParameter("@IdEmpleado", SqlDbType.Int) { Value = IdEmpleado };
-                var varFechaInicio = new SqlParameter("@FechaIni", SqlDbType.VarChar) { Value = FechaInicio };
+                var varFechaInicio = new SqlParameter("@FechaInicio", SqlDbType.VarChar) { Value = FechaInicio };
                 var varFechaCorte = new SqlParameter("@FechaEnd", SqlDbType.VarChar) { Value = FechaCorte };
-                var varDiasPagar = new SqlParameter("@DiasPagar", SqlDbType.Int) { Value = DiasPagar };
+                var varDiasaPagar = new SqlParameter("@DiasaPagar", SqlDbType.Int) { Value = DiasaPagar };
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = int.MaxValue };
 
-                _conection.Database.ExecuteSqlCommand("SP_CrearNominaEmpleado @IdUser, @IdEmpleado, @FechaIni, @FechaEnd, @DiasPagar, @Resultado OUTPUT", varIdUser, varIdEmpleado, varFechaInicio, varFechaCorte, varDiasPagar, varResultado);
+                _conection.Database.ExecuteSqlCommand("SP_CrearNominaEmpleado @IdUser, @IdEmpleado, @FechaInicio, @FechaEnd, @DiasaPagar, @Resultado OUTPUT", varIdUser, varIdEmpleado, varFechaInicio, varFechaCorte, varDiasaPagar, varResultado);
 
                 resultado = Convert.ToString(varResultado.Value);
             }

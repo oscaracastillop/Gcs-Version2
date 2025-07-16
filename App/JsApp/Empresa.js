@@ -2,7 +2,7 @@
     $("#TituloModalEmpresa").empty().val('');
     $("#LabelIdEmpresa").empty().val('');
     $("#InputNombreEmpresa").empty().val('');
-    $("#SelectTipoDocumento").val(-1);
+    //$("#SelectTipoDocumento").val(-1);
     $("#InputIdentificacionEmpresa").empty().val('');
     $("#InputEmailEmpresa").empty().val('');
     $("#InputTelefonoEmpresa").empty().val('');

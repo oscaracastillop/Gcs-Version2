@@ -132,21 +132,32 @@ function CrearNominaEmpleado() {
         $('#SelectContratoLaboralSucursalEmpleado').focus();
         VentanaMensaje('Seleccione un Empleado', 'info');
     } else {
-        //$.ajax({
-        //    type: 'POST',
-        //    dataType: 'json',
-        //    url: '/Nomina_Empleado/CrearNominaEmpleado',
-        //    data: {
-        //        IdEmpleado: IdEmpleado,
-        //        FechaInicio: FechaInicio,
-        //        FechaFin: FechaFin,
-        //        DiasaPagar: DiasaPagar
-        //    },
-        //    success: function (resultado) {
-
-        //    },
-        //});
-
-        alert('message');
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/Nomina_Empleado/CrearNominaEmpleado',
+            data: {
+                IdEmpleado: IdEmpleado,
+                FechaInicio: FechaInicio,
+                FechaFin: FechaFin,
+                DiasaPagar: DiasaPagar
+            },
+            success: function (resultado) {
+                valor = resultado.split('*');
+                if (valor[0] == 'OK') {
+                    Swal.fire({
+                        title: TituloSwal,
+                        text: valor[1],
+                        icon: 'success',
+                        position: 'top',
+                        confirmButtonColor: "orangered",
+                    }).then((result) => {
+                        window.location.reload();
+                    })
+                } else {
+                    Swal.fire(TituloSwal, valor[1], 'info');
+                }
+            },
+        });
     }
 }
