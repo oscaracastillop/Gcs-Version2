@@ -137,6 +137,7 @@ function CrearNominaEmpleado() {
             dataType: 'json',
             url: '/Nomina_Empleado/CrearNominaEmpleado',
             data: {
+                IdUser: TokenUser,
                 IdEmpleado: IdEmpleado,
                 FechaInicio: FechaInicio,
                 FechaFin: FechaFin,

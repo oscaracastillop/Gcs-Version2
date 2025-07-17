@@ -12,16 +12,18 @@ namespace Models
         {
             public int Id { get; set; }
             public int IdEmpleado { get; set; }
-            public int IdHEEmpleado { get; set; }
             public string Empleado { get; set; }
-            public string Sucursal { get; set; }
-            public decimal CantidadHE { get; set; }
-            public string TextoCantidadHE { get; set; }
-            public int Valor { get; set; }
-            public string FechaHE { get; set; }
-            public string TextoFechaHE { get; set; }
-            public string FechaPagoHE { get; set; }
-            public string TextoFechaPagoHE { get; set; }
+            public string EmpresaSucursal { get; set; }
+            public decimal ValorHoraOrdinaria { get; set; }
+            public string FechaHoraExtra { get; set; }
+            public string TextoFechaHoraExtra { get; set; }
+            public string TipoHoraExtra { get; set; }
+            public decimal PorcentajeHoraExtra { get; set; }
+            public decimal ValorHoraExtra { get; set; }
+            public decimal Cantidad { get; set; }
+            public decimal TotalHorasExtras { get; set; }
+            public string FechaPagoHoraExtra { get; set; }
+            public string TextoFechaPagoHoraExtra { get; set; }
             public string ComprobanteNomina { get; set; }            
             public string Observacion { get; set; }
             public int IdEstado { get; set; }

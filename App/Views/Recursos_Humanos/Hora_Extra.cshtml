@@ -3,7 +3,11 @@
     ViewBag.Title = "Hora Extra";
 }
 
-<h6>Módulo Hora Extra</h6>
+<h6>MODULO HORAS EXTRAS</h6>
+
+<div class="grid">
+    <table id="gridHoraExtraEmpleado" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
+</div>
 
 <div class="modal fade" id="ModalHoraExtraEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -58,11 +62,10 @@
 <script>
     $(document).ready(function () {
         ValidarSesion('/Recursos_Humanos/Hora_Extra');
-        //GridNominaEmpleado();
+        GridHoraExtraEmpleado();
         ListaTipoEstado(1);
         ListaContratoLaboralSucursalEmpleado();
         ListaTipoHoraExtra();
-        ModalHoraExtraEmpleado('C');
-
+        //ModalHoraExtraEmpleado('C');
     });
 </script>

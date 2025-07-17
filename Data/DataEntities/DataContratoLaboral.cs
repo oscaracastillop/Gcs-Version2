@@ -171,7 +171,15 @@ namespace Data.DataEntities
             }
             catch (Exception ex)
             {
-                throw ex;
+                var Rol = dataRol.BuscarRolUsuario(IdUser);
+                if (Rol == "Administrador")
+                {
+                    resultado = "Error*" + ex.Message;
+                }
+                else
+                {
+                    resultado = "Error*En el momento no se puede realizar este proceso, por favor comuniquese con el Administrador";
+                }
             }
             return resultado;
         }

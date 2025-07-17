@@ -7,9 +7,9 @@ namespace App.Controllers
     {
         private readonly DataNominaEmpleado dataNominaEmpleado = new DataNominaEmpleado();
 
-        public JsonResult CrearNominaEmpleado(string IdUser, int IdEmpleado, string FechaInicio, string FechaCorte, int DiasaPagar)
+        public JsonResult CrearNominaEmpleado(string IdUser, int IdEmpleado, string FechaInicio, string FechaFin, int DiasaPagar)
         {
-            var resultado = dataNominaEmpleado.CrearNominaEmpleado(IdUser, IdEmpleado, FechaInicio, FechaCorte, DiasaPagar);
+            var resultado = dataNominaEmpleado.CrearNominaEmpleado(IdUser, IdEmpleado, FechaInicio, FechaFin, DiasaPagar);
             return Json(resultado);
         }
 

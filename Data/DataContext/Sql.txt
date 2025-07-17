@@ -6878,6 +6878,204 @@ GO
 
 /* NOMINA EMPLEADO */
 
+CREATE TABLE NominaEmpleado
+(Id INT identity(1,1) Primary key ,
+IdEmpleado INT, 
+IdContratoLaboral INT, 
+IdSucursal INT, 
+FechaInicioCorte DATE,
+FechaFinCorte DATE,
+DiasaPagar INT,
+SalarioMensual DECIMAL(10,2),
+Sueldo DECIMAL(10,2),
+SubTransporteMes DECIMAL(10,2),
+SubTransporte DECIMAL(10,2),
+HorasDefinidasxMes INT,
+ValorHoraOrdinaria DECIMAL(10,2),
+PorcentajeHED INT,
+ValorHED DECIMAL(10,2),
+CantHED DECIMAL(10,2),
+ValorTotalHED DECIMAL(10,2),
+PorcentajeHEN INT,
+ValorHEN DECIMAL(10,2),
+CantHEN DECIMAL(10,2),
+ValorTotalHEN DECIMAL(10,2),
+PorcentajeHEDDF INT,
+ValorHEDDF DECIMAL(10,2),
+CantHEDDF DECIMAL(10,2),
+ValorTotalHEDDF DECIMAL(10,2),
+PorcentajeHENDF INT,
+ValorHENDF DECIMAL(10,2),
+CantHENDF DECIMAL(10,2),
+ValorTotalHENDF DECIMAL(10,2),
+TotalCantHE DECIMAL(10,2),
+TotalHE DECIMAL(10,2),
+DesembolsoPrestamo DECIMAL(10,2), 
+OtrosIngresos DECIMAL(10,2), 
+TotalIngresos DECIMAL(10,2),
+PorcentajeEps INT,
+Eps DECIMAL(10,2),
+PorcentajePension INT,
+Pension DECIMAL(10,2),
+Casino DECIMAL(10,2), 
+CobroPrestamo DECIMAL(10,2), 
+OtrosDescuentos DECIMAL(10,2),
+TotalDescuentos DECIMAL(10,2), 
+TotalaPagar DECIMAL(10,2),
+IdEstado INT DEFAULT 1,
+CreateBy INT,
+DateCreate DATETIME
+)
+
+GO
+
+ALTER TABLE NominaEmpleado ADD CONSTRAINT FK_IdEmpleadoNominaEmpleado FOREIGN KEY (IdEmpleado) references Empleado(Id)
+ALTER TABLE NominaEmpleado ADD CONSTRAINT FK_IdContratoLaboralNominaEmpleado FOREIGN KEY (IdContratoLaboral) references ContratoLaboral(Id)
+ALTER TABLE NominaEmpleado ADD CONSTRAINT FK_IdSucursalNominaEmpleado FOREIGN KEY (IdSucursal) references Sucursal(Id)
+ALTER TABLE NominaEmpleado ADD CONSTRAINT FK_IdCreateByNominaEmpleado FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE NominaEmpleado ADD CONSTRAINT FK_IdEstadoNominaEmpleado FOREIGN KEY (IdEstado ) references TipoEstado(Id)
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_CrearNominaEmpleado] @IdUser varchar(255), @IdEmpleado INT, @FechaInicio date, @FechaFin date, @DiasaPagar int, @Resultado varchar(255) OUTPUT 
+AS
+BEGIN 
+DECLARE 
+@Permiso INT, 
+@IdUsuario INT, 
+@Accion VARCHAR(255),
+@SubMenu VARCHAR(255),
+@IdContratoLaboral INT,
+@IdSucursal INT,
+@SalarioMensual DECIMAL(10,2),
+@Sueldo DECIMAL(10,2),
+@HorasDefinidasxMes INT,
+@SubTransporte DECIMAL(10,2),
+@SubTransporteMes DECIMAL(10,2),
+@Eps DECIMAL(10,2),
+@PorcentajeEps INT,
+@PorcentajePension INT,
+@Pension DECIMAL(10,2),
+@OtrosIngresos DECIMAL(10,2), 
+@OtrosDescuentos DECIMAL(10,2), 
+@Casino DECIMAL(10,2), 
+@DesembolsoPrestamo DECIMAL(10,2), 
+@CobroPrestamo DECIMAL(10,2), 
+@TotalIngresos DECIMAL(10,2), 
+@TotalDescuentos DECIMAL(10,2), 
+@TotalaPagar DECIMAL(10,2), 
+@ValorHoraOrdinaria DECIMAL(10,2),
+@PorcentajeHED INT,
+@PorcentajeHEN INT,
+@PorcentajeHEDDF INT,
+@PorcentajeHENDF INT,
+@ValorHED DECIMAL(10,2),
+@ValorHEN DECIMAL(10,2),
+@ValorHEDDF DECIMAL(10,2),
+@ValorHENDF DECIMAL(10,2),
+@CantHED DECIMAL(10,2),
+@CantHEN DECIMAL(10,2),
+@CantHEDDF DECIMAL(10,2),
+@CantHENDF DECIMAL(10,2),
+@ValorTotalHED DECIMAL(10,2),
+@ValorTotalHEN DECIMAL(10,2),
+@ValorTotalHEDDF DECIMAL(10,2),
+@ValorTotalHENDF DECIMAL(10,2),
+@TotalCantHE DECIMAL(10,2),
+@TotalHE DECIMAL(10,2)
+
+
+/* Datos Generales*/
+
+SELECT @IdSucursal = C.Id FROM ContratoLaboral A, SucursalEmpleado B, Sucursal C WHERE A.IdEmpleado = @IdEmpleado AND A.IdEstado = 1 AND A.IdEmpleado = B.IdEmpleado AND C.Id = B.IdSucursal
+SELECT @IdContratoLaboral = Id FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
+SELECT @SalarioMensual =  SalarioMensual FROM ContratoLaboral where Id = @IdContratoLaboral
+SELECT @SubTransporteMes = SubTransporte FROM ContratoLaboral where Id = @IdContratoLaboral
+SELECT @PorcentajeEps = PorcentajeEps FROM ContratoLaboral where Id = @IdContratoLaboral
+SELECT @PorcentajePension = PorcentajeFondoPension FROM ContratoLaboral where Id = @IdContratoLaboral
+
+
+/* VALORES Y DATOS DE HORAS */
+SELECT @HorasDefinidasxMes = 220 -- (44 horas semanales * 5 semanas = 220 total horas mes)
+SELECT @ValorHoraOrdinaria = (SalarioMensual/@HorasDefinidasxMes) FROM ContratoLaboral WHERE IdEmpleado = @IdEmpleado
+
+SELECT @PorcentajeHED = ISNULL(Porcentaje,0) FROM TipoHoraExtra WHERE Id = 1
+SELECT @PorcentajeHEN = ISNULL(Porcentaje,0) FROM TipoHoraExtra WHERE Id = 2
+SELECT @PorcentajeHEDDF = ISNULL(Porcentaje,0) FROM TipoHoraExtra WHERE Id = 3
+SELECT @PorcentajeHENDF = ISNULL(Porcentaje,0) FROM TipoHoraExtra WHERE Id = 4
+
+SELECT @ValorHED = ISNULL(((@ValorHoraOrdinaria*Porcentaje)/100)+@ValorHoraOrdinaria,0) FROM TipoHoraExtra WHERE Id = 1
+SELECT @ValorHEN = ISNULL(((@ValorHoraOrdinaria*Porcentaje)/100)+@ValorHoraOrdinaria,0) FROM TipoHoraExtra WHERE Id = 2
+SELECT @ValorHEDDF = ISNULL(((@ValorHoraOrdinaria*Porcentaje)/100)+@ValorHoraOrdinaria,0) FROM TipoHoraExtra WHERE Id = 3
+SELECT @ValorHENDF = ISNULL(((@ValorHoraOrdinaria*Porcentaje)/100)+@ValorHoraOrdinaria,0) FROM TipoHoraExtra WHERE Id = 4
+
+SELECT @CantHED = ISNULL(SUM(Cantidad),0) FROM	HoraExtraEmpleado WHERE	IdEstado = 1 AND IdTipoHoraExtra = 1 AND IdEmpleado = @IdEmpleado AND FechaPagoHE BETWEEN @FechaInicio AND @FechaFin
+SELECT @CantHEN = ISNULL(SUM(Cantidad),0) FROM	HoraExtraEmpleado WHERE	IdEstado = 1 AND IdTipoHoraExtra = 2 AND IdEmpleado = @IdEmpleado AND FechaPagoHE BETWEEN @FechaInicio AND @FechaFin
+SELECT @CantHEDDF = ISNULL(SUM(Cantidad),0) FROM	HoraExtraEmpleado WHERE	IdEstado = 1 AND IdTipoHoraExtra = 3 AND IdEmpleado = @IdEmpleado AND FechaPagoHE BETWEEN @FechaInicio AND @FechaFin
+SELECT @CantHENDF = ISNULL(SUM(Cantidad),0) FROM	HoraExtraEmpleado WHERE	IdEstado = 1 AND IdTipoHoraExtra = 4 AND IdEmpleado = @IdEmpleado AND FechaPagoHE BETWEEN @FechaInicio AND @FechaFin
+
+SELECT @ValorTotalHED = ISNULL(SUM(@ValorHED*@CantHED),0)
+SELECT @ValorTotalHEN = ISNULL(SUM(@ValorHEN*@CantHEN),0)
+SELECT @ValorTotalHEDDF = ISNULL(SUM(@ValorHEDDF*@CantHEDDF),0)
+SELECT @ValorTotalHENDF = ISNULL(SUM(@ValorHENDF*@CantHENDF),0)
+
+SELECT @TotalCantHE = @CantHED + @CantHEN + @CantHEDDF + @CantHENDF
+SELECT @TotalHE = @ValorTotalHED + @ValorTotalHEN + @ValorTotalHEDDF + @ValorTotalHENDF
+
+ 
+/* INGRESOS */
+
+SET @Sueldo = (@SalarioMensual/30)*@DiasaPagar
+SELECT @SubTransporte = (SubTransporte/30)*@DiasaPagar FROM ContratoLaboral where Id = @IdContratoLaboral
+SELECT @OtrosIngresos = ISNULL(SUM(Valor),0) FROM OtrosIngresosEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
+SELECT @OtrosDescuentos = ISNULL(SUM(Valor),0) FROM OtrosDescuentosEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaCobro BETWEEN @FechaInicio AND @FechaFin
+SELECT @DesembolsoPrestamo = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPrestamo BETWEEN @FechaInicio AND @FechaFin
+
+
+
+
+/* DESCUENTOS */
+SET @Eps = ISNULL(((@SalarioMensual*@PorcentajeEps/100)/30)*@DiasaPagar,0)
+SET @Pension = ISNULL(((@SalarioMensual*@PorcentajePension/100)/30)*@DiasaPagar,0)
+SELECT @CobroPrestamo = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
+SELECT @Casino = ISNULL(SUM(Valor),0) FROM CasinoEmpleado WHERE IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
+
+/* TOTALES */
+SET @TotalIngresos = ISNULL((@Sueldo + @SubTransporte + @OtrosIngresos + @DesembolsoPrestamo + @TotalHE),0)
+SET @TotalDescuentos = ISNULL((@Eps + @Pension + @Casino + @CobroPrestamo + @OtrosDescuentos),0)
+SET @TotalaPagar = ISNULL((@TotalIngresos - @TotalDescuentos),0)
+
+
+SET @Accion = 'Crear'
+SET @SubMenu = '/Contabilidad/Nomina_Empleado'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN		
+		INSERT INTO NominaEmpleado
+		(IdEmpleado, IdContratoLaboral, IdSucursal, FechaInicioCorte, FechaFinCorte, DiasaPagar, SalarioMensual, Sueldo, SubTransporteMes, SubTransporte, HorasDefinidasxMes,
+		ValorHoraOrdinaria, PorcentajeHED, ValorHED, CantHED, ValorTotalHED, PorcentajeHEN, ValorHEN, CantHEN, ValorTotalHEN, PorcentajeHEDDF, ValorHEDDF,
+		CantHEDDF, ValorTotalHEDDF, PorcentajeHENDF, ValorHENDF, CantHENDF, ValorTotalHENDF, TotalCantHE, TotalHE, DesembolsoPrestamo, OtrosIngresos, TotalIngresos,
+		PorcentajeEps, Eps, PorcentajePension, Pension, Casino, CobroPrestamo, OtrosDescuentos, TotalDescuentos, TotalaPagar, CreateBy, DateCreate) 
+		VALUES 
+		(@IdEmpleado,  @IdContratoLaboral, @IdSucursal, @FechaInicio, @FechaFin, @DiasaPagar, @SalarioMensual, @Sueldo, @SubTransporteMes, @SubTransporte, @HorasDefinidasxMes,
+		@ValorHoraOrdinaria, @PorcentajeHED, @ValorHED, @CantHED, @ValorTotalHED, @PorcentajeHEN, @ValorHEN, @CantHEN, @ValorTotalHEN, @PorcentajeHEDDF, @ValorHEDDF,
+		@CantHEDDF, @ValorTotalHEDDF, @PorcentajeHENDF, @ValorHENDF, @CantHENDF, @ValorTotalHENDF, @TotalCantHE, @TotalHE, @DesembolsoPrestamo, @OtrosIngresos, @TotalIngresos,
+		@PorcentajeEps, @Eps, @PorcentajePension, @Pension, @Casino, @CobroPrestamo, @OtrosDescuentos, @TotalDescuentos, @TotalaPagar, @IdUsuario, GETDATE()) 
+
+		SET @Resultado = 'OK*Los datos se crearon correctamente'
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
 CREATE PROCEDURE [dbo].[SP_GridDatosEmpleadoNomina] @IdEmpleado INT, @FechaInicio date, @FechaFin date, @DiasaPagar int
 AS
 BEGIN 
@@ -6925,7 +7123,7 @@ SET @Pension = ISNULL(((@SalarioMensual*@PorcentajePension/100)/30)*@DiasaPagar,
 SELECT @CobroPrestamo = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
 SELECT @Casino = ISNULL(SUM(Valor),0) FROM CasinoEmpleado WHERE IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
 
-SET @TotalIngresos = ISNULL((@Sueldo + @SubTransporte + @OtrosIngresos + @DesembolsoPrestamo),0)
+SET @TotalIngresos = ISNULL((@Sueldo + @SubTransporte + @OtrosIngresos + @DesembolsoPrestamo + @ValorTotalHED + @ValorTotalHEN + @ValorTotalHEDDF + @ValorTotalHENDF),0)
 SET @TotalDescuentos = ISNULL((@Eps + @Pension + @Casino + @CobroPrestamo + @OtrosDescuentos),0)
 
 SELECT 
@@ -6990,7 +7188,7 @@ IdContratoLaboral Int,
 Sueldo int,
 HorasDefinidasxMes int,
 IdTipoHoraExtra int,
-PorcentajeHE int,
+PorcentajeHE decimal(10,2),
 Cantidad decimal(10,2),
 ValorHoraOrdinaria decimal(10,2),
 ValorHoraExtra decimal(10,2),
@@ -7032,7 +7230,7 @@ DECLARE @Permiso INT,
 		@IdContratoLaboral INT,
 		@Sueldo INT,
 		@HorasDefinidasxMes INT,
-		@PorcentajeHE INT,
+		@PorcentajeHE DECIMAL(10,2),
 		@ValorHoraOrdinaria DECIMAL(10,2),
 		@ValorHoraExtra DECIMAL(10,2),
 		@TotalValorHoraExtra DECIMAL(10,2),
@@ -7047,7 +7245,7 @@ SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
 SELECT @IdContratoLaboral = Id FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
 SELECT @Sueldo = SalarioMensual FROM ContratoLaboral WHERE IdEmpleado = @IdEmpleado
-SELECT @HorasDefinidasxMes = 230 -- (44 horas semanales * 5 semanas = 220 total horas mes)
+SELECT @HorasDefinidasxMes = 220 -- (44 horas semanales * 5 semanas = 220 total horas mes)
 SELECT @PorcentajeHE = Porcentaje FROM TipoHoraExtra WHERE Id = @IdTipoHoraExtra
 SELECT @ValorHoraOrdinaria = (SalarioMensual/@HorasDefinidasxMes) FROM ContratoLaboral WHERE IdEmpleado = @IdEmpleado
 SELECT @ValorHoraExtra = (((@ValorHoraOrdinaria*Porcentaje)/100)+@ValorHoraOrdinaria) FROM TipoHoraExtra WHERE Id = @IdTipoHoraExtra
@@ -7073,190 +7271,38 @@ END
 
 GO
 
-
-
-/* NOMINA EMPLEADO */
-
-
-CREATE TABLE NominaEmpleado
-(Id int identity(1,1) Primary key ,
-IdEmpleado int,
-IdContratoLaboral int,
-IdSucursal int,
-SalarioMensual INT,
-HorasDefinidasxMes INT,
-SubTransporteMes INT,
-
-
-
-SubTransporte INT,
-Sueldo INT,
-
-
-PorcentajeEps INT,
-Eps INT,
-PorcentajePension INT,
-Pension INT,
-OtrosIngresos INT, 
-OtrosDescuentos INT, 
-Casino INT, 
-DesembolsoPrestamo INT, 
-CobroPrestamo INT, 
-TotalIngresos INT, 
-TotalDescuentos INT, 
-
-
-
-
-
-IdEstado int default 1
-)
-
-GO
-
-ALTER TABLE SubMenu ADD CONSTRAINT FK_IdMenuSubmenu FOREIGN KEY (IdMenu) references Menu(Id)
-ALTER TABLE SubMenu ADD CONSTRAINT FK_IdEstadoSubMenu FOREIGN KEY (IdEstado) references TipoEstado(Id)
-
-
-GO
-
-
-
-/* CREAR NOMINA EMPLEADO */
-
-CREATE PROCEDURE [dbo].[SP_CrearNominaEmpleado] @IdUser varchar(255), @IdEmpleado INT, @FechaInicio date, @FechaFin date, @DiasaPagar int, @Resultado varchar(255) OUTPUT 
+CREATE PROCEDURE [dbo].[SP_GridHoraExtraEmpleado]
 AS
-BEGIN 
-DECLARE 
-@Permiso INT, 
-@IdUsuario INT, 
-@Accion VARCHAR(255),
-@SubMenu VARCHAR(255),
-@IdContratoLaboral INT,
-@IdSucursal INT,
-@SalarioMensual INT,
-@Sueldo INT,
-@HorasDefinidasxMes INT,
-@SubTransporte INT,
-@SubTransporteMes INT,
-@Eps INT,
-@PorcentajeEps INT,
-@PorcentajePension INT,
-@Pension INT,
-@OtrosIngresos INT, 
-@OtrosDescuentos INT, 
-@Casino INT, 
-@DesembolsoPrestamo INT, 
-@CobroPrestamo INT, 
-@TotalIngresos INT, 
-@TotalDescuentos INT, 
-
-@ValorHoraOrdinaria DECIMAL(10,2),
-@PorcentajeHED INT,
-@PorcentajeHEN INT,
-@PorcentajeHEDDF INT,
-@PorcentajeHENDF INT,
-
-@ValorHED DECIMAL(10,2),
-@ValorHEN DECIMAL(10,2),
-@ValorHEDDF DECIMAL(10,2),
-@ValorHENDF DECIMAL(10,2),
-
-@CantHED DECIMAL(10,2),
-@CantHEN DECIMAL(10,2),
-@CantHEDDF DECIMAL(10,2),
-@CantHENDF DECIMAL(10,2),
-
-@ValorTotalHED DECIMAL(10,2),
-@ValorTotalHEN DECIMAL(10,2),
-@ValorTotalHEDDF DECIMAL(10,2),
-@ValorTotalHENDF DECIMAL(10,2),
-
-@TotalCantHE DECIMAL(10,2),
-@TotalHE DECIMAL(10,2)
-
-
-/* Datos Generales*/
-
-SELECT @IdSucursal = C.Id FROM ContratoLaboral A, SucursalEmpleado B, Sucursal C WHERE A.IdEmpleado = @IdEmpleado AND A.IdEstado = 1 AND A.IdEmpleado = B.IdEmpleado AND C.Id = B.IdSucursal
-SELECT @IdContratoLaboral = Id FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
-SELECT @SalarioMensual =  SalarioMensual FROM ContratoLaboral where Id = @IdContratoLaboral
-SELECT @SubTransporteMes = SubTransporte FROM ContratoLaboral where Id = @IdContratoLaboral
-SELECT @PorcentajeEps = PorcentajeEps FROM ContratoLaboral where Id = @IdContratoLaboral
-SELECT @PorcentajePension = PorcentajeFondoPension FROM ContratoLaboral where Id = @IdContratoLaboral
-
-
-/* VALORES Y DATOS DE HORAS */
-SELECT @HorasDefinidasxMes = 220 -- (44 horas semanales * 5 semanas = 220 total horas mes)
-SELECT @ValorHoraOrdinaria = (SalarioMensual/@HorasDefinidasxMes) FROM ContratoLaboral WHERE IdEmpleado = @IdEmpleado
-
-SELECT @PorcentajeHED = ISNULL(Porcentaje,0) FROM TipoHoraExtra WHERE Id = 1
-SELECT @PorcentajeHEN = ISNULL(Porcentaje,0) FROM TipoHoraExtra WHERE Id = 2
-SELECT @PorcentajeHEDDF = ISNULL(Porcentaje,0) FROM TipoHoraExtra WHERE Id = 3
-SELECT @PorcentajeHENDF = ISNULL(Porcentaje,0) FROM TipoHoraExtra WHERE Id = 4
-
-SELECT @ValorHED = ISNULL(((@ValorHoraOrdinaria*Porcentaje)/100)+@ValorHoraOrdinaria,0) FROM TipoHoraExtra WHERE Id = 1
-SELECT @ValorHEN = ISNULL(((@ValorHoraOrdinaria*Porcentaje)/100)+@ValorHoraOrdinaria,0) FROM TipoHoraExtra WHERE Id = 2
-SELECT @ValorHEDDF = ISNULL(((@ValorHoraOrdinaria*Porcentaje)/100)+@ValorHoraOrdinaria,0) FROM TipoHoraExtra WHERE Id = 3
-SELECT @ValorHENDF = ISNULL(((@ValorHoraOrdinaria*Porcentaje)/100)+@ValorHoraOrdinaria,0) FROM TipoHoraExtra WHERE Id = 4
-
-SELECT @CantHED = ISNULL(SUM(Cantidad),0) FROM	HoraExtraEmpleado WHERE	IdEstado = 1 AND IdTipoHoraExtra = 1 AND IdEmpleado = @IdEmpleado AND FechaPagoHE BETWEEN @FechaInicio AND @FechaFin
-SELECT @CantHEN = ISNULL(SUM(Cantidad),0) FROM	HoraExtraEmpleado WHERE	IdEstado = 1 AND IdTipoHoraExtra = 1 AND IdEmpleado = @IdEmpleado AND FechaPagoHE BETWEEN @FechaInicio AND @FechaFin
-SELECT @CantHEDDF = ISNULL(SUM(Cantidad),0) FROM	HoraExtraEmpleado WHERE	IdEstado = 1 AND IdTipoHoraExtra = 1 AND IdEmpleado = @IdEmpleado AND FechaPagoHE BETWEEN @FechaInicio AND @FechaFin
-SELECT @CantHENDF = ISNULL(SUM(Cantidad),0) FROM	HoraExtraEmpleado WHERE	IdEstado = 1 AND IdTipoHoraExtra = 1 AND IdEmpleado = @IdEmpleado AND FechaPagoHE BETWEEN @FechaInicio AND @FechaFin
-
-SELECT @ValorTotalHED = ISNULL(SUM(ValorTotalHoraExtra),0) FROM	HoraExtraEmpleado WHERE	IdEstado = 1 AND IdTipoHoraExtra = 1 AND IdEmpleado = @IdEmpleado AND FechaPagoHE BETWEEN @FechaInicio AND @FechaFin
-SELECT @ValorTotalHEN = ISNULL(SUM(ValorTotalHoraExtra),0) FROM	HoraExtraEmpleado WHERE	IdEstado = 1 AND IdTipoHoraExtra = 2 AND IdEmpleado = @IdEmpleado AND FechaPagoHE BETWEEN @FechaInicio AND @FechaFin
-SELECT @ValorTotalHEDDF = ISNULL(SUM(ValorTotalHoraExtra),0) FROM	HoraExtraEmpleado WHERE	IdEstado = 1 AND IdTipoHoraExtra = 3 AND IdEmpleado = @IdEmpleado AND FechaPagoHE BETWEEN @FechaInicio AND @FechaFin
-SELECT @ValorTotalHENDF = ISNULL(SUM(ValorTotalHoraExtra),0) FROM	HoraExtraEmpleado WHERE	IdEstado = 1 AND IdTipoHoraExtra = 4 AND IdEmpleado = @IdEmpleado AND FechaPagoHE BETWEEN @FechaInicio AND @FechaFin
-
-SELECT @TotalCantHE = @CantHED + @CantHEN + @CantHEDDF + @CantHENDF
-SELECT @TotalHE = @ValorTotalHED + @ValorTotalHEN + @ValorTotalHEDDF + @ValorTotalHENDF
-
- 
-/* INGRESOS */
-
-SET @Sueldo = (@SalarioMensual/30)*@DiasaPagar
-SELECT @SubTransporte = (SubTransporte/30)*@DiasaPagar FROM ContratoLaboral where Id = @IdContratoLaboral
-SELECT @OtrosIngresos = ISNULL(SUM(Valor),0) FROM OtrosIngresosEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
-SELECT @OtrosDescuentos = ISNULL(SUM(Valor),0) FROM OtrosDescuentosEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaCobro BETWEEN @FechaInicio AND @FechaFin
-SELECT @DesembolsoPrestamo = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPrestamo BETWEEN @FechaInicio AND @FechaFin
-
-
-
-
-/* DESCUENTOS */
-SET @Eps = ISNULL(((@SalarioMensual*@PorcentajeEps/100)/30)*@DiasaPagar,0)
-SET @Pension = ISNULL(((@SalarioMensual*@PorcentajePension/100)/30)*@DiasaPagar,0)
-SELECT @CobroPrestamo = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
-SELECT @Casino = ISNULL(SUM(Valor),0) FROM CasinoEmpleado WHERE IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
-
-/* TOTALES */
-SET @TotalIngresos = ISNULL((@Sueldo + @SubTransporte + @OtrosIngresos + @DesembolsoPrestamo + @TotalHE),0)
-SET @TotalDescuentos = ISNULL((@Eps + @Pension + @Casino + @CobroPrestamo + @OtrosDescuentos),0)
-
-
-SET @Accion = 'Crear'
-SET @SubMenu = '/Contabilidad/Nomina_Empleado'
-
-SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
-SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
-
-IF @Permiso > 0
-	BEGIN		
-		--INSERT INTO 
-		--) 
-		--VALUES 
-		--(@IdEmpleado, @IdContratoLaboral, @SalarioMensual, ) 
-
-		SET @Resultado = 'OK*Los datos se crearon correctamente'
-	END	
-ELSE
-	BEGIN
-		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
-	END
-	SELECT @Resultado
+BEGIN
+	SELECT	A.Id,  
+			A.IdEmpleado,
+			dbo.Fun_BuscarNombreEmpleado(A.IdEmpleado) AS Empleado,
+			D.Nombre + ' - ' + C.Nombre AS EmpresaSucursal,
+			A.ValorHoraOrdinaria AS ValorHoraOrdinaria,
+			CONVERT(varchar(255),A.FechaHE,23) As FechaHoraExtra,
+			CONVERT(varchar(255),A.FechaHE,105) As TextoFechaHoraExtra,
+			DBO.Fun_BuscarNombreTipoHoraExtra(A.IdTipoHoraExtra) AS TipoHoraExtra,
+			A.PorcentajeHE AS PorcentajeHoraExtra,
+			A.ValorHoraExtra AS ValorHoraExtra,
+			A.Cantidad,
+			A.ValorTotalHoraExtra AS TotalHorasExtras,
+			CONVERT(varchar(255),A.FechaPagoHE,23) As FechaPagoHoraExtra,
+			CONVERT(varchar(255),A.FechaPagoHE,105) As TextoFechaPagoHoraExtra,
+			ISNULL(A.IdNominaEmpleado,'') AS IdNominaEmpleado,
+			A.Observacion,
+			A.IdEstado,
+			dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,
+			dbo.Fun_BuscarNombreUsuario(A.CreateBy) As CreateBy,
+			CONVERT(varchar(255),A.DateCreate,105)+ ' ' + CONVERT(varchar(255),A.DateCreate,8) As DateCreate			
+			FROM HoraExtraEmpleado A,
+			Sucursal C,
+			Empresa D
+			WHERE A.IdSucursal = C.Id
+			AND D.Id = C.IdEmpresa
+			ORDER BY Id Desc
 END
+
+GO
 
 
 
