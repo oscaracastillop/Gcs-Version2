@@ -87,6 +87,67 @@ function CrearHoraExtraEmpleado() {
     }
 }
 
+function ActualizarHoraExtraEmpleado() {
+    let IdTipoHoraExtra = $('#SelectTipoHoraExtra').val();
+    let CantidadHE = $('#InputCantidadHEEmpleado').val();
+    let FechaHE = $('#InputFechaHEEmpleado').val();
+    let FechaPagoHE = $('#InputFechaPagoHEEmplado').val();
+    let Observacion = $('#InputHEEmpleadoObservacion').val();
+    let IdEstado = $('#SelectEstado').val();
+
+    if (IdTipoHoraExtra == -1 || IdTipoHoraExtra == null || IdTipoHoraExtra == '') {
+        $('#SelectTipoHoraExtra').focus();
+        VentanaMensaje('Seleccione el Tipo de Hora Extra', 'info');
+    } else if (CantidadHE == null || CantidadHE == '' || CantidadHE == undefined || CantidadHE == 0) {
+        $('#InputCantidadHEEmpleado').focus();
+        VentanaMensaje('Ingrese la cantidad de Horas Extras', 'info');
+    } else if (FechaHE == null || FechaHE == '' || FechaHE == undefined) {
+        $('#InputFechaHEEmpleado').focus();
+        VentanaMensaje('Ingrese la Fecha de la Hora Extra', 'info');
+    } else if (FechaPagoHE == null || FechaPagoHE == '' || FechaPagoHE == undefined) {
+        $('#InputFechaPagoHEEmplado').focus();
+        VentanaMensaje('Ingrese la Fecha de Pago', 'info');
+    } else if (FechaPagoHE < FechaHE) {
+        $('#InputFechaPagoHEEmplado').focus();
+        VentanaMensaje('La fecha de pago no puede ser inferior a la Fecha de ejecución de la Hora Extra', 'info');
+    } else {
+
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/Hora_Extra_Empleado/ActualizarHoraExtraEmpleado',
+            data: {
+                IdUser: TokenUser,
+                IdTipoHoraExtra: IdTipoHoraExtra,
+                CantidadHE: CantidadHE,
+                FechaHE: FechaHE,
+                FechaPagoHE: FechaPagoHE,
+                Observacion: Observacion,
+                IdEstado: IdEstado
+            },
+            success: function (resultado) {
+                valor = resultado.split('*');
+                if (valor[0] == 'OK') {
+                    Swal.fire({
+                        title: TituloSwal,
+                        text: valor[1],
+                        icon: 'success',
+                        position: 'top',
+                        confirmButtonColor: "orangered",
+                    }).then((result) => {
+                        window.location.reload();
+                    })
+                } else {
+                    Swal.fire(TituloSwal, valor[1], 'info');
+                }
+            }
+        });
+
+
+    }
+}
+
 function EliminarHoraExtraEmpleado(IdHoraExtra) {
     Swal.fire({
         title: TituloSwal,

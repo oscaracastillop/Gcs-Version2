@@ -95,6 +95,7 @@ namespace Data.DataEntities
             }
             return resultado;
         }
+
         public string EliminarHoraExtraEmpleado(string IdUser, int IdHoraExtra)
         {
             string resultado = String.Empty;
