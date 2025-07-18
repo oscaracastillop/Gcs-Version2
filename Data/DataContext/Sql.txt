@@ -7281,6 +7281,7 @@ BEGIN
 			A.ValorHoraOrdinaria AS ValorHoraOrdinaria,
 			CONVERT(varchar(255),A.FechaHE,23) As FechaHoraExtra,
 			CONVERT(varchar(255),A.FechaHE,105) As TextoFechaHoraExtra,
+			A.IdTipoHoraExtra,
 			DBO.Fun_BuscarNombreTipoHoraExtra(A.IdTipoHoraExtra) AS TipoHoraExtra,
 			A.PorcentajeHE AS PorcentajeHoraExtra,
 			A.ValorHoraExtra AS ValorHoraExtra,
@@ -7304,6 +7305,33 @@ END
 
 GO
 
+CREATE PROCEDURE [dbo].[SP_EliminarHoraExtraEmpleado] @IdUser varchar(255), @IdHoraExtra int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Recursos_Humanos/Hora_Extra'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE HoraExtraEmpleado WHERE Id = @IdHoraExtra
+SET @Resultado = 'OK*El registro seleccionado se elimino correctamente'	
+
+SELECT @Resultado
+END
+
+GO
 
 
 

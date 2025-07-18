@@ -17,6 +17,7 @@ namespace Models
             public decimal ValorHoraOrdinaria { get; set; }
             public string FechaHoraExtra { get; set; }
             public string TextoFechaHoraExtra { get; set; }
+            public int IdTipoHoraExtra { get; set; }
             public string TipoHoraExtra { get; set; }
             public decimal PorcentajeHoraExtra { get; set; }
             public decimal ValorHoraExtra { get; set; }

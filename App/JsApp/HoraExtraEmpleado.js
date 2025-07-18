@@ -11,6 +11,7 @@
     if (tipo == 'C') {
         $("#TituloModalHoraExtraEmpleado").empty().append('<label>Crear Hora Extra Empleado</label>');
         $('#ModalHoraExtraEmpleado').modal('show');
+        $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", false);
         $("#SelectEstadoHoraExtraEmpleado").hide();
         $("#BotonesModalHoraExtraEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearHoraExtraEmpleado()">Guardar</button>');
     } if (tipo == 'E') {
@@ -85,6 +86,49 @@ function CrearHoraExtraEmpleado() {
 
     }
 }
+
+function EliminarHoraExtraEmpleado(IdHoraExtra) {
+    Swal.fire({
+        title: TituloSwal,
+        text: "Esta seguro(a)?, No podrás revertir esta acción.!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "orangered",
+        cancelButtonColor: "#333",
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "Cancelar",
+        position: 'top'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/Hora_Extra_Empleado/EliminarHoraExtraEmpleado',
+                data: {
+                    IdUser: TokenUser,
+                    IdHoraExtra: IdHoraExtra
+                },
+                success: function (resultado) {
+                    valor = resultado.split('*');
+                    if (valor[0] == 'OK') {
+                        Swal.fire({
+                            title: TituloSwal,
+                            text: valor[1],
+                            icon: 'success',
+                            position: 'top',
+                            confirmButtonColor: "orangered",
+                        }).then((result) => {
+                            location.reload();
+                        })
+                    } else {
+                        Swal.fire(TituloSwal, valor[1], 'info');
+                    }
+                }
+            });
+        }
+    });
+}
+
 
 function GridHoraExtraEmpleado() {
     var tituloReporte = 'LISTADO DE HORAS EXTRAS EMPLEADOS';
@@ -269,9 +313,14 @@ function GridHoraExtraEmpleado() {
 
     $('#gridHoraExtraEmpleado').on('click', '.EditarHoraExtraEmpleado', function () {
         let data = datatable.row($(this).parents()).data();
-        ModalEps('E');
+        ModalHoraExtraEmpleado('E');
         $('#LabelHoraExtraEmpleado').text(data.Id);
-        //$('#InputNombreEps').val(data.Nombre);
+        $('#SelectContratoLaboralSucursalEmpleado').val(data.IdEmpleado);
+        $('#SelectTipoHoraExtra').val(data.IdTipoHoraExtra);
+        $('#InputCantidadHEEmpleado').val(data.Cantidad);
+        $('#InputFechaHEEmpleado').val(data.FechaHoraExtra);
+        $('#InputFechaPagoHEEmplado').val(data.FechaPagoHoraExtra);
+        $('#InputHEEmpleadoObservacion').val(data.Observacion);
         $('#SelectEstado').val(data.IdEstado);
     })
 
