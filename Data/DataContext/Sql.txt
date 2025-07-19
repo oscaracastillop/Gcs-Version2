@@ -610,6 +610,7 @@ Icono varchar(max),
 SizeIcono varchar(max),
 Color  varchar(max),
 Ruta varchar(max),
+ColorFondo varchar(255),
 Orden int,
 IdEstado int default 1
 )
@@ -624,20 +625,20 @@ ALTER TABLE Menu ADD CONSTRAINT FK_IdEstadoMenu FOREIGN KEY (IdEstado) reference
 
 GO
 
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Inicio','bi-house', '1rem', 'white','/Home',1)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Negocio','bi-buildings', '1rem', 'white','/Negocio',2)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Venta','bi-cash-coin', '1rem', 'white','/Venta',3)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Rec. Humanos','bi-person-vcard', '1rem', 'white','/Recursos_Humanos',4)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Contratistas','bi-person-vcard-fill', '1rem', 'white','/Contratistas',5)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Contabilidad','bi-calculator', '1rem', 'white','/Contabilidad',6)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Almacén','bi-shop', '1rem', '1rem','/Almacen',7)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Mantenimiento','bi-wrench-adjustable', '1rem', 'white','/Mantenimiento',8)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Mirfe','bi-droplet-half', '1rem', 'white','/Mirfe',9)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Mipe','bi-radioactive', '1rem', 'white','/Mipe',10)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Producción','bi-gear', '1rem', 'white','/Produccion',11)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Configuración','bi-gear', '1rem', 'white','/Configuracion',12)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Información','bi-info-circle', '1rem', 'white','/Informacion',99)
-INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, Orden) VALUES ('Salir','bi-power', '1rem', 'white','javascript:CerrarSesion()',100)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo, Orden) VALUES ('Inicio','bi-house', '1.5rem', 'white','/Home','green',1)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo, Orden) VALUES ('Negocio','bi-buildings', '1.5rem', 'white','/Negocio','green',2)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo, Orden) VALUES ('Venta','bi-cash-coin', '1.5rem', 'white','/Venta','green',3)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo, Orden) VALUES ('Rec. Humanos','bi-person-vcard', '1.5rem', 'white','/Recursos_Humanos','green',4)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo, Orden) VALUES ('Contratistas','bi-person-vcard-fill', '1.5rem', 'white','/Contratistas','green',5)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo, Orden) VALUES ('Contabilidad','bi-calculator', '1.5rem', 'white','/Contabilidad','green',6)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo, Orden) VALUES ('Almacén','bi-shop', '1rem', '1.5rem','/Almacen','green',7)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo, Orden) VALUES ('Mantenimiento','bi-wrench-adjustable', '1.5rem', 'white','/Mantenimiento','green',8)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo, Orden) VALUES ('Mirfe','bi-droplet-half', '1.5rem', 'white','/Mirfe','green',9)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo, Orden) VALUES ('Mipe','bi-radioactive', '1.5rem', 'white','/Mipe','green',10)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo, Orden) VALUES ('Producción','bi-gear', '1.5rem', 'white','/Produccion','green',11)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo, Orden) VALUES ('Configuración','bi-gear', '1.5rem', 'white','/Configuracion','green',12)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo, Orden) VALUES ('Información','bi-info-circle', '1.5rem', 'white','/Informacion','green',99)
+INSERT INTO Menu (Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo, Orden) VALUES ('Salir','bi-power', '1.5rem', 'white','javascript:CerrarSesion()','red',100)
 
 GO
 
@@ -649,7 +650,8 @@ SELECT	@Id = dbo.Fun_BuscarIdUsuario(@IdUsuario)
 	SELECT	A.Id, 
 			'<i class="'+ A.Icono +'"' + 'style="font-size:' + A.SizeIcono + ';color:'+ A.Color+'"></i>' as IconoCodigoHtml,
 			A.Nombre,
-			A.Ruta
+			A.Ruta,
+			A.ColorFondo
 	FROM	Menu A,
 			Permiso_Menu B
 	WHERE	B.IdUsuario = @Id

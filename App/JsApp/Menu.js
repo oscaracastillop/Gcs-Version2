@@ -1,4 +1,35 @@
-﻿function ListaMenu() {
+﻿//function ListaMenu() {
+//    $.ajax({
+//        type: 'POST',
+//        dataType: 'json',
+//        url: '/Menu/ListaMenu',
+//        data: { Usuario: TokenUser },
+//        success: function (resultado) {
+//            var contador = 0;
+//            $.each(resultado, function () {
+//                $("#BotonesMenu").append('<a href="' + resultado[contador].Ruta + '" class="btn btnMenu" style="background-color:' + resultado[contador].ColorFondo + '" id = "' + resultado[contador].Id + '">' +
+//                    '' + resultado[contador].IconoCodigoHtml + '<br>' +
+//                    '<label class="">' + resultado[contador].Nombre + '</label>' +
+//                    '</a>'
+//                );
+//                contador++;
+//            });
+//        },
+//        //success: function (resultado) {
+//        //    var contador = 0;
+//        //    $.each(resultado, function () {
+//        //        $("#OpcionesMenu").append('<li><a href="' + resultado[contador].Ruta + '" id = "' + resultado[contador].Id + '">' +
+//        //            '' + resultado[contador].IconoCodigoHtml +' &nbsp;&nbsp;'+ resultado[contador].Nombre + '</a>'
+//        //        );
+//        //        contador++;
+//        //    });
+//        //},
+//    });
+//}
+
+
+
+function ListaMenu() {
     $.ajax({
         type: 'POST',
         dataType: 'json',
@@ -7,14 +38,19 @@
         success: function (resultado) {
             var contador = 0;
             $.each(resultado, function () {
-                $("#OpcionesMenu").append('<li><a href="' + resultado[contador].Ruta + '" id = "' + resultado[contador].Id + '">' +
-                    '' + resultado[contador].IconoCodigoHtml +' &nbsp;&nbsp;'+ resultado[contador].Nombre + '</a>'
+                $("#menu").append(
+                    '<li class="nav-item" >' +
+                    '<a class="nav-link btnmenu" href="' + resultado[contador].Ruta + '">' + resultado[contador].Nombre + '</a>' +
+                    /*'<a class="nav-link btnmenu" href="' + resultado[contador].Ruta + '">' + resultado[contador].IconoCodigoHtml + ' &nbsp;&nbsp;' + resultado[contador].Nombre + '</a>' +*/
+                    '</li >'
                 );
                 contador++;
             });
         },
     });
 }
+
+
 function ListaPermisoMenu() {
     $.ajax({
         type: 'POST',

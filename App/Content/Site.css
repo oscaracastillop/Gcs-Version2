@@ -46,10 +46,10 @@ nav ul {
 }
 
 #contenedordos {
-    margin-left: 170px;
+    margin-left: 20px;
     display: block;
     font-size: 12px !important;
-    margin-right: 10px;
+    margin-right: 20px;
     margin-top:0px;
     display:block !important;
     width:auto;
@@ -60,6 +60,36 @@ nav ul {
     height: 40px;
     border: solid 1px;
 }
+
+.btnmenu {
+   /*font-size:10px!important;*/
+   color:white!important;
+}
+
+.btnmenu:hover {/*
+    padding-left: 15px !important;
+    padding-right: 15px !important;*/
+    box-shadow: inset 0px 0px 5px 1px rgba(0,0,0,1);
+}
+
+.btnMenu {
+    align-content:center;
+    align-items:center;
+    text-align:center;
+    font-size: 10px !important;
+    height: 80px;
+    width: 150px;
+    margin: 15px;
+    align-content: center;
+    color: white !important;
+    font-family: "Open Sans", sans-serif;
+    border-radius: 0px 15px 0px 15px !important;
+    box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,1);
+}
+
+    .btnMenu:hover {
+        background-color: #666 !important;
+    }
 
 .btnSubMenu {
     font-size: 10px !important;
@@ -89,6 +119,7 @@ nav ul {
     padding-bottom: 10px;
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     background-color: white;
+    margin-bottom:30px;
 }
 
 table.dataTable thead tr {
