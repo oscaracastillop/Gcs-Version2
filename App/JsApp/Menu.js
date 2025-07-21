@@ -40,7 +40,7 @@ function ListaMenu() {
             $.each(resultado, function () {
                 $("#menu").append(
                     '<li class="nav-item" >' +
-                    '<a class="nav-link btnmenu" href="' + resultado[contador].Ruta + '">' + resultado[contador].Nombre + '</a>' +
+                    '<a class="nav-link btnmenu" id="'+resultado[contador].Id+'" href="' + resultado[contador].Ruta + '">' + resultado[contador].Nombre + '</a>' +
                     /*'<a class="nav-link btnmenu" href="' + resultado[contador].Ruta + '">' + resultado[contador].IconoCodigoHtml + ' &nbsp;&nbsp;' + resultado[contador].Nombre + '</a>' +*/
                     '</li >'
                 );
