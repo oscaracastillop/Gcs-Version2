@@ -1,6 +1,6 @@
 ﻿function ModalEmpresa(tipo) {
-    document.getElementById("nuevo").style.display = "block"
-    $("#ge").hide();
+    //document.getElementById("nuevo").style.display = "block"
+    //$("#ge").hide();
     $("#TituloModalEmpresa").empty().val('');
     $("#LabelIdEmpresa").empty().val('');
     $("#InputNombreEmpresa").empty().val('');
@@ -16,21 +16,21 @@
     $("#BotonesModalEmpresa").empty();
     if (tipo == 'C') {
         $("#TituloModalEmpresa").empty().append('<label>Crear Empresa</label>');
-        /*$('#ModalEmpresa').modal('show');*/
+        $('#ModalEmpresa').modal('show');
         $("#SelectEstadoEmpresa").hide();        
-        $("#BotonesModalEmpresa").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" onclick="closeDivEmpresa()">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearEmpresa()">Guardar</button>');
+        $("#BotonesModalEmpresa").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearEmpresa()">Guardar</button>');
     } if (tipo == 'E') {
         $("#TituloModalEmpresa").empty().append('<label>Editar Empresa</label>');
-       /* $('#ModalEmpresa').modal('show');*/
+        $('#ModalEmpresa').modal('show');
         $("#SelectEstadoEmpresa").show();
-        $("#BotonesModalEmpresa").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" onclick="closeDivEmpresa()">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarEmpresa()">Guardar Cambios</button>');
+        $("#BotonesModalEmpresa").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarEmpresa()">Guardar Cambios</button>');
     }
 }
 
-function closeDivEmpresa() {
-    document.getElementById("nuevo").style.display = "none"
-    $("#ge").show();
-}
+//function closeDivEmpresa() {
+//    document.getElementById("nuevo").style.display = "none"
+//    $("#ge").show();
+//}
 
 function CrearEmpresa() {
     let NombreEmpresa = $('#InputNombreEmpresa').val();

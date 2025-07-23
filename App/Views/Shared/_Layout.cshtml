@@ -67,39 +67,6 @@
 
 </head>
 <body class="fondo">
-    @*<section id="contenedortres">
-            <label id="NameApp"></label>
-            <label id="SloganEmpresa"></label>
-        </section>*@
-    <!--<header>
-        <div class="btn-group">-->
-    @*<img src="~/Images/ImagesApp/LogoSofia02.PNG" style="height:55px; width:150px"/>*@
-    <!--<label id="NameApp"></label>
-            <label id="SloganEmpresa"></label>
-        </div>
-    </header>-->
-    @*<section id="contenedoruno">
-            <nav>
-                <ul>
-                    <li style="margin-left:15px">
-                        <label id="NameApp"></label>
-                    </li>
-                </ul>
-            </nav>
-            <nav>
-                <ul id="OpcionesMenu"></ul>
-            </nav>
-        </section>*@
-    @*<div class="row">
-            <div class="col-6">
-                <label>SOFIA</label>
-            </div>
-            <div style="text-align: right; margin-top: 5px; font-size:10px; margin-right:20px" class="col-6">
-                <img src="~/Images/ImagesProfileUsers/Usuario.png" style="border-radius:50%; margin-left:15px" class="contimg-grid" />
-                <label>Usuario: <a href="/Informacion/Informacion_Usuario"> Administrador</a></label>
-            </div>
-        </div>*@
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Sofia</a>
@@ -108,11 +75,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="menu">
-                    @*<li class="nav-item"><a class="nav-link active" aria-current="page" href="/Home">Inicio</a></li>*@
-                    @*<li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
+                    
+                    @*<li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Dropdown
                         </a>
@@ -122,9 +86,6 @@
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                     </li>*@
                 </ul>
                 @*<form class="d-flex">
@@ -135,22 +96,7 @@
         </div>
     </nav>
 
-
-    <br />
-
-    <section id="contenedordos">
-        @*<div class="row align-content-center" style="background-color:#333; height:40px; color:white; margin-bottom:5px;">
-                <div class="col-6">
-                    <div style="margin-left:0px">
-                        <label style="font-size:18px"><strong>Sofia</strong></label>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div style="text-align:right; margin-right:0px">
-                        <label style="font-size:10px">Administrador</label>
-                    </div>
-                </div>
-            </div>*@
+    <section class="contenedor">
         <div style="margin-top:0px;">
             @RenderBody()
         </div>
@@ -174,57 +120,8 @@
 </body>
 </html>
 
-
-<!-- Modal Datos Cliente-->
-<div class="modal fade" id="ModalAyuda" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h6 class="modal-title">Ayuda</h6>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="card grid">
-                    <label><strong>Estados</strong></label>
-                    <ul>
-                        <li>
-                            <label><i class="bi-circle-fill" style="color: green"></i> Activo: El registro se encuentra activo o disponible para ser usado.</label>                            
-                        </li>
-                        <li>
-                            <label><i class="bi-circle-fill" style="color: red"></i> Inactivo: El registro se encuentra inactivo o no está disponible para ser usado.</label>
-                        </li>
-                    </ul>  
-                </div>
-                <br />
-                <div class="card grid" style="padding:10px">
-                    <label><strong>Acciones</strong></label>
-                    <ul>
-                        <li>
-                            <label><i class="bi-pencil-fill" style="color: black"></i> Editar: Permite editar o actualizar datos del resgistro seleccionado.</label>
-                        </li>
-                        <li>
-                            <label><i class="bi-trash-fill" style="color: red"></i> Eliminar: Elimina todos lod datos del registro seleccionado.</label>
-                        </li>
-                        <li>
-                            <label><label style="background:green; font-size:7px; padding:2px; color:white">Nuevo</label> Nuevo: Crea un registro nuevo en la base de datos..</label>
-                        </li>
-                        <li>
-                            <label>Dependiendo de los permisos que tenga el <strong>Usuario</strong> podra realizar dichas acciones.</label>
-                        </li>
-                    </ul>
-                </div>
-
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
 <script>
-    $(document).ready(function () {
-        reducirTamaño(100);
+    $(document).ready(function () {        
 
         if (TokenUser == '' || TokenUser == undefined || TokenUser == null) {
             Swal.fire({
@@ -245,21 +142,5 @@
         Cookies.remove('TokenUser');
         window.location.href = '/Login';
     }
-
-    function reducirTamaño(porcentaje) {
-        // Calcula el nuevo factor de zoom.
-        const factorZoom = porcentaje / 100;
-        // Obtiene el elemento HTML.
-        const html = document.documentElement;
-        // Establece el zoom del elemento HTML.
-        html.style.zoom = factorZoom;
-    }
-
-    // Ejemplo: Reducir el tamaño a un 90%
-
-    function ModalAyuda() {
-        $('#ModalAyuda').modal('show');
-    }
-
 </script>
 

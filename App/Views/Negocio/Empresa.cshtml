@@ -4,12 +4,18 @@
 }
 
 
-<h6>MODULO EMPRESA</h6>
+<label class="tituloPage">MODULO EMPRESA</label>
 
 
-<div class="" id="nuevo" style="display:none">
+@*<div class="" id="nuevo" style="display:none">
+    <br />
     <label id="LabelIdEmpresa" hidden></label>
-   
+    <div class="tituloform">
+        <label>- NUEVO REGISTRO -</label>
+    </div>
+
+    
+    
     <div class="row">
         <div class="col-4">
             <label><strong>Nombre </strong><label style="color:red"> *</label></label>
@@ -66,7 +72,7 @@
     <br />
     <div class="modal-footer" id="BotonesModalEmpresa"></div>
 </div>
-<br />
+<br />*@
 
 <div class="grid" id="ge">
     <table id="gridEmpresa" class="table nowrap cell-border table-striped" style="width: 100%;"></table>
@@ -74,7 +80,7 @@
 
 <!-- Modal Empresa-->
 <div class="modal fade" id="ModalEmpresa" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header header-modal">
                 <div class="modal-title" id="TituloModalEmpresa"></div>
@@ -129,7 +135,7 @@
                 <div class="row">
                     <div class="col-12">
                         <label><strong>Descripción</strong></label>
-                        <textarea id="InputDescripcionEmpresa" class="form-control" style="min-width:100%" rows="3"></textarea>
+                        <input type="text" id="InputDescripcionEmpresa" class="form-control" style="min-width:100%" rows="3" />
                     </div>
                 </div>
                 <div class="col-3" id="SelectEstadoEmpresa">

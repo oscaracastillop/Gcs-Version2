@@ -1,289 +1,19 @@
-﻿body {
-    
-}
-
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-
-nav ul {
-    list-style-type: none;
-    padding: 0;
-    overflow: hidden;
-}
-
-    nav ul li a {
-        display: block;
-        color: white;
-        text-align: left;
-        padding: 0px 10px;
-        text-decoration: none;
-        font-size: 12px !important;
-        height: 39px;
-        margin-top: 0px;
-        align-content: center !important;
-        align-items: center !important;
-        
-    }
-
-    nav ul li a:hover {
-        background-color: #666;
-        color: white;
-    }
-
-#contenedoruno {
-    float: left;
-    min-width: 150px;
-    background-color: black;
-    min-height:100vh;
-}
-
-#contenedordos {
-    margin-left: 20px;
-    display: block;
-    font-size: 12px !important;
-    margin-right: 20px;
-    margin-top:0px;
-    display:block !important;
-    width:auto;
-}
-
-#contenedortres {
-    width: 100%;
-    height: 40px;
-    border: solid 1px;
-}
-
-.btnmenu {
-   /*font-size:10px!important;*/
-   color:white!important;
-}
-
-.btnmenu:hover {/*
-    padding-left: 15px !important;
-    padding-right: 15px !important;*/
-    box-shadow: inset 0px 0px 5px 1px rgba(0,0,0,1);
-}
-
-.btnMenu {
-    align-content:center;
-    align-items:center;
-    text-align:center;
-    font-size: 10px !important;
-    height: 80px;
-    width: 150px;
-    margin: 15px;
-    align-content: center;
-    color: white !important;
-    font-family: "Open Sans", sans-serif;
-    border-radius: 0px 15px 0px 15px !important;
-    box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,1);
-}
-
-    .btnMenu:hover {
-        background-color: #666 !important;
-    }
-
-.btnSubMenu {
-    font-size: 10px !important;
-    height: 80px;
-    width: 150px;
-    margin: 8px;
-    align-content: center;
-    color: white !important;
-    font-family: "Open Sans", sans-serif;
-    border-radius: 0px 25px 0px 25px !important;
-    box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,1);
-}
-
-    .btnSubMenu:hover {
-        background-color: #666 !important;
-    }
-
-.grid {
-    width: 100%;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-top: 10px;
-    float: left;
-    color: black !important;
-    font-size: 10px !important;
-    padding-top: 15px;
-    padding-bottom: 10px;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    background-color: white;
-    margin-bottom:30px;
-}
-
-table.dataTable thead tr {
-    background-color: none;
-    color: black;
-    font-size: 10px;
-}
-
-div.dataTables_wrapper div.dataTables_filter input {
-    margin-left: 0.5em;
-    display: inline-block;
-    width: 130px;
-    height: 25px;
-    margin-bottom: 10px;
-}
-
-input, button, select, textarea {
-    font-size: 11px !important;
-}
-
-#NameApp {
-    font-family: Pristina !important;
-    font-size: 40px !important;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: -25px;
-}
-
-#SloganEmpresa {
-    font-size: 10px !important;
-    margin-bottom: 10px;
-    margin-top: -12px !important;
-    margin-left: 10px;
-    color: black;
-}
-
-/*Stilos del modal*/
-
-.header-modal {
-    background-color: none;
-    color: black;
-    font-weight: bold;
-    font-size: 15px;    
-}
-
-.btn-modal-guardar {
-    background-color: orangered !important;
-    color: white !important;
-    font-size: 11px !important;
-   /* border-radius: 0px !important;
-    border-radius: 0px 15px 0px 0px !important;*/
-    padding-left:10px !important;
-    padding-right:10px !important;
-}
-
-.btn-modal-guardar:hover {
-    background-color: #666 !important;
-}
-
-.btn-modal-Cancelar {
-    background-color: black !important;
-    color: white !important;
-    font-size: 11px !important;
-  /*  border-radius: 0px !important;
-    border-radius: 0px 0px 0px 15px !important;*/
-}
-
-.modal {
-    font-size: 11px !important;
-}
+﻿
 
 
-.swal2-popup {
-    font-size: 12px !important;
-}
-
-/*Estilos datatable*/
-
-.btn-excel-datatable {
-    background-color: white !important;
-    color: black !important;
-    font-size: 11px !important;
-    height: 25px;
-    width: 120px;
-    line-height: 0px !important;
-    /*border-radius: 15px 0px 0px 15px !important;*/
-}
 
 
-.btn-pdf-datatable {
-    background-color: none !important;
-    color: black !important;
-    font-size: 11px !important;
-    height: 25px;
-    width:120px;
-    line-height: 0px !important;
-    border-radius: 0px !important;
-}
 
-.btn-nuevo-datatable {
-    background-color: #9ACD32 !important;
-    font-size: 10px !important;
-    height: 25px;
-    line-height: 0px !important;
-    border: solid 1px black !important;
-}
 
-/*.btn-nuevo-datatable:hover {
-    background-color:#666 !important;
-}*/
-.btn-editar-dt {
-    font-size: 10px !important;
-    color: black !important;
-    padding:0px !important;
-}
 
-.btn-eliminar-dt {
-    font-size: 10px !important;
-    color: red !important;
-    padding: 0px !important;
-}
 
-.btn-logo-dt {
-    background-color: purple !important;
-    font-size: 8px !important;
-    color: white !important;
-    margin-left: 1px;
-    height: 20px;
-    line-height: 15px;
-}
 
-.TituloModulo {
-    color: black !important;
-}
 
-.titu {
-    background-color: green !important;
-}
 
-.hruno {
-    margin-top: 10px !important;
-    border: solid 1px #555 !important;
-    opacity: 1 !important;
-}
 
-.fondo {
-    background-color: #f0f0f0;
-    /*  background-image: url('../../images/imagesapp/fondo.jpg');
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;*/
-}
 
-.labelmodulo {
-    background-color: green !important;
-    padding: 3px;
-    margin-top: 5px !important;
-    padding-left: 7px;
-    padding-right: 7px;
-    border-radius: 5px;
-    color: white;
-}
+
+
 
 #ImagenEmpleado {
     text-align: center;
@@ -321,76 +51,212 @@ input, button, select, textarea {
     padding: 0px !important;
 }
 
-.label-estado-activo {
-    border-radius: 15px !important;
-    font-size: 10px !important;
+
+
+
+
+/*ESTILOS GENERALES*/
+
+
+
+
+
+
+
+.btn-editar-dt {
+    color: black !important;
+    padding: 0px !important;
+}
+
+.btn-eliminar-dt {
+    color: red !important;
+    padding: 0px !important;
+}
+
+.btn-excel-datatable {
+    background-color: white !important;
+    color: black !important;
+}
+
+.btn-modal-Cancelar {
+    background-color: black !important;
+    color: white !important;
+}
+
+.btn-modal-guardar {
+    background-color: orangered !important;
+    color: white !important;
+}
+
+.btn-nuevo-datatable {
+    background-color: green !important;
+    color: white !important;
+}
+
+.btn-pdf-datatable {
+    background-color: none !important;
+    color: black !important;
+}
+
+.btnSubMenu {    
+    align-content: center;
+   /* color: white !important;*/
+    /*border-radius: 0px 25px 0px 25px !important;
+    box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,1);*/
+}
+
+.contenedor {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top:10px;
+}
+
+.fondo {
+    background-color: white;
+}
+
+.grid {
+    background-color: white;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    width: 100%;
+}
+
+.header-modal {
     color: black;
+    font-weight: bold;
+}
+
+.label-estado-activo {
     align-content: center;
     align-items: center;
-    width: 60px;
-    background-color: #9ACD32;
+    background-color: green;
+    border: solid 1px black !important;
+    border-radius: 15px !important;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    color: white;
     padding-left: 5px;
     padding-right: 5px;
-    border: solid 1px black !important;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
 
 .label-estado-inactivo {
-    border-radius: 15px !important;
-    font-size: 10px !important;
-    color: white;
     align-content: center;
     align-items: center;
-    width: 60px;
     background-color: red;
     border: solid 1px black !important;
-    padding-left: 0px !important;
+    border-radius: 15px !important;
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    margin-left:0px !important;
+    color: white;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
-
-
-
-
-
-
-
-.container {
-    min-width: 100%;
-    display: grid;
-    grid-template-columns: 25% 86.6% 50%;
-    grid-template-rows: 5.1% 94.9% 50%;
-    gap: 0px 0px;
-    grid-auto-flow: row;
-    grid-template-areas:
-        "Cont1 Cont2 Cont2"
-        "Cont1 Cont3 Cont3"
-        "Cont1 Cont3 Cont3";
+table.dataTable thead tr {
+    background-color: none;
+    color: black;
 }
 
-.Cont1 {
-    grid-area: Cont1;
-    
-    margin-left:-12px!important;
+.tituloform{
+    font-weight:bold;
+    text-align:center !important;
+    margin-bottom:10px;
 }
 
-.Cont2 {
-    grid-area: Cont2;
-    font-size:10px;
-    text-align:right;
-    align-content:center!important;
-    align-content:center;
+.tituloPage {
+    font-weight: bold;
 }
 
-.Cont3 {
-    grid-area: Cont3;
-    width: 98%;
-    font-size: 12px !important;
-    margin-left: 15px;
+/*ADAPTACIONES A PANTALLAS*/
+
+@media screen and (min-width: 720px) {
+    body,
+    .btn,
+    .btn-editar-dt,
+    .btn-eliminar-dt,
+    .btn-excel-datatable,
+    .btn-nuevo-datatable,
+    .btn-pdf-datatable,
+    button,
+    .contenedor,
+    div.dataTables_wrapper div.dataTables_filter input,
+    .grid,
+    input,
+    .label-estado-activo,
+    .label-estado-inactivo,
+    .modal,
+    select,
+    .swal2-popup,
+    table.dataTable thead tr,
+    textarea {
+        font-size: 7px !important;
+    }
+
+    .btnSubMenu {
+        font-size: 9px !important;
+        height: 50px;
+        margin: 15px;
+        width: 100px;
+    }
+
+    .tituloform, .header-modal, .swal2-title {
+        font-size: 9px !important;
+    }
+
+    .tituloPage {
+        font-size: 12px !important;
+    } 
+
+    .sizeicono {
+        font-size: 15px !important;
+    }
 }
 
-.card-stilo {
-    background-color: #f0f0f0;
-    padding:10px;
+@media screen and (min-width: 780px) {
+    body,
+    .btn,
+    .btn-editar-dt,
+    .btn-eliminar-dt,
+    .btn-excel-datatable,
+    .btn-nuevo-datatable,
+    .btn-pdf-datatable,
+    button,
+    .contenedor,
+    div.dataTables_wrapper div.dataTables_filter input,
+    .grid,
+    input,
+    .label-estado-activo,
+    .label-estado-inactivo,
+    .modal,
+    select,
+    .swal2-popup,
+    table.dataTable thead tr,
+    textarea {
+        font-size: 11px !important;
+    }
+
+    .btnSubMenu {
+        font-size: 11px !important;
+        height: 80px;
+        margin: 8px;
+        width: 150px;
+    }
+
+    .tituloform, .header-modal, .swal2-title {
+        font-size: 13px !important;
+    }
+
+    .tituloPage{
+        font-size:16px !important;
+    }
+
+    .sizeicono {
+        font-size: 35px !important;
+    }
+
+
 }

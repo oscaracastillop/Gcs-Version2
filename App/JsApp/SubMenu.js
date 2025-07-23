@@ -10,7 +10,7 @@
         success: function (resultado) {
             var contador = 0;
             $.each(resultado, function () {
-                $("#BotonesSubMenu").append('<a href="' + resultado[contador].Ruta + '" class="btn btnSubMenu" style="background-color:' + resultado[contador].ColorFondo + '" id = "' + resultado[contador].Id + '">' +
+                $("#BotonesSubMenu").append('<a href="' + resultado[contador].Ruta + '" class="btn btnSubMenu" style="" id = "' + resultado[contador].Id + '">' +
                     '' + resultado[contador].IconoCodigoHtml + '<br>' +
                     '<label class="">' + resultado[contador].Nombre + '</label>' +
                     '</a>'
