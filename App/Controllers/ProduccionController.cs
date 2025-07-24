@@ -13,5 +13,30 @@ namespace App.Controllers
         {
             return View();
         }
+
+        public ActionResult Mipe_Programa_Aspersion()
+        {
+            return View();
+        }
+       
+        public ActionResult Mirfe_Programa_Fertilizacion()
+        {
+            return View();
+        }
+
+        public ActionResult Siembra()
+        {
+            return View();
+        }
+
+        public ActionResult Cosecha()
+        {
+            return View();
+        }
+
+        public ActionResult PostCosecha()
+        {
+            return View();
+        }
     }
 }

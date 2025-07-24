@@ -88,7 +88,7 @@
 }
 
 .btn-modal-guardar {
-    background-color: orangered !important;
+    background-color: green !important;
     color: white !important;
 }
 
@@ -104,6 +104,7 @@
 
 .btnSubMenu {
     align-content: center;
+    background-color:white !important;
     /* color: white !important;*/
     /*border-radius: 0px 25px 0px 25px !important;
     box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,1);*/
@@ -117,7 +118,7 @@
 }
 
 .fondo {
-    background-color: white;
+    background-color: #d8dfea;
 }
 
 .grid {
@@ -133,8 +134,10 @@
 }
 
 .header-modal {
-    color: black;
+    color: white;
     font-weight: bold;
+    background-color: #3b5998;
+
 }
 
 .label-estado-activo {
@@ -176,6 +179,32 @@ table.dataTable thead tr {
     font-weight: bold;
 }
 
+li {
+    font-size: 15px !important;
+    color: white !important;
+}
+
+.btnmenu {
+    color: white !important;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.btnmenu:hover {
+    background-color: black;
+        box-shadow: 0px 0px 5px 0px white;
+}
+
+.scroll {
+    white-space: nowrap; /* [1] */
+    overflow-x: auto; /* [2] */
+    overflow-y:hidden;
+    overflow-y:clip;
+    /*-webkit-overflow-scrolling: touch;*/ /* [3] */
+    /*-ms-overflow-style: -ms-autohiding-scrollbar;*/ /* [4] */
+}
+
+
 /*ADAPTACIONES A PANTALLAS*/
 
 @media screen and (min-width: 100px) {
@@ -184,6 +213,7 @@ table.dataTable thead tr {
     .btn-editar-dt,
     .btn-eliminar-dt,
     .btn-excel-datatable,
+    .btnmenu,
     .btn-nuevo-datatable,
     .btn-pdf-datatable,
     button,
@@ -198,7 +228,7 @@ table.dataTable thead tr {
     .swal2-popup,
     table.dataTable thead tr,
     textarea {
-        font-size: 5px !important;
+        font-size: 7px !important;
     }
 
     .btnSubMenu {
@@ -209,7 +239,7 @@ table.dataTable thead tr {
     }
 
     .tituloform, .header-modal, .swal2-title {
-        font-size: 5px !important;
+        font-size: 7px !important;
     }
 
     .tituloPage {
@@ -220,11 +250,9 @@ table.dataTable thead tr {
         font-size: 20px !important;
     }
 
-    div.dataTables_wrapper div.dataTables_filter input,
-    .btn-excel-datatable,
-    .btn-nuevo-datatable,
-    .btn-pdf-datatable {
-        height: 12px !important;
+    ul {
+        font-size: 10px !important;
+        color:white !important;
     }
 }
 
@@ -234,6 +262,7 @@ table.dataTable thead tr {
     .btn-editar-dt,
     .btn-eliminar-dt,
     .btn-excel-datatable,
+    .btnmenu,
     .btn-nuevo-datatable,
     .btn-pdf-datatable,
     button,
@@ -277,6 +306,7 @@ table.dataTable thead tr {
     .btn-editar-dt,
     .btn-eliminar-dt,
     .btn-excel-datatable,
+    .btnmenu,
     .btn-nuevo-datatable,
     .btn-pdf-datatable,
     button,

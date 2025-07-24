@@ -71,5 +71,19 @@ namespace App.Controllers
             return View();
         }
 
+        public ActionResult Contratista()
+        {
+            return View();
+        }
+
+        public ActionResult Prestamo_Contratista()
+        {
+            return View();
+        }
+        public ActionResult Labor_Realizada_Contratista()
+        {
+            return View();
+        }
+
     }
 }

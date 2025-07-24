@@ -6,8 +6,9 @@
 .Titulo-Login {
     font-size: 100px;
     font-weight: bold;
-    font-family:Pristina!important;
-    color:white!important;
+    font-family: Pristina !important;
+    color: white !important;
+    text-shadow: 2px 2px 5px black;
 }
 
 .Centrar-Texto {
@@ -36,18 +37,18 @@ textarea {
 }
 
 .contenedor-principal {
-    background-color: #33225a;
+    background-color: #3b5998;
     padding: 15px;
     border-radius: 15px;
     max-width: 300px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 50px;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    /* box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);*/
 }
 
 .fondologin {
-    background-color: #f0f0f0;
+    background-color: #3b5998;
     /*  background-image: url('../../images/imagesapp/fondo.jpg');
     background-attachment: fixed;
     background-position: center;
@@ -56,10 +57,11 @@ textarea {
 }
 
 .btn-login-ingresar {
-    background-color: orangered !important;
-    color: white !important;
+    background-color: white !important;
+    color: black !important;
     font-size: 11px !important;
     font-family: "Open Sans", sans-serif;
+
 }
 
 .btn-login-recuperarpass {

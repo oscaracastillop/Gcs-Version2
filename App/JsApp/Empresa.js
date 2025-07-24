@@ -15,12 +15,12 @@
     $("#SelectCiudad").val(-1);
     $("#BotonesModalEmpresa").empty();
     if (tipo == 'C') {
-        $("#TituloModalEmpresa").empty().append('<label>Crear Empresa</label>');
+        $("#TituloModalEmpresa").empty().append('<label>CREAR EMPRESA</label>');
         $('#ModalEmpresa').modal('show');
         $("#SelectEstadoEmpresa").hide();        
         $("#BotonesModalEmpresa").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearEmpresa()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalEmpresa").empty().append('<label>Editar Empresa</label>');
+        $("#TituloModalEmpresa").empty().append('<label>EDITAR EMPRESA</label>');
         $('#ModalEmpresa').modal('show');
         $("#SelectEstadoEmpresa").show();
         $("#BotonesModalEmpresa").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarEmpresa()">Guardar Cambios</button>');
@@ -336,11 +336,11 @@ function GridEmpresa() {
             {
                 title: "Logo",
                 "data": 'Logo',
-                "render": function (data, type, row, meta) {
-                   
-                    return '<img class="btn LogoEmpresa" src="/Images/LogoEmpresa/' + data + '" alt="" height="80px" style="border-radius:5%"/>';
+                "render": function (data, type, row, meta) {                   
+                    return '<div class="contimg-grid">' +
+                        '<img class="btn imagen-escalada-grid LogoEmpresa" src="/Images/LogoEmpresa/' + data + '"/>' +
+                        '</div>';
                 },
-                width: '50px'
             },             
             { "data": "Nombre", title: "Empresa", width: 'auto' },      
             { "data": "TipoDocumento", title: "Documento", width: 'auto', visible: true },
