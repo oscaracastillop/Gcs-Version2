@@ -15,6 +15,10 @@
 
 
 
+
+
+
+
 #ImagenEmpleado {
     text-align: center;
 }
@@ -41,8 +45,8 @@
     border-radius: 0px;
     box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.75);
     border: solid 0px black;
-    align-content:center;
-    padding:5px;
+    align-content: center;
+    padding: 5px;
 }
 
 .imagen-escalada-cambiar {
@@ -98,17 +102,18 @@
     color: black !important;
 }
 
-.btnSubMenu {    
+.btnSubMenu {
     align-content: center;
-   /* color: white !important;*/
+    /* color: white !important;*/
     /*border-radius: 0px 25px 0px 25px !important;
     box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,1);*/
+    border: solid 1px black !important;
 }
 
 .contenedor {
     margin-left: 10px;
     margin-right: 10px;
-    margin-top:10px;
+    margin-top: 10px;
 }
 
 .fondo {
@@ -161,10 +166,10 @@ table.dataTable thead tr {
     color: black;
 }
 
-.tituloform{
-    font-weight:bold;
-    text-align:center !important;
-    margin-bottom:10px;
+.tituloform {
+    font-weight: bold;
+    text-align: center !important;
+    margin-bottom: 10px;
 }
 
 .tituloPage {
@@ -172,6 +177,56 @@ table.dataTable thead tr {
 }
 
 /*ADAPTACIONES A PANTALLAS*/
+
+@media screen and (min-width: 100px) {
+    body,
+    .btn,
+    .btn-editar-dt,
+    .btn-eliminar-dt,
+    .btn-excel-datatable,
+    .btn-nuevo-datatable,
+    .btn-pdf-datatable,
+    button,
+    .contenedor,
+    .div.dataTables_wrapper div.dataTables_filter input,
+    .grid,
+    input,
+    .label-estado-activo,
+    .label-estado-inactivo,
+    .modal,
+    select,
+    .swal2-popup,
+    table.dataTable thead tr,
+    textarea {
+        font-size: 5px !important;
+    }
+
+    .btnSubMenu {
+        font-size: 7px !important;
+        height: 50px;
+        margin: 5px;
+        width: 100px;
+    }
+
+    .tituloform, .header-modal, .swal2-title {
+        font-size: 5px !important;
+    }
+
+    .tituloPage {
+        font-size: 11px !important;
+    }
+
+    .sizeicono {
+        font-size: 20px !important;
+    }
+
+    div.dataTables_wrapper div.dataTables_filter input,
+    .btn-excel-datatable,
+    .btn-nuevo-datatable,
+    .btn-pdf-datatable {
+        height: 12px !important;
+    }
+}
 
 @media screen and (min-width: 720px) {
     body,
@@ -209,7 +264,7 @@ table.dataTable thead tr {
 
     .tituloPage {
         font-size: 12px !important;
-    } 
+    }
 
     .sizeicono {
         font-size: 15px !important;
@@ -250,13 +305,11 @@ table.dataTable thead tr {
         font-size: 13px !important;
     }
 
-    .tituloPage{
-        font-size:16px !important;
+    .tituloPage {
+        font-size: 16px !important;
     }
 
     .sizeicono {
         font-size: 35px !important;
     }
-
-
 }

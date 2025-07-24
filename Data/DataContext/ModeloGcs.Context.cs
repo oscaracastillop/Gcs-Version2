@@ -16,8 +16,8 @@ namespace Data.DataContext
     public partial class GcsEntities : DbContext
     {
         public GcsEntities()
-            : base("name=GcsEntitiesOficina")
-            //: base("name=GcsEntitiesCasa")
+            //: base("name=GcsEntitiesOficina")
+            : base("name=GcsEntitiesCasa")
             //: base("name=GcsEntitiesRemoto") 
         {
         }
