@@ -881,7 +881,7 @@ INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Cargar Documento','bi-file-pdf-fill','2rem','red','/Recursos_Humanos/Cargar_Documento','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Contratista','bi-person-vcard-fill','2rem','black','/Recursos_Humanos/Contratista','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Préstamo Contratista','bi-cash-coin','2rem','black','/Recursos_Humanos/Prestamo_Contratista','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Préstamo Contratista','bi-cash-coin','2rem','black','/Recursos_Humanos/Labor_Realizada_Contratista','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Labor Contratista','bi-cash-coin','2rem','black','/Recursos_Humanos/Labor_Realizada_Contratista','cornflowerblue')
 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (5, 'Nómina Empleado','bi-file-text','2rem','black','/Contabilidad/Nomina_Empleado','cornflowerblue')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (5, 'Liquidación Empleado','bi-file-text','2rem','black','/Contabilidad/Liquidacion_Empleado','cornflowerblue')

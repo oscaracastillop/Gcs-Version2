@@ -62,9 +62,16 @@
 /*ESTILOS GENERALES*/
 
 
+.stilonavbar{
+    padding:0px !important;
+    height:auto!important;
+}
 
-
-
+.nameempresa {
+    font-family: Pristina !important;
+    text-shadow: 1px 1px 2px black;
+    padding:0px!important;
+}
 
 
 .btn-editar-dt {
@@ -207,13 +214,14 @@ li {
 
 /*ADAPTACIONES A PANTALLAS*/
 
+/*  /////////////////////////////////   */
+
 @media screen and (min-width: 100px) {
     body,
     .btn,
     .btn-editar-dt,
     .btn-eliminar-dt,
-    .btn-excel-datatable,
-    .btnmenu,
+    .btn-excel-datatable,    
     .btn-nuevo-datatable,
     .btn-pdf-datatable,
     button,
@@ -228,22 +236,27 @@ li {
     .swal2-popup,
     table.dataTable thead tr,
     textarea {
-        font-size: 7px !important;
+        font-size: 5px !important;
     }
 
     .btnSubMenu {
-        font-size: 7px !important;
-        height: 50px;
+        font-size: 6px !important;
+        height: 6;
         margin: 5px;
         width: 100px;
     }
 
-    .tituloform, .header-modal, .swal2-title {
+    .nameempresa {
+        font-size: 20px !important;
+    }
+
+    .tituloform, .header-modal, .swal2-title, .btnmenu {
         font-size: 7px !important;
     }
 
     .tituloPage {
-        font-size: 11px !important;
+        font-size: 10px !important;
+        text-align:center!important;
     }
 
     .sizeicono {
@@ -256,13 +269,15 @@ li {
     }
 }
 
+/* ///////////////////////// */
+
 @media screen and (min-width: 720px) {
     body,
     .btn,
     .btn-editar-dt,
     .btn-eliminar-dt,
     .btn-excel-datatable,
-    .btnmenu,
+    
     .btn-nuevo-datatable,
     .btn-pdf-datatable,
     button,
@@ -281,13 +296,17 @@ li {
     }
 
     .btnSubMenu {
-        font-size: 9px !important;
-        height: 50px;
+        font-size: 7px !important;
+        height: 60px;
         margin: 15px;
         width: 100px;
     }
 
-    .tituloform, .header-modal, .swal2-title {
+    .nameempresa {
+        font-size: 30px !important;
+    }
+
+    .tituloform, .header-modal, .swal2-title, .btnmenu {
         font-size: 9px !important;
     }
 
@@ -326,9 +345,13 @@ li {
 
     .btnSubMenu {
         font-size: 11px !important;
-        height: 80px;
+        height: 100px;
         margin: 8px;
         width: 150px;
+    }
+
+    .nameempresa {
+        font-size: 35px !important;
     }
 
     .tituloform, .header-modal, .swal2-title {
@@ -342,4 +365,6 @@ li {
     .sizeicono {
         font-size: 35px !important;
     }
+
+
 }
