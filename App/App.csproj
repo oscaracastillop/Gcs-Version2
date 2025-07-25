@@ -4294,6 +4294,8 @@
     <Content Include="Images\ImagesApp\LogoSofia02.PNG" />
     <Content Include="Images\ImagesProfileUsers\Usuario.png" />
     <Content Include="Images\LogoEmpresa\default.png" />
+    <Content Include="Images\LogoEmpresa\Empresa_1.jpg" />
+    <Content Include="Images\LogoEmpresa\Empresa_2.jpg" />
     <Content Include="JsApp\Banco.js" />
     <Content Include="JsApp\OtrosDescuentosEmpleado.js" />
     <Content Include="JsApp\OtrosIngresosEmpleado.js" />
