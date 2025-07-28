@@ -9,13 +9,13 @@ function ModalOtrosDescuentosEmpleado(tipo) {
     $("#SelectContratoLaboralSucursalEmpleado").val(-1);
     $("#BotonesModalOtrosDescuentosEmpleado").empty();
     if (tipo == 'C') {
-        $("#TituloModalOtrosDescuentosEmpleado").empty().append('<h6>Crear Otros Descuentos Empleado</h6>');
+        $("#TituloModalOtrosDescuentosEmpleado").empty().append('<label>CREAR OTROS DESCUENTOS EMPLEADO</label>');
         $('#ModalOtrosDescuentosEmpleado').modal('show');
         $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", false);
         $("#SelectEstadoOtrosDescuentosEmpleado").hide();
         $("#BotonesModalOtrosDescuentosEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearOtrosDescuentosEmpleado()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalOtrosDescuentosEmpleado").empty().append('<h6>Editar Otros Descuentos Empleado</h6>');
+        $("#TituloModalOtrosDescuentosEmpleado").empty().append('<label>EDITAR OTROS DESCUENTOS EMPLEADO</label>');
         $('#ModalOtrosDescuentosEmpleado').modal('show');
         $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", true);
         $("#SelectEstadoOtrosDescuentosEmpleado").show();
@@ -30,13 +30,13 @@ function CrearOtrosDescuentosEmpleado() {
     let Observacion = $('#InputOtrosDescuentosEmpleadoObservacion').val();
     if (IdEmpleado == -1 || IdEmpleado == null || IdEmpleado == '') {
         $('#SelectContratoLaboralSucursalEmpleado').focus();
-        VentanaMensaje('Seleccione el Empleado', 'info');
+        VentanaMensaje('Seleccione el Empleado');
     } else if (Valor == null || Valor == '' || Valor == undefined) {
         $('#InputOtrosDescuentosEmpleadoValor').focus();
-        VentanaMensaje('Ingrese el Valor', 'info');
+        VentanaMensaje('Ingrese el Valor');
     } else if (FechaCobro == null || FechaCobro == '' || FechaCobro == undefined) {
         $('#InputOtrosDescuentosEmpleadoFechaCobro').focus();
-        VentanaMensaje('Ingrese la Fecha de Cobro', 'info');
+        VentanaMensaje('Ingrese la Fecha de Cobro');
     } else {
         $.ajax({
             type: 'POST',
@@ -52,17 +52,9 @@ function CrearOtrosDescuentosEmpleado() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -78,10 +70,10 @@ function ActualizarOtrosDescuentosEmpleado() {
     let IdEstado = $('#SelectEstado').val();
     if (Valor == null || Valor == '' || Valor == undefined) {
         $('#InputOtrosDescuentosEmpleadoValor').focus();
-        VentanaMensaje('Ingrese el Valor', 'info');
+        VentanaMensaje('Ingrese el Valor');
     } else if (FechaCobro == null || FechaCobro == '' || FechaCobro == undefined) {
         $('#InputOtrosDescuentosEmpleadoFechaCobro').focus();
-        VentanaMensaje('Ingrese la Fecha de Cobro', 'info');
+        VentanaMensaje('Ingrese la Fecha de Cobro');
     } else {
         $.ajax({
             type: 'POST',
@@ -98,17 +90,9 @@ function ActualizarOtrosDescuentosEmpleado() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -122,7 +106,7 @@ function EliminarOtrosDescuentosEmpleado(IdOtrosDescuentosEmpleado) {
         text: "Esta seguro(a)?, No podrás revertir esta acción.!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "orangered",
+        confirmButtonColor: "red",
         cancelButtonColor: "#333",
         confirmButtonText: "Si, eliminar!",
         cancelButtonText: "Cancelar",
@@ -140,17 +124,9 @@ function EliminarOtrosDescuentosEmpleado(IdOtrosDescuentosEmpleado) {
                 success: function (resultado) {
                     valor = resultado.split('*');
                     if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                            position: 'top',
-                            confirmButtonColor: "orangered",
-                        }).then((result) => {
-                            location.reload();
-                        })
+                        VentanaMensajeOK(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });

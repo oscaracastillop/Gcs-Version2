@@ -27,10 +27,6 @@
     }
 }
 
-//function closeDivEmpresa() {
-//    document.getElementById("nuevo").style.display = "none"
-//    $("#ge").show();
-//}
 
 function CrearEmpresa() {
     let NombreEmpresa = $('#InputNombreEmpresa').val();
@@ -46,16 +42,16 @@ function CrearEmpresa() {
 
     if (NombreEmpresa == null || NombreEmpresa == '' || NombreEmpresa == undefined) {
         $('#InputNombreEmpresa').focus();
-        VentanaMensaje('Ingrese nombre de la empresa', 'info');
+        VentanaMensaje('Ingrese nombre de la empresa');
     } else if (IdTipoDocumento == -1 || IdTipoDocumento == null || IdTipoDocumento == '') {
         $('#SelectTipoDocumento').focus();
-        VentanaMensaje('Seleccione tipo documento', 'info');
+        VentanaMensaje('Seleccione tipo documento');
     } else if (Identificacion == null || Identificacion == '' || Identificacion == undefined) {
         $('#InputIdentificacionEmpresa').focus();
-        VentanaMensaje('Ingrese la identificación', 'info');
+        VentanaMensaje('Ingrese la identificación');
     } else if (IdCiudad == -1 || IdCiudad == null || IdCiudad == '') {
         $('#SelectCiudad').focus();
-        VentanaMensaje('Seleccione la ciudad', 'info');
+        VentanaMensaje('Seleccione la ciudad');
     } else {
         $.ajax({
             type: 'POST',
@@ -77,17 +73,9 @@ function CrearEmpresa() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -110,16 +98,16 @@ function ActualizarEmpresa() {
 
     if (NombreEmpresa == null || NombreEmpresa == '' || NombreEmpresa == undefined) {
         $('#InputNombreEmpresa').focus();
-        VentanaMensaje('Ingrese nombre de la empresa', 'info');
+        VentanaMensaje('Ingrese nombre de la empresa');
     } else if (IdTipoDocumento == -1 || IdTipoDocumento == null || IdTipoDocumento == '') {
         $('#SelectTipoDocumento').focus();
-        VentanaMensaje('Seleccione tipo documento', 'info');
+        VentanaMensaje('Seleccione tipo documento');
     } else if (Identificacion == null || Identificacion == '' || Identificacion == undefined) {
         $('#InputIdentificacionEmpresa').focus();
-        VentanaMensaje('Ingrese la identificación', 'info');
+        VentanaMensaje('Ingrese la identificación');
     } else if (IdCiudad == -1 || IdCiudad == null || IdCiudad == '') {
         $('#SelectCiudad').focus();
-        VentanaMensaje('Seleccione la ciudad', 'info');
+        VentanaMensaje('Seleccione la ciudad');
     } else {
         $.ajax({
             type: 'POST',
@@ -143,17 +131,9 @@ function ActualizarEmpresa() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -166,7 +146,7 @@ function EliminarEmpresa(IdEmpresa) {
         text: "Esta seguro(a)?, No podrás revertir esta acción.!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "orangered",
+        confirmButtonColor: "red",
         cancelButtonColor: "#333",
         confirmButtonText: "Si, eliminar!",
         cancelButtonText: "Cancelar",
@@ -184,17 +164,9 @@ function EliminarEmpresa(IdEmpresa) {
                 success: function (resultado) {
                     valor = resultado.split('*');
                     if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                            position: 'top',
-                            confirmButtonColor: "orangered",
-                        }).then((result) => {
-                            location.reload();
-                        })
+                        VentanaMensajeOK(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });
@@ -408,7 +380,7 @@ function GridEmpresa() {
         $('#NombreLogoActualEmpresa').text(data.Logo);
         $('#NombreEmpresaLogo').text(data.Nombre);
         $('#ImagenLogoEmpresa').empty().append(            
-            '<img src="/Images/LogoEmpresa/' + data.Logo +'" style="height:200px; border-radius:5%; border:0px solid; background:white;padding:0px"/>'
+            '<img src="/Images/LogoEmpresa/' + data.Logo +'" class="imagen-escalada-cambiar"/>'
         );
     })
 }
@@ -484,17 +456,9 @@ function GuardarLogoEmpresa() {
             success: function (result) {
                 valor = result.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -519,9 +483,9 @@ function CardDatosEmpresa() {
         data: {},
         success: function (resultado) {
             $('#CardDatosEmpresa').append(
-                '<img class="card-img-top" id="" src="/Images/LogoEmpresa/' + resultado.data[0].Logo +'" style="height:200px">'+
+                '<img class="card-img-top" id="" src="/Images/LogoEmpresa/' + resultado.data[0].Logo +'">'+
                     '<div class="card-body">'+
-                    '<h4 class="card-title" id="NombreEmpresa">' + resultado.data[0].Nombre +'</h4>'+
+                    '<h6 class="card-title" id="NombreEmpresa">' + resultado.data[0].Nombre +'</h6>'+
                     '<label> ' + resultado.data[0].TipoDocumento +': ' + resultado.data[0].Identificacion +'</label>'+
                         '<br />'+
                         '<label><i class="bi-envelope-fill"></i> <a href="mailto:' + resultado.data[0].Email + '">' + resultado.data[0].Email +'</a></label>'+
@@ -539,12 +503,6 @@ function CardDatosEmpresa() {
 
 
 
-
-
-
-function myfunction() {    
-    var base64 = getBase64Image();
-}
 
 
 

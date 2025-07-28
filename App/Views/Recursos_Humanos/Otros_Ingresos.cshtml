@@ -3,14 +3,25 @@
     ViewBag.Title = "Otros Ingresos";
 }
 
-<h6>MODULO OTROS INGRESOS EMPLEADO</h6>
+
+<script src="~/JsApp/Empleado.js"></script>
+<script src="~/JsApp/OtrosIngresosEmpleado.js"></script>
+<script src="~/JsApp/TipoEstado.js"></script>
+
+
+
+<div class="tituloPage">
+    <label>MODULO OTROS INGRESOS EMPLEADO</label>
+</div>
+
+
 
 <div class="grid">
     <table id="gridOtrosIngresosEmpleado" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
 </div>
 
 <div class="modal fade" id="ModalOtrosIngresosEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header header-modal">
                 <div class="modal-title" id="TituloModalOtrosIngresosEmpleado"></div>
@@ -21,7 +32,7 @@
                     <label><strong>Empleado</strong><label style="color:red" id=""> *</label></label>
                     <select class="form-control" id="SelectContratoLaboralSucursalEmpleado" style="min-width:100%"></select>
                 </div>
-                <div class="row">
+                <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Valor</strong><label style="color:red" id=""> *</label></label>
                         <input class="form-control" type="number" id="InputOtrosIngresosEmpleadoValor" name="name" autocomplete="off" style="min-width:100%" />

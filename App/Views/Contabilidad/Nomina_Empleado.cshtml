@@ -3,14 +3,23 @@
     ViewBag.Title = "Nómina Empleado";
 }
 
-<h6>Módulo Nómina Empleado</h6>
+<script src="~/JsApp/ContratoLaboral.js"></script>
+<script src="~/JsApp/NominaEmpleado.js"></script>
+<script src="~/JsApp/TipoEstado.js"></script>
+
+
+
+<div class="tituloPage">
+    <label>NOMINA EMPLEADO</label>
+</div>
+
 
 @*<div class="grid">
-    <table id="gridNominaEmpleado" class="table cell-border" cellspacing="0" style="width: 100%;"></table>
-</div>*@
+        <table id="gridNominaEmpleado" class="table cell-border" cellspacing="0" style="width: 100%;"></table>
+    </div>*@
 
 <div class="modal fade" id="ModalNominaEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header header-modal">
                 <div class="modal-title" id="TituloModalNominaEmpleado"></div>
@@ -20,234 +29,237 @@
                 <div style="text-align:left; margin-bottom:10px">
                     <label><strong>PERIODO DE NÓMINA</strong></label>
                 </div>
-                <div class="row">
-                    <div class="col-2">
+                <div class="row g-2">
+                    <div class="col-6">
                         <label><strong>Fecha Inicio</strong><label style="color:red" id=""> *</label></label>
                         <input class="form-control" type="date" id="InputNominaEmpleadoFechaInicio" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
-                    <div class="col-2">
+                    <div class="col-6">
                         <label><strong>Fecha Fin</strong><label style="color:red" id=""> *</label></label>
                         <input class="form-control" type="date" id="InputNominaEmpleadoFechaCorte" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
-                    <div class="col-2">
+                </div>
+                <div class="row g-2">
+                    <div class="col-3">
                         <label><strong>Días a Pagar</strong><label style="color:red" id=""> *</label></label>
                         <input class="form-control" type="number" id="InputNominaEmpleadoDiasPagar" name="name" autocomplete="off" style="min-width:100%" placeholder="0" />
                     </div>
-                    <div class="col-4">
+                    <div class="col-9">
                         <label><strong>Empleado</strong><label style="color:red"> *</label></label>
-                        <select class="form-control" id="SelectContratoLaboralSucursalEmpleado" style="min-width:100%" onchange="CargarDatosEmpleadoNomina()"></select>
+                        <select class="form-control" id="SelectContratoLaboralSucursalEmpleado" style="min-width:100%"></select>
                     </div>
-                    @*<div class="col-2">
-                        <br />
-                        <a style="height:30px!important; font-size:11px!important; line-height:20px!important" class="btn btn-nuevo-datatable btn-sm" onclick="CargarDatosEmpleadoNomina()">Buscar</a>
-                    </div>*@
+                </div>
+
+                <div class="col-2">
+                    <br />
+                    <a class="btn btn-nuevo-datatable btn-sm" onclick="CargarDatosEmpleadoNomina()">Buscar Datos</a>
                 </div>
                 <br />
 
 
                 @*<div class="col-3" id="SelectEstadoNominaEmpleado">
-                    <label><strong>Estado</strong></label>
-                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
-                </div>*@
+            <label><strong>Estado</strong></label>
+            <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
+        </div>*@
 
 
-            <div id="datosNominaEmpleado">
-                <div class="row">
-                    <div class="col-6" style="padding-left: 15px; padding-right: 15px">
-                        <div class="row">
-                            <div class="col-12">
-                                <strong>Empresa/Sucursal:</strong>
-                                <label id="txtEmpresaNominaEmpleado"></label>
+                <div id="datosNominaEmpleado">
+                    <div class="row">
+                        <div class="col-6" style="padding-left: 15px; padding-right: 15px">
+                            <div class="row">
+                                <div class="col-12">
+                                    <strong>Empresa/Sucursal:</strong>
+                                    <label id="txtEmpresaNominaEmpleado"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*contenido parte derecha*@
+
+                        <div class="col-6" style="padding-left: 15px; padding-right: 15px">
+                            <div class="row">
+                                <div class="col-12">
+                                    <strong>Salario Mensual: </strong>
+                                    <label id="txtSalarioNominaEmpleado"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-6">
+                            <label><strong>INGRESOS</strong></label>
+                            <div class="grid" style="background-color: none;">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>Sueldo</strong>
+                                    </div>
+                                    <div class="col-6" style="text-align:right">
+                                        <label id="txtSueldoaPagarNominaEmpleado"></label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>Aux Transporte</strong>
+                                    </div>
+                                    <div class="col-6" style="text-align:right">
+                                        <label id="txtAuxTransporteNominaEmpleado"></label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>HE Diurna</strong>
+                                    </div>
+                                    <div class="col-6" style="text-align:right">
+                                        <label id="txtHEDiurnaNominaEmpleado"></label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>HE Nocturna</strong>
+                                    </div>
+                                    <div class="col-6" style="text-align:right">
+                                        <label id="txtHENocturnaNominaEmpleado"></label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>HE Diurna D/F</strong>
+                                    </div>
+                                    <div class="col-6" style="text-align:right">
+                                        <label id="txtHEDiurnaDFNominaEmpleado"></label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>HE Nocturna D/F</strong>
+                                    </div>
+                                    <div class="col-6" style="text-align:right">
+                                        <label id="txtHENocturnaDFNominaEmpleado"></label>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>Desembolso Préstamo</strong>
+                                    </div>
+                                    <div class="col-6" style="text-align:right">
+                                        <label id="txtDesembolsoPrestamoNominaEmpleado"></label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>Otros Ingresos</strong>
+                                    </div>
+                                    <div class="col-6" style="text-align:right">
+                                        <label id="txtOtrosIngresosNominaEmpleado"></label>
+                                    </div>
+                                </div>
+
+                                <hr />
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>TOTAL INGRESOS</strong>
+                                    </div>
+                                    <div class="col-6" style="text-align:right">
+                                        <strong id="txtTotalIngresosNominaEmpleado"></strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*contenido parte derecha*@
+
+                        <div class="col-6">
+                            <label><strong>DESCUENTOS</strong></label>
+                            <div class="grid" style="background-color: none;">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>Eps</strong>
+                                    </div>
+                                    <div class="col-6" style="text-align:right">
+                                        <label id="txtEpsNominaEmpleado"></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>Pensión</strong>
+                                    </div>
+                                    <div class="col-6" style="text-align:right">
+                                        <label id="txtPensionNominaEmpleado"></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>Casino</strong>
+                                    </div>
+                                    <div class="col-6" style="text-align:right">
+                                        <label id="txtCasinoNominaEmpleado"></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>Cobro Préstamo</strong>
+                                    </div>
+                                    <div class="col-6" style="text-align:right">
+                                        <label id="txtCobroPrestamoNominaEmpleado"></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>Otros Descuentos</strong>
+                                    </div>
+                                    <div class="col-6" style="text-align:right">
+                                        <label id="txtOtrosDescuentosNominaEmpleado"></label>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>TOTAL DESCUENTOS</strong>
+                                    </div>
+                                    <div class="col-6" style="text-align:right">
+                                        <strong id="txtTotalDescuentosNominaEmpleado"></strong>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    @*contenido parte derecha*@
-
-                    <div class="col-6" style="padding-left: 15px; padding-right: 15px">
-                        <div class="row">
-                            <div class="col-12">
-                                <strong>Salario Mensual: </strong>
-                                <label id="txtSalarioNominaEmpleado"></label>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="grid" style="background-color: #bef2ba;">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h6>TOTAL A PAGAR</h6>
+                                    </div>
+                                    <div class="col-6" style="text-align:right">
+                                        <h6 id="txtTotalPagoNominaEmpleado"></h6>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <br />
+                    <div class="modal-footer" id="BotonesModalNominaEmpleado"></div>
                 </div>
                 <br />
-                <div class="row">
-                    <div class="col-6">
-                        <label><strong>INGRESOS</strong></label>
-                        <div class="grid" style="background-color: none;">
-                            <div class="row">
-                                <div class="col-6">
-                                    <strong>Sueldo</strong>
-                                </div>
-                                <div class="col-6" style="text-align:right">
-                                    <label id="txtSueldoaPagarNominaEmpleado"></label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <strong>Aux Transporte</strong>
-                                </div>
-                                <div class="col-6" style="text-align:right">
-                                    <label id="txtAuxTransporteNominaEmpleado"></label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <strong>HE Diurna</strong>
-                                </div>
-                                <div class="col-6" style="text-align:right">
-                                    <label id="txtHEDiurnaNominaEmpleado"></label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <strong>HE Nocturna</strong>
-                                </div>
-                                <div class="col-6" style="text-align:right">
-                                    <label id="txtHENocturnaNominaEmpleado"></label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <strong>HE Diurna D/F</strong>
-                                </div>
-                                <div class="col-6" style="text-align:right">
-                                    <label id="txtHEDiurnaDFNominaEmpleado"></label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <strong>HE Nocturna D/F</strong>
-                                </div>
-                                <div class="col-6" style="text-align:right">
-                                    <label id="txtHENocturnaDFNominaEmpleado"></label>
-                                </div>
-                            </div>
-
-
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <strong>Desembolso Préstamo</strong>
-                                </div>
-                                <div class="col-6" style="text-align:right">
-                                    <label id="txtDesembolsoPrestamoNominaEmpleado"></label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <strong>Otros Ingresos</strong>
-                                </div>
-                                <div class="col-6" style="text-align:right">
-                                    <label id="txtOtrosIngresosNominaEmpleado"></label>
-                                </div>
-                            </div>
-
-                            <hr />
-                            <div class="row">
-                                <div class="col-6">
-                                    <strong>TOTAL INGRESOS</strong>
-                                </div>
-                                <div class="col-6" style="text-align:right">
-                                    <strong id="txtTotalIngresosNominaEmpleado"></strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    @*contenido parte derecha*@
-
-                <div class="col-6">
-                    <label><strong>DESCUENTOS</strong></label>
-                    <div class="grid" style="background-color: none;">
-                        <div class="row">
-                            <div class="col-6">
-                                <strong>Eps</strong>
-                            </div>
-                            <div class="col-6" style="text-align:right">
-                                <label id="txtEpsNominaEmpleado"></label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <strong>Pensión</strong>
-                            </div>
-                            <div class="col-6" style="text-align:right">
-                                <label id="txtPensionNominaEmpleado"></label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <strong>Casino</strong>
-                            </div>
-                            <div class="col-6" style="text-align:right">
-                                <label id="txtCasinoNominaEmpleado"></label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <strong>Cobro Préstamo</strong>
-                            </div>
-                            <div class="col-6" style="text-align:right">
-                                <label id="txtCobroPrestamoNominaEmpleado"></label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <strong>Otros Descuentos</strong>
-                            </div>
-                            <div class="col-6" style="text-align:right">
-                                <label id="txtOtrosDescuentosNominaEmpleado"></label>
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-6">
-                                <strong>TOTAL DESCUENTOS</strong>
-                            </div>
-                            <div class="col-6" style="text-align:right">
-                                <strong id="txtTotalDescuentosNominaEmpleado"></strong>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div>
+                    <ul>
+                        <li>Tenga presente que previamente debe ingresar los datos de <strong>Ingresos Adicionales (bonificaciones, préstamos, horas extras), Descuentos Adicionales (Casino, Préstamos, descuentos por días no laborados)</strong>, el sistema tendra en cuenta la fecha de Inicio y Fin para calcular la nómina correspondiente al Empleado seleccionado.</li>
+                    </ul>
                 </div>
 
-                <div class="row">
-                    <div class="col-6">
-                        <div class="grid" style="background-color: #bef2ba;">
-                            <div class="row">
-                                <div class="col-6">
-                                    <h6>TOTAL A PAGAR</h6>
-                                </div>
-                                <div class="col-6" style="text-align:right">
-                                    <h6 id="txtTotalPagoNominaEmpleado"></h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br />
-                <div class="modal-footer" id="BotonesModalNominaEmpleado"></div>
-            </div> 
-            <br />
-        <div>
-            <ul>                
-                <li>Tenga presente que previamente debe ingresar los datos de <strong>Ingresos Adicionales (bonificaciones, préstamos, horas extras), Descuentos Adicionales (Casino, Préstamos, descuentos por días no laborados)</strong>, el sistema tendra en cuenta la fecha de Inicio y Fin para calcular la nómina correspondiente al Empleado seleccionado.</li>
-            </ul>
-                </div>
+            </div>
 
-                </div>
-            
         </div>
     </div>
 </div>

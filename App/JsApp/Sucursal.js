@@ -13,12 +13,12 @@
     $("#BotonesModalSucursal").empty();
     $("#TituloModalSucursal").empty();
     if (tipo == 'C') {
-        $("#TituloModalSucursal").empty().append('<label>Crear Sucursal</label>');
+        $("#TituloModalSucursal").empty().append('<label>CREAR SUCURSAL</label>');
         $('#ModalSucursal').modal('show');
         $("#SelectEstadoSucursal").hide();
         $("#BotonesModalSucursal").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearSucursal()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalSucursal").empty().append('<label>Editar Sucursal</label>');
+        $("#TituloModalSucursal").empty().append('<label>EDITAR SUCURSAL</label>');
         $('#ModalSucursal').modal('show');
         $("#SelectEstadoSucursal").show();
         $("#BotonesModalSucursal").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarSucursal()">Guardar Cambios</button>');
@@ -39,13 +39,13 @@ function CrearSucursal() {
 
     if (IdEmpresa == -1 || IdEmpresa == null || IdEmpresa == '') {
         $('#SelectEmpresa').focus();
-        Swal.fire(TituloSwal, 'Seleccione la Empresa', 'info');
+        VentanaMensaje('Seleccione la Empresa');
     } else if (NombreSucursal == null || NombreSucursal == '' || NombreSucursal == undefined) {
         $('#InputNombreSucursal').focus();
-        Swal.fire(TituloSwal, 'Ingrese nombre de la Sucursal', 'info');
+        VentanaMensaje('Ingrese nombre de la Sucursal');
     } else if (IdCiudad == -1 || IdCiudad == null || IdCiudad == '') {
         $('#SelectCiudad').focus();
-        Swal.fire(TituloSwal, 'Seleccione la ciudad', 'info');
+        VentanaMensaje('Seleccione la ciudad');
     } else {
         $.ajax({
             type: 'POST',
@@ -66,17 +66,9 @@ function CrearSucursal() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -98,13 +90,13 @@ function ActualizarSucursal() {
 
     if (IdEmpresa == -1 || IdEmpresa == null || IdEmpresa == '') {
         $('#SelectEmpresa').focus();
-        Swal.fire(TituloSwal, 'Seleccione la Empresa', 'info');
+        Swal.fire(TituloSwal, 'Seleccione la Empresa');
     } else if (NombreSucursal == null || NombreSucursal == '' || NombreSucursal == undefined) {
         $('#InputNombreSucursal').focus();
-        Swal.fire(TituloSwal, 'Ingrese nombre de la Sucursal', 'info');
+        Swal.fire(TituloSwal, 'Ingrese nombre de la Sucursal');
     } else if (IdCiudad == -1 || IdCiudad == null || IdCiudad == '') {
         $('#SelectCiudad').focus();
-        Swal.fire(TituloSwal, 'Seleccione la ciudad', 'info');
+        Swal.fire(TituloSwal, 'Seleccione la ciudad');
     } else {
         $.ajax({
             type: 'POST',
@@ -127,15 +119,9 @@ function ActualizarSucursal() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -148,7 +134,7 @@ function EliminarSucursal(IdSucursal) {
         text: "Esta seguro(a)?, No podrás revertir esta acción.!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "orangered",
+        confirmButtonColor: "red",
         cancelButtonColor: "#333",
         confirmButtonText: "Si, eliminar!",
         cancelButtonText: "Cancelar",
@@ -166,17 +152,9 @@ function EliminarSucursal(IdSucursal) {
                 success: function (resultado) {
                     valor = resultado.split('*');
                     if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                            position: 'top',
-                            confirmButtonColor: "orangered",
-                        }).then((result) => {
-                            location.reload();
-                        })
+                        VentanaMensajeOK(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });

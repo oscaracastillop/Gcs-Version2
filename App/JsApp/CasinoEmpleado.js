@@ -9,13 +9,13 @@
     $("#SelectContratoLaboralSucursalEmpleado").val(-1);
     $("#BotonesModalCasinoEmpleado").empty();
     if (tipo == 'C') {
-        $("#TituloModalCasinoEmpleado").empty().append('<label>Crear Casino Empleado</label>');
+        $("#TituloModalCasinoEmpleado").empty().append('<label>CREAR CASINO EMPLEADO</label>');
         $('#ModalCasinoEmpleado').modal('show');
         $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", false);
         $("#SelectEstadoCasinoEmpleado").hide();
         $("#BotonesModalCasinoEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearCasinoEmpleado()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalCasinoEmpleado").empty().append('<label>Editar Casino Empleado</label>');
+        $("#TituloModalCasinoEmpleado").empty().append('<label>EDITAR CASINO EMPLEADO</label>');
         $('#ModalCasinoEmpleado').modal('show');
         $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", true);
         $("#SelectEstadoCasinoEmpleado").show();
@@ -31,16 +31,16 @@ function CrearCasinoEmpleado() {
     let Observacion = $('#InputCasinoEmpleadoObservacion').val();
     if (IdEmpleado == -1 || IdEmpleado == null || IdEmpleado == '') {
         $('#SelectContratoLaboralSucursalEmpleado').focus();
-        VentanaMensaje('Seleccione el Empleado', 'info');
+        VentanaMensaje('Seleccione el Empleado');
     } else if (Valor == null || Valor == '' || Valor == undefined) {
         $('#InputCasinoEmpleadoValor').focus();
-        VentanaMensaje('Ingrese el Valor', 'info');
+        VentanaMensaje('Ingrese el Valor');
     } else if (Fecha == null || Fecha == '' || Fecha == undefined) {
         $('#InputCasinoEmpleadoFecha').focus();
-        VentanaMensaje('Ingrese la Fecha', 'info');
+        VentanaMensaje('Ingrese la Fecha');
     } else if (FechaPago == null || FechaPago == '' || FechaPago == undefined) {
         $('#InputCasinoEmpleadoFecha').focus();
-        VentanaMensaje('Ingrese la Fecha de Pago', 'info');
+        VentanaMensaje('Ingrese la Fecha de Pago');
     } else {
         $.ajax({
             type: 'POST',
@@ -57,17 +57,9 @@ function CrearCasinoEmpleado() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -84,13 +76,13 @@ function ActualizarCasinoEmpleado() {
     let IdEstado = $('#SelectEstado').val();
     if (Valor == null || Valor == '' || Valor == undefined) {
         $('#InputCasinoEmpleadoValor').focus();
-        VentanaMensaje('Ingrese el Valor', 'info');
+        VentanaMensaje('Ingrese el Valor');
     } else if (Fecha == null || Fecha == '' || Fecha == undefined) {
         $('#InputCasinoEmpleadoFecha').focus();
-        VentanaMensaje('Ingrese la Fecha', 'info');
+        VentanaMensaje('Ingrese la Fecha');
     } else if (FechaPago == null || FechaPago == '' || FechaPago == undefined) {
         $('#InputCasinoEmpleadoFecha').focus();
-        VentanaMensaje('Ingrese la Fecha de Pago', 'info');
+        VentanaMensaje('Ingrese la Fecha de Pago');
     } else {
         $.ajax({
             type: 'POST',
@@ -108,17 +100,9 @@ function ActualizarCasinoEmpleado() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -131,7 +115,7 @@ function EliminarCasinoEmpleado(IdCasinoEmpleado) {
         text: "Esta seguro(a)?, No podrás revertir esta acción.!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "orangered",
+        confirmButtonColor: "red",
         cancelButtonColor: "#333",
         confirmButtonText: "Si, eliminar!",
         cancelButtonText: "Cancelar",
@@ -149,17 +133,9 @@ function EliminarCasinoEmpleado(IdCasinoEmpleado) {
                 success: function (resultado) {
                     valor = resultado.split('*');
                     if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                            position: 'top',
-                            confirmButtonColor: "orangered",
-                        }).then((result) => {
-                            location.reload();
-                        })
+                        VentanaMensajeOK(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });

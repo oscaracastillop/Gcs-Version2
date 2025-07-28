@@ -4291,11 +4291,8 @@
     <Content Include="Images\ImagesApp\Favicon.png" />
     <Content Include="Images\ImagesApp\fondo.jpg" />
     <Content Include="Images\ImagesApp\Logo GCS.jpg" />
-    <Content Include="Images\ImagesApp\LogoSofia02.PNG" />
     <Content Include="Images\ImagesProfileUsers\Usuario.png" />
     <Content Include="Images\LogoEmpresa\default.png" />
-    <Content Include="Images\LogoEmpresa\Empresa_1.jpg" />
-    <Content Include="Images\LogoEmpresa\Empresa_2.jpg" />
     <Content Include="JsApp\Banco.js" />
     <Content Include="JsApp\OtrosDescuentosEmpleado.js" />
     <Content Include="JsApp\OtrosIngresosEmpleado.js" />
@@ -4655,7 +4652,6 @@
     <Content Include="Views\Almacen\Categoria.cshtml" />
     <Content Include="Views\Almacen\Producto.cshtml" />
     <Content Include="Views\Almacen\Proveedor.cshtml" />
-    <Content Include="Views\Recursos_Humanos\Contrato_Laboral_Crear_Contrato_Laboral_Empleado.cshtml" />
     <Content Include="Views\Recursos_Humanos\Otros_Descuentos.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />

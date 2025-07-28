@@ -27,13 +27,25 @@ function ValidarSesion(Modulo) {
     }
 }
 
-function VentanaMensaje(texto, icon) {
+function VentanaMensajeOK(texto) {
+    Swal.fire({
+        title: TituloSwal,
+        text: valor[1],
+        icon: 'success',
+        position: 'top',
+        confirmButtonColor: "green",
+    }).then((result) => {
+        window.location.reload();
+    })
+}
+
+function VentanaMensaje(texto) {
     Swal.fire({
         title: TituloSwal,
         text: texto,
-        icon: icon,
+        icon: 'info',
         position: 'top',
-        confirmButtonColor: "orangered",
+        confirmButtonColor: "#3b5998",
     })
 }
 

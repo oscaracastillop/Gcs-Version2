@@ -860,13 +860,13 @@ ALTER TABLE SubMenu ADD CONSTRAINT FK_IdEstadoSubMenu FOREIGN KEY (IdEstado) ref
 
 GO
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (2, 'Empresa','bi-building', '2rem', 'black','/Negocio/Empresa','green')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (2, 'Sucursal','bi-houses', '2rem', 'black','/Negocio/Sucursal','green')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (2, 'Sucursal Empleado','bi-house-gear','2rem','black','/Negocio/Sucursal_Empleado','green')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (2, 'Empresa','bi-building', '2rem', 'green','/Negocio/Empresa','green')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (2, 'Sucursal','bi-houses', '2rem', 'purple','/Negocio/Sucursal','green')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (2, 'Sucursal Empleado','bi-house-gear','2rem','orangered','/Negocio/Sucursal_Empleado','green')
 
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (3, 'Cliente','bi-person-rolodex','2rem','black','/Venta/Cliente','green')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (3, 'Cotización','bi-person-rolodex','2rem','black','/Venta/Cotizacion','cornflowerblue')
-INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (3, 'Detalle Cotización','bi-person-rolodex','2rem','black','/Venta/Detalle_Cotizacion','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (3, 'Cliente','bi-person-walking','2rem','green','/Venta/Cliente','green')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (3, 'Cotización','bi-file-text','2rem','purple','/Venta/Cotizacion','cornflowerblue')
+INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (3, 'Detalle Cotización','bi-list-columns-reverse','2rem','orangered','/Venta/Detalle_Cotizacion','cornflowerblue')
 
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Empleado','bi-person','2rem','green','/Recursos_Humanos/Empleado','green')
 INSERT INTO SubMenu (IdMenu, Nombre, Icono, SizeIcono, Color, Ruta, ColorFondo) VALUES (4, 'Dia Laborado','bi-calendar-date','2rem','black','/Recursos_Humanos/Dia_Laborado','cornflowerblue')

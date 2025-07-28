@@ -8,13 +8,13 @@
     $("#BotonesModalEmpleado").empty();
     if (tipo == 'C') {
         $("#ContenedorImagenHVEmpleado").hide();
-        $("#TituloModalEmpleado").empty().append('<label>Crear Empleado</label>');
+        $("#TituloModalEmpleado").empty().append('<label>CREAR EMPLEADO</label>');
         $('#ModalEmpleado').modal('show');
         $("#SelectEstadoEmpleado").hide();
         $("#BotonesModalEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearEmpleado()">Guardar</button>');
     } if (tipo == 'E') {
         $("#ContenedorImagenHVEmpleado").show();
-        $("#TituloModalEmpleado").empty().append('<label>Editar Empleado</label>');
+        $("#TituloModalEmpleado").empty().append('<label>EDITAR EMPLEADO</label>');
         $('#ModalEmpleado').modal('show');
         $("#SelectEstadoEmpleado").show();
         $("#BotonesModalEmpleado").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarEmpleado()">Guardar Cambios</button>');
@@ -29,16 +29,16 @@ function CrearEmpleado() {
     let Identificacion = $('#InputIdentificacionEmpleado').val();
     if (Nombre == null || Nombre == '' || Nombre == undefined) {
         $('#InputNombreEmpleado').focus();
-        VentanaMensaje('Ingrese el Nombre del Empleado', 'info');
+        VentanaMensaje('Ingrese el Nombre del Empleado');
     } else if (Apellidos == null || Apellidos == '' || Apellidos == undefined) {
         $('#InputApellidosEmpleado').focus();
-        VentanaMensaje('Ingrese el Apellido del Empleado', 'info');
+        VentanaMensaje('Ingrese el Apellido del Empleado');
     } else if (IdTipoDocumento == -1 || IdTipoDocumento == null || IdTipoDocumento == '') {
         $('#SelectTipoDocumento').focus();
-        VentanaMensaje('Seleccione el Tipo de Documento del Empleado', 'info');
+        VentanaMensaje('Seleccione el Tipo de Documento del Empleado');
     } else if (Identificacion == null || Identificacion == '' || Identificacion == undefined) {
         $('#InputIdentificacionEmpleado').focus();
-        VentanaMensaje('Ingrese la Identificación del Empleado', 'info');
+        VentanaMensaje('Ingrese la Identificación del Empleado');
     } else {
         $.ajax({
             type: 'POST',
@@ -54,17 +54,9 @@ function CrearEmpleado() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -81,16 +73,16 @@ function ActualizarEmpleado() {
     let IdEstado = $('#SelectEstado').val();
     if (Nombre == null || Nombre == '' || Nombre == undefined) {
         $('#InputNombreEmpleado').focus();
-        VentanaMensaje('Ingrese el Nombre del Empleado', 'info');
+        VentanaMensaje('Ingrese el Nombre del Empleado');
     } else if (Apellidos == null || Apellidos == '' || Apellidos == undefined) {
-        VentanaMensaje('Ingrese el Apellido del Empleado', 'info');
-        Swal.fire(TituloSwal, 'Ingrese el Apellido del Empleado', 'info');
+        VentanaMensaje('Ingrese el Apellido del Empleado');
+        Swal.fire(TituloSwal, 'Ingrese el Apellido del Empleado');
     } else if (IdTipoDocumento == -1 || IdTipoDocumento == null || IdTipoDocumento == '') {
         $('#SelectTipoDocumento').focus();
-        VentanaMensaje('Seleccione el Tipo de Documento del Empleado', 'info');
+        VentanaMensaje('Seleccione el Tipo de Documento del Empleado');
     } else if (Identificacion == null || Identificacion == '' || Identificacion == undefined) {
         $('#InputIdentificacionEmpleado').focus();
-        VentanaMensaje('Ingrese la Identificación del Empleado', 'info');
+        VentanaMensaje('Ingrese la Identificación del Empleado');
     } else {
         $.ajax({
             type: 'POST',
@@ -108,17 +100,9 @@ function ActualizarEmpleado() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orange",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -131,7 +115,7 @@ function EliminarEmpleado(IdEmpleado) {
         text: "Esta seguro(a)?, No podrás revertir esta acción.!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "orangered",
+        confirmButtonColor: "red",
         cancelButtonColor: "#333",
         confirmButtonText: "Si, eliminar!",
         cancelButtonText: "Cancelar",
@@ -149,17 +133,9 @@ function EliminarEmpleado(IdEmpleado) {
                 success: function (resultado) {
                     valor = resultado.split('*');
                     if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                            position: 'top',
-                            confirmButtonColor: "orangered",
-                        }).then((result) => {
-                            location.reload();
-                        })
+                        VentanaMensajeOK(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });
@@ -177,7 +153,7 @@ function GuardarImagenHVEmpleado() {
 
     if (Imagen == null || Imagen == '' || Imagen == undefined) {
         $('#inPhoto').focus();
-        VentanaMensaje('El campo de imagén esta vacío', 'info');
+        VentanaMensaje('El campo de imagén esta vacío');
     } else {
         if ($('#inPhoto')[0].files.length > 0) {
             formData.append('Files', $('#inPhoto')[0].files[0], $('#inPhoto')[0].files[0].name);
@@ -202,17 +178,9 @@ function GuardarImagenHVEmpleado() {
             success: function (result) {
                 valor = result.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -460,7 +428,7 @@ function BuscarImagenEmpleado(IdEmpleado) {
 }
 
 function InfoEmpleado() {
-    Swal.fire(TituloSwal, 'Esta Opción no esta disponible en el momento', 'info');
+    Swal.fire(TituloSwal, 'Esta Opción no esta disponible en el momento');
 }
 
 

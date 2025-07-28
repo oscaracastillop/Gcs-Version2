@@ -19,9 +19,7 @@
 
 
 
-#ImagenEmpleado {
-    text-align: center;
-}
+
 
 .imagen-escalada-grid {
     width: 100% !important;
@@ -37,22 +35,9 @@
     margin-left: auto;
 }
 
-.contimg-cambiar-img {
-    width: 200px;
-    height: 230px;
-    margin-right: auto;
-    margin-left: auto;
-    border-radius: 0px;
-    box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.75);
-    border: solid 0px black;
-    align-content: center;
-    padding: 5px;
-}
-
 .imagen-escalada-cambiar {
     width: 100% !important;
     height: 100% !important;
-    padding: 0px !important;
 }
 
 
@@ -62,16 +47,9 @@
 /*ESTILOS GENERALES*/
 
 
-.stilonavbar{
-    padding:0px !important;
-    height:auto!important;
-}
 
-.nameempresa {
-    font-family: Pristina !important;
-    text-shadow: 1px 1px 2px black;
-    padding:0px!important;
-}
+
+
 
 
 .btn-editar-dt {
@@ -88,6 +66,17 @@
     background-color: white !important;
     color: black !important;
 }
+
+.btnmenu {
+    color: white !important;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+    .btnmenu:hover {
+        background-color: black;
+        box-shadow: 0px 0px 5px 0px white;
+    }
 
 .btn-modal-Cancelar {
     background-color: black !important;
@@ -124,6 +113,11 @@
     margin-top: 10px;
 }
 
+.contimg-cambiar-img {
+    margin-right: auto;
+    margin-left: auto;
+}
+
 .fondo {
     background-color: #d8dfea;
 }
@@ -145,6 +139,10 @@
     font-weight: bold;
     background-color: #3b5998;
 
+}
+
+.imagelogoempresa {
+    max-width: 200px!important;
 }
 
 .label-estado-activo {
@@ -171,6 +169,31 @@
     padding-right: 5px;
 }
 
+li {
+    font-size: 15px !important;
+    color: white !important;
+}
+
+.nameempresa {
+    font-family: Pristina !important;
+    text-shadow: 1px 1px 2px black;
+    padding: 0px !important;
+}
+
+.scroll {
+    white-space: nowrap; /* [1] */
+    overflow-x: auto; /* [2] */
+    overflow-y: hidden;
+    overflow-y: clip;
+    /*-webkit-overflow-scrolling: touch;*/ /* [3] */
+    /*-ms-overflow-style: -ms-autohiding-scrollbar;*/ /* [4] */
+}
+
+.stilonavbar {
+    padding: 0px !important;
+    height: auto !important;
+}
+
 table.dataTable thead tr {
     background-color: none;
     color: black;
@@ -184,66 +207,28 @@ table.dataTable thead tr {
 
 .tituloPage {
     font-weight: bold;
-}
-
-li {
-    font-size: 15px !important;
-    color: white !important;
-}
-
-.btnmenu {
-    color: white !important;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-
-.btnmenu:hover {
-    background-color: black;
-        box-shadow: 0px 0px 5px 0px white;
-}
-
-.scroll {
-    white-space: nowrap; /* [1] */
-    overflow-x: auto; /* [2] */
-    overflow-y:hidden;
-    overflow-y:clip;
-    /*-webkit-overflow-scrolling: touch;*/ /* [3] */
-    /*-ms-overflow-style: -ms-autohiding-scrollbar;*/ /* [4] */
+    text-align:left;
 }
 
 
 /*ADAPTACIONES A PANTALLAS*/
 
-/*  /////////////////////////////////   */
 
 @media screen and (min-width: 100px) {
-    body,
-    .btn,
-    .btn-editar-dt,
-    .btn-eliminar-dt,
-    .btn-excel-datatable,    
-    .btn-nuevo-datatable,
-    .btn-pdf-datatable,
-    button,
-    .contenedor,
-    .div.dataTables_wrapper div.dataTables_filter input,
-    .grid,
-    input,
-    .label-estado-activo,
-    .label-estado-inactivo,
-    .modal,
-    select,
-    .swal2-popup,
-    table.dataTable thead tr,
-    textarea {
+    body, .btn, .btn-editar-dt, .btn-eliminar-dt, .btn-excel-datatable, .btn-nuevo-datatable, .btn-pdf-datatable, button, .contenedor, .div.dataTables_wrapper div.dataTables_filter input, .grid, input, .label-estado-activo, .label-estado-inactivo, .modal, select, .swal2-popup, table.dataTable thead tr, textarea {
         font-size: 5px !important;
     }
 
     .btnSubMenu {
         font-size: 6px !important;
-        height: 6;
+        height: 60px;
         margin: 5px;
         width: 100px;
+    }
+
+    .contimg-cambiar-img {
+        width: 150px;
+        height: 150px;
     }
 
     .nameempresa {
@@ -256,7 +241,6 @@ li {
 
     .tituloPage {
         font-size: 10px !important;
-        text-align:center!important;
     }
 
     .sizeicono {
@@ -276,8 +260,7 @@ li {
     .btn,
     .btn-editar-dt,
     .btn-eliminar-dt,
-    .btn-excel-datatable,
-    
+    .btn-excel-datatable,    
     .btn-nuevo-datatable,
     .btn-pdf-datatable,
     button,
@@ -302,6 +285,11 @@ li {
         width: 100px;
     }
 
+    .contimg-cambiar-img {
+        width: 170px;
+        height: 170px;
+    }
+
     .nameempresa {
         font-size: 30px !important;
     }
@@ -318,6 +306,8 @@ li {
         font-size: 15px !important;
     }
 }
+
+/* ////////////////////////////////////////////// */
 
 @media screen and (min-width: 780px) {
     body,
@@ -338,16 +328,21 @@ li {
     .modal,
     select,
     .swal2-popup,
-    table.dataTable thead tr,
+    .table.dataTable thead tr,
     textarea {
-        font-size: 11px !important;
+        font-size: 9px !important;
     }
 
     .btnSubMenu {
-        font-size: 11px !important;
+        font-size: 9px !important;
         height: 100px;
         margin: 8px;
         width: 150px;
+    }
+
+    .contimg-cambiar-img {
+        width: 200px;
+        height: 200px;
     }
 
     .nameempresa {
@@ -355,15 +350,15 @@ li {
     }
 
     .tituloform, .header-modal, .swal2-title {
-        font-size: 13px !important;
+        font-size: 11px !important;
     }
 
     .tituloPage {
-        font-size: 16px !important;
+        font-size: 13px !important;
     }
 
     .sizeicono {
-        font-size: 35px !important;
+        font-size: 30px !important;
     }
 
 

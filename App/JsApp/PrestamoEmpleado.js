@@ -9,13 +9,13 @@
     $("#SelectContratoLaboralSucursalEmpleado").val(-1);
     $("#BotonesModalPrestamoEmpleado").empty();
     if (tipo == 'C') {
-        $("#TituloModalPrestamoEmpleado").empty().append('<label>Crear Préstamo Empleado</label>');
+        $("#TituloModalPrestamoEmpleado").empty().append('<label>CREAR PRESTAMO EMPLEADO</label>');
         $('#ModalPrestamoEmpleado').modal('show');
         $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", false);
         $("#SelectEstadoPrestamoEmpleado").hide();
         $("#BotonesModalPrestamoEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearPrestamoEmpleado()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalPrestamoEmpleado").empty().append('<label>Editar Préstamo Empleado</label>');
+        $("#TituloModalPrestamoEmpleado").empty().append('<label>EDITAR PRESTAMO EMPLEADO</label>');
         $('#ModalPrestamoEmpleado').modal('show');
         $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", true);
         $("#SelectEstadoPrestamoEmpleado").show();
@@ -36,19 +36,19 @@ function CrearPrestamoEmpleado() {
     let Observacion = $('#InputPrestamoEmpleadoObservacion').val();
     if (IdEmpleado == -1 || IdEmpleado == null || IdEmpleado == '') {
         $('#SelectContratoLaboralEmpleado').focus();
-        VentanaMensaje('Seleccione el Empleado', 'info');
+        VentanaMensaje('Seleccione el Empleado');
     } else if (Valor == null || Valor == '' || Valor == undefined) {
         $('#InputPrestamoEmpleadoValor').focus();
-        VentanaMensaje('Ingrese el Valor', 'info');
+        VentanaMensaje('Ingrese el Valor');
     } else if (FechaPrestamo == null || FechaPrestamo == '' || FechaPrestamo == undefined) {
         $('#InputPrestamoEmpleadoFechaPrestamo').focus();
-        VentanaMensaje('Ingrese la Fecha', 'info');
+        VentanaMensaje('Ingrese la Fecha');
     } else if (FechaPago == null || FechaPago == '' || FechaPago == undefined) {
         $('#InputPrestamoEmpleadoFechaPago').focus();
-        VentanaMensaje('Ingrese la Fecha de Cobro', 'info');
+        VentanaMensaje('Ingrese la Fecha de Cobro');
     } else if (Cuotas == null || Cuotas == '' || Cuotas == undefined) {
         $('#InputPrestamoEmpleadoNumeroCuotas').focus();
-        VentanaMensaje('Ingrese el número de Cuotas', 'info');
+        VentanaMensaje('Ingrese el número de Cuotas');
     } else {
         $.ajax({
             type: 'POST',
@@ -66,17 +66,9 @@ function CrearPrestamoEmpleado() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -94,16 +86,16 @@ function ActualizarPrestamoEmpleado() {
     let IdEstado = $('#SelectEstado').val();
     if (Valor == null || Valor == '' || Valor == undefined) {
         $('#InputPrestamoEmpleadoValor').focus();
-        VentanaMensaje('Ingrese el Valor', 'info');
+        VentanaMensaje('Ingrese el Valor');
     } else if (FechaPrestamo == null || FechaPrestamo == '' || FechaPrestamo == undefined) {
         $('#InputPrestamoEmpleadoFechaPrestamo').focus();
-        VentanaMensaje('Ingrese la Fecha', 'info');
+        VentanaMensaje('Ingrese la Fecha');
     } else if (FechaPago == null || FechaPago == '' || FechaPago == undefined) {
         $('#InputPrestamoEmpleadoFechaPago').focus();
-        VentanaMensaje('Ingrese la Fecha de Cobro', 'info');
+        VentanaMensaje('Ingrese la Fecha de Cobro');
     } else if (Cuotas == null || Cuotas == '' || Cuotas == undefined) {
         $('#InputPrestamoEmpleadoNumeroCuotas').focus();
-        VentanaMensaje('Ingrese el número de Cuotas', 'info');
+        VentanaMensaje('Ingrese el número de Cuotas');
     } else {
         $.ajax({
             type: 'POST',
@@ -122,17 +114,9 @@ function ActualizarPrestamoEmpleado() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -145,7 +129,7 @@ function EliminarPrestamoEmpleado(IdPrestamoEmpleado) {
         text: "Esta seguro(a)?, No podrás revertir esta acción.!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "orangered",
+        confirmButtonColor: "red",
         cancelButtonColor: "#333",
         confirmButtonText: "Si, eliminar!",
         cancelButtonText: "Cancelar",
@@ -163,17 +147,9 @@ function EliminarPrestamoEmpleado(IdPrestamoEmpleado) {
                 success: function (resultado) {
                     valor = resultado.split('*');
                     if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                            position: 'top',
-                            confirmButtonColor: "orangered",
-                        }).then((result) => {
-                            location.reload();
-                        })
+                        VentanaMensajeOK(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });

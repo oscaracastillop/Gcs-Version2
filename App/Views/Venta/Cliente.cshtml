@@ -3,16 +3,27 @@
     ViewBag.Title = "Cliente";
 }
 
-<h6>MODULO CLIENTE</h6>
+<script src="~/JsApp/Ciudad.js"></script>
+<script src="~/JsApp/Cliente.js"></script>
+<script src="~/JsApp/FormaPago.js"></script>
+<script src="~/JsApp/PlazoPago.js"></script>
+<script src="~/JsApp/TipoEstado.js"></script>
+<script src="~/JsApp/TipoDocumento.js"></script>
+
+<div class="tituloPage">
+    <label>MODULO CLIENTE</label>
+</div>
+
+
 <div class="">
     <div class="grid">
         <table id="gridCliente" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
-    </div>   
+    </div>
 </div>
 
 <!-- Modal Cliente-->
 <div class="modal fade" id="ModalCliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header header-modal">
                 <div class="modal-title" id="TituloModalCliente"></div>
@@ -23,7 +34,7 @@
                     <label><strong>Nombre </strong><label style="color:red"> *</label></label>
                     <input class="form-control" type="text" id="InputNombreCliente" name="name" autocomplete="off" style="min-width:100%" />
                 </div>
-                <div class="row">
+                <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Documento </strong><label style="color:red"> *</label></label>
                         <select class="form-control" id="SelectTipoDocumento" style="min-width:100%"></select>
@@ -34,7 +45,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Email</strong></label>
                         <input class="form-control" type="text" id="InputEmailCliente" name="name" autocomplete="off" style="min-width:100%" />
@@ -45,7 +56,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Teléfono</strong></label>
                         <input class="form-control" type="text" id="InputTelefonoCliente" name="name" autocomplete="off" style="min-width:100%" maxlength="13" placeholder="(ind ciudad) + # Telefónico" />
@@ -56,7 +67,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Forma de Pago</strong></label>
                         <select class="form-control" id="SelectFormaPago"></select>
@@ -67,7 +78,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Dirección</strong></label>
                         <input class="form-control" type="text" id="InputDireccionCliente" name="name" autocomplete="off" style="min-width:100%" />
@@ -77,10 +88,10 @@
                         <select class="form-control" id="SelectCiudad" style="min-width:100%"></select>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row g-2">
                     <div class="col-12">
                         <label><strong>Descripción</strong></label>
-                        <textarea id="InputDescripcionCliente" class="form-control" style="min-width:100%" rows="3"></textarea>
+                        <input type="text" id="InputDescripcionCliente" class="form-control" style="min-width:100%" rows="3" />
                     </div>
                 </div>
                 <div class="col-3" id="SelectEstadoCliente">

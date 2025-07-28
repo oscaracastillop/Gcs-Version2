@@ -15,12 +15,12 @@
     $("#SelectCiudad").val(-1);
     $("#BotonesModalCliente").empty();
     if (tipo == 'C') {
-        $("#TituloModalCliente").empty().append('<label>Crear Cliente</label>');
+        $("#TituloModalCliente").empty().append('<label>CREAR CLIENTE</label>');
         $('#ModalCliente').modal('show');
         $("#SelectEstadoCliente").hide();
         $("#BotonesModalCliente").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearCliente()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalCliente").empty().append('<label>Editar Cliente</label>');
+        $("#TituloModalCliente").empty().append('<label>EDITAR CLIENTE</label>');
         $('#ModalCliente').modal('show');
         $("#SelectEstadoCliente").show();
         $("#BotonesModalCliente").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarCliente()">Guardar Cambios</button>');
@@ -43,16 +43,22 @@ function CrearCliente() {
 
     if (NombreCliente == null || NombreCliente == '' || NombreCliente == undefined) {
         $('#InputNombreCliente').focus();
-        VentanaMensaje('Ingrese nombre del Cliente', 'info');
+        VentanaMensaje('Ingrese nombre del Cliente');
     } else if (IdTipoDocumento == -1 || IdTipoDocumento == null || IdTipoDocumento == '') {
         $('#SelectTipoDocumento').focus();
-        VentanaMensaje('Seleccione tipo documento', 'info');
+        VentanaMensaje('Seleccione tipo documento');
     } else if (Identificacion == null || Identificacion == '' || Identificacion == undefined) {
         $('#InputIdentificacionCliente').focus();
-        VentanaMensaje('Ingrese la identificación', 'info');
+        VentanaMensaje('Ingrese la identificación');
+    } else if (IdFormaPago == -1 || IdFormaPago == null || IdFormaPago == '') {
+        $('#SelectFormaPago').focus();
+        VentanaMensaje('Seleccione la forma de pago');
+    } else if (IdPlazoPago == -1 || IdPlazoPago == null || IdPlazoPago == '') {
+        $('#SelectPlazoPago').focus();
+        VentanaMensaje('Seleccione el plazo de pago');
     } else if (IdCiudad == -1 || IdCiudad == null || IdCiudad == '') {
         $('#SelectCiudad').focus();
-        VentanaMensaje('Seleccione la ciudad', 'info');
+        VentanaMensaje('Seleccione la ciudad');
     } else {
         $.ajax({
             type: 'POST',
@@ -76,17 +82,9 @@ function CrearCliente() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -111,16 +109,22 @@ function ActualizarCliente() {
 
     if (NombreCliente == null || NombreCliente == '' || NombreCliente == undefined) {
         $('#InputNombreCliente').focus();
-        VentanaMensaje('Ingrese nombre del Cliente', 'info');
+        VentanaMensaje('Ingrese nombre del Cliente');
     } else if (IdTipoDocumento == -1 || IdTipoDocumento == null || IdTipoDocumento == '') {
         $('#SelectTipoDocumento').focus();
-        VentanaMensaje('Seleccione tipo documento', 'info');
+        VentanaMensaje('Seleccione tipo documento');
     } else if (Identificacion == null || Identificacion == '' || Identificacion == undefined) {
         $('#InputIdentificacionCliente').focus();
-        VentanaMensaje('Ingrese la identificación', 'info');
+        VentanaMensaje('Ingrese la identificación');
+    } else if (IdFormaPago == -1 || IdFormaPago == null || IdFormaPago == '') {
+        $('#SelectFormaPago').focus();
+        VentanaMensaje('Seleccione la forma de pago');
+    } else if (IdPlazoPago == -1 || IdPlazoPago == null || IdPlazoPago == '') {
+        $('#SelectPlazoPago').focus();
+        VentanaMensaje('Seleccione el plazo de pago');
     } else if (IdCiudad == -1 || IdCiudad == null || IdCiudad == '') {
         $('#SelectCiudad').focus();
-        VentanaMensaje('Seleccione la ciudad', 'info');
+        VentanaMensaje('Seleccione la ciudad');
     } else {
         $.ajax({
             type: 'POST',
@@ -146,17 +150,9 @@ function ActualizarCliente() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -169,7 +165,7 @@ function EliminarCliente(IdCliente) {
         text: "Esta seguro(a)?, No podrás revertir esta acción.!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "orangered",
+        confirmButtonColor: "red",
         cancelButtonColor: "#333",
         confirmButtonText: "Si, eliminar!",
         cancelButtonText: "Cancelar",
@@ -187,17 +183,9 @@ function EliminarCliente(IdCliente) {
                 success: function (resultado) {
                     valor = resultado.split('*');
                     if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                            position: 'top',
-                            confirmButtonColor: "orangered",
-                        }).then((result) => {
-                            location.reload();
-                        })
+                        VentanaMensajeOK(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });

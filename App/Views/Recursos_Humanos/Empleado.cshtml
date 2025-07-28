@@ -3,7 +3,17 @@
     ViewBag.Title = "Empleado";
 }
 
-<label class="tituloPage">MODULO EMPLEADO</label>
+
+<script src="~/JsApp/Empleado.js"></script>
+<script src="~/JsApp/TipoDocumento.js"></script>
+<script src="~/JsApp/TipoEstado.js"></script>
+
+
+<div class="tituloPage">
+    <label>MODULO EMPLEADO</label>
+</div>
+
+
 
 <div class="grid">
     <table id="gridEmpleado" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
@@ -11,14 +21,14 @@
 
 <!-- Modal Empleado-->
 <div class="modal fade" id="ModalEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header header-modal">
                 <div class="modal-title" id="TituloModalEmpleado"></div>
             </div>
             <div class="modal-body">
                 <label id="LabelIdEmpleado" hidden></label>
-                <div class="row">
+                <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Nombres </strong><label style="color:red"> *</label></label>
                         <input class="form-control" type="text" id="InputNombreEmpleado" name="name" autocomplete="off" style="min-width:100%" />
@@ -28,7 +38,7 @@
                         <input class="form-control" type="text" id="InputApellidosEmpleado" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
                 </div>
-                <div class="row">
+                <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Documento </strong><label style="color:red"> *</label></label>
                         <select class="form-control" id="SelectTipoDocumento" style="min-width:100%"></select>
@@ -38,7 +48,7 @@
                         <input class="form-control" type="text" id="InputIdentificacionEmpleado" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
                 </div>
-                
+
                 <div class="col-3" id="SelectEstadoEmpleado">
                     <label><strong>Estado</strong></label>
                     <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
@@ -55,13 +65,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header header-modal">
-                <div class="modal-title"><label>Imagen Empleado</label></div>
+                <div class="modal-title"><label>FOTO EMPLEADO</label></div>
             </div>
             <label id="IdEmpleadoImagen" hidden></label>
             <label id="NombreImagenActualEmpleado" hidden></label>
             <div class="modal-body" style="text-align:center">
                 <div style="text-align:center">
-                    <h6><strong id="NombreEmpleadoImagen"></strong></h6>
+                    <label class="tituloPage"><strong id="NombreEmpleadoImagen"></strong></label>
                     <div class="contimg-cambiar-img" id="ImagenHVEmpleado" style="margin-top:10px; text-align:center"></div>
                     <br />
                     <a href="#">Ver Información Empleado</a>

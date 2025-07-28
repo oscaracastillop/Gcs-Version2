@@ -17,7 +17,7 @@
         $('#ImagenEmpleado').empty().append(
             '<img src="/Images/ImagenHVEmpleado/Empleado.png" class="imagen-escalada-cambiar" id="ImagenEmpleado"/>'
         );
-        $("#TituloModalSucursalEmpleado").empty().append('<label>Crear Sucursal Empleado</label>');
+        $("#TituloModalSucursalEmpleado").empty().append('<label>CREAR SUCURSAL-EMPLEADO</label>');
         $('#ModalSucursalEmpleado').modal('show');
         $("#SelectEstadoSucursalEmpleado").hide();
         $("#BotonesModalSucursalEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearSucursalEmpleado()">Guardar</button>');
@@ -29,7 +29,7 @@
         $("#SelectSucursalXIdEmpresaXIdEmpleado").show();
         
     } if (tipo == 'E') {
-        $("#TituloModalSucursalEmpleado").empty().append('<label>Editar Sucursal Empleado</label>');
+        $("#TituloModalSucursalEmpleado").empty().append('<label>EDITAR SUCURSAL-EMPLEADO</label>');
         $('#ModalSucursalEmpleado').modal('show');
         $("#SelectEstadoSucursalEmpleado").show();
         $("#BotonesModalSucursalEmpleado").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarSucursalEmpleado()">Guardar Cambios</button>');
@@ -53,13 +53,13 @@ function CrearSucursalEmpleado() {
 
     if (IdEmpleado == -1 || IdEmpleado == null || IdEmpleado == '') {
         $('#SelectContratoLaboralEmpleado').focus();
-        VentanaMensaje('Seleccione el Empleado', 'info');
+        VentanaMensaje('Seleccione el Empleado');
     } else if (IdSucursal == -1 || IdSucursal == null || IdSucursal == '') {
         $('#SelectSucursal').focus();
-        VentanaMensaje('Seleccione la Sucursal en la que va a Laborar el Empleado', 'info');
+        VentanaMensaje('Seleccione la Sucursal en la que va a Laborar el Empleado');
     } else if (FechaInicio == null || FechaInicio == '' || FechaInicio == undefined) {
         $('#InputFechaInicioSE').focus();
-        VentanaMensaje('Ingrese la Fecha Inicio en esta Sucursal', 'info');
+        VentanaMensaje('Ingrese la Fecha Inicio en esta Sucursal');
     } else {
         if (FechaFin == FechaInicio || FechaFin == '' || FechaFin > FechaInicio ) {
             $.ajax({
@@ -77,23 +77,15 @@ function CrearSucursalEmpleado() {
                 success: function (resultado) {
                     valor = resultado.split('*');
                     if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                            position: 'top',
-                            confirmButtonColor: "orangered",
-                        }).then((result) => {
-                            window.location.reload();
-                        })
+                        VentanaMensajeOK(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });
         } else {
             $('#InputFechaFinSE').focus();
-            VentanaMensaje('Por favor valide la fecha fin', 'info');
+            VentanaMensaje('Por favor valide la fecha fin');
         }        
     }
 }
@@ -120,23 +112,15 @@ function ActualizarSucursalEmpleado() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
     } else {
-        $('#InputFechaFinSE').focus();
-        Swal.fire(TituloSwal, 'La Fecha fin no puede ser menor que la Fecha Inicio', 'info');
+            $('#InputFechaFinSE').focus();
+            VentanaMensaje('La Fecha fin no puede ser menor que la Fecha Inicio');
     }    
 }
 
@@ -146,7 +130,7 @@ function EliminarSucursalEmpleado(IdSucursalEmpleado) {
         text: "Esta seguro(a)?, No podrás revertir esta acción.!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "orangered",
+        confirmButtonColor: "red",
         cancelButtonColor: "#333",
         confirmButtonText: "Si, eliminar!",
         cancelButtonText: "Cancelar",
@@ -164,17 +148,9 @@ function EliminarSucursalEmpleado(IdSucursalEmpleado) {
                 success: function (resultado) {
                     valor = resultado.split('*');
                     if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                            position: 'top',
-                            confirmButtonColor: "orangered",
-                        }).then((result) => {
-                            location.reload();
-                        })
+                        VentanaMensajeOK(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });
@@ -274,7 +250,7 @@ function GridSucursalEmpleado() {
             },
             {
                 text: 'Nuevo',
-                className: 'btn btn-nuevo-datatable',
+                className: 'btn-nuevo-datatable',
                 action: function (e, dt, node, config) {
                     ModalSucursalEmpleado('C');
                 }
@@ -303,21 +279,6 @@ function GridSucursalEmpleado() {
                 }
 
             },
-            //{
-            //    title: "Imagén",
-            //    data: "Imagen",
-            //    width: 'auto',
-            //    "render": function (data, type, row) {
-
-            //        if (row.IdEstado == 1) {
-            //            return '<img src="/Images/ImagenHVEmpleado/' + data + '" alt="" height="35" width="35" style="border-radius:50%; border: 1px solid green; padding:2px"/>';
-            //        }
-            //        else {
-            //            return '<img src="/Images/ImagenHVEmpleado/' + data + '" alt="" height="35" width="35" style="border-radius: 50%; border: 1px solid red; padding:2px" />';
-            //        }
-            //    }
-
-            //},
             { "data": "Empleado", title: "Empleado", width: 'auto' },
             { "data": "Empresa", title: "Empresa", width: 'auto' },
             { "data": "Sucursal", title: "Sucursal", width: 'auto' },
