@@ -3,7 +3,13 @@
     ViewBag.Title = "CC Familiar";
 }
 
-<h6>Módulo Caja Compensación Familiar</h6>
+<script src="~/JsApp/CCFamiliar.js"></script>
+<script src="~/JsApp/TipoEstado.js"></script>
+
+<div class="tituloPage">
+    <label>MODULO CAJA COMPENSACION FAMILIAR</label>
+</div>
+
 
 <div class="grid">
     <table id="gridCCFamiliar" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
@@ -16,7 +22,7 @@
                 <div class="modal-title" id="TituloModalCCFamiliar"></div>
             </div>
             <div class="modal-body">
-                <label id="LabelIdCCFamiliar" hidden></label>
+                <label id="LabelIdCCFamiliar" hidden></label>                
                 <div>
                     <label><strong>Nombre </strong><label style="color:red"> *</label></label>
                     <input class="form-control" type="text" id="InputNombreCCFamiliar" autocomplete="off" style="min-width:100%" />
@@ -24,9 +30,8 @@
                 <div class="col-3" id="SelectEstadoCCFamiliar">
                     <label><strong>Estado</strong></label>
                     <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
-                </div>
+                </div>                               
             </div>
-
             <div class="modal-footer" id="BotonesModalCCFamiliar">
             </div>
         </div>

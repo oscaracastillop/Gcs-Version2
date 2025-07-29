@@ -4,12 +4,12 @@
     $("#InputNombreCargo").empty().val('');
     $("#BotonesModalCargo").empty();
     if (tipo == 'C') {
-        $("#TituloModalCargo").empty().append('<label>Crear Cargo</label>');
+        $("#TituloModalCargo").empty().append('<label>CREAR CARGO</label>');
         $('#ModalCargo').modal('show');
         $("#SelectEstadoCargo").hide();
         $("#BotonesModalCargo").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearCargo()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalCargo").empty().append('<label>Editar Cargo</label>');
+        $("#TituloModalCargo").empty().append('<label>EDITAR CARGO</label>');
         $('#ModalCargo').modal('show');
         $("#SelectEstadoCargo").show();
         $("#BotonesModalCargo").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarCargo()">Guardar Cambios</button>');
@@ -21,7 +21,7 @@ function CrearCargo() {
 
     if (NombreCargo == null || NombreCargo == '' || NombreCargo == undefined) {
         $('#InputNombreCargo').focus();
-        VentanaMensaje('Ingrese el nombre del Cargo', 'info');
+        VentanaMensaje('Ingrese el nombre del Cargo');
     } else {
         $.ajax({
             type: 'POST',
@@ -34,17 +34,9 @@ function CrearCargo() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -58,7 +50,7 @@ function ActualizarCargo() {
 
     if (NombreCargo == null || NombreCargo == '' || NombreCargo == undefined) {
         $('#InputNombreCargo').focus();
-        VentanaMensaje('Ingrese el nombre del Cargo', 'info');
+        VentanaMensaje('Ingrese el nombre del Cargo');
     } else {
         $.ajax({
             type: 'POST',
@@ -73,17 +65,9 @@ function ActualizarCargo() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -96,7 +80,7 @@ function EliminarCargo(IdCargo) {
         text: "Esta seguro(a)?, No podrás revertir esta acción.!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "orangered",
+        confirmButtonColor: "red",
         cancelButtonColor: "#333",
         confirmButtonText: "Si, eliminar!",
         cancelButtonText: "Cancelar",
@@ -114,17 +98,9 @@ function EliminarCargo(IdCargo) {
                 success: function (resultado) {
                     valor = resultado.split('*');
                     if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                            position: 'top',
-                            confirmButtonColor: "orangered",
-                        }).then((result) => {
-                            location.reload();
-                        })
+                        VentanaMensajeOK(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });

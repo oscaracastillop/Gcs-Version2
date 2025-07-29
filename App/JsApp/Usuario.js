@@ -8,12 +8,12 @@
     $("#InputFechaVigencia").empty().val('');
     $("#BotonesModalUsuario").empty();
     if (tipo == 'C') {
-        $("#TituloModalUsuario").empty().append('<label>Crear Usuario</label>');
+        $("#TituloModalUsuario").empty().append('<label>CREAR USUARIO</label>');
         $('#ModalUsuario').modal('show');
         $("#SelectEstadoUsuario").hide();
         $("#BotonesModalUsuario").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearUsuario()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalUsuario").empty().append('<label>Editar Usuario</label>');
+        $("#TituloModalUsuario").empty().append('<label>EDITAR USUARIO</label>');
         $('#ModalUsuario').modal('show');
         $("#SelectEstadoUsuario").show();
         $("#BotonesModalUsuario").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarUsuario()">Guardar Cambios</button>');
@@ -29,13 +29,13 @@ function CrearUsuario() {
 
     if (Usuario == null || Usuario == '' || Usuario == undefined) {
         $('#InputUsuario').focus();
-        VentanaMensaje('Ingrese usuario / login', 'info');
+        VentanaMensaje('Ingrese usuario / login');
     } else if (Password == null || Password == '' || Password == undefined) {
         $('#InputPassword').focus();
-        VentanaMensaje('Ingrese el password / login', 'info');
+        VentanaMensaje('Ingrese el password / login');
     } else if (FechaVigencia == null || FechaVigencia == '' || FechaVigencia == undefined) {
         $('#InputFechaVigencia').focus();
-        VentanaMensaje('Ingrese la fecha de expiración del usuario', 'info');
+        VentanaMensaje('Ingrese la fecha de expiración del usuario');
     } else {
         $.ajax({
             type: 'POST',
@@ -52,17 +52,9 @@ function CrearUsuario() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -80,13 +72,13 @@ function ActualizarUsuario() {
 
     if (Usuario == null || Usuario == '' || Usuario == undefined) {
         $('#InputUsuario').focus();
-        VentanaMensaje('Ingrese usuario / login', 'info');
+        VentanaMensaje('Ingrese usuario / login');
     } else if (Password == null || Password == '' || Password == undefined) {
         $('#InputPassword').focus();
-        VentanaMensaje('Ingrese el password / login', 'info');
+        VentanaMensaje('Ingrese el password / login');
     } else if (FechaVigencia == null || FechaVigencia == '' || FechaVigencia == undefined) {
         $('#InputFechaVigencia').focus();
-        VentanaMensaje('Ingrese la fecha de expiración del usuario', 'info');
+        VentanaMensaje('Ingrese la fecha de expiración del usuario');
     } else {
         $.ajax({
             type: 'POST',
@@ -105,17 +97,9 @@ function ActualizarUsuario() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -128,7 +112,7 @@ function EliminarUsuario(IdUsuario) {
         text: '¿Está seguro de eliminar el usuario seleccionado?',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: 'orangered',
+        confirmButtonColor: 'red',
         confirmButtonText: 'Si, eliminar',
         cancelButtonText: 'Cancelar'
     }).then((result) => {
@@ -144,17 +128,9 @@ function EliminarUsuario(IdUsuario) {
                 success: function (resultado) {
                     valor = resultado.split('*');
                     if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                            position: 'top',
-                            confirmButtonColor: "orangered",
-                        }).then((result) => {
-                            window.location.reload();
-                        })
+                        VentanaMensajeOK(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });
@@ -418,15 +394,15 @@ function ActualizarPassUsuario() {
 
     if (PasswordActual == null || PasswordActual == '' || PasswordActual == undefined) {
         $('#PasswordActual').focus();
-        VentanaMensaje('Ingrese la contraseña actual', 'info');
+        VentanaMensaje('Ingrese la contraseña actual');
     } else if (PasswordNuevo == null || PasswordNuevo == '' || PasswordNuevo == undefined) {
         $('#PasswordNuevo').focus();
-        VentanaMensaje('Ingrese la contraseña nueva', 'info');
+        VentanaMensaje('Ingrese la contraseña nueva');
     } else if (PasswordNuevoConfirmar == null || PasswordNuevoConfirmar == '' || PasswordNuevoConfirmar == undefined) {
         $('#PasswordNuevoConfirmar').focus();
-        VentanaMensaje('Ingrese la confirmación de la contraseña nueva', 'info');
+        VentanaMensaje('Ingrese la confirmación de la contraseña nueva');
     } else if (PasswordNuevo != PasswordNuevoConfirmar) {
-        VentanaMensaje('Las contraseñas no coinciden, por favor valide', 'info');
+        VentanaMensaje('Las contraseñas no coinciden, por favor valide');
     } else {
         $.ajax({
             type: 'POST',
@@ -440,17 +416,9 @@ function ActualizarPassUsuario() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });

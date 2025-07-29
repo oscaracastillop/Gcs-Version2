@@ -4,12 +4,12 @@
     $("#InputNombreFondoPensiones").empty().val('');
     $("#BotonesModalFondoPensiones").empty();
     if (tipo == 'C') {
-        $("#TituloModalFondoPensiones").empty().append('<label>Crear Fondo de Pensiones</label>');
+        $("#TituloModalFondoPensiones").empty().append('<label>CREAR FONDO DE PENSIONES</label>');
         $('#ModalFondoPensiones').modal('show');
         $("#SelectEstadoFondoPensiones").hide();
         $("#BotonesModalFondoPensiones").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearFondoPensiones()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalFondoPensiones").empty().append('<label>Editar Fondo de Pensiones</label>');
+        $("#TituloModalFondoPensiones").empty().append('<label>EDITAR FONDO DE PENSIONES</label>');
         $('#ModalFondoPensiones').modal('show');
         $("#SelectEstadoFondoPensiones").show();
         $("#BotonesModalFondoPensiones").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarFondoPensiones()">Guardar Cambios</button>');
@@ -21,7 +21,7 @@ function CrearFondoPensiones() {
 
     if (NombreFondoPensiones == null || NombreFondoPensiones == '' || NombreFondoPensiones == undefined) {
         $('#InputNombreFondoPensiones').focus();
-        VentanaMensaje('Ingrese el nombre del Fondo de Pensiones', 'info');
+        VentanaMensaje('Ingrese el nombre del Fondo de Pensiones');
     } else {
         $.ajax({
             type: 'POST',
@@ -34,17 +34,9 @@ function CrearFondoPensiones() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -58,7 +50,7 @@ function ActualizarFondoPensiones() {
 
     if (NombreFondoPensiones == null || NombreFondoPensiones == '' || NombreFondoPensiones == undefined) {
         $('#InputNombreFondoPensiones').focus();
-        VentanaMensaje('Ingrese el nombre del Fondo de Pensiones', 'info');
+        VentanaMensaje('Ingrese el nombre del Fondo de Pensiones');
     } else {
         $.ajax({
             type: 'POST',
@@ -73,17 +65,9 @@ function ActualizarFondoPensiones() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -96,7 +80,7 @@ function EliminarFondoPensiones(IdFondoPensiones) {
         text: "Esta seguro(a)?, No podrás revertir esta acción.!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "orangered",
+        confirmButtonColor: "red",
         cancelButtonColor: "#333",
         confirmButtonText: "Si, eliminar!",
         cancelButtonText: "Cancelar",
@@ -114,17 +98,9 @@ function EliminarFondoPensiones(IdFondoPensiones) {
                 success: function (resultado) {
                     valor = resultado.split('*');
                     if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                            position: 'top',
-                            confirmButtonColor: "orangered",
-                        }).then((result) => {
-                            location.reload();
-                        })
+                        VentanaMensajeOK(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });

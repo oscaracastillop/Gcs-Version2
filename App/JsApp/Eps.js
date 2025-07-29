@@ -4,12 +4,12 @@
     $("#InputNombreEps").empty().val('');
     $("#BotonesModalEps").empty();
     if (tipo == 'C') {
-        $("#TituloModalEps").empty().append('<label>Crear Eps</label>');
+        $("#TituloModalEps").empty().append('<label>CREAR EPS</label>');
         $('#ModalEps').modal('show');
         $("#SelectEstadoEps").hide();
         $("#BotonesModalEps").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearEps()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalEps").empty().append('<label>Editar Eps</label>');
+        $("#TituloModalEps").empty().append('<label>EDITAR</label>');
         $('#ModalEps').modal('show');
         $("#SelectEstadoEps").show();
         $("#BotonesModalEps").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarEps()">Guardar Cambios</button>');
@@ -21,7 +21,7 @@ function CrearEps() {
 
     if (NombreEps == null || NombreEps == '' || NombreEps == undefined) {
         $('#InputNombreEps').focus();
-        VentanaMensaje('Ingrese el nombre de la Eps', 'info');
+        VentanaMensaje('Ingrese el nombre de la Eps');
     } else {
         $.ajax({
             type: 'POST',
@@ -34,17 +34,9 @@ function CrearEps() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -58,7 +50,7 @@ function ActualizarEps() {
 
     if (NombreEps == null || NombreEps == '' || NombreEps == undefined) {
         $('#InputNombreEps').focus();
-        VentanaMensaje('Ingrese el nombre de la Eps', 'info');
+        VentanaMensaje('Ingrese el nombre de la Eps');
     } else {
         $.ajax({
             type: 'POST',
@@ -73,17 +65,9 @@ function ActualizarEps() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -96,7 +80,7 @@ function EliminarEps(IdEps) {
         text: "Esta seguro(a)?, No podrás revertir esta acción.!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "orangered",
+        confirmButtonColor: "red",
         cancelButtonColor: "#333",
         confirmButtonText: "Si, eliminar!",
         cancelButtonText: "Cancelar",
@@ -114,17 +98,9 @@ function EliminarEps(IdEps) {
                 success: function (resultado) {
                     valor = resultado.split('*');
                     if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                            position: 'top',
-                            confirmButtonColor: "orangered",
-                        }).then((result) => {
-                            location.reload();
-                        })
+                        VentanaMensajeOK(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });

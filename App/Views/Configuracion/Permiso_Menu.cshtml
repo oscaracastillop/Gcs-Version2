@@ -3,21 +3,29 @@
     ViewBag.Title = "Módulo Permiso Menú";
 }
 
-<h6>Módulo Permiso Menú</h6>
+
+<script src="~/JsApp/PermisoMenu.js"></script>
+<script src="~/JsApp/Usuario.js"></script>
+
+
+
+<div class="tituloPage">
+    <label>MODULO PERMISO MENU</label>
+</div>
 
 <div class="grid">
     <table id="gridPermisoMenu" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
 </div>
 
 <div class="modal fade" id="ModalPermisoMenu" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header header-modal">
                 <div class="modal-title" id="TituloModalPermisoMenu"></div>
             </div>
             <div class="modal-body">
                 <label id="LabelIdPermisoMenu" hidden></label>
-                <div class="row">
+                <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Usuario </strong><label style="color:red"> *</label></label>
                         <select class="form-control" id="SelectUsuario" style="min-width:100%"></select>
@@ -30,7 +38,7 @@
                 
                 <div class="row">
                     <div class="col-3">
-                        <label><strong>Permiso</strong></label>
+                        <label><strong>Ver</strong></label>
                         <select class="form-control" id="SelectEstadoPermisoMenu" style="min-width:100%">
                             <option value="2">Inactivo</option>
                             <option value="1" selected>Activo</option>

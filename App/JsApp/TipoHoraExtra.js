@@ -5,12 +5,12 @@
     $("#InputPorcentajeTipoHoraExtra").empty().val('');
     $("#BotonesModalTipoHoraExtra").empty();
     if (tipo == 'C') {
-        $("#TituloModalTipoHoraExtra").empty().append('<label>Crear Tipo Hora Extra</label>');
+        $("#TituloModalTipoHoraExtra").empty().append('<label>CREAR TIPO HORA EXTRA</label>');
         $('#ModalTipoHoraExtra').modal('show');
         $("#SelectEstadoTipoHoraExtra").hide();
         $("#BotonesModalTipoHoraExtra").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearTipoHoraExtra()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalTipoHoraExtra").empty().append('<label>Editar Tipo Hora Extra</label>');
+        $("#TituloModalTipoHoraExtra").empty().append('<label>EDITAR TIPO HORA EXTRA</label>');
         $('#ModalTipoHoraExtra').modal('show');
         $("#SelectEstadoTipoHoraExtra").show();
         $("#BotonesModalTipoHoraExtra").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarTipoHoraExtra()">Guardar Cambios</button>');
@@ -23,10 +23,10 @@ function CrearTipoHoraExtra() {
 
     if (NombreTipoHoraExtra == null || NombreTipoHoraExtra == '' || NombreTipoHoraExtra == undefined) {
         $('#InputNombreTipoHoraExtra').focus();
-        VentanaMensaje('Ingrese el nombre del Tipo de Hora Extra', 'info');
+        VentanaMensaje('Ingrese el nombre del Tipo de Hora Extra');
     } else if (Porcentaje == null || Porcentaje == '' || Porcentaje == undefined) {
         $('#InputPorcentajeTipoHoraExtra').focus();
-        VentanaMensaje('Ingrese el Porcentaje de recargo de la Hora Extra', 'info');
+        VentanaMensaje('Ingrese el Porcentaje de recargo de la Hora Extra');
     }  else {
         $.ajax({
             type: 'POST',
@@ -40,17 +40,9 @@ function CrearTipoHoraExtra() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -65,10 +57,10 @@ function ActualizarTipoHoraExtra() {
 
     if (NombreTipoHoraExtra == null || NombreTipoHoraExtra == '' || NombreTipoHoraExtra == undefined) {
         $('#InputNombreTipoHoraExtra').focus();
-        VentanaMensaje('Ingrese el nombre del Tipo de Hora Extra', 'info');
+        VentanaMensaje('Ingrese el nombre del Tipo de Hora Extra');
     } else if (Porcentaje == null || Porcentaje == '' || Porcentaje == undefined) {
         $('#InputPorcentajeTipoHoraExtra').focus();
-        VentanaMensaje('Ingrese el Porcentaje de recargo de la Hora Extra', 'info');
+        VentanaMensaje('Ingrese el Porcentaje de recargo de la Hora Extra');
     } else {
         $.ajax({
             type: 'POST',
@@ -84,17 +76,9 @@ function ActualizarTipoHoraExtra() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -107,7 +91,7 @@ function EliminarTipoHoraExtra(IdTipoHoraExtra) {
         text: "Esta seguro(a)?, No podrás revertir esta acción.!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "orangered",
+        confirmButtonColor: "red",
         cancelButtonColor: "#333",
         confirmButtonText: "Si, eliminar!",
         cancelButtonText: "Cancelar",
@@ -125,17 +109,9 @@ function EliminarTipoHoraExtra(IdTipoHoraExtra) {
                 success: function (resultado) {
                     valor = resultado.split('*');
                     if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                            position: 'top',
-                            confirmButtonColor: "orangered",
-                        }).then((result) => {
-                            location.reload();
-                        })
+                        VentanaMensajeOK(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });

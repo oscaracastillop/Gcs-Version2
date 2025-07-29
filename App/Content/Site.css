@@ -169,6 +169,18 @@
     padding-right: 5px;
 }
 
+.labelmodulo {
+    background-color: #3b5998;
+    color: white;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 2px;
+    text-align: center;
+    margin-top: 4px;
+}
+
 li {
     font-size: 15px !important;
     color: white !important;
@@ -330,11 +342,11 @@ table.dataTable thead tr {
     .swal2-popup,
     .table.dataTable thead tr,
     textarea {
-        font-size: 9px !important;
+        font-size: 10px !important;
     }
 
     .btnSubMenu {
-        font-size: 9px !important;
+        font-size: 10px !important;
         height: 100px;
         margin: 8px;
         width: 150px;

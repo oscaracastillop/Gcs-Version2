@@ -3,7 +3,15 @@
     ViewBag.Title = "Permiso SubMenú";
 }
 
-<h6>Módulo Permiso SubMenú</h6>
+
+<script src="~/JsApp/PermisoSubMenu.js"></script>
+<script src="~/JsApp/Usuario.js"></script>
+
+
+<div class="tituloPage">
+    <label>MODULO PERMISO SUB-MENU</label>
+</div>
+
 
 <div class="grid">
     <table id="gridPermisoSubMenu" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
@@ -17,13 +25,13 @@
             </div>
             <div class="modal-body">
                 <label id="LabelIdPermisoSubMenu" hidden></label>
-                <div class="row">
-                    <div class="col-6">
+                <div class="row g-2">
+                    <div>
                         <label><strong>Usuario </strong><label style="color:red"> *</label></label>
                         <select class="form-control" id="SelectUsuario" style="min-width:100%"></select>
                     </div>                    
                 </div>
-                <div class="row">
+                <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Menú </strong><label style="color:red"> *</label></label>
                         <select class="form-control" id="SelectMenu" style="min-width:100%" onchange="ListaSubMenuxIdMenu($('#SelectMenu').val())"></select>
@@ -34,12 +42,12 @@
                     </div>
                 </div>
                 
-                <br />
-                <label>Permisos Usuario</label>                
+                @*<br />
+                <label>Permisos Usuario</label>*@                
 
-                <div class="row">
+                <div class="row g-2">
                     <div class="col-3">
-                        <label><strong>Permiso</strong></label>
+                        <label><strong>Ver</strong></label>
                         <select class="form-control" id="SelectEstadoPermisoSubMenu" style="min-width:100%">
                             <option value="2">Inactivo</option>
                             <option value="1" selected>Activo</option>

@@ -3,7 +3,17 @@
     ViewBag.Title = "Proveedor";
 }
 
-<h6>MODULO PROVEEDOR</h6>
+
+<script src="~/JsApp/Ciudad.js"></script>
+<script src="~/JsApp/FormaPago.js"></script>
+<script src="~/JsApp/PlazoPago.js"></script>
+<script src="~/JsApp/Proveedor.js"></script>
+<script src="~/JsApp/TipoDocumento.js"></script>
+<script src="~/JsApp/TipoEstado.js"></script>
+
+<div class="tituloPage">
+    <label>MODULO PROVEEDOR</label>
+</div>
 
 <div class="grid">
     <table id="gridProveedor" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
@@ -45,12 +55,12 @@
                 <div class="row">
                     <div class="col-6">
                         <label><strong>Teléfono</strong></label>
-                        <input class="form-control" type="text" id="InputTelefonoProveedor" name="name" autocomplete="off" style="min-width:100%" maxlength="13" placeholder="(ind ciudad) + # Telefónico"/>
+                        <input class="form-control" type="text" id="InputTelefonoProveedor" name="name" autocomplete="off" style="min-width:100%" maxlength="13" placeholder="(ind ciudad) + # Telefónico" />
                     </div>
                     <div class="col-6">
                         <label><strong>Celular</strong></label>
                         <input class="form-control" type="text" id="InputCelularProveedor" name="name" autocomplete="off" style="min-width:100%" />
-                    </div>                    
+                    </div>
                 </div>
 
                 <div class="row">

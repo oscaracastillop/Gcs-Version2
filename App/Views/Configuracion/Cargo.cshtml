@@ -3,7 +3,12 @@
     ViewBag.Title = "Cargo";
 }
 
-<h6>Módulo Cargo</h6>
+<script src="~/JsApp/Cargo.js"></script>
+<script src="~/JsApp/TipoEstado.js"></script>
+
+<div class="tituloPage">
+    <label>MODULO CARGO</label>
+</div>
 
 <div class="grid">
     <table id="gridCargo" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
@@ -16,7 +21,7 @@
                 <div class="modal-title" id="TituloModalCargo"></div>
             </div>
             <div class="modal-body">
-                <label id="LabelIdCargo" hidden></label>
+                <label id="LabelIdCargo" hidden></label>                
                 <div>
                     <label><strong>Nombre </strong><label style="color:red"> *</label></label>
                     <input class="form-control" type="text" id="InputNombreCargo" autocomplete="off" style="min-width:100%" />
@@ -24,9 +29,8 @@
                 <div class="col-3" id="SelectEstadoCargo">
                     <label><strong>Estado</strong></label>
                     <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
-                </div>
+                </div>                
             </div>
-
             <div class="modal-footer" id="BotonesModalCargo">
             </div>
         </div>

@@ -4,12 +4,12 @@
     $("#InputNombreBanco").empty().val('');
     $("#BotonesModalBanco").empty();
     if (tipo == 'C') {
-        $("#TituloModalBanco").empty().append('<label>Crear Banco</label>');
+        $("#TituloModalBanco").empty().append('<label>CREAR BANCO</label>');
         $('#ModalBanco').modal('show');
         $("#SelectEstadoBanco").hide();
         $("#BotonesModalBanco").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearBanco()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalBanco").empty().append('<label>Editar Banco</label>');
+        $("#TituloModalBanco").empty().append('<label>EDITAR BANCO</label>');
         $('#ModalBanco').modal('show');
         $("#SelectEstadoBanco").show();
         $("#BotonesModalBanco").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="ActualizarBanco()">Guardar Cambios</button>');
@@ -21,7 +21,7 @@ function CrearBanco() {
 
     if (NombreBanco == null || NombreBanco == '' || NombreBanco == undefined) {
         $('#InputNombreBanco').focus();
-        VentanaMensaje('Ingrese el nombre del Banco', 'info');
+        VentanaMensaje('Ingrese el nombre del Banco');
     } else {
         $.ajax({
             type: 'POST',
@@ -34,17 +34,9 @@ function CrearBanco() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -58,7 +50,7 @@ function ActualizarBanco() {
 
     if (NombreBanco == null || NombreBanco == '' || NombreBanco == undefined) {
         $('#InputNombreBanco').focus();
-        VentanaMensaje('Ingrese el nombre del Banco', 'info');
+        VentanaMensaje('Ingrese el nombre del Banco');
     } else {
         $.ajax({
             type: 'POST',
@@ -73,17 +65,9 @@ function ActualizarBanco() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -96,7 +80,7 @@ function EliminarBanco(IdBanco) {
         text: "Esta seguro(a)?, No podrás revertir esta acción.!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "orangered",
+        confirmButtonColor: "red",
         cancelButtonColor: "#333",
         confirmButtonText: "Si, eliminar!",
         cancelButtonText: "Cancelar",
@@ -114,17 +98,9 @@ function EliminarBanco(IdBanco) {
                 success: function (resultado) {
                     valor = resultado.split('*');
                     if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                            position: 'top',
-                            confirmButtonColor: "orangered",
-                        }).then((result) => {
-                            location.reload();
-                        })
+                        VentanaMensajeOK(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });

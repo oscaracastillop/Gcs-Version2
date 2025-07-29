@@ -3,7 +3,12 @@
     ViewBag.Title = "Tipo Hora Extra";
 }
 
-<h6>Módulo Tipo Hora Extra</h6>
+<script src="~/JsApp/TipoEstado.js"></script>
+<script src="~/JsApp/TipoHoraExtra.js"></script>
+
+<div class="tituloPage">
+    <label>MODULO TIPO HORA EXTRA</label>
+</div>
 
 <div class="grid">
     <table id="gridTipoHoraExtra" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
@@ -17,12 +22,12 @@
             </div>
             <div class="modal-body">
                 <label id="LabelIdTipoHoraExtra" hidden></label>               
-                <div class="row">
-                    <div class="col-7">
+                <div class="row g-2">
+                    <div class="col-8">
                         <label><strong>Nombre </strong><label style="color:red"> *</label></label>
                         <input class="form-control" type="text" id="InputNombreTipoHoraExtra" autocomplete="off" style="min-width:100%" />
                     </div>
-                    <div class="col-5">
+                    <div class="col-4">
                         <label><strong>Porcentaje </strong><label style="color:red"> *</label></label>
                         <input class="form-control" type="number" id="InputPorcentajeTipoHoraExtra" autocomplete="off" style="min-width:100%" />
                     </div>

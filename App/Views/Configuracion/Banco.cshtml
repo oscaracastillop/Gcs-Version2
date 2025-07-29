@@ -3,7 +3,12 @@
     ViewBag.Title = "Banco";
 }
 
-<h6>Módulo Banco</h6>
+<script src="~/JsApp/Banco.js"></script>
+<script src="~/JsApp/TipoEstado.js"></script>
+
+<div class="tituloPage">
+    <label>MODULO BANCO</label>
+</div>
 
 <div class="grid">
     <table id="gridBanco" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
@@ -16,17 +21,16 @@
                 <div class="modal-title" id="TituloModalBanco"></div>
             </div>
             <div class="modal-body">
-                <label id="LabelIdBanco" hidden></label>
-                <div>
-                    <label><strong>Nombre </strong><label style="color:red"> *</label></label>
-                    <input class="form-control" type="text" id="InputNombreBanco" autocomplete="off" style="min-width:100%" />
-                </div>
-                <div class="col-3" id="SelectEstadoBanco">
-                    <label><strong>Estado</strong></label>
-                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
-                </div>
+                <label id="LabelIdBanco" hidden></label>                
+                    <div>
+                        <label><strong>Nombre </strong><label style="color:red"> *</label></label>
+                        <input class="form-control" type="text" id="InputNombreBanco" autocomplete="off" style="min-width:100%" />
+                    </div>
+                    <div class="col-3" id="SelectEstadoBanco">
+                        <label><strong>Estado</strong></label>
+                        <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
+                    </div>                              
             </div>
-
             <div class="modal-footer" id="BotonesModalBanco">
             </div>
         </div>

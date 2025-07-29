@@ -3,7 +3,12 @@
     ViewBag.Title = "Fondo Cesantías";
 }
 
-<h6>Módulo Fondo Cesantías</h6>
+<script src="~/JsApp/FondoCesantias.js"></script>
+<script src="~/JsApp/TipoEstado.js"></script>
+
+<div class="tituloPage">
+    <label>MODULO FONDO CESANTIAS</label>
+</div>
 
 <div class="grid">
     <table id="gridFondoCesantias" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
@@ -17,15 +22,15 @@
                 <div class="modal-title" id="TituloModalFondoCesantias"></div>
             </div>
             <div class="modal-body">
-                <label id="LabelIdFondoCesantias" hidden></label>
-                <div>
-                    <label><strong>Nombre </strong><label style="color:red"> *</label></label>
-                    <input class="form-control" type="text" id="InputNombreFondoCesantias" autocomplete="off" style="min-width:100%" />
-                </div>
-                <div class="col-3" id="SelectEstadoFondoCesantias">
-                    <label><strong>Estado</strong></label>
-                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
-                </div>
+                <label id="LabelIdFondoCesantias" hidden></label>                
+                    <div>
+                        <label><strong>Nombre </strong><label style="color:red"> *</label></label>
+                        <input class="form-control" type="text" id="InputNombreFondoCesantias" autocomplete="off" style="min-width:100%" />
+                    </div>
+                    <div class="col-3" id="SelectEstadoFondoCesantias">
+                        <label><strong>Estado</strong></label>
+                        <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
+                    </div>                             
             </div>
             <div class="modal-footer" id="BotonesModalFondoCesantias"></div>
         </div>

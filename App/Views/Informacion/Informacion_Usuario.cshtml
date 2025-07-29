@@ -3,30 +3,12 @@
     ViewBag.Title = "Información Usuario";
 }
 
-<h6>Módulo Información Usuario</h6>
+<script src="~/JsApp/Usuario.js"></script>
 
-<!--<div class="" style="margin-top:20px;">
-    <div class="">
-        <span><strong>Propietario de la Cuenta:</strong></span>-->
-@*<label id="NombreUsuario"></label>*@
-<!--<br /><br />
-<span><strong>Usuario Login:</strong></span>-->
-@*<label id="NombreUserLogin"></label>*@
-<!--<br /><br />
-        <span><strong>Email:</strong></span>
-        <label id="EmailUserLogin"></label>
-        <br /><br />
-        <span><strong>Fecha Último Ingreso:</strong></span>
-        <label id="FechaUltimoIngresoUser"></label>
-        <br /><br />
-        <span><strong>Fecha Creación:</strong></span>
-        <label id="FechaCreadoUser"></label>
-        <br /><br />
-        <span><strong>Fecha Vigencia:</strong></span>
-        <label id="FechaVigenciaUser"></label>
-    </div>
-</div>-->
-
+<div class="tituloPage">
+    <label>MODULO INFORMACION USUARIO</label>
+</div>
+<br />
 <table class="" width="300">
     <tr>
         <td>
@@ -82,27 +64,28 @@
 
 <br />
 <br />
-<h6>Módulos Activos</h6>
-<br />
+<div class="tituloPage">
+    <label>MODULOS ACTIVOS DEL USUARIO</label>
+</div>
 <div style="text-align:justify" id="ModulosActivosUsuario"></div>
 
 
 
 
 <div class="modal fade" id="ModalActualizarPass" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header header-modal">
                 <div class="modal-title" id="TituloModalActualizarPass"></div>
             </div>
             <div class="modal-body">
-                <div class="row">
+                <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Contraseña Actual </strong><label style="font-size:9px!important; color:red"> *</label></label>
                         <input class="form-control" type="text" name="name" value="" id="PasswordActual" autocomplete="off" style="min-width:100%!important" />
                     </div>
-                </div>                
-                <div class="row">
+                </div>
+                <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Nueva Contraseña </strong><label style="font-size:9px!important; color:red"> *</label></label>
                         <input class="form-control" type="text" name="name" value="" id="PasswordNuevo" autocomplete="off" style="min-width:100%!important" />

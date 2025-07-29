@@ -7,11 +7,11 @@
     $("#SelectEstadoPermisoMenu").val(1);
     $("#BotonesModalPermisoMenu").empty();
     if (tipo == 'C') {
-        $("#TituloModalPermisoMenu").empty().append('<label>Crear Permiso Menu</label>');
+        $("#TituloModalPermisoMenu").empty().append('<label>CREAR PERMISO MENU</label>');
         $('#ModalPermisoMenu').modal('show');
         $("#BotonesModalPermisoMenu").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearPermisoMenu()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalPermisoMenu").empty().append('<label>Editar Permiso Menu</label>');
+        $("#TituloModalPermisoMenu").empty().append('<label>EDITAR PERMISO MENU</label>');
         $('#ModalPermisoMenu').modal('show');
         $("#BotonesModalPermisoMenu").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarPermisoMenu()">Guardar Cambios</button>');
     }
@@ -24,10 +24,10 @@ function CrearPermisoMenu() {
 
     if (IdUsuarioMenu == -1 || IdUsuarioMenu == null || IdUsuarioMenu == '') {
         $('#SelectUsuario').focus();
-        VentanaMensaje('Seleccione un Usuario', 'info');
+        VentanaMensaje('Seleccione un Usuario');
     } else if (IdMenu == -1 || IdMenu == null || IdMenu == '') {
         $('#SelectMenu').focus();
-        VentanaMensaje('Seleccione un Menú', 'info');
+        VentanaMensaje('Seleccione un Menú');
     } else {
         $.ajax({
             type: 'POST',
@@ -42,17 +42,9 @@ function CrearPermisoMenu() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -68,10 +60,10 @@ function ActualizarPermisoMenu() {
 
     if (IdUsuarioMenu == -1 || IdUsuarioMenu == null || IdUsuarioMenu == '') {
         $('#SelectUsuario').focus();
-        VentanaMensaje('Seleccione un Usuario', 'info');
+        VentanaMensaje('Seleccione un Usuario');
     } else if (IdMenu == -1 || IdMenu == null || IdMenu == '') {
         $('#SelectMenu').focus();
-        VentanaMensaje('Seleccione un Menú', 'info');
+        VentanaMensaje('Seleccione un Menú');
     } else {
         $.ajax({
             type: 'POST',
@@ -87,17 +79,9 @@ function ActualizarPermisoMenu() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -110,7 +94,7 @@ function EliminarPermisoMenu(IdPermisoMenu) {
         text: "Esta seguro(a)?, No podrás revertir esta acción.!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "orangered",
+        confirmButtonColor: "red",
         cancelButtonColor: "#333",
         confirmButtonText: "Si, eliminar!",
         cancelButtonText: "Cancelar",
@@ -128,17 +112,9 @@ function EliminarPermisoMenu(IdPermisoMenu) {
                 success: function (resultado) {
                     valor = resultado.split('*');
                     if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                            position: 'top',
-                            confirmButtonColor: "orangered",
-                        }).then((result) => {
-                            location.reload();
-                        })
+                        VentanaMensajeOK(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });
@@ -249,7 +225,7 @@ function GridPermisoMenu() {
         },
         columns: [
             {
-                title: "Visualizar",
+                title: "Ver",
                 data: "PermisoTexto",
                 width: 'auto',
                 "render": function (data, type, row) {

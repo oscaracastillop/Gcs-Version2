@@ -3,7 +3,13 @@
     ViewBag.Title = "Eps";
 }
 
-<h6>Módulo Eps</h6>
+<div class="tituloPage">
+    <label>MODULO EPS</label>
+</div>
+
+<script src="~/JsApp/Eps.js"></script>
+<script src="~/JsApp/TipoEstado.js"></script>
+
 
 <div class="grid">
     <table id="gridEps" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
@@ -16,7 +22,7 @@
                 <div class="modal-title" id="TituloModalEps"></div>
             </div>
             <div class="modal-body">
-                <label id="LabelIdEps" hidden></label>
+                <label id="LabelIdEps" hidden></label>                
                 <div>
                     <label><strong>Nombre </strong><label style="color:red"> *</label></label>
                     <input class="form-control" type="text" id="InputNombreEps" autocomplete="off" style="min-width:100%" />
@@ -24,9 +30,8 @@
                 <div class="col-3" id="SelectEstadoEps">
                     <label><strong>Estado</strong></label>
                     <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
-                </div>
+                </div>                              
             </div>
-
             <div class="modal-footer" id="BotonesModalEps">
             </div>
         </div>

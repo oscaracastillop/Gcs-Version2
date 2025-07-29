@@ -4,12 +4,12 @@
     $("#InputNombreCCFamiliar").empty().val('');
     $("#BotonesModalCCFamiliar").empty();
     if (tipo == 'C') {
-        $("#TituloModalCCFamiliar").empty().append('<label>Crear CC Familiar</label>');
+        $("#TituloModalCCFamiliar").empty().append('<label>CREAR CC FAMILIAR</label>');
         $('#ModalCCFamiliar').modal('show');
         $("#SelectEstadoCCFamiliar").hide();
         $("#BotonesModalCCFamiliar").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearCCFamiliar()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalCCFamiliar").empty().append('<label>Editar CC Familiar</label>');
+        $("#TituloModalCCFamiliar").empty().append('<label>EDITAR CC FAMILIAR</label>');
         $('#ModalCCFamiliar').modal('show');
         $("#SelectEstadoCCFamiliar").show();
         $("#BotonesModalCCFamiliar").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarCCFamiliar()">Guardar Cambios</button>');
@@ -21,7 +21,7 @@ function CrearCCFamiliar() {
 
     if (NombreCCFamiliar == null || NombreCCFamiliar == '' || NombreCCFamiliar == undefined) {
         $('#InputNombreCCFamiliar').focus();
-        VentanaMensaje('Ingrese el nombre de la Caja de Compensación Familiar', 'info');
+        VentanaMensaje('Ingrese el nombre de la Caja de Compensación Familiar');
     } else {
         $.ajax({
             type: 'POST',
@@ -34,17 +34,9 @@ function CrearCCFamiliar() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -58,7 +50,7 @@ function ActualizarCCFamiliar() {
 
     if (NombreCCFamiliar == null || NombreCCFamiliar == '' || NombreCCFamiliar == undefined) {
         $('#InputNombreCCFamiliar').focus();
-        VentanaMensaje('Ingrese el nombre de la Caja de Compensación Familiar', 'info');
+        VentanaMensaje('Ingrese el nombre de la Caja de Compensación Familiar');
     } else {
         $.ajax({
             type: 'POST',
@@ -73,17 +65,9 @@ function ActualizarCCFamiliar() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -96,7 +80,7 @@ function EliminarCCFamiliar(IdCCFamiliar) {
         text: "Esta seguro(a)?, No podrás revertir esta acción.!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "orangered",
+        confirmButtonColor: "red",
         cancelButtonColor: "#333",
         confirmButtonText: "Si, eliminar!",
         cancelButtonText: "Cancelar",
@@ -114,17 +98,9 @@ function EliminarCCFamiliar(IdCCFamiliar) {
                 success: function (resultado) {
                     valor = resultado.split('*');
                     if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                            position: 'top',
-                            confirmButtonColor: "orangered",
-                        }).then((result) => {
-                            location.reload();
-                        })
+                        VentanaMensajeOK(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });

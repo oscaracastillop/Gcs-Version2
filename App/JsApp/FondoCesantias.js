@@ -4,12 +4,12 @@
     $("#InputNombreFondoCesantias").empty().val('');
     $("#BotonesModalFondoCesantias").empty();
     if (tipo == 'C') {
-        $("#TituloModalFondoCesantias").empty().append('<label>Crear Fondo Cesantias</label>');
+        $("#TituloModalFondoCesantias").empty().append('<label>CREAR FONDO CESANTIAS</label>');
         $('#ModalFondoCesantias').modal('show');
         $("#SelectEstadoFondoCesantias").hide();
         $("#BotonesModalFondoCesantias").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearFondoCesantias()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalFondoCesantias").empty().append('<label>Editar Fondo Cesantias</label>');
+        $("#TituloModalFondoCesantias").empty().append('<label>EDITAR FONDO CESANTIAS</label>');
         $('#ModalFondoCesantias').modal('show');
         $("#SelectEstadoFondoCesantias").show();
         $("#BotonesModalFondoCesantias").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarFondoCesantias()">Guardar Cambios</button>');
@@ -21,7 +21,7 @@ function CrearFondoCesantias() {
 
     if (NombreFondoCesantias == null || NombreFondoCesantias == '' || NombreFondoCesantias == undefined) {
         $('#InputNombreFondoCesantias').focus();
-        VentanaMensaje('Ingrese el nombre del Fondo de Cesantias', 'info');
+        VentanaMensaje('Ingrese el nombre del Fondo de Cesantias');
     } else {
         $.ajax({
             type: 'POST',
@@ -34,17 +34,9 @@ function CrearFondoCesantias() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -58,7 +50,7 @@ function ActualizarFondoCesantias() {
 
     if (NombreFondoCesantias == null || NombreFondoCesantias == '' || NombreFondoCesantias == undefined) {
         $('#InputNombreFondoCesantias').focus();
-        VentanaMensaje('Ingrese el nombre del Fondo de Cesantias', 'info');
+        VentanaMensaje('Ingrese el nombre del Fondo de Cesantias');
     } else {
         $.ajax({
             type: 'POST',
@@ -73,17 +65,9 @@ function ActualizarFondoCesantias() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -96,7 +80,7 @@ function EliminarFondoCesantias(IdFondoCesantias) {
         text: "Esta seguro(a)?, No podrás revertir esta acción.!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "orangered",
+        confirmButtonColor: "red",
         cancelButtonColor: "#333",
         confirmButtonText: "Si, eliminar!",
         cancelButtonText: "Cancelar",
@@ -114,17 +98,9 @@ function EliminarFondoCesantias(IdFondoCesantias) {
                 success: function (resultado) {
                     valor = resultado.split('*');
                     if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                            position: 'top',
-                            confirmButtonColor: "orangered",
-                        }).then((result) => {
-                            location.reload();
-                        })
+                        VentanaMensajeOK(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });
