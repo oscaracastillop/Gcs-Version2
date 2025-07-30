@@ -23,11 +23,11 @@
         $("#SelectBanco").val(1);
         $("#SelectFondoPensiones").val(1);
         $("#SelectFondoCesantias").val(1);
-        $("#InputSalarioCLE").empty().val('0');
-        $("#InputPorcentajeContribucionEpsCLE").empty().val('0');
-        $("#InputPorcentajeContribucionFPCLE").empty().val('0');
-        $("#InputNumeroCuentaPagoCLE").empty().val('0');
-        $("#InputSubTransporteCLE").empty().val('0');
+        $("#InputSalarioCLE").empty().val('');
+        $("#InputPorcentajeContribucionEpsCLE").empty().val('');
+        $("#InputPorcentajeContribucionFPCLE").empty().val('');
+        $("#InputNumeroCuentaPagoCLE").empty().val('');
+        $("#InputSubTransporteCLE").empty().val('');
 
         $('#ImagenEmpleado').empty().append(
             '<img class="imagen-escalada-cambiar" src="/Images/ImagenHVEmpleado/Empleado.png" id="ImagenEmpleado"/>'
@@ -79,46 +79,46 @@ function CrearCLE() {
 
     if (IdEmpleado == -1 || IdEmpleado == null || IdEmpleado == '') {
         $('#SelectEmpleado').focus();
-        VentanaMensaje('Seleccione el Empleado', 'info');
+        VentanaMensaje('Seleccione el Empleado');
+    } else if (FechaInicio == null || FechaInicio == '' || FechaInicio == undefined) {
+        $('#InputFechaInicioCLE').focus();
+        VentanaMensaje('Ingrese la fecha de Incio del Contrato');
     } else if (IdEmpresa == -1 || IdEmpresa == null || IdEmpresa == '') {
         $('#SelectEmpresa').focus();
-        VentanaMensaje('Seleccione la Empresa', 'info');
-    } else if (IdCargo == -1 || IdCargo == null || IdCargo == '') {
-        $('#SelectCargo').focus();
-        VentanaMensaje('Seleccione el Cargo del Empleado', 'info');
+        VentanaMensaje('Seleccione la Empresa');
     } else if (IdTipoContrato == -1 || IdTipoContrato == null || IdTipoContrato == '') {
         $('#SelectTipoContrato').focus();
-        VentanaMensaje('Seleccione el Tipo de Contrato', 'info');
+        VentanaMensaje('Seleccione el Tipo de Contrato');
+    } else if (IdCargo == -1 || IdCargo == null || IdCargo == '') {
+        $('#SelectCargo').focus();
+        VentanaMensaje('Seleccione el Cargo del Empleado');
     } else if (SalarioMensual == null || SalarioMensual == '' || SalarioMensual == undefined) {
         $('#InputSalarioCLE').focus();
-        VentanaMensaje('Ingrese el Salario Mensual del Empleado', 'info');
-    } else if (FechaInicio == null || FechaInicio == '' || FechaInicio == undefined) {
-        $('#InputFechaInicioSE').focus();
-        VentanaMensaje('Ingrese la fecha de Incio del Contrato', 'info');
-    } else if (IdEps == -1 || IdEps == null || IdEps == '') {
-        $('#SelectEps').focus();
-        VentanaMensaje('Seleccione la Eps', 'info');
-    } else if (PorcentajeContEps == null || PorcentajeContEps == '' || PorcentajeContEps == undefined) {
-        $('#InputPorcentajeContribucionEpsCLE').focus();
-        VentanaMensaje('El porcentaje de contribución no púede ser Vacio', 'info');        
-    } else if (IdFondoPension == -1 || IdFondoPension == null || IdFondoPension == '') {
-        $('#SelectFondoPensiones').focus();
-        VentanaMensaje('Seleccione el Fondo de Pensiones', 'info');
-    } else if (PorcentajeContFP == null || PorcentajeContFP == '' || PorcentajeContFP == undefined) {
-        $('#InputPorcentajeContribucionFPCLE').focus();
-        VentanaMensaje('El porcentaje de contribución no púede ser Vacio', 'info'); 
-    } else if (IdBanco == -1 || IdBanco == null || IdBanco == '') {
-        $('#SelectBanco').focus();
-        VentanaMensaje('Seleccione el Banco en donde se le realizara el pago al Empleado', 'info');
-    } else if (NumeroCuentaPago == null || NumeroCuentaPago == '' || NumeroCuentaPago == undefined) {
-        $('#InputNumeroCuentaPagoCLE').focus();
-        VentanaMensaje('Ingrese número de cuenta del Banco o Número Celular para Billeteras Digitales', 'info');
+        VentanaMensaje('Ingrese el Salario Mensual del Empleado');
     } else if (SubTransporte == null || SubTransporte == '' || SubTransporte == undefined) {
         $('#InputSubTransporteCLE').focus();
-        VentanaMensaje('Ingrese el valor del Subsidio de Transporte', 'info');
+        VentanaMensaje('Ingrese el valor del Subsidio de Transporte');
+    } else if (IdBanco == -1 || IdBanco == null || IdBanco == '') {
+        $('#SelectBanco').focus();
+        VentanaMensaje('Seleccione el Banco en donde se le realizara el pago al Empleado');
+    } else if (NumeroCuentaPago == null || NumeroCuentaPago == '' || NumeroCuentaPago == undefined) {
+        $('#InputNumeroCuentaPagoCLE').focus();
+        VentanaMensaje('Ingrese número de cuenta del Banco o Número Celular para Billeteras Digitales');
+    } else if (IdEps == -1 || IdEps == null || IdEps == '') {
+        $('#SelectEps').focus();
+        VentanaMensaje('Seleccione la Eps');
+    } else if (PorcentajeContEps == null || PorcentajeContEps == '' || PorcentajeContEps == undefined) {
+        $('#InputPorcentajeContribucionEpsCLE').focus();
+        VentanaMensaje('El porcentaje de contribución de la Eps no púede ser Vacio');        
+    } else if (IdFondoPension == -1 || IdFondoPension == null || IdFondoPension == '') {
+        $('#SelectFondoPensiones').focus();
+        VentanaMensaje('Seleccione el Fondo de Pensiones');
+    } else if (PorcentajeContFP == null || PorcentajeContFP == '' || PorcentajeContFP == undefined) {
+        $('#InputPorcentajeContribucionFPCLE').focus();
+        VentanaMensaje('El porcentaje de contribución al Fondo de Pensiones no púede ser Vacio'); 
     } else if (IdCesantias == -1 || IdCesantias == null || IdCesantias == '') {
         $('#SelectFondoCesantias').focus();
-        VentanaMensaje('Seleccione el Fondo de Cesantías', 'info');
+        VentanaMensaje('Seleccione el Fondo de Cesantías');
     } else {
         if (FechaFin == FechaInicio || FechaFin == '' || FechaFin > FechaInicio) {
             $.ajax({
@@ -147,23 +147,15 @@ function CrearCLE() {
                 success: function (resultado) {
                     valor = resultado.split('*');
                     if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                            position: 'top',
-                            confirmButtonColor: "orangered",
-                        }).then((result) => {
-                            window.location.reload();
-                        })
+                        VentanaMensajeOK(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });
         } else {
             $('#InputFechaFinCLE').focus();
-            Swal.fire(TituloSwal, 'Ingrese la Fecha ', 'info');
+            VentanaMensaje('Ingrese la Fecha');
         }
     }
 }
@@ -188,7 +180,7 @@ function ActualizarCLE() {
     if (IdEstado == 2) {
         if (FechaFin == null || FechaFin == '' || FechaFin == undefined) {
             $('#InputFechaFinCLE').focus();
-            VentanaMensaje('Ingrese la fecha de Finalización del Contrato', 'info');
+            VentanaMensaje('Ingrese la fecha de Finalización del Contrato');
         }
         else {
             $.ajax({
@@ -216,17 +208,9 @@ function ActualizarCLE() {
                 success: function (resultado) {
                     valor = resultado.split('*');
                     if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                            position: 'top',
-                            confirmButtonColor: "orangered",
-                        }).then((result) => {
-                            window.location.reload();
-                        })
+                        VentanaMensajeOK(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });
@@ -257,17 +241,9 @@ function ActualizarCLE() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -283,7 +259,7 @@ function EliminarCLE(IdCLE) {
         text: "Esta seguro(a)?, No podrás revertir esta acción.!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "orangered",
+        confirmButtonColor: "red",
         cancelButtonColor: "#333",
         confirmButtonText: "Si, eliminar!",
         cancelButtonText: "Cancelar",
@@ -301,17 +277,9 @@ function EliminarCLE(IdCLE) {
                 success: function (resultado) {
                     valor = resultado.split('*');
                     if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                            position: 'top',
-                            confirmButtonColor: "orangered",
-                        }).then((result) => {
-                            location.reload();
-                        })
+                        VentanaMensajeOK(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });
