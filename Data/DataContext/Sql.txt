@@ -7164,7 +7164,21 @@ WHERE	A.IdEmpleado = @IdEmpleado
 END
 
 
+GO
 
+CREATE PROCEDURE [dbo].[SP_GridNominaEmpleado]
+AS
+BEGIN
+	SELECT	Id, 
+			dbo.Fun_BuscarNombreEmpleado(IdEmpleado) As Empleado,
+			CONVERT(varchar(255),Sueldo) As Sueldo,
+			IdEstado,
+			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,			
+			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
+			CONVERT(varchar(255),DateCreate,105)+ ' ' + CONVERT(varchar(255),DateCreate,8) As DateCreate
+			FROM NominaEmpleado
+			ORDER BY Id Desc
+END
 
 
 
