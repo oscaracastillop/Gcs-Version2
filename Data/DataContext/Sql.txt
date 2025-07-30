@@ -7103,7 +7103,7 @@ SET @Sueldo = (@SalarioMensual/30)*@DiasaPagar
 SELECT @SubTransporte = (SubTransporte/30)*@DiasaPagar FROM ContratoLaboral where Id = @IdContratoLaboral
 SELECT @OtrosIngresos = ISNULL(SUM(Valor),0) FROM OtrosIngresosEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
 SELECT @OtrosDescuentos = ISNULL(SUM(Valor),0) FROM OtrosDescuentosEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaCobro BETWEEN @FechaInicio AND @FechaFin
-SELECT @DesembolsoPrestamo = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
+SELECT @DesembolsoPrestamo = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPrestamo BETWEEN @FechaInicio AND @FechaFin
 
 SELECT @ValorTotalHED = ISNULL(SUM(ValorTotalHoraExtra),0) FROM	HoraExtraEmpleado WHERE	IdEstado = 1 AND IdTipoHoraExtra = 1 AND IdEmpleado = @IdEmpleado AND FechaPagoHE BETWEEN @FechaInicio AND @FechaFin
 SELECT @ValorTotalHEN = ISNULL(SUM(ValorTotalHoraExtra),0) FROM	HoraExtraEmpleado WHERE	IdEstado = 1 AND IdTipoHoraExtra = 2 AND IdEmpleado = @IdEmpleado AND FechaPagoHE BETWEEN @FechaInicio AND @FechaFin

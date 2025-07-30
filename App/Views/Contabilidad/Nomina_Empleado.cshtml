@@ -14,15 +14,16 @@
 </div>
 
 
-@*<div class="grid">
-        <table id="gridNominaEmpleado" class="table cell-border" cellspacing="0" style="width: 100%;"></table>
-    </div>*@
+<div class="grid">
+    <table id="gridNominaEmpleado" class="table cell-border" cellspacing="0" style="width: 100%;"></table>
+</div>
 
 <div class="modal fade" id="ModalNominaEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header header-modal">
                 <div class="modal-title" id="TituloModalNominaEmpleado"></div>
+                @*<button class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">X</button>*@
             </div>
             <div class="modal-body">
                 <label id="LabelIdNominaEmpleado" hidden></label>
@@ -32,28 +33,30 @@
                 <div class="row g-2 g-2">
                     <div class="col-6">
                         <label><strong>Fecha Inicio</strong><label style="color:red" id=""> *</label></label>
-                        <input class="form-control" type="date" id="InputNominaEmpleadoFechaInicio" name="name" autocomplete="off" style="min-width:100%" />
+                        <input class="form-control" type="date" id="InputNominaEmpleadoFechaInicio" name="name" autocomplete="off" style="min-width:100%" onchange="Limpiardatos()"/>
                     </div>
                     <div class="col-6">
                         <label><strong>Fecha Fin</strong><label style="color:red" id=""> *</label></label>
-                        <input class="form-control" type="date" id="InputNominaEmpleadoFechaCorte" name="name" autocomplete="off" style="min-width:100%" />
+                        <input class="form-control" type="date" id="InputNominaEmpleadoFechaCorte" name="name" autocomplete="off" style="min-width:100%" onchange="Limpiardatos()"/>
                     </div>
                 </div>
-                <div class="row g-2 input-group">
+                <div class="row g-2">
                     <div class="col-3">
                         <label><strong>Días a Pagar</strong><label style="color:red" id=""> *</label></label>
-                        <input class="form-control" type="number" id="InputNominaEmpleadoDiasPagar" name="name" autocomplete="off" style="min-width:100%" placeholder="0" />
+                        <input class="form-control" type="number" id="InputNominaEmpleadoDiasPagar" name="name" autocomplete="off" style="min-width:100%" placeholder="0" onchange="Limpiardatos()"/>
                     </div>
-                    <div class="col-7">
+                    <div class="col-9">
                         <label><strong>Empleado</strong><label style="color:red"> *</label></label>
-                        <select class="form-control" id="SelectContratoLaboralSucursalEmpleado" style="min-width:100%"></select>
+                        <select class="form-control" id="SelectContratoLaboralSucursalEmpleado" style="min-width:100%" onchange="Limpiardatos()"></select>
                     </div>
-                    <div class="col-2">
-                        <br />
-                        <a class="btn btn-nuevo-datatable" onclick="CargarDatosEmpleadoNomina()">Calcular</a>
-                    </div>
+                    
                 </div>
 
+                <div style="text-align:right!important">
+                        <br />
+                        <button class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                        <button style="margin-left:10px!important" class="btn btn-sm btn-modal-guardar" onclick="CargarDatosEmpleadoNomina()">Calcular</button>
+                </div>
                 
                 <br />
                 @*<div class="col-3" id="SelectEstadoNominaEmpleado">
@@ -63,9 +66,6 @@
 
 
             <div id="datosNominaEmpleado">
-
-                <hr />
-
                 <div style="text-align:center; font-weight:bold">
                     <label>VALORES NOMINA</label>
                 </div>
@@ -247,10 +247,10 @@
 <script>
     $(document).ready(function () {
         ValidarSesion('/Contabilidad/Nomina_Empleado');
-        //GridNominaEmpleado();
+        GridNominaEmpleado();
         ListaTipoEstado(1);
         ListaContratoLaboralSucursalEmpleado();
-        ModalNominaEmpleado('C');
+        //ModalNominaEmpleado('C');
 
     });
 </script>
