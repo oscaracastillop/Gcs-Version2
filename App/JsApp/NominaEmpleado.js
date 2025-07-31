@@ -182,38 +182,37 @@ function CrearNominaEmpleado() {
 
 
 function EliminarNominaEmpleado(IdNominaEmpleado) {
-    alert('Eliminar Nomina Empleado: ' + IdNominaEmpleado);
-    //Swal.fire({
-    //    title: TituloSwal,
-    //    text: "Esta seguro(a)?, No podrás revertir esta acción.!",
-    //    icon: "warning",
-    //    showCancelButton: true,
-    //    confirmButtonColor: "red",
-    //    cancelButtonColor: "#333",
-    //    confirmButtonText: "Si, eliminar!",
-    //    cancelButtonText: "Cancelar",
-    //    position: 'top'
-    //}).then((result) => {
-    //    if (result.isConfirmed) {
-    //        $.ajax({
-    //            type: 'POST',
-    //            dataType: 'json',
-    //            url: '/Cargo/EliminarCargo',
-    //            data: {
-    //                IdUser: TokenUser,
-    //                IdCargo: IdCargo
-    //            },
-    //            success: function (resultado) {
-    //                valor = resultado.split('*');
-    //                if (valor[0] == 'OK') {
-    //                    VentanaMensajeOK(valor[1]);
-    //                } else {
-    //                    VentanaMensaje(valor[1]);
-    //                }
-    //            }
-    //        });
-    //    }
-    //});
+    Swal.fire({
+        title: TituloSwal,
+        text: "Esta seguro(a)?, No podrás revertir esta acción.!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "red",
+        cancelButtonColor: "#333",
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "Cancelar",
+        position: 'top'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/Nomina_Empleado/EliminarNominaEmpleado',
+                data: {
+                    IdUser: TokenUser,
+                    IdNominaEmpleado: IdNominaEmpleado
+                },
+                success: function (resultado) {
+                    valor = resultado.split('*');
+                    if (valor[0] == 'OK') {
+                        VentanaMensajeOK(valor[1]);
+                    } else {
+                        VentanaMensaje(valor[1]);
+                    }
+                }
+            });
+        }
+    });
 }
 
 
@@ -356,48 +355,113 @@ function GridNominaEmpleado() {
             },
             { "data": "Empleado", title: "Empleado", width: 'auto' },
             { "data": "Empresa", title: "Empresa", width: 'auto' },
-            { "data": "DiasPagar", title: "Dias", width: 'auto' },
+            {
+                "data": "null",
+                title: "Salario Mensual",
+                "render": function (data, type, row, meta) {
+                    return '$ ' + new Intl.NumberFormat('en-US').format(row.SalarioMensual);
+                }
+            },
+            {
+                "data": "null",
+                title: "Sub-Transporte Mes",
+                "render": function (data, type, row, meta) {
+                    return '$ ' + new Intl.NumberFormat('en-US').format(row.SubTransporteMes);
+                }
+            },
+            { "data": "PeriodoLiquidado", title: "Periodo Liquidado", width: 'auto' },
+            { "data": "DiasPagar", title: "Dias a Pagar", width: 'auto' },
             
             {
                 "data": "null",
                 title: "Sueldo",
                 "render": function (data, type, row, meta) {
-                    return '$ ' + new Intl.NumberFormat('en-US').format(row.Sueldo);
+                    return '<label style="color:green">$ ' + new Intl.NumberFormat('en-US').format(row.Sueldo) + '</label>';
+                }
+            },
+
+            {
+                "data": "null",
+                title: "Sub Transporte",
+                "render": function (data, type, row, meta) {
+                    return '<label style="color:green">$ ' + new Intl.NumberFormat('en-US').format(row.SubTransporte) + '</label>';
+                }
+            },
+            {
+                "data": "null",
+                title: "Total HE",
+                "render": function (data, type, row, meta) {
+                    return '<label style="color:green">$ ' + new Intl.NumberFormat('en-US').format(row.TotalHE) + '</label>';
                 }
             },
             {
                 "data": "null",
                 title: "Desembolso Préstamo",
                 "render": function (data, type, row, meta) {
-                    return '$ ' + new Intl.NumberFormat('en-US').format(row.DesembolsoPrestamo);
+                    return '<label style="color:green">$ ' + new Intl.NumberFormat('en-US').format(row.DesembolsoPrestamo) + '</label>';
+                }
+            },
+            {
+                "data": "null",
+                title: "Otros Ingresos",
+                "render": function (data, type, row, meta) {
+                    return '<label style="color:green">$ ' + new Intl.NumberFormat('en-US').format(row.OtrosIngresos) + '</label>';
                 }
             },
             {
                 "data": "null",
                 title: "Total Ingresos",
                 "render": function (data, type, row, meta) {
-                    return '<label style="color:black; font-weight:none">$ ' + new Intl.NumberFormat('en-US').format(row.TotalIngresos) + '</label>';
+                    return '<label style="color:green; font-weight:bold">$ ' + new Intl.NumberFormat('en-US').format(row.TotalIngresos) + '</label>';
+                }
+            },
+            {
+                "data": "null",
+                title: "Eps",
+                "render": function (data, type, row, meta) {
+                    return '<label style="color:orangered">$ ' + new Intl.NumberFormat('en-US').format(row.Eps) + '</label>';
+                }
+            },
+            {
+                "data": "null",
+                title: "Pension",
+                "render": function (data, type, row, meta) {
+                    return '<label style="color:orangered">$ ' + new Intl.NumberFormat('en-US').format(row.Pension) + '</label>';
+                }
+            },
+            {
+                "data": "null",
+                title: "Casino",
+                "render": function (data, type, row, meta) {
+                    return '<label style="color:orangered">$ ' + new Intl.NumberFormat('en-US').format(row.Casino) + '</label>';
                 }
             },
             {
                 "data": "null",
                 title: "Cobro Préstamo",
                 "render": function (data, type, row, meta) {
-                    return '$ ' + new Intl.NumberFormat('en-US').format(row.CobroPrestamo);
+                    return '<label style="color:orangered">$ ' + new Intl.NumberFormat('en-US').format(row.CobroPrestamo) + '</label>';
+                }
+            },
+            {
+                "data": "null",
+                title: "Otros Descuentos",
+                "render": function (data, type, row, meta) {
+                    return '<label style="color:orangered">$ ' + new Intl.NumberFormat('en-US').format(row.OtrosDescuentos) + '</label>';
                 }
             },
             {
                 "data": "null",
                 title: "Total Descuentos",
                 "render": function (data, type, row, meta) {
-                    return '<label style="color:black; font-weight:none">$ ' + new Intl.NumberFormat('en-US').format(row.TotalDescuentos) + '</label>';
+                    return '<label style="color:orangered; font-weight:bold">$ ' + new Intl.NumberFormat('en-US').format(row.TotalDescuentos) + '</label>';
                 }
             },
             {
                 "data": "null",
                 title: "Total a Pagar",
                 "render": function (data, type, row, meta) {
-                    return '<label style="color:black; font-weight:bold">$ ' + new Intl.NumberFormat('en-US').format(row.TotalPagar)+'</label>';
+                    return '<label style="color:blue; font-weight:bold">$ ' + new Intl.NumberFormat('en-US').format(row.TotalPagar)+'</label>';
                 }
             },
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },

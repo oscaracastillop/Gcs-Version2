@@ -7128,6 +7128,45 @@ END
 
 GO
 
+CREATE PROCEDURE [dbo].[SP_EliminarNominaEmpleado] @IdUser varchar(255), @IdNominaEmpleado INT, @Resultado varchar(255) OUTPUT 
+AS
+BEGIN 
+DECLARE 
+@Permiso INT, 
+@IdUsuario INT, 
+@Accion VARCHAR(255),
+@SubMenu VARCHAR(255),
+@IdEstado INT
+
+
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Contabilidad/Nomina_Empleado'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN		
+		IF @IdEstado in (2,3,4)
+			BEGIN
+				SET @Resultado = 'Error*Estimado Usuario en el momento no es posible realizar esta Acción.'
+			END
+		ELSE
+			BEGIN
+				DELETE NominaEmpleado WHERE Id = @IdNominaEmpleado
+			END	
+		SET @Resultado = 'OK*Estimado Usuario la Nómina del Empleado seleccionado se elimino correctamente'	
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
 CREATE PROCEDURE [dbo].[SP_GridDatosEmpleadoNomina] @IdEmpleado INT, @FechaInicio date, @FechaFin date, @DiasaPagar int
 AS
 BEGIN 
@@ -7229,11 +7268,22 @@ BEGIN
 	SELECT	A.Id, 
 			dbo.Fun_BuscarNombreEmpleado(A.IdEmpleado) As Empleado, 
 			B.Nombre +' - '+ c.Nombre As Empresa,
+			
+			CONVERT(varchar(255),A.SalarioMensual) As SalarioMensual,
+			CONVERT(varchar(255),A.SubTransporteMes) As SubTransporteMes,
+			CONVERT(varchar(255),A.FechaInicioCorte,105)+ ' al ' + CONVERT(varchar(255),A.FechaFinCorte,105) As PeriodoLiquidado,
 			CONVERT(varchar(255),A.DiasaPagar) As DiasPagar,
-			CONVERT(varchar(255),A.Sueldo) As Sueldo,
+			CONVERT(varchar(255),A.Sueldo) As Sueldo,			
+			CONVERT(varchar(255),A.SubTransporte) As SubTransporte,			 
+			CONVERT(varchar(255),A.TotalHE) As TotalHE,
 			CONVERT(varchar(255),A.DesembolsoPrestamo) As DesembolsoPrestamo,
+			CONVERT(varchar(255),A.OtrosIngresos) As OtrosIngresos,
 			CONVERT(varchar(255),A.TotalIngresos) As TotalIngresos,
+			CONVERT(varchar(255),A.Eps) As Eps,
+			CONVERT(varchar(255),A.Pension) As Pension,
+			CONVERT(varchar(255),A.Casino) As Casino,
 			CONVERT(varchar(255),A.CobroPrestamo) As CobroPrestamo,
+			CONVERT(varchar(255),A.OtrosDescuentos) As OtrosDescuentos,
 			CONVERT(varchar(255),A.TotalDescuentos) As TotalDescuentos,
 			CONVERT(varchar(255),A.TotalaPagar) As TotalPagar,
 			A.IdEstado,

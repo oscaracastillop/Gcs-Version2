@@ -19,6 +19,12 @@ namespace App.Controllers
             return Json(resultado);
         }
 
+        public JsonResult EliminarNominaEmpleado(string IdUser, int IdNominaEmpleado)
+        {
+            var resultado = dataNominaEmpleado.EliminarNominaEmpleado(IdUser, IdNominaEmpleado);
+            return Json(resultado);
+        }
+
         public ActionResult GridNominaEmpleado()
         {
             var data = dataNominaEmpleado.GridNominaEmpleado();
