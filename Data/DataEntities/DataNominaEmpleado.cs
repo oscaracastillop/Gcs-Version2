@@ -1,12 +1,13 @@
-﻿using SistemaGcs.Data.DataEntities;
+﻿using Data.DataContext;
+using SistemaGcs.Data.DataEntities;
+using SistemaGcs.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Data.DataContext;
 using static SistemaGcs.Models.NominaEmpleado;
 
 namespace Data.DataEntities
@@ -30,6 +31,42 @@ namespace Data.DataEntities
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = int.MaxValue };
 
                 _conection.Database.ExecuteSqlCommand("SP_CrearNominaEmpleado @IdUser, @IdEmpleado, @FechaInicio, @FechaFin, @DiasaPagar, @Resultado OUTPUT", varIdUser, varIdEmpleado, varFechaInicio, varFechaFin, varDiasaPagar, varResultado);
+
+                resultado = Convert.ToString(varResultado.Value);
+            }
+            catch (Exception ex)
+            {
+                var Rol = dataRol.BuscarRolUsuario(IdUser);
+                if (Rol == "Administrador")
+                {
+                    resultado = "Error*" + ex.Message;
+                }
+                else
+                {
+                    if (ex.Message.Contains("No se puede insertar"))
+                    {
+                        resultado = "Error*Los datos que esta ingresando ya existe en la Base de Datos";
+                    }
+                    else
+                    {
+                        resultado = "Error*En el momento no se puede realizar este proceso, por favor comuniquese con el Administrador";
+                    }
+                }
+            }
+            return resultado;
+        }
+
+
+        public string PagarNominaEmpleado(string IdUser, int IdNominaEmpleado)
+        {
+            string resultado = String.Empty;
+            try
+            {
+                var varIdUser = new SqlParameter("@IdUser", SqlDbType.VarChar) { Value = IdUser };
+                var varIdNominaEmpleado = new SqlParameter("@IdNominaEmpleado", SqlDbType.Int) { Value = IdNominaEmpleado };
+                var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = int.MaxValue };
+
+                _conection.Database.ExecuteSqlCommand("SP_PagarNominaEmpleado @IdUser, @IdNominaEmpleado, @Resultado OUTPUT", varIdUser, varIdNominaEmpleado, varResultado);
 
                 resultado = Convert.ToString(varResultado.Value);
             }

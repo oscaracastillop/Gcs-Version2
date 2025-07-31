@@ -13,6 +13,12 @@ namespace App.Controllers
             return Json(resultado);
         }
 
+        public JsonResult PagarNominaEmpleado(string IdUser, int IdNominaEmpleado)
+        {
+            var resultado = dataNominaEmpleado.PagarNominaEmpleado(IdUser, IdNominaEmpleado);
+            return Json(resultado);
+        }
+
         public ActionResult GridNominaEmpleado()
         {
             var data = dataNominaEmpleado.GridNominaEmpleado();

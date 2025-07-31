@@ -96,6 +96,13 @@
     color: white !important;
 }
 
+.btn-pagar {
+    background-color: orangered !important;
+    color: white !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
 .btn-pdf-datatable {
     background-color: none !important;
     color: black !important;
@@ -153,7 +160,19 @@
     align-items: center;
     background-color: green;
     border: solid 1px black !important;
-    border-radius: 15px !important;
+    border-radius: 5px !important;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    color: white;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.label-estado-cobrado {
+    align-content: center;
+    align-items: center;
+    background-color: mediumpurple;
+    border: solid 1px black !important;
+    border-radius: 5px !important;
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     color: white;
     padding-left: 5px;
@@ -165,12 +184,25 @@
     align-items: center;
     background-color: red;
     border: solid 1px black !important;
-    border-radius: 15px !important;
+    border-radius: 5px !important;
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     color: white;
     padding-left: 5px;
     padding-right: 5px;
 }
+
+.label-estado-pagado {
+    align-content: center;
+    align-items: center;
+    background-color: #3b5998;
+    border: solid 1px black !important;
+    border-radius: 5px !important;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    color: white;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 
 .labelmodulo {
     background-color: #3b5998;
@@ -230,7 +262,7 @@ table.dataTable thead tr {
 
 
 @media screen and (min-width: 100px) {
-    body, .btn, .btn-editar-dt, .btn-eliminar-dt, .btn-excel-datatable, .btn-nuevo-datatable, .btn-pdf-datatable, button, .contenedor, .div.dataTables_wrapper div.dataTables_filter input, .grid, input, .label-estado-activo, .label-estado-inactivo, .modal, select, .swal2-popup, table.dataTable thead tr, textarea {
+    body, .btn, .btn-editar-dt, .btn-eliminar-dt, .btn-excel-datatable, .btn-nuevo-datatable, .btn-pdf-datatable, button, .contenedor, .div.dataTables_wrapper div.dataTables_filter input, .grid, input, .label-estado-activo, .label-estado-inactivo, .label-estado-pagado, .modal, select, .swal2-popup, table.dataTable thead tr, textarea {
         font-size: 5px !important;
     }
 
@@ -275,7 +307,7 @@ table.dataTable thead tr {
     .btn,
     .btn-editar-dt,
     .btn-eliminar-dt,
-    .btn-excel-datatable,    
+    .btn-excel-datatable,
     .btn-nuevo-datatable,
     .btn-pdf-datatable,
     button,
@@ -285,6 +317,7 @@ table.dataTable thead tr {
     input,
     .label-estado-activo,
     .label-estado-inactivo,
+    .label-estado-pagado,
     .modal,
     select,
     .swal2-popup,
@@ -340,6 +373,7 @@ table.dataTable thead tr {
     input,
     .label-estado-activo,
     .label-estado-inactivo,
+    .label-estado-pagado,
     .modal,
     select,
     .swal2-popup,

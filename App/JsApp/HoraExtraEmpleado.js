@@ -189,8 +189,9 @@ function GridHoraExtraEmpleado() {
             { targets: [13], className: 'dt-head-center' },
             { targets: [14], className: 'dt-head-center' },
             { targets: [15], className: 'dt-head-center' },
-            { targets: [16], width: '10px', className: 'dt-center dt-head-center' },
-            { targets: [17], width: '10px', className: 'dt-center dt-head-center' }
+            { targets: [16], className: 'dt-head-center' },
+            { targets: [17], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [18], width: '10px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -287,6 +288,10 @@ function GridHoraExtraEmpleado() {
                     }
                     else if (row.IdEstado == 2) {
                         return '<label class="label-estado-inactivo">' + data + '</label>';
+                    } else if (row.IdEstado == 3) {
+                        return '<label class="label-estado-pagado">' + data + '</label>';
+                    } else if (row.IdEstado == 4) {
+                        return '<label class="label-estado-cobrado">' + data + '</label>';
                     }
                 }
 
@@ -322,22 +327,37 @@ function GridHoraExtraEmpleado() {
             },
             { "data": "TotalHorasExtras", title: "Total a Pagar", width: 'auto', visible: false },//12
             { "data": "FechaPagoHoraExtra", title: "Fecha Pago HE", width: 'auto' },
+            { "data": "ComprobanteNomina", title: "# NE", width: 'auto' },
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
+      
             {
                 title: "",
-                data: null,
-                defaultContent:
-                    '<a class="EditarHoraExtraEmpleado btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
-                orderable: false,
+                data: "Estado",
+                "render": function (data, type, row) {
+                    if (row.IdEstado !== 3) {
+                        return '<a class="EditarHoraExtraEmpleado btn btn-editar-dt" title="Eliminar Registro"><i class="bi-pencil-fill"></i></a>';
+                    }
+                    else {
+                        return '<button class="btn btn-editar-dt" title="editar Registro" disabled><i class="bi-pencil-fill"></i></button>';
+                    }
+                }
+
             },
             {
                 title: "",
-                data: null,
-                defaultContent:
-                    '<a class="EliminarHoraExtraEmpleado btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>',
-                orderable: false,
+                data: "Estado",
+                "render": function (data, type, row) {
+                    if (row.IdEstado !== 3) {
+                        return '<a class="EliminarHoraExtraEmpleado btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>';
+                    }
+                    else {
+                        return '<button class="btn btn-eliminar-dt" title="Eliminar Registro" disabled><i class="bi-trash-fill"></i></button>';
+                    }
+                }
+
             },
+
         ],
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.11.2/i18n/es_es.json"

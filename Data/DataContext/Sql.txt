@@ -19,7 +19,8 @@ GO
 
 INSERT INTO TipoEstado (Nombre) VALUES ('Activo')
 INSERT INTO TipoEstado (Nombre) VALUES ('Inactivo')
-INSERT INTO TipoEstado (Nombre) VALUES ('Eliminado')
+INSERT INTO TipoEstado (Nombre) VALUES ('Pagada')
+INSERT INTO TipoEstado (Nombre) VALUES ('Cobrado')
 
 GO
 
@@ -5300,7 +5301,7 @@ IdContratoLaboral Int,
 Valor Int,
 Fecha Date,
 FechaPago Date,
-NumeroComprobanteNomina Int,
+IdNominaEmpleado Int default 0,
 Observacion varchar(max),
 IdEstado Int default 1,
 CreateBy Int,
@@ -5440,10 +5441,7 @@ SELECT	A.Id,
 		CONVERT(varchar(255),A.Fecha,105) As TextoFecha,		
 		CONVERT(varchar(255),A.FechaPago,23) As FechaPago,
 		CONVERT(varchar(255),A.FechaPago,105) As TextoFechaPago,		
-		CASE A.NumeroComprobanteNomina
-		WHEN '' THEN 'Por Definir'
-		ELSE A.NumeroComprobanteNomina
-		END as ComprobanteNomina,
+		CONVERT(varchar(255),ISNULL(A.IdNominaEmpleado,0))As ComprobanteNomina,
 		A.Observacion,
 		A.IdEstado,
 		dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,
@@ -5468,7 +5466,7 @@ IdSucursal Int,
 IdContratoLaboral Int,
 Valor Int,
 FechaPago Date,
-NumeroComprobanteNomina Int,
+IdNominaEmpleado Int default 0,
 Observacion varchar(max),
 IdEstado int default 1,
 CreateBy int,
@@ -5606,10 +5604,7 @@ SELECT	A.Id,
 		A.Valor As Valor,
 		CONVERT(varchar(255),A.FechaPago,23) As FechaPago,
 		CONVERT(varchar(255),A.FechaPago,105) As TextoFechaPago,		
-		CASE A.NumeroComprobanteNomina
-		WHEN '' THEN 'Por Definir'
-		ELSE A.NumeroComprobanteNomina
-		END as ComprobanteNomina,
+		CONVERT(varchar(255),ISNULL(A.IdNominaEmpleado,0)) AS ComprobanteNomina,
 		A.Observacion,
 		A.IdEstado,
 		dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,
@@ -5635,7 +5630,7 @@ IdSucursal Int,
 IdContratoLaboral Int,
 Valor Int,
 FechaCobro Date,
-NumeroComprobanteNomina Int,
+IdNominaEmpleado Int default 0,
 Observacion varchar(max),
 IdEstado int default 1,
 CreateBy int,
@@ -5773,10 +5768,7 @@ SELECT	A.Id,
 		A.Valor As Valor,
 		CONVERT(varchar(255),A.FechaCobro,23) As FechaCobro,
 		CONVERT(varchar(255),A.FechaCobro,105) As TextoFechaCobro,		
-		CASE A.NumeroComprobanteNomina
-		WHEN '' THEN 'Por Definir'
-		ELSE A.NumeroComprobanteNomina
-		END as ComprobanteNomina,
+		CONVERT(varchar(255),ISNULL(A.IdNominaEmpleado,0)) AS ComprobanteNomina,
 		A.Observacion,
 		A.IdEstado,
 		dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,
@@ -5803,7 +5795,8 @@ Valor Int,
 FechaPrestamo Date,
 FechaPago Date,
 Cuotas int,
-NumeroComprobanteNomina Int,
+IdNominaEmpleadoDesembolso Int default 0,
+IdNominaEmpleadoCobro Int default 0,
 Observacion varchar(max),
 IdEstado int default 1,
 CreateBy int,
@@ -5947,10 +5940,8 @@ SELECT	A.Id,
 		CONVERT(varchar(255),A.FechaPago,23) As FechaPago,
 		CONVERT(varchar(255),A.FechaPago,105) As TextoFechaPago,			
 		A.Cuotas,
-		CASE A.NumeroComprobanteNomina
-		WHEN '' THEN 'Por Definir'
-		ELSE A.NumeroComprobanteNomina
-		END as ComprobanteNomina,
+		CONVERT(varchar(255),ISNULL(A.IdNominaEmpleadoDesembolso,0)) AS ComprobanteNominaDesembolso,
+		CONVERT(varchar(255),ISNULL(A.IdNominaEmpleadoCobro,0)) AS ComprobanteNominaCobro,
 		A.Observacion,
 		A.IdEstado,
 		dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,
@@ -6939,6 +6930,7 @@ DECLARE
 @Permiso INT, 
 @IdUsuario INT, 
 @Accion VARCHAR(255),
+@ExisteNominaActiva INT,
 @SubMenu VARCHAR(255),
 @IdContratoLaboral INT,
 @IdSucursal INT,
@@ -6981,6 +6973,8 @@ DECLARE
 
 
 /* Datos Generales*/
+
+SELECT @ExisteNominaActiva = COUNT(1) FROM NominaEmpleado WHERE IdEstado = 1 AND IdEmpleado = @IdEmpleado
 
 SELECT @IdSucursal = C.Id FROM ContratoLaboral A, SucursalEmpleado B, Sucursal C WHERE A.IdEmpleado = @IdEmpleado AND A.IdEstado = 1 AND A.IdEmpleado = B.IdEmpleado AND C.Id = B.IdSucursal
 SELECT @IdContratoLaboral = Id FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
@@ -7032,7 +7026,7 @@ SELECT @DesembolsoPrestamo = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE	Id
 /* DESCUENTOS */
 SET @Eps = ISNULL(((@SalarioMensual*@PorcentajeEps/100)/30)*@DiasaPagar,0)
 SET @Pension = ISNULL(((@SalarioMensual*@PorcentajePension/100)/30)*@DiasaPagar,0)
-SELECT @CobroPrestamo = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
+SELECT @CobroPrestamo = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE IdEstado = 3 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
 SELECT @Casino = ISNULL(SUM(Valor),0) FROM CasinoEmpleado WHERE IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
 
 /* TOTALES */
@@ -7047,20 +7041,83 @@ SET @SubMenu = '/Contabilidad/Nomina_Empleado'
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
 
+
+
+IF @Permiso > 0
+	BEGIN
+		IF @ExisteNominaActiva = 0
+			BEGIN
+				INSERT INTO NominaEmpleado
+				(IdEmpleado, IdContratoLaboral, IdSucursal, FechaInicioCorte, FechaFinCorte, DiasaPagar, SalarioMensual, Sueldo, SubTransporteMes, SubTransporte, HorasDefinidasxMes,
+				ValorHoraOrdinaria, PorcentajeHED, ValorHED, CantHED, ValorTotalHED, PorcentajeHEN, ValorHEN, CantHEN, ValorTotalHEN, PorcentajeHEDDF, ValorHEDDF,
+				CantHEDDF, ValorTotalHEDDF, PorcentajeHENDF, ValorHENDF, CantHENDF, ValorTotalHENDF, TotalCantHE, TotalHE, DesembolsoPrestamo, OtrosIngresos, TotalIngresos,
+				PorcentajeEps, Eps, PorcentajePension, Pension, Casino, CobroPrestamo, OtrosDescuentos, TotalDescuentos, TotalaPagar, CreateBy, DateCreate) 
+				VALUES 
+				(@IdEmpleado,  @IdContratoLaboral, @IdSucursal, @FechaInicio, @FechaFin, @DiasaPagar, @SalarioMensual, @Sueldo, @SubTransporteMes, @SubTransporte, @HorasDefinidasxMes,
+				@ValorHoraOrdinaria, @PorcentajeHED, @ValorHED, @CantHED, @ValorTotalHED, @PorcentajeHEN, @ValorHEN, @CantHEN, @ValorTotalHEN, @PorcentajeHEDDF, @ValorHEDDF,
+				@CantHEDDF, @ValorTotalHEDDF, @PorcentajeHENDF, @ValorHENDF, @CantHENDF, @ValorTotalHENDF, @TotalCantHE, @TotalHE, @DesembolsoPrestamo, @OtrosIngresos, @TotalIngresos,
+				@PorcentajeEps, @Eps, @PorcentajePension, @Pension, @Casino, @CobroPrestamo, @OtrosDescuentos, @TotalDescuentos, @TotalaPagar, @IdUsuario, GETDATE()) 
+
+				SET @Resultado = 'OK*Los datos se crearon correctamente'
+			END		
+		ELSE
+			BEGIN
+				SET @Resultado = 'Error*Estimado Usuario no se puede generar la Nómina al Empleado seleccionado, Actualmente tiene una Nómina Activa. Realice el Pago o Eliminación de la Nómina Activa, para que pueda generar una nueva Nómina'
+			END
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_PagarNominaEmpleado] @IdUser varchar(255), @IdNominaEmpleado INT, @Resultado varchar(255) OUTPUT 
+AS
+BEGIN 
+DECLARE 
+@Permiso INT, 
+@IdUsuario INT, 
+@Accion VARCHAR(255),
+@SubMenu VARCHAR(255),
+@FechaInicioCorte DATE,
+@FechaFinCorte DATE,
+@IdEmpleado INT
+
+
+
+SET @Accion = 'Editar'
+SET @SubMenu = '/Contabilidad/Nomina_Empleado'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
 IF @Permiso > 0
 	BEGIN		
-		INSERT INTO NominaEmpleado
-		(IdEmpleado, IdContratoLaboral, IdSucursal, FechaInicioCorte, FechaFinCorte, DiasaPagar, SalarioMensual, Sueldo, SubTransporteMes, SubTransporte, HorasDefinidasxMes,
-		ValorHoraOrdinaria, PorcentajeHED, ValorHED, CantHED, ValorTotalHED, PorcentajeHEN, ValorHEN, CantHEN, ValorTotalHEN, PorcentajeHEDDF, ValorHEDDF,
-		CantHEDDF, ValorTotalHEDDF, PorcentajeHENDF, ValorHENDF, CantHENDF, ValorTotalHENDF, TotalCantHE, TotalHE, DesembolsoPrestamo, OtrosIngresos, TotalIngresos,
-		PorcentajeEps, Eps, PorcentajePension, Pension, Casino, CobroPrestamo, OtrosDescuentos, TotalDescuentos, TotalaPagar, CreateBy, DateCreate) 
-		VALUES 
-		(@IdEmpleado,  @IdContratoLaboral, @IdSucursal, @FechaInicio, @FechaFin, @DiasaPagar, @SalarioMensual, @Sueldo, @SubTransporteMes, @SubTransporte, @HorasDefinidasxMes,
-		@ValorHoraOrdinaria, @PorcentajeHED, @ValorHED, @CantHED, @ValorTotalHED, @PorcentajeHEN, @ValorHEN, @CantHEN, @ValorTotalHEN, @PorcentajeHEDDF, @ValorHEDDF,
-		@CantHEDDF, @ValorTotalHEDDF, @PorcentajeHENDF, @ValorHENDF, @CantHENDF, @ValorTotalHENDF, @TotalCantHE, @TotalHE, @DesembolsoPrestamo, @OtrosIngresos, @TotalIngresos,
-		@PorcentajeEps, @Eps, @PorcentajePension, @Pension, @Casino, @CobroPrestamo, @OtrosDescuentos, @TotalDescuentos, @TotalaPagar, @IdUsuario, GETDATE()) 
+		SELECT	@FechaInicioCorte = FechaInicioCorte,
+				@FechaFinCorte = FechaFinCorte,
+				@IdEmpleado = IdEmpleado
+		FROM	NominaEmpleado
+		WHERE	Id = @IdNominaEmpleado
 
-		SET @Resultado = 'OK*Los datos se crearon correctamente'
+
+		UPDATE NominaEmpleado SET IdEstado = 3 WHERE Id = @IdNominaEmpleado
+
+		UPDATE HoraExtraEmpleado SET IdNominaEmpleado = @IdNominaEmpleado, IdEstado = 3 WHERE IdEstado = 1 AND @IdEmpleado = IdEmpleado AND FechaPagoHE BETWEEN @FechaInicioCorte AND @FechaFinCorte
+		UPDATE OtrosIngresosEmpleado SET IdNominaEmpleado = @IdNominaEmpleado, IdEstado = 3 WHERE IdEstado = 1 AND @IdEmpleado = IdEmpleado AND FechaPago BETWEEN @FechaInicioCorte AND @FechaFinCorte
+
+		UPDATE PrestamoEmpleado SET IdNominaEmpleadoDesembolso = @IdNominaEmpleado, IdEstado = 3 WHERE IdEstado = 1 AND @IdEmpleado = IdEmpleado AND FechaPrestamo BETWEEN @FechaInicioCorte AND @FechaFinCorte
+		UPDATE PrestamoEmpleado SET IdNominaEmpleadoCobro = @IdNominaEmpleado, IdEstado = 4 WHERE IdEstado = 3 AND @IdEmpleado = IdEmpleado AND FechaPago BETWEEN @FechaInicioCorte AND @FechaFinCorte
+
+		UPDATE OtrosDescuentosEmpleado SET IdNominaEmpleado = @IdNominaEmpleado, IdEstado = 4 WHERE IdEstado = 1 AND @IdEmpleado = IdEmpleado AND FechaCobro BETWEEN @FechaInicioCorte AND @FechaFinCorte
+		UPDATE CasinoEmpleado SET IdNominaEmpleado = @IdNominaEmpleado, IdEstado = 4 WHERE IdEstado = 1 AND @IdEmpleado = IdEmpleado AND FechaPago BETWEEN @FechaInicioCorte AND @FechaFinCorte
+		
+		
+		SET @Resultado = 'OK*La Nómina del Empleado se Actualizo correctamente.'
 	END	
 ELSE
 	BEGIN
@@ -7115,7 +7172,7 @@ SELECT @PorcentajePension = PorcentajeFondoPension FROM ContratoLaboral where Id
 
 SET @Eps = ISNULL(((@SalarioMensual*@PorcentajeEps/100)/30)*@DiasaPagar,0)
 SET @Pension = ISNULL(((@SalarioMensual*@PorcentajePension/100)/30)*@DiasaPagar,0)
-SELECT @CobroPrestamo = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
+SELECT @CobroPrestamo = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE	IdEstado = 3 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
 SELECT @Casino = ISNULL(SUM(Valor),0) FROM CasinoEmpleado WHERE IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
 
 SET @TotalIngresos = ISNULL((@Sueldo + @SubTransporte + @OtrosIngresos + @DesembolsoPrestamo + @ValorTotalHED + @ValorTotalHEN + @ValorTotalHEDDF + @ValorTotalHENDF),0)
@@ -7169,23 +7226,27 @@ GO
 CREATE PROCEDURE [dbo].[SP_GridNominaEmpleado]
 AS
 BEGIN
-	SELECT	Id, 
-			dbo.Fun_BuscarNombreEmpleado(IdEmpleado) As Empleado,
-			CONVERT(varchar(255),Sueldo) As Sueldo,
-			IdEstado,
-			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,			
-			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
-			CONVERT(varchar(255),DateCreate,105)+ ' ' + CONVERT(varchar(255),DateCreate,8) As DateCreate
-			FROM NominaEmpleado
+	SELECT	A.Id, 
+			dbo.Fun_BuscarNombreEmpleado(A.IdEmpleado) As Empleado, 
+			B.Nombre +' - '+ c.Nombre As Empresa,
+			CONVERT(varchar(255),A.DiasaPagar) As DiasPagar,
+			CONVERT(varchar(255),A.Sueldo) As Sueldo,
+			CONVERT(varchar(255),A.DesembolsoPrestamo) As DesembolsoPrestamo,
+			CONVERT(varchar(255),A.TotalIngresos) As TotalIngresos,
+			CONVERT(varchar(255),A.CobroPrestamo) As CobroPrestamo,
+			CONVERT(varchar(255),A.TotalDescuentos) As TotalDescuentos,
+			CONVERT(varchar(255),A.TotalaPagar) As TotalPagar,
+			A.IdEstado,
+			dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,			
+			dbo.Fun_BuscarNombreUsuario(A.CreateBy) As CreateBy,
+			CONVERT(varchar(255),A.DateCreate,105)+ ' ' + CONVERT(varchar(255),A.DateCreate,8) As DateCreate
+			FROM NominaEmpleado A,
+			Empresa B,
+			Sucursal C
+			WHERE A.IdSucursal = C.Id AND
+			C.IdEmpresa = B.Id
 			ORDER BY Id Desc
 END
-
-
-
-
-
-
-/* HORA EXTRA */
 
 GO
 
@@ -7204,7 +7265,7 @@ ValorHoraExtra decimal(10,2),
 ValorTotalHoraExtra decimal(10,2),
 FechaHE Date,
 FechaPagoHE Date,
-IdNominaEmpleado Int,
+IdNominaEmpleado Int default 0,
 Observacion varchar(max),
 IdEstado Int default 1,
 CreateBy Int,
@@ -7298,7 +7359,7 @@ BEGIN
 			A.ValorTotalHoraExtra AS TotalHorasExtras,
 			CONVERT(varchar(255),A.FechaPagoHE,23) As FechaPagoHoraExtra,
 			CONVERT(varchar(255),A.FechaPagoHE,105) As TextoFechaPagoHoraExtra,
-			ISNULL(A.IdNominaEmpleado,'') AS IdNominaEmpleado,
+			CONVERT(varchar(255),ISNULL(A.IdNominaEmpleado,0)) AS ComprobanteNomina,
 			A.Observacion,
 			A.IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,

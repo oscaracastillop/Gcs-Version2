@@ -175,10 +175,11 @@ function GridPrestamoEmpleado() {
             { targets: [7], className: 'dt-head-center' },
             { targets: [8], className: 'dt-head-center' },
             { targets: [9], className: 'dt-head-center' },
-            { targets: [10], className: 'dt-head-center', className: 'dt-center dt-head-center' },
-            { targets: [11], className: 'dt-head-center' },
-            { targets: [12], width: '10px', className: 'dt-center dt-head-center' },
-            { targets: [13], width: '10px', className: 'dt-center dt-head-center' }
+            { targets: [10], className: 'dt-head-center' },
+            { targets: [11], className: 'dt-head-center', className: 'dt-center dt-head-center' },
+            { targets: [12], className: 'dt-head-center' },
+            { targets: [13], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [14], width: '10px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -275,6 +276,10 @@ function GridPrestamoEmpleado() {
                     }
                     else if (row.IdEstado == 2) {
                         return '<label class="label-estado-inactivo">' + data + '</label>';
+                    } else if (row.IdEstado == 3) {
+                        return '<label class="label-estado-pagado">' + data + '</label>';
+                    } else if (row.IdEstado == 4) {
+                        return '<label class="label-estado-cobrado">' + data + '</label>';
                     }
                 }
 
@@ -292,23 +297,34 @@ function GridPrestamoEmpleado() {
             { "data": "Cuotas", title: "# Cuotas", width: 'auto' },//4
             { "data": "TextoFechaPrestamo", title: "Fecha Préstamo", width: 'auto' },//5
             { "data": "TextoFechaPago", title: "Fecha Cobro", width: 'auto' },//6
-            { "data": "ComprobanteNomina", title: "# Comprobante Nómina", width: 'auto' },//7
+            { "data": "ComprobanteNominaDesembolso", title: "# NE DP", width: 'auto' },//7
+            { "data": "ComprobanteNominaCobro", title: "# NE CP", width: 'auto' },//7
             { "data": "Observacion", title: "Observación", width: 'auto' },//8
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },//9
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },//10
             {
                 title: "",
-                data: null,
-                defaultContent:
-                    '<a class="EditarPrestamoEmpleado btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
-                orderable: false,
+                data: "Estado",
+                "render": function (data, type, row) {
+                    if (row.IdEstado == 1 || row.IdEstado == 2) {
+                        return '<a class="EditarPrestamoEmpleado btn btn-editar-dt" title="Eliminar Registro"><i class="bi-pencil-fill"></i></a>';
+                    }
+                    else {
+                        return '<button class="btn btn-editar-dt" title="editar Registro" disabled><i class="bi-pencil-fill"></i></button>';
+                    }
+                }
             },
             {
                 title: "",
-                data: null,
-                defaultContent:
-                    '<a class="EliminarPrestamoEmpleado btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>',
-                orderable: false,
+                data: "Estado",
+                "render": function (data, type, row) {
+                    if (row.IdEstado == 1 || row.IdEstado == 2) {
+                        return '<a class="EliminarPrestamoEmpleado btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>';
+                    }
+                    else {
+                        return '<button class="btn btn-eliminar-dt" title="Eliminar Registro" disabled><i class="bi-trash-fill"></i></button>';
+                    }
+                }
             },
         ],
         "language": {

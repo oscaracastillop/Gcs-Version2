@@ -260,6 +260,10 @@ function GridCasinoEmpleado() {
                     }
                     else if (row.IdEstado == 2) {
                         return '<label class="label-estado-inactivo">' + data + '</label>';
+                    } else if (row.IdEstado == 3) {
+                        return '<label class="label-estado-pagado">' + data + '</label>';
+                    } else if (row.IdEstado == 4) {
+                        return '<label class="label-estado-cobrado">' + data + '</label>';
                     }
                 }
 
@@ -276,23 +280,36 @@ function GridCasinoEmpleado() {
             },//3
             { "data": "TextoFecha", title: "Fecha Pedido", width: 'auto' },//4
             { "data": "TextoFechaPago", title: "Fecha Cobro", width: 'auto' },//5
-            { "data": "ComprobanteNomina", title: "# Comprobante Nómina", width: 'auto' },//6
+            { "data": "ComprobanteNomina", title: "# Nómina", width: 'auto' },//6
             { "data": "Observacion", title: "Observación", width: 'auto' },//7
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },//8
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },//9
+            
             {
                 title: "",
-                data: null,
-                defaultContent:
-                    '<a class="EditarCasinoEmpleado btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
-                orderable: false,
+                data: "Estado",
+                "render": function (data, type, row) {
+                    if (row.IdEstado !== 4) {
+                        return '<a class="EditarCasinoEmpleado btn btn-editar-dt" title="Eliminar Registro"><i class="bi-pencil-fill"></i></a>';
+                    }
+                    else {
+                        return '<button class="btn btn-editar-dt" title="editar Registro" disabled><i class="bi-pencil-fill"></i></button>'; 
+                    }
+                }
+
             },
             {
                 title: "",
-                data: null,
-                defaultContent:
-                    '<a class="EliminarCasinoEmpleado btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>',
-                orderable: false,
+                data: "Estado",
+                "render": function (data, type, row) {
+                    if (row.IdEstado !== 4) {
+                        return '<a class="EliminarCasinoEmpleado btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>'; 
+                    }
+                    else {
+                        return '<button class="btn btn-eliminar-dt" title="Eliminar Registro" disabled><i class="bi-trash-fill"></i></button>';
+                    }
+                }
+
             },
         ],
         "language": {

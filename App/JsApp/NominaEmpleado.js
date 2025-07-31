@@ -181,6 +181,42 @@ function CrearNominaEmpleado() {
 }
 
 
+function EliminarNominaEmpleado(IdNominaEmpleado) {
+    alert('Eliminar Nomina Empleado: ' + IdNominaEmpleado);
+    //Swal.fire({
+    //    title: TituloSwal,
+    //    text: "Esta seguro(a)?, No podrás revertir esta acción.!",
+    //    icon: "warning",
+    //    showCancelButton: true,
+    //    confirmButtonColor: "red",
+    //    cancelButtonColor: "#333",
+    //    confirmButtonText: "Si, eliminar!",
+    //    cancelButtonText: "Cancelar",
+    //    position: 'top'
+    //}).then((result) => {
+    //    if (result.isConfirmed) {
+    //        $.ajax({
+    //            type: 'POST',
+    //            dataType: 'json',
+    //            url: '/Cargo/EliminarCargo',
+    //            data: {
+    //                IdUser: TokenUser,
+    //                IdCargo: IdCargo
+    //            },
+    //            success: function (resultado) {
+    //                valor = resultado.split('*');
+    //                if (valor[0] == 'OK') {
+    //                    VentanaMensajeOK(valor[1]);
+    //                } else {
+    //                    VentanaMensaje(valor[1]);
+    //                }
+    //            }
+    //        });
+    //    }
+    //});
+}
+
+
 function GridNominaEmpleado() {
     var tituloReporte = 'LISTADO NOMINA EMPLEADOS';
     let datatable = $('#gridNominaEmpleado').DataTable({
@@ -191,12 +227,17 @@ function GridNominaEmpleado() {
         dom: 'B<"clear">frtip',
         columnDefs: [
             { targets: [0], width: '10px', className: 'dt-center dt-head-center' },
-            { targets: [1], className: 'dt-head-center' },
+            { targets: [1], width: '10px', className: 'dt-center dt-head-center' },
             { targets: [2], className: 'dt-head-center' },
             { targets: [3], className: 'dt-head-center' },
             { targets: [4], className: 'dt-head-center' },
-            { targets: [5], width: '10px', className: 'dt-center dt-head-center' },
-            { targets: [6], width: '10px', className: 'dt-center dt-head-center' }
+            { targets: [5], className: 'dt-head-center' },
+            { targets: [6], className: 'dt-head-center' },
+            { targets: [7], className: 'dt-head-center' },
+            { targets: [8], className: 'dt-head-center' },
+            { targets: [9], className: 'dt-head-center' },
+            { targets: [10], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [11], width: '10px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -284,6 +325,20 @@ function GridNominaEmpleado() {
         },
         columns: [
             {
+                title: "",
+                data: "Estado",
+                "render": function (data, type, row) {
+
+                    if (row.IdEstado !== 1) {
+                        return '<button class="btn btn-sm btn-pagar" disabled>Pagar</button>';
+                    }
+                    else {
+                        return '<button class="btn btn-sm btn-pagar PagarNominaEmpleado">Pagar</button>';
+                    }
+                }
+
+            },
+            {
                 title: "Estado",
                 data: "Estado",
                 "render": function (data, type, row) {
@@ -293,28 +348,81 @@ function GridNominaEmpleado() {
                     }
                     else if (row.IdEstado == 2) {
                         return '<label class="label-estado-inactivo">' + data + '</label>';
-                    }
+                    } else if (row.IdEstado == 3) {
+                        return '<label class="label-estado-pagado">' + data + '</label>';
+                    } 
                 }
 
             },
             { "data": "Empleado", title: "Empleado", width: 'auto' },
-            { "data": "Sueldo", title: "Sueldo", width: 'auto' },
+            { "data": "Empresa", title: "Empresa", width: 'auto' },
+            { "data": "DiasPagar", title: "Dias", width: 'auto' },
+            
+            {
+                "data": "null",
+                title: "Sueldo",
+                "render": function (data, type, row, meta) {
+                    return '$ ' + new Intl.NumberFormat('en-US').format(row.Sueldo);
+                }
+            },
+            {
+                "data": "null",
+                title: "Desembolso Préstamo",
+                "render": function (data, type, row, meta) {
+                    return '$ ' + new Intl.NumberFormat('en-US').format(row.DesembolsoPrestamo);
+                }
+            },
+            {
+                "data": "null",
+                title: "Total Ingresos",
+                "render": function (data, type, row, meta) {
+                    return '<label style="color:black; font-weight:none">$ ' + new Intl.NumberFormat('en-US').format(row.TotalIngresos) + '</label>';
+                }
+            },
+            {
+                "data": "null",
+                title: "Cobro Préstamo",
+                "render": function (data, type, row, meta) {
+                    return '$ ' + new Intl.NumberFormat('en-US').format(row.CobroPrestamo);
+                }
+            },
+            {
+                "data": "null",
+                title: "Total Descuentos",
+                "render": function (data, type, row, meta) {
+                    return '<label style="color:black; font-weight:none">$ ' + new Intl.NumberFormat('en-US').format(row.TotalDescuentos) + '</label>';
+                }
+            },
+            {
+                "data": "null",
+                title: "Total a Pagar",
+                "render": function (data, type, row, meta) {
+                    return '<label style="color:black; font-weight:bold">$ ' + new Intl.NumberFormat('en-US').format(row.TotalPagar)+'</label>';
+                }
+            },
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
+            //{
+            //    title: "",
+            //    data: null,
+            //    defaultContent:
+            //        '<a class="EditarNominaEmpleado btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
+            //    orderable: false,
+            //},
             {
                 title: "",
-                data: null,
-                defaultContent:
-                    '<a class="EditarNominaEmpleado btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
-                orderable: false,
+                data: "Estado",
+                "render": function (data, type, row) {
+                    if (row.IdEstado !== 1) {
+                        return '<button class="btn btn-eliminar-dt" title="Eliminar Registro" disabled><i class="bi-trash-fill"></i></button>';
+                    }
+                    else {
+                        return '<a class="EliminarNominaEmpleado btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>';
+                    }
+                }
+
             },
-            {
-                title: "",
-                data: null,
-                defaultContent:
-                    '<a class="EliminarNominaEmpleado btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>',
-                orderable: false,
-            },
+
         ],
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.11.2/i18n/es_es.json"
@@ -336,4 +444,46 @@ function GridNominaEmpleado() {
         let data = datatable.row($(this).parents()).data();
         EliminarNominaEmpleado(data.Id);
     })
+
+    $('#gridNominaEmpleado').on('click', '.PagarNominaEmpleado', function () {
+        let data = datatable.row($(this).parents()).data();
+        PagarNominaEmpleado(data.Id);
+    })
+
+}
+
+
+function PagarNominaEmpleado(IdNominaEmpleado) {
+    Swal.fire({
+        title: TituloSwal,
+        text: "Esta seguro(a) de cambiar el estado de la Nómina del empleado a Pagada?, No podrás revertir esta acción.!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "green",
+        cancelButtonColor: "#333",
+        confirmButtonText: "Si, pagar!",
+        cancelButtonText: "Cancelar",
+        position: 'top'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/Nomina_Empleado/PagarNominaEmpleado',
+                data: {
+                    IdUser: TokenUser,
+                    IdNominaEmpleado: IdNominaEmpleado,
+                },
+                success: function (resultado) {
+                    valor = resultado.split('*');
+                    if (valor[0] == 'OK') {
+                        VentanaMensajeOK(valor[1]);
+                    } else {
+                        VentanaMensaje(valor[1]);
+                    }
+                },
+            });
+        }
+    });
+   
 }

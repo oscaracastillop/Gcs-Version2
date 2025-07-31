@@ -38,8 +38,9 @@ namespace SistemaGcs.Models
             public string CantHoraEND { get; set; }
             public string ValorHoraEND { get; set; }
             public string TotalHoraEND { get; set; }
-            public string SubTransporte { get; set; }           
-            public string Bonos { get; set; }
+            public string SubTransporte { get; set; }
+            public string DesembolsoPrestamo { get; set; }
+            public string OtrosIngresos { get; set; }
             public string Eps { get; set; }
             public string PorcentajeEps { get; set; }
             public string ValorEPS { get; set; }
@@ -47,11 +48,7 @@ namespace SistemaGcs.Models
             public string PorcentajePension { get; set; }
             public string ValorPension { get; set; }
             public string Casino { get; set; }
-            public string Prestamo { get; set; }
-            public string DiasAcumuladosVacaciones { get; set; }
-            public string ValorVacacionesAcumuladas { get; set; }
-            public string DiasAcumuladosPrima { get; set; }
-            public string ValorPrimaAcumulada { get; set; }
+            public string CobroPrestamo { get; set; }
             public string Banco { get; set; }
             public string NumeroCuenta { get; set; }
             public string TotalIngresos { get; set; }

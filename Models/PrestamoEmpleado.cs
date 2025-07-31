@@ -20,7 +20,8 @@ namespace SistemaGcs.Models
             public string FechaPago { get; set; }
             public string TextoFechaPago { get; set; }
             public int Cuotas { get; set; }
-            public string ComprobanteNomina { get; set; }
+            public string ComprobanteNominaDesembolso { get; set; }
+            public string ComprobanteNominaCobro { get; set; }
             public string Observacion { get; set; }
             public int IdEstado { get; set; }
             public string Estado { get; set; }
