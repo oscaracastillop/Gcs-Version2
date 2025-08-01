@@ -19,6 +19,10 @@ namespace SistemaGcs.Models
             public string DiasPagar { get; set; }
             public string Sueldo { get; set; }
             public string SubTransporte { get; set; }
+            public string ValorTotalHED { get; set; }
+            public string ValorTotalHEN { get; set; }
+            public string ValorTotalHEDDF { get; set; }
+            public string ValorTotalHENDF { get; set; }
             public string TotalHE { get; set; }
             public string DesembolsoPrestamo { get; set; } 
             public string OtrosIngresos { get; set; }            

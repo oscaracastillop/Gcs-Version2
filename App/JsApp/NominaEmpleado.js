@@ -337,6 +337,7 @@ function GridNominaEmpleado() {
                 }
 
             },
+
             {
                 title: "Estado",
                 data: "Estado",
@@ -353,6 +354,16 @@ function GridNominaEmpleado() {
                 }
 
             },
+
+            {
+                title: "",
+                data: "",
+                "render": function (data, type, row) {
+                    return '<button class="btn btn-sm btn-pagar PdfNominaEmpleadot">pdf</button>';
+                }
+            },
+
+
             { "data": "Empleado", title: "Empleado", width: 'auto' },
             { "data": "Empresa", title: "Empresa", width: 'auto' },
             {
@@ -486,6 +497,13 @@ function GridNominaEmpleado() {
                 }
 
             },
+            {
+                title: "",
+                data: "Id",
+                "render": function (data, type, row) {
+                    return '<button class="btn btn-sm btn-primary" onclick="descargarComprobanteNomina(' + row.Id + ')">PDF</button>';
+                }
+            },
 
         ],
         "language": {
@@ -512,6 +530,11 @@ function GridNominaEmpleado() {
     $('#gridNominaEmpleado').on('click', '.PagarNominaEmpleado', function () {
         let data = datatable.row($(this).parents()).data();
         PagarNominaEmpleado(data.Id);
+    })
+
+    $('#gridNominaEmpleado').on('click', '.PdfNominaEmpleadot', function () {
+        let data = datatable.row($(this).parents()).data();
+        PdfNominaEmpleado(data.Id);
     })
 
 }
@@ -550,4 +573,21 @@ function PagarNominaEmpleado(IdNominaEmpleado) {
         }
     });
    
+}
+
+function PdfNominaEmpleado(IdNominaEmpleado) { 
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '/Nomina_Empleado/GenerarPdfEjemplo',
+        data: {
+            IdUser: TokenUser,
+            IdNominaEmpleado: IdNominaEmpleado,
+        },
+        contentType: "application/json; charset=utf-8",
+    });
+}
+
+function descargarComprobanteNomina(id) {
+    window.open('/Nomina_Empleado/DescargarComprobanteNomina?id=' + id, '_blank');
 }
