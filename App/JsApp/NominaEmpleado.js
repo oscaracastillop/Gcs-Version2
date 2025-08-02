@@ -337,7 +337,13 @@ function GridNominaEmpleado() {
                 }
 
             },
-
+            {
+                title: "",
+                data: "",
+                "render": function (data, type, row) {
+                    return '<button class="btn btn-sm btn-pdf-comprobantenomina" onclick="descargarComprobanteNomina(' + row.Id + ')">PDF</button>';
+                }
+            },
             {
                 title: "Estado",
                 data: "Estado",
@@ -353,17 +359,7 @@ function GridNominaEmpleado() {
                     } 
                 }
 
-            },
-
-            {
-                title: "",
-                data: "",
-                "render": function (data, type, row) {
-                    return '<button class="btn btn-sm btn-pdf-comprobantenomina" onclick="descargarComprobanteNomina(' + row.Id + ')">PDF</button>';
-                }
-            },
-
-
+            },      
             { "data": "Empleado", title: "Empleado", width: 'auto' },
             { "data": "Empresa", title: "Empresa", width: 'auto' },
             {
