@@ -97,7 +97,7 @@
 }
 
 .btn-pagar {
-    background-color: orangered !important;
+    background-color: blue !important;
     color: white !important;
     padding-top: 0px !important;
     padding-bottom: 0px !important;
@@ -106,6 +106,13 @@
 .btn-pdf-datatable {
     background-color: none !important;
     color: black !important;
+}
+
+.btn-pdf-comprobantenomina {
+    background-color: red !important;
+    color: white !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
 }
 
 .btnSubMenu {

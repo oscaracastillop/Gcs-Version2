@@ -359,7 +359,7 @@ function GridNominaEmpleado() {
                 title: "",
                 data: "",
                 "render": function (data, type, row) {
-                    return '<button class="btn btn-sm btn-pagar PdfNominaEmpleadot">pdf</button>';
+                    return '<button class="btn btn-sm btn-pdf-comprobantenomina" onclick="descargarComprobanteNomina(' + row.Id + ')">PDF</button>';
                 }
             },
 
@@ -497,14 +497,6 @@ function GridNominaEmpleado() {
                 }
 
             },
-            {
-                title: "",
-                data: "Id",
-                "render": function (data, type, row) {
-                    return '<button class="btn btn-sm btn-primary" onclick="descargarComprobanteNomina(' + row.Id + ')">PDF</button>';
-                }
-            },
-
         ],
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.11.2/i18n/es_es.json"

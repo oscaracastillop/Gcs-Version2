@@ -5034,15 +5034,18 @@ SELECT	A.Id,
 			CASE A.FechaFin
 			WHEN '1900-01-01 00:00:00.000' THEN '0000-00-00'
 			ELSE CONVERT(varchar(255),A.FechaFin,23)
-			END as FechaFin,			
+			END as FechaFin,	
+			
 			CASE A.FechaFin
 			WHEN '1900-01-01 00:00:00.000' THEN 'Por Definir'
 			ELSE CONVERT(varchar(255), DATEPART(DAY, A.FechaFin))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, A.FechaFin))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, A.FechaFin))						
 			END as TextoFechaFin,
+
 			CASE A.FechaFin
 			WHEN '1900-01-01 00:00:00.000' THEN CONVERT(varchar(255),DATEDIFF(DAY,A.FechaInicio,GETDATE())+1) + ' Día(s)'
 			ELSE CONVERT(varchar(255),DATEDIFF(DAY,A.FechaInicio,A.FechaFin)+1) + ' Día(s)'
-			END AS Permanencia,			
+			END AS Permanencia,	
+			
 			A.Observacion,
 			A.IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,
@@ -5620,6 +5623,39 @@ END
 
 GO
 
+CREATE FUNCTION [dbo].[Fun_BuscarConceptosOtrosIngresos](@IdEmpleado INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+
+DECLARE @CANT INT, @CONCEPTO VARCHAR(MAX), @CADENA VARCHAR(MAX) = '', @CONT INT = 1
+
+DECLARE @ConceptosOtrosIngresos AS TABLE 
+(Id INT IDENTITY PRIMARY KEY,
+ Concepto VARCHAR(MAX), Valor INT)
+ 
+ INSERT INTO @ConceptosOtrosIngresos
+         (Concepto, Valor)
+SELECT	Observacion, Valor
+FROM	OtrosIngresosEmpleado
+WHERE	IdEstado = 1 AND
+		IdEmpleado = @IdEmpleado
+
+SELECT @CANT = COUNT(1) FROM OtrosIngresosEmpleado WHERE	IdEstado = 1 AND IdEmpleado = 4
+
+WHILE @CONT <= @CANT
+	BEGIN
+		SELECT @CONCEPTO = Concepto +'  $'+ CONVERT(VARCHAR(255),Valor) FROM @ConceptosOtrosIngresos WHERE Id = @CONT
+		SET @CADENA =@CONCEPTO + ' '+ ' '+ ' ' + ' '+ ' '+ ' ' + @CADENA
+		SET @CONT = @CONT + 1
+	END
+
+
+	RETURN @CADENA
+END
+
+GO
+
+
 /* OTROS DESCUENTOS EMPLEADO */
 
 
@@ -5780,6 +5816,39 @@ FROM	OtrosDescuentosEmpleado A,
 WHERE	A.IdSucursal = C.Id AND
 		B.Id = C.IdEmpresa
 		ORDER BY Id Desc
+END
+
+GO
+
+
+CREATE FUNCTION [dbo].[Fun_BuscarConceptosOtrosDescuentos](@IdEmpleado INT)
+RETURNS VARCHAR(255)
+AS BEGIN
+
+DECLARE @CANT INT, @CONCEPTO VARCHAR(MAX), @CADENA VARCHAR(MAX) = '', @CONT INT = 1
+
+DECLARE @ConceptosOtrosDescuentos AS TABLE 
+(Id INT IDENTITY PRIMARY KEY,
+ Concepto VARCHAR(MAX), Valor INT)
+ 
+ INSERT INTO @ConceptosOtrosDescuentos
+         (Concepto, Valor)
+SELECT	Observacion, Valor
+FROM	OtrosDescuentosEmpleado
+WHERE	IdEstado = 1 AND
+		IdEmpleado = @IdEmpleado
+
+SELECT @CANT = COUNT(1) FROM OtrosDescuentosEmpleado WHERE	IdEstado = 1 AND IdEmpleado = 4
+
+WHILE @CONT <= @CANT
+	BEGIN
+		SELECT @CONCEPTO = Concepto +'  $'+ CONVERT(VARCHAR(255),Valor) FROM @ConceptosOtrosDescuentos WHERE Id = @CONT
+		SET @CADENA =@CONCEPTO + ' '+ ' '+ ' ' + ' '+ ' '+ ' ' + @CADENA
+		SET @CONT = @CONT + 1
+	END
+
+
+	RETURN @CADENA
 END
 
 GO
@@ -6898,6 +6967,7 @@ TotalCantHE DECIMAL(10,2),
 TotalHE DECIMAL(10,2),
 DesembolsoPrestamo DECIMAL(10,2), 
 OtrosIngresos DECIMAL(10,2), 
+ConceptoOtrosIngresos VARCHAR(MAX),
 TotalIngresos DECIMAL(10,2),
 PorcentajeEps INT,
 Eps DECIMAL(10,2),
@@ -6906,6 +6976,7 @@ Pension DECIMAL(10,2),
 Casino DECIMAL(10,2), 
 CobroPrestamo DECIMAL(10,2), 
 OtrosDescuentos DECIMAL(10,2),
+ConceptoOtrosDescuentos VARCHAR(MAX),
 TotalDescuentos DECIMAL(10,2), 
 TotalaPagar DECIMAL(10,2),
 IdEstado INT DEFAULT 1,
@@ -6945,6 +7016,8 @@ DECLARE
 @Pension DECIMAL(10,2),
 @OtrosIngresos DECIMAL(10,2), 
 @OtrosDescuentos DECIMAL(10,2), 
+@ConceptoOtrosIngresos VARCHAR(MAX), 
+@ConceptoOtrosDescuentos VARCHAR(MAX), 
 @Casino DECIMAL(10,2), 
 @DesembolsoPrestamo DECIMAL(10,2), 
 @CobroPrestamo DECIMAL(10,2), 
@@ -7017,7 +7090,9 @@ SELECT @TotalHE = @ValorTotalHED + @ValorTotalHEN + @ValorTotalHEDDF + @ValorTot
 SET @Sueldo = (@SalarioMensual/30)*@DiasaPagar
 SELECT @SubTransporte = (SubTransporte/30)*@DiasaPagar FROM ContratoLaboral where Id = @IdContratoLaboral
 SELECT @OtrosIngresos = ISNULL(SUM(Valor),0) FROM OtrosIngresosEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
+SELECT @ConceptoOtrosIngresos = ISNULL(dbo.Fun_BuscarConceptosOtrosIngresos(@IdEmpleado),'')
 SELECT @OtrosDescuentos = ISNULL(SUM(Valor),0) FROM OtrosDescuentosEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaCobro BETWEEN @FechaInicio AND @FechaFin
+SELECT @ConceptoOtrosDescuentos = ISNULL(dbo.Fun_BuscarConceptosOtrosDescuentos(@IdEmpleado),'')
 SELECT @DesembolsoPrestamo = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPrestamo BETWEEN @FechaInicio AND @FechaFin
 
 
@@ -7026,7 +7101,7 @@ SELECT @DesembolsoPrestamo = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE	Id
 /* DESCUENTOS */
 SET @Eps = ISNULL(((@SalarioMensual*@PorcentajeEps/100)/30)*@DiasaPagar,0)
 SET @Pension = ISNULL(((@SalarioMensual*@PorcentajePension/100)/30)*@DiasaPagar,0)
-SELECT @CobroPrestamo = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE IdEstado = 3 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
+SELECT @CobroPrestamo = ISNULL(SUM(Valor),0) FROM PrestamoEmpleado WHERE	IdEstado = 3 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
 SELECT @Casino = ISNULL(SUM(Valor),0) FROM CasinoEmpleado WHERE IdEstado = 1 AND IdEmpleado = @IdEmpleado AND FechaPago BETWEEN @FechaInicio AND @FechaFin
 
 /* TOTALES */
@@ -7050,13 +7125,13 @@ IF @Permiso > 0
 				INSERT INTO NominaEmpleado
 				(IdEmpleado, IdContratoLaboral, IdSucursal, FechaInicioCorte, FechaFinCorte, DiasaPagar, SalarioMensual, Sueldo, SubTransporteMes, SubTransporte, HorasDefinidasxMes,
 				ValorHoraOrdinaria, PorcentajeHED, ValorHED, CantHED, ValorTotalHED, PorcentajeHEN, ValorHEN, CantHEN, ValorTotalHEN, PorcentajeHEDDF, ValorHEDDF,
-				CantHEDDF, ValorTotalHEDDF, PorcentajeHENDF, ValorHENDF, CantHENDF, ValorTotalHENDF, TotalCantHE, TotalHE, DesembolsoPrestamo, OtrosIngresos, TotalIngresos,
-				PorcentajeEps, Eps, PorcentajePension, Pension, Casino, CobroPrestamo, OtrosDescuentos, TotalDescuentos, TotalaPagar, CreateBy, DateCreate) 
+				CantHEDDF, ValorTotalHEDDF, PorcentajeHENDF, ValorHENDF, CantHENDF, ValorTotalHENDF, TotalCantHE, TotalHE, DesembolsoPrestamo, OtrosIngresos, ConceptoOtrosIngresos, TotalIngresos,
+				PorcentajeEps, Eps, PorcentajePension, Pension, Casino, CobroPrestamo, OtrosDescuentos, ConceptoOtrosDescuentos,  TotalDescuentos, TotalaPagar, CreateBy, DateCreate) 
 				VALUES 
 				(@IdEmpleado,  @IdContratoLaboral, @IdSucursal, @FechaInicio, @FechaFin, @DiasaPagar, @SalarioMensual, @Sueldo, @SubTransporteMes, @SubTransporte, @HorasDefinidasxMes,
 				@ValorHoraOrdinaria, @PorcentajeHED, @ValorHED, @CantHED, @ValorTotalHED, @PorcentajeHEN, @ValorHEN, @CantHEN, @ValorTotalHEN, @PorcentajeHEDDF, @ValorHEDDF,
-				@CantHEDDF, @ValorTotalHEDDF, @PorcentajeHENDF, @ValorHENDF, @CantHENDF, @ValorTotalHENDF, @TotalCantHE, @TotalHE, @DesembolsoPrestamo, @OtrosIngresos, @TotalIngresos,
-				@PorcentajeEps, @Eps, @PorcentajePension, @Pension, @Casino, @CobroPrestamo, @OtrosDescuentos, @TotalDescuentos, @TotalaPagar, @IdUsuario, GETDATE()) 
+				@CantHEDDF, @ValorTotalHEDDF, @PorcentajeHENDF, @ValorHENDF, @CantHENDF, @ValorTotalHENDF, @TotalCantHE, @TotalHE, @DesembolsoPrestamo, @OtrosIngresos, @ConceptoOtrosIngresos, @TotalIngresos,
+				@PorcentajeEps, @Eps, @PorcentajePension, @Pension, @Casino, @CobroPrestamo, @OtrosDescuentos, @ConceptoOtrosDescuentos, @TotalDescuentos, @TotalaPagar, @IdUsuario, GETDATE()) 
 
 				SET @Resultado = 'OK*Los datos se crearon correctamente'
 			END		
@@ -7299,6 +7374,78 @@ BEGIN
 END
 
 GO
+
+CREATE PROCEDURE [dbo].[SP_DatosComprobanteNomina] @Id INT
+AS
+BEGIN
+DECLARE @IdCargo INT
+	SELECT	A.Id, 
+			dbo.Fun_BuscarNombreEmpleado(A.IdEmpleado) As Empleado, 
+			dbo.fun_buscarNombretipodocumento(E.IdTipoDocumento) + ' ' + E.Identificacion As Identificacion,
+			dbo.Fun_BuscarNombreCargo(D.IdCargo) As Cargo, 
+			dbo.Fun_BuscarNombreTipoContrato(D.IdTipoContrato) As TipoContrato,
+			CONVERT(varchar(255),D.FechaInicio,23) As FechaIngreso,
+			CASE D.FechaFin
+			WHEN '1900-01-01 00:00:00.000' THEN CONVERT(varchar(255),DATEDIFF(DAY,D.FechaInicio,GETDATE())+1) + ' Día(s)'
+			ELSE CONVERT(varchar(255),DATEDIFF(DAY,D.FechaInicio,D.FechaFin)+1) + ' Día(s)'
+			END AS Permanencia,	
+
+			B.Nombre As Empresa,
+			C.Nombre As Sucursal,
+			dbo.Fun_BuscarNombreTipoDocumento(B.IdTipoDocumento) + ': ' + B.Identificacion + ' / Telefono: ' + B.Celular + ' / Correo: ' + B.Email As InfoEmpresa,
+			B.Logo As Logo,
+			CONVERT(varchar(255),A.SalarioMensual) As SalarioMensual,
+			CONVERT(varchar(255),A.SubTransporteMes) As SubTransporteMes,
+			CONVERT(varchar(255),A.FechaInicioCorte,105)+ ' al ' + CONVERT(varchar(255),A.FechaFinCorte,105) As PeriodoLiquidado,
+			CONVERT(varchar(255),A.DiasaPagar) As DiasPagar,
+			CONVERT(varchar(255),A.Sueldo) As Sueldo,			
+			CONVERT(varchar(255),A.SubTransporte) As SubTransporte,	
+			CONVERT(varchar(255),A.CantHED) As CantHED,
+			CONVERT(varchar(255),A.ValorHED) As ValorHED,
+			CONVERT(varchar(255),A.ValorTotalHED) As ValorTotalHED,
+			CONVERT(varchar(255),A.CantHEN) As CantHEN,
+			CONVERT(varchar(255),A.ValorHEN) As ValorHEN,
+			CONVERT(varchar(255),A.ValorTotalHEN) As ValorTotalHEN,
+			CONVERT(varchar(255),A.CantHEDDF) As CantHEDDF,
+			CONVERT(varchar(255),A.ValorHEDDF) As ValorHEDDF,			
+			CONVERT(varchar(255),A.ValorTotalHEDDF) As ValorTotalHEDDF,
+			CONVERT(varchar(255),A.CantHENDF) As CantHENDF,
+			CONVERT(varchar(255),A.ValorHENDF) As ValorHENDF,
+			CONVERT(varchar(255),A.ValorTotalHENDF) As ValorTotalHENDF,
+			CONVERT(varchar(255),A.TotalHE) As TotalHE,
+			CONVERT(varchar(255),A.DesembolsoPrestamo) As DesembolsoPrestamo,
+			CONVERT(varchar(255),A.OtrosIngresos) As OtrosIngresos,
+			CONVERT(varchar(255),A.TotalIngresos) As TotalIngresos,
+			CONVERT(varchar(255),A.Eps) As Eps,
+			CONVERT(varchar(255),A.PorcentajeEps) As PorcentajeEps,
+			CONVERT(varchar(255),A.Pension) As Pension,
+			CONVERT(varchar(255),A.PorcentajePension) As PorcentajePension,
+			CONVERT(varchar(255),A.Casino) As Casino,
+			CONVERT(varchar(255),A.CobroPrestamo) As CobroPrestamo,
+			CONVERT(varchar(255),A.OtrosDescuentos) As OtrosDescuentos,
+			CONVERT(varchar(255),A.TotalDescuentos) As TotalDescuentos,
+			CONVERT(varchar(255),A.TotalaPagar) As TotalPagar,
+			ConceptoOtrosIngresos As ConceptoIngresosAdicionales,
+			ConceptoOtrosDescuentos As ConceptoDescuentosAdicionales,
+			A.IdEstado,
+			dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,			
+			dbo.Fun_BuscarNombreUsuario(A.CreateBy) As CreateBy,
+			CONVERT(varchar(255),A.DateCreate,105)+ ' ' + CONVERT(varchar(255),A.DateCreate,8) As DateCreate
+			FROM NominaEmpleado A,
+			Empresa B,
+			Sucursal C,
+			ContratoLaboral D,
+			Empleado E
+			WHERE A.IdSucursal = C.Id AND
+			C.IdEmpresa = B.Id AND @Id = A.Id AND
+			D.IdEmpleado = A.IdEmpleado AND
+			E.Id = A.IdEmpleado
+			ORDER BY Id Desc
+END
+
+GO
+
+/* TABLA HORA EXTRA*/
 
 CREATE TABLE HoraExtraEmpleado 
 (Id int identity(1,1) Primary key ,
