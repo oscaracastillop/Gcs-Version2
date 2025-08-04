@@ -3,8 +3,6 @@ using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using System.Globalization;
-using System.Net.NetworkInformation;
-using System.Security.Cryptography;
 using System.Web.Mvc;
 
 
@@ -80,7 +78,7 @@ namespace App.Controllers
                     {
                         row.RelativeItem().Height(80).Image(logoBytes).FitHeight();
                         row.RelativeItem().AlignMiddle().Text($"Comprobante de Nómina - # {d.Id}")
-                        .FontFamily("Lato").AlignRight().FontSize(10);    
+                        .FontFamily("Lato").AlignRight().FontSize(10);
                         //.FontFamily("Lato").SemiBold().AlignRight().FontSize(10).FontColor(Colors.Blue.Darken1);
                     });
 
@@ -154,7 +152,7 @@ namespace App.Controllers
                             row.RelativeItem().Text(d.Sucursal).FontSize(9);
                             row.ConstantItem(20).PaddingHorizontal(5);
                             row.RelativeItem().Text("Eps:").SemiBold().FontSize(9);
-                            row.RelativeItem().Text(d.NombreEps).FontSize(9);                            
+                            row.RelativeItem().Text(d.NombreEps).FontSize(9);
                         });
 
                         col.Item().Row(row =>
@@ -166,16 +164,7 @@ namespace App.Controllers
                             row.RelativeItem().Text(d.NombreFondoPension).FontSize(9);
                         });
 
-                        //col.Item().Row(row =>
-                        //{                              
-                        //    row.RelativeItem().Text("Estado Comprobante Nómina:").SemiBold().FontSize(9);
-                        //    row.RelativeItem().Text(d.Estado).FontSize(9);
-                        //    row.ConstantItem(20).PaddingHorizontal(5);
-                        //    row.RelativeItem().Text("").SemiBold().FontSize(9);
-                        //    row.RelativeItem().Text("").FontSize(9);
-                        //});
 
-                       
                         col.Item().Text($"");
 
                         // Ejemplo: insertar una línea horizontal para separar secciones
@@ -187,7 +176,7 @@ namespace App.Controllers
                             // Ingresos: conceptos y valores
                             row.RelativeItem().Column(ing =>
                             {
-                                ing.Item().Text("INGRESOS").SemiBold().FontSize(13).AlignCenter();
+                                ing.Item().Text("INGRESOS").SemiBold().FontSize(10).AlignCenter();
                                 ing.Item().Text("");
                                 ing.Item().LineHorizontal(1).LineColor(Colors.Black);
                                 ing.Item().Text("").SemiBold();
@@ -271,7 +260,7 @@ namespace App.Controllers
                             // Descuentos: conceptos y valores
                             row.RelativeItem().Column(desc =>
                             {
-                                desc.Item().Text("DESCUENTOS").SemiBold().FontSize(13).AlignCenter();
+                                desc.Item().Text("DESCUENTOS").SemiBold().FontSize(10).AlignCenter();
                                 desc.Item().Text("").SemiBold();
                                 desc.Item().LineHorizontal(1).LineColor(Colors.Black);
                                 desc.Item().Text("").SemiBold();
@@ -337,7 +326,7 @@ namespace App.Controllers
                         col.Item().PaddingTop(2).Text($"* OTROS INGRESOS: {d.ConceptoIngresosAdicionales}").FontSize(6).Justify();
                         col.Item().PaddingTop(2).Text($"** OTROS DESCUENTOS: {d.ConceptoDescuentosAdicionales}").FontSize(6).Justify();
 
-                        col.Item().PaddingTop(80).Row(r => {r.RelativeItem().AlignCenter().Text("Firma Empleado").SemiBold(); r.RelativeItem().AlignCenter().Text($"Firma o Sello Empresa").SemiBold();});
+                        col.Item().PaddingTop(80).Row(r => { r.RelativeItem().AlignCenter().Text("Firma Empleado").SemiBold(); r.RelativeItem().AlignCenter().Text($"Firma o Sello Empresa").SemiBold(); });
                         col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text($"{d.Empleado}").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"{d.Empresa}").SemiBold().FontSize(8); });
 
                         //col.Item().PaddingTop(10).Text("Comprobante de Nómina generado con Sofia Software Administrativo V 1.0").FontSize(6);
