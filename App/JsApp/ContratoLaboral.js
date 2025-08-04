@@ -397,7 +397,14 @@ function GridCLE() {
             "type": "GET",
             "datatype": "json"
         },
-        columns: [   
+        columns: [  
+            {
+                title: "",
+                data: "",
+                "render": function (data, type, row) {
+                    return '<button class="btn btn-sm btn-pdf-comprobantenomina" onclick="descargarContratoLaboral(' + row.Id + ')">PDF</button>';
+                }
+            },
             {
                 title: "Estado",
                 data: "Estado",
@@ -547,4 +554,8 @@ function CargarDatosCLE(IdEmpleado){
 }
 
 
+
+function descargarContratoLaboral(id) {
+    window.open('/Contrato_Laboral/DescargarContratoLaboral?id=' + id, '_blank');
+}
 

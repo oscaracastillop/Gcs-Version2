@@ -71,7 +71,9 @@ CREATE UNIQUE INDEX RegistroUnicoTipoContrato on TipoContrato (Nombre)
 
 GO
 
-INSERT INTO TipoContrato (Nombre) VALUES ('Contrato Fijo')
+INSERT INTO TipoContrato (Nombre) VALUES ('Contrato Fijo 3 Meses')
+INSERT INTO TipoContrato (Nombre) VALUES ('Contrato Fijo 6 Meses')
+INSERT INTO TipoContrato (Nombre) VALUES ('Contrato Fijo 1 Año')
 INSERT INTO TipoContrato (Nombre) VALUES ('Contrato Indefinido')
 INSERT INTO TipoContrato (Nombre) VALUES ('Contrato x Obra Labor')
 INSERT INTO TipoContrato (Nombre) VALUES ('Contrato x Destajo')
@@ -82,7 +84,7 @@ GO
 CREATE PROCEDURE [dbo].[SP_ListaTipoContrato]
 AS
 BEGIN
-	SELECT Id, Nombre FROM TipoContrato ORDER BY Nombre ASC						
+	SELECT Id, Nombre FROM TipoContrato ORDER BY Id ASC						
 END
 
 GO
@@ -4799,7 +4801,7 @@ IdEmpleado int,
 IdEmpresa int,
 IdCargo int,
 IdTipoContrato int,
-SalarioMensual int,
+SalarioMensual INT,
 FechaInicio DATE,
 FechaFin DATE,
 IdEps INT,
@@ -5091,6 +5093,32 @@ BEGIN
 END
 
 GO	
+
+CREATE PROCEDURE [dbo].[SP_DatosContratoLaboral] @Id INT
+AS
+BEGIN
+
+	SELECT	A.Id,
+			C.Nombre As Empresa,
+			dbo.Fun_BuscarNombreTipoDocumento(C.IdTipoDocumento) + ': ' + C.Identificacion + ' / Telefono: ' + C.Celular + ' / Correo: ' + C.Email As InfoEmpresa,
+			B.Nombre +' '+ B.Apellidos As Empleado,
+			dbo.fun_buscarNombretipodocumento(B.IdTipoDocumento) + ' ' + B.Identificacion As Identificacion,
+			dbo.Fun_BuscarNombreCargo(A.IdCargo) As Cargo, 
+			CONVERT(varchar(255),A.SalarioMensual) As SalarioMensual,
+			dbo.Fun_BuscarNombreTipoContrato(A.IdTipoContrato) As TipoContrato,
+			CONVERT(varchar(255),A.FechaInicio,23) As FechaIngreso,
+			C.Logo As Logo
+			
+	FROM	ContratoLaboral A,
+			Empleado B,
+			Empresa C
+	WHERE   A.IdEmpleado = B.Id AND
+			A.IdEmpresa = C.Id AND
+			A.Id = @Id
+	ORDER BY Id Desc
+END
+
+GO
 
 /* SUCURSAL EMPLEADO */
 

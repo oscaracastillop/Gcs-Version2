@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using static SistemaGcs.Models.ContratoLaboral;
+using static SistemaGcs.Models.NominaEmpleado;
 
 namespace Data.DataEntities
 {
@@ -220,6 +221,20 @@ namespace Data.DataEntities
                 throw ex;
             }
         }
+
+        public List<DatosContratoLaboral> DatosContratoLaboral(int Id)
+        {
+            try
+            {
+                var response = _conection.Database.SqlQuery<DatosContratoLaboral>("SP_DatosContratoLaboral @Id", new SqlParameter("@Id", Id)).ToList();
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
     }
 }

@@ -43,5 +43,39 @@
             public string Nombre { get; set; }
         }
 
+        public class DatosContratoLaboral
+        {
+            public int Id { get; set; }
+            public string Empleado { get; set; }
+            public string TipoDocumentoEmpleado { get; set; }
+            public string IdentificacionEmpleado { get; set; }
+            public string CiudadExpedicionDocumentoEmpleado { get; set; }
+            public string CiudadEmpleado { get; set; }
+            public string TipoContrato { get; set; }
+            public string FechaIngreso { get; set; }
+            public string Empresa { get; set; }
+            public string TipoDocumentoEmpresa { get; set; }
+            public string IdentificacionEmpresa { get; set; }
+            public string InfoEmpresa { get; set; }
+            public string CiudadEmpresa { get; set; }
+            public string Logo { get; set; }
+            public string RLEmpresa { get; set; }
+            public string TipoDocumentoRLEmpresa { get; set; }
+            public string IdentificacionRLEmpresa { get; set; }
+            public string CiudadExpedicionDocumentoRLEmpresa { get; set; }
+            public string Cargo { get; set; }
+            public string Contrato { get; set; }
+            public string SalarioMensual { get; set; }
+            public string FechaInicio { get; set; }
+            public string FechaFin { get; set; }
+            public string TextoFechaFin { get; set; }
+            public string Permanencia { get; set; }
+            public string Observacion { get; set; }
+            public string Estado { get; set; }           
+            public string Imagen { get; set; }
+            public string NumeroCuenta { get; set; }
+            public decimal SubTransporte { get; set; }
+
+        }
     }
 }
