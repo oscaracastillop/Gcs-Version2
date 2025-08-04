@@ -5100,9 +5100,25 @@ BEGIN
 
 	SELECT	A.Id,
 			C.Nombre As Empresa,
+			CASE C.Contacto
+			WHEN '' THEN 'xxxxxxxxxx'
+			ELSE ISNULL(C.Contacto, 'xxxxxxxxxx')
+			END AS RLEmpresa,
+			'xxxxxxxxxx' AS TipoDocumentoRLEmpresa,
+			'xxxxxxxxxx' AS IdentificacionRLEmpresa,
+			'xxxxxxxxxx' AS CiudadExpedicionDocumentoRLEmpresa,
+
+
+
+			dbo.Fun_BuscarNombreTipoDocumento(C.IdTipoDocumento) As TipoDocumentoEmpresa,
+			C.Identificacion As IdentificacionEmpresa,
+			C.Direccion + ' ' + dbo.Fun_BuscarNombreCiudad(C.IdCiudad) As CiudadEmpresa,
 			dbo.Fun_BuscarNombreTipoDocumento(C.IdTipoDocumento) + ': ' + C.Identificacion + ' / Telefono: ' + C.Celular + ' / Correo: ' + C.Email As InfoEmpresa,
 			B.Nombre +' '+ B.Apellidos As Empleado,
-			dbo.fun_buscarNombretipodocumento(B.IdTipoDocumento) + ' ' + B.Identificacion As Identificacion,
+			dbo.fun_buscarNombretipodocumento(B.IdTipoDocumento) As TipoDocumentoEmpleado,
+			B.Identificacion As IdentificacionEmpleado,
+			'xxxxxxxxxx' AS CiudadExpedicionDocumentoEmpleado,
+			'xxxxxxxxxx' As CiudadEmpleado,
 			dbo.Fun_BuscarNombreCargo(A.IdCargo) As Cargo, 
 			CONVERT(varchar(255),A.SalarioMensual) As SalarioMensual,
 			dbo.Fun_BuscarNombreTipoContrato(A.IdTipoContrato) As TipoContrato,
