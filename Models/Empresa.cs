@@ -13,6 +13,10 @@
             public string Telefono { get; set; }
             public string Celular { get; set; }
             public string Contacto { get; set; }
+            public int IdTipoDocumentoRL { get; set; }
+            public string TipoDocumentoRL { get; set; }
+            public string IdentificacionRL { get; set; }
+            public string CiudadExpedicion { get; set; }
             public string Direccion { get; set; }
             public string Ciudad { get; set; }
             public int IdCiudad { get; set; }

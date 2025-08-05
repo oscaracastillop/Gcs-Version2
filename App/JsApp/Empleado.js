@@ -5,6 +5,7 @@
     $("#InputApellidosEmpleado").empty().val('');
     $("#SelectTipoDocumento").val(-1);
     $("#InputIdentificacionEmpleado").empty().val('');
+    $("#InputCiudadExpedicionEmpleado").empty().val('');
     $("#BotonesModalEmpleado").empty();
     if (tipo == 'C') {
         $("#ContenedorImagenHVEmpleado").hide();
@@ -27,6 +28,7 @@ function CrearEmpleado() {
     let Apellidos = $('#InputApellidosEmpleado').val();
     let IdTipoDocumento = $('#SelectTipoDocumento').val();
     let Identificacion = $('#InputIdentificacionEmpleado').val();
+    let CiudadExpedicion = $('#InputCiudadExpedicionEmpleado').val();
     if (Nombre == null || Nombre == '' || Nombre == undefined) {
         $('#InputNombreEmpleado').focus();
         VentanaMensaje('Ingrese el Nombre del Empleado');
@@ -39,6 +41,9 @@ function CrearEmpleado() {
     } else if (Identificacion == null || Identificacion == '' || Identificacion == undefined) {
         $('#InputIdentificacionEmpleado').focus();
         VentanaMensaje('Ingrese la Identificación del Empleado');
+    } else if (CiudadExpedicion == null || CiudadExpedicion == '' || CiudadExpedicion == undefined) {
+        $('#InputCiudadExpedicionRL').focus();
+        VentanaMensaje('Ingrese la Ciudad de Expedición del documento de Identificación del Empleado');
     } else {
         $.ajax({
             type: 'POST',
@@ -49,7 +54,8 @@ function CrearEmpleado() {
                 Nombre: Nombre,
                 Apellidos: Apellidos,
                 IdTipoDocumento: IdTipoDocumento,
-                Identificacion: Identificacion
+                Identificacion: Identificacion,
+                CiudadExpedicion: CiudadExpedicion
             },
             success: function (resultado) {
                 valor = resultado.split('*');
@@ -70,6 +76,7 @@ function ActualizarEmpleado() {
     let Apellidos = $('#InputApellidosEmpleado').val();
     let IdTipoDocumento = $('#SelectTipoDocumento').val();
     let Identificacion = $('#InputIdentificacionEmpleado').val();
+    let CiudadExpedicion = $('#InputCiudadExpedicionEmpleado').val();
     let IdEstado = $('#SelectEstado').val();
     if (Nombre == null || Nombre == '' || Nombre == undefined) {
         $('#InputNombreEmpleado').focus();
@@ -83,6 +90,9 @@ function ActualizarEmpleado() {
     } else if (Identificacion == null || Identificacion == '' || Identificacion == undefined) {
         $('#InputIdentificacionEmpleado').focus();
         VentanaMensaje('Ingrese la Identificación del Empleado');
+    } else if (CiudadExpedicion == null || CiudadExpedicion == '' || CiudadExpedicion == undefined) {
+        $('#InputCiudadExpedicionRL').focus();
+        VentanaMensaje('Ingrese la Ciudad de Expedición del documento de Identificación del Empleado');
     } else {
         $.ajax({
             type: 'POST',
@@ -95,6 +105,7 @@ function ActualizarEmpleado() {
                 Apellidos: Apellidos,
                 IdTipoDocumento: IdTipoDocumento,
                 Identificacion: Identificacion,
+                CiudadExpedicion: CiudadExpedicion,
                 IdEstado: IdEstado
             },
             success: function (resultado) {
@@ -205,8 +216,9 @@ function GridEmpleado() {
             { targets: [4], className: 'dt-head-center' },
             { targets: [5], className: 'dt-head-center' },
             { targets: [6], className: 'dt-head-center' },
-            { targets: [7], width: '10px', className: 'dt-center dt-head-center' },
-            { targets: [8], width: '10px', className: 'dt-center dt-head-center' }
+            { targets: [7], className: 'dt-head-center' },
+            { targets: [8], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [9], width: '10px', className: 'dt-center dt-head-center' }
         ],
         buttons: [{
             extend: 'excel', className: 'btn-excel-datatable',
@@ -325,6 +337,7 @@ function GridEmpleado() {
             },
             { "data": "TipoDocumento", title: "Documento", width: 'auto', visible: true },
             { "data": "Identificacion", title: "Identificación", width: 'auto', visible: true },
+            { "data": "CiudadExpedicion", title: "Ciudad Expedición", width: 'auto', visible: true },
             { "data": "CreateBy", title: "Creado Por", width: 'auto' },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto' },            
             {
@@ -361,6 +374,7 @@ function GridEmpleado() {
         $('#InputApellidosEmpleado').val(data.Apellidos);
         $('#SelectTipoDocumento').val(data.IdTipoDocumento);
         $('#InputIdentificacionEmpleado').val(data.Identificacion);
+        $('#InputCiudadExpedicionEmpleado').val(data.CiudadExpedicion);
         $('#SelectEstado').val(data.IdEstado);
     })
 

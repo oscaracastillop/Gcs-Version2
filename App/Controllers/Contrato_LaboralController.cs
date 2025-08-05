@@ -15,6 +15,7 @@ using System.Web.Mvc;
 using System.Web.Razor.Parser.SyntaxTree;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace App.Controllers
 {
@@ -114,7 +115,6 @@ namespace App.Controllers
                                         ? SalarioMensualArregloDecimal.ToString("C0", cultura)
                                         : d.SalarioMensual;
 
-
             var pdfBytes = Document.Create(container =>
             {
                 container.Page(page =>
@@ -126,60 +126,79 @@ namespace App.Controllers
 
                     page.Header().PaddingBottom(10).Row(row =>
                     {
-                        row.RelativeItem().Height(80).Image(logoBytes).FitHeight();
+                        row.RelativeItem().Height(60).Image(logoBytes).FitHeight();
                         row.RelativeItem().AlignMiddle().Text($"Contrato Laboral - # {d.Id}")
-                        .FontFamily("Lato").AlignRight().FontSize(10);
-                        //.FontFamily("Lato").SemiBold().AlignRight().FontSize(10).FontColor(Colors.Blue.Darken1);
+                        .FontFamily("Lato").AlignRight().FontSize(10);                        
                     });
 
                     page.Content().Column(col =>
-                    {
+                    {                                             
 
                         col.Spacing(0);
-
-
-
                         // Datos generales del empleado
                         col.Item().Text($"");
                         col.Item().Text($"{d.Empresa}").FontSize(18).Bold();
                         col.Item().Text($"{d.InfoEmpresa}").FontSize(7);
-                        col.Item().Text($"");
-                        //col.Item().LineHorizontal(1).LineColor(Colors.Black);
-                        col.Item().Text($"");
-                        col.Item().PaddingTop(8).Text($"CONTRATO DE TRABAJO A TERMINO FIJO").AlignCenter().Bold();
-                        col.Item().PaddingTop(5).Text("");
+                        col.Item().PaddingTop(15).Text($"CONTRATO INDIVIDUAL DE TRABAJO").AlignCenter().Bold();
+                        col.Item().PaddingTop(10).Text("DATOS TRABAJADOR").FontSize(10).Bold();
+                        col.Item().PaddingTop(0).Text(text => {
+                            text.Justify();
+                            text.Span($"Nombre Trabajador: ").SemiBold().FontSize(10);
+                            text.Span($"{d.Empleado}").FontSize(10);
+                        });
+                        col.Item().PaddingTop(0).Text(text => {
+                            text.Justify();
+                            text.Span($"Documento:  ").SemiBold().FontSize(10);
+                            text.Span($"{d.TipoDocumentoEmpleado}").FontSize(10);
+                            text.Span($" {d.IdentificacionEmpleado} de {d.CiudadExpedicionDocumentoEmpleado}."). FontSize(10);
+                        });
 
-                        //col.Item().Row(row =>
-                        //{
-                        //    row.RelativeItem().Text("Empleado:").SemiBold().FontSize(9);
-                        //    row.RelativeItem().Text(d.Empleado).FontSize(9);
-                        //    row.ConstantItem(20).PaddingHorizontal(5);
-                        //    row.RelativeItem().Text("Identificación:").SemiBold().FontSize(9);
-                        //    row.RelativeItem().Text(d.Identificacion).FontSize(9);
-                        //});
+                        col.Item().PaddingTop(10).Text("INFORMACIÓN LABORAL").FontSize(10).Bold();   
+                        col.Item().PaddingTop(0).Text(text =>{
+                            text.Justify();
+                            text.Span($"Salario Mensual: ").SemiBold().FontSize(10);
+                            text.Span($"{SalarioMensualArreglo}").FontSize(10);
+                        });
 
-                        //col.Item().Row(row =>
-                        //{
-                        //    row.RelativeItem().Text("Cargo:").SemiBold().FontSize(9);
-                        //    row.RelativeItem().Text(d.Cargo).FontSize(9);
-                        //    row.ConstantItem(20).PaddingHorizontal(5);
-                        //    row.RelativeItem().Text("Tipo de Contrato:").SemiBold().FontSize(9);
-                        //    row.RelativeItem().Text(d.TipoContrato).FontSize(9);
-                        //});
-                        //col.Item().Row(row =>
-                        //{
-                        //    row.RelativeItem().Text("Fecha de Ingreso:").SemiBold().FontSize(9);
-                        //    row.RelativeItem().Text(d.FechaIngreso).FontSize(9);
-                        //    row.ConstantItem(20).PaddingHorizontal(5);
-                        //    row.RelativeItem().Text("Salario Mensual").SemiBold().FontSize(9);
-                        //    row.RelativeItem().Text(SalarioMensualArreglo).FontSize(9);
-                        //});
+                        col.Item().PaddingTop(0).Text(text => {
+                            text.Justify();
+                            text.Span($"Lugar y período de pago: ").SemiBold().FontSize(10);
+                            text.Span($"{d.CiudadEmpresa} - Quincenal.").FontSize(10);
+                        });
 
-                        
-                        // Ejemplo: insertar una línea horizontal para separar secciones
-                        //col.Item().LineHorizontal(1).LineColor(Colors.Black);
-                        //col.Item().Text($"Entre las partes, por un lado {d.RLEmpresa}, domiciliado en la ciudad de {d.CiudadEmpresa}, representante legal de {d.Empresa}, con {d.TipoDocumentoEmpresa} número {d.IdentificacionEmpresa}, quien en adelante y para los efectos del presente contrato se denomina como EL EMPLEADOR, y por el otro, ").Justify().FontSize(10).ParagraphFirstLineIndentation(20); 
-                        col.Item().PaddingTop(5).Text(text => 
+                        col.Item().PaddingTop(0).Text(text => {
+                            text.Justify();
+                            text.Span($"Forma de pago: ").SemiBold().FontSize(10);
+                            text.Span($"Cuenta Ahorros, Billetera Digital (Nequi, Daviplata, Ahorro a la Mano, etc.).").FontSize(10);
+                        });
+
+                        col.Item().PaddingTop(0).Text(text => {
+                            text.Justify();
+                            text.Span($"Cargo a Desempeñar: ").SemiBold().FontSize(10);
+                            text.Span($"{d.Cargo}.").FontSize(10);
+                        });
+
+                        col.Item().PaddingTop(0).Text(text => {
+                            text.Justify();
+                            text.Span($"Fecha de iniciación de labores: ").SemiBold().FontSize(10);
+                            text.Span($"{d.FechaIngreso}").FontSize(10);
+                        });
+
+                        col.Item().PaddingTop(0).Text(text => {
+                            text.Justify();
+                            text.Span($"Lugar de desempeño de labores: ").SemiBold().FontSize(10);
+                            text.Span($"{d.CiudadEmpresa} y/o zonas indicadas por EL EMPLEADOR.").FontSize(10);
+                        });
+
+                        col.Item().PaddingTop(0).Text(text => {
+                            text.Justify();
+                            text.Span($"Ciudad donde ha sido contratado el trabajador: ").SemiBold().FontSize(10);
+                            text.Span($"{d.CiudadEmpresa}").FontSize(10);
+                        });
+
+
+
+                        col.Item().PaddingTop(15).Text(text => 
                         {                            
                             text.Justify();
                             text.ParagraphFirstLineIndentation(20);
@@ -203,8 +222,6 @@ namespace App.Controllers
                             text.Span($"EL EMPLEADOR").Bold().FontSize(10);
                             text.Span($", y por el otro, ").FontSize(10);
                             text.Span($"{d.Empleado}").Bold().FontSize(10);
-                            text.Span($", domiciliado(a) en la ciudad de ").FontSize(10);
-                            text.Span($"{d.CiudadEmpleado}").Bold().FontSize(10);
                             text.Span($" con ").FontSize(10);
                             text.Span($" {d.TipoDocumentoEmpleado}").Bold().FontSize(10);
                             text.Span($", número ").FontSize(10);
@@ -214,7 +231,7 @@ namespace App.Controllers
                             text.Span($", quien en adelante y para los efectos del presente contrato se denomina como ").FontSize(10);
                             text.Span($"EL TRABAJADOR").Bold().FontSize(10);
                             text.Span($", ambos mayores de edad, identificados como aparece al pie de las firmas, hemos acordado suscribir este contrato de trabajo ").FontSize(10);
-                            text.Span($"A TÉRMINO FIJO A DOCE (12) MESES PRORROGABLES").Bold().FontSize(10);
+                            text.Span($" {d.TipoContrato}").SemiBold().FontSize(10);
                             text.Span($", el cual se regirá por las siguientes cláusulas:").FontSize(10);
                         });
 
@@ -229,7 +246,7 @@ namespace App.Controllers
                             text.Span("EL EMPLEADOR").Bold().FontSize(10);
                             text.Span(", desempeñando las funciones propias del cargo ").FontSize(10);
                             text.Span($" {d.Cargo}").Bold().FontSize(10);
-                            text.Span(", comprendidas en el manual de cargo provisto por el ").FontSize(10);
+                            text.Span(", comprendidas en el manual de funciones provisto por el ").FontSize(10);
                             text.Span("EL EMPLEADOR.").Bold().FontSize(10);
                         });
 
@@ -285,7 +302,7 @@ namespace App.Controllers
                             text.Justify();
                             text.Span("4.").SemiBold().FontSize(10);
                             text.Span(" Cumplir los horarios de trabajo establecidos por el ").FontSize(10);
-                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span("EL EMPLEADOR.").Bold().FontSize(10);
                         });
 
                         col.Item().PaddingTop(0).Text(text =>
@@ -424,6 +441,8 @@ namespace App.Controllers
                             text.Span(" Dar al trabajador que lo solicite a la expiración del contrato, una certificación en que conste el tiempo de servicio, la índole de la labor y el salario devengado.").FontSize(10);
                         });
 
+                        //////////////////// QUINTA
+
                         col.Item().PaddingTop(15).Text(text =>
                         {
                             text.Justify();
@@ -467,6 +486,7 @@ namespace App.Controllers
                             text.Span(" Tomar todas las precauciones para garantizar que la información confidencial no sea divulgada ni facilitada a ninguna persona no autorizada.").FontSize(10);
                         });
 
+                        //////////////////// SEXTA
 
                         col.Item().PaddingTop(15).Text(text =>
                         {
@@ -483,7 +503,7 @@ namespace App.Controllers
                             text.Span("1.").SemiBold().FontSize(10);
                             text.Span(" Solicitar préstamos especiales o ayuda económica a los clientes, empleados o proveedores de ").FontSize(10);
                             text.Span("EL EMPLEADOR").Bold().FontSize(10);
-                            text.Span(" aprovechándose de su cargo u oficio o aceptarles donaciones o dádivas de cualquier clase").FontSize(10);
+                            text.Span(" aprovechándose de su cargo u oficio o aceptarles donaciones o dádivas de cualquier clase.").FontSize(10);
                         });
 
                         col.Item().PaddingTop(0).Text(text =>
@@ -502,7 +522,7 @@ namespace App.Controllers
                             text.Justify();
                             text.Span("3.").SemiBold().FontSize(10);
                             text.Span(" Retener dinero o hacer efectivos cheques recibidos para o a nombre de ").FontSize(10);
-                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span("EL EMPLEADOR.").Bold().FontSize(10);
                         });
 
                         col.Item().PaddingTop(0).Text(text =>
@@ -517,7 +537,7 @@ namespace App.Controllers
                             text.Justify();
                             text.Span("5.").SemiBold().FontSize(10);
                             text.Span(" Revelar, difundir, comentar, copiar o realizar un uso diferente para el cual se le dio acceso a la información de naturaleza reservada o utilizarla para el ejercicio de su propia actividad en beneficio propio o de terceros, o duplicarla o compartirla con terceras personas, salvo que exista autorización previa y escrita de ").FontSize(10);
-                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span("EL EMPLEADOR.").Bold().FontSize(10);
                         });
 
                         col.Item().PaddingTop(0).Text(text =>
@@ -577,12 +597,15 @@ namespace App.Controllers
                             text.Span(" Faltarle al respeto a los superiores jerárquicos o compañeros de trabajo.").FontSize(10);
                         });
 
+
+                        //////////////////// SEPTIMA
+                        
                         col.Item().PaddingTop(15).Text(text =>
                         {
                             text.Justify();
                             text.ParagraphFirstLineIndentation(20);
-                            text.Span("SEXTA - SALARIO:").SemiBold().FontSize(10);
-                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span("SEPTIMA - SALARIO:").SemiBold().FontSize(10);
+                            text.Span(" EL EMPLEADOR").Bold().FontSize(10);
                             text.Span(" pagará al ").FontSize(10);
                             text.Span("EL TRABAJADOR:").Bold().FontSize(10);
                             text.Span(" por la prestación de sus servicios el salario indicado, pagadero en el lugar y oportunidades también señaladas arriba. Dentro de este pago se encuentra incluida la remuneración de los descansos dominicales y festivos de que tratan los Capítulos I y II del Título VII del Código Sustantivo del Trabajo, así como los que voluntariamente otorgue ").FontSize(10);
@@ -603,74 +626,389 @@ namespace App.Controllers
                             text.Span(" en sentido contrario.").FontSize(10);
                         });
 
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("Parágrafo 2.").SemiBold().FontSize(10);
+                            text.Span(" Las partes pactan y aceptan a través del presente documento, que el hecho que ").FontSize(10);
+                            text.Span("EL TRABAJADOR ").Bold().FontSize(10);
+                            text.Span(" cumpla las directrices, órdenes e instrucciones impartidas por otra persona natural o jurídica o que preste servicios a favor de la misma por instrucción expresa de ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(", como parte de sus obligaciones laborales, no modifica el salario indicado en la presente cláusula ni lo hace beneficiario o partícipe de cualquier bonificación, beneficio, auxilio, etc., de carácter salarial o no que se otorgue a los trabajadores de la otra persona o empresa, salvo que así se haya pactado expresamente en el presente contrato laboral, en razón a que el cumplimiento de órdenes y la prestación de servicios por parte de ").FontSize(10);
+                            text.Span("EL TRABAJADOR ").Bold().FontSize(10);
+                            text.Span(" a otra persona natural o jurídica no generará beneficios dinerarios o extralegales adicionales a los ya existentes con ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(", toda vez que su contrato de trabajo está pactado única y exclusivamente con ésta sociedad, quien es ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span("  lo cual es reconocido y aceptado por ").FontSize(10);
+                            text.Span("EL TRABAJADOR ").Bold().FontSize(10);
+                            text.Span(" a través del presente documento contractual.").FontSize(10);
+                        });
+
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("Parágrafo 3. Pagos no salariales.").SemiBold().FontSize(10);
+                            text.Span(" Las partes pactan a través del presente documento que cualquier beneficio o auxilio bien sea habitual u ocasional (como por ejemplo alimentación, transporte, alojamiento, vestuario, las primas extralegales de servicios, de vacaciones, de navidad, etc) acordado convencional o contractualmente u otorgado en forma extralegal por ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(", no constituirá salario en dinero o en especie para efectos de liquidación, es decir, podrá excluirse de la base de cómputo para la liquidación de conceptos laborales tales como prestaciones sociales, indemnizaciones, aportes a la seguridad social, etc., de conformidad a lo establecido en el artículo 128 del Código Sustantivo del Trabajo, subrogado por el artículo 15 de la Ley 50 de 1990. \r\n").FontSize(10);                            
+                            text.Span("Adicionalmente, las partes aquí firmantes hacen constar que conocen lo dispuesto en el artículo 128 del CST según el cual no constituyen salario las sumas que ocasionalmente y por mera liberalidad recibe el trabajador del empleador, como primas, bonificaciones o gratificaciones ocasionales, participación de utilidades y lo que recibe en dinero o en especie no para su beneficio, ni para enriquecer su patrimonio, sino para desempeñar a cabalidad sus funciones, como gastos de representación, medios de transporte o de movilización, elementos de trabajo y otros semejantes. Tampoco las prestaciones sociales de que tratan los títulos VIII y IX del CST.").FontSize(10);                           
+                        });
+
+                        //////////////////// OCTAVA
+
+                        col.Item().PaddingTop(15).Text(text =>
+                        {
+                            text.Justify();
+                            text.ParagraphFirstLineIndentation(20);
+                            text.Span("OCTAVA - JORNADA DE TRABAJO:").SemiBold().FontSize(10);
+                            text.Span(" EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" se obliga a laborar la jornada máxima legal en los turnos y dentro de las horas señalados por ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(" pudiendo hacer éste ajustes o cambios de horario cuando lo estime conveniente. Por el acuerdo expreso o tactito de las partes, podrán repartirse las horas de la jornada ordinaria en la forma prevista en el artículo 164 del Código Sustantivo del trabajo, modificado por el artículo 23 de la Ley 50 de 1990, teniendo en cuenta que los tiempos de descanso entre las secciones de la jornada no se computan dentro de la misma, según el artículo 167 ibídem. ").FontSize(10);                            
+                        });
+
+                        //////////////////// NOVENA
+
+                        col.Item().PaddingTop(15).Text(text =>
+                        {
+                            text.Justify();
+                            text.ParagraphFirstLineIndentation(20);
+                            text.Span("NOVENA - PERIODO DE PRUEBA Y DURACIÓN:").SemiBold().FontSize(10);
+                            text.Span(" EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(" y ").FontSize(10);
+                            text.Span(" EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" acuerdan que los dos (2) primeros meses de ejecución del presente contrato se consideran como período de prueba, término dentro del cual cualquiera de las partes podrá dar por terminado de forma unilateral y sin previo aviso este contrato.\r\nVencido el periodo de prueba, la duración del contrato será definida y tendrá vigencia mientras subsistan las causas que le dieron origen y la materia del trabajo. Con todo, ").FontSize(10);
+                            text.Span(" EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" podrá dar por terminado unilateralmente este contrato, comunicando por escrito su decisión a ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(",  con una antelación no inferior a treinta (30) días para que éste lo reemplace.").FontSize(10);
+
+                        });
+
+                        //////////////////// DECIMA
+
+                        col.Item().PaddingTop(15).Text(text =>
+                        {
+                            text.Justify();
+                            text.ParagraphFirstLineIndentation(20);
+                            text.Span("DÉCIMA - JUSTAS CAUSAS DE TERMINACIÓN DEL CONTRATO:").SemiBold().FontSize(10);
+                            text.Span(" Son justas causas para dar por terminado unilateralmente este contrato, las enumeradas en el artículo 62 del Código Sustantivo del trabajo, modificado por el artículo 7o. del Decreto 2351/65 y además por parte de ").FontSize(10);
+                            text.Span(" EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(",  las faltas que para el efecto se califiquen como graves en reglamentaciones, órdenes, instrucciones o prohibiciones de carácter general o particular, pactos, convenciones colectivas, laudos arbitrales y las que expresamente convengan calificar así en escritos que formarán parte integral del presente contrato. Expresamente se califican en este acto como graves las siguientes faltas:").FontSize(10);                            
+                        });
+
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("1.").SemiBold().FontSize(10);
+                            text.Span(" La violación o incumplimiento por parte de ").FontSize(10);
+                            text.Span("EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" de cualquiera de las obligaciones legales, contractuales o reglamentarias.").FontSize(10);
+                        });
+
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("2.").SemiBold().FontSize(10);
+                            text.Span(" La ejecución por parte de ").FontSize(10);
+                            text.Span("EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" de labores remuneradas al servicio de terceros sin autorización expresa de ").FontSize(10);
+                            text.Span("EL EMPLEADOR.").Bold().FontSize(10);
+                        });
+
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("3.").SemiBold().FontSize(10);
+                            text.Span("  La revelación de secretos y datos reservados de ").FontSize(10);
+                            text.Span("EL EMPLEADOR.").Bold().FontSize(10);
+                        });
+
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("4.").SemiBold().FontSize(10);
+                            text.Span(" El hecho de que ").FontSize(10);
+                            text.Span("EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" llegue embriagado al trabajo o ingiera bebidas embriagantes en el sitio de trabajo, aún por la primera vez. ").FontSize(10);
+                        });
+
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("5.").SemiBold().FontSize(10);
+                            text.Span(" La no asistencia a una jornada completa o parcial de trabajo o más sin excusa suficiente a juicio de ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(" salvo fuerza mayor o caso fortuito.").FontSize(10);
+                        });
+
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("6.").SemiBold().FontSize(10);
+                            text.Span(" Utilizar el buen nombre de ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(" o valerse de las labores encomendadas por él, para emprender, respaldar o acreditar negocios o actividades comerciales de ").FontSize(10);
+                            text.Span("EL TRABAJADOR.").Bold().FontSize(10);
+                        });
+
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("7.").SemiBold().FontSize(10);
+                            text.Span(" El que no cumpla con las responsabilidades y funciones asignadas a su cargo.").FontSize(10);
+                        });
+
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("8.").SemiBold().FontSize(10);
+                            text.Span(" El incumplimiento a las políticas laborales, de ética y conducta de ").FontSize(10);
+                            text.Span("EL EMPLEADOR.").Bold().FontSize(10);
+                        });
+
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("9.").SemiBold().FontSize(10);
+                            text.Span(" Entregar u ofrecer cualquier dádiva a un funcionario público o empleado oficial con el ánimo de comprometer la ética profesional y la honestidad del funcionario y, que de manera directa o indirecta comprometa la responsabilidad de ").FontSize(10);
+                            text.Span("EL EMPLEADOR.").Bold().FontSize(10);
+                        });
+
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("10.").SemiBold().FontSize(10);
+                            text.Span(" Presentar cuentas de gastos ficticias.").FontSize(10);
+                        });
+
+                        //////////////////// DECIMA PRIMERA
+
+                        col.Item().PaddingTop(15).Text(text =>
+                        {
+                            text.Justify();
+                            text.ParagraphFirstLineIndentation(20);
+                            text.Span("DÉCIMA PRIMERA - AUTORIZACIÓN PARA USO, RECOLECCIÓN, TRATAMIENTO DE DATOS PERSONALES DERIVADO DE LA LEY DE HABEAS DATA:").SemiBold().FontSize(10);
+                            text.Span(" En mi condición de ").FontSize(10);
+                            text.Span(" EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(", por medio del presente documento autorizo de forma voluntaria, expresa e inequívoca a ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(" para usar, tratar, transferir, transmitir, corregir y verificar todos los datos por mí suministrados en vigencia de la relación laboral y de forma previa a la misma. Lo anterior, para los fines, necesidades y objetivos derivados del contrato de trabajo y con el propósito de administrar y ejecutar correctamente la relación laboral por parte de la empresa en el marco del contrato de trabajo con los siguientes alcances y limitaciones: ").FontSize(10);
+                        });
+
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("1.").SemiBold().FontSize(10);
+                            text.Span(" Autorizo la circulación, tratamiento, supresión, recopilación, recolección, almacenamiento, copia, entrega, actualización, ordenamiento, clasificación, transferencia, transmisión, corrección, verificación, uso para fines estadísticos, comerciales, históricos y administrativos de la empresa, y en general la utilización (incluso con posterioridad a la terminación del contrato de trabajo) de todos los datos por mi suministrados en vigencia de la relación laboral y/o de forma previa a la misma y/o durante el proceso de selección, autorización que comprende mi información personal y de datos sensibles, contenidos o no en bases de datos. Lo anterior, con el objetivo de ser usados como información necesaria para la correcta contratación, administración y ejecución del contrato de trabajo, así como para el desarrollo del objeto social de la empresa, teniendo en cuenta que son datos pertinentes, necesarios y adecuados.").FontSize(10);                            
+                        });
+
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("2.").SemiBold().FontSize(10);
+                            text.Span(" Autorizo el uso y tratamiento de mi información sensible que por razón del contrato de trabajo se haya obtenido, así como la relacionada con los menores de edad y datos familiares de personas incluidas en mi grupo familiar o a mi cargo, la cual fue suministrada para los efectos derivados del contrato de trabajo.").FontSize(10);
+                        });
+
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("3.").SemiBold().FontSize(10);
+                            text.Span(" Autorizo el uso y tratamiento de los datos biométricos, tales como huellas dactilares, imagen en video, grabaciones, entre otros, para los fines necesarios del contrato de trabajo.").FontSize(10);
+                        });
+
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("4.").SemiBold().FontSize(10);
+                            text.Span(" Autorizo el uso y tratamiento de los datos por parte de terceros que deban tener acceso a esa información por razón del contrato de trabajo, tales como administradores de personal, de nómina, contables, entidades de control, entidades de seguridad social y parafiscales y, demás terceros que deban conocer la información en cumplimiento de las obligaciones de ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(" en material laboral, de seguridad social y demás legalmente procedentes.").FontSize(10);
+                        });
+
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("5.").SemiBold().FontSize(10);
+                            text.Span(" Entiendo y comprendo que el uso de información personal de otros trabajadores para fines diferentes de los del contrato de trabajo y asuntos derivados de éste, se encuentra completamente prohibida, por lo que en mi calidad de ").FontSize(10);
+                            text.Span("EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" me obligo a no utilizar la información antes descrita. Así mismo entiendo que por dato público se entiende aquellos datos relativos al estado civil de las personas, su profesión u oficio.").FontSize(10);
+                        });
+
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("6.").SemiBold().FontSize(10);
+                            text.Span(" Me comprometo a verificar, rectificar, corregir o actualizar la información en tanto cambie su contenido.").FontSize(10);
+                        });
+
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("7.").SemiBold().FontSize(10);
+                            text.Span(" Mediante la firma del presente documento, manifiesto que he sido informado por parte de ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(" sobre el alcance y contenido de la Ley de Habeas Data y que éste actuará en condición de responsable y podrá realizar cambios en la política de administración de datos cuando lo considere conveniente. ").FontSize(10);
+                        });
+
+                        //////////////////// DECIMA SEGUNDA
+
+                        col.Item().PaddingTop(15).Text(text =>
+                        {
+                            text.Justify();
+                            text.ParagraphFirstLineIndentation(20);
+                            text.Span("DÉCIMA SEGUNDA - INVENCIONES:").SemiBold().FontSize(10);
+                            text.Span(" EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" expresamente manifiesta que CEDE a título gratuito a favor de ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(", quien acepta, los derechos patrimoniales de autor de todos aquellos descubrimientos o invenciones y las mejoras en los procedimientos, lo mismo que todos los trabajos y consiguientes resultados de las actividades de ").FontSize(10);
+                            text.Span("EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(", que éste desarrolle con ocasión del presente contrato de trabajo. Por consiguiente, las invenciones, descubrimientos y mejoras en los procedimientos, lo mismo que todos los trabajos y consiguientes resultados efectuados por ").FontSize(10);
+                            text.Span("EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" con ocasión de la ejecución del objeto contractual serán de propiedad de ").FontSize(10);
+                            text.Span("EL EMPLEADOR.").Bold().FontSize(10);
+                            text.Span("  Los descubrimientos, invenciones o las mejoras en los procedimientos al igual que los trabajos y sus consiguientes resultados en las actividades mientras ").FontSize(10);
+                            text.Span("EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" preste sus servicios a la EMPRESA, incluso aquellos de los que trata el artículo 539 del Código de Comercio, son de la exclusiva propiedad de ésta, teniendo ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(" derecho a patentar a su nombre o en el de terceros los inventos o mejoras y quedando obligado ").FontSize(10);
+                            text.Span("EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" a facilitar el cumplimiento oportuno de las formalidades respectivas, firmar o extender los poderes como los documentos necesarios para tal fin cuando le sean solicitados, sin que por ello se deba reconocer ni pagar compensación alguna.").FontSize(10);
+                        });
+
+
+                        col.Item().PaddingTop(5).Text(text =>
+                        {
+                            text.Justify();
+                            text.ParagraphFirstLineIndentation(20);
+                            text.Span("La titularidad originaria o derivada de los derechos patrimoniales de las obras literarias, artísticas o científicas, que incluye entre otras, la determinación del artículo 4 de la Decisión 351 de la Comunidad Andina de Naciones, realizados por ").FontSize(10);
+                            text.Span("EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(", en cumplimiento de este contrato, se radica en cabeza de ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(", de conformidad con lo establecido en el artículo 10° de la misma Decisión y demás normas conexas y complementarias.").FontSize(10);                            
+                        });
+
+                        //////////////////// DECIMA TERCERA
+
+                        col.Item().PaddingTop(15).Text(text =>
+                        {
+                            text.Justify();
+                            text.ParagraphFirstLineIndentation(20);
+                            text.Span("DÉCIMA TERCERA - LUGAR Y LABORES:").SemiBold().FontSize(10);
+                            text.Span(" EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" se obliga a prestar sus servicios en el lugar del territorio de la República de Colombia que indicare ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(" y excepcionalmente fuera de dicho territorio cuando las necesidades del servicio así lo exigieren. En todo caso, ").FontSize(10);
+                            text.Span("EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" se obliga a aceptar los cambios de oficio o lugar de prestación del servicio que decida ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(" dentro de su poder subordinante. ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(" se reserva la facultad y ").FontSize(10);
+                            text.Span("EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" la acepta de trasladarlo a cualquiera de las ciudades, zonas o regiones que tengan establecidas dentro del territorio nacional. La aceptación de este traslado por parte de ").FontSize(10);
+                            text.Span("EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" forma parte integral de este contrato de trabajo y por quedar fijados los parámetros exigidos por el artículo 39 del CST, cualquier traslado que ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(" ordene no podrá tomarse como modificación de las condiciones laborales pactadas. En todo caso de modificación, variación, cambio, adición o alteración del sitio o lugar donde ").FontSize(10);
+                            text.Span("EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" va inicialmente a prestar sus servicios o los cambios o modificaciones que posteriormente se hagan durante la vigencia del contrato, la hará saber ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(" al ").FontSize(10);
+                            text.Span("EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" por escrito. Queda entendido que el traslado no implica modificación del salario, pero ").FontSize(10);
+                            text.Span("EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" acepta que las condiciones ambientales, tales como ciudades, costos de servicios públicos, cánones de arrendamiento, costos de educación y alimentación, vida social, etc, pueden ser diferentes, lo cual no implica por parte de ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(" modificación alguna de las condiciones de trabajo, pues ello corresponde a un riesgo propio de la actividad laboral o naturaleza del cargo y porque, además son circunstancias que tanto ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(" como ").FontSize(10);                            
+                            text.Span("EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" prevén de buena fe, en el momento de suscribir este contrato.").FontSize(10);
+                        });
+
+                        col.Item().PaddingTop(5).Text(text =>
+                        {
+                            text.Justify();
+                            text.ParagraphFirstLineIndentation(0);
+                            text.Span("En todo caso para las partes es claro y así lo convienen, que el lugar asignado inicialmente para el desarrollo de la labor por parte ").FontSize(10);
+                            text.Span("EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(", es la ciudad de ").FontSize(10);
+                            text.Span($"{d.CiudadEmpresa}").Bold().FontSize(10);
+                            text.Span(" y zonas aledañas a la misma, sobre la base que esta asignación no es definitiva en la medida que: a) el cargo requiere de la posibilidad de asignar a ").FontSize(10);
+                            text.Span("EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" a otra(s) zona(s) donde su labor sea necesaria en razón a la naturaleza del servicio contratado y las aptitudes de ").FontSize(10);
+                            text.Span("EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span("; y en que b) el negocio de ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(" está disperso en varias zonas del territorio nacional, por ende, requiere de una asignación flexible y eficiente de la labor contratada, en consecuencia, ").FontSize(10);
+                            text.Span("EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" podrá ser reasignado para lo cual bastará la notificación oportuna y previa que haga ").FontSize(10);
+                            text.Span("EL EMPLEADOR.").Bold().FontSize(10);
+                            text.Span(" Esta es una característica que las partes hacen explícita como un supuesto para el logro de los objetivos empresariales y como tal ").FontSize(10);
+                            text.Span("EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" declara conocerla suficientemente y estar en disposición de adaptarse personal y familiarmente a la misma, pues dicha flexibilidad es una condición esencial para la celebración de este contrato y/o asignación del cargo que se le confía.").FontSize(10);
+                        });
+
+                        col.Item().PaddingTop(5).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("Parágrafo.").SemiBold().FontSize(10);
+                            text.Span("En el evento de que accidentalmente o en forma esporádica u ocasional, ").FontSize(10);
+                            text.Span("EL TRABAJADOR ").Bold().FontSize(10);
+                            text.Span(" deba desplazarse de su sede de trabajo por orden o disposición de ").FontSize(10);
+                            text.Span("EL EMPLEADOR").Bold().FontSize(10);
+                            text.Span(", y devengue gastos de viaje, estos NO CONSTITUYEN SALARIO, de acuerdo con la ley.").FontSize(10);
+                        });
+
+                        //////////////////// DECIMA CUARTA
+
+                        col.Item().PaddingTop(15).Text(text =>
+                        {
+                            text.Justify();
+                            text.ParagraphFirstLineIndentation(20);
+                            text.Span("DÉCIMA CUARTA - INTEGRIDAD CONTRACTUAL:").SemiBold().FontSize(10);
+                            text.Span(" EL TRABAJADOR").Bold().FontSize(10);
+                            text.Span(" manifiesta conocer este contrato y estar de acuerdo con el mismo en todas sus partes. Así mismo declara que conoce en su totalidad el Reglamento de Trabajo de ").FontSize(10);
+                            text.Span("EL EMPLEADOR.").Bold().FontSize(10);
+                            text.Span(" El presente contrato reemplaza en su integridad y deja sin efecto cualquier otro contrato verbal o escrito celebrado entre las partes con anterioridad, no obstante, ").FontSize(10);                            
+                            text.Span("para todos los efectos legales se reconoce la antigüedad del contrato conforme la fecha de iniciación de labores que figura en la carátula del presente documento. Las modificaciones que se acuerden al presente contrato de trabajo deberán hacerse por escrito las que formarán parte integrante de este contrato.").FontSize(10);                           
+                        });
+
+                        col.Item().PaddingTop(5).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span($"Para constancia y en señal de aceptación de las condiciones descritas en este documento, se firma por las partes que han intervenido en un ejemplar y copia, el dia {d.FechaFirmaContrato} en la ciudad de {d.CiudadEmpresa}.").FontSize(10);                            
+                        });
 
 
 
 
 
 
-                        //col.Item().PaddingTop(5).Text($"PRIMERA: OBJETO DEL CONTRATO. El trabajador se obliga a prestar sus servicios personales a favor del empleador, en el cargo de {d.Cargo}, bajo la modalidad de contrato a término fijo, con una duración de {d.Permanencia} meses, iniciando el {d.FechaInicio} y finalizando el {d.FechaFin}.").Justify().FontSize(10).ParagraphFirstLineIndentation(20);
-                        //col.Item().PaddingTop(5).Text($"SEGUNDA: JORNADA DE TRABAJO. La jornada de trabajo será de lunes a viernes, con un horario de 7:00 am a 5:oo pm.").Justify().FontSize(10).ParagraphFirstLineIndentation(20);
-                        //col.Item().PaddingTop(5).Text($"TERCERA: SALARIO. El empleador pagará al trabajador un salario mensual de {SalarioMensualArreglo}, el cual será cancelado en forma quincenal, los días 15 y último de cada mes, mediante consignación en la cuenta bancaria del trabajador.").Justify().FontSize(10).ParagraphFirstLineIndentation(20);
-                        //col.Item().PaddingTop(5).Text($"CUARTA: OBLIGACIONES DEL TRABAJADOR. El trabajador se compromete a cumplir con las siguientes obligaciones:").Justify().FontSize(10).ParagraphFirstLineIndentation(20);
-                        //col.Item().PaddingTop(5).Text($"1. Cumplir con las funciones asignadas en el cargo de {d.Cargo}.");
-                        //col.Item().PaddingTop(5).Text($"2. Cumplir con las normas y procedimientos establecidos por el empleador.");
-                        //col.Item().PaddingTop(5).Text($"3. Asistir puntualmente a su lugar de trabajo y cumplir con la jornada laboral establecida.");
-                        //col.Item().PaddingTop(5).Text($"4. Informar oportunamente al empleador sobre cualquier situación que afecte su desempeño laboral.");
-                        //col.Item().PaddingTop(5).Text($"QUINTA: OBLIGACIONES DEL EMPLEADOR. El empleador se compromete a cumplir con las siguientes obligaciones:").Justify().FontSize(10).ParagraphFirstLineIndentation(20);
-                        //col.Item().PaddingTop(5).Text($"1. Pagar puntualmente el salario acordado al trabajador.");
-                        //col.Item().PaddingTop(5).Text($"2. Proporcionar al trabajador las herramientas y recursos necesarios para el desempeño de sus funciones.");
-                        //col.Item().PaddingTop(5).Text($"3. Cumplir con las normas laborales y de seguridad social vigentes.");
-                        //col.Item().PaddingTop(5).Text($"SEXTA: TERMINACIÓN DEL CONTRATO. El contrato podrá ser terminado por cualquiera de las partes, previo aviso con una antelación de {d.Permanencia} días, o en los casos previstos por la ley.").Justify().FontSize(10).ParagraphFirstLineIndentation(20);
-                        //col.Item().PaddingTop(5).Text($"SÉPTIMA: CLÁUSULA DE CONFIDENCIALIDAD. El trabajador se compromete a mantener la confidencialidad de la información a la que tenga acceso en virtud de su relación laboral con el empleador, incluso después de la terminación del contrato.").Justify().FontSize(10).ParagraphFirstLineIndentation(20);
-                        //col.Item().PaddingTop(5).Text($"OCTAVA: LEGISLACIÓN APLICABLE. El presente contrato se regirá por las disposiciones del Código Sustantivo del Trabajo y demás normas laborales vigentes en Colombia.").Justify().FontSize(10).ParagraphFirstLineIndentation(20);
-                        //col.Item().PaddingTop(5).Text($"NOVENA: FIRMA DEL CONTRATO. El presente contrato se firma en dos ejemplares, uno para cada parte, en la ciudad de {d.CiudadEmpresa}, a los {DateTime.Now.Day} días del mes de {DateTime.Now.ToString("MMMM", cultura)} del año {DateTime.Now.Year}.").Justify().FontSize(10).ParagraphFirstLineIndentation(20);
-                        //col.Item().PaddingTop(5).Text($"DÉCIMA: ACEPTACIÓN. El trabajador declara haber leído y comprendido el contenido del presente contrato, así como las condiciones laborales y de seguridad social que le son aplicables.").Justify().FontSize(10).ParagraphFirstLineIndentation(20);
-                        //col.Item().PaddingTop(5).Text($"DÉCIMA PRIMERA: OTROS ACUERDOS. Las partes podrán acordar otras condiciones laborales que no se encuentren expresamente contempladas en el presente contrato, siempre y cuando no contravengan las disposiciones legales vigentes.").Justify().FontSize(10).ParagraphFirstLineIndentation(20);
-                        //col.Item().PaddingTop(5).Text($"DÉCIMA SEGUNDA: ACEPTACIÓN DE LAS PARTES. Las partes declaran que han leído y comprendido el contenido del presente contrato, y que lo aceptan en su totalidad.").Justify().FontSize(10).ParagraphFirstLineIndentation(20);
-                        //col.Item().PaddingTop(5).Text($"DÉCIMA TERCERA: FIRMA DEL CONTRATO. En señal de aceptación, las partes firman el presente contrato en dos ejemplares, en la ciudad de {d.CiudadEmpresa}, a los {DateTime.Now.Day} días del mes de {DateTime.Now.ToString("MMMM", cultura)} del año {DateTime.Now.Year}.").Justify().FontSize(10).ParagraphFirstLineIndentation(20);
-                        //col.Item().PaddingTop(10).Text("Firmas:").Bold().FontSize(10);
-
-
-
-                        // Tabla de ingresos y descuentos
-
-
-                        //col.Item().PaddingTop(12).Text($"Total a Pagar: {TotalPagarArreglo}").FontFamily("Lato").Bold().FontSize(14).AlignRight();
-                        //col.Item().Text("");
-                        //col.Item().LineHorizontal(1).LineColor(Colors.Black);
-
-
-                        //col.Item().PaddingTop(5).Text($"CANTIDAD HORAS EXTRAS REALIZADAS: Hora Extra Diurna {d.CantHED}, Hora Extra Nocturna {d.CantHEN}, Hora Extra Diurna Domical/Festiva {d.CantHEDDF}, Hora Extra Nocturna Domical/Festiva {d.CantHENDF}.").FontSize(7).Justify();
-                        //col.Item().PaddingTop(2).Text($"HORAS EXTRAS: Los siguientes son los correspondientes valores para el cálculo de las horas extras. Hora Extra Diurna {ValorHEDArreglo}, Hora Extra Nocturna {ValorHENArreglo}, Hora Extra Diurna Domical/Festiva {ValorHEDDFArreglo}, Hora Extra Nocturna Domical/Festiva {ValorHENDFArreglo}.").FontSize(7).Justify();
-                        //col.Item().PaddingTop(2).Text($"* OTROS INGRESOS: {d.ConceptoIngresosAdicionales}").FontSize(6).Justify();
-                        //col.Item().PaddingTop(2).Text($"** OTROS DESCUENTOS: {d.ConceptoDescuentosAdicionales}").FontSize(6).Justify();
 
                         col.Item().PaddingTop(80).Row(r => { r.RelativeItem().AlignCenter().Text("Firma Trabajador").SemiBold(); r.RelativeItem().AlignCenter().Text($"Firma o Sello Empresa").SemiBold(); });
                         col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text($"{d.Empleado}").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"{d.Empresa}").SemiBold().FontSize(8); });
-
-                        //col.Item().PaddingTop(10).Text("Comprobante de Nómina generado con Sofia Software Administrativo V 1.0").FontSize(6);
+                                                
                     });
 
-                    page.Footer()
-                    .PaddingTop(5)
-                        .AlignRight()
-                        .Text("Contrato de Trabajo generado con Sofia Software Administrativo V 1.0").FontSize(6);
-
-                    //page.Footer()
-                    //    .AlignRight()
-                    //    .Text(x =>
-                    //    {
-                    //        x.Span("Página ");
-                    //        x.CurrentPageNumber();
-                    //    });
+                page.Footer()
+                .PaddingTop(5)
+                    .AlignRight()
+                    .Text(x => {
+                        x.Span("Contrato de Trabajo generado con Sofia Software Administrativo V 1.0  - ").FontSize(6);
+                        x.Span(" Página ").FontSize(8);
+                        x.CurrentPageNumber().FontSize(8);
+                    }); 
+                    
 
                 });
             }).GeneratePdf();
 
             fontStream.Dispose();
 
-            return File(pdfBytes, "application/pdf", "Contrato de Trabajo # " + id + ".pdf");
+            return File(pdfBytes, "application/pdf", "Contrato de Trabajo # " + id + " " + d.Empleado +".pdf");
         }
 
     }

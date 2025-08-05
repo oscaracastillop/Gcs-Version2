@@ -1,4 +1,5 @@
 ﻿
+
 CREATE DATABASE GcsV2  
 GO 
 
@@ -71,9 +72,9 @@ CREATE UNIQUE INDEX RegistroUnicoTipoContrato on TipoContrato (Nombre)
 
 GO
 
-INSERT INTO TipoContrato (Nombre) VALUES ('Contrato Fijo 3 Meses')
-INSERT INTO TipoContrato (Nombre) VALUES ('Contrato Fijo 6 Meses')
-INSERT INTO TipoContrato (Nombre) VALUES ('Contrato Fijo 1 Año')
+INSERT INTO TipoContrato (Nombre) VALUES ('Término Fijo Tres (3) Meses')
+INSERT INTO TipoContrato (Nombre) VALUES ('Término Fijo Seis (6) Meses')
+INSERT INTO TipoContrato (Nombre) VALUES ('Término Fijo Doce (12) Meses')
 INSERT INTO TipoContrato (Nombre) VALUES ('Contrato Indefinido')
 INSERT INTO TipoContrato (Nombre) VALUES ('Contrato x Obra Labor')
 INSERT INTO TipoContrato (Nombre) VALUES ('Contrato x Destajo')
@@ -2584,6 +2585,9 @@ Email varchar(255) default '',
 Telefono varchar(255) default '',
 Celular varchar(255) default '',
 Contacto varchar(255) default '',
+IdTipoDocumentoRL int,
+IdentificacionRL varchar(255),
+CiudadExpedicion varchar(255) default '',
 IdCiudad int,
 Direccion varchar(255) default '',
 Descripcion varchar(max) default '',
@@ -2603,12 +2607,13 @@ ALTER TABLE Empresa ADD CONSTRAINT FK_IdCreateByEmpresa FOREIGN KEY (CreateBy ) 
 ALTER TABLE Empresa ADD CONSTRAINT FK_IdCiudadEmpresa FOREIGN KEY (IdCiudad ) references Ciudad(Id)
 ALTER TABLE Empresa ADD CONSTRAINT FK_IdEstadoEmpresa FOREIGN KEY (IdEstado) references TipoEstado(Id)
 ALTER TABLE Empresa ADD CONSTRAINT FK_IdTipodocumentoEmpresa FOREIGN KEY (IdTipoDocumento) references TipoDocumento(Id)
+ALTER TABLE Empresa ADD CONSTRAINT FK_IdTipodocumentoRLEmpresa FOREIGN KEY (IdTipoDocumentoRL) references TipoDocumento(Id)
 
 GO
 
-INSERT INTO Empresa (Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdCiudad, Direccion, CreateBy, DateCreate) 
+INSERT INTO Empresa (Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdTipoDocumentoRL, IdentificacionRL, CiudadExpedicion, IdCiudad, Direccion, CreateBy, DateCreate) 
 VALUES 
-('E&G Contrucciones S.A.S', 5, '901.766.109-1','edwinfabiangarzon@hotmail.com', '321 4208189', 'Edwin Fabian Garzón López', 571, '', 1, GETDATE())
+('E&G Contrucciones S.A.S', 5, '901.766.109-1','edwinfabiangarzon@hotmail.com', '321 4208189', 'Edwin Fabian Garzón López', 1, '1079258236', 'Madrid, Cundinamarca', 571, '', 1, GETDATE())
 
 GO
 
@@ -2621,6 +2626,9 @@ CREATE PROCEDURE [dbo].[SP_CrearEmpresa]
 				@Telefono varchar(255),  
 				@Celular varchar(255),  
 				@Contacto varchar(255),
+				@IdTipoDocumentoRL int,
+				@IdentificacionRL varchar(255),
+				@CiudadExpedicion varchar(255),
 				@IdCiudad int,
 				@Direccion varchar(255),
 				@Descripcion varchar(max),
@@ -2641,9 +2649,9 @@ SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
 IF @Permiso > 0
 	BEGIN		
 		INSERT INTO Empresa
-		(Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdCiudad, Direccion, Descripcion, CreateBy, DateCreate) 
+		(Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdTipoDocumentoRL, IdentificacionRL, CiudadExpedicion, IdCiudad, Direccion, Descripcion, CreateBy, DateCreate) 
 		VALUES 
-		(@NombreEmpresa, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Celular, @Contacto, @IdCiudad, @Direccion, @Descripcion, @IdUsuario, GETDATE()) 
+		(@NombreEmpresa, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Celular, @Contacto, @IdTipoDocumentoRL, @IdentificacionRL, @CiudadExpedicion, @IdCiudad, @Direccion, @Descripcion, @IdUsuario, GETDATE()) 
 
 		--INSERT INTO LogsAcciones 
 		--(IdUsuario, Accion, Descripcion, Fecha) 
@@ -2680,6 +2688,9 @@ CREATE PROCEDURE [dbo].[SP_ActualizarEmpresa]	@IdUser varchar(255),
 												@Telefono varchar(255),  
 												@Celular varchar(255),  
 												@Contacto varchar(255),
+												@IdTipoDocumentoRL int,
+												@IdentificacionRL varchar(255),
+												@CiudadExpedicion varchar(255),
 												@IdCiudad int,
 												@Direccion varchar(255),
 												@Descripcion varchar(max),
@@ -2724,6 +2735,9 @@ ELSE
 					Telefono = @Telefono,
 					Celular = @Celular,
 					Contacto = @Contacto,
+					IdTipoDocumentoRL = @IdTipoDocumentoRL,
+					IdentificacionRL = @IdentificacionRL,
+					CiudadExpedicion = @CiudadExpedicion,
 					IdCiudad = @IdCiudad,
 					Direccion = @Direccion,
 					Descripcion = @Descripcion,
@@ -2804,6 +2818,10 @@ BEGIN
 			ISNULL(Telefono,'') As Telefono,
 			ISNULL(Celular,'') As Celular,
 			ISNULL(Contacto,'') As Contacto,
+			IdTipoDocumentoRL,
+			dbo.Fun_BuscarNombreTipoDocumento(IdTipoDocumentoRL) As TipoDocumentoRL,
+			ISNULL(IdentificacionRL,'') As IdentificacionRL,
+			ISNULL(CiudadExpedicion,'') As CiudadExpedicion,
 			ISNULL(Direccion,'') As Direccion,
 			Email,
 			IdCiudad,
@@ -3101,6 +3119,7 @@ Nombre varchar(255),
 Apellidos varchar(255),
 IdTipoDocumento int,
 Identificacion varchar(255),
+CiudadExpedicion varchar(255) default '',
 Imagen varchar(255) default 'Empleado.png',
 IdEstado int default 1,
 CreateBy int,
@@ -3117,12 +3136,12 @@ CREATE UNIQUE INDEX RegistroUnicoEmpleado on Empleado (Nombre, Apellidos, IdTipo
 
 GO
 
-INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CreateBy, DateCreate) VALUES ('Oscar Antonio','Castillo Perez',1,'3167508',1, GETDATE())
-INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CreateBy, DateCreate) VALUES ('Yulisa Jarleidy','Garzón Lopez',1,'1073527268',1, GETDATE())
-INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CreateBy, DateCreate) VALUES ('Edwin Fabian','Garzón Lopez',1,'10735241256',1, GETDATE())
-INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CreateBy, DateCreate) VALUES ('Adriana Marlen','Garzón Lopez',1,'1073527266',1, GETDATE())
-INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CreateBy, DateCreate) VALUES ('Yimi Fermando','Garzón Lopez',1,'1073963584',1, GETDATE())
-INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CreateBy, DateCreate) VALUES ('Michelle Sofia','Castillo Garzón',1,'125425632',1, GETDATE())
+INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CiudadExpedicion, CreateBy, DateCreate) VALUES ('Oscar Antonio','Castillo Perez',1,'3167508', 'Mosquera, Cundinamarca', 1, GETDATE())
+INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CiudadExpedicion, CreateBy, DateCreate) VALUES ('Yulisa Jarleidy','Garzón Lopez',1,'1073527268', 'Mosquera, Cundinamarca', 1, GETDATE())
+INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CiudadExpedicion, CreateBy, DateCreate) VALUES ('Edwin Fabian','Garzón Lopez',1,'10735241256', 'Mosquera, Cundinamarca', 1, GETDATE())
+INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CiudadExpedicion, CreateBy, DateCreate) VALUES ('Adriana Marlen','Garzón Lopez',1,'1073527266', 'Mosquera, Cundinamarca', 1, GETDATE())
+INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CiudadExpedicion, CreateBy, DateCreate) VALUES ('Yimi Fermando','Garzón Lopez',1,'1073963584', 'Mosquera, Cundinamarca', 1, GETDATE())
+INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CiudadExpedicion, CreateBy, DateCreate) VALUES ('Michelle Sofia','Castillo Garzón',1,'125425632', 'Mosquera, Cundinamarca', 1, GETDATE())
 
 GO
 
@@ -3131,7 +3150,8 @@ CREATE PROCEDURE [dbo].[SP_CrearEmpleado]
 				@Nombre varchar(255),
 				@Apellidos varchar(255),
 				@IdTipoDocumento int,
-				@Identificacion varchar(255),				
+				@Identificacion varchar(255),	
+				@CiudadExpedicion varchar(255),
 				@Resultado varchar(255) OUTPUT     
 AS
 BEGIN
@@ -3149,9 +3169,9 @@ SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
 IF @Permiso > 0
 	BEGIN		
 		INSERT INTO Empleado
-		(Nombre, Apellidos, IdTipoDocumento, Identificacion, CreateBy, DateCreate) 
+		(Nombre, Apellidos, IdTipoDocumento, Identificacion, CiudadExpedicion, CreateBy, DateCreate) 
 		VALUES 
-		(@Nombre, @Apellidos, @IdTipoDocumento, @Identificacion, @IdUsuario, GETDATE()) 
+		(@Nombre, @Apellidos, @IdTipoDocumento, @Identificacion, @CiudadExpedicion, @IdUsuario, GETDATE()) 
 
 		SET @Resultado = 'OK*El Empleado ' + @Nombre + ' '+ @Apellidos+ ' a sido creado correctamente'
 	END	
@@ -3170,6 +3190,7 @@ CREATE PROCEDURE [dbo].[SP_ActualizarEmpleado]	@IdUser varchar(255),
 												@Apellidos varchar(255),
 												@IdTipoDocumento int,
 												@Identificacion varchar(255),
+												@CiudadExpedicion varchar(255),
 												@IdEstado int,			
 												@Resultado varchar(255) OUTPUT
 AS
@@ -3198,6 +3219,7 @@ ELSE
 				Apellidos = @Apellidos,
 				IdTipoDocumento = @IdTipoDocumento,
 				Identificacion = @Identificacion,
+				CiudadExpedicion = @CiudadExpedicion,
 				IdEstado = @IdEstado
 		WHERE	Id = @IdEmpleado
 		
@@ -3254,6 +3276,7 @@ BEGIN
 			IdTipoDocumento,
 			dbo.Fun_BuscarNombreTipoDocumento(IdTipoDocumento) As TipoDocumento,			
 			Identificacion,
+			CiudadExpedicion,
 			IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,			
 			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
@@ -5104,9 +5127,9 @@ BEGIN
 			WHEN '' THEN 'xxxxxxxxxx'
 			ELSE ISNULL(C.Contacto, 'xxxxxxxxxx')
 			END AS RLEmpresa,
-			'xxxxxxxxxx' AS TipoDocumentoRLEmpresa,
-			'xxxxxxxxxx' AS IdentificacionRLEmpresa,
-			'xxxxxxxxxx' AS CiudadExpedicionDocumentoRLEmpresa,
+			dbo.Fun_BuscarNombreTipoDocumento(C.IdTipoDocumentoRL) AS TipoDocumentoRLEmpresa,
+			C.IdentificacionRL AS IdentificacionRLEmpresa,
+			C.CiudadExpedicion AS CiudadExpedicionDocumentoRLEmpresa,
 
 
 
@@ -5117,13 +5140,14 @@ BEGIN
 			B.Nombre +' '+ B.Apellidos As Empleado,
 			dbo.fun_buscarNombretipodocumento(B.IdTipoDocumento) As TipoDocumentoEmpleado,
 			B.Identificacion As IdentificacionEmpleado,
-			'xxxxxxxxxx' AS CiudadExpedicionDocumentoEmpleado,
+			B.CiudadExpedicion AS CiudadExpedicionDocumentoEmpleado,
 			'xxxxxxxxxx' As CiudadEmpleado,
 			dbo.Fun_BuscarNombreCargo(A.IdCargo) As Cargo, 
 			CONVERT(varchar(255),A.SalarioMensual) As SalarioMensual,
 			dbo.Fun_BuscarNombreTipoContrato(A.IdTipoContrato) As TipoContrato,
 			CONVERT(varchar(255),A.FechaInicio,23) As FechaIngreso,
-			C.Logo As Logo
+			C.Logo As Logo,
+			CONVERT(varchar(255),GETDATE(),105) As FechaFirmaContrato
 			
 	FROM	ContratoLaboral A,
 			Empleado B,
@@ -5133,6 +5157,7 @@ BEGIN
 			A.Id = @Id
 	ORDER BY Id Desc
 END
+
 
 GO
 

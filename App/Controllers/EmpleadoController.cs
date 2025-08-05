@@ -22,16 +22,16 @@ namespace App.Controllers
             return View();
         }
 
-        public JsonResult CrearEmpleado(string IdUser, string Nombre, string Apellidos, int IdTipoDocumento, string Identificacion)
+        public JsonResult CrearEmpleado(string IdUser, string Nombre, string Apellidos, int IdTipoDocumento, string Identificacion, string CiudadExpedicion)
         {
-            var resultado = dataEmpleado.CrearEmpleado(IdUser, Nombre, Apellidos, IdTipoDocumento, Identificacion);
+            var resultado = dataEmpleado.CrearEmpleado(IdUser, Nombre, Apellidos, IdTipoDocumento, Identificacion, CiudadExpedicion);
 
             return Json(resultado);
         }
 
-        public JsonResult ActualizarEmpleado(string IdUser, int IdEmpleado, string Nombre, string Apellidos, int IdTipoDocumento, string Identificacion, int IdEstado)
+        public JsonResult ActualizarEmpleado(string IdUser, int IdEmpleado, string Nombre, string Apellidos, int IdTipoDocumento, string Identificacion, string CiudadExpedicion, int IdEstado)
         {
-            var resultado = dataEmpleado.ActualizarEmpleado(IdUser, IdEmpleado, Nombre, Apellidos, IdTipoDocumento, Identificacion, IdEstado);
+            var resultado = dataEmpleado.ActualizarEmpleado(IdUser, IdEmpleado, Nombre, Apellidos, IdTipoDocumento, Identificacion, CiudadExpedicion, IdEstado);
             return Json(resultado);
         }
 

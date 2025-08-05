@@ -22,16 +22,16 @@ namespace SistemaGcs.App.Controllers
             return View();
         }
              
-        public JsonResult CrearEmpresa(string IdUser, string NombreEmpresa, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Celular, string Contacto, int IdCiudad, string Direccion, string Descripcion)
+        public JsonResult CrearEmpresa(string IdUser, string NombreEmpresa, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Celular, string Contacto, int IdTipoDocumentoRL, string IdentificacionRL, string CiudadExpedicion, int IdCiudad, string Direccion, string Descripcion)
         {
-            var resultado = dataEmpresa.CrearEmpresa(IdUser, NombreEmpresa, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdCiudad, Direccion, Descripcion);
+            var resultado = dataEmpresa.CrearEmpresa(IdUser, NombreEmpresa, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdTipoDocumentoRL, IdentificacionRL, CiudadExpedicion, IdCiudad, Direccion, Descripcion);
 
             return Json(resultado);
         }
 
-        public JsonResult ActualizarEmpresa(string IdUser, int IdEmpresa, string NombreEmpresa, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Celular, string Contacto, int IdCiudad, string Direccion, string Descripcion, int IdEstado)
+        public JsonResult ActualizarEmpresa(string IdUser, int IdEmpresa, string NombreEmpresa, int IdTipoDocumento, string Identificacion, string Email, string Telefono, string Celular, string Contacto, int IdTipoDocumentoRL, string IdentificacionRL, string CiudadExpedicion, int IdCiudad, string Direccion, string Descripcion, int IdEstado)
         {
-            var resultado = dataEmpresa.ActualizarEmpresa(IdUser, IdEmpresa, NombreEmpresa, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdCiudad, Direccion, Descripcion, IdEstado);
+            var resultado = dataEmpresa.ActualizarEmpresa(IdUser, IdEmpresa, NombreEmpresa, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdTipoDocumentoRL, IdentificacionRL, CiudadExpedicion, IdCiudad, Direccion, Descripcion, IdEstado);
             return Json(resultado);
         }
 

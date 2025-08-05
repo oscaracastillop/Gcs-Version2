@@ -18,7 +18,7 @@ namespace Data.DataEntities
 
         #region Metodos Guardar
 
-        public string CrearEmpleado(string IdUser, string Nombre, string Apellidos, int IdTipoDocumento, string Identificacion)
+        public string CrearEmpleado(string IdUser, string Nombre, string Apellidos, int IdTipoDocumento, string Identificacion, string CiudadExpedicion)
         {
             string resultado = String.Empty;
             try
@@ -28,9 +28,10 @@ namespace Data.DataEntities
                 var varApellidos = new SqlParameter("@Apellidos", SqlDbType.VarChar) { Value = Apellidos };
                 var varIdTipoDocumento = new SqlParameter("@IdTipoDocumento", SqlDbType.Int) { Value = IdTipoDocumento };
                 var varIdentificacion = new SqlParameter("@Identificacion", SqlDbType.VarChar) { Value = Identificacion };
+                var varCiudadExpedicion = new SqlParameter("@CiudadExpedicion", SqlDbType.VarChar) { Value = CiudadExpedicion };
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
 
-                _conection.Database.ExecuteSqlCommand("SP_CrearEmpleado @IdUser, @Nombre, @Apellidos, @IdTipoDocumento, @Identificacion, @Resultado OUTPUT", varIdUser, varNombre, varApellidos, varIdTipoDocumento, varIdentificacion, varResultado);
+                _conection.Database.ExecuteSqlCommand("SP_CrearEmpleado @IdUser, @Nombre, @Apellidos, @IdTipoDocumento, @Identificacion, @CiudadExpedicion, @Resultado OUTPUT", varIdUser, varNombre, varApellidos, varIdTipoDocumento, varIdentificacion, varCiudadExpedicion, varResultado);
 
                 resultado = Convert.ToString(varResultado.Value);
             }
@@ -56,7 +57,7 @@ namespace Data.DataEntities
             return resultado;
         }
 
-        public string ActualizarEmpleado(string IdUser, int IdEmpleado, string Nombre, string Apellidos, int IdTipoDocumento, string Identificacion, int IdEstado)
+        public string ActualizarEmpleado(string IdUser, int IdEmpleado, string Nombre, string Apellidos, int IdTipoDocumento, string Identificacion, string CiudadExpedicion, int IdEstado)
         {
             string resultado = String.Empty;
             try
@@ -67,10 +68,11 @@ namespace Data.DataEntities
                 var varApellidos = new SqlParameter("@Apellidos", SqlDbType.VarChar) { Value = Apellidos };
                 var varIdTipoDocumento = new SqlParameter("@IdTipoDocumento", SqlDbType.Int) { Value = IdTipoDocumento };
                 var varIdentificacion = new SqlParameter("@Identificacion", SqlDbType.VarChar) { Value = Identificacion };
+                var varCiudadExpedicion = new SqlParameter("@CiudadExpedicion", SqlDbType.VarChar) { Value = CiudadExpedicion };
                 var varIdEstado = new SqlParameter("@IdEstado", SqlDbType.Int) { Value = IdEstado };
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
 
-                _conection.Database.ExecuteSqlCommand("SP_ActualizarEmpleado @IdUser, @IdEmpleado, @Nombre, @Apellidos, @IdTipoDocumento, @Identificacion, @IdEstado, @Resultado OUTPUT", varIdUser, varIdEmpleado, varNombre, varApellidos, varIdTipoDocumento, varIdentificacion, varIdEstado, varResultado);
+                _conection.Database.ExecuteSqlCommand("SP_ActualizarEmpleado @IdUser, @IdEmpleado, @Nombre, @Apellidos, @IdTipoDocumento, @Identificacion, @CiudadExpedicion, @IdEstado, @Resultado OUTPUT", varIdUser, varIdEmpleado, varNombre, varApellidos, varIdTipoDocumento, varIdentificacion, varCiudadExpedicion, varIdEstado, varResultado);
 
                 resultado = Convert.ToString(varResultado.Value);
             }

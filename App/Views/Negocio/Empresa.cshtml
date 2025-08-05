@@ -34,7 +34,7 @@
                 </div>
                 <div class="row g-2">
                     <div class="col-6">
-                        <label><strong>Documento </strong><label style="color:red"> *</label></label>
+                        <label><strong>Documento Empresa</strong><label style="color:red"> *</label></label>
                         <select class="form-control" id="SelectTipoDocumento" style="min-width:100%"></select>
                     </div>
                     <div class="col-6">
@@ -42,23 +42,16 @@
                         <input class="form-control" type="text" id="InputIdentificacionEmpresa" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
                 </div>
-
                 <div class="row g-2">
-                    <div class="col-6">
+                    <div class="col-4">
                         <label><strong>Email</strong></label>
                         <input class="form-control" type="text" id="InputEmailEmpresa" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
-                    <div class="col-6">
-                        <label><strong>Contacto</strong></label>
-                        <input class="form-control" type="text" id="InputContactoEmpresa" name="name" autocomplete="off" style="min-width:100%" />
-                    </div>
-                </div>
-                <div class="row g-2">
-                    <div class="col-6">
+                    <div class="col-4">
                         <label><strong>Teléfono</strong></label>
                         <input class="form-control" type="text" id="InputTelefonoEmpresa" name="name" autocomplete="off" style="min-width:100%" maxlength="13" placeholder="(ind ciudad) + # Telefónico" />
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                         <label><strong>Celular</strong></label>
                         <input class="form-control" type="text" id="InputCelularEmpresa" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
@@ -73,9 +66,29 @@
                         <select class="form-control" id="SelectCiudad" style="min-width:100%"></select>
                     </div>
                 </div>
+                <div class="row g-2">
+                    <div class="col-6">
+                        <label><strong>Representante Legal</strong><label style="color:red"> *</label></label>
+                        <input class="form-control" type="text" id="InputContactoEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Documento RL</strong><label style="color:red"> *</label></label>
+                        <select class="form-control" id="SelectTipoDocumentoRL" style="min-width:100%"></select>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="col-6">
+                        <label><strong>Identificación RL</strong><label style="color:red"> *</label></label>
+                        <input class="form-control" type="text" id="InputIdentificacionRL" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Ciudad Expedición</strong><label style="color:red"> *</label></label>
+                        <input class="form-control" type="text" id="InputCiudadExpedicionRL" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-12">
-                        <label><strong>Descripción</strong></label>
+                        <label><strong>Descripción Empresa</strong></label>
                         <input type="text" id="InputDescripcionEmpresa" class="form-control" style="min-width:100%" rows="3" />
                     </div>
                 </div>
@@ -123,6 +136,7 @@
         ValidarSesion('/Negocio/Empresa');
         GridEmpresa();
         ListaTipoDocumento(2);
+        ListaTipoDocumentoRL(2);
         ListaTipoEstado(1);
         ListaCiudad();
     });

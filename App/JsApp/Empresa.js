@@ -4,12 +4,15 @@
     $("#TituloModalEmpresa").empty().val('');
     $("#LabelIdEmpresa").empty().val('');
     $("#InputNombreEmpresa").empty().val('');
-    //$("#SelectTipoDocumento").val(-1);
+    $("#SelectTipoDocumento").val(-1);
     $("#InputIdentificacionEmpresa").empty().val('');
     $("#InputEmailEmpresa").empty().val('');
     $("#InputTelefonoEmpresa").empty().val('');
     $("#InputCelularEmpresa").empty().val('');
     $("#InputContactoEmpresa").empty().val('');
+    $("#SelectTipoDocumentoRL").val(-1);
+    $("#InputIdentificacionRL").empty().val('');
+    $("#InputCiudadExpedicionRL").empty().val('');
     $("#InputDireccionEmpresa").empty().val('');
     $("#InputDescripcionEmpresa").empty().val('');
     $("#SelectCiudad").val(-1);
@@ -36,22 +39,37 @@ function CrearEmpresa() {
     let Telefono = $('#InputTelefonoEmpresa').val();
     let Celular = $('#InputCelularEmpresa').val();
     let Contacto = $('#InputContactoEmpresa').val();
+    let IdTipoDocumentoRL = $('#SelectTipoDocumentoRL').val();
+    let IdentificacionRL = $('#InputIdentificacionRL').val();
+    let CiudadExpedicion = $('#InputCiudadExpedicionRL').val();
     let IdCiudad = $('#SelectCiudad').val();
     let Direccion = $('#InputDireccionEmpresa').val();
     let Descripcion = $('#InputDescripcionEmpresa').val();    
 
     if (NombreEmpresa == null || NombreEmpresa == '' || NombreEmpresa == undefined) {
         $('#InputNombreEmpresa').focus();
-        VentanaMensaje('Ingrese nombre de la empresa');
+        VentanaMensaje('Ingrese nombre de la Empresa');
     } else if (IdTipoDocumento == -1 || IdTipoDocumento == null || IdTipoDocumento == '') {
         $('#SelectTipoDocumento').focus();
-        VentanaMensaje('Seleccione tipo documento');
+        VentanaMensaje('Seleccione tipo documento de la Empresa');
     } else if (Identificacion == null || Identificacion == '' || Identificacion == undefined) {
         $('#InputIdentificacionEmpresa').focus();
-        VentanaMensaje('Ingrese la identificación');
+        VentanaMensaje('Ingrese la identificación de la Empresa');
     } else if (IdCiudad == -1 || IdCiudad == null || IdCiudad == '') {
         $('#SelectCiudad').focus();
         VentanaMensaje('Seleccione la ciudad');
+    } else if (Contacto == null || Contacto == '' || Contacto == undefined) {
+        $('#InputContactoEmpresa').focus();
+        VentanaMensaje('Ingrese el Nombre del Representante Legal de la Empresa');
+    } else if (IdTipoDocumentoRL == -1 || IdTipoDocumentoRL == null || IdTipoDocumentoRL == '') {
+        $('#SelectTipoDocumentoRL').focus();
+        VentanaMensaje('Seleccione tipo documento del Representante Legal');
+    } else if (IdentificacionRL == null || IdentificacionRL == '' || IdentificacionRL == undefined) {
+        $('#InputIdentificacionRL').focus();
+        VentanaMensaje('Ingrese la identificación del Representante Legal');
+    } else if (CiudadExpedicion == null || CiudadExpedicion == '' || CiudadExpedicion == undefined) {
+        $('#InputCiudadExpedicionRL').focus();
+        VentanaMensaje('Ingrese la Ciudad de Expedición del documento de Identificación del Representante Legal');
     } else {
         $.ajax({
             type: 'POST',
@@ -66,6 +84,9 @@ function CrearEmpresa() {
                 Telefono: Telefono,
                 Celular: Celular,
                 Contacto: Contacto,
+                IdTipoDocumentoRL: IdTipoDocumentoRL,
+                IdentificacionRL: IdentificacionRL,
+                CiudadExpedicion: CiudadExpedicion,
                 IdCiudad: IdCiudad,
                 Direccion: Direccion,
                 Descripcion: Descripcion,
@@ -91,6 +112,9 @@ function ActualizarEmpresa() {
     let Telefono = $('#InputTelefonoEmpresa').val();
     let Celular = $('#InputCelularEmpresa').val();
     let Contacto = $('#InputContactoEmpresa').val();
+    let IdTipoDocumentoRL = $('#SelectTipoDocumentoRL').val();
+    let IdentificacionRL = $('#InputIdentificacionRL').val();
+    let CiudadExpedicion = $('#InputCiudadExpedicionRL').val();
     let IdCiudad = $('#SelectCiudad').val();
     let Direccion = $('#InputDireccionEmpresa').val();
     let Descripcion = $('#InputDescripcionEmpresa').val();    
@@ -108,6 +132,18 @@ function ActualizarEmpresa() {
     } else if (IdCiudad == -1 || IdCiudad == null || IdCiudad == '') {
         $('#SelectCiudad').focus();
         VentanaMensaje('Seleccione la ciudad');
+    } else if (Contacto == null || Contacto == '' || Contacto == undefined) {
+        $('#InputContactoEmpresa').focus();
+        VentanaMensaje('Ingrese el Nombre del Representante Legal de la Empresa');
+    } else if (IdTipoDocumentoRL == -1 || IdTipoDocumentoRL == null || IdTipoDocumentoRL == '') {
+        $('#SelectTipoDocumentoRL').focus();
+        VentanaMensaje('Seleccione tipo documento del Representante Legal');
+    } else if (IdentificacionRL == null || IdentificacionRL == '' || IdentificacionRL == undefined) {
+        $('#InputIdentificacionRL').focus();
+        VentanaMensaje('Ingrese la identificación del Representante Legal');
+    } else if (CiudadExpedicion == null || CiudadExpedicion == '' || CiudadExpedicion == undefined) {
+        $('#InputCiudadExpedicionRL').focus();
+        VentanaMensaje('Ingrese la Ciudad de Expedición del documento de Identificación del Representante Legal');
     } else {
         $.ajax({
             type: 'POST',
@@ -123,6 +159,9 @@ function ActualizarEmpresa() {
                 Telefono: Telefono,
                 Celular: Celular,
                 Contacto: Contacto,
+                IdTipoDocumentoRL: IdTipoDocumentoRL,
+                IdentificacionRL: IdentificacionRL,
+                CiudadExpedicion: CiudadExpedicion,
                 IdCiudad: IdCiudad,
                 Direccion: Direccion,
                 Descripcion: Descripcion,
@@ -197,8 +236,11 @@ function GridEmpresa() {
             { targets: [11], className: 'dt-head-center' },
             { targets: [12], className: 'dt-head-center' },
             { targets: [13], className: 'dt-head-center' },
-            { targets: [14], width: '10px', className: 'dt-center dt-head-center' },
-            { targets: [15], width: '10px', className: 'dt-center dt-head-center' }
+            { targets: [14], className: 'dt-head-center' },
+            { targets: [15], className: 'dt-head-center' },
+            { targets: [16], className: 'dt-head-center' },
+            { targets: [17], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [18], width: '10px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -321,6 +363,9 @@ function GridEmpresa() {
             { "data": "Telefono", title: "Teléfono", width: 'auto' },
             { "data": "Celular", title: "Celular", width: 'auto' },
             { "data": "Contacto", title: "Contacto", width: 'auto' },
+            { "data": "TipoDocumentoRL", title: "Documento RL", width: 'auto', visible: true },
+            { "data": "IdentificacionRL", title: "Identificación RL", width: 'auto', visible: true },
+            { "data": "CiudadExpedicion", title: "Ciudad Expedición", width: 'auto' },
             { "data": "Direccion", title: "Dirección", width: 'auto' },
             { "data": "Ciudad", title: "Ciudad", width: 'auto' },     
             { "data": "Descripcion", title: "Descripción" },
@@ -361,6 +406,9 @@ function GridEmpresa() {
         $('#InputTelefonoEmpresa').val(data.Telefono);
         $('#InputCelularEmpresa').val(data.Celular);
         $('#InputContactoEmpresa').val(data.Contacto);
+        $('#SelectTipoDocumentoRL').val(data.IdTipoDocumentoRL);
+        $('#InputIdentificacionRL').val(data.IdentificacionRL);
+        $('#InputCiudadExpedicionRL').val(data.CiudadExpedicion);
         $('#InputDireccionEmpresa').val(data.Direccion);
         $('#SelectCiudad').val(data.IdCiudad);
         $('#InputDescripcionEmpresa').val(data.Descripcion);
