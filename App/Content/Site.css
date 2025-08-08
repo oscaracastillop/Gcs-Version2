@@ -70,6 +70,14 @@
     color: black !important;
 }
 
+.btn-fin-contrato {
+    background-color: white !important;
+    color: black !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    border: solid 1px black !important;
+}
+
 .btnmenu {
     color: white !important;
     margin-left: 5px;
@@ -96,6 +104,8 @@
     color: white !important;
 }
 
+
+
 .btn-pagar {
     background-color: blue !important;
     color: white !important;
@@ -108,12 +118,21 @@
     color: black !important;
 }
 
+.btn-pdf-cle {
+    background-color: white !important;
+    color: red !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    border: solid 1px black !important;
+}
+
 .btn-pdf-comprobantenomina {
     background-color: red !important;
     color: white !important;
     padding-top: 0px !important;
     padding-bottom: 0px !important;
 }
+
 
 .btnSubMenu {
     align-content: center;
@@ -175,6 +194,18 @@
 }
 
 .label-estado-cobrado {
+    align-content: center;
+    align-items: center;
+    background-color: mediumpurple;
+    border: solid 1px black !important;
+    border-radius: 5px !important;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    color: white;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.label-estado-finalizado {
     align-content: center;
     align-items: center;
     background-color: mediumpurple;

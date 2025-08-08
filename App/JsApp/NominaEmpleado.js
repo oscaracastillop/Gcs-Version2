@@ -337,6 +337,7 @@ function GridNominaEmpleado() {
                 }
 
             },
+
             {
                 title: "",
                 data: "",

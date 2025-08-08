@@ -6,7 +6,7 @@
     $("#SelectEmpresa").val(-1);
     $("#SelectTipoContrato").val(-1);    
     $("#InputFechaInicioCLE").empty().val('');
-    $("#InputFechaFinCLE").empty().val('');
+    //$("#InputFechaFinCLE").empty().val('');
     $("#InputObservacionCLE").empty().val('');
     $("#BotonesModalCLE").empty();
     $("#TituloModalCLE").empty();
@@ -18,7 +18,7 @@
         $("#SelectEmpresa").prop("disabled", false);
         $("#SelectEmpleado").prop("disabled", false);
         $("#InputFechaInicioCLE").prop("disabled", false);
-        $("#InputFechaFinCLE").prop("disabled", true);
+        $("#SelectEstadoCLE").hide();
         $("#SelectEps").val(1);
         $("#SelectBanco").val(1);
         $("#SelectFondoPensiones").val(1);
@@ -42,7 +42,6 @@
         $("#SelectEmpresa").prop("disabled", true);
         $("#SelectEmpleado").prop("disabled", true);
         $("#InputFechaInicioCLE").prop("disabled", true);
-        $("#InputFechaFinCLE").prop("disabled", false);
         $("#TituloModalCLE").empty().append('<h6>Editar Contrato Laboral Empleado</h6>');
         $('#ModalCLE').modal('show');
         $("#SelectEstadoCLE").show();
@@ -66,7 +65,7 @@ function CrearCLE() {
     let IdTipoContrato = $('#SelectTipoContrato').val();  
     let SalarioMensual = $('#InputSalarioCLE').val();
     let FechaInicio = $('#InputFechaInicioCLE').val();
-    let FechaFin = $('#InputFechaFinCLE').val();
+    //let FechaFin = $('#InputFechaFinCLE').val();
     let IdEps = $('#SelectEps').val();
     let PorcentajeContEps = $('#InputPorcentajeContribucionEpsCLE').val();
     let IdFondoPension = $('#SelectFondoPensiones').val();
@@ -120,7 +119,7 @@ function CrearCLE() {
         $('#SelectFondoCesantias').focus();
         VentanaMensaje('Seleccione el Fondo de Cesantías');
     } else {
-        if (FechaFin == FechaInicio || FechaFin == '' || FechaFin > FechaInicio) {
+        //if (FechaFin == FechaInicio || FechaFin == '' || FechaFin > FechaInicio) {
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
@@ -133,7 +132,7 @@ function CrearCLE() {
                     IdTipoContrato: IdTipoContrato,
                     SalarioMensual: SalarioMensual,
                     FechaInicio: FechaInicio,                    
-                    FechaFin: FechaFin,
+                    //FechaFin: FechaFin,
                     IdEps: IdEps,
                     PorcentajeContEps: PorcentajeContEps,
                     IdFondoPension: IdFondoPension,
@@ -153,10 +152,10 @@ function CrearCLE() {
                     }
                 }
             });
-        } else {
-            $('#InputFechaFinCLE').focus();
-            VentanaMensaje('Ingrese la Fecha');
-        }
+        //} else {
+        //    $('#InputFechaFinCLE').focus();
+        //    VentanaMensaje('Ingrese la Fecha');
+        //}
     }
 }
 
@@ -165,7 +164,7 @@ function ActualizarCLE() {
     let IdCargo = $('#SelectCargo').val(); 
     let SalarioMensual = $('#InputSalarioCLE').val();
     let IdTipoContrato = $('#SelectTipoContrato').val();  
-    let FechaFin = $('#InputFechaFinCLE').val();
+    //let FechaFin = $('#InputFechaFinCLE').val();
     let IdEps = $('#SelectEps').val();
     let PorcentajeContEps = $('#InputPorcentajeContribucionEpsCLE').val();
     let IdFondoPension = $('#SelectFondoPensiones').val();
@@ -177,77 +176,110 @@ function ActualizarCLE() {
     let Observacion = $('#InputObservacionCLE').val();
     let IdEstado = $('#SelectEstado').val();
 
-    if (IdEstado == 2) {
-        if (FechaFin == null || FechaFin == '' || FechaFin == undefined) {
-            $('#InputFechaFinCLE').focus();
-            VentanaMensaje('Ingrese la fecha de Finalización del Contrato');
-        }
-        else {
-            $.ajax({
-                type: 'POST',
-                dataType: 'json',
-                url: '/Contrato_Laboral/ActualizarCLE',
-                data: {
-                    IdUser: TokenUser,
-                    IdCLE: IdCLE,
-                    IdCargo: IdCargo,
-                    SalarioMensual: SalarioMensual,
-                    IdTipoContrato: IdTipoContrato,
-                    FechaFin: FechaFin,
-                    IdEps: IdEps,
-                    PorcentajeContEps: PorcentajeContEps,
-                    IdFondoPension: IdFondoPension,
-                    PorcentajeContFP: PorcentajeContFP,
-                    IdBanco: IdBanco,
-                    NumeroCuentaPago: NumeroCuentaPago,
-                    SubTransporte: SubTransporte,
-                    IdCesantias: IdCesantias,
-                    Observacion: Observacion,
-                    IdEstado: IdEstado
-                },
-                success: function (resultado) {
-                    valor = resultado.split('*');
-                    if (valor[0] == 'OK') {
-                        VentanaMensajeOK(valor[1]);
-                    } else {
-                        VentanaMensaje(valor[1]);
-                    }
-                }
-            });
-        }
-    } else {
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: '/Contrato_Laboral/ActualizarCLE',
-            data: {
-                IdUser: TokenUser,
-                IdCLE: IdCLE,
-                IdCargo: IdCargo,
-                SalarioMensual: SalarioMensual,
-                IdTipoContrato: IdTipoContrato,
-                FechaFin: FechaFin,
-                IdEps: IdEps,
-                PorcentajeContEps: PorcentajeContEps,
-                IdFondoPension: IdFondoPension,
-                PorcentajeContFP: PorcentajeContFP,
-                IdBanco: IdBanco,
-                NumeroCuentaPago: NumeroCuentaPago,
-                SubTransporte: SubTransporte,
-                IdCesantias: IdCesantias,
-                Observacion: Observacion,
-                IdEstado: IdEstado
-            },
-            success: function (resultado) {
-                valor = resultado.split('*');
-                if (valor[0] == 'OK') {
-                    VentanaMensajeOK(valor[1]);
-                } else {
-                    VentanaMensaje(valor[1]);
-                }
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '/Contrato_Laboral/ActualizarCLE',
+        data: {
+            IdUser: TokenUser,
+            IdCLE: IdCLE,
+            IdCargo: IdCargo,
+            SalarioMensual: SalarioMensual,
+            IdTipoContrato: IdTipoContrato,
+            //FechaFin: FechaFin,
+            IdEps: IdEps,
+            PorcentajeContEps: PorcentajeContEps,
+            IdFondoPension: IdFondoPension,
+            PorcentajeContFP: PorcentajeContFP,
+            IdBanco: IdBanco,
+            NumeroCuentaPago: NumeroCuentaPago,
+            SubTransporte: SubTransporte,
+            IdCesantias: IdCesantias,
+            Observacion: Observacion,
+            IdEstado: IdEstado
+        },
+        success: function (resultado) {
+            valor = resultado.split('*');
+            if (valor[0] == 'OK') {
+                VentanaMensajeOK(valor[1]);
+            } else {
+                VentanaMensaje(valor[1]);
             }
-        });
-    } 
+        }
+    });
+
+
+    //if (IdEstado == 2) {
+    //    if (FechaFin == null || FechaFin == '' || FechaFin == undefined) {
+    //        $('#InputFechaFinCLE').focus();
+    //        VentanaMensaje('Ingrese la fecha de Finalización del Contrato');
+    //    }
+    //    else {
+    //        $.ajax({
+    //            type: 'POST',
+    //            dataType: 'json',
+    //            url: '/Contrato_Laboral/ActualizarCLE',
+    //            data: {
+    //                IdUser: TokenUser,
+    //                IdCLE: IdCLE,
+    //                IdCargo: IdCargo,
+    //                SalarioMensual: SalarioMensual,
+    //                IdTipoContrato: IdTipoContrato,
+    //                FechaFin: FechaFin,
+    //                IdEps: IdEps,
+    //                PorcentajeContEps: PorcentajeContEps,
+    //                IdFondoPension: IdFondoPension,
+    //                PorcentajeContFP: PorcentajeContFP,
+    //                IdBanco: IdBanco,
+    //                NumeroCuentaPago: NumeroCuentaPago,
+    //                SubTransporte: SubTransporte,
+    //                IdCesantias: IdCesantias,
+    //                Observacion: Observacion,
+    //                IdEstado: IdEstado
+    //            },
+    //            success: function (resultado) {
+    //                valor = resultado.split('*');
+    //                if (valor[0] == 'OK') {
+    //                    VentanaMensajeOK(valor[1]);
+    //                } else {
+    //                    VentanaMensaje(valor[1]);
+    //                }
+    //            }
+    //        });
+    //    }
+    //} else {
+    //    $.ajax({
+    //        type: 'POST',
+    //        dataType: 'json',
+    //        url: '/Contrato_Laboral/ActualizarCLE',
+    //        data: {
+    //            IdUser: TokenUser,
+    //            IdCLE: IdCLE,
+    //            IdCargo: IdCargo,
+    //            SalarioMensual: SalarioMensual,
+    //            IdTipoContrato: IdTipoContrato,
+    //            FechaFin: FechaFin,
+    //            IdEps: IdEps,
+    //            PorcentajeContEps: PorcentajeContEps,
+    //            IdFondoPension: IdFondoPension,
+    //            PorcentajeContFP: PorcentajeContFP,
+    //            IdBanco: IdBanco,
+    //            NumeroCuentaPago: NumeroCuentaPago,
+    //            SubTransporte: SubTransporte,
+    //            IdCesantias: IdCesantias,
+    //            Observacion: Observacion,
+    //            IdEstado: IdEstado
+    //        },
+    //        success: function (resultado) {
+    //            valor = resultado.split('*');
+    //            if (valor[0] == 'OK') {
+    //                VentanaMensajeOK(valor[1]);
+    //            } else {
+    //                VentanaMensaje(valor[1]);
+    //            }
+    //        }
+    //    });
+    //} 
 }
 
 
@@ -287,6 +319,38 @@ function EliminarCLE(IdCLE) {
     });
 }
 
+function FinalizarCLE() {
+   
+    let IdCLE = $('#LabelIdFinalizarCLE').text();
+    let FechaInicio = $('#InputFechaInicioFinalizarCLE').val();
+    let FechaFin = $('#InputFechaFinFinalizarCLE').val();
+
+    if (FechaFin == FechaInicio || FechaFin == '' || FechaFin < FechaInicio) {
+        $('#InputFechaFinFinalizarCLE').focus();
+        VentanaMensaje('Por favor valide la Fecha Fin, no puede estar el campo vacio, o la fecha es inferior a la Fecha Inicio del Contrato');
+    } else {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/Contrato_Laboral/FinalizarCLE',
+            data: {
+                IdUser: TokenUser,
+                IdCLE: IdCLE,
+                FechaFin: FechaFin,
+            },
+            success: function (resultado) {
+                valor = resultado.split('*');
+                if (valor[0] == 'OK') {
+                    VentanaMensajeOK(valor[1]);
+                } else {
+                    VentanaMensaje(valor[1]);
+                }
+            }
+        });
+    }
+}
+
+
 function GridCLE() {
     var tituloReporte = 'LISTADO DE CONTRATOS LABORALES';
     let datatable = $('#gridCLE').DataTable({
@@ -310,8 +374,9 @@ function GridCLE() {
             { targets: [11], className: 'dt-head-center' },//Fecha Creación
             { targets: [12], className: 'dt-head-center' },//Fecha Creación
             { targets: [13], className: 'dt-head-center' },
-            { targets: [14], width: '10px', className: 'dt-center dt-head-center' },
-            { targets: [15], width: '10px', className: 'dt-center dt-head-center' }
+            { targets: [14], className: 'dt-head-center' },
+            { targets: [15], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [16], width: '10px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -402,8 +467,22 @@ function GridCLE() {
                 title: "",
                 data: "",
                 "render": function (data, type, row) {
-                    return '<button class="btn btn-sm btn-pdf-comprobantenomina" onclick="descargarContratoLaboral(' + row.Id + ')">PDF</button>';
+                    return '<button class="btn btn-sm btn-pdf-cle" onclick="descargarContratoLaboral(' + row.Id + ')">PDF</button>';
                 }
+            },
+            {
+                title: "",
+                data: "Estado",
+                "render": function (data, type, row) {
+
+                    if (row.IdEstado !== 1) {
+                        return '<button class="btn btn-sm btn-fin-contrato" disabled>Finalizar Contrato</button>';
+                    }
+                    else {
+                        return '<button class="btn btn-sm btn-fin-contrato ModalFinalizarCLE">Finalizar Contrato</button>';
+                    }
+                }
+
             },
             {
                 title: "Estado",
@@ -415,6 +494,9 @@ function GridCLE() {
                     }
                     else if (row.IdEstado == 2) {
                         return '<label class="label-estado-inactivo">' + data + '</label>';
+                    }
+                    else if (row.IdEstado == 5) {
+                        return '<label class="label-estado-finalizado">' + data + '</label>';
                     }
                 }
 
@@ -446,21 +528,49 @@ function GridCLE() {
             { "data": "Permanencia", title: "Permanencia", width: 'auto' },//9
             { "data": "Observacion", title: "Observación", width: 'auto' },//10        
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },//11
-            { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },//12            
+            { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },//12
+
             {
                 title: "",
-                data: null,
-                defaultContent:
-                    '<a class="EditarCLE btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
-                orderable: false,
+                data: "Estado",
+                "render": function (data, type, row) {
+                    if (row.IdEstado !== 1) {
+                        return '<button class="btn btn-editar-dt" title="Editar Registro" disabled><i class="bi-pencil-fill"></i></button>';
+                    }
+                    else {
+                        return '<a class="EditarCLE btn btn-editar-dt" title="Editar Registro"><i class="bi-pencil-fill"></i></a>';
+                    }
+                }
             },
+
             {
                 title: "",
-                data: null,
-                defaultContent:
-                    '<a class="EliminarCLE btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>',
-                orderable: false,
+                data: "Estado",
+                "render": function (data, type, row) {
+                    if (row.IdEstado !== 1) {
+                        return '<button class="btn btn-eliminar-dt" title="Eliminar Registro" disabled><i class="bi-trash-fill"></i></button>';
+                    }
+                    else {
+                        return '<a class="EliminarCLE btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>';
+                    }
+                }
+
             },
+
+            //{
+            //    title: "",
+            //    data: null,
+            //    defaultContent:
+            //        '<a class="EditarCLE btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
+            //    orderable: false,
+            //},
+            //{
+            //    title: "",
+            //    data: null,
+            //    defaultContent:
+            //        '<a class="EliminarCLE btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>',
+            //    orderable: false,
+            //},
         ],
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.11.2/i18n/es_es.json"
@@ -502,6 +612,17 @@ function GridCLE() {
     $('#gridCLE').on('click', '.EliminarCLE', function () {
         let data = datatable.row($(this).parents()).data();
         EliminarCLE(data.Id);
+    })
+
+    $('#gridCLE').on('click', '.ModalFinalizarCLE', function () {
+        let data = datatable.row($(this).parents()).data(); 
+        $("#InputFechaInicioFinalizarCLE").empty().val('');
+        $("#InputFechaFinFinalizarCLE").empty().val('');
+        $("#NombreEmpleado").empty().val('');
+        $('#ModalFinalizarCLE').modal('show');
+        $('#LabelIdFinalizarCLE').text(data.Id);
+        $('#NombreEmpleado').val(data.Empleado);
+        $("#InputFechaInicioFinalizarCLE").val(data.FechaInicio);
     })
 }
 

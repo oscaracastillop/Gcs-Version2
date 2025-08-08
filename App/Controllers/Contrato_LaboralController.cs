@@ -1,21 +1,9 @@
 ﻿using Data.DataEntities;
-using Models;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
-using SistemaGcs.Models;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Globalization;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Razor.Parser.SyntaxTree;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace App.Controllers
 {
@@ -27,26 +15,32 @@ namespace App.Controllers
         }
 
         private readonly DataContratoLaboral dataContratoLaboral = new DataContratoLaboral();
-                      
 
-        public JsonResult CrearCLE( string IdUser, int IdEmpleado, int IdEmpresa, int IdCargo, int IdTipoContrato, int SalarioMensual, string FechaInicio,
-                                    string FechaFin, int IdEps, decimal PorcentajeContEps, int IdFondoPension, decimal PorcentajeContFP, int IdBanco,
+
+        public JsonResult CrearCLE(string IdUser, int IdEmpleado, int IdEmpresa, int IdCargo, int IdTipoContrato, int SalarioMensual, string FechaInicio,
+                                    int IdEps, decimal PorcentajeContEps, int IdFondoPension, decimal PorcentajeContFP, int IdBanco,
                                     string NumeroCuentaPago, int SubTransporte, int IdCesantias, string Observacion)
         {
-            var resultado = dataContratoLaboral.CrearCLE(   IdUser, IdEmpleado, IdEmpresa, IdCargo, IdTipoContrato, SalarioMensual, FechaInicio, FechaFin,
+            var resultado = dataContratoLaboral.CrearCLE(IdUser, IdEmpleado, IdEmpresa, IdCargo, IdTipoContrato, SalarioMensual, FechaInicio, 
                                                             IdEps, PorcentajeContEps, IdFondoPension, PorcentajeContFP, IdBanco, NumeroCuentaPago,
                                                             SubTransporte, IdCesantias, Observacion);
 
             return Json(resultado);
         }
 
-        public JsonResult ActualizarCLE(string IdUser, int IdCLE, int IdCargo, int IdTipoContrato, int SalarioMensual, string FechaFin, int IdEps,
+        public JsonResult ActualizarCLE(string IdUser, int IdCLE, int IdCargo, int IdTipoContrato, int SalarioMensual, int IdEps,
                                         decimal PorcentajeContEps, int IdFondoPension, decimal PorcentajeContFP, int IdBanco,
                                         string NumeroCuentaPago, int SubTransporte, int IdCesantias, string Observacion, int IdEstado)
         {
-            var resultado = dataContratoLaboral.ActualizarCLE(  IdUser, IdCLE, IdCargo, IdTipoContrato, SalarioMensual, FechaFin, IdEps,
+            var resultado = dataContratoLaboral.ActualizarCLE(IdUser, IdCLE, IdCargo, IdTipoContrato, SalarioMensual, IdEps,
                                                                 PorcentajeContEps, IdFondoPension, PorcentajeContFP, IdBanco, NumeroCuentaPago,
                                                                 SubTransporte, IdCesantias, Observacion, IdEstado);
+            return Json(resultado);
+        }
+
+        public JsonResult FinalizarCLE(string IdUser, int IdCLE, string FechaFin)
+        {
+            string resultado = dataContratoLaboral.FinalizarCLE(IdUser, IdCLE, FechaFin);
             return Json(resultado);
         }
 
@@ -62,7 +56,7 @@ namespace App.Controllers
             return Json(new { data = data }, JsonRequestBehavior.AllowGet);
         }
 
-        
+
         public JsonResult ListaContratoLaboralEmpleado()
         {
             var resultado = dataContratoLaboral.ListaContratoLaboral();
@@ -128,11 +122,11 @@ namespace App.Controllers
                     {
                         row.RelativeItem().Height(60).Image(logoBytes).FitHeight();
                         row.RelativeItem().AlignMiddle().Text($"Contrato Laboral - # {d.Id}")
-                        .FontFamily("Lato").AlignRight().FontSize(10);                        
+                        .FontFamily("Lato").AlignRight().FontSize(10);
                     });
 
                     page.Content().Column(col =>
-                    {                                             
+                    {
 
                         col.Spacing(0);
                         // Datos generales del empleado
@@ -141,56 +135,65 @@ namespace App.Controllers
                         col.Item().Text($"{d.InfoEmpresa}").FontSize(7);
                         col.Item().PaddingTop(15).Text($"CONTRATO INDIVIDUAL DE TRABAJO").AlignCenter().Bold();
                         col.Item().PaddingTop(10).Text("DATOS TRABAJADOR").FontSize(10).Bold();
-                        col.Item().PaddingTop(0).Text(text => {
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
                             text.Justify();
                             text.Span($"Nombre Trabajador: ").SemiBold().FontSize(10);
                             text.Span($"{d.Empleado}").FontSize(10);
                         });
-                        col.Item().PaddingTop(0).Text(text => {
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
                             text.Justify();
                             text.Span($"Documento:  ").SemiBold().FontSize(10);
                             text.Span($"{d.TipoDocumentoEmpleado}").FontSize(10);
-                            text.Span($" {d.IdentificacionEmpleado} de {d.CiudadExpedicionDocumentoEmpleado}."). FontSize(10);
+                            text.Span($" {d.IdentificacionEmpleado} de {d.CiudadExpedicionDocumentoEmpleado}.").FontSize(10);
                         });
 
-                        col.Item().PaddingTop(10).Text("INFORMACIÓN LABORAL").FontSize(10).Bold();   
-                        col.Item().PaddingTop(0).Text(text =>{
+                        col.Item().PaddingTop(10).Text("INFORMACIÓN LABORAL").FontSize(10).Bold();
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
                             text.Justify();
                             text.Span($"Salario Mensual: ").SemiBold().FontSize(10);
                             text.Span($"{SalarioMensualArreglo}").FontSize(10);
                         });
 
-                        col.Item().PaddingTop(0).Text(text => {
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
                             text.Justify();
                             text.Span($"Lugar y período de pago: ").SemiBold().FontSize(10);
                             text.Span($"{d.CiudadEmpresa} - Quincenal.").FontSize(10);
                         });
 
-                        col.Item().PaddingTop(0).Text(text => {
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
                             text.Justify();
                             text.Span($"Forma de pago: ").SemiBold().FontSize(10);
                             text.Span($"Cuenta Ahorros, Billetera Digital (Nequi, Daviplata, Ahorro a la Mano, etc.).").FontSize(10);
                         });
 
-                        col.Item().PaddingTop(0).Text(text => {
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
                             text.Justify();
                             text.Span($"Cargo a Desempeñar: ").SemiBold().FontSize(10);
                             text.Span($"{d.Cargo}.").FontSize(10);
                         });
 
-                        col.Item().PaddingTop(0).Text(text => {
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
                             text.Justify();
                             text.Span($"Fecha de iniciación de labores: ").SemiBold().FontSize(10);
                             text.Span($"{d.FechaIngreso}").FontSize(10);
                         });
 
-                        col.Item().PaddingTop(0).Text(text => {
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
                             text.Justify();
                             text.Span($"Lugar de desempeño de labores: ").SemiBold().FontSize(10);
                             text.Span($"{d.CiudadEmpresa} y/o zonas indicadas por EL EMPLEADOR.").FontSize(10);
                         });
 
-                        col.Item().PaddingTop(0).Text(text => {
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
                             text.Justify();
                             text.Span($"Ciudad donde ha sido contratado el trabajador: ").SemiBold().FontSize(10);
                             text.Span($"{d.CiudadEmpresa}").FontSize(10);
@@ -198,8 +201,8 @@ namespace App.Controllers
 
 
 
-                        col.Item().PaddingTop(15).Text(text => 
-                        {                            
+                        col.Item().PaddingTop(15).Text(text =>
+                        {
                             text.Justify();
                             text.ParagraphFirstLineIndentation(20);
                             text.Span($"Entre los suscritos a saber ").FontSize(10);
@@ -250,7 +253,7 @@ namespace App.Controllers
                             text.Span("EL EMPLEADOR.").Bold().FontSize(10);
                         });
 
-                       
+
                         col.Item().PaddingTop(15).Text(text =>
                         {
                             text.Justify();
@@ -599,7 +602,7 @@ namespace App.Controllers
 
 
                         //////////////////// SEPTIMA
-                        
+
                         col.Item().PaddingTop(15).Text(text =>
                         {
                             text.Justify();
@@ -651,8 +654,8 @@ namespace App.Controllers
                             text.Span("Parágrafo 3. Pagos no salariales.").SemiBold().FontSize(10);
                             text.Span(" Las partes pactan a través del presente documento que cualquier beneficio o auxilio bien sea habitual u ocasional (como por ejemplo alimentación, transporte, alojamiento, vestuario, las primas extralegales de servicios, de vacaciones, de navidad, etc) acordado convencional o contractualmente u otorgado en forma extralegal por ").FontSize(10);
                             text.Span("EL EMPLEADOR").Bold().FontSize(10);
-                            text.Span(", no constituirá salario en dinero o en especie para efectos de liquidación, es decir, podrá excluirse de la base de cómputo para la liquidación de conceptos laborales tales como prestaciones sociales, indemnizaciones, aportes a la seguridad social, etc., de conformidad a lo establecido en el artículo 128 del Código Sustantivo del Trabajo, subrogado por el artículo 15 de la Ley 50 de 1990. \r\n").FontSize(10);                            
-                            text.Span("Adicionalmente, las partes aquí firmantes hacen constar que conocen lo dispuesto en el artículo 128 del CST según el cual no constituyen salario las sumas que ocasionalmente y por mera liberalidad recibe el trabajador del empleador, como primas, bonificaciones o gratificaciones ocasionales, participación de utilidades y lo que recibe en dinero o en especie no para su beneficio, ni para enriquecer su patrimonio, sino para desempeñar a cabalidad sus funciones, como gastos de representación, medios de transporte o de movilización, elementos de trabajo y otros semejantes. Tampoco las prestaciones sociales de que tratan los títulos VIII y IX del CST.").FontSize(10);                           
+                            text.Span(", no constituirá salario en dinero o en especie para efectos de liquidación, es decir, podrá excluirse de la base de cómputo para la liquidación de conceptos laborales tales como prestaciones sociales, indemnizaciones, aportes a la seguridad social, etc., de conformidad a lo establecido en el artículo 128 del Código Sustantivo del Trabajo, subrogado por el artículo 15 de la Ley 50 de 1990. \r\n").FontSize(10);
+                            text.Span("Adicionalmente, las partes aquí firmantes hacen constar que conocen lo dispuesto en el artículo 128 del CST según el cual no constituyen salario las sumas que ocasionalmente y por mera liberalidad recibe el trabajador del empleador, como primas, bonificaciones o gratificaciones ocasionales, participación de utilidades y lo que recibe en dinero o en especie no para su beneficio, ni para enriquecer su patrimonio, sino para desempeñar a cabalidad sus funciones, como gastos de representación, medios de transporte o de movilización, elementos de trabajo y otros semejantes. Tampoco las prestaciones sociales de que tratan los títulos VIII y IX del CST.").FontSize(10);
                         });
 
                         //////////////////// OCTAVA
@@ -665,7 +668,7 @@ namespace App.Controllers
                             text.Span(" EL TRABAJADOR").Bold().FontSize(10);
                             text.Span(" se obliga a laborar la jornada máxima legal en los turnos y dentro de las horas señalados por ").FontSize(10);
                             text.Span("EL EMPLEADOR").Bold().FontSize(10);
-                            text.Span(" pudiendo hacer éste ajustes o cambios de horario cuando lo estime conveniente. Por el acuerdo expreso o tactito de las partes, podrán repartirse las horas de la jornada ordinaria en la forma prevista en el artículo 164 del Código Sustantivo del trabajo, modificado por el artículo 23 de la Ley 50 de 1990, teniendo en cuenta que los tiempos de descanso entre las secciones de la jornada no se computan dentro de la misma, según el artículo 167 ibídem. ").FontSize(10);                            
+                            text.Span(" pudiendo hacer éste ajustes o cambios de horario cuando lo estime conveniente. Por el acuerdo expreso o tactito de las partes, podrán repartirse las horas de la jornada ordinaria en la forma prevista en el artículo 164 del Código Sustantivo del trabajo, modificado por el artículo 23 de la Ley 50 de 1990, teniendo en cuenta que los tiempos de descanso entre las secciones de la jornada no se computan dentro de la misma, según el artículo 167 ibídem. ").FontSize(10);
                         });
 
                         //////////////////// NOVENA
@@ -695,7 +698,7 @@ namespace App.Controllers
                             text.Span("DÉCIMA - JUSTAS CAUSAS DE TERMINACIÓN DEL CONTRATO:").SemiBold().FontSize(10);
                             text.Span(" Son justas causas para dar por terminado unilateralmente este contrato, las enumeradas en el artículo 62 del Código Sustantivo del trabajo, modificado por el artículo 7o. del Decreto 2351/65 y además por parte de ").FontSize(10);
                             text.Span(" EL EMPLEADOR").Bold().FontSize(10);
-                            text.Span(",  las faltas que para el efecto se califiquen como graves en reglamentaciones, órdenes, instrucciones o prohibiciones de carácter general o particular, pactos, convenciones colectivas, laudos arbitrales y las que expresamente convengan calificar así en escritos que formarán parte integral del presente contrato. Expresamente se califican en este acto como graves las siguientes faltas:").FontSize(10);                            
+                            text.Span(",  las faltas que para el efecto se califiquen como graves en reglamentaciones, órdenes, instrucciones o prohibiciones de carácter general o particular, pactos, convenciones colectivas, laudos arbitrales y las que expresamente convengan calificar así en escritos que formarán parte integral del presente contrato. Expresamente se califican en este acto como graves las siguientes faltas:").FontSize(10);
                         });
 
                         col.Item().PaddingTop(0).Text(text =>
@@ -801,7 +804,7 @@ namespace App.Controllers
                         {
                             text.Justify();
                             text.Span("1.").SemiBold().FontSize(10);
-                            text.Span(" Autorizo la circulación, tratamiento, supresión, recopilación, recolección, almacenamiento, copia, entrega, actualización, ordenamiento, clasificación, transferencia, transmisión, corrección, verificación, uso para fines estadísticos, comerciales, históricos y administrativos de la empresa, y en general la utilización (incluso con posterioridad a la terminación del contrato de trabajo) de todos los datos por mi suministrados en vigencia de la relación laboral y/o de forma previa a la misma y/o durante el proceso de selección, autorización que comprende mi información personal y de datos sensibles, contenidos o no en bases de datos. Lo anterior, con el objetivo de ser usados como información necesaria para la correcta contratación, administración y ejecución del contrato de trabajo, así como para el desarrollo del objeto social de la empresa, teniendo en cuenta que son datos pertinentes, necesarios y adecuados.").FontSize(10);                            
+                            text.Span(" Autorizo la circulación, tratamiento, supresión, recopilación, recolección, almacenamiento, copia, entrega, actualización, ordenamiento, clasificación, transferencia, transmisión, corrección, verificación, uso para fines estadísticos, comerciales, históricos y administrativos de la empresa, y en general la utilización (incluso con posterioridad a la terminación del contrato de trabajo) de todos los datos por mi suministrados en vigencia de la relación laboral y/o de forma previa a la misma y/o durante el proceso de selección, autorización que comprende mi información personal y de datos sensibles, contenidos o no en bases de datos. Lo anterior, con el objetivo de ser usados como información necesaria para la correcta contratación, administración y ejecución del contrato de trabajo, así como para el desarrollo del objeto social de la empresa, teniendo en cuenta que son datos pertinentes, necesarios y adecuados.").FontSize(10);
                         });
 
                         col.Item().PaddingTop(0).Text(text =>
@@ -886,7 +889,7 @@ namespace App.Controllers
                             text.Span("EL TRABAJADOR").Bold().FontSize(10);
                             text.Span(", en cumplimiento de este contrato, se radica en cabeza de ").FontSize(10);
                             text.Span("EL EMPLEADOR").Bold().FontSize(10);
-                            text.Span(", de conformidad con lo establecido en el artículo 10° de la misma Decisión y demás normas conexas y complementarias.").FontSize(10);                            
+                            text.Span(", de conformidad con lo establecido en el artículo 10° de la misma Decisión y demás normas conexas y complementarias.").FontSize(10);
                         });
 
                         //////////////////// DECIMA TERCERA
@@ -923,7 +926,7 @@ namespace App.Controllers
                             text.Span("EL EMPLEADOR").Bold().FontSize(10);
                             text.Span(" modificación alguna de las condiciones de trabajo, pues ello corresponde a un riesgo propio de la actividad laboral o naturaleza del cargo y porque, además son circunstancias que tanto ").FontSize(10);
                             text.Span("EL EMPLEADOR").Bold().FontSize(10);
-                            text.Span(" como ").FontSize(10);                            
+                            text.Span(" como ").FontSize(10);
                             text.Span("EL TRABAJADOR").Bold().FontSize(10);
                             text.Span(" prevén de buena fe, en el momento de suscribir este contrato.").FontSize(10);
                         });
@@ -972,14 +975,14 @@ namespace App.Controllers
                             text.Span(" EL TRABAJADOR").Bold().FontSize(10);
                             text.Span(" manifiesta conocer este contrato y estar de acuerdo con el mismo en todas sus partes. Así mismo declara que conoce en su totalidad el Reglamento de Trabajo de ").FontSize(10);
                             text.Span("EL EMPLEADOR.").Bold().FontSize(10);
-                            text.Span(" El presente contrato reemplaza en su integridad y deja sin efecto cualquier otro contrato verbal o escrito celebrado entre las partes con anterioridad, no obstante, ").FontSize(10);                            
-                            text.Span("para todos los efectos legales se reconoce la antigüedad del contrato conforme la fecha de iniciación de labores que figura en la carátula del presente documento. Las modificaciones que se acuerden al presente contrato de trabajo deberán hacerse por escrito las que formarán parte integrante de este contrato.").FontSize(10);                           
+                            text.Span(" El presente contrato reemplaza en su integridad y deja sin efecto cualquier otro contrato verbal o escrito celebrado entre las partes con anterioridad, no obstante, ").FontSize(10);
+                            text.Span("para todos los efectos legales se reconoce la antigüedad del contrato conforme la fecha de iniciación de labores que figura en la carátula del presente documento. Las modificaciones que se acuerden al presente contrato de trabajo deberán hacerse por escrito las que formarán parte integrante de este contrato.").FontSize(10);
                         });
 
                         col.Item().PaddingTop(5).Text(text =>
                         {
                             text.Justify();
-                            text.Span($"Para constancia y en señal de aceptación de las condiciones descritas en este documento, se firma por las partes que han intervenido en un ejemplar y copia, el dia {d.FechaFirmaContrato} en la ciudad de {d.CiudadEmpresa}.").FontSize(10);                            
+                            text.Span($"Para constancia y en señal de aceptación de las condiciones descritas en este documento, se firma por las partes que han intervenido en un ejemplar y copia, el dia {d.FechaFirmaContrato} en la ciudad de {d.CiudadEmpresa}.").FontSize(10);
                         });
 
 
@@ -990,25 +993,26 @@ namespace App.Controllers
 
                         col.Item().PaddingTop(80).Row(r => { r.RelativeItem().AlignCenter().Text("Firma Trabajador").SemiBold(); r.RelativeItem().AlignCenter().Text($"Firma o Sello Empresa").SemiBold(); });
                         col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text($"{d.Empleado}").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"{d.Empresa}").SemiBold().FontSize(8); });
-                                                
+
                     });
 
-                page.Footer()
-                .PaddingTop(5)
-                    .AlignRight()
-                    .Text(x => {
-                        x.Span("Contrato de Trabajo generado con Sofia Software Administrativo V 1.0  - ").FontSize(6);
-                        x.Span(" Página ").FontSize(8);
-                        x.CurrentPageNumber().FontSize(8);
-                    }); 
-                    
+                    page.Footer()
+                    .PaddingTop(5)
+                        .AlignRight()
+                        .Text(x =>
+                        {
+                            x.Span("Contrato de Trabajo generado con Sofia Software Administrativo V 1.0  - ").FontSize(6);
+                            x.Span(" Página ").FontSize(8);
+                            x.CurrentPageNumber().FontSize(8);
+                        });
+
 
                 });
             }).GeneratePdf();
 
             fontStream.Dispose();
 
-            return File(pdfBytes, "application/pdf", "Contrato de Trabajo # " + id + " " + d.Empleado +".pdf");
+            return File(pdfBytes, "application/pdf", "Contrato de Trabajo # " + id + " " + d.Empleado + ".pdf");
         }
 
     }

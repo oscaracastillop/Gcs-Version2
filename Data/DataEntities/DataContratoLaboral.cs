@@ -16,7 +16,7 @@ namespace Data.DataEntities
         private readonly DataRol dataRol = new DataRol();
 
         public string CrearCLE( string IdUser, int IdEmpleado, int IdEmpresa, int IdCargo, int IdTipoContrato, int SalarioMensual, string FechaInicio,
-                                string FechaFin, int IdEps, decimal PorcentajeContEps, int IdFondoPension, decimal PorcentajeContFP, int IdBanco,
+                                int IdEps, decimal PorcentajeContEps, int IdFondoPension, decimal PorcentajeContFP, int IdBanco,
                                 string NumeroCuentaPago, int SubTransporte, int IdCesantias, string Observacion)
         {
             string resultado = String.Empty;
@@ -29,7 +29,6 @@ namespace Data.DataEntities
                 var varIdTipoContrato = new SqlParameter("@IdTipoContrato", SqlDbType.Int) { Value = IdTipoContrato };
                 var varSalarioMensual = new SqlParameter("@SalarioMensual", SqlDbType.Int) { Value = SalarioMensual };
                 var varFechaInicio = new SqlParameter("@FechaIni", SqlDbType.VarChar) { Value = FechaInicio };
-                var varFechaFin = new SqlParameter("@FechaEnd", SqlDbType.VarChar) { Value = FechaFin };
                 var varIdEps = new SqlParameter("@IdEps", SqlDbType.Int) { Value = IdEps };
                 var varPorcentajeContEps = new SqlParameter("@PorcentajeContEps", SqlDbType.Decimal) { Value = PorcentajeContEps };
                 var varIdFondoPension = new SqlParameter("@IdFondoPension", SqlDbType.Int) { Value = IdFondoPension };
@@ -48,7 +47,6 @@ namespace Data.DataEntities
                                                                     "@IdTipoContrato, " +
                                                                     "@SalarioMensual," +
                                                                     "@FechaIni, " +
-                                                                    "@FechaEnd, " +
                                                                     "@IdEps, " +
                                                                     "@PorcentajeContEps, " +
                                                                     "@IdFondoPension, " +
@@ -66,7 +64,6 @@ namespace Data.DataEntities
                                                                     varIdTipoContrato,
                                                                     varSalarioMensual,
                                                                     varFechaInicio,
-                                                                    varFechaFin,
                                                                     varIdEps,
                                                                     varPorcentajeContEps,
                                                                     varIdFondoPension,
@@ -102,7 +99,7 @@ namespace Data.DataEntities
             return resultado;
         }
 
-        public string ActualizarCLE(string IdUser, int IdCLE, int IdCargo, int IdTipoContrato, int SalarioMensual, string FechaFin, int IdEps, decimal PorcentajeContEps,
+        public string ActualizarCLE(string IdUser, int IdCLE, int IdCargo, int IdTipoContrato, int SalarioMensual, int IdEps, decimal PorcentajeContEps,
                                     int IdFondoPension, decimal PorcentajeContFP, int IdBanco, string NumeroCuentaPago, int SubTransporte,
                                     int IdCesantias, string Observacion, int IdEstado)
         {
@@ -114,7 +111,6 @@ namespace Data.DataEntities
                 var varIdCargo = new SqlParameter("@IdCargo", SqlDbType.Int) { Value = IdCargo };
                 var varIdTipoContrato = new SqlParameter("@IdTipoContrato", SqlDbType.Int) { Value = IdTipoContrato };
                 var varSalarioMensual = new SqlParameter("@SalarioMensual", SqlDbType.Int) { Value = SalarioMensual };
-                var varFechaFin = new SqlParameter("@FechaEnd", SqlDbType.VarChar) { Value = FechaFin };
                 var varIdEps = new SqlParameter("@IdEps", SqlDbType.Int) { Value = IdEps };
                 var varPorcentajeContEps = new SqlParameter("@PorcentajeContEps", SqlDbType.Decimal) { Value = PorcentajeContEps };
                 var varIdFondoPension = new SqlParameter("@IdFondoPension", SqlDbType.Int) { Value = IdFondoPension };
@@ -127,10 +123,10 @@ namespace Data.DataEntities
                 var varIdEstado = new SqlParameter("@IdEstado", SqlDbType.Int) { Value = IdEstado };
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
 
-                _conection.Database.ExecuteSqlCommand("SP_ActualizarCLE @IdUser, @IdCLE, @IdCargo, @IdTipoContrato, @SalarioMensual, @FechaEnd, @IdEps," +
+                _conection.Database.ExecuteSqlCommand("SP_ActualizarCLE @IdUser, @IdCLE, @IdCargo, @IdTipoContrato, @SalarioMensual, @IdEps," +
                                                         "@PorcentajeContEps,@IdFondoPension, @PorcentajeContFP,@IdBanco,@NumeroCuentaPago," +
                                                         "@SubTransporte,@IdCesantias,@Observacion, @IdEstado, @Resultado OUTPUT", 
-                                                        varIdUser, varIdCLE, varIdCargo, varIdTipoContrato, varSalarioMensual, varFechaFin, varIdEps, 
+                                                        varIdUser, varIdCLE, varIdCargo, varIdTipoContrato, varSalarioMensual, varIdEps, 
                                                         varPorcentajeContEps, varIdFondoPension, varPorcentajeContFP, varIdBanco, varNumeroCuentaPago, 
                                                         varSubTransporte, varIdCesantias, varObservacion, varIdEstado, varResultado);
 
@@ -184,6 +180,34 @@ namespace Data.DataEntities
             }
             return resultado;
         }
+
+        public string FinalizarCLE(string IdUser, int IdCLE, string FechaFin)
+        {
+            string resultado = String.Empty;
+            try
+            {
+                var varIdUser = new SqlParameter("@IdUser", SqlDbType.VarChar) { Value = IdUser };
+                var varIdCLE = new SqlParameter("@IdCLE", SqlDbType.Int) { Value = IdCLE };
+                var varFechaFin = new SqlParameter("@FechaFin", SqlDbType.VarChar) { Value = FechaFin };
+                var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
+                _conection.Database.ExecuteSqlCommand("SP_EliminarCLE @IdUser, @IdCLE, @FechaFin, @Resultado OUTPUT", varIdUser, varIdCLE, varFechaFin, varResultado);
+                resultado = Convert.ToString(varResultado.Value);
+            }
+            catch (Exception ex)
+            {
+                var Rol = dataRol.BuscarRolUsuario(IdUser);
+                if (Rol == "Administrador")
+                {
+                    resultado = "Error*" + ex.Message;
+                }
+                else
+                {
+                    resultado = "Error*En el momento no se puede realizar este proceso, por favor comuniquese con el Administrador";
+                }
+            }
+            return resultado;
+        }
+
 
         public List<GridCLE> GridCLE()
         {
