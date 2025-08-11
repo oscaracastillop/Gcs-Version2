@@ -12,21 +12,19 @@ namespace SistemaGcs.Data.DataEntities
     {
         readonly GcsEntities _conection = new GcsEntities();
         private readonly DataRol dataRol = new DataRol();
-               
-        public string CrearSucursalEmpleado(string IdUser, int IdEmpleado, int IdSucursal, string FechaInicio, string FechaFin, string Observacion)
+
+        public string CambiarSucursalEmpleado(string IdUser, int IdSucursalEmpleado, int IdSucursal, string Observacion)
         {
             string resultado = String.Empty;
             try
             {
                 var varIdUser = new SqlParameter("@IdUser", SqlDbType.VarChar) { Value = IdUser };
-                var varIdEmpleado = new SqlParameter("@IdEmpleado", SqlDbType.Int) { Value = IdEmpleado };
+                var varIdSucursalEmpleado = new SqlParameter("@IdSucursalEmpleado", SqlDbType.Int) { Value = IdSucursalEmpleado };
                 var varIdSucursal = new SqlParameter("@IdSucursal", SqlDbType.Int) { Value = IdSucursal };
-                var varFechaInicio = new SqlParameter("@FechaIni", SqlDbType.VarChar) { Value = FechaInicio };
-                var varFechaFin = new SqlParameter("@FechaEnd", SqlDbType.VarChar) { Value = FechaFin };
                 var varObservacion = new SqlParameter("@Observacion", SqlDbType.VarChar) { Value = Observacion };
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = int.MaxValue };
 
-                _conection.Database.ExecuteSqlCommand("SP_CrearSucursalEmpleado @IdUser, @IdEmpleado, @IdSucursal, @FechaIni, @FechaEnd, @Observacion, @Resultado OUTPUT", varIdUser, varIdEmpleado, varIdSucursal, varFechaInicio, varFechaFin, varObservacion, varResultado);
+                _conection.Database.ExecuteSqlCommand("SP_CambiarSucursalEmpleado @IdUser, @IdSucursalEmpleado, @IdSucursal, @Observacion, @Resultado OUTPUT", varIdUser, varIdSucursalEmpleado, varIdSucursal, varObservacion, varResultado);
 
                 resultado = Convert.ToString(varResultado.Value);
             }
@@ -47,72 +45,6 @@ namespace SistemaGcs.Data.DataEntities
                     {
                         resultado = "Error*En el momento no se puede realizar este proceso, por favor comuniquese con el Administrador";
                     }
-                }
-            }
-            return resultado;
-        }
-
-        public string ActualizarSucursalEmpleado(string IdUser, int IdSucursalEmpleado, string FechaFin, string Observacion, int IdEstado)
-        {
-            string resultado = String.Empty;
-            try
-            {
-                var varIdUser = new SqlParameter("@IdUser", SqlDbType.VarChar) { Value = IdUser };
-                var varIdSucursalEmpleado = new SqlParameter("@IdSucursalEmpleado", SqlDbType.Int) { Value = IdSucursalEmpleado };
-                var varFechaFin = new SqlParameter("@FechaEnd", SqlDbType.VarChar) { Value = FechaFin };
-                var varObservacion = new SqlParameter("@Observacion", SqlDbType.VarChar) { Value = Observacion };
-                var varIdEstado = new SqlParameter("@IdEstado", SqlDbType.Int) { Value = IdEstado };
-                var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
-
-                _conection.Database.ExecuteSqlCommand("SP_ActualizarSucursalEmpleado @IdUser, @IdSucursalEmpleado, @FechaEnd, @Observacion, @IdEstado, @Resultado OUTPUT", varIdUser, varIdSucursalEmpleado, varFechaFin, varObservacion, varIdEstado, varResultado);
-
-                resultado = Convert.ToString(varResultado.Value);
-            }
-            catch (Exception ex)
-            {
-                var Rol = dataRol.BuscarRolUsuario(IdUser);
-                if (Rol == "Administrador")
-                {
-                    resultado = "Error*" + ex.Message;
-                }
-                else
-                {
-                    if (ex.Message.Contains("No se puede insertar"))
-                    {
-                        resultado = "Error*Los datos que esta ingresando ya existe en la Base de Datos";
-                    }
-                    else
-                    {
-                        resultado = "Error*En el momento no se puede realizar este proceso, por favor comuniquese con el Administrador";
-                    }
-                }
-            }
-            return resultado;
-        }
-
-        public string EliminarSucursalEmpleado(string IdUser, int IdSucursalEmpleado)
-        {
-            string resultado = String.Empty;
-            try
-            {
-                var varIdUser = new SqlParameter("@IdUser", SqlDbType.VarChar) { Value = IdUser };
-                var varIdSucursalEmpleado = new SqlParameter("@IdSucursalEmpleado", SqlDbType.Int) { Value = IdSucursalEmpleado };
-                var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
-
-                _conection.Database.ExecuteSqlCommand("SP_EliminarSucursalEmpleado @IdUser, @IdSucursalEmpleado, @Resultado OUTPUT", varIdUser, varIdSucursalEmpleado, varResultado);
-
-                resultado = Convert.ToString(varResultado.Value);
-            }
-            catch (Exception ex)
-            {
-                var Rol = dataRol.BuscarRolUsuario(IdUser);
-                if (Rol == "Administrador")
-                {
-                    resultado = "Error*" + ex.Message;
-                }
-                else
-                {
-                    resultado = "Error*En el momento no se puede realizar este proceso, por favor comuniquese con el Administrador";
                 }
             }
             return resultado;

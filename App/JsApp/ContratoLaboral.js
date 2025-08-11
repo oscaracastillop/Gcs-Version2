@@ -3,7 +3,9 @@
     $("#LabelIdCLE").empty().text('');
     $("#SelectCargo").val(-1);
     $("#SelectEmpleado").val(-1);
-    $("#SelectEmpresa").val(-1);
+    $("#SelectEmpresa").val(-1); 
+    $("#SelectSucursalXIdEmpresa").val(0);
+    $("#SelectSucursalXIdEmpresa").prop("disabled", true);
     $("#SelectTipoContrato").val(-1);    
     $("#InputFechaInicioCLE").empty().val('');
     //$("#InputFechaFinCLE").empty().val('');
@@ -12,13 +14,16 @@
     $("#TituloModalCLE").empty();
     $("#InputSalarioCLE").empty().val('');
     $("#InputValorDiaSalarioCLE").empty().val('');
+    $("#InputSucurslEmpleadoTexto").hide();
 
 
     if (tipo == 'C') {
         $("#SelectEmpresa").prop("disabled", false);
+        $("#SelectEstadoCLE").hide();
         $("#SelectEmpleado").prop("disabled", false);
         $("#InputFechaInicioCLE").prop("disabled", false);
-        $("#SelectEstadoCLE").hide();
+        $("#InputSucurslEmpleadoTexto").hide();
+        
         $("#SelectEps").val(1);
         $("#SelectBanco").val(1);
         $("#SelectFondoPensiones").val(1);
@@ -41,6 +46,8 @@
     } if (tipo == 'E') {
         $("#SelectEmpresa").prop("disabled", true);
         $("#SelectEmpleado").prop("disabled", true);
+        $("#SelectSucursalXIdEmpresa").hide();
+        $("#InputSucurslEmpleadoTexto").show();
         $("#InputFechaInicioCLE").prop("disabled", true);
         $("#TituloModalCLE").empty().append('<h6>Editar Contrato Laboral Empleado</h6>');
         $('#ModalCLE').modal('show');
@@ -60,7 +67,7 @@ function CalcularValorDia() {
 
 function CrearCLE() {
     let IdEmpleado = $('#SelectEmpleado').val();
-    let IdEmpresa = $('#SelectEmpresa').val();
+    let IdSucursal = $('#SelectSucursalXIdEmpresa').val();
     let IdCargo = $('#SelectCargo').val();  
     let IdTipoContrato = $('#SelectTipoContrato').val();  
     let SalarioMensual = $('#InputSalarioCLE').val();
@@ -82,9 +89,9 @@ function CrearCLE() {
     } else if (FechaInicio == null || FechaInicio == '' || FechaInicio == undefined) {
         $('#InputFechaInicioCLE').focus();
         VentanaMensaje('Ingrese la fecha de Incio del Contrato');
-    } else if (IdEmpresa == -1 || IdEmpresa == null || IdEmpresa == '') {
-        $('#SelectEmpresa').focus();
-        VentanaMensaje('Seleccione la Empresa');
+    } else if (IdSucursal == -1 || IdSucursal == null || IdSucursal == '') {
+        $('#SelectSucursalXIdEmpresa').focus();
+        VentanaMensaje('Seleccione la Sucursal');
     } else if (IdTipoContrato == -1 || IdTipoContrato == null || IdTipoContrato == '') {
         $('#SelectTipoContrato').focus();
         VentanaMensaje('Seleccione el Tipo de Contrato');
@@ -127,7 +134,7 @@ function CrearCLE() {
                 data: {
                     IdUser: TokenUser,
                     IdEmpleado: IdEmpleado,
-                    IdEmpresa: IdEmpresa,
+                    IdSucursal: IdSucursal,
                     IdCargo: IdCargo,
                     IdTipoContrato: IdTipoContrato,
                     SalarioMensual: SalarioMensual,
@@ -556,21 +563,6 @@ function GridCLE() {
                 }
 
             },
-
-            //{
-            //    title: "",
-            //    data: null,
-            //    defaultContent:
-            //        '<a class="EditarCLE btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
-            //    orderable: false,
-            //},
-            //{
-            //    title: "",
-            //    data: null,
-            //    defaultContent:
-            //        '<a class="EliminarCLE btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>',
-            //    orderable: false,
-            //},
         ],
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.11.2/i18n/es_es.json"
@@ -591,6 +583,7 @@ function GridCLE() {
         );
         $('#SelectEmpleado').val(data.IdEmpleado);
         $('#SelectEmpresa').val(data.IdEmpresa);
+        $('#InputSucurslEmpleadoTexto').val(data.IdSucursal);
         $('#SelectCargo').val(data.IdCargo);
         $('#SelectTipoContrato').val(data.IdTipoContrato);
         $('#InputSalarioCLE').val(data.SalarioMensual);

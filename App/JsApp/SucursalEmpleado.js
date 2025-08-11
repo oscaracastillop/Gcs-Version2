@@ -1,113 +1,21 @@
-﻿function ModalSucursalEmpleado(tipo) {
-    $("#TituloModalSucursalEmpleado").empty().val('');
-    $("#LabelIdSucursalEmpleado").empty().text('');
-    $("#SelectContratoLaboralEmpleado").val(-1);    
-    $("#SelectEmpresa").val(-1).prop("disabled", true);
-    $("#SelectSucursalXIdEmpresaXIdEmpleado").val(-1).prop("disabled", true);
-    $("#InputFechaInicioSE").empty().val('');
-    $("#InputFechaFinSE").empty().val('');
-    $("#InputObservacionSE").empty().val('');
-    $("#BotonesModalSucursalEmpleado").empty();
-    $("#TituloModalSucursalEmpleado").empty();  
-    $("#InputEmpleado").empty().val('');
-    $("#InputEmpresa").empty().val('');
-    $("#InputSucursal").empty().val('');
-
-    if (tipo == 'C') {
-        $('#ImagenEmpleado').empty().append(
-            '<img src="/Images/ImagenHVEmpleado/Empleado.png" class="imagen-escalada-cambiar" id="ImagenEmpleado"/>'
-        );
-        $("#TituloModalSucursalEmpleado").empty().append('<label>CREAR SUCURSAL-EMPLEADO</label>');
-        $('#ModalSucursalEmpleado').modal('show');
-        $("#SelectEstadoSucursalEmpleado").hide();
-        $("#BotonesModalSucursalEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearSucursalEmpleado()">Guardar</button>');
-        $("#SelectContratoLaboralEmpleado").show();
-        $("#InputEmpleado").hide();
-        $("#InputSucursal").hide();
-        $("#InputFechaInicioSE").prop("disabled", false);
-        $("#InputFechaFinSE").prop("disabled", true);
-        $("#SelectSucursalXIdEmpresaXIdEmpleado").show();
-        
-    } if (tipo == 'E') {
-        $("#TituloModalSucursalEmpleado").empty().append('<label>EDITAR SUCURSAL-EMPLEADO</label>');
-        $('#ModalSucursalEmpleado').modal('show');
-        $("#SelectEstadoSucursalEmpleado").show();
-        $("#BotonesModalSucursalEmpleado").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarSucursalEmpleado()">Guardar Cambios</button>');
-        $("#SelectContratoLaboralEmpleado").hide();
-        $("#SelectSucursalXIdEmpresaXIdEmpleado").hide();
-        $("#InputSucursal").show();
-        $("#InputEmpleado").show();
-        $("#InputFechaInicioSE").prop("disabled", true);
-        $("#InputFechaFinSE").prop("disabled", false);
-        
-        
-    }
-}
-
-function CrearSucursalEmpleado() {
-    let IdEmpleado = $('#SelectContratoLaboralEmpleado').val();
+﻿function CambiarSucursalEmpleado() {
+    let IdSucursalEmpleado = $('#LabelIdSucursalEmpleadoCambiarSucursal').text();
     let IdSucursal = $('#SelectSucursalXIdEmpresaXIdEmpleado').val();
-    let FechaInicio = $('#InputFechaInicioSE').val();
-    let FechaFin = $('#InputFechaFinSE').val();
     let Observacion = $('#InputObservacionSE').val();
 
-    if (IdEmpleado == -1 || IdEmpleado == null || IdEmpleado == '') {
-        $('#SelectContratoLaboralEmpleado').focus();
-        VentanaMensaje('Seleccione el Empleado');
-    } else if (IdSucursal == -1 || IdSucursal == null || IdSucursal == '') {
-        $('#SelectSucursal').focus();
-        VentanaMensaje('Seleccione la Sucursal en la que va a Laborar el Empleado');
-    } else if (FechaInicio == null || FechaInicio == '' || FechaInicio == undefined) {
-        $('#InputFechaInicioSE').focus();
-        VentanaMensaje('Ingrese la Fecha Inicio en esta Sucursal');
+    if (IdSucursal == -1 || IdSucursal == null || IdSucursal == '') {
+        $('#SelectSucursalXIdEmpresaXIdEmpleado').focus();
+        VentanaMensaje('Seleccione la Nueva Sucursal');
     } else {
-        if (FechaFin == FechaInicio || FechaFin == '' || FechaFin > FechaInicio ) {
-            $.ajax({
-                type: 'POST',
-                dataType: 'json',
-                url: '/Sucursal_Empleado/CrearSucursalEmpleado',
-                data: {
-                    IdUser: TokenUser,
-                    IdEmpleado: IdEmpleado,
-                    IdSucursal: IdSucursal,
-                    FechaInicio: FechaInicio,
-                    FechaFin: FechaFin,
-                    Observacion: Observacion
-                },
-                success: function (resultado) {
-                    valor = resultado.split('*');
-                    if (valor[0] == 'OK') {
-                        VentanaMensajeOK(valor[1]);
-                    } else {
-                        VentanaMensaje(valor[1]);
-                    }
-                }
-            });
-        } else {
-            $('#InputFechaFinSE').focus();
-            VentanaMensaje('Por favor valide la fecha fin');
-        }        
-    }
-}
-
-function ActualizarSucursalEmpleado() {
-    let IdSucursalEmpleado = $('#LabelIdSucursalEmpleado').text();
-    let FechaInicio = $('#InputFechaInicioSE').val();
-    let FechaFin = $('#InputFechaFinSE').val();
-    let Observacion = $('#InputObservacionSE').val();
-    let IdEstado = $('#SelectEstado').val();
-
-        if (FechaFin == FechaInicio || FechaFin == '' || FechaFin > FechaInicio) {
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/Sucursal_Empleado/ActualizarSucursalEmpleado',
+            url: '/Sucursal_Empleado/CambiarSucursalEmpleado',
             data: {
                 IdUser: TokenUser,
-                IdSucursalEmpleado: IdSucursalEmpleado, 
-                FechaFin: FechaFin,
-                Observacion: Observacion,
-                IdEstado: IdEstado
+                IdSucursalEmpleado: IdSucursalEmpleado,
+                IdSucursal: IdSucursal,
+                Observacion: Observacion
             },
             success: function (resultado) {
                 valor = resultado.split('*');
@@ -118,45 +26,9 @@ function ActualizarSucursalEmpleado() {
                 }
             }
         });
-    } else {
-            $('#InputFechaFinSE').focus();
-            VentanaMensaje('La Fecha fin no puede ser menor que la Fecha Inicio');
-    }    
+    }
 }
 
-function EliminarSucursalEmpleado(IdSucursalEmpleado) {
-    Swal.fire({
-        title: TituloSwal,
-        text: "Esta seguro(a)?, No podrás revertir esta acción.!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "red",
-        cancelButtonColor: "#333",
-        confirmButtonText: "Si, eliminar!",
-        cancelButtonText: "Cancelar",
-        position: 'top'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                type: 'POST',
-                dataType: 'json',
-                url: '/Sucursal_Empleado/EliminarSucursalEmpleado',
-                data: {
-                    IdUser: TokenUser,
-                    IdSucursalEmpleado: IdSucursalEmpleado
-                },
-                success: function (resultado) {
-                    valor = resultado.split('*');
-                    if (valor[0] == 'OK') {
-                        VentanaMensajeOK(valor[1]);
-                    } else {
-                        VentanaMensaje(valor[1]);
-                    }
-                }
-            });
-        }
-    });
-}
 
 function GridSucursalEmpleado() {
     var tituloReporte = 'LISTADO DE SUCURSAL EMPLEADOS';
@@ -171,14 +43,13 @@ function GridSucursalEmpleado() {
             { targets: [1], className: 'dt-head-center' },//Nombre
             { targets: [2], className: 'dt-head-center' },//Empresa
             { targets: [3], className: 'dt-head-center' },//Sucursal
-            { targets: [4], className: 'dt-head-center', className: 'dt-center dt-head-center' },//Fecha Inicio
-            { targets: [5], className: 'dt-head-center', className: 'dt-center dt-head-center' },//Fecha Fin
-            { targets: [6], className: 'dt-head-center', className: 'dt-center dt-head-center' },//Permanencia
-            { targets: [7], className: 'dt-head-center' },//Observacion
-            { targets: [8], className: 'dt-head-center' },//Observacion            
-            { targets: [9], className: 'dt-head-center' },
-            { targets: [10], width: '10px', className: 'dt-center dt-head-center' },
-            { targets: [11], width: '10px', className: 'dt-center dt-head-center' }
+            { targets: [4], className: 'dt-center dt-head-center' },//# Contrato Laboral
+            { targets: [5], className: 'dt-head-center' },//Fecha Inicio
+            { targets: [6], className: 'dt-head-center' },//Fecha Fin
+            { targets: [7], className: 'dt-head-center' },//Permanencia
+            { targets: [8], className: 'dt-head-center' },//Observacion
+            { targets: [9], className: 'dt-head-center' },//Observacion            
+            { targets: [10], className: 'dt-head-center' },
         ],
         buttons: [
 
@@ -248,16 +119,8 @@ function GridSucursalEmpleado() {
                     doc.content[0].layout = objLayout;
                 }
             },
-            {
-                text: 'Nuevo',
-                className: 'btn-nuevo-datatable',
-                action: function (e, dt, node, config) {
-                    ModalSucursalEmpleado('C');
-                }
-            }
 
         ],
-        /*"order": [[1, "asc"]],*/
         destroy: true,
         "ajax": {
             "url": '/Sucursal_Empleado/GridSucursalEmpleado',
@@ -265,6 +128,20 @@ function GridSucursalEmpleado() {
             "datatype": "json"
         },
         columns: [
+            {
+                title: "",
+                data: "Estado",
+                "render": function (data, type, row) {
+
+                    if (row.IdEstado !== 1) {
+                        return '<button class="btn btn-sm btn-fin-contrato" disabled>Finalizar Contrato</button>';
+                    }
+                    else {
+                        return '<button class="btn btn-sm btn-fin-contrato ModalCambiarSucursal">Cambiar Sucursal</button>';
+                    }
+                }
+
+            },
             {
                 title: "Estado",
                 data: "Estado",
@@ -276,32 +153,22 @@ function GridSucursalEmpleado() {
                     else if (row.IdEstado == 2) {
                         return '<label class="label-estado-inactivo">' + data + '</label>';
                     }
+                    else if (row.IdEstado == 5) {
+                        return '<label class="label-estado-finalizado">' + data + '</label>';
+                    }
                 }
 
             },
             { "data": "Empleado", title: "Empleado", width: 'auto' },
             { "data": "Empresa", title: "Empresa", width: 'auto' },
             { "data": "Sucursal", title: "Sucursal", width: 'auto' },
+            { "data": "NumeroCLE", title: "# Contrato Laboral", width: 'auto' },
             { "data": "TextoFechaInicio", title: "Fecha Inicio", width: 'auto' },
             { "data": "TextoFechaFin", title: "Fecha Fin", width: 'auto' },
             { "data": "Permanencia", title: "Permanencia", width: 'auto' },
             { "data": "Observacion", title: "Observación", width: 'auto' },
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
-            {
-                title: "",
-                data: null,
-                defaultContent:
-                    '<a class="EditarSucursalEmpleado btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
-                orderable: false,
-            },
-            {
-                title: "",
-                data: null,
-                defaultContent:
-                    '<a class="EliminarSucursalEmpleado btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>',
-                orderable: false,
-            },
         ],
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.11.2/i18n/es_es.json"
@@ -312,28 +179,50 @@ function GridSucursalEmpleado() {
         ],
     });
 
-    $('#gridSucursalEmpleado').on('click', '.EditarSucursalEmpleado', function () {
+    $('#gridSucursalEmpleado').on('click', '.ModalCambiarSucursal', function () {
         let data = datatable.row($(this).parents()).data();
-        ModalSucursalEmpleado('E');
-        $('#LabelIdSucursalEmpleado').text(data.Id);
-        $("#InputEmpleado").val(data.Empleado);
-        $("#InputEmpresa").val(data.Empresa);
-        $("#InputSucursal").val(data.Sucursal);
-        $("#InputFechaInicioSE").val(data.FechaInicio);
-        $("#InputFechaFinSE").val(data.FechaFin);
+        $("#InputObservacionSE").empty().val('');
+        ListaSucursalXIdEmpresa(data.IdEmpresa);
+        $('#ModalCambiarSucursalEmpleado').modal('show');
+        $('#LabelIdSucursalEmpleadoCambiarSucursal').text(data.Id);
+        $("#InputCambiarSucursalNombreEmpleado").val(data.Empleado);
+        $("#InputCambiarSucursalEmpresaActual").val(data.Empresa);
+        $("#InputCambiarSucursalSucursalActual").val(data.Sucursal);
         $("#InputObservacionSE").val(data.Observacion);
-        $('#SelectEstado').val(data.IdEstado);
-        $('#ImagenEmpleado').empty().append(
-            '<img src="/Images/ImagenHVEmpleado/' + data.Imagen + '" alt="" style="height:200px; width:200px; border-radius:50%; border:0px solid; background:white;padding:0px" id="ImagenEmpleado"/>'
-        );  
-    })
-
-    $('#gridSucursalEmpleado').on('click', '.EliminarSucursalEmpleado', function () {
-        let data = datatable.row($(this).parents()).data();
-        EliminarSucursalEmpleado(data.Id);
     })
 }
 
+function CambiarSucursalEmpleado() {
+    let IdSucursalEmpleado = $('#LabelIdSucursalEmpleadoCambiarSucursal').text();
+    let IdSucursal = $('#SelectSucursalXIdEmpresa').val();
+    let Observacion = $('#InputObservacionSE').val();
+
+    if (IdSucursal == -1 || IdSucursal == null || IdSucursal == '') {
+        $('#SelectSucursalXIdEmpresaXIdEmpleado').focus();
+        VentanaMensaje('Seleccione la Nueva Sucursal');
+    } else {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/Sucursal_Empleado/CambiarSucursalEmpleado',
+            data: {
+                IdUser: TokenUser,
+                IdSucursalEmpleado: IdSucursalEmpleado,
+                IdSucursal: IdSucursal,
+                Observacion: Observacion
+            },
+            success: function (resultado) {
+                valor = resultado.split('*');
+                if (valor[0] == 'OK') {
+                    VentanaMensajeOK(valor[1]);
+                } else {
+                    VentanaMensaje(valor[1]);
+                }
+            }
+        });
+    }
+
+}
 
 function BuscarDatosEmpleado(IdEmpleado) {
     if (IdEmpleado == -1) {

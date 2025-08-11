@@ -54,6 +54,7 @@
             public string TipoContrato { get; set; }
             public string FechaIngreso { get; set; }
             public string Empresa { get; set; }
+            public string Sucursal { get; set; }
             public string TipoDocumentoEmpresa { get; set; }
             public string IdentificacionEmpresa { get; set; }
             public string InfoEmpresa { get; set; }

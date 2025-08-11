@@ -11,6 +11,7 @@
             public string Sucursal { get; set; }
             public int IdEmpleado { get; set; }
             public string Empleado { get; set; }
+            public string NumeroCLE { get; set; }
             public string FechaInicio { get; set; }
             public string TextoFechaInicio { get; set; }
             public string FechaFin { get; set; }

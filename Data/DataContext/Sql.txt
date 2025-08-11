@@ -1,6 +1,7 @@
 ﻿
 
 
+
 CREATE DATABASE SofiaDB  
 GO 
 
@@ -2854,10 +2855,12 @@ BEGIN
 		SELECT	A.Id,
 				A.Nombre
 		FROM	Empresa A,
-				ContratoLaboral B
-		WHERE	B.IdEstado = 1 AND 
-				A.Id = B.IdEmpresa AND
-				B.IdEmpleado = @IdEmpleado ORDER BY Nombre ASC
+				Sucursal B,
+				ContratoLaboral C
+		WHERE	A.Id = B.IdEmpresa AND
+				B.Id = C.IdSucursal AND
+				C.IdEmpleado = @IdEmpleado
+				ORDER BY A.Nombre ASC				
 END
 
 GO
@@ -3099,14 +3102,15 @@ GO
 
 CREATE PROCEDURE [dbo].[SP_ListaSucursalXIdEmpresaXIdEmpleado] @IdEmpleado INT
 AS
-BEGIN
-		SELECT	A.Id,
-				A.Nombre
-		FROM	Sucursal A,
-				ContratoLaboral B
-		WHERE	B.IdEstado = 1 AND 
-				A.IdEmpresa = B.IdEmpresa AND
-				B.IdEmpleado = @IdEmpleado ORDER BY Nombre ASC
+BEGIN		
+		SELECT	B.Id,
+				B.Nombre
+		FROM	Empresa A,
+				Sucursal B,
+				ContratoLaboral C
+		WHERE	C.IdEstado = 1 AND 
+				A.Id = B.IdEmpresa AND
+				C.IdEmpleado = @IdEmpleado ORDER BY Nombre ASC
 END
 
 GO
@@ -4823,7 +4827,7 @@ GO
 CREATE TABLE ContratoLaboral
 (Id int identity(1,1) Primary key ,
 IdEmpleado int,
-IdEmpresa int,
+IdSucursal int,
 IdCargo int,
 IdTipoContrato int,
 SalarioMensual INT,
@@ -4845,7 +4849,7 @@ DateCreate datetime
 
 ALTER TABLE ContratoLaboral ADD CONSTRAINT FK_IdCreateByContratoLaboral FOREIGN KEY (CreateBy ) references Usuario(Id)
 ALTER TABLE ContratoLaboral ADD CONSTRAINT FK_IdEmpleadoContratoLaboral FOREIGN KEY (IdEmpleado ) references Empleado(Id)
-ALTER TABLE ContratoLaboral ADD CONSTRAINT FK_IdEmpresaContratoLaboral FOREIGN KEY (IdEmpresa ) references Empresa(Id)
+ALTER TABLE ContratoLaboral ADD CONSTRAINT FK_IdSucursalContratoLaboral FOREIGN KEY (IdSucursal ) references Sucursal(Id)
 ALTER TABLE ContratoLaboral ADD CONSTRAINT FK_IdCargoContratoLaboral FOREIGN KEY (IdCargo ) references Cargo(Id)
 ALTER TABLE ContratoLaboral ADD CONSTRAINT FK_IdTipoContratoContratoLaboral FOREIGN KEY (IdTipoContrato ) references TipoContrato(Id)
 ALTER TABLE ContratoLaboral ADD CONSTRAINT FK_IdEpsContratoLaboral FOREIGN KEY (IdEps ) references Eps(Id)
@@ -4859,7 +4863,7 @@ GO
 CREATE PROCEDURE [dbo].[SP_CrearCLE] 
 				@IdUser varchar(255), 			
 				@IdEmpleado int,
-				@IdEmpresa int,
+				@IdSucursal int,
 				@IdCargo int,
 				@IdTipoContrato int,
 				@SalarioMensual int,
@@ -4899,11 +4903,17 @@ IF @Permiso > 0
 		IF @ExisteCLEActivo = 0
 			BEGIN
 				INSERT INTO ContratoLaboral
-				(IdEmpleado, IdEmpresa, IdCargo, IdTipoContrato, SalarioMensual, FechaInicio, IdEps, PorcentajeEps, IdFondoPension, PorcentajeFondoPension,
+				(IdEmpleado, IdSucursal, IdCargo, IdTipoContrato, SalarioMensual, FechaInicio, IdEps, PorcentajeEps, IdFondoPension, PorcentajeFondoPension,
 				IdBanco, NumeroCuenta,SubTransporte,IdFondoCesantias,Observacion, CreateBy, DateCreate) 
 				VALUES 
-				(@IdEmpleado, @IdEmpresa, @IdCargo, @IdTipoContrato, @SalarioMensual, @FechaInicio, @IdEps, @PorcentajeContEps,
+				(@IdEmpleado, @IdSucursal, @IdCargo, @IdTipoContrato, @SalarioMensual, @FechaInicio, @IdEps, @PorcentajeContEps,
 				@IdFondoPension, @PorcentajeContFP,@IdBanco,@NumeroCuentaPago, @SubTransporte, @IdCesantias,@Observacion, @IdUsuario, GETDATE()) 
+
+
+				INSERT INTO SucursalEmpleado
+				(IdCLE, IdSucursal, FechaInicio, CreateBy, DateCreate)
+				VALUES
+				(@@IDENTITY, @IdSucursal, @FechaInicio, @IdUsuario, GETDATE())
 											
 				SET @Resultado = 'OK*El Contrato Laboral para el Empleado a sido creado correctamente'
 			END													
@@ -4918,72 +4928,6 @@ ELSE
 	END
 	SELECT @Resultado
 END
-
-/*
-CREATE PROCEDURE [dbo].[SP_CrearCLE] 
-				@IdUser varchar(255), 			
-				@IdEmpleado int,
-				@IdEmpresa int,
-				@IdCargo int,
-				@IdTipoContrato int,
-				@SalarioMensual int,
-				@FechaIni varchar(255),
-				@FechaEnd varchar(255), 
-				@IdEps INT,
-				@PorcentajeContEps DECIMAL(10,2),
-				@IdFondoPension INT, 
-				@PorcentajeContFP DECIMAL(10,2), 
-				@IdBanco INT,
-				@NumeroCuentaPago VARCHAR(255), 
-				@SubTransporte int,
-				@IdCesantias INT,
-				@Observacion varchar(255), 	
-				@Resultado varchar(MAX) OUTPUT
-AS
-BEGIN
-DECLARE @Permiso INT, 
-		@IdUsuario INT, 
-		@ExisteCLEActivo INT,
-		@IdContratoLaboral INT,
-		@Accion VARCHAR(255),
-		@SubMenu VARCHAR(255),
-		@FechaInicio varchar(255) = CONVERT(VARCHAR(255),DATEPART(YEAR,@FechaIni))+'-'+CONVERT(VARCHAR(255),DATEPART(MONTH,@FechaIni))+'-'+CONVERT(VARCHAR(255),DATEPART(DAY,@FechaIni)),
-		@FechaFin varchar(255) = CONVERT(VARCHAR(255),DATEPART(YEAR,@FechaEnd))+'-'+CONVERT(VARCHAR(255),DATEPART(MONTH,@FechaEnd))+'-'+CONVERT(VARCHAR(255),DATEPART(DAY,@FechaEnd))
-		
-	
-SET @Accion = 'Crear'
-SET @SubMenu = '/Recursos_Humanos/Contrato_Laboral'
-
-SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
-SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
-
-SELECT @ExisteCLEActivo = COUNT(1) FROM ContratoLaboral WHERE IdEmpleado = @IdEmpleado AND IdEstado = 1
-
-IF @Permiso > 0
-	BEGIN
-		IF @ExisteCLEActivo = 0
-			BEGIN
-				INSERT INTO ContratoLaboral
-				(IdEmpleado, IdEmpresa, IdCargo, IdTipoContrato, SalarioMensual, FechaInicio,FechaFin, IdEps, PorcentajeEps, IdFondoPension, PorcentajeFondoPension,
-				IdBanco, NumeroCuenta,SubTransporte,IdFondoCesantias,Observacion, CreateBy, DateCreate) 
-				VALUES 
-				(@IdEmpleado, @IdEmpresa, @IdCargo, @IdTipoContrato, @SalarioMensual, @FechaInicio, @FechaFin, @IdEps, @PorcentajeContEps,
-				@IdFondoPension, @PorcentajeContFP,@IdBanco,@NumeroCuentaPago, @SubTransporte, @IdCesantias,@Observacion, @IdUsuario, GETDATE()) 
-											
-				SET @Resultado = 'OK*El Contrato Laboral para el Empleado a sido creado correctamente'
-			END													
-		ELSE
-			BEGIN
-				SET @Resultado = 'Error*El Empleado ya cuenta con un Contrato Laboral Activo, solo se permite un contrato Laboral Activo'
-			END
-	END	
-ELSE
-	BEGIN
-		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
-	END
-	SELECT @Resultado
-END
-*/
 
 GO
 
@@ -5214,7 +5158,8 @@ SELECT	A.Id,
 			A.IdEmpleado,
 			dbo.Fun_BuscarNombreEmpleado(D.Id) AS Empleado,	
 			C.Id AS IdEmpresa,
-			dbo.Fun_BuscarNombreEmpresa(C.Id) AS Empresa,						
+			dbo.Fun_BuscarNombreEmpresa(C.IdEmpresa) AS Empresa,
+			dbo.Fun_BuscarNombreSucursal(IdSucursal) AS Sucursal,
 			A.IdCargo,
 			dbo.Fun_BuscarNombreCargo(A.IdCargo) AS Cargo,
 			A.IdTipoContrato,
@@ -5253,12 +5198,13 @@ SELECT	A.Id,
 			CONVERT(varchar(255),A.DateCreate,105)+ ' ' + CONVERT(varchar(255),A.DateCreate,8) As DateCreate,		
 			D.Imagen
 			FROM ContratoLaboral A,
-			Empresa C,
+			Sucursal C,
 			Empleado D
-	WHERE	A.IdEmpresa = C.Id
+	WHERE	A.IdSucursal = C.Id
 			AND D.Id = A.IdEmpleado
 			ORDER BY Id Desc
 END
+
 
 GO
 
@@ -5285,7 +5231,7 @@ BEGIN
 			SucursalEmpleado C
 	WHERE	A.Id = B.IdEmpleado AND
 			A.IdEstado = 1 AND
-			A.Id = C.IdEmpleado AND
+			A.Id = C.IdCLE AND
 			C.IdEstado = 1 AND
 			B.IdEstado = 1 ORDER BY Nombre ASC
 END
@@ -5326,9 +5272,11 @@ BEGIN
 			
 	FROM	ContratoLaboral A,
 			Empleado B,
-			Empresa C
+			Empresa C,
+			Sucursal D
 	WHERE   A.IdEmpleado = B.Id AND
-			A.IdEmpresa = C.Id AND
+			A.IdSucursal = D.Id AND
+			D.IdEmpresa = C.Id AND
 			A.Id = @Id
 	ORDER BY Id Desc
 END
@@ -5343,7 +5291,7 @@ CREATE TABLE SucursalEmpleado
 IdCLE int,
 IdSucursal int,
 FechaInicio DATETIME,
-FechaFin DATETIME,
+FechaFin DATETIME default '1900-01-01 00:00:00.000',
 Observacion varchar(255),
 IdEstado int default 1,
 CreateBy int,
@@ -5351,8 +5299,7 @@ DateCreate datetime
 )
 
 ALTER TABLE SucursalEmpleado ADD CONSTRAINT FK_IdCreateBySucursalEmpleado FOREIGN KEY (CreateBy ) references Usuario(Id)
---ALTER TABLE SucursalEmpleado ADD CONSTRAINT FK_IdEmpleadoSucursalCLE FOREIGN KEY (IdCLE ) references ContratoLaboral(Id)
---ALTER TABLE SucursalEmpleado ADD CONSTRAINT FK_IdEmpleadoSucursalEmpleado FOREIGN KEY (IdEmpleado ) references Empleado(Id)
+ALTER TABLE SucursalEmpleado ADD CONSTRAINT FK_IdEmpleadoSucursalCLE FOREIGN KEY (IdCLE ) references ContratoLaboral(Id)
 ALTER TABLE SucursalEmpleado ADD CONSTRAINT FK_IdSucursalSucursalEmpleado FOREIGN KEY (IdSucursal ) references Sucursal(Id)
 ALTER TABLE SucursalEmpleado ADD CONSTRAINT FK_IdEstadoSucursalEmpleado FOREIGN KEY (IdEstado ) references TipoEstado(Id)
 
@@ -5370,47 +5317,42 @@ END
 
 GO
 
-CREATE PROCEDURE [dbo].[SP_CrearSucursalEmpleado] 
-				@IdUser varchar(255), 			
-				@IdEmpleado int,
+CREATE PROCEDURE [dbo].[SP_CambiarSucursalEmpleado] 
+				@IdUser varchar(255), 	
+				@IdSucursalEmpleado int,
 				@IdSucursal int,
-				@FechaIni varchar(255),
-				@FechaEnd varchar(255), 
 				@Observacion varchar(255), 	
 				@Resultado varchar(MAX) OUTPUT
 AS
 BEGIN
 DECLARE @Permiso INT, 
-		@IdUsuario INT, 
-		@ExisteRegistroTablaPrincipal INT,
-		@FechaInicio varchar(255) = CONVERT(VARCHAR(255),DATEPART(YEAR,@FechaIni))+'-'+CONVERT(VARCHAR(255),DATEPART(MONTH,@FechaIni))+'-'+CONVERT(VARCHAR(255),DATEPART(DAY,@FechaIni)),
-		@FechaFin varchar(255) = CONVERT(VARCHAR(255),DATEPART(YEAR,@FechaEnd))+'-'+CONVERT(VARCHAR(255),DATEPART(MONTH,@FechaEnd))+'-'+CONVERT(VARCHAR(255),DATEPART(DAY,@FechaEnd)),
+		@IdUsuario INT,
 		@Accion VARCHAR(255),
-		@SubMenu VARCHAR(255)
+		@SubMenu VARCHAR(255),
+		@FechaInicio varchar(255) = CONVERT(VARCHAR(255),DATEPART(YEAR,GETDATE()))+'-'+CONVERT(VARCHAR(255),DATEPART(MONTH,GETDATE()))+'-'+CONVERT(VARCHAR(255),DATEPART(DAY,GETDATE())),
+		@FechaFin varchar(255) = CONVERT(VARCHAR(255),DATEPART(YEAR,GETDATE()))+'-'+CONVERT(VARCHAR(255),DATEPART(MONTH,GETDATE()))+'-'+CONVERT(VARCHAR(255),DATEPART(DAY,GETDATE())),
+		@IdCLE INT
 
-SET @Accion = 'Crear'
+SET @Accion = 'Editar'
 SET @SubMenu = '/Negocio/Sucursal_Empleado'
-		
-SELECT @ExisteRegistroTablaPrincipal = COUNT(1) FROM SucursalEmpleado WHERE IdEmpleado = @IdEmpleado AND IdEstado = 1
 
+SELECT @IdCLE = IdCLE FROM SucursalEmpleado WHERE Id = @IdSucursalEmpleado AND IdEstado = 1
+		
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
 
 IF @Permiso > 0
 	BEGIN
-		IF @ExisteRegistroTablaPrincipal = 0
-			BEGIN
-				INSERT INTO SucursalEmpleado
-				(IdEmpleado, IdSucursal, FechaInicio, FechaFin, Observacion, CreateBy, DateCreate) 
-				VALUES 
-				(@IdEmpleado, @IdSucursal, @FechaInicio, @FechaFin, @Observacion, @IdUsuario, GETDATE()) 
-				SET @Resultado = 'OK*Se asigno al empleado la sucursal correctamente'
-			END													
-		ELSE
-			BEGIN
-				SET @Resultado = 'Error*El Empleado ya cuenta con una Sucursal asignada activa, solo se permite una Sucursal Activa a la vez'
-			END
-	END	
+		UPDATE ContratoLaboral SET IdSucursal = @IdSucursal WHERE Id = @IdCLE
+
+		UPDATE SucursalEmpleado SET IdEstado = 5, @FechaFin = GETDATE()		WHERE Id = @IdSucursalEmpleado
+
+		INSERT INTO SucursalEmpleado
+		(IdCLE, IdSucursal, FechaInicio, Observacion, CreateBy, DateCreate) 
+		VALUES 
+		(@IdCLE, @IdSucursal, @FechaInicio, @Observacion, @IdUsuario, GETDATE()) 
+		SET @Resultado = 'OK*Se asigno al empleado la Nueva Sucursal correctamente'
+	END		
 ELSE
 	BEGIN
 		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
@@ -5420,121 +5362,45 @@ END
 
 GO
 
-CREATE PROCEDURE [dbo].[SP_ActualizarSucursalEmpleado]	@IdUser varchar(255),
-												@IdSucursalEmpleado int,
-												@FechaEnd varchar(255),
-												@Observacion varchar(255),
-												@IdEstado int,			
-												@Resultado varchar(255) OUTPUT
-AS
-BEGIN
-DECLARE @Permiso INT, 
-		@IdUsuario INT,
-		@Existe INT,
-		@IdEmpleado INT,
-		@IdSucursalEmpleadoValida int,
-		@FechaFin varchar(255) = CONVERT(VARCHAR(255),DATEPART(YEAR,@FechaEnd))+'-'+CONVERT(VARCHAR(255),DATEPART(MONTH,@FechaEnd))+'-'+CONVERT(VARCHAR(255),DATEPART(DAY,@FechaEnd)),
-		@Accion VARCHAR(255),
-		@SubMenu VARCHAR(255)
-
-SET @Accion = 'Editar'
-SET @SubMenu = '/Negocio/Sucursal_Empleado'
-
-SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
-SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
-SELECT @IdEmpleado = IdEmpleado FROM SucursalEmpleado WHERE Id = @IdSucursalEmpleado
-SELECT @Existe = COUNT(1) FROM SucursalEmpleado WHERE IdEmpleado = @IdEmpleado AND IdEstado = 1
-SELECT @IdSucursalEmpleadoValida = Id FROM SucursalEmpleado where IdEmpleado = @IdEmpleado and IdEstado = 1
-
-IF @Permiso > 0
-	IF @IdEstado =  1 AND  @Existe != 0 AND @IdSucursalEmpleadoValida != @IdSucursalEmpleado
-			BEGIN
-				SET @Resultado = 'Error*El Empleado ya tiene una Sucursal Activa, solo se permite una Sucursal Activa por Empleado'
-			END
-		ELSE
-			BEGIN
-				UPDATE	SucursalEmpleado 
-				SET		FechaFin = @FechaFin,
-						Observacion = @Observacion,
-						IdEstado = @IdEstado
-				WHERE	Id = @IdSucursalEmpleado
-				SET		@Resultado = 'OK*Datos Actualizados correctamente'
-			END					
-ELSE
-	BEGIN
-		SET @Resultado = 'Error*Usted no tiene permisos para realizar esta acción'
-	END
-	SELECT @Resultado
-END
-
-GO
-
-CREATE PROCEDURE [dbo].[SP_EliminarSucursalEmpleado] @IdUser varchar(255), @IdSucursalEmpleado int, @Resultado varchar(255) OUTPUT
-AS
-BEGIN
-DECLARE @Permiso INT, 
-		@IdUsuario INT, 
-		@Accion varchar(255), 
-		@SubMenu varchar(255)
-
-SET @Accion = 'Eliminar'
-SET @SubMenu = '/Negocio/Sucursal_Empleado'
-
-SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
-SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
-
-IF @Permiso != 1
-BEGIN
-	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
-	RETURN
-END	
-
-DELETE SucursalEmpleado WHERE Id = @IdSucursalEmpleado
-SET @Resultado = 'OK*El registro se elimino correctamente de la base de datos'	
-
-SELECT @Resultado
-END
-
-GO
-
 CREATE PROCEDURE [dbo].[SP_GridSucursalEmpleado]
 AS
 BEGIN
-SELECT	A.Id,	 
-			C.Id AS IdEmpresa,
-			dbo.Fun_BuscarNombreEmpresa(C.Id) AS Empresa,
-			B.Id AS IdSucursal,
-			dbo.Fun_BuscarNombreSucursal(B.Id) AS Sucursal,
-			A.IdEmpleado,
-			dbo.Fun_BuscarNombreEmpleado(A.IdEmpleado) AS Empleado,	
-			CONVERT(varchar(255),A.FechaInicio,23) As FechaInicio,
-			CONVERT(varchar(255),A.FechaInicio,105) As TextoFechaInicio,
-			CASE A.FechaFin
-			WHEN '1900-01-01 00:00:00.000' THEN '0000-00-00'
-			ELSE CONVERT(varchar(255),A.FechaFin,23)
-			END as FechaFin,			
-			CASE A.FechaFin
-			WHEN '1900-01-01 00:00:00.000' THEN 'Por Definir'
-			ELSE CONVERT(varchar(255),A.FechaFin,105)			
-			END as TextoFechaFin,
-			CASE A.FechaFin
-			WHEN '1900-01-01 00:00:00.000' THEN CONVERT(varchar(255),DATEDIFF(DAY,A.FechaInicio,GETDATE())+1) + ' Día(s)'
-			ELSE CONVERT(varchar(255),DATEDIFF(DAY,A.FechaInicio,A.FechaFin)+1) + ' Día(s)'
-			END AS Permanencia,			
-			A.Observacion,
-			A.IdEstado,
-			dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,
-			dbo.Fun_BuscarNombreUsuario(A.CreateBy) As CreateBy,
-			CONVERT(varchar(255),A.DateCreate,105)+ ' ' + CONVERT(varchar(255),A.DateCreate,8) As DateCreate,			
-			D.Imagen
-			FROM SucursalEmpleado A,
-			Sucursal B,
-			Empresa C,
-			Empleado D
-	WHERE	A.IdSucursal = B.Id
-			AND B.IdEmpresa = C.Id
-			AND D.Id = A.IdEmpleado
-			ORDER BY Empleado Desc
+SELECT	A.Id,
+		C.Id As IdEmpresa,
+		C.Nombre As Empresa,
+		dbo.Fun_BuscarNombreSucursal(A.IdSucursal) As Sucursal,
+		dbo.Fun_BuscarNombreEmpleado(B.IdEmpleado) As Empleado,
+		CONVERT(VARCHAR(255),B.Id) As NumeroCLE,
+		CONVERT(varchar(255),A.FechaInicio,23) As FechaInicio,
+		CONVERT(varchar(255),A.FechaInicio,105) As TextoFechaInicio,
+		CASE A.FechaFin
+		WHEN '1900-01-01 00:00:00.000' THEN '0000-00-00'
+		ELSE CONVERT(varchar(255),A.FechaFin,23)
+		END as FechaFin,			
+		CASE A.FechaFin
+		WHEN '1900-01-01 00:00:00.000' THEN 'Por Definir'
+		ELSE CONVERT(varchar(255),A.FechaFin,105)			
+		END as TextoFechaFin,
+		CASE A.FechaFin
+		WHEN '1900-01-01 00:00:00.000' THEN CONVERT(varchar(255),DATEDIFF(DAY,A.FechaInicio,GETDATE())+1) + ' Día(s)'
+		ELSE CONVERT(varchar(255),DATEDIFF(DAY,A.FechaInicio,A.FechaFin)+1) + ' Día(s)'
+		END AS Permanencia,	
+		A.Observacion,
+		A.IdEstado,
+		dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,
+		dbo.Fun_BuscarNombreUsuario(A.CreateBy) As CreateBy,
+		CONVERT(varchar(255),A.DateCreate,105)+ ' ' + CONVERT(varchar(255),A.DateCreate,8) As DateCreate
+
+FROM	SucursalEmpleado A,
+		ContratoLaboral B,
+		Empresa C,
+		Sucursal D
+
+
+WHERE	A.IdCLE = B.Id AND
+		D.Id = A.IdSucursal AND
+		C.Id = D.IdEmpresa
+ORDER BY A.Id Desc
 END
 
 GO
@@ -5564,6 +5430,8 @@ ALTER TABLE CasinoEmpleado ADD CONSTRAINT FK_IdCreateByCasinoEmpleado FOREIGN KE
 ALTER TABLE CasinoEmpleado ADD CONSTRAINT FK_IdEstadoCasinoEmpleado FOREIGN KEY (IdEstado ) references TipoEstado(Id)
 
 GO
+
+/*
 
 CREATE PROCEDURE [dbo].[SP_CrearCasinoEmpleado] 
 				@IdUser varchar(255), 			
@@ -5607,6 +5475,8 @@ ELSE
 END
 
 GO
+
+*/
 
 CREATE PROCEDURE [dbo].[SP_ActualizarCasinoEmpleado] @IdUser varchar(255),
 													@IdCasinoEmpleado int,	
@@ -5730,6 +5600,8 @@ ALTER TABLE OtrosIngresosEmpleado ADD CONSTRAINT FK_IdEstadoOtrosIngresosEmplead
 
 GO
 
+/*
+
 CREATE PROCEDURE [dbo].[SP_CrearOtrosIngresosEmpleado] 
 				@IdUser varchar(255), 			
 				@IdEmpleado int,
@@ -5775,6 +5647,8 @@ END
 
 GO
 
+
+*/
 CREATE PROCEDURE [dbo].[SP_ActualizarOtrosIngresosEmpleado] @IdUser varchar(255),
 													@IdOtrosIngresosEmpleado int,	
 													@Valor Int,
@@ -5929,6 +5803,8 @@ ALTER TABLE OtrosDescuentosEmpleado ADD CONSTRAINT FK_IdEstadoOtrosDescuentosEmp
 
 GO
 
+/*
+
 CREATE PROCEDURE [dbo].[SP_CrearOtrosDescuentosEmpleado] 
 				@IdUser varchar(255), 			
 				@IdEmpleado int,
@@ -5973,6 +5849,8 @@ ELSE
 END
 
 GO
+
+*/
 
 CREATE PROCEDURE [dbo].[SP_ActualizarOtrosDescuentosEmpleado] @IdUser varchar(255),
 													@IdOtrosDescuentosEmpleado int,	
@@ -6128,6 +6006,8 @@ ALTER TABLE PrestamoEmpleado ADD CONSTRAINT FK_IdEstadoPrestamoEmpleado FOREIGN 
 
 GO
 
+/*
+
 CREATE PROCEDURE [dbo].[SP_CrearPrestamoEmpleado] 
 				@IdUser varchar(255), 			
 				@IdEmpleado int,
@@ -6171,6 +6051,8 @@ ELSE
 END
 
 GO
+
+*/
 
 CREATE PROCEDURE [dbo].[SP_ActualizarPrestamoEmpleado] @IdUser varchar(255),
 													@IdPrestamoEmpleado int,	
@@ -7296,7 +7178,7 @@ DECLARE
 
 SELECT @ExisteNominaActiva = COUNT(1) FROM NominaEmpleado WHERE IdEstado = 1 AND IdEmpleado = @IdEmpleado
 
-SELECT @IdSucursal = C.Id FROM ContratoLaboral A, SucursalEmpleado B, Sucursal C WHERE A.IdEmpleado = @IdEmpleado AND A.IdEstado = 1 AND A.IdEmpleado = B.IdEmpleado AND C.Id = B.IdSucursal
+SELECT @IdSucursal = dbo.Fun_BuscarNombreSucursal(IdSucursal) FROM ContratoLaboral
 SELECT @IdContratoLaboral = Id FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
 SELECT @SalarioMensual =  SalarioMensual FROM ContratoLaboral where Id = @IdContratoLaboral
 SELECT @SubTransporteMes = SubTransporte FROM ContratoLaboral where Id = @IdContratoLaboral
@@ -7393,6 +7275,7 @@ ELSE
 	END
 	SELECT @Resultado
 END
+
 
 
 
@@ -7570,15 +7453,11 @@ CONVERT(VARCHAR(255),ISNULL(@TotalIngresos-@TotalDescuentos,0)) AS txtTotalPagoN
 
 FROM	ContratoLaboral A,
 		Empresa B,
-		SucursalEmpleado C,
 		Sucursal D
 		
 WHERE	A.IdEmpleado = @IdEmpleado
 		AND A.IdEstado = 1
-		AND A.IdEmpresa = B.Id	
-		AND C.IdEmpleado = @IdEmpleado 
-		AND C.IdEstado = 1
-		AND D.Id = C.IdSucursal
+		AND A.IdSucursal = D.Id	
 END
 
 
@@ -7770,7 +7649,7 @@ SELECT @TotalValorHoraExtra = (@ValorHoraExtra*@CantidadHE)
 
 IF @Permiso > 0	
 	BEGIN	
-		SELECT	@IdSucursal = IdSucursal FROM SucursalEmpleado WHERE IdEmpleado = @IdEmpleado AND IdEstado = 1
+		SELECT	@IdSucursal = IdSucursal FROM ContratoLaboral WHERE IdEmpleado = @IdEmpleado AND IdEstado = 1
 
 		INSERT INTO HoraExtraEmpleado
 		(IdEmpleado, IdSucursal, IdContratoLaboral, Sueldo, HorasDefinidasxMes, IdTipoHoraExtra, PorcentajeHE, Cantidad, ValorHoraOrdinaria, ValorHoraExtra, ValorTotalHoraExtra, FechaHE, FechaPagoHE, Observacion, CreateBy, DateCreate) 

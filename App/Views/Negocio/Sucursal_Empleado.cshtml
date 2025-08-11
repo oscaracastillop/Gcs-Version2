@@ -19,7 +19,52 @@
     <table id="gridSucursalEmpleado" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
 </div>
 
-<div class="modal fade" id="ModalSucursalEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="ModalCambiarSucursalEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <div class="modal-title">
+                    <label>CAMBIAR SUCURSAL EMPLEADO</label>
+                </div>
+            </div>
+            <div class="modal-body">
+                <label id="LabelIdSucursalEmpleadoCambiarSucursal" hidden></label>
+                <div>
+                    <label><strong>Empleado </strong><label style="color:red" id="">*</label></label>
+                    <input class="form-control" type="text" id="InputCambiarSucursalNombreEmpleado" autocomplete="off" style="min-width:100%" disabled />
+                </div>
+                <div class="row g-2">
+                    <div class="col-6">
+                        <label><strong>Empresa Actual </strong><label style="color:red">*</label></label>
+                        <input class="form-control" type="text" id="InputCambiarSucursalEmpresaActual" name="name" autocomplete="off" style="min-width:100%" disabled />
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Sucursal Actual</strong><label style="color:red">*</label></label>
+                        <input class="form-control" type="text" id="InputCambiarSucursalSucursalActual" autocomplete="off" style="min-width:100%" disabled />
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="col-6">
+                        <label><strong>Nueva Sucursal</strong><label style="color:red">*</label></label>
+                        <select class="form-control" id="SelectSucursalXIdEmpresa" style="min-width:100%"></select>
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Observación</strong></label>
+                        <input class="form-control" type="text" id="InputObservacionSE" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                <button type="button" class="btn btn-sm btn-modal-guardar" onclick="CambiarSucursalEmpleado()">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--<div class="modal fade" id="ModalSucursalEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header header-modal">
@@ -55,13 +100,13 @@
                 </div>
 
 
-                <div class="row">
+                <div class="row">-->
                     @*<div style="float:left" class="col-4">
                             <div class="contimg-cambiar-img" id="ImagenEmpleado">
                                 <img class="imagen-escalada-cambiar" src="~/Images/ImagenHVEmpleado/Empleado.png" />
                             </div>
                         </div>*@
-                    <div style="float:right" class="col-8">
+                    <!--<div style="float:right" class="col-8">
                         <div class="row">
 
                         </div>
@@ -88,7 +133,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 <script>
     $(document).ready(function () {

@@ -15,7 +15,7 @@ namespace Data.DataEntities
         readonly GcsEntities _conection = new GcsEntities();
         private readonly DataRol dataRol = new DataRol();
 
-        public string CrearCLE( string IdUser, int IdEmpleado, int IdEmpresa, int IdCargo, int IdTipoContrato, int SalarioMensual, string FechaInicio,
+        public string CrearCLE( string IdUser, int IdEmpleado, int IdSucursal, int IdCargo, int IdTipoContrato, int SalarioMensual, string FechaInicio,
                                 int IdEps, decimal PorcentajeContEps, int IdFondoPension, decimal PorcentajeContFP, int IdBanco,
                                 string NumeroCuentaPago, int SubTransporte, int IdCesantias, string Observacion)
         {
@@ -24,7 +24,7 @@ namespace Data.DataEntities
             {
                 var varIdUser = new SqlParameter("@IdUser", SqlDbType.VarChar) { Value = IdUser };
                 var varIdEmpleado = new SqlParameter("@IdEmpleado", SqlDbType.Int) { Value = IdEmpleado };
-                var varIdEmpresa = new SqlParameter("@IdEmpresa", SqlDbType.Int) { Value = IdEmpresa };
+                var varIdSucursal = new SqlParameter("@IdSucursal", SqlDbType.Int) { Value = IdSucursal };
                 var varIdCargo = new SqlParameter("@IdCargo", SqlDbType.Int) { Value = IdCargo };
                 var varIdTipoContrato = new SqlParameter("@IdTipoContrato", SqlDbType.Int) { Value = IdTipoContrato };
                 var varSalarioMensual = new SqlParameter("@SalarioMensual", SqlDbType.Int) { Value = SalarioMensual };
@@ -42,7 +42,7 @@ namespace Data.DataEntities
 
                 _conection.Database.ExecuteSqlCommand("SP_CrearCLE  @IdUser, " +
                                                                     "@IdEmpleado, " +
-                                                                    "@IdEmpresa, " +
+                                                                    "@IdSucursal, " +
                                                                     "@IdCargo, " +
                                                                     "@IdTipoContrato, " +
                                                                     "@SalarioMensual," +
@@ -59,7 +59,7 @@ namespace Data.DataEntities
                                                                     "@Resultado OUTPUT",
                                                                     varIdUser,
                                                                     varIdEmpleado,
-                                                                    varIdEmpresa,
+                                                                    varIdSucursal,
                                                                     varIdCargo,
                                                                     varIdTipoContrato,
                                                                     varSalarioMensual,

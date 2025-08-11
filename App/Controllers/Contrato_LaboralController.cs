@@ -17,11 +17,11 @@ namespace App.Controllers
         private readonly DataContratoLaboral dataContratoLaboral = new DataContratoLaboral();
 
 
-        public JsonResult CrearCLE(string IdUser, int IdEmpleado, int IdEmpresa, int IdCargo, int IdTipoContrato, int SalarioMensual, string FechaInicio,
+        public JsonResult CrearCLE(string IdUser, int IdEmpleado, int IdSucursal, int IdCargo, int IdTipoContrato, int SalarioMensual, string FechaInicio,
                                     int IdEps, decimal PorcentajeContEps, int IdFondoPension, decimal PorcentajeContFP, int IdBanco,
                                     string NumeroCuentaPago, int SubTransporte, int IdCesantias, string Observacion)
         {
-            var resultado = dataContratoLaboral.CrearCLE(IdUser, IdEmpleado, IdEmpresa, IdCargo, IdTipoContrato, SalarioMensual, FechaInicio, 
+            var resultado = dataContratoLaboral.CrearCLE(IdUser, IdEmpleado, IdSucursal, IdCargo, IdTipoContrato, SalarioMensual, FechaInicio, 
                                                             IdEps, PorcentajeContEps, IdFondoPension, PorcentajeContFP, IdBanco, NumeroCuentaPago,
                                                             SubTransporte, IdCesantias, Observacion);
 

@@ -9,22 +9,9 @@ namespace SistemaGcs.App.Controllers
         private readonly DataSucursalEmpleado dataSucursalEmpleado = new DataSucursalEmpleado();
        
 
-        public JsonResult CrearSucursalEmpleado(string IdUser, int IdEmpleado, int IdSucursal, string FechaInicio, string FechaFin, string Observacion)
+        public JsonResult CambiarSucursalEmpleado(string IdUser, int IdSucursalEmpleado, int IdSucursal, string Observacion)
         {
-            var resultado = dataSucursalEmpleado.CrearSucursalEmpleado(IdUser, IdEmpleado, IdSucursal, FechaInicio, FechaFin, Observacion);
-
-            return Json(resultado);
-        }
-
-        public JsonResult ActualizarSucursalEmpleado(string IdUser, int IdSucursalEmpleado, string FechaFin, string Observacion, int IdEstado)
-        {
-            var resultado = dataSucursalEmpleado.ActualizarSucursalEmpleado(IdUser, IdSucursalEmpleado, FechaFin, Observacion, IdEstado);
-            return Json(resultado);
-        }
-
-        public JsonResult EliminarSucursalEmpleado(string IdUser, int IdSucursalEmpleado)
-        {
-            string resultado = dataSucursalEmpleado.EliminarSucursalEmpleado(IdUser, IdSucursalEmpleado);
+            var resultado = dataSucursalEmpleado.CambiarSucursalEmpleado(IdUser, IdSucursalEmpleado, IdSucursal, Observacion);
             return Json(resultado);
         }
 
