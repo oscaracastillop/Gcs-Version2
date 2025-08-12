@@ -3,9 +3,6 @@
     ViewBag.Title = "Contrato Laboral";
 }
 
-
-
-
 <script src="~/JsApp/Banco.js"></script>
 <script src="~/JsApp/Cargo.js"></script>
 <script src="~/JsApp/CCFamiliar.js"></script>
@@ -18,8 +15,6 @@
 <script src="~/JsApp/FondoPensiones.js"></script>
 <script src="~/JsApp/TipoContrato.js"></script>
 <script src="~/JsApp/TipoEstado.js"></script>
-
-
 
 <h6>MODULO CONTRATO LABORAL</h6>
 
@@ -65,11 +60,12 @@
                     <div class="col-6">
                         <label><strong>Empresa</strong><label style="color:red" id=""> *</label></label>
                         <select class="form-control" id="SelectEmpresa" style="min-width:100%" onchange="ListaSucursalXIdEmpresa($('#SelectEmpresa').val())"></select>
+                        <input class="form-control" type="text" id="InputEmpresaEmpleadoTexto" name="name" autocomplete="off" style="min-width:100% ; display:block" disabled />
                     </div>
                     <div class="col-6">
                         <label><strong>Sucursal</strong><label style="color:red" id=""> *</label></label>
                         <select class="form-control" id="SelectSucursalXIdEmpresa" style="min-width:100%" disabled></select>
-                        <input class="form-control" type="text" id="InputSucurslEmpleadoTexto" name="name" autocomplete="off" style="min-width:100% ; display:block" disabled />
+                        <input class="form-control" type="text" id="InputSucursalEmpleadoTexto" name="name" autocomplete="off" style="min-width:100% ; display:block" disabled />
                     </div>
                 </div>
 
@@ -155,133 +151,6 @@
 </div>
 
 
-@*<div class="modal fade" id="ModalCLE" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header header-modal">
-                <div class="modal-title" id="TituloModalCLE"></div>
-            </div>
-            <div class="modal-body">
-                <label id="LabelIdCLE" hidden></label>
-                <br />
-
-                <div>
-                    <div class="contimg-cambiar-img" id="ImagenEmpleado">
-                        <img class="imagen-escalada-cambiar" src="~/Images/ImagenHVEmpleado/Empleado.png" />
-                    </div>
-                </div>
-
-                <div class="row g-2">
-                    <div>
-                        <label><strong>Empleado</strong><label style="color:red" id=""> *</label></label>
-                        <select class="form-control" id="SelectEmpleado" onchange="CargarDatosCLE($('#SelectEmpleado').val())" style="min-width:100%"></select>
-                    </div>
-                </div>
-
-                <div class="row g-2">
-                    <div class="col-6">
-                        <label><strong>Fecha Inicio Contrato</strong><label style="color:red" id=""> *</label></label>
-                        <input class="form-control" type="date" id="InputFechaInicioCLE" name="name" autocomplete="off" style="min-width:100%" />
-                    </div>
-                    <div class="col-6">
-                        <label><strong>Fecha Fin Contrato</strong></label>
-                        <input class="form-control" type="date" id="InputFechaFinCLE" name="name" autocomplete="off" style="min-width:100%" disabled />
-                    </div>
-                </div>
-
-                <div class="row g-2">
-                    <div class="col-6">
-                        <label><strong>Empresa</strong><label style="color:red" id=""> *</label></label>
-                        <select class="form-control" id="SelectEmpresa" style="min-width:100%" onchange="BuscarSucursales($('#SelectEmpresa').val())"></select>
-                    </div>
-                    <div class="col-6">
-                        <label><strong>Sucursal</strong><label style="color:red" id=""> *</label></label>
-                        <select class="form-control" id="SelectSucursalXIdEmpresa" style="min-width:100%; display:none" disabled></select>
-                        <input class="form-control" type="text" id="SucursalCLE" name="name" autocomplete="off" style="min-width:100%; display:none" disabled />
-                    </div>
-                </div>
-
-                <div class="row g-2">
-                    <div class="col-6">
-                        <label><strong>Contrato</strong><label style="color:red" id=""> *</label></label>
-                        <select class="form-control" id="SelectTipoContrato" style="min-width:100%"></select>
-                    </div>
-                    <div class="col-6">
-                        <label><strong>Cargo</strong><label style="color:red" id=""> *</label></label>
-                        <select class="form-control" id="SelectCargo" style="min-width:100%"></select>
-                    </div>
-                </div>
-
-                <div class="row g-2">
-                    <div class="col-6">
-                        <label><strong>Salario Mensual</strong><label style="color:red" id=""> *</label></label>
-                        <input class="form-control" type="number" id="InputSalarioCLE" name="name" autocomplete="off" style="min-width:100%" onchange="CalcularValorDia()" placeholder="0" />
-                    </div>
-                    <div class="col-6">
-                        <label><strong>Valor Día</strong></label>
-                        <input class="form-control" type="text" id="InputValorDiaSalarioCLE" name="name" autocomplete="off" style="min-width:100%" disabled />
-                    </div>
-                </div>
-
-                <div class="row g-2">
-                    <div class="col-4">
-                        <label><strong>SubTransporte Mensual</strong><label style="color:red" id=""> *</label></label>
-                        <input class="form-control" type="number" id="InputSubTransporteCLE" name="name" autocomplete="off" style="min-width:100%" placeholder="0" />
-                    </div>
-                    <div class="col-5">
-                        <label><strong>Banco</strong><label style="color:red" id=""> *</label></label>
-                        <select class="form-control" id="SelectBanco" style="min-width:100%"></select>
-                    </div>
-                    <div class="col-3">
-                        <label><strong># Cuenta Pago</strong><label style="color:red" id=""> *</label></label>
-                        <input class="form-control" type="number" id="InputNumeroCuentaPagoCLE" name="name" autocomplete="off" style="min-width:100%" placeholder="000-0000000" />
-                    </div>
-                </div>
-
-                <div class="row g-2">
-                    <div class="col-4">
-                        <label><strong>Eps</strong><label style="color:red" id=""> *</label></label>
-                        <select class="form-control" id="SelectEps" style="min-width:100%"></select>
-                    </div>
-                    <div class="col-2">
-                        <label><strong>% Contri.</strong><label style="color:red" id=""> *</label></label>
-                        <input class="form-control" type="number" id="InputPorcentajeContribucionEpsCLE" name="name" autocomplete="off" style="min-width:100%" value="" title="Porcentaje de contribución empleado a la Eps" placeholder="0" />
-                    </div>
-                    <div class="col-4">
-                        <label><strong>Fondo Pensión</strong><label style="color:red" id=""> *</label></label>
-                        <select class="form-control" id="SelectFondoPensiones" style="min-width:100%"></select>
-                    </div>
-                    <div class="col-2">
-                        <label><strong>% Contri.</strong><label style="color:red" id=""> *</label></label>
-                        <input class="form-control" type="number" id="InputPorcentajeContribucionFPCLE" name="name" autocomplete="off" style="min-width:100%" value="" title="Porcentaje de contribución empleado al Fondo Pensiones" placeholder="0" />
-                    </div>
-                </div>
-
-                <div class="row g-2">
-                    <div class="col-3">
-                        <label><strong>Fondo Cesantías</strong><label style="color:red" id=""> *</label></label>
-                        <select class="form-control" id="SelectFondoCesantias" style="min-width:50%"></select>
-                    </div>
-                    <div class="col-9">
-                        <label><strong>Observación</strong></label>
-                        <input class="form-control" type="text" id="InputObservacionCLE" name="name" autocomplete="off" style="min-width:100%" />
-                    </div>
-                </div>
-
-                <div class="row g-2">
-                    <div class="col-2" id="SelectEstadoCLE">
-                        <label><strong>Estado</strong></label>
-                        <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
-                    </div>
-                </div>
-
-            </div>
-            <div class="modal-footer" id="BotonesModalCLE"></div>
-        </div>
-    </div>
-</div>*@
-
-
 <div class="modal fade" id="ModalFinalizarCLE" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -318,10 +187,6 @@
         </div>
     </div>
 </div>
-
-
-
-
 
 
 <script>

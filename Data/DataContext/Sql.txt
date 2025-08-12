@@ -1,7 +1,5 @@
 ﻿
 
-
-
 CREATE DATABASE SofiaDB  
 GO 
 
@@ -2590,7 +2588,7 @@ Celular varchar(255) default '',
 Contacto varchar(255) default '',
 IdTipoDocumentoRL int,
 IdentificacionRL varchar(255),
-CiudadExpedicion varchar(255) default '',
+IdCiudadExpedicion int,
 IdCiudad int,
 Direccion varchar(255) default '',
 Descripcion varchar(max) default '',
@@ -2608,15 +2606,17 @@ GO
 
 ALTER TABLE Empresa ADD CONSTRAINT FK_IdCreateByEmpresa FOREIGN KEY (CreateBy ) references Usuario(Id)
 ALTER TABLE Empresa ADD CONSTRAINT FK_IdCiudadEmpresa FOREIGN KEY (IdCiudad ) references Ciudad(Id)
+ALTER TABLE Empresa ADD CONSTRAINT FK_IdCiudadExpedicionEmpresaRL FOREIGN KEY (IdCiudadExpedicion ) references Ciudad(Id)
 ALTER TABLE Empresa ADD CONSTRAINT FK_IdEstadoEmpresa FOREIGN KEY (IdEstado) references TipoEstado(Id)
 ALTER TABLE Empresa ADD CONSTRAINT FK_IdTipodocumentoEmpresa FOREIGN KEY (IdTipoDocumento) references TipoDocumento(Id)
 ALTER TABLE Empresa ADD CONSTRAINT FK_IdTipodocumentoRLEmpresa FOREIGN KEY (IdTipoDocumentoRL) references TipoDocumento(Id)
 
 GO
 
-INSERT INTO Empresa (Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdTipoDocumentoRL, IdentificacionRL, CiudadExpedicion, IdCiudad, Direccion, CreateBy, DateCreate) 
+INSERT INTO Empresa (Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdTipoDocumentoRL, IdentificacionRL, IdCiudadExpedicion, IdCiudad, Direccion, CreateBy, DateCreate) 
 VALUES 
-('E&G Contrucciones S.A.S', 5, '901.766.109-1','edwinfabiangarzon@hotmail.com', '321 4208189', 'Edwin Fabian Garzón López', 1, '1079258236', 'Madrid, Cundinamarca', 571, '', 1, GETDATE())
+('E&G Contrucciones S.A.S', 6, '901.766.109-1','edwinfabiangarzon@hotmail.com', '601 0000000', 'Edwin Fabian Garzón López', 1, '1079258236', 571, 571, '', 1, GETDATE()),
+('GCS Software', 1, '3167508','oscaracastillop@gmail.com', '601 0000000', 'Oscar Antonio Castillo Peréz', 1, '3167508', 574, 574, '', 1, GETDATE())
 
 GO
 
@@ -2631,7 +2631,7 @@ CREATE PROCEDURE [dbo].[SP_CrearEmpresa]
 				@Contacto varchar(255),
 				@IdTipoDocumentoRL int,
 				@IdentificacionRL varchar(255),
-				@CiudadExpedicion varchar(255),
+				@IdCiudadExpedicion int,
 				@IdCiudad int,
 				@Direccion varchar(255),
 				@Descripcion varchar(max),
@@ -2652,9 +2652,9 @@ SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
 IF @Permiso > 0
 	BEGIN		
 		INSERT INTO Empresa
-		(Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdTipoDocumentoRL, IdentificacionRL, CiudadExpedicion, IdCiudad, Direccion, Descripcion, CreateBy, DateCreate) 
+		(Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdTipoDocumentoRL, IdentificacionRL, IdCiudadExpedicion, IdCiudad, Direccion, Descripcion, CreateBy, DateCreate) 
 		VALUES 
-		(@NombreEmpresa, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Celular, @Contacto, @IdTipoDocumentoRL, @IdentificacionRL, @CiudadExpedicion, @IdCiudad, @Direccion, @Descripcion, @IdUsuario, GETDATE()) 
+		(@NombreEmpresa, @IdTipoDocumento, @Identificacion, @Email, @Telefono, @Celular, @Contacto, @IdTipoDocumentoRL, @IdentificacionRL, @IdCiudadExpedicion, @IdCiudad, @Direccion, @Descripcion, @IdUsuario, GETDATE()) 
 
 		--INSERT INTO LogsAcciones 
 		--(IdUsuario, Accion, Descripcion, Fecha) 
@@ -2693,7 +2693,7 @@ CREATE PROCEDURE [dbo].[SP_ActualizarEmpresa]	@IdUser varchar(255),
 												@Contacto varchar(255),
 												@IdTipoDocumentoRL int,
 												@IdentificacionRL varchar(255),
-												@CiudadExpedicion varchar(255),
+												@IdCiudadExpedicion int,
 												@IdCiudad int,
 												@Direccion varchar(255),
 												@Descripcion varchar(max),
@@ -2740,7 +2740,7 @@ ELSE
 					Contacto = @Contacto,
 					IdTipoDocumentoRL = @IdTipoDocumentoRL,
 					IdentificacionRL = @IdentificacionRL,
-					CiudadExpedicion = @CiudadExpedicion,
+					IdCiudadExpedicion = @IdCiudadExpedicion,
 					IdCiudad = @IdCiudad,
 					Direccion = @Direccion,
 					Descripcion = @Descripcion,
@@ -2824,7 +2824,8 @@ BEGIN
 			IdTipoDocumentoRL,
 			dbo.Fun_BuscarNombreTipoDocumento(IdTipoDocumentoRL) As TipoDocumentoRL,
 			ISNULL(IdentificacionRL,'') As IdentificacionRL,
-			ISNULL(CiudadExpedicion,'') As CiudadExpedicion,
+			IdCiudadExpedicion,
+			dbo.Fun_BuscarNombreCiudad(IdCiudadExpedicion) As CiudadExpedicion,
 			ISNULL(Direccion,'') As Direccion,
 			Email,
 			IdCiudad,
@@ -2928,9 +2929,12 @@ GO
 
 INSERT INTO SUCURSAL(IdEmpresa, Nombre, Email, Telefono, Contacto, IdCiudad, Direccion, CreateBy, DateCreate) 
 VALUES 
-(1,'Sede Madrid', 'eygconstruccionessas@gmail.com','315 0014586','Oscar Antonio Castillo Perez',571,'Diagonal 18 # 5 - 44 Villa María III Etapa',1,GETDATE()),
-(1,'Sede Funza', 'eygconstruccionessas@gmail.com','315 0014586','Oscar Antonio Castillo Perez',571,'Diagonal 18 # 5 - 44 Villa María III Etapa',1,GETDATE()),
-(1,'Sede Cajica', 'eygconstruccionessas@gmail.com','315 0014586','Oscar Antonio Castillo Perez',571,'Diagonal 18 # 5 - 44 Villa María III Etapa',1,GETDATE())
+(1,'Sede Madrid (Principal)', 'eygconstruccionessas@gmail.com','321 4208189','Edwin Fabian Garzón Lopéz', 571,'Madrid Centro',1,GETDATE()),
+(1,'Sede Santo Domingo', 'eygconstruccionessas@gmail.com','321 4208189','Edwin Fabian Garzón Lopéz',571,'',1,GETDATE()),
+(1,'Sede Rosa Linda', 'eygconstruccionessas@gmail.com','321 4208189','Edwin Fabian Garzón Lopéz',542,'',1,GETDATE()),
+(1,'Sede Florencia', 'eygconstruccionessas@gmail.com','321 4208189','Edwin Fabian Garzón Lopéz',364,'',1,GETDATE()),
+(1,'Sede Chinauta', 'eygconstruccionessas@gmail.com','321 4208189','Edwin Fabian Garzón Lopéz',640,'',1,GETDATE()),
+(2,'Sede Mosquera (Principal)', 'oscaracastillop@gmail.com','315 0014586','Oscar Antonio Castillo Peréz',574,'Diagonal 18 # 5-44 Villa María III Etapa',1,GETDATE())
 
 GO
 
@@ -3125,7 +3129,7 @@ Nombre varchar(255),
 Apellidos varchar(255),
 IdTipoDocumento int,
 Identificacion varchar(255),
-CiudadExpedicion varchar(255) default '',
+IdCiudadExpedicion int,
 Imagen varchar(255) default 'Empleado.png',
 IdEstado int default 1,
 CreateBy int,
@@ -3134,6 +3138,7 @@ DateCreate datetime
 GO
 
 ALTER TABLE Empleado ADD CONSTRAINT FK_IdCreateByEmpleado FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE Empleado ADD CONSTRAINT FK_IdCiudadExpedicionEmpleado FOREIGN KEY (IdCiudadExpedicion ) references Ciudad(Id)
 ALTER TABLE Empleado ADD CONSTRAINT FK_IdEstadoEmpleado FOREIGN KEY (IdEstado ) references TipoEstado(Id)
 
 GO
@@ -3142,12 +3147,13 @@ CREATE UNIQUE INDEX RegistroUnicoEmpleado on Empleado (Nombre, Apellidos, IdTipo
 
 GO
 
-INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CiudadExpedicion, CreateBy, DateCreate) VALUES ('Oscar Antonio','Castillo Perez',1,'3167508', 'Mosquera, Cundinamarca', 1, GETDATE())
-INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CiudadExpedicion, CreateBy, DateCreate) VALUES ('Yulisa Jarleidy','Garzón Lopez',1,'1073527268', 'Mosquera, Cundinamarca', 1, GETDATE())
-INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CiudadExpedicion, CreateBy, DateCreate) VALUES ('Edwin Fabian','Garzón Lopez',1,'10735241256', 'Mosquera, Cundinamarca', 1, GETDATE())
-INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CiudadExpedicion, CreateBy, DateCreate) VALUES ('Adriana Marlen','Garzón Lopez',1,'1073527266', 'Mosquera, Cundinamarca', 1, GETDATE())
-INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CiudadExpedicion, CreateBy, DateCreate) VALUES ('Yimi Fermando','Garzón Lopez',1,'1073963584', 'Mosquera, Cundinamarca', 1, GETDATE())
-INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, CiudadExpedicion, CreateBy, DateCreate) VALUES ('Michelle Sofia','Castillo Garzón',1,'125425632', 'Mosquera, Cundinamarca', 1, GETDATE())
+INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, IdCiudadExpedicion, CreateBy, DateCreate) VALUES 
+('Oscar Antonio','Castillo Perez',1,'3167508', 638, 1, GETDATE()),
+('Yulisa Jarleidy','Garzón Lopez',1,'1073527268', 548, 1, GETDATE()),
+('Edwin Fabian','Garzón Lopez',1,'10735241256', 571, 1, GETDATE()),
+('Adriana Marlen','Garzón Lopez',1,'1073527266',548, 1, GETDATE()),
+('Yimi Fermando','Garzón Lopez',1,'1073963584', 548, 1, GETDATE()),
+('Michelle Sofia','Castillo Garzón',1,'125425632', 167, 1, GETDATE())
 
 GO
 
@@ -3157,7 +3163,7 @@ CREATE PROCEDURE [dbo].[SP_CrearEmpleado]
 				@Apellidos varchar(255),
 				@IdTipoDocumento int,
 				@Identificacion varchar(255),	
-				@CiudadExpedicion varchar(255),
+				@IdCiudadExpedicion int,
 				@Resultado varchar(255) OUTPUT     
 AS
 BEGIN
@@ -3175,9 +3181,9 @@ SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
 IF @Permiso > 0
 	BEGIN		
 		INSERT INTO Empleado
-		(Nombre, Apellidos, IdTipoDocumento, Identificacion, CiudadExpedicion, CreateBy, DateCreate) 
+		(Nombre, Apellidos, IdTipoDocumento, Identificacion, IdCiudadExpedicion, CreateBy, DateCreate) 
 		VALUES 
-		(@Nombre, @Apellidos, @IdTipoDocumento, @Identificacion, @CiudadExpedicion, @IdUsuario, GETDATE()) 
+		(@Nombre, @Apellidos, @IdTipoDocumento, @Identificacion, @IdCiudadExpedicion, @IdUsuario, GETDATE()) 
 
 		SET @Resultado = 'OK*El Empleado ' + @Nombre + ' '+ @Apellidos+ ' a sido creado correctamente'
 	END	
@@ -3196,7 +3202,7 @@ CREATE PROCEDURE [dbo].[SP_ActualizarEmpleado]	@IdUser varchar(255),
 												@Apellidos varchar(255),
 												@IdTipoDocumento int,
 												@Identificacion varchar(255),
-												@CiudadExpedicion varchar(255),
+												@IdCiudadExpedicion int,
 												@IdEstado int,			
 												@Resultado varchar(255) OUTPUT
 AS
@@ -3225,7 +3231,7 @@ ELSE
 				Apellidos = @Apellidos,
 				IdTipoDocumento = @IdTipoDocumento,
 				Identificacion = @Identificacion,
-				CiudadExpedicion = @CiudadExpedicion,
+				IdCiudadExpedicion = @IdCiudadExpedicion,
 				IdEstado = @IdEstado
 		WHERE	Id = @IdEmpleado
 		
@@ -3282,7 +3288,8 @@ BEGIN
 			IdTipoDocumento,
 			dbo.Fun_BuscarNombreTipoDocumento(IdTipoDocumento) As TipoDocumento,			
 			Identificacion,
-			CiudadExpedicion,
+			IdCiudadExpedicion,
+			dbo.Fun_BuscarNombreCiudad(IdCiudadExpedicion) As CiudadExpedicion,
 			IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(IdEstado) As Estado,			
 			dbo.Fun_BuscarNombreUsuario(CreateBy) As CreateBy,
@@ -4908,12 +4915,12 @@ IF @Permiso > 0
 				VALUES 
 				(@IdEmpleado, @IdSucursal, @IdCargo, @IdTipoContrato, @SalarioMensual, @FechaInicio, @IdEps, @PorcentajeContEps,
 				@IdFondoPension, @PorcentajeContFP,@IdBanco,@NumeroCuentaPago, @SubTransporte, @IdCesantias,@Observacion, @IdUsuario, GETDATE()) 
-
+							
 
 				INSERT INTO SucursalEmpleado
-				(IdCLE, IdSucursal, FechaInicio, CreateBy, DateCreate)
+				(IdCLE, IdSucursal, FechaInicio, Observacion, CreateBy, DateCreate)
 				VALUES
-				(@@IDENTITY, @IdSucursal, @FechaInicio, @IdUsuario, GETDATE())
+				(@@IDENTITY, @IdSucursal, @FechaInicio, 'Sucursal Creada con el Contrato Laboral', @IdUsuario, GETDATE())
 											
 				SET @Resultado = 'OK*El Contrato Laboral para el Empleado a sido creado correctamente'
 			END													
@@ -5134,20 +5141,27 @@ SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
 
 IF @Permiso != 1
-BEGIN
-	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
-	RETURN
-END	
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+		RETURN
+	END	
+ELSE
+	BEGIN
+		UPDATE	ContratoLaboral
+		SET		FechaFin = @FechaFinal,
+				IdEstado = 5
+		WHERE	Id = @IdCLE
 
-UPDATE ContratoLaboral
-SET FechaFin = @FechaFinal,
-	IdEstado = 5
-WHERE Id = @IdCLE
-SET @Resultado = 'OK*Estimado Usuario el Contrato Laboral se finalizo correctamente'	
+		UPDATE	SucursalEmpleado
+		SET		FechaFin = @FechaFinal,
+				IdEstado = 5
+		WHERE	IdCLE = @IdCLE AND
+				IdEstado = 1
 
+		SET @Resultado = 'OK*Estimado Usuario el Contrato Laboral se finalizo correctamente'	
+	END
 SELECT @Resultado
 END
-
 
 GO
 
@@ -5159,21 +5173,25 @@ SELECT	A.Id,
 			dbo.Fun_BuscarNombreEmpleado(D.Id) AS Empleado,	
 			C.Id AS IdEmpresa,
 			dbo.Fun_BuscarNombreEmpresa(C.IdEmpresa) AS Empresa,
-			dbo.Fun_BuscarNombreSucursal(IdSucursal) AS Sucursal,
+			dbo.Fun_BuscarNombreSucursal(A.IdSucursal) AS Sucursal,
 			A.IdCargo,
 			dbo.Fun_BuscarNombreCargo(A.IdCargo) AS Cargo,
 			A.IdTipoContrato,
 			dbo.Fun_BuscarNombreTipoContrato(A.IdTipoContrato) AS Contrato,
 			A.SalarioMensual,
 			A.IdEps,
+			dbo.Fun_BuscarNombreEps(A.IdEps) As Eps,
 			A.IdFondoPension,
+			dbo.Fun_BuscarNombreFondoPensiones(A.IdFondoPension) As FondoPension,
 			A.IdFondoCesantias,
+			dbo.Fun_BuscarNombreFondoCesantias(A.IdFondoCesantias) As FondoCesantias,
 			A.IdBanco,
+			dbo.Fun_BuscarNombreBanco(A.IdBanco) As Banco,
 			A.PorcentajeEps,
 			A.PorcentajeFondoPension,
 			A.NumeroCuenta,
 			A.SubTransporte,
-			'$ ' + CONVERT(varchar(255),A.SalarioMensual) As TextoSalarioMensual,
+			--'$ ' + CONVERT(varchar(255),A.SalarioMensual) As TextoSalarioMensual,
 			CONVERT(varchar(255),A.FechaInicio,23) As FechaInicio,
 			CONVERT(varchar(255), DATEPART(DAY, A.FechaInicio))+'/'+ CONVERT(varchar(255),DATEPART(MONTH, A.FechaInicio))+'/'+ CONVERT(varchar(255),DATEPART(YEAR, A.FechaInicio)) As TextoFechaInicio,
 			CASE A.FechaFin
@@ -5204,6 +5222,8 @@ SELECT	A.Id,
 			AND D.Id = A.IdEmpleado
 			ORDER BY Id Desc
 END
+
+
 
 
 GO
@@ -5244,16 +5264,11 @@ BEGIN
 
 	SELECT	A.Id,
 			C.Nombre As Empresa,
-			CASE C.Contacto
-			WHEN '' THEN 'xxxxxxxxxx'
-			ELSE ISNULL(C.Contacto, 'xxxxxxxxxx')
-			END AS RLEmpresa,
+			dbo.Fun_BuscarNombreSucursal(A.IdSucursal) As Sucursal,
+			C.Contacto AS RLEmpresa,
 			dbo.Fun_BuscarNombreTipoDocumento(C.IdTipoDocumentoRL) AS TipoDocumentoRLEmpresa,
 			C.IdentificacionRL AS IdentificacionRLEmpresa,
 			C.CiudadExpedicion AS CiudadExpedicionDocumentoRLEmpresa,
-
-
-
 			dbo.Fun_BuscarNombreTipoDocumento(C.IdTipoDocumento) As TipoDocumentoEmpresa,
 			C.Identificacion As IdentificacionEmpresa,
 			C.Direccion + ' ' + dbo.Fun_BuscarNombreCiudad(C.IdCiudad) As CiudadEmpresa,
@@ -5261,8 +5276,7 @@ BEGIN
 			B.Nombre +' '+ B.Apellidos As Empleado,
 			dbo.fun_buscarNombretipodocumento(B.IdTipoDocumento) As TipoDocumentoEmpleado,
 			B.Identificacion As IdentificacionEmpleado,
-			B.CiudadExpedicion AS CiudadExpedicionDocumentoEmpleado,
-			'xxxxxxxxxx' As CiudadEmpleado,
+			dbo.Fun_BuscarNombreCiudad(B.IdCiudadExpedicion) AS CiudadExpedicionDocumentoEmpleado,
 			dbo.Fun_BuscarNombreCargo(A.IdCargo) As Cargo, 
 			CONVERT(varchar(255),A.SalarioMensual) As SalarioMensual,
 			dbo.Fun_BuscarNombreTipoContrato(A.IdTipoContrato) As TipoContrato,
@@ -5343,7 +5357,7 @@ SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
 
 IF @Permiso > 0
 	BEGIN
-		UPDATE ContratoLaboral SET IdSucursal = @IdSucursal WHERE Id = @IdCLE
+		UPDATE ContratoLaboral SET IdSucursal = @IdSucursal WHERE Id = @IdCLE		
 
 		UPDATE SucursalEmpleado SET IdEstado = 5, @FechaFin = GETDATE()		WHERE Id = @IdSucursalEmpleado
 
@@ -5351,6 +5365,7 @@ IF @Permiso > 0
 		(IdCLE, IdSucursal, FechaInicio, Observacion, CreateBy, DateCreate) 
 		VALUES 
 		(@IdCLE, @IdSucursal, @FechaInicio, @Observacion, @IdUsuario, GETDATE()) 
+
 		SET @Resultado = 'OK*Se asigno al empleado la Nueva Sucursal correctamente'
 	END		
 ELSE

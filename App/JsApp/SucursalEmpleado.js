@@ -1,10 +1,10 @@
 ﻿function CambiarSucursalEmpleado() {
     let IdSucursalEmpleado = $('#LabelIdSucursalEmpleadoCambiarSucursal').text();
-    let IdSucursal = $('#SelectSucursalXIdEmpresaXIdEmpleado').val();
+    let IdSucursal = $('#SelectSucursalXIdEmpresa').val();
     let Observacion = $('#InputObservacionSE').val();
 
     if (IdSucursal == -1 || IdSucursal == null || IdSucursal == '') {
-        $('#SelectSucursalXIdEmpresaXIdEmpleado').focus();
+        $('#SelectSucursalXIdEmpresa').focus();
         VentanaMensaje('Seleccione la Nueva Sucursal');
     } else {
         $.ajax({
@@ -60,7 +60,7 @@ function GridSucursalEmpleado() {
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
                 text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                    columns: [1,2, 3, 4, 5, 6, 7, 8, 9,10,11],
                 },
             },
             {
@@ -70,7 +70,7 @@ function GridSucursalEmpleado() {
                 orientation: 'landscape', // landscape portrait
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                    columns: [1,2, 3, 4, 5, 6, 7, 8, 9,10,11],
                     search: 'applied',
                     order: 'applied',
                 },
@@ -190,38 +190,6 @@ function GridSucursalEmpleado() {
         $("#InputCambiarSucursalSucursalActual").val(data.Sucursal);
         $("#InputObservacionSE").val(data.Observacion);
     })
-}
-
-function CambiarSucursalEmpleado() {
-    let IdSucursalEmpleado = $('#LabelIdSucursalEmpleadoCambiarSucursal').text();
-    let IdSucursal = $('#SelectSucursalXIdEmpresa').val();
-    let Observacion = $('#InputObservacionSE').val();
-
-    if (IdSucursal == -1 || IdSucursal == null || IdSucursal == '') {
-        $('#SelectSucursalXIdEmpresaXIdEmpleado').focus();
-        VentanaMensaje('Seleccione la Nueva Sucursal');
-    } else {
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: '/Sucursal_Empleado/CambiarSucursalEmpleado',
-            data: {
-                IdUser: TokenUser,
-                IdSucursalEmpleado: IdSucursalEmpleado,
-                IdSucursal: IdSucursal,
-                Observacion: Observacion
-            },
-            success: function (resultado) {
-                valor = resultado.split('*');
-                if (valor[0] == 'OK') {
-                    VentanaMensajeOK(valor[1]);
-                } else {
-                    VentanaMensaje(valor[1]);
-                }
-            }
-        });
-    }
-
 }
 
 function BuscarDatosEmpleado(IdEmpleado) {

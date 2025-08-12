@@ -83,7 +83,7 @@
                     </div>
                     <div class="col-6">
                         <label><strong>Ciudad Expedición</strong><label style="color:red"> *</label></label>
-                        <input class="form-control" type="text" id="InputCiudadExpedicionRL" name="name" autocomplete="off" style="min-width:100%" />
+                        <select class="form-control" id="SelectCiudadExpedicionRL" style="min-width:100%"></select>
                     </div>
                 </div>
                 <div class="row">
@@ -139,6 +139,7 @@
         ListaTipoDocumentoRL(2);
         ListaTipoEstado(1);
         ListaCiudad();
+        ListaCiudadExpedicionRL();
     });
 
     const inputCelular = document.getElementById('InputCelularEmpresa');

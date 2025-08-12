@@ -18,7 +18,7 @@ namespace Data.DataEntities
 
         #region Metodos Guardar
 
-        public string CrearEmpleado(string IdUser, string Nombre, string Apellidos, int IdTipoDocumento, string Identificacion, string CiudadExpedicion)
+        public string CrearEmpleado(string IdUser, string Nombre, string Apellidos, int IdTipoDocumento, string Identificacion, int IdCiudadExpedicion)
         {
             string resultado = String.Empty;
             try
@@ -28,10 +28,10 @@ namespace Data.DataEntities
                 var varApellidos = new SqlParameter("@Apellidos", SqlDbType.VarChar) { Value = Apellidos };
                 var varIdTipoDocumento = new SqlParameter("@IdTipoDocumento", SqlDbType.Int) { Value = IdTipoDocumento };
                 var varIdentificacion = new SqlParameter("@Identificacion", SqlDbType.VarChar) { Value = Identificacion };
-                var varCiudadExpedicion = new SqlParameter("@CiudadExpedicion", SqlDbType.VarChar) { Value = CiudadExpedicion };
+                var varIdCiudadExpedicion = new SqlParameter("@IdCiudadExpedicion", SqlDbType.Int) { Value = IdCiudadExpedicion };
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
 
-                _conection.Database.ExecuteSqlCommand("SP_CrearEmpleado @IdUser, @Nombre, @Apellidos, @IdTipoDocumento, @Identificacion, @CiudadExpedicion, @Resultado OUTPUT", varIdUser, varNombre, varApellidos, varIdTipoDocumento, varIdentificacion, varCiudadExpedicion, varResultado);
+                _conection.Database.ExecuteSqlCommand("SP_CrearEmpleado @IdUser, @Nombre, @Apellidos, @IdTipoDocumento, @Identificacion, @IdCiudadExpedicion, @Resultado OUTPUT", varIdUser, varNombre, varApellidos, varIdTipoDocumento, varIdentificacion, varIdCiudadExpedicion, varResultado);
 
                 resultado = Convert.ToString(varResultado.Value);
             }
@@ -57,7 +57,7 @@ namespace Data.DataEntities
             return resultado;
         }
 
-        public string ActualizarEmpleado(string IdUser, int IdEmpleado, string Nombre, string Apellidos, int IdTipoDocumento, string Identificacion, string CiudadExpedicion, int IdEstado)
+        public string ActualizarEmpleado(string IdUser, int IdEmpleado, string Nombre, string Apellidos, int IdTipoDocumento, string Identificacion, int IdCiudadExpedicion, int IdEstado)
         {
             string resultado = String.Empty;
             try
@@ -68,11 +68,11 @@ namespace Data.DataEntities
                 var varApellidos = new SqlParameter("@Apellidos", SqlDbType.VarChar) { Value = Apellidos };
                 var varIdTipoDocumento = new SqlParameter("@IdTipoDocumento", SqlDbType.Int) { Value = IdTipoDocumento };
                 var varIdentificacion = new SqlParameter("@Identificacion", SqlDbType.VarChar) { Value = Identificacion };
-                var varCiudadExpedicion = new SqlParameter("@CiudadExpedicion", SqlDbType.VarChar) { Value = CiudadExpedicion };
+                var varIdCiudadExpedicion = new SqlParameter("@IdCiudadExpedicion", SqlDbType.Int) { Value = IdCiudadExpedicion };
                 var varIdEstado = new SqlParameter("@IdEstado", SqlDbType.Int) { Value = IdEstado };
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
 
-                _conection.Database.ExecuteSqlCommand("SP_ActualizarEmpleado @IdUser, @IdEmpleado, @Nombre, @Apellidos, @IdTipoDocumento, @Identificacion, @CiudadExpedicion, @IdEstado, @Resultado OUTPUT", varIdUser, varIdEmpleado, varNombre, varApellidos, varIdTipoDocumento, varIdentificacion, varCiudadExpedicion, varIdEstado, varResultado);
+                _conection.Database.ExecuteSqlCommand("SP_ActualizarEmpleado @IdUser, @IdEmpleado, @Nombre, @Apellidos, @IdTipoDocumento, @Identificacion, @IdCiudadExpedicion, @IdEstado, @Resultado OUTPUT", varIdUser, varIdEmpleado, varNombre, varApellidos, varIdTipoDocumento, varIdentificacion, varIdCiudadExpedicion, varIdEstado, varResultado);
 
                 resultado = Convert.ToString(varResultado.Value);
             }

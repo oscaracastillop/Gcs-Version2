@@ -3,7 +3,7 @@
     ViewBag.Title = "Empleado";
 }
 
-
+<script src="~/JsApp/Ciudad.js"></script>
 <script src="~/JsApp/Empleado.js"></script>
 <script src="~/JsApp/TipoDocumento.js"></script>
 <script src="~/JsApp/TipoEstado.js"></script>
@@ -52,7 +52,7 @@
                 <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Ciudad Expedición </strong><label style="color:red"> *</label></label>
-                        <input class="form-control" type="text" id="InputCiudadExpedicionEmpleado" name="name" autocomplete="off" style="min-width:100%" />
+                        <select class="form-control" id="SelectCiudad" style="min-width:100%"></select>
                     </div>
                 </div>
 
@@ -101,5 +101,6 @@
         GridEmpleado();
         ListaTipoDocumento(1);
         ListaTipoEstado(1);
+        ListaCiudad();
     });
 </script>

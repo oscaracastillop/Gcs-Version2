@@ -1,6 +1,4 @@
 ﻿function ModalEmpresa(tipo) {
-    //document.getElementById("nuevo").style.display = "block"
-    //$("#ge").hide();
     $("#TituloModalEmpresa").empty().val('');
     $("#LabelIdEmpresa").empty().val('');
     $("#InputNombreEmpresa").empty().val('');
@@ -12,10 +10,10 @@
     $("#InputContactoEmpresa").empty().val('');
     $("#SelectTipoDocumentoRL").val(-1);
     $("#InputIdentificacionRL").empty().val('');
-    $("#InputCiudadExpedicionRL").empty().val('');
     $("#InputDireccionEmpresa").empty().val('');
     $("#InputDescripcionEmpresa").empty().val('');
     $("#SelectCiudad").val(-1);
+    $("#SelectCiudadExpedicionRL").val(-1);
     $("#BotonesModalEmpresa").empty();
     if (tipo == 'C') {
         $("#TituloModalEmpresa").empty().append('<label>CREAR EMPRESA</label>');
@@ -38,11 +36,11 @@ function CrearEmpresa() {
     let Email = $('#InputEmailEmpresa').val();
     let Telefono = $('#InputTelefonoEmpresa').val();
     let Celular = $('#InputCelularEmpresa').val();
-    let Contacto = $('#InputContactoEmpresa').val();
+    let Contacto = $('#InputContactoEmpresa').val();    
     let IdTipoDocumentoRL = $('#SelectTipoDocumentoRL').val();
     let IdentificacionRL = $('#InputIdentificacionRL').val();
-    let CiudadExpedicion = $('#InputCiudadExpedicionRL').val();
-    let IdCiudad = $('#SelectCiudad').val();
+    let IdCiudad = $('#SelectCiudad').val(); 
+    let IdCiudadExpedicionRL = $('#SelectCiudadExpedicionRL').val(); 
     let Direccion = $('#InputDireccionEmpresa').val();
     let Descripcion = $('#InputDescripcionEmpresa').val();    
 
@@ -67,9 +65,9 @@ function CrearEmpresa() {
     } else if (IdentificacionRL == null || IdentificacionRL == '' || IdentificacionRL == undefined) {
         $('#InputIdentificacionRL').focus();
         VentanaMensaje('Ingrese la identificación del Representante Legal');
-    } else if (CiudadExpedicion == null || CiudadExpedicion == '' || CiudadExpedicion == undefined) {
-        $('#InputCiudadExpedicionRL').focus();
-        VentanaMensaje('Ingrese la Ciudad de Expedición del documento de Identificación del Representante Legal');
+    } else if (IdCiudadExpedicionRL == -1 || IdCiudadExpedicionRL == '' || IdCiudadExpedicionRL == null) {
+        $('#SelectCiudadExpedicionRL').focus();
+        VentanaMensaje('Seleccione la Ciudad de Expedición del documento de Identificación del Representante Legal');
     } else {
         $.ajax({
             type: 'POST',
@@ -86,7 +84,7 @@ function CrearEmpresa() {
                 Contacto: Contacto,
                 IdTipoDocumentoRL: IdTipoDocumentoRL,
                 IdentificacionRL: IdentificacionRL,
-                CiudadExpedicion: CiudadExpedicion,
+                IdCiudadExpedicion: IdCiudadExpedicionRL,
                 IdCiudad: IdCiudad,
                 Direccion: Direccion,
                 Descripcion: Descripcion,
@@ -114,7 +112,7 @@ function ActualizarEmpresa() {
     let Contacto = $('#InputContactoEmpresa').val();
     let IdTipoDocumentoRL = $('#SelectTipoDocumentoRL').val();
     let IdentificacionRL = $('#InputIdentificacionRL').val();
-    let CiudadExpedicion = $('#InputCiudadExpedicionRL').val();
+    let IdCiudadExpedicionRL = $('#SelectCiudadExpedicionRL').val();
     let IdCiudad = $('#SelectCiudad').val();
     let Direccion = $('#InputDireccionEmpresa').val();
     let Descripcion = $('#InputDescripcionEmpresa').val();    
@@ -141,9 +139,9 @@ function ActualizarEmpresa() {
     } else if (IdentificacionRL == null || IdentificacionRL == '' || IdentificacionRL == undefined) {
         $('#InputIdentificacionRL').focus();
         VentanaMensaje('Ingrese la identificación del Representante Legal');
-    } else if (CiudadExpedicion == null || CiudadExpedicion == '' || CiudadExpedicion == undefined) {
-        $('#InputCiudadExpedicionRL').focus();
-        VentanaMensaje('Ingrese la Ciudad de Expedición del documento de Identificación del Representante Legal');
+    } else if (IdCiudadExpedicionRL == null || IdCiudadExpedicionRL == '' || IdCiudadExpedicionRL == -1) {
+        $('#SelectCiudadExpedicionRL').focus();
+        VentanaMensaje('Seleccione la Ciudad de Expedición del documento de Identificación del Representante Legal');
     } else {
         $.ajax({
             type: 'POST',
@@ -161,7 +159,7 @@ function ActualizarEmpresa() {
                 Contacto: Contacto,
                 IdTipoDocumentoRL: IdTipoDocumentoRL,
                 IdentificacionRL: IdentificacionRL,
-                CiudadExpedicion: CiudadExpedicion,
+                IdCiudadExpedicion: IdCiudadExpedicionRL,
                 IdCiudad: IdCiudad,
                 Direccion: Direccion,
                 Descripcion: Descripcion,
@@ -362,12 +360,12 @@ function GridEmpresa() {
             { "data": "Email", title: "Email", width: 'auto' },
             { "data": "Telefono", title: "Teléfono", width: 'auto' },
             { "data": "Celular", title: "Celular", width: 'auto' },
-            { "data": "Contacto", title: "Contacto", width: 'auto' },
+            { "data": "Direccion", title: "Dirección", width: 'auto' },
+            { "data": "Ciudad", title: "Ciudad", width: 'auto' }, 
+            { "data": "Contacto", title: "Representante Legal", width: 'auto' },
             { "data": "TipoDocumentoRL", title: "Documento RL", width: 'auto', visible: true },
             { "data": "IdentificacionRL", title: "Identificación RL", width: 'auto', visible: true },
-            { "data": "CiudadExpedicion", title: "Ciudad Expedición", width: 'auto' },
-            { "data": "Direccion", title: "Dirección", width: 'auto' },
-            { "data": "Ciudad", title: "Ciudad", width: 'auto' },     
+            { "data": "CiudadExpedicion", title: "Ciudad Expedición", width: 'auto' },               
             { "data": "Descripcion", title: "Descripción" },
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },            
@@ -410,7 +408,8 @@ function GridEmpresa() {
         $('#InputIdentificacionRL').val(data.IdentificacionRL);
         $('#InputCiudadExpedicionRL').val(data.CiudadExpedicion);
         $('#InputDireccionEmpresa').val(data.Direccion);
-        $('#SelectCiudad').val(data.IdCiudad);
+        $('#SelectCiudad').val(data.IdCiudad); 
+        $('#SelectCiudadExpedicionRL').val(data.IdCiudadExpedicionRL); 
         $('#InputDescripcionEmpresa').val(data.Descripcion);
         $('#SelectEstado').val(data.IdEstado);
     })
@@ -513,15 +512,6 @@ function GuardarLogoEmpresa() {
     }
 }
     
-
-function DashboardHome() {
-    CardDatosEmpresa();
-    //CardDatosClientes();
-    //CardDatosSucursales();
-    //CardDatosEmpleados();
-    //CardDatosProductos();
-}
-
 
 function CardDatosEmpresa() {
     $.ajax({

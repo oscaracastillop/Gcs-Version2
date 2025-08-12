@@ -190,7 +190,7 @@ namespace Data.DataEntities
                 var varIdCLE = new SqlParameter("@IdCLE", SqlDbType.Int) { Value = IdCLE };
                 var varFechaFin = new SqlParameter("@FechaFin", SqlDbType.VarChar) { Value = FechaFin };
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
-                _conection.Database.ExecuteSqlCommand("SP_EliminarCLE @IdUser, @IdCLE, @FechaFin, @Resultado OUTPUT", varIdUser, varIdCLE, varFechaFin, varResultado);
+                _conection.Database.ExecuteSqlCommand("SP_FinalizarCLE @IdUser, @IdCLE, @FechaFin, @Resultado OUTPUT", varIdUser, varIdCLE, varFechaFin, varResultado);
                 resultado = Convert.ToString(varResultado.Value);
             }
             catch (Exception ex)

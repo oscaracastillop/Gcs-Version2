@@ -17,6 +17,7 @@ namespace Models
             public int IdTipoDocumento { get; set; }
             public string TipoDocumento { get; set; }
             public string Identificacion { get; set; }
+            public int IdCiudadExpedicion { get; set; }
             public string CiudadExpedicion { get; set; }
             public int IdEstado { get; set; }
             public string Estado { get; set; }

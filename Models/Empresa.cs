@@ -16,6 +16,7 @@
             public int IdTipoDocumentoRL { get; set; }
             public string TipoDocumentoRL { get; set; }
             public string IdentificacionRL { get; set; }
+            public int IdCiudadExpedicionRL { get; set; }
             public string CiudadExpedicion { get; set; }
             public string Direccion { get; set; }
             public string Ciudad { get; set; }

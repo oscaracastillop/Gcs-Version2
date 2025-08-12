@@ -4,6 +4,7 @@
     $("#InputNombreEmpleado").empty().val('');
     $("#InputApellidosEmpleado").empty().val('');
     $("#SelectTipoDocumento").val(-1);
+    $("#SelectCiudad").val(-1);
     $("#InputIdentificacionEmpleado").empty().val('');
     $("#InputCiudadExpedicionEmpleado").empty().val('');
     $("#BotonesModalEmpleado").empty();
@@ -28,7 +29,7 @@ function CrearEmpleado() {
     let Apellidos = $('#InputApellidosEmpleado').val();
     let IdTipoDocumento = $('#SelectTipoDocumento').val();
     let Identificacion = $('#InputIdentificacionEmpleado').val();
-    let CiudadExpedicion = $('#InputCiudadExpedicionEmpleado').val();
+    let IdCiudadExpedicion = $('#SelectCiudad').val();
     if (Nombre == null || Nombre == '' || Nombre == undefined) {
         $('#InputNombreEmpleado').focus();
         VentanaMensaje('Ingrese el Nombre del Empleado');
@@ -41,9 +42,9 @@ function CrearEmpleado() {
     } else if (Identificacion == null || Identificacion == '' || Identificacion == undefined) {
         $('#InputIdentificacionEmpleado').focus();
         VentanaMensaje('Ingrese la Identificación del Empleado');
-    } else if (CiudadExpedicion == null || CiudadExpedicion == '' || CiudadExpedicion == undefined) {
+    } else if (IdCiudadExpedicion == -1 || IdCiudadExpedicion == null || IdCiudadExpedicion == '') {
         $('#InputCiudadExpedicionRL').focus();
-        VentanaMensaje('Ingrese la Ciudad de Expedición del documento de Identificación del Empleado');
+        VentanaMensaje('Seleccione la Ciudad de Expedición del documento de Identificación del Empleado');
     } else {
         $.ajax({
             type: 'POST',
@@ -55,7 +56,7 @@ function CrearEmpleado() {
                 Apellidos: Apellidos,
                 IdTipoDocumento: IdTipoDocumento,
                 Identificacion: Identificacion,
-                CiudadExpedicion: CiudadExpedicion
+                IdCiudadExpedicion: IdCiudadExpedicion
             },
             success: function (resultado) {
                 valor = resultado.split('*');
@@ -76,7 +77,7 @@ function ActualizarEmpleado() {
     let Apellidos = $('#InputApellidosEmpleado').val();
     let IdTipoDocumento = $('#SelectTipoDocumento').val();
     let Identificacion = $('#InputIdentificacionEmpleado').val();
-    let CiudadExpedicion = $('#InputCiudadExpedicionEmpleado').val();
+    let IdCiudadExpedicion = $('#SelectCiudad').val();
     let IdEstado = $('#SelectEstado').val();
     if (Nombre == null || Nombre == '' || Nombre == undefined) {
         $('#InputNombreEmpleado').focus();
@@ -90,9 +91,9 @@ function ActualizarEmpleado() {
     } else if (Identificacion == null || Identificacion == '' || Identificacion == undefined) {
         $('#InputIdentificacionEmpleado').focus();
         VentanaMensaje('Ingrese la Identificación del Empleado');
-    } else if (CiudadExpedicion == null || CiudadExpedicion == '' || CiudadExpedicion == undefined) {
+    } else if (IdCiudadExpedicion == -1 || IdCiudadExpedicion == null || IdCiudadExpedicion == '') {
         $('#InputCiudadExpedicionRL').focus();
-        VentanaMensaje('Ingrese la Ciudad de Expedición del documento de Identificación del Empleado');
+        VentanaMensaje('Seleccione la Ciudad de Expedición del documento de Identificación del Empleado');
     } else {
         $.ajax({
             type: 'POST',
@@ -105,7 +106,7 @@ function ActualizarEmpleado() {
                 Apellidos: Apellidos,
                 IdTipoDocumento: IdTipoDocumento,
                 Identificacion: Identificacion,
-                CiudadExpedicion: CiudadExpedicion,
+                IdCiudadExpedicion: IdCiudadExpedicion,
                 IdEstado: IdEstado
             },
             success: function (resultado) {
@@ -374,7 +375,7 @@ function GridEmpleado() {
         $('#InputApellidosEmpleado').val(data.Apellidos);
         $('#SelectTipoDocumento').val(data.IdTipoDocumento);
         $('#InputIdentificacionEmpleado').val(data.Identificacion);
-        $('#InputCiudadExpedicionEmpleado').val(data.CiudadExpedicion);
+        $('#SelectCiudad').val(data.IdCiudadExpedicion);
         $('#SelectEstado').val(data.IdEstado);
     })
 
