@@ -1012,7 +1012,10 @@ namespace App.Controllers
                             col.Item().PaddingTop(5).Text(text =>
                             {
                                 text.Justify();
-                                text.Span($"Para constancia y en señal de aceptación de las condiciones descritas en este documento, se firma por las partes que han intervenido en un ejemplar y copia, el dia {d.FechaFirmaContrato} en la ciudad de {d.CiudadEmpresa}.").FontSize(10);
+                                text.Span($"Para constancia y en señal de aceptación de las condiciones descritas en este documento, se firma por las partes que han intervenido en un ejemplar y copia, el dia ").FontSize(10);
+                                text.Span($"{d.FechaFirmaContrato}").Bold().FontSize(10);
+                                text.Span(" en la ciudad de ").FontSize(10);
+                                text.Span($"{d.CiudadEmpresa}.").Bold().FontSize(10);
                             });
 
 
@@ -1042,7 +1045,7 @@ namespace App.Controllers
 
             fontStream.Dispose();
 
-            return File(pdfBytes, "application/pdf", "Contrato de Trabajo # " + id + " " + d.Empleado + ".pdf");
+            return File(pdfBytes, "application/pdf", "Contrato de Trabajo # " + consecutivocle + " " + d.Empleado + ".pdf");
         }
 
     }

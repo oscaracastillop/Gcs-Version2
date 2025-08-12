@@ -269,7 +269,7 @@ function GridSucursal() {
             }
 
         ],
-        "order": [[1, "asc"]],
+        //"order": [[1, "asc"]],
         destroy: true,
         "ajax": {
             "url": '/Sucursal/GridSucursal',

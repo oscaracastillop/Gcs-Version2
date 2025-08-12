@@ -11,20 +11,20 @@
     if (tipo == 'C') {
         $("#TituloModalHoraExtraEmpleado").empty().append('<label>CREAR HORA EXTRA EMPLEADO</label>');
         $('#ModalHoraExtraEmpleado').modal('show');
-        $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", false);
+        $("#SelectContratoLaboralEmpleado").prop("disabled", false);
         $("#SelectEstadoHoraExtraEmpleado").hide();
         $("#BotonesModalHoraExtraEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearHoraExtraEmpleado()">Guardar</button>');
     } if (tipo == 'E') {
         $("#TituloModalHoraExtraEmpleado").empty().append('<label>EDITAR HORA EXTRA EMPLEADO</label>');
         $('#ModalHoraExtraEmpleado').modal('show');
-        $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", true);
+        $("#SelectContratoLaboralEmpleado").prop("disabled", true);
         $("#SelectEstadoHoraExtraEmpleado").show();
         $("#BotonesModalHoraExtraEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="ActualizarHoraExtraEmpleado()">Guardar Cambios</button>');
     }
 }
 
 function CrearHoraExtraEmpleado() {
-    let IdEmpleado = $('#SelectContratoLaboralSucursalEmpleado').val();
+    let IdEmpleado = $('#SelectContratoLaboralEmpleado').val();
     let IdTipoHoraExtra = $('#SelectTipoHoraExtra').val();
     let CantidadHE = $('#InputCantidadHEEmpleado').val();
     let FechaHE = $('#InputFechaHEEmpleado').val();
@@ -32,7 +32,7 @@ function CrearHoraExtraEmpleado() {
     let Observacion = $('#InputHEEmpleadoObservacion').val();
 
     if (IdEmpleado == -1 || IdEmpleado == null || IdEmpleado == '') {
-        $('#SelectContratoLaboralSucursalEmpleado').focus();
+        $('#SelectContratoLaboralEmpleado').focus();
         VentanaMensaje('Seleccione el Empleado');
     } else if (IdTipoHoraExtra == -1 || IdTipoHoraExtra == null || IdTipoHoraExtra == '') {
         $('#SelectTipoHoraExtra').focus();
@@ -372,7 +372,7 @@ function GridHoraExtraEmpleado() {
         let data = datatable.row($(this).parents()).data();
         ModalHoraExtraEmpleado('E');
         $('#LabelHoraExtraEmpleado').text(data.Id);
-        $('#SelectContratoLaboralSucursalEmpleado').val(data.IdEmpleado);
+        $('#SelectContratoLaboralEmpleado').val(data.IdEmpleado);
         $('#SelectTipoHoraExtra').val(data.IdTipoHoraExtra);
         $('#InputCantidadHEEmpleado').val(data.Cantidad);
         $('#InputFechaHEEmpleado').val(data.FechaHoraExtra);

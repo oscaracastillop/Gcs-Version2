@@ -249,7 +249,7 @@ function GridEmpresa() {
             filename: NameApp + ' - ' +tituloReporte + ' ' + jsDate + ' ' + hora,
             text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
             exportOptions: {
-                columns: [0, 2, 3, 4, 5, 6, 7, 8, 9,10, 11,12,13],
+                columns: [0, 2, 3, 4, 5, 6, 7, 8, 9, 14, 10, 11, 12, 13, 15, 16],
             },
         },
             {
@@ -259,15 +259,15 @@ function GridEmpresa() {
             orientation: 'landscape', //portrait
             pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
             exportOptions: {
-                columns: [0, 2, 3, 4, 5, 6, 7, 8,9,10, 11,12,13],
+                columns: [0, 2, 3, 4, 5, 6, 7, 8, 9 , 14, 10, 11 ,12, 13, 15, 16],
                 search: 'applied',
                 order: 'applied',
             },
             customize: function (doc) {
                 doc.content.splice(0, 1.5);
                 doc.pageMargins = [40, 60, 20, 30];
-                doc.defaultStyle.fontSize = 6;
-                doc.styles.tableHeader.fontSize = 6;
+                doc.defaultStyle.fontSize = 5;
+                doc.styles.tableHeader.fontSize = 5;
                 doc['header'] = (function () {
                     return {
                         columns: [

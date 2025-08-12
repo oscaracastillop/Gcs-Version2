@@ -2824,7 +2824,7 @@ BEGIN
 			IdTipoDocumentoRL,
 			dbo.Fun_BuscarNombreTipoDocumento(IdTipoDocumentoRL) As TipoDocumentoRL,
 			ISNULL(IdentificacionRL,'') As IdentificacionRL,
-			IdCiudadExpedicion,
+			IdCiudadExpedicion As IdCiudadExpedicionRL,
 			dbo.Fun_BuscarNombreCiudad(IdCiudadExpedicion) As CiudadExpedicion,
 			ISNULL(Direccion,'') As Direccion,
 			Email,
@@ -5268,7 +5268,7 @@ BEGIN
 			C.Contacto AS RLEmpresa,
 			dbo.Fun_BuscarNombreTipoDocumento(C.IdTipoDocumentoRL) AS TipoDocumentoRLEmpresa,
 			C.IdentificacionRL AS IdentificacionRLEmpresa,
-			C.CiudadExpedicion AS CiudadExpedicionDocumentoRLEmpresa,
+			dbo.Fun_BuscarNombreCiudad(B.IdCiudadExpedicion) AS CiudadExpedicionDocumentoRLEmpresa,
 			dbo.Fun_BuscarNombreTipoDocumento(C.IdTipoDocumento) As TipoDocumentoEmpresa,
 			C.Identificacion As IdentificacionEmpresa,
 			C.Direccion + ' ' + dbo.Fun_BuscarNombreCiudad(C.IdCiudad) As CiudadEmpresa,
@@ -5294,7 +5294,6 @@ BEGIN
 			A.Id = @Id
 	ORDER BY Id Desc
 END
-
 
 GO
 
