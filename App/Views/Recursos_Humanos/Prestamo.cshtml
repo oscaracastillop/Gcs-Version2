@@ -3,10 +3,6 @@
     ViewBag.Title = "Préstamo";
 }
 
-
-
-
-
 <script src="~/JsApp/Empleado.js"></script>
 <script src="~/JsApp/PrestamoEmpleado.js"></script>
 <script src="~/JsApp/TipoEstado.js"></script>
@@ -32,7 +28,7 @@
                 <label id="LabelIdPrestamoEmpleado" hidden></label>
                 <div>
                     <label><strong>Empleado</strong><label style="color:red" id=""> *</label></label>
-                    <select class="form-control" id="SelectContratoLaboralSucursalEmpleado" style="min-width:100%"></select>
+                    <select class="form-control" id="SelectContratoLaboralEmpleado" style="min-width:100%"></select>
                 </div>
                 <div class="row g-2">
                     <div class="col-8">
@@ -75,7 +71,7 @@
 <script>
     $(document).ready(function () {
         ValidarSesion('/Recursos_Humanos/Prestamo');
-        ListaContratoLaboralSucursalEmpleado();
+        ListaContratoLaboralEmpleado();
         GridPrestamoEmpleado();
         ListaTipoEstado(1);
     });

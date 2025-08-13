@@ -2,34 +2,33 @@
 function ModalOtrosIngresosEmpleado(tipo) {
     $("#TituloModalOtrosIngresosEmpleado").empty().val('');
     $("#LabelIdOtrosIngresosEmpleado").empty().val('');
-    $("#SelectContratoLaboralSucursalEmpleado").val(-1);
+    $("#SelectContratoLaboralEmpleado").val(-1);
     $("#InputOtrosIngresosEmpleadoValor").empty().val('');
     $("#InputOtrosIngresosEmpleadoFechaPago").empty().val('');
     $("#InputOtrosIngresosEmpleadoObservacion").empty().val('');
-    $("#SelectContratoLaboralSucursalEmpleado").val(-1);
     $("#BotonesModalOtrosIngresosEmpleado").empty();
     if (tipo == 'C') {
         $("#TituloModalOtrosIngresosEmpleado").empty().append('<label>CREAR OTROS INGRESOS EMPLEADO</label>');
         $('#ModalOtrosIngresosEmpleado').modal('show');
-        $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", false);
+        $("#SelectContratoLaboralEmpleado").prop("disabled", false);
         $("#SelectEstadoOtrosIngresosEmpleado").hide();
         $("#BotonesModalOtrosIngresosEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearOtrosIngresosEmpleado()">Guardar</button>');
     } if (tipo == 'E') {
         $("#TituloModalOtrosIngresosEmpleado").empty().append('<label>EDITAR OTROS INGRESOS EMPLEADO</label>');
         $('#ModalOtrosIngresosEmpleado').modal('show');
-        $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", true);
+        $("#SelectContratoLaboralEmpleado").prop("disabled", true);
         $("#SelectEstadoOtrosIngresosEmpleado").show();
         $("#BotonesModalOtrosIngresosEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="ActualizarOtrosIngresosEmpleado()">Guardar Cambios</button>');
     }
 }
 
 function CrearOtrosIngresosEmpleado() {
-    let IdEmpleado = $('#SelectContratoLaboralSucursalEmpleado').val();
+    let IdEmpleado = $('#SelectContratoLaboralEmpleado').val();
     let Valor = $('#InputOtrosIngresosEmpleadoValor').val();
     let FechaPago = $('#InputOtrosIngresosEmpleadoFechaPago').val();
     let Observacion = $('#InputOtrosIngresosEmpleadoObservacion').val();
     if (IdEmpleado == -1 || IdEmpleado == null || IdEmpleado == '') {
-        $('#SelectContratoLaboralSucursalEmpleado').focus();
+        $('#SelectContratoLaboralEmpleado').focus();
         VentanaMensaje('Seleccione el Empleado');
     } else if (Valor == null || Valor == '' || Valor == undefined) {
         $('#InputOtrosIngresosEmpleadoValor').focus();
@@ -37,6 +36,9 @@ function CrearOtrosIngresosEmpleado() {
     } else if (FechaPago == null || FechaPago == '' || FechaPago == undefined) {
         $('#InputOtrosIngresosEmpleadoFechaPago').focus();
         VentanaMensaje('Ingrese la Fecha de Pago');
+    } else if (Observacion == null || Observacion == '' || Observacion == undefined) {
+        $('#InputOtrosIngresosEmpleadoObservacion').focus();
+        VentanaMensaje('Ingrese el concepto del Ingreso Adicional');
     } else {
         $.ajax({
             type: 'POST',
@@ -74,6 +76,9 @@ function ActualizarOtrosIngresosEmpleado() {
     } else if (FechaPago == null || FechaPago == '' || FechaPago == undefined) {
         $('#InputOtrosIngresosEmpleadoFechaPago').focus();
         VentanaMensaje('Ingrese la Fecha de Pago');
+    } else if (Observacion == null || Observacion == '' || Observacion == undefined) {
+        $('#InputOtrosIngresosEmpleadoObservacion').focus();
+        VentanaMensaje('Ingrese el concepto del Ingreso Adicional');
     } else {
         $.ajax({
             type: 'POST',
@@ -313,7 +318,7 @@ function GridOtrosIngresosEmpleado() {
         let data = datatable.row($(this).parents()).data();
         ModalOtrosIngresosEmpleado('E');
         $('#LabelIdOtrosIngresosEmpleado').text(data.Id);
-        $('#SelectContratoLaboralSucursalEmpleado').val(data.IdEmpleado);
+        $('#SelectContratoLaboralEmpleado').val(data.IdEmpleado);
         $('#InputOtrosIngresosEmpleadoValor').val(data.Valor);
         $('#InputOtrosIngresosEmpleadoFechaPago').val(data.FechaPago);
         $('#InputOtrosIngresosEmpleadoObservacion').val(data.Observacion);

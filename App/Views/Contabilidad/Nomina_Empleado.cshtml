@@ -22,7 +22,6 @@
         <div class="modal-content">
             <div class="modal-header header-modal">
                 <div class="modal-title" id="TituloModalNominaEmpleado"></div>
-                @*<button class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">X</button>*@
             </div>
             <div class="modal-body">
                 <label id="LabelIdNominaEmpleado" hidden></label>
@@ -46,7 +45,7 @@
                     </div>
                     <div class="col-9">
                         <label><strong>Empleado</strong><label style="color:red"> *</label></label>
-                        <select class="form-control" id="SelectContratoLaboralSucursalEmpleado" style="min-width:100%" onchange="Limpiardatos()"></select>
+                        <select class="form-control" id="SelectContratoLaboralEmpleado" style="min-width:100%" onchange="Limpiardatos()"></select>
                     </div>
 
                 </div>
@@ -248,8 +247,6 @@
         ValidarSesion('/Contabilidad/Nomina_Empleado');
         GridNominaEmpleado();
         ListaTipoEstado(1);
-        ListaContratoLaboralSucursalEmpleado();
-        //ModalNominaEmpleado('C');
-
+        ListaContratoLaboralEmpleado();  
     });
 </script>

@@ -29,7 +29,7 @@
                 <div class="row g-2">
                     <div class="col-8">
                         <label><strong>Empleado</strong><label style="color:red" id=""> *</label></label>
-                        <select class="form-control" id="SelectContratoLaboralSucursalEmpleado" style="min-width:100%"></select>
+                        <select class="form-control" id="SelectContratoLaboralEmpleado" style="min-width:100%"></select>
                     </div>
                     <div class="col-4">
                         <label><strong>Valor</strong><label style="color:red" id=""> *</label></label>
@@ -68,7 +68,7 @@
 <script>
     $(document).ready(function () {
         ValidarSesion('/Recursos_Humanos/Casino');
-        ListaContratoLaboralSucursalEmpleado();
+        ListaContratoLaboralEmpleado();
         GridCasinoEmpleado();
         ListaTipoEstado(1);
     });

@@ -80,6 +80,8 @@ function CrearHoraExtraEmpleado() {
 }
 
 function ActualizarHoraExtraEmpleado() {
+    
+    let IdHoraExtra = $('#LabelIdHoraExtraEmpleado').text();
     let IdTipoHoraExtra = $('#SelectTipoHoraExtra').val();
     let CantidadHE = $('#InputCantidadHEEmpleado').val();
     let FechaHE = $('#InputFechaHEEmpleado').val();
@@ -111,6 +113,7 @@ function ActualizarHoraExtraEmpleado() {
             url: '/Hora_Extra_Empleado/ActualizarHoraExtraEmpleado',
             data: {
                 IdUser: TokenUser,
+                IdHoraExtra: IdHoraExtra,
                 IdTipoHoraExtra: IdTipoHoraExtra,
                 CantidadHE: CantidadHE,
                 FechaHE: FechaHE,
@@ -371,7 +374,7 @@ function GridHoraExtraEmpleado() {
     $('#gridHoraExtraEmpleado').on('click', '.EditarHoraExtraEmpleado', function () {
         let data = datatable.row($(this).parents()).data();
         ModalHoraExtraEmpleado('E');
-        $('#LabelHoraExtraEmpleado').text(data.Id);
+        $('#LabelIdHoraExtraEmpleado').text(data.Id);
         $('#SelectContratoLaboralEmpleado').val(data.IdEmpleado);
         $('#SelectTipoHoraExtra').val(data.IdTipoHoraExtra);
         $('#InputCantidadHEEmpleado').val(data.Cantidad);

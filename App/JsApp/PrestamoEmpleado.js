@@ -6,18 +6,18 @@
     $("#InputPrestamoEmpleadoFechaPago").empty().val('');
     //$("#InputPrestamoEmpleadoNumeroCuotas").empty().val(''); 
     $("#InputPrestamoEmpleadoObservacion").empty().val('');    
-    $("#SelectContratoLaboralSucursalEmpleado").val(-1);
+    $("#SelectContratoLaboralEmpleado").val(-1);
     $("#BotonesModalPrestamoEmpleado").empty();
     if (tipo == 'C') {
         $("#TituloModalPrestamoEmpleado").empty().append('<label>CREAR PRESTAMO EMPLEADO</label>');
         $('#ModalPrestamoEmpleado').modal('show');
-        $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", false);
+        $("#SelectContratoLaboralEmpleado").prop("disabled", false);
         $("#SelectEstadoPrestamoEmpleado").hide();
         $("#BotonesModalPrestamoEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearPrestamoEmpleado()">Guardar</button>');
     } if (tipo == 'E') {
         $("#TituloModalPrestamoEmpleado").empty().append('<label>EDITAR PRESTAMO EMPLEADO</label>');
         $('#ModalPrestamoEmpleado').modal('show');
-        $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", true);
+        $("#SelectContratoLaboralEmpleado").prop("disabled", true);
         $("#SelectEstadoPrestamoEmpleado").show();
         $("#BotonesModalPrestamoEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="ActualizarPrestamoEmpleado()">Guardar Cambios</button>');
     }
@@ -28,7 +28,7 @@
 
 
 function CrearPrestamoEmpleado() {
-    let IdEmpleado = $('#SelectContratoLaboralSucursalEmpleado').val();
+    let IdEmpleado = $('#SelectContratoLaboralEmpleado').val();
     let Valor = $('#InputPrestamoEmpleadoValor').val();
     let FechaPrestamo = $('#InputPrestamoEmpleadoFechaPrestamo').val();
     let FechaPago = $('#InputPrestamoEmpleadoFechaPago').val();
@@ -340,7 +340,7 @@ function GridPrestamoEmpleado() {
         let data = datatable.row($(this).parents()).data();
         ModalPrestamoEmpleado('E');
         $('#LabelIdPrestamoEmpleado').text(data.Id);
-        $('#SelectContratoLaboralSucursalEmpleado').val(data.IdEmpleado);
+        $('#SelectContratoLaboralEmpleado').val(data.IdEmpleado);
         $('#InputPrestamoEmpleadoValor').val(data.Valor);
         $('#InputPrestamoEmpleadoFechaPrestamo').val(data.FechaPrestamo);
         $('#InputPrestamoEmpleadoFechaPago').val(data.FechaPago);

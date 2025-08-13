@@ -30,7 +30,7 @@
                 <label id="LabelIdOtrosIngresosEmpleado" hidden></label>
                 <div>
                     <label><strong>Empleado</strong><label style="color:red" id=""> *</label></label>
-                    <select class="form-control" id="SelectContratoLaboralSucursalEmpleado" style="min-width:100%"></select>
+                    <select class="form-control" id="SelectContratoLaboralEmpleado" style="min-width:100%"></select>
                 </div>
                 <div class="row g-2">
                     <div class="col-6">
@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div>
-                    <label><strong>Concepto</strong></label>
+                    <label><strong>Concepto</strong><label style="color:red" id=""> *</label></label>
                     <input class="form-control" type="text" id="InputOtrosIngresosEmpleadoObservacion" name="name" autocomplete="off" style="min-width:100%" />
                 </div>
                 <div class="col-3" id="SelectEstadoOtrosIngresosEmpleado">
@@ -63,7 +63,7 @@
 <script>
     $(document).ready(function () {
         ValidarSesion('/Recursos_Humanos/Otros_Ingresos');
-        ListaContratoLaboralSucursalEmpleado();
+        ListaContratoLaboralEmpleado();
         GridOtrosIngresosEmpleado();
         ListaTipoEstado(1);
     });

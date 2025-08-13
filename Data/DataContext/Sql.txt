@@ -5445,8 +5445,6 @@ ALTER TABLE CasinoEmpleado ADD CONSTRAINT FK_IdEstadoCasinoEmpleado FOREIGN KEY 
 
 GO
 
-/*
-
 CREATE PROCEDURE [dbo].[SP_CrearCasinoEmpleado] 
 				@IdUser varchar(255), 			
 				@IdEmpleado int,
@@ -5469,12 +5467,10 @@ SET @SubMenu = '/Recursos_Humanos/Casino'
 
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
-SELECT @IdContratoLaboral = Id FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
+SELECT @IdContratoLaboral = Id, @IdSucursal = IdSucursal FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
 
 IF @Permiso > 0	
 	BEGIN	
-		SELECT	@IdSucursal = IdSucursal FROM SucursalEmpleado WHERE IdEmpleado = @IdEmpleado AND IdEstado = 1
-
 		INSERT INTO CasinoEmpleado
 		(IdEmpleado, IdSucursal, IdContratoLaboral, Valor, Fecha, FechaPago, Observacion, CreateBy, DateCreate) 
 		VALUES 
@@ -5489,8 +5485,6 @@ ELSE
 END
 
 GO
-
-*/
 
 CREATE PROCEDURE [dbo].[SP_ActualizarCasinoEmpleado] @IdUser varchar(255),
 													@IdCasinoEmpleado int,	
@@ -5614,8 +5608,6 @@ ALTER TABLE OtrosIngresosEmpleado ADD CONSTRAINT FK_IdEstadoOtrosIngresosEmplead
 
 GO
 
-/*
-
 CREATE PROCEDURE [dbo].[SP_CrearOtrosIngresosEmpleado] 
 				@IdUser varchar(255), 			
 				@IdEmpleado int,
@@ -5637,15 +5629,11 @@ SET @SubMenu = '/Recursos_Humanos/Otros_Ingresos'
 
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
-SELECT @IdContratoLaboral = Id FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
+SELECT @IdContratoLaboral = Id, @IdSucursal = IdSucursal FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
+
 
 IF @Permiso > 0
-		BEGIN	
-				SELECT	@IdSucursal = IdSucursal
-				FROM	SucursalEmpleado
-				WHERE	IdEmpleado = @IdEmpleado
-						AND IdEstado = 1
-
+		BEGIN				
 			INSERT INTO OtrosIngresosEmpleado
 			(IdEmpleado, IdSucursal, IdContratoLaboral, Valor, FechaPago,  Observacion, CreateBy, DateCreate) 
 			VALUES 
@@ -5661,8 +5649,6 @@ END
 
 GO
 
-
-*/
 CREATE PROCEDURE [dbo].[SP_ActualizarOtrosIngresosEmpleado] @IdUser varchar(255),
 													@IdOtrosIngresosEmpleado int,	
 													@Valor Int,
@@ -5817,8 +5803,6 @@ ALTER TABLE OtrosDescuentosEmpleado ADD CONSTRAINT FK_IdEstadoOtrosDescuentosEmp
 
 GO
 
-/*
-
 CREATE PROCEDURE [dbo].[SP_CrearOtrosDescuentosEmpleado] 
 				@IdUser varchar(255), 			
 				@IdEmpleado int,
@@ -5840,15 +5824,10 @@ SET @SubMenu = '/Recursos_Humanos/Otros_Descuentos'
 
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
-SELECT @IdContratoLaboral = Id FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
+SELECT @IdContratoLaboral = Id, @IdSucursal = IdSucursal FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
 
 IF @Permiso > 0
-		BEGIN	
-				SELECT	@IdSucursal = IdSucursal
-				FROM	SucursalEmpleado
-				WHERE	IdEmpleado = @IdEmpleado
-						AND IdEstado = 1
-
+		BEGIN					
 			INSERT INTO OtrosDescuentosEmpleado
 			(IdEmpleado, IdSucursal, IdContratoLaboral, Valor, FechaCobro,  Observacion, CreateBy, DateCreate) 
 			VALUES 
@@ -5863,8 +5842,6 @@ ELSE
 END
 
 GO
-
-*/
 
 CREATE PROCEDURE [dbo].[SP_ActualizarOtrosDescuentosEmpleado] @IdUser varchar(255),
 													@IdOtrosDescuentosEmpleado int,	
@@ -6020,8 +5997,6 @@ ALTER TABLE PrestamoEmpleado ADD CONSTRAINT FK_IdEstadoPrestamoEmpleado FOREIGN 
 
 GO
 
-/*
-
 CREATE PROCEDURE [dbo].[SP_CrearPrestamoEmpleado] 
 				@IdUser varchar(255), 			
 				@IdEmpleado int,
@@ -6045,12 +6020,10 @@ SET @SubMenu = '/Recursos_Humanos/Prestamo'
 
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
-SELECT @IdContratoLaboral = Id FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
+SELECT @IdContratoLaboral = Id, @IdSucursal = IdSucursal FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
 
 IF @Permiso > 0
 		BEGIN	
-			SELECT	@IdSucursal = IdSucursal FROM SucursalEmpleado WHERE IdEmpleado = @IdEmpleado AND IdEstado = 1
-
 			INSERT INTO PrestamoEmpleado
 			(IdEmpleado, IdSucursal, IdContratoLaboral, Valor, FechaPrestamo, FechaPago, Cuotas, Observacion, CreateBy, DateCreate) 
 			VALUES 
@@ -6065,8 +6038,6 @@ ELSE
 END
 
 GO
-
-*/
 
 CREATE PROCEDURE [dbo].[SP_ActualizarPrestamoEmpleado] @IdUser varchar(255),
 													@IdPrestamoEmpleado int,	
@@ -7192,8 +7163,7 @@ DECLARE
 
 SELECT @ExisteNominaActiva = COUNT(1) FROM NominaEmpleado WHERE IdEstado = 1 AND IdEmpleado = @IdEmpleado
 
-SELECT @IdSucursal = dbo.Fun_BuscarNombreSucursal(IdSucursal) FROM ContratoLaboral
-SELECT @IdContratoLaboral = Id FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
+SELECT @IdContratoLaboral = Id, @IdSucursal = IdSucursal FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
 SELECT @SalarioMensual =  SalarioMensual FROM ContratoLaboral where Id = @IdContratoLaboral
 SELECT @SubTransporteMes = SubTransporte FROM ContratoLaboral where Id = @IdContratoLaboral
 SELECT @PorcentajeEps = PorcentajeEps FROM ContratoLaboral where Id = @IdContratoLaboral
@@ -7289,9 +7259,6 @@ ELSE
 	END
 	SELECT @Resultado
 END
-
-
-
 
 GO
 
@@ -7652,7 +7619,7 @@ SET @SubMenu = '/Recursos_Humanos/Hora_Extra'
 
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
-SELECT @IdContratoLaboral = Id FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
+SELECT @IdContratoLaboral = Id, @IdSucursal = IdSucursal FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
 SELECT @Sueldo = SalarioMensual FROM ContratoLaboral WHERE IdEmpleado = @IdEmpleado
 SELECT @HorasDefinidasxMes = 220 -- (44 horas semanales * 5 semanas = 220 total horas mes)
 SELECT @PorcentajeHE = Porcentaje FROM TipoHoraExtra WHERE Id = @IdTipoHoraExtra
@@ -7663,13 +7630,80 @@ SELECT @TotalValorHoraExtra = (@ValorHoraExtra*@CantidadHE)
 
 IF @Permiso > 0	
 	BEGIN	
-		SELECT	@IdSucursal = IdSucursal FROM ContratoLaboral WHERE IdEmpleado = @IdEmpleado AND IdEstado = 1
-
 		INSERT INTO HoraExtraEmpleado
 		(IdEmpleado, IdSucursal, IdContratoLaboral, Sueldo, HorasDefinidasxMes, IdTipoHoraExtra, PorcentajeHE, Cantidad, ValorHoraOrdinaria, ValorHoraExtra, ValorTotalHoraExtra, FechaHE, FechaPagoHE, Observacion, CreateBy, DateCreate) 
 		VALUES 
 		(@IdEmpleado, @IdSucursal, @IdContratoLaboral, @Sueldo, @HorasDefinidasxMes, @IdTipoHoraExtra, @PorcentajeHE, @CantidadHE, @ValorHoraOrdinaria, @ValorHoraExtra, @TotalValorHoraExtra, @FechaHE, @FechaPagoHE, @Observacion, @IdUsuario, GETDATE()) 
 		SET @Resultado = 'OK*Los datos se crearon correctamente'		
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_ActualizarHoraExtraEmpleado] 
+				@IdUser varchar(255), 			
+				@IdHoraExtra int,
+				@IdTipoHoraExtra int,
+				@CantidadHE decimal(10,2),
+				@FechaHE varchar(255),
+				@FechaPagoHE varchar(255),
+				@Observacion varchar(255), 	
+				@IdEstado int,
+				@Resultado varchar(MAX) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@IdContratoLaboral INT,
+		@IdEmpleado INT,
+		@Sueldo INT,
+		@HorasDefinidasxMes INT,
+		@PorcentajeHE DECIMAL(10,2),
+		@ValorHoraOrdinaria DECIMAL(10,2),
+		@ValorHoraExtra DECIMAL(10,2),
+		@TotalValorHoraExtra DECIMAL(10,2),
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+
+
+SET @Accion = 'Editar'
+SET @SubMenu = '/Recursos_Humanos/Hora_Extra'		   	
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+SELECT @IdEmpleado = IdEmpleado FROM HoraExtraEmpleado WHERE Id = @IdHoraExtra
+SELECT @IdContratoLaboral = Id FROM ContratoLaboral where IdEmpleado = @IdEmpleado and IdEstado = 1
+SELECT @Sueldo = SalarioMensual FROM ContratoLaboral WHERE Id = @IdContratoLaboral
+SELECT @HorasDefinidasxMes = 220 -- (44 horas semanales * 5 semanas = 220 total horas mes)
+SELECT @PorcentajeHE = Porcentaje FROM TipoHoraExtra WHERE Id = @IdTipoHoraExtra
+SELECT @ValorHoraOrdinaria = (SalarioMensual/@HorasDefinidasxMes) FROM ContratoLaboral WHERE Id = @IdContratoLaboral
+SELECT @ValorHoraExtra = (((@ValorHoraOrdinaria*Porcentaje)/100)+@ValorHoraOrdinaria) FROM TipoHoraExtra WHERE Id = @IdTipoHoraExtra
+SELECT @TotalValorHoraExtra = (@ValorHoraExtra*@CantidadHE)
+
+
+IF @Permiso > 0	
+	BEGIN	
+	UPDATE HoraExtraEmpleado
+		SET Sueldo = @Sueldo,
+			HorasDefinidasxMes = @HorasDefinidasxMes,
+			IdTipoHoraExtra = @IdTipoHoraExtra,
+			PorcentajeHE = @PorcentajeHE,
+			Cantidad = @CantidadHE,
+			ValorHoraOrdinaria = @ValorHoraOrdinaria,
+			ValorHoraExtra = @ValorHoraExtra,
+			ValorTotalHoraExtra = @TotalValorHoraExtra,
+			FechaHE = @FechaHE,
+			FechaPagoHE = @FechaPagoHE,
+			Observacion = @Observacion
+		WHERE Id = @IdHoraExtra
+
+		SET @Resultado = 'OK*Los datos se Actualizaron correctamente'		
 	END	
 ELSE
 	BEGIN

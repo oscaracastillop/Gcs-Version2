@@ -49,7 +49,7 @@ function Limpiardatos() {
 
 function CargarDatosEmpleadoNomina() {
    
-    let IdEmpleado = $('#SelectContratoLaboralSucursalEmpleado').val();
+    let IdEmpleado = $('#SelectContratoLaboralEmpleado').val();
     let DiasaPagar = $('#InputNominaEmpleadoDiasPagar').val();
     let FechaInicio = $('#InputNominaEmpleadoFechaInicio').val();
     let FechaFin = $('#InputNominaEmpleadoFechaCorte').val();
@@ -78,22 +78,22 @@ function CargarDatosEmpleadoNomina() {
     
         if (FechaInicio == null || FechaInicio == '' || FechaInicio == undefined) {
             $('#InputNominaEmpleadoFechaInicio').focus();
-            $("#SelectContratoLaboralSucursalEmpleado").val(-1);
+            $("#SelectContratoLaboralEmpleado").val(-1);
             VentanaMensaje('Ingrese Fecha Inicio');
         } else if (FechaFin == null || FechaFin == '' || FechaFin == undefined) {
             $('#InputNominaEmpleadoFechaCorte').focus();
-            $("#SelectContratoLaboralSucursalEmpleado").val(-1);
+            $("#SelectContratoLaboralEmpleado").val(-1);
             VentanaMensaje('Ingrese Fecha Fin');
         } else if (FechaFin < FechaInicio) {
             $('#InputNominaEmpleadoFechaCorte').focus();
-            $("#SelectContratoLaboralSucursalEmpleado").val(-1);
+            $("#SelectContratoLaboralEmpleado").val(-1);
             VentanaMensaje('La fecha fin no puede ser inferior a la fecha de Inicio');
         } else if (DiasaPagar == null || DiasaPagar == '' || DiasaPagar == undefined) {
             $('#InputNominaEmpleadoDiasPagar').focus();
-            $("#SelectContratoLaboralSucursalEmpleado").val(-1);
+            $("#SelectContratoLaboralEmpleado").val(-1);
             VentanaMensaje('Ingrese los días a pagar');
         } else if (IdEmpleado == null || IdEmpleado == -1 || IdEmpleado == undefined) {
-            $('#SelectContratoLaboralSucursalEmpleado').focus();
+            $('#SelectContratoLaboralEmpleado').focus();
             VentanaMensaje('Seleccione un Empleado');
         } else {
             $.ajax({
@@ -136,7 +136,7 @@ function CargarDatosEmpleadoNomina() {
 
 
 function CrearNominaEmpleado() {
-    let IdEmpleado = $('#SelectContratoLaboralSucursalEmpleado').val();
+    let IdEmpleado = $('#SelectContratoLaboralEmpleado').val();
     let DiasaPagar = $('#InputNominaEmpleadoDiasPagar').val();
     let FechaInicio = $('#InputNominaEmpleadoFechaInicio').val();
     let FechaFin = $('#InputNominaEmpleadoFechaCorte').val();
@@ -154,7 +154,7 @@ function CrearNominaEmpleado() {
         $('#InputNominaEmpleadoDiasPagar').focus();
         VentanaMensaje('Ingrese los días a pagar');
     } else if (IdEmpleado == null || IdEmpleado == -1 || IdEmpleado == undefined) {
-        $('#SelectContratoLaboralSucursalEmpleado').focus();
+        $('#SelectContratoLaboralEmpleado').focus();
         VentanaMensaje('Seleccione un Empleado');
     } else {
         $.ajax({
@@ -474,13 +474,6 @@ function GridNominaEmpleado() {
             },
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
-            //{
-            //    title: "",
-            //    data: null,
-            //    defaultContent:
-            //        '<a class="EditarNominaEmpleado btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
-            //    orderable: false,
-            //},
             {
                 title: "",
                 data: "Estado",

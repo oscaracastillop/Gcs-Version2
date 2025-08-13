@@ -62,6 +62,7 @@ namespace Data.DataEntities
             try
             {
                 var varIdUser = new SqlParameter("@IdUser", SqlDbType.VarChar) { Value = IdUser };
+                var varIdHoraExtra = new SqlParameter("@IdHoraExtra", SqlDbType.Int) { Value = IdHoraExtra };
                 var varIdTipoHoraExtra = new SqlParameter("@IdTipoHoraExtra", SqlDbType.Int) { Value = IdTipoHoraExtra };
                 var varCantidadHE = new SqlParameter("@CantidadHE", SqlDbType.Decimal) { Value = CantidadHE };
                 var varFechaHE = new SqlParameter("@FechaHE", SqlDbType.VarChar) { Value = FechaHE };
@@ -70,7 +71,7 @@ namespace Data.DataEntities
                 var varIdEstado = new SqlParameter("@IdEstado", SqlDbType.Int) { Value = IdEstado };
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = int.MaxValue };
 
-                _conection.Database.ExecuteSqlCommand("SP_ActualizarHoraExtraEmpleado @IdUser, @IdTipoHoraExtra, @varCantidadHE, @FechaHE, @FechaPagoHE, @Observacion, @IdEstado, @Resultado OUTPUT", varIdUser, varIdTipoHoraExtra, varCantidadHE, varFechaHE, varFechaPagoHE, varObservacion, varIdEstado, varResultado);
+                _conection.Database.ExecuteSqlCommand("SP_ActualizarHoraExtraEmpleado @IdUser, @IdHoraExtra, @IdTipoHoraExtra, @CantidadHE, @FechaHE, @FechaPagoHE, @Observacion, @IdEstado, @Resultado OUTPUT", varIdUser, varIdHoraExtra, varIdTipoHoraExtra, varCantidadHE, varFechaHE, varFechaPagoHE, varObservacion, varIdEstado, varResultado);
 
                 resultado = Convert.ToString(varResultado.Value);
             }

@@ -2,34 +2,33 @@
 function ModalOtrosDescuentosEmpleado(tipo) {
     $("#TituloModalOtrosDescuentosEmpleado").empty().val('');
     $("#LabelIdOtrosDescuentosEmpleado").empty().val('');
-    $("#SelectContratoLaboralSucursalEmpleado").val(-1);
+    $("#SelectContratoLaboralEmpleado").val(-1);
     $("#InputOtrosDescuentosEmpleadoValor").empty().val('');
     $("#InputOtrosDescuentosEmpleadoFechaCobro").empty().val('');
     $("#InputOtrosDescuentosEmpleadoObservacion").empty().val('');
-    $("#SelectContratoLaboralSucursalEmpleado").val(-1);
     $("#BotonesModalOtrosDescuentosEmpleado").empty();
     if (tipo == 'C') {
         $("#TituloModalOtrosDescuentosEmpleado").empty().append('<label>CREAR OTROS DESCUENTOS EMPLEADO</label>');
         $('#ModalOtrosDescuentosEmpleado').modal('show');
-        $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", false);
+        $("#SelectContratoLaboralEmpleado").prop("disabled", false);
         $("#SelectEstadoOtrosDescuentosEmpleado").hide();
         $("#BotonesModalOtrosDescuentosEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearOtrosDescuentosEmpleado()">Guardar</button>');
     } if (tipo == 'E') {
         $("#TituloModalOtrosDescuentosEmpleado").empty().append('<label>EDITAR OTROS DESCUENTOS EMPLEADO</label>');
         $('#ModalOtrosDescuentosEmpleado').modal('show');
-        $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", true);
+        $("#SelectContratoLaboralEmpleado").prop("disabled", true);
         $("#SelectEstadoOtrosDescuentosEmpleado").show();
         $("#BotonesModalOtrosDescuentosEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="ActualizarOtrosDescuentosEmpleado()">Guardar Cambios</button>');
     }
 }
 
 function CrearOtrosDescuentosEmpleado() {
-    let IdEmpleado = $('#SelectContratoLaboralSucursalEmpleado').val();
+    let IdEmpleado = $('#SelectContratoLaboralEmpleado').val();
     let Valor = $('#InputOtrosDescuentosEmpleadoValor').val();
     let FechaCobro = $('#InputOtrosDescuentosEmpleadoFechaCobro').val();
     let Observacion = $('#InputOtrosDescuentosEmpleadoObservacion').val();
     if (IdEmpleado == -1 || IdEmpleado == null || IdEmpleado == '') {
-        $('#SelectContratoLaboralSucursalEmpleado').focus();
+        $('#SelectContratoLaboralEmpleado').focus();
         VentanaMensaje('Seleccione el Empleado');
     } else if (Valor == null || Valor == '' || Valor == undefined) {
         $('#InputOtrosDescuentosEmpleadoValor').focus();
@@ -37,6 +36,9 @@ function CrearOtrosDescuentosEmpleado() {
     } else if (FechaCobro == null || FechaCobro == '' || FechaCobro == undefined) {
         $('#InputOtrosDescuentosEmpleadoFechaCobro').focus();
         VentanaMensaje('Ingrese la Fecha de Cobro');
+    } else if (Observacion == null || Observacion == '' || Observacion == undefined) {
+        $('#InputOtrosDescuentosEmpleadoObservacion').focus();
+        VentanaMensaje('Ingrese el concepto del Descuento Adicional');
     } else {
         $.ajax({
             type: 'POST',
@@ -74,6 +76,9 @@ function ActualizarOtrosDescuentosEmpleado() {
     } else if (FechaCobro == null || FechaCobro == '' || FechaCobro == undefined) {
         $('#InputOtrosDescuentosEmpleadoFechaCobro').focus();
         VentanaMensaje('Ingrese la Fecha de Cobro');
+    } else if (Observacion == null || Observacion == '' || Observacion == undefined) {
+        $('#InputOtrosDescuentosEmpleadoObservacion').focus();
+        VentanaMensaje('Ingrese el concepto del Descuento Adicional');
     } else {
         $.ajax({
             type: 'POST',
@@ -313,7 +318,7 @@ function GridOtrosDescuentosEmpleado() {
         let data = datatable.row($(this).parents()).data();
         ModalOtrosDescuentosEmpleado('E');
         $('#LabelIdOtrosDescuentosEmpleado').text(data.Id);
-        $('#SelectContratoLaboralSucursalEmpleado').val(data.IdEmpleado);
+        $('#SelectContratoLaboralEmpleado').val(data.IdEmpleado);
         $('#InputOtrosDescuentosEmpleadoValor').val(data.Valor);
         $('#InputOtrosDescuentosEmpleadoFechaCobro').val(data.FechaCobro);
         $('#InputOtrosDescuentosEmpleadoObservacion').val(data.Observacion);

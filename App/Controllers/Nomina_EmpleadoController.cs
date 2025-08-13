@@ -114,6 +114,36 @@ namespace App.Controllers
                                        ? TotalPagarDecimal.ToString("C0", cultura)
                                        : d.TotalPagar;
 
+            var count = 0;
+            var consecutivocle = "";
+            count = (d.Id).ToString().Length;
+
+            if (count == 1)
+            {
+                consecutivocle = "00000" + d.Id;
+            }
+            else if (count == 2)
+            {
+                consecutivocle = "0000" + d.Id;
+            }
+            else if (count == 3)
+            {
+                consecutivocle = "000" + d.Id;
+            }
+            else if (count == 4)
+            {
+                consecutivocle = "00" + d.Id;
+            }
+            else if (count == 5)
+            {
+                consecutivocle = "0" + d.Id;
+            }
+            else if (count == 6)
+            {
+                consecutivocle = "" + d.Id;
+            }
+
+
             var pdfBytes = Document.Create(container =>
             {
                 container.Page(page =>
@@ -126,7 +156,7 @@ namespace App.Controllers
                     page.Header().Row(row =>
                     {
                         row.RelativeItem().Height(80).Image(logoBytes).FitHeight();
-                        row.RelativeItem().AlignMiddle().Text($"Comprobante de Nómina - # {d.Id}")
+                        row.RelativeItem().AlignMiddle().Text($"Comprobante de Nómina - # {consecutivocle}")
                         .FontFamily("Lato").AlignRight().FontSize(10);
                         //.FontFamily("Lato").SemiBold().AlignRight().FontSize(10).FontColor(Colors.Blue.Darken1);
                     });
@@ -398,7 +428,7 @@ namespace App.Controllers
 
             fontStream.Dispose();
 
-            return File(pdfBytes, "application/pdf", "Comprobante Nomina # " + id + ".pdf");
+            return File(pdfBytes, "application/pdf", "Comprobante Nomina # " + consecutivocle + ".pdf");
         }
 
     }

@@ -1,36 +1,35 @@
 ﻿function ModalCasinoEmpleado(tipo) {
     $("#TituloModalCasinoEmpleado").empty().val('');
     $("#LabelIdCasinoEmpleado").empty().val('');
-    $("#SelectContratoLaboralSucursalEmpleado").val(-1);
+    $("#SelectContratoLaboralEmpleado").val(-1);
     $("#InputCasinoEmpleadoValor").empty().val('');
     $("#InputCasinoEmpleadoFecha").empty().val(''); 
     $("#InputCasinoEmpleadoFechaPago").empty().val(''); 
     $("#InputCasinoEmpleadoObservacion").empty().val(''); 
-    $("#SelectContratoLaboralSucursalEmpleado").val(-1);
     $("#BotonesModalCasinoEmpleado").empty();
     if (tipo == 'C') {
         $("#TituloModalCasinoEmpleado").empty().append('<label>CREAR CASINO EMPLEADO</label>');
         $('#ModalCasinoEmpleado').modal('show');
-        $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", false);
+        $("#SelectContratoLaboralEmpleado").prop("disabled", false);
         $("#SelectEstadoCasinoEmpleado").hide();
         $("#BotonesModalCasinoEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearCasinoEmpleado()">Guardar</button>');
     } if (tipo == 'E') {
         $("#TituloModalCasinoEmpleado").empty().append('<label>EDITAR CASINO EMPLEADO</label>');
         $('#ModalCasinoEmpleado').modal('show');
-        $("#SelectContratoLaboralSucursalEmpleado").prop("disabled", true);
+        $("#SelectContratoLaboralEmpleado").prop("disabled", true);
         $("#SelectEstadoCasinoEmpleado").show();
         $("#BotonesModalCasinoEmpleado").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' +'<button type="button" class="btn btn-sm btn-modal-guardar" onclick="ActualizarCasinoEmpleado()">Guardar Cambios</button>');
     }
 }
 
 function CrearCasinoEmpleado() {
-    let IdEmpleado = $('#SelectContratoLaboralSucursalEmpleado').val();
+    let IdEmpleado = $('#SelectContratoLaboralEmpleado').val();
     let Valor = $('#InputCasinoEmpleadoValor').val();
     let Fecha = $('#InputCasinoEmpleadoFecha').val();
     let FechaPago = $('#InputCasinoEmpleadoFechaPago').val();
     let Observacion = $('#InputCasinoEmpleadoObservacion').val();
     if (IdEmpleado == -1 || IdEmpleado == null || IdEmpleado == '') {
-        $('#SelectContratoLaboralSucursalEmpleado').focus();
+        $('#SelectContratoLaboralEmpleado').focus();
         VentanaMensaje('Seleccione el Empleado');
     } else if (Valor == null || Valor == '' || Valor == undefined) {
         $('#InputCasinoEmpleadoValor').focus();
@@ -325,7 +324,7 @@ function GridCasinoEmpleado() {
         let data = datatable.row($(this).parents()).data();
         ModalCasinoEmpleado('E');
         $('#LabelIdCasinoEmpleado').text(data.Id);
-        $('#SelectContratoLaboralSucursalEmpleado').val(data.IdEmpleado);
+        $('#SelectContratoLaboralEmpleado').val(data.IdEmpleado);
         $('#InputCasinoEmpleadoValor').val(data.Valor);
         $('#InputCasinoEmpleadoFecha').val(data.Fecha);
         $('#InputCasinoEmpleadoFechaPago').val(data.FechaPago);
