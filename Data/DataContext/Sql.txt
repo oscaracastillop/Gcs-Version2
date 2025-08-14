@@ -5280,7 +5280,90 @@ BEGIN
 			dbo.Fun_BuscarNombreCargo(A.IdCargo) As Cargo, 
 			CONVERT(varchar(255),A.SalarioMensual) As SalarioMensual,
 			dbo.Fun_BuscarNombreTipoContrato(A.IdTipoContrato) As TipoContrato,
-			CONVERT(varchar(255),A.FechaInicio,23) As FechaIngreso,
+
+			CONVERT(varchar(255),DATEPART(DAY,A.FechaInicio)) As FechaDiaIngreso,
+
+			CASE DATEPART(MONTH,A.FechaInicio)
+			WHEN 1 THEN 'Enero'
+			WHEN 2 THEN 'Febrero'
+			WHEN 3 THEN 'Marzo'
+			WHEN 4 THEN 'Abril'
+			WHEN 5 THEN 'Mayo'
+			WHEN 6 THEN 'Junio'
+			WHEN 7 THEN 'Julio'
+			WHEN 8 THEN 'Agosto'
+			WHEN 9 THEN 'Septiembre'
+			WHEN 10 THEN 'Octubre'
+			WHEN 11 THEN 'Noviembre'
+			ELSE 'Diciembre'
+			END as FechaMesIngreso,
+
+			CONVERT(varchar(255),DATEPART(YEAR,A.FechaInicio)) As FechaYearIngreso,
+
+
+			CONVERT(varchar(255),DATEPART(DAY,A.FechaFin)) As FechaDiaFin,
+
+			CASE DATEPART(MONTH,A.FechaFin)
+			WHEN 1 THEN 'Enero'
+			WHEN 2 THEN 'Febrero'
+			WHEN 3 THEN 'Marzo'
+			WHEN 4 THEN 'Abril'
+			WHEN 5 THEN 'Mayo'
+			WHEN 6 THEN 'Junio'
+			WHEN 7 THEN 'Julio'
+			WHEN 8 THEN 'Agosto'
+			WHEN 9 THEN 'Septiembre'
+			WHEN 10 THEN 'Octubre'
+			WHEN 11 THEN 'Noviembre'
+			ELSE 'Diciembre'
+			END as FechaMesFin,
+
+			CONVERT(varchar(255),DATEPART(YEAR,A.FechaFin)) As FechaYearFin,
+
+
+
+
+
+
+			CONVERT(varchar(255), DATEPART(DAY, GETDATE())) As FechaDiaSistema,
+
+			CASE DATEPART(MONTH,GETDATE())
+			WHEN 1 THEN 'Enero'
+			WHEN 2 THEN 'Febrero'
+			WHEN 3 THEN 'Marzo'
+			WHEN 4 THEN 'Abril'
+			WHEN 5 THEN 'Mayo'
+			WHEN 6 THEN 'Junio'
+			WHEN 7 THEN 'Julio'
+			WHEN 8 THEN 'Agosto'
+			WHEN 9 THEN 'Septiembre'
+			WHEN 10 THEN 'Octubre'
+			WHEN 11 THEN 'Noviembre'
+			ELSE 'Diciembre'
+			END as FechaMesSistema,
+
+			CONVERT(varchar(255),DATEPART(YEAR,GETDATE())) As FechaYearSistema,
+
+
+		
+			CASE A.FechaFin
+			WHEN '1900-01-01 00:00:00.000' THEN ''
+			ELSE CONVERT(varchar(255),A.FechaFin,29)
+			END as FechaFin,	
+
+			
+			CASE A.FechaFin
+			WHEN '1900-01-01 00:00:00.000' THEN CONVERT(varchar(255),DATEDIFF(DAY,A.FechaInicio,GETDATE())+1) + ' Día(s)'
+			ELSE CONVERT(varchar(255),DATEDIFF(DAY,A.FechaInicio,A.FechaFin)+1) + ' Día(s)'
+			END AS Permanencia,	
+
+			C.Email As EmailEmpresa,
+			C.Telefono As TelefonoEmpresa,
+			C.Celular As CelularEmpresa,
+
+			dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,
+
+
 			C.Logo As Logo,
 			CONVERT(varchar(255),GETDATE(),105) As FechaFirmaContrato
 			
