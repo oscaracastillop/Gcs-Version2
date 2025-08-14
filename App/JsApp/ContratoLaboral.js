@@ -291,9 +291,9 @@ function GridCLE() {
         dom: 'B<"clear">frtip',
         columnDefs: [
             { targets: [0], width: '10px', className: 'dt-center dt-head-center' },
-            { targets: [1], className: 'dt-center dt-head-center' },
-            { targets: [2], className: 'dt-head-center' },
-            { targets: [3], className: 'dt-head-center' },
+            { targets: [1], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [2], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [3], width: '10px', className: 'dt-center dt-head-center' },
             { targets: [4], className: 'dt-head-center' },
             { targets: [6], className: 'dt-head-center' },
             { targets: [7], className: 'dt-head-center' },
@@ -404,13 +404,7 @@ function GridCLE() {
             "datatype": "json"
         },
         columns: [  
-            //{
-            //    title: "",
-            //    data: "",
-            //    "render": function (data, type, row) {
-            //        return '<button class="btn btn-sm btn-pdf-cle" onclick="descargarContratoLaboral(' + row.Id + ')">Pdf</button>';
-            //    }
-            //},//0
+           
             {
                 title: "",
                 data: "Estado",
@@ -425,6 +419,13 @@ function GridCLE() {
                 }
 
             },//1
+            {
+                title: "Documentos",
+                data: "",
+                "render": function (data, type, row) {
+                    return '<a class="ModalDocCLE btn btn-pdf-cle" title="Descargar Documentos en Pdf">Pdf</a>';
+                }
+            },//0
             {
                 title: "Estado",
                 data: "Estado",
@@ -490,27 +491,27 @@ function GridCLE() {
             { "data": "Observacion", title: "Observación", width: 'auto' },//23        
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },//24
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },//25
-            {
-                title: "",
-                data: "",
-                "render": function (data, type, row) {
-                    return '<button class="btn btn-sm btn-pdf-cle" onclick="descargarContratoLaboral(' + row.Id + ')">Contrato Laboral</button>';
-                }
-            },//0
-            {
-                title: "",
-                data: "",
-                "render": function (data, type, row) {
-                    return '<button class="btn btn-sm btn-pdf-cle" onclick="descargarCertificacionLaboral(' + row.Id + ')">Certificación Laboral</button>';
-                }
-            },//0
-            {
-                title: "",
-                data: "",
-                "render": function (data, type, row) {
-                    return '<button class="btn btn-sm btn-pdf-cle" onclick="descargarPazySalvoEmpleado(' + row.Id + ')">Paz y Salvo</button>';
-                }
-            },//0
+            //{
+            //    title: "",
+            //    data: "",
+            //    "render": function (data, type, row) {
+            //        return '<button class="btn btn-sm btn-pdf-cle" onclick="descargarContratoLaboral(' + row.Id + ')">Contrato Laboral</button>';
+            //    }
+            //},//0
+            //{
+            //    title: "",
+            //    data: "",
+            //    "render": function (data, type, row) {
+            //        return '<button class="btn btn-sm btn-pdf-cle" onclick="descargarCertificacionLaboral(' + row.Id + ')">Certificación Laboral</button>';
+            //    }
+            //},//0
+            //{
+            //    title: "",
+            //    data: "",
+            //    "render": function (data, type, row) {
+            //        return '<button class="btn btn-sm btn-pdf-cle" onclick="descargarPazySalvoEmpleado(' + row.Id + ')">Paz y Salvo</button>';
+            //    }
+            //},//0
             {
                 title: "",
                 data: "Estado",
@@ -592,6 +593,16 @@ function GridCLE() {
         $('#NombreEmpleado').val(data.Empleado);
         $("#InputFechaInicioFinalizarCLE").val(data.FechaInicio);
     })
+
+    $('#gridCLE').on('click', '.ModalDocCLE', function () {
+        let data = datatable.row($(this).parents()).data();
+        $("#NombreDocCLEEmpleado").empty().val('');
+        $('#SelectDocCLE').val(-1);
+        $('#ModalDocCLE').modal('show');
+        $('#NombreDocCLEEmpleado').val(data.Empleado);
+        $('#LabelIdDocCLE').text(data.Id);
+    })
+
 }
 
 function ListaContratoLaboralEmpleado() {
@@ -615,26 +626,6 @@ function ListaContratoLaboralEmpleado() {
     });
 }
 
-//function ListaContratoLaboralSucursalEmpleado() {
-//    $.ajax({
-//        type: 'POST',
-//        dataType: 'json',
-//        url: '/Contrato_Laboral/ListaContratoLaboralSucursalEmpleado',
-//        data: {},
-//        success: function (resultado) {
-//            var contador = 0;
-//            if (resultado.length == 0) {
-//                $("#SelectContratoLaboralSucursalEmpleado").append('<option value="">No hay Datos</option>');
-//            } else {
-//                $("#SelectContratoLaboralSucursalEmpleado").empty().append('<option value="-1">- Escoge un Empleado -</option>');
-//                $.each(resultado, function () {
-//                    $("#SelectContratoLaboralSucursalEmpleado").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
-//                    contador++;
-//                });
-//            }
-//        },
-//    });
-//}
 
 function CargarDatosCLE(IdEmpleado){
     BuscarImagenEmpleado(IdEmpleado);
@@ -642,9 +633,32 @@ function CargarDatosCLE(IdEmpleado){
     $("#SelectCargo").val(-1);
 }
 
+function DescargarDocCLE() {
+    let IdCLE = $('#LabelIdDocCLE').text();
+    let opcion = $('#SelectDocCLE').val();
+
+    if (opcion == 1) {
+        descargarContratoLaboral(IdCLE);
+    } else if (opcion == 2) {
+        //alert('Descargar Certificación Laboral');
+        descargarCertificacionLaboralEmpleado(IdCLE);
+    } else if (opcion == 3) {
+        alert('Descargar Paz y Zalvo');
+        //descargarPazySalvoEmpleado(IdCLE);
+    } else {
+        VentanaMensaje('Seleccione una opción válida para descargar el documento.')
+    }
+}
 
 
 function descargarContratoLaboral(id) {
     window.open('/Contrato_Laboral/DescargarContratoLaboral?id=' + id, '_blank');
 }
 
+function descargarCertificacionLaboralEmpleado(id) {
+    window.open('/Contrato_Laboral/DescargarCertificacionLaboralEmpleado?id=' + id, '_blank');
+}
+
+function descargarPazySalvoEmpleado(id) {
+    window.open('/Contrato_Laboral/DescargarPazySalvoEmpleado?id=' + id, '_blank');
+}

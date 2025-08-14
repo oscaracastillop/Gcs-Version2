@@ -188,6 +188,43 @@
     </div>
 </div>
 
+<div class="modal fade" id="ModalDocCLE" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <div class="modal-title">DESCARGAR DOCUMENTOS</div>
+            </div>
+            <label id="LabelIdDocCLE" hidden></label>
+            <div class="modal-body">
+                <div class="row g-2">
+                    <div class="col-12">
+                        <label><strong>Empleado</strong></label>
+                        <input class="form-control" type="text" id="NombreDocCLEEmpleado" name="name" autocomplete="off" style="min-width:100%" disabled />
+                    </div>
+                </div>
+
+                <div class="row g-2">
+                    <div class="col-12">
+                        <label><strong>Documento Pdf</strong></label>
+                        <select id="SelectDocCLE" class="form-control" style="min-width:100%">
+                            <option value="-1">- Escoge un documento -</option>
+                            <option value="1">Contrato laboral</option>
+                            <option value="2">Certificado laboral</option>
+                            <option value="3">Paz y Salvo</option>
+                        </select>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                <button type="button" class="btn btn-sm btn-modal-doc" onclick="DescargarDocCLE()"><i class="bi-file-pdf" style="color:white"></i> Descargar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script>
     $(document).ready(function () {

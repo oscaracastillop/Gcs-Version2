@@ -104,6 +104,9 @@ namespace App.Controllers
             var logoPath = Server.MapPath($"~/Images/LogoEmpresa/{d.Logo}");
             byte[] logoBytes = System.IO.File.ReadAllBytes(logoPath);
 
+            var firmaRLPath = Server.MapPath($"~/Images/FirmaRepresentanteLegal/Firma RL EG.jpeg");
+            byte[] firmaRLBytes = System.IO.File.ReadAllBytes(firmaRLPath);
+
 
             var SalarioMensualArreglo = decimal.TryParse(d.SalarioMensual, out var SalarioMensualArregloDecimal)
                                         ? SalarioMensualArregloDecimal.ToString("C0", cultura)
@@ -162,9 +165,12 @@ namespace App.Controllers
                             // Datos generales del empleado
                             col.Item().Text($"");
                             col.Item().Text($"{d.Empresa}").FontSize(18).Bold();
-                            col.Item().Text($"{d.InfoEmpresa}").FontSize(7);
-                            col.Item().PaddingTop(15).Text($"CONTRATO INDIVIDUAL DE TRABAJO").AlignCenter().Bold();
-                            col.Item().PaddingTop(10).Text("DATOS TRABAJADOR").FontSize(10).Bold();
+                            col.Item().Text($"{d.TipoDocumentoEmpresa}: {d.IdentificacionEmpresa}").FontSize(7);
+                            col.Item().Text($"Email: {d.EmailEmpresa}").FontSize(7);
+                            col.Item().Text($"Telefono: {d.TelefonoEmpresa}").FontSize(7);
+                            col.Item().Text($"Celular: {d.CelularEmpresa}").FontSize(7);
+                            col.Item().PaddingTop(30).Text($"CONTRATO INDIVIDUAL DE TRABAJO").AlignCenter().Bold();
+                            col.Item().PaddingTop(20).Text("DATOS TRABAJADOR").FontSize(10).Bold();
                             col.Item().PaddingTop(0).Text(text =>
                             {
                                 text.Justify();
@@ -211,15 +217,23 @@ namespace App.Controllers
                             col.Item().PaddingTop(0).Text(text =>
                             {
                                 text.Justify();
-                                text.Span($"Fecha de inicio Contrato (aa-mm-dd): ").SemiBold().FontSize(10);
-                                text.Span($"{d.FechaIngreso}").FontSize(10);
+                                text.Span($"Fecha de inicio Contrato: ").SemiBold().FontSize(10);
+                                text.Span($"{d.FechaDiaIngreso} de {d.FechaMesIngreso} del {d.FechaYearIngreso}").FontSize(10);
                             });
 
                             col.Item().PaddingTop(0).Text(text =>
                             {
                                 text.Justify();
-                                text.Span($"Fecha de Fin Contrato (aa-mm-dd): ").SemiBold().FontSize(10);
-                                text.Span($"{d.FechaFin}").FontSize(10);
+                                text.Span($"Fecha de Fin Contrato: ").SemiBold().FontSize(10);
+                                if (d.FechaFin == "")
+                                {
+                                    text.Span($"{d.FechaFin}").FontSize(10);
+                                }
+                                else
+                                {
+                                    text.Span($"{d.FechaDiaFin} de {d.FechaMesFin} del {d.FechaYearFin}").FontSize(10);
+                                }
+                               
                             });
 
                             col.Item().PaddingTop(0).Text(text =>
@@ -252,7 +266,7 @@ namespace App.Controllers
 
 
 
-                            col.Item().PaddingTop(15).Text(text =>
+                            col.Item().PaddingTop(20).Text(text =>
                             {
                                 text.Justify();
                                 text.ParagraphFirstLineIndentation(20);
@@ -289,7 +303,7 @@ namespace App.Controllers
                                 text.Span($", el cual se regirá por las siguientes cláusulas:").FontSize(8);
                             });
 
-                            col.Item().PaddingTop(15).Text(text =>
+                            col.Item().PaddingTop(20).Text(text =>
                             {
                                 text.Justify();
                                 text.ParagraphFirstLineIndentation(20);
@@ -305,7 +319,7 @@ namespace App.Controllers
                             });
 
 
-                            col.Item().PaddingTop(15).Text(text =>
+                            col.Item().PaddingTop(20).Text(text =>
                             {
                                 text.Justify();
                                 text.ParagraphFirstLineIndentation(20);
@@ -313,7 +327,7 @@ namespace App.Controllers
                                 text.Span(" Las partes declaran que en el presente contrato se entienden incorporadas, en lo pertinente, las disposiciones legales colombianas que regulan las relaciones entre el empleador y sus trabajadores, en especial, las del contrato de trabajo para el oficio que se suscribe, fuera de las obligaciones consignadas en el manual de funciones, y reglamentos de trabajo, de higiene y seguridad industrial de la empresa.").FontSize(8);
                             });
 
-                            col.Item().PaddingTop(15).Text(text =>
+                            col.Item().PaddingTop(20).Text(text =>
                             {
                                 text.Justify();
                                 text.ParagraphFirstLineIndentation(20);
@@ -497,7 +511,7 @@ namespace App.Controllers
 
                             //////////////////// QUINTA
 
-                            col.Item().PaddingTop(15).Text(text =>
+                            col.Item().PaddingTop(20).Text(text =>
                             {
                                 text.Justify();
                                 text.ParagraphFirstLineIndentation(20);
@@ -543,7 +557,7 @@ namespace App.Controllers
 
                             //////////////////// SEXTA
 
-                            col.Item().PaddingTop(15).Text(text =>
+                            col.Item().PaddingTop(20).Text(text =>
                             {
                                 text.Justify();
                                 text.ParagraphFirstLineIndentation(20);
@@ -655,7 +669,7 @@ namespace App.Controllers
 
                             //////////////////// SEPTIMA
 
-                            col.Item().PaddingTop(15).Text(text =>
+                            col.Item().PaddingTop(20).Text(text =>
                             {
                                 text.Justify();
                                 text.ParagraphFirstLineIndentation(20);
@@ -712,7 +726,7 @@ namespace App.Controllers
 
                             //////////////////// OCTAVA
 
-                            col.Item().PaddingTop(15).Text(text =>
+                            col.Item().PaddingTop(20).Text(text =>
                             {
                                 text.Justify();
                                 text.ParagraphFirstLineIndentation(20);
@@ -725,7 +739,7 @@ namespace App.Controllers
 
                             //////////////////// NOVENA
 
-                            col.Item().PaddingTop(15).Text(text =>
+                            col.Item().PaddingTop(20).Text(text =>
                             {
                                 text.Justify();
                                 text.ParagraphFirstLineIndentation(20);
@@ -743,7 +757,7 @@ namespace App.Controllers
 
                             //////////////////// DECIMA
 
-                            col.Item().PaddingTop(15).Text(text =>
+                            col.Item().PaddingTop(20).Text(text =>
                             {
                                 text.Justify();
                                 text.ParagraphFirstLineIndentation(20);
@@ -840,7 +854,7 @@ namespace App.Controllers
 
                             //////////////////// DECIMA PRIMERA
 
-                            col.Item().PaddingTop(15).Text(text =>
+                            col.Item().PaddingTop(20).Text(text =>
                             {
                                 text.Justify();
                                 text.ParagraphFirstLineIndentation(20);
@@ -909,7 +923,7 @@ namespace App.Controllers
 
                             //////////////////// DECIMA SEGUNDA
 
-                            col.Item().PaddingTop(15).Text(text =>
+                            col.Item().PaddingTop(20).Text(text =>
                             {
                                 text.Justify();
                                 text.ParagraphFirstLineIndentation(20);
@@ -946,7 +960,7 @@ namespace App.Controllers
 
                             //////////////////// DECIMA TERCERA
 
-                            col.Item().PaddingTop(15).Text(text =>
+                            col.Item().PaddingTop(20).Text(text =>
                             {
                                 text.Justify();
                                 text.ParagraphFirstLineIndentation(20);
@@ -1019,7 +1033,7 @@ namespace App.Controllers
 
                             //////////////////// DECIMA CUARTA
 
-                            col.Item().PaddingTop(15).Text(text =>
+                            col.Item().PaddingTop(20).Text(text =>
                             {
                                 text.Justify();
                                 text.ParagraphFirstLineIndentation(20);
@@ -1034,8 +1048,12 @@ namespace App.Controllers
                             col.Item().PaddingTop(5).Text(text =>
                             {
                                 text.Justify();
-                                text.Span($"Para constancia y en señal de aceptación de las condiciones descritas en este documento, se firma por las partes que han intervenido en un ejemplar y copia, el dia ").FontSize(8);
-                                text.Span($"{d.FechaFirmaContrato}").Bold().FontSize(8);
+                                text.Span($"Para constancia y en señal de aceptación de las condiciones descritas en este documento, se firma por las partes que han intervenido en un ejemplar y copia, a los ").FontSize(8);
+                                text.Span($"{d.FechaDiaIngreso}").SemiBold().FontSize(8);
+                                text.Span(" diás del mes de ").FontSize(8);
+                                text.Span($"{d.FechaMesIngreso}").SemiBold().FontSize(8);
+                                text.Span(" del año ").FontSize(8);
+                                text.Span($"{d.FechaYearIngreso}.").SemiBold().FontSize(8);
                                 text.Span(" en la ciudad de ").FontSize(8);
                                 text.Span($"{d.CiudadEmpresa}.").Bold().FontSize(8);
                             });
@@ -1043,11 +1061,11 @@ namespace App.Controllers
 
 
 
-
-
-
-                            col.Item().PaddingTop(80).Row(r => { r.RelativeItem().AlignCenter().Text("Firma Trabajador").SemiBold(); r.RelativeItem().AlignCenter().Text($"Firma o Sello Empresa").SemiBold(); });
-                            col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text($"{d.Empleado}").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"{d.Empresa}").SemiBold().FontSize(8); });
+                            col.Item().PaddingTop(80).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold(); r.RelativeItem().AlignCenter().Height(60).Image(firmaRLBytes).FitHeight();});
+                            col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text("Firma Trabajador").SemiBold(); r.RelativeItem().AlignCenter().Text($"Firma o Sello Empresa").SemiBold(); });
+                            col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text($"{d.Empleado}").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"{d.RLEmpresa}").SemiBold().FontSize(8); });
+                            col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"Representante Legal").SemiBold().FontSize(8); });
+                            col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"{d.Empresa}").SemiBold().FontSize(8); });
 
                         });
 
@@ -1069,6 +1087,158 @@ namespace App.Controllers
 
             return File(pdfBytes, "application/pdf", "Contrato de Trabajo # " + consecutivocle + " " + d.Empleado + ".pdf");
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //FORMA PARA GENERAR CERTIFICACION LABORAL EMPLEADO
+
+        public ActionResult DescargarCertificacionLaboralEmpleado(int id)
+        {
+            // Registrar la fuente Lato
+            var fontPath = Server.MapPath("~/Content/Lato-Regular.ttf");
+            var fontStream = System.IO.File.OpenRead(fontPath);
+            var cultura = new CultureInfo("es-CO");
+            //QuestPDF.Infrastructure.FontManager.RegisterFont(fontStream);
+
+            // Obtener los datos del comprobante
+            var datos = dataContratoLaboral.DatosContratoLaboral(id);
+            if (datos == null || datos.Count == 0)
+                return HttpNotFound();
+
+            var d = datos[0];
+
+            // Ruta del logo
+            var logoPath = Server.MapPath($"~/Images/LogoEmpresa/{d.Logo}");
+            byte[] logoBytes = System.IO.File.ReadAllBytes(logoPath);
+
+            var firmaRLPath = Server.MapPath($"~/Images/FirmaRepresentanteLegal/Firma RL EG.jpeg");
+            byte[] firmaRLBytes = System.IO.File.ReadAllBytes(firmaRLPath);
+
+
+            var SalarioMensualArreglo = decimal.TryParse(d.SalarioMensual, out var SalarioMensualArregloDecimal)
+                                        ? SalarioMensualArregloDecimal.ToString("C0", cultura)
+                                        : d.SalarioMensual;
+                       
+            var pdfBytes = Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    page.Size(PageSizes.A4);
+                    page.Margin(2, QuestPDF.Infrastructure.Unit.Centimetre);
+                    page.PageColor(Colors.White);
+                    page.DefaultTextStyle(x => x.FontFamily("Lato").FontSize(12));
+
+                    page.Header().PaddingBottom(10).Row(row =>
+                    {
+                        row.RelativeItem().Height(60).Image(logoBytes).FitHeight();
+                        row.RelativeItem().AlignMiddle().Text($"Certificación Laboral Empleado")
+                        .FontFamily("Lato").AlignRight().FontSize(10);
+                    });
+
+                    page.Content().Column(col =>
+                    {
+
+                        col.Spacing(0);
+                        // Datos generales del empleado
+                        col.Item().Text($"");
+                        col.Item().Text($"{d.Empresa}").FontSize(18).Bold().AlignCenter();
+                        col.Item().Text($"{d.TipoDocumentoEmpresa}: {d.IdentificacionEmpresa}").FontSize(7).AlignCenter();
+                        col.Item().Text($"Email: {d.EmailEmpresa}").FontSize(7).AlignCenter();
+                        col.Item().Text($"Telefono: {d.TelefonoEmpresa}").FontSize(7).AlignCenter();
+                        col.Item().Text($"Celular: {d.CelularEmpresa}").FontSize(7).AlignCenter();
+                        col.Item().PaddingTop(100).Text($"CERTIFICA QUE").AlignCenter().Bold();
+
+                        col.Item().PaddingTop(30).Text(text =>
+                        {
+                            text.Justify();                          
+                            text.Span("El(La) señor(a) ").FontSize(11);
+                            text.Span($"{d.Empleado}").SemiBold().FontSize(11);
+                            text.Span(", identificado(a) con ").FontSize(11);
+                            text.Span($"{d.TipoDocumentoEmpleado}").SemiBold().FontSize(11);
+                            text.Span(" número ").FontSize(11);
+                            text.Span($"{d.IdentificacionEmpleado}").SemiBold().FontSize(11);
+                            text.Span(" de ").FontSize(11);                           
+                            text.Span($"{d.CiudadExpedicionDocumentoEmpleado}").SemiBold().FontSize(11);
+                            text.Span(", se encuentra laborardo actualmente en nuestra Empresa desde el (día-mes-año) ").FontSize(11);
+                            text.Span($"{d.FechaIngreso}").SemiBold().FontSize(11);
+                            text.Span(" , desempeñando el cargo de ").FontSize(11);
+                            text.Span($"{d.Cargo}").SemiBold().FontSize(11);
+                            text.Span(", con un Salario Mensual de ").FontSize(11);
+                            text.Span($"{SalarioMensualArreglo}").SemiBold().FontSize(11);
+                            text.Span(", por medio de contrato ").FontSize(11);
+                            text.Span($"{d.TipoContrato}.").SemiBold().FontSize(11);
+                        });
+
+                        col.Item().PaddingTop(15).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("Durante este tiempo transcurrido en la Empresa ").FontSize(11);
+                            text.Span($"{d.Empresa}").SemiBold().FontSize(11);
+                            text.Span(" el(la) señor(a) ").FontSize(11);
+                            text.Span($"{d.Empleado}").SemiBold().FontSize(11);
+                            text.Span(" se ha destacado por su responsabilidad, honestidad, cumplimiento y ética en las labores asignadas. ").FontSize(11);
+                           
+                        });
+
+                        col.Item().PaddingTop(15).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("La presente certificación se expide en la ciudad de ").FontSize(11);
+                            text.Span($"{d.CiudadEmpresa}").SemiBold().FontSize(11);
+                            text.Span(" a solicitud de la parte interesada a los ").FontSize(11);
+                            text.Span($"{d.FechaDiaSistema}").SemiBold().FontSize(11);
+                            text.Span(" diás del mes de ").FontSize(11);
+                            text.Span($"{d.FechaMesSistema}").SemiBold().FontSize(11);
+                            text.Span(" del año ").FontSize(11);
+                            text.Span($"{d.FechaYearSistema}.").SemiBold().FontSize(11);
+                        });
+                        col.Item().Text("Coordialmente,");
+
+
+                        col.Item().PaddingTop(100).Height(60).Image(firmaRLBytes).FitHeight();
+                        col.Item().Row(r => { r.RelativeItem().AlignLeft().Text($"Firma o Sello Empresa").SemiBold(); });                        
+                        col.Item().Row(r => { r.RelativeItem().AlignLeft().Text($"{d.RLEmpresa}").SemiBold().FontSize(8); });
+                        col.Item().Row(r => { r.RelativeItem().AlignLeft().Text($"Representante Legal").SemiBold().FontSize(8); });
+                        col.Item().Row(r => { r.RelativeItem().AlignLeft().Text($"{d.Empresa}").SemiBold().FontSize(8); });
+
+                    });
+
+                    page.Footer()
+                    .PaddingTop(5)
+                        .AlignRight()
+                        .Text(x =>
+                        {
+                            x.Span("Certificación Laboral generada con Sofia Software Administrativo V 1.0  - ").FontSize(6);
+                            x.Span(" Página ").FontSize(8);
+                            x.CurrentPageNumber().FontSize(8);
+                        });
+
+
+                });
+            }).GeneratePdf();
+
+            fontStream.Dispose();
+
+            return File(pdfBytes, "application/pdf", "Certificacion Laboral - " + d.Empleado + " - " + d.FechaDiaSistema +" "+ d.FechaMesSistema +" "+ d.FechaYearSistema+".pdf");
+        }
+
+
+
 
     }
 }

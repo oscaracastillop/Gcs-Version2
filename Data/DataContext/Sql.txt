@@ -76,10 +76,10 @@ GO
 INSERT INTO TipoContrato (Nombre) VALUES ('Término Fijo Tres (3) Meses')
 INSERT INTO TipoContrato (Nombre) VALUES ('Término Fijo Seis (6) Meses')
 INSERT INTO TipoContrato (Nombre) VALUES ('Término Fijo Doce (12) Meses')
-INSERT INTO TipoContrato (Nombre) VALUES ('Contrato Indefinido')
-INSERT INTO TipoContrato (Nombre) VALUES ('Contrato x Obra Labor')
-INSERT INTO TipoContrato (Nombre) VALUES ('Contrato x Destajo')
-INSERT INTO TipoContrato (Nombre) VALUES ('Contrato Aprendiz')
+INSERT INTO TipoContrato (Nombre) VALUES ('Indefinido')
+INSERT INTO TipoContrato (Nombre) VALUES ('X Obra Labor')
+INSERT INTO TipoContrato (Nombre) VALUES ('X Destajo')
+INSERT INTO TipoContrato (Nombre) VALUES ('Aprendizaje')
 
 GO
 

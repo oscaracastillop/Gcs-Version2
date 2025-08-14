@@ -56,6 +56,10 @@
             public string CiudadEmpleado { get; set; }
             public string TipoContrato { get; set; }
             public string FechaIngreso { get; set; }
+            public string FechaDiaIngreso { get; set; }
+            public string FechaMesIngreso { get; set; }
+            public string FechaYearIngreso { get; set; }
+
             public string Empresa { get; set; }
             public string Sucursal { get; set; }
             public string TipoDocumentoEmpresa { get; set; }
@@ -72,6 +76,11 @@
             public string SalarioMensual { get; set; }
             public string FechaInicio { get; set; }
             public string FechaFin { get; set; }
+
+            public string FechaDiaFin { get; set; }
+            public string FechaMesFin { get; set; }
+            public string FechaYearFin { get; set; }
+
             public string TextoFechaFin { get; set; }
             public string Permanencia { get; set; }
             public string Observacion { get; set; }
@@ -80,6 +89,13 @@
             public string NumeroCuenta { get; set; }
             public decimal SubTransporte { get; set; }
             public string FechaFirmaContrato { get; set; }
+
+            public string FechaDiaSistema { get; set; }
+            public string FechaMesSistema { get; set; }
+            public string FechaYearSistema { get; set; }
+            public string EmailEmpresa { get; set; }
+            public string TelefonoEmpresa { get; set; }
+            public string CelularEmpresa { get; set; }
 
         }
     }

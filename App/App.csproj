@@ -4293,6 +4293,7 @@
     <Content Include="Content\logo.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\FirmaRepresentanteLegal\Firma RL EG.jpeg" />
     <Content Include="Images\ImagenHVEmpleado\Empleado.png" />
     <Content Include="Images\ImagenProducto\JabonRey.jpeg" />
     <Content Include="Images\ImagenProducto\Producto.png" />
