@@ -404,13 +404,13 @@ function GridCLE() {
             "datatype": "json"
         },
         columns: [  
-            {
-                title: "",
-                data: "",
-                "render": function (data, type, row) {
-                    return '<button class="btn btn-sm btn-pdf-cle" onclick="descargarContratoLaboral(' + row.Id + ')">PDF</button>';
-                }
-            },//0
+            //{
+            //    title: "",
+            //    data: "",
+            //    "render": function (data, type, row) {
+            //        return '<button class="btn btn-sm btn-pdf-cle" onclick="descargarContratoLaboral(' + row.Id + ')">Pdf</button>';
+            //    }
+            //},//0
             {
                 title: "",
                 data: "Estado",
@@ -490,7 +490,27 @@ function GridCLE() {
             { "data": "Observacion", title: "Observación", width: 'auto' },//23        
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },//24
             { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },//25
-
+            {
+                title: "",
+                data: "",
+                "render": function (data, type, row) {
+                    return '<button class="btn btn-sm btn-pdf-cle" onclick="descargarContratoLaboral(' + row.Id + ')">Contrato Laboral</button>';
+                }
+            },//0
+            {
+                title: "",
+                data: "",
+                "render": function (data, type, row) {
+                    return '<button class="btn btn-sm btn-pdf-cle" onclick="descargarCertificacionLaboral(' + row.Id + ')">Certificación Laboral</button>';
+                }
+            },//0
+            {
+                title: "",
+                data: "",
+                "render": function (data, type, row) {
+                    return '<button class="btn btn-sm btn-pdf-cle" onclick="descargarPazySalvoEmpleado(' + row.Id + ')">Paz y Salvo</button>';
+                }
+            },//0
             {
                 title: "",
                 data: "Estado",
@@ -517,6 +537,7 @@ function GridCLE() {
                 }
 
             },//27
+
         ],
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.11.2/i18n/es_es.json"
