@@ -2613,10 +2613,10 @@ ALTER TABLE Empresa ADD CONSTRAINT FK_IdTipodocumentoRLEmpresa FOREIGN KEY (IdTi
 
 GO
 
-INSERT INTO Empresa (Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Contacto, IdTipoDocumentoRL, IdentificacionRL, IdCiudadExpedicion, IdCiudad, Direccion, CreateBy, DateCreate) 
+INSERT INTO Empresa (Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdTipoDocumentoRL, IdentificacionRL, IdCiudadExpedicion, IdCiudad, Direccion, CreateBy, DateCreate) 
 VALUES 
-('E&G Contrucciones S.A.S', 6, '901.766.109-1','edwinfabiangarzon@hotmail.com', '601 0000000', 'Edwin Fabian Garzón López', 1, '1079258236', 571, 571, '', 1, GETDATE()),
-('GCS Software', 1, '3167508','oscaracastillop@gmail.com', '601 0000000', 'Oscar Antonio Castillo Peréz', 1, '3167508', 574, 574, '', 1, GETDATE())
+('E&G Contrucciones S.A.S', 6, '901.766.109-1','edwinfabiangarzon@hotmail.com', '601 0000000', '321 4208189', 'Edwin Fabian Garzón López', 1, '1073151004', 571, 571, 'Calle 19a # 1a - 25', 1, GETDATE()),
+('GCS Software', 1, '3167508','oscaracastillop@gmail.com', '601 0000000', '315 0014586', 'Oscar Antonio Castillo Peréz', 1, '3167508', 638, 574, 'Diagonal 18 # 5 - 44', 1, GETDATE())
 
 GO
 
@@ -5261,6 +5261,7 @@ GO
 CREATE PROCEDURE [dbo].[SP_DatosContratoLaboral] @Id INT
 AS
 BEGIN
+
 	SELECT	A.Id,
 			C.Nombre As Empresa,
 			dbo.Fun_BuscarNombreSucursal(A.IdSucursal) As Sucursal,
@@ -7550,6 +7551,25 @@ DECLARE @IdCargo INT
 			dbo.Fun_BuscarNombreCargo(D.IdCargo) As Cargo, 
 			dbo.Fun_BuscarNombreTipoContrato(D.IdTipoContrato) As TipoContrato,
 			CONVERT(varchar(255),D.FechaInicio,23) As FechaIngreso,
+
+			CONVERT(varchar(255),DATEPART(DAY,D.FechaInicio)) As FechaDiaIngreso,
+			CASE DATEPART(MONTH,D.FechaInicio)
+			WHEN 1 THEN 'Enero'
+			WHEN 2 THEN 'Febrero'
+			WHEN 3 THEN 'Marzo'
+			WHEN 4 THEN 'Abril'
+			WHEN 5 THEN 'Mayo'
+			WHEN 6 THEN 'Junio'
+			WHEN 7 THEN 'Julio'
+			WHEN 8 THEN 'Agosto'
+			WHEN 9 THEN 'Septiembre'
+			WHEN 10 THEN 'Octubre'
+			WHEN 11 THEN 'Noviembre'
+			ELSE 'Diciembre'
+			END as FechaMesIngreso,
+			CONVERT(varchar(255),DATEPART(YEAR,D.FechaInicio)) As FechaYearIngreso,
+
+
 			CASE D.FechaFin
 			WHEN '1900-01-01 00:00:00.000' THEN CONVERT(varchar(255),DATEDIFF(DAY,D.FechaInicio,GETDATE())+1) + ' Día(s)'
 			ELSE CONVERT(varchar(255),DATEDIFF(DAY,D.FechaInicio,D.FechaFin)+1) + ' Día(s)'

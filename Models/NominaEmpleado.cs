@@ -16,6 +16,9 @@ namespace SistemaGcs.Models
             public string Cargo { get; set; }
             public string TipoContrato { get; set; }
             public string FechaIngreso { get; set; }
+            public string FechaDiaIngreso { get; set; }
+            public string FechaMesIngreso { get; set; }
+            public string FechaYearIngreso { get; set; }
             public string Permanencia { get; set; }
             public string Empresa { get; set; }
             public string RLEmpresa { get; set; }

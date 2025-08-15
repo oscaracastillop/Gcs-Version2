@@ -153,25 +153,25 @@ namespace App.Controllers
                         page.PageColor(Colors.White);
                         page.DefaultTextStyle(x => x.FontFamily("Lato").FontSize(12));
 
-                        page.Header().PaddingBottom(10).Row(row =>
+                        page.Header().PaddingTop(-20).Row(row =>
                         {
                             row.RelativeItem().Height(60).Image(logoBytes).FitHeight();
-                            row.RelativeItem().AlignMiddle().Text($"Contrato Laboral - # {consecutivocle}")
+                            row.RelativeItem().AlignTop().Text($"Contrato Laboral - # {consecutivocle}")
                             .FontFamily("Lato").AlignRight().FontSize(10);
                         });
 
-                        page.Content().Column(col =>
+                        page.Content().PaddingTop(0).Column(col =>
                         {
 
                             col.Spacing(0);
                             // Datos generales del empleado
-                            col.Item().Text($"");
-                            col.Item().Text($"{d.Empresa}").FontSize(18).Bold();
-                            col.Item().Text($"{d.TipoDocumentoEmpresa}: {d.IdentificacionEmpresa}").FontSize(7);
-                            col.Item().Text($"Email: {d.EmailEmpresa}").FontSize(7);
-                            col.Item().Text($"Telefono: {d.TelefonoEmpresa}").FontSize(7);
-                            col.Item().Text($"Celular: {d.CelularEmpresa}").FontSize(7);
-                            col.Item().PaddingTop(30).Text($"CONTRATO INDIVIDUAL DE TRABAJO").AlignCenter().Bold();
+                            col.Item().Text($"{d.Empresa}").FontSize(15).Bold().AlignLeft();
+                            col.Item().Text($"{d.TipoDocumentoEmpresa}: {d.IdentificacionEmpresa}").FontSize(6).AlignLeft();
+                            col.Item().Text($"Email: {d.EmailEmpresa}").FontSize(6).AlignLeft();
+                            col.Item().Text($"Telefono: {d.TelefonoEmpresa}").FontSize(6).AlignLeft();
+                            col.Item().Text($"Celular: {d.CelularEmpresa}").FontSize(6).AlignLeft();
+                            col.Item().PaddingBottom(30).Text("");
+                            col.Item().PaddingTop(0).Text($"CONTRATO INDIVIDUAL DE TRABAJO").AlignCenter().Bold();
                             col.Item().PaddingTop(20).Text("DATOS TRABAJADOR").FontSize(10).Bold();
                             col.Item().PaddingTop(0).Text(text =>
                             {
@@ -1121,25 +1121,25 @@ namespace App.Controllers
                     page.PageColor(Colors.White);
                     page.DefaultTextStyle(x => x.FontFamily("Lato").FontSize(12));
 
-                    page.Header().PaddingBottom(10).Row(row =>
+                    page.Header().PaddingTop(-20).Row(row =>
                     {
                         row.RelativeItem().Height(60).Image(logoBytes).FitHeight();
-                        row.RelativeItem().AlignMiddle().Text($"Certificación Laboral Empleado")
+                        row.RelativeItem().AlignTop().Text($"Certificación Laboral Empleado")
                         .FontFamily("Lato").AlignRight().FontSize(10);
                     });
 
-                    page.Content().Column(col =>
+                    page.Content().PaddingTop(0).Column(col =>
                     {
 
                         col.Spacing(0);
                         // Datos generales del empleado
-                        col.Item().Text($"");
-                        col.Item().Text($"{d.Empresa}").FontSize(18).Bold().AlignLeft();
-                        col.Item().Text($"{d.TipoDocumentoEmpresa}: {d.IdentificacionEmpresa}").FontSize(8).AlignLeft();
-                        col.Item().Text($"Email: {d.EmailEmpresa}").FontSize(8).AlignLeft();
-                        col.Item().Text($"Telefono: {d.TelefonoEmpresa}").FontSize(8).AlignLeft();
-                        col.Item().Text($"Celular: {d.CelularEmpresa}").FontSize(8).AlignLeft();
-                        col.Item().PaddingTop(100).Text($"CERTIFICA QUE").AlignCenter().Bold();
+                        col.Item().Text($"{d.Empresa}").FontSize(15).Bold().AlignLeft();
+                        col.Item().Text($"{d.TipoDocumentoEmpresa}: {d.IdentificacionEmpresa}").FontSize(6).AlignLeft();
+                        col.Item().Text($"Email: {d.EmailEmpresa}").FontSize(6).AlignLeft();
+                        col.Item().Text($"Telefono: {d.TelefonoEmpresa}").FontSize(6).AlignLeft();
+                        col.Item().Text($"Celular: {d.CelularEmpresa}").FontSize(6).AlignLeft();
+                        col.Item().PaddingBottom(30).Text("");
+                        col.Item().PaddingTop(70).Text($"CERTIFICA QUE").AlignCenter().Bold();
 
                         if (d.IdEstado == 1)
                         {
@@ -1289,25 +1289,25 @@ namespace App.Controllers
                     page.PageColor(Colors.White);
                     page.DefaultTextStyle(x => x.FontFamily("Lato").FontSize(12));
 
-                    page.Header().PaddingBottom(10).Row(row =>
+                    page.Header().PaddingTop(-20).Row(row =>
                     {
                         row.RelativeItem().Height(60).Image(logoBytes).FitHeight();
-                        row.RelativeItem().AlignMiddle().Text($"Paz y Salvo")
+                        row.RelativeItem().AlignTop().Text($"Paz y Salvo")
                         .FontFamily("Lato").AlignRight().FontSize(10);
                     });
 
-                    page.Content().Column(col =>
+                    page.Content().PaddingTop(0).Column(col =>
                     {
 
                         col.Spacing(0);
                         // Datos generales del empleado
-                        col.Item().Text($"");
-                        col.Item().Text($"{d.Empresa}").FontSize(18).Bold().AlignLeft();
-                        col.Item().Text($"{d.TipoDocumentoEmpresa}: {d.IdentificacionEmpresa}").FontSize(8).AlignLeft();
-                        col.Item().Text($"Email: {d.EmailEmpresa}").FontSize(8).AlignLeft();
-                        col.Item().Text($"Telefono: {d.TelefonoEmpresa}").FontSize(8).AlignLeft();
-                        col.Item().Text($"Celular: {d.CelularEmpresa}").FontSize(8).AlignLeft();
-                        col.Item().PaddingTop(100).Text($"CERTIFICADO DE PAZ Y SALVO LABORAL").AlignCenter().Bold();
+                        col.Item().Text($"{d.Empresa}").FontSize(15).Bold().AlignLeft();
+                        col.Item().Text($"{d.TipoDocumentoEmpresa}: {d.IdentificacionEmpresa}").FontSize(6).AlignLeft();
+                        col.Item().Text($"Email: {d.EmailEmpresa}").FontSize(6).AlignLeft();
+                        col.Item().Text($"Telefono: {d.TelefonoEmpresa}").FontSize(6).AlignLeft();
+                        col.Item().Text($"Celular: {d.CelularEmpresa}").FontSize(6).AlignLeft();
+                        col.Item().PaddingBottom(30).Text("");
+                        col.Item().PaddingTop(70).Text($"CERTIFICADO DE PAZ Y SALVO LABORAL").AlignCenter().Bold();
 
                         if (d.IdEstado == 1)
                         {

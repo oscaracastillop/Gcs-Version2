@@ -3,6 +3,8 @@ using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using System.Globalization;
+using System.Net.NetworkInformation;
+using System.Security.Cryptography;
 using System.Web.Mvc;
 
 
@@ -155,115 +157,116 @@ namespace App.Controllers
                     page.PageColor(Colors.White);
                     page.DefaultTextStyle(x => x.FontFamily("Lato").FontSize(12));
 
-                    page.Header().Row(row =>
+                    page.Header().PaddingTop(-20).Row(row =>
                     {
-                        row.RelativeItem().Height(80).Image(logoBytes).FitHeight();
-                        row.RelativeItem().AlignMiddle().Text($"Comprobante de Nómina - # {consecutivocle}")
+                        row.RelativeItem().Height(60).Image(logoBytes).FitHeight();
+                        row.RelativeItem().AlignTop().Text($"Comprobante de Nómina - # {consecutivocle}")
                         .FontFamily("Lato").AlignRight().FontSize(10);
                         //.FontFamily("Lato").SemiBold().AlignRight().FontSize(10).FontColor(Colors.Blue.Darken1);
                     });
 
-                    page.Content().Column(col =>
+                    page.Content().PaddingTop(0).Column(col =>
                     {
-
                         col.Spacing(0);
-
-
-
                         // Datos generales del empleado
-                        col.Item().Text($"");
-                        col.Item().Text($"{d.Empresa}").FontSize(18).Bold().AlignLeft();
-                        col.Item().Text($"{d.TipoDocumentoEmpresa}: {d.IdentificacionEmpresa}").FontSize(8).AlignLeft();
-                        col.Item().Text($"Email: {d.EmailEmpresa}").FontSize(8).AlignLeft();
-                        col.Item().Text($"Telefono: {d.TelefonoEmpresa}").FontSize(8).AlignLeft();
-                        col.Item().Text($"Celular: {d.CelularEmpresa}").FontSize(8).AlignLeft();
-                        col.Item().Text($"");
-                        //col.Item().LineHorizontal(1).LineColor(Colors.Black);
-                        //col.Item().Text($"");
-                        col.Item().Row(row =>
+                        col.Item().Text($"{d.Empresa}").FontSize(15).Bold().AlignLeft();
+                        col.Item().Text($"{d.TipoDocumentoEmpresa}: {d.IdentificacionEmpresa}").FontSize(6).AlignLeft();
+                        col.Item().Text($"Email: {d.EmailEmpresa}").FontSize(6).AlignLeft();
+                        col.Item().Text($"Telefono: {d.TelefonoEmpresa}").FontSize(6).AlignLeft();
+                        col.Item().Text($"Celular: {d.CelularEmpresa}").FontSize(6).AlignLeft();
+                        col.Item().PaddingBottom(30).Text("");
+
+                        col.Item().PaddingTop(0).Text("INFORMACION EMPLEADO").Bold().FontSize(10);
+
+
+                        col.Item().PaddingTop(5).Text(text =>
                         {
-                            row.RelativeItem().Text("Empleado:").SemiBold().FontSize(8);
-                            row.RelativeItem().Text(d.Empleado).FontSize(8);
-                            row.ConstantItem(20).PaddingHorizontal(5);
-                            row.RelativeItem().Text("Identificación:").SemiBold().FontSize(8);
-                            row.RelativeItem().Text(d.Identificacion).FontSize(8);
+                            text.Justify();
+                            text.Span("Empleado: ").SemiBold().FontSize(9);
+                            text.Span($"{d.Empleado}").FontSize(9);
                         });
 
-                        col.Item().Row(row =>
+                        col.Item().PaddingTop(0).Text(text =>
+                        {
+                            text.Justify();
+                            text.Span("Identificación: ").SemiBold().FontSize(9);
+                            text.Span($"{d.Identificacion}").FontSize(9);
+                        });
+
+                        col.Item().PaddingTop(5).Row(row =>
                         {
                             row.RelativeItem().Text("Cargo:").SemiBold().FontSize(8);
-                            row.RelativeItem().Text(d.Cargo).FontSize(8);
+                            row.RelativeItem().Text(d.Cargo).FontSize(7);
                             row.ConstantItem(20).PaddingHorizontal(5);
                             row.RelativeItem().Text("Tipo de Contrato:").SemiBold().FontSize(8);
-                            row.RelativeItem().Text(d.TipoContrato).FontSize(8);
+                            row.RelativeItem().Text(d.TipoContrato).FontSize(7);
                         });
                         col.Item().Row(row =>
                         {
                             row.RelativeItem().Text("Fecha de Ingreso:").SemiBold().FontSize(8);
-                            row.RelativeItem().Text(d.FechaIngreso).FontSize(8);
+                            row.RelativeItem().Text($"{d.FechaDiaIngreso} de {d.FechaMesIngreso} del {d.FechaYearIngreso}").FontSize(7);
                             row.ConstantItem(20).PaddingHorizontal(5);
                             row.RelativeItem().Text("Permanencia:").SemiBold().FontSize(8);
-                            row.RelativeItem().Text(d.Permanencia).FontSize(8);
+                            row.RelativeItem().Text(d.Permanencia).FontSize(7);
                         });
                         col.Item().Row(row =>
                         {
                             row.RelativeItem().Text("Salario Mensual:").SemiBold().FontSize(8);
-                            row.RelativeItem().Text(SalarioMensualArreglo).FontSize(8);
+                            row.RelativeItem().Text(SalarioMensualArreglo).FontSize(7);
                             row.ConstantItem(20).PaddingHorizontal(5);
                             row.RelativeItem().Text("Sub Transporte Mensual:").SemiBold().FontSize(8);
-                            row.RelativeItem().Text(SubTransporteMesArreglo).FontSize(8);
+                            row.RelativeItem().Text(SubTransporteMesArreglo).FontSize(7);
                         });
                         col.Item().Row(row =>
                         {
                             row.RelativeItem().Text("Periodo Nómina:").SemiBold().FontSize(8);
-                            row.RelativeItem().Text(d.PeriodoLiquidado).FontSize(8);
+                            row.RelativeItem().Text(d.PeriodoLiquidado).FontSize(7);
                             row.ConstantItem(20).PaddingHorizontal(5);
                             row.RelativeItem().Text("Días a Pagar:").SemiBold().FontSize(8);
-                            row.RelativeItem().Text(d.DiasPagar).FontSize(8);
+                            row.RelativeItem().Text(d.DiasPagar).FontSize(7);
                         });
                         col.Item().Row(row =>
                         {
                             row.RelativeItem().Text("Banco:").SemiBold().FontSize(8);
-                            row.RelativeItem().Text(d.NombreBanco).FontSize(8);
+                            row.RelativeItem().Text(d.NombreBanco).FontSize(7);
                             row.ConstantItem(20).PaddingHorizontal(5);
                             row.RelativeItem().Text("Numero Cuenta:").SemiBold().FontSize(8);
-                            row.RelativeItem().Text(d.NumeroCuenta).FontSize(8);
+                            row.RelativeItem().Text(d.NumeroCuenta).FontSize(7);
                         });
 
                         col.Item().Row(row =>
                         {
                             row.RelativeItem().Text("Sucursal Empleado:").SemiBold().FontSize(8);
-                            row.RelativeItem().Text(d.Sucursal).FontSize(8);
+                            row.RelativeItem().Text(d.Sucursal).FontSize(7);
                             row.ConstantItem(20).PaddingHorizontal(5);
                             row.RelativeItem().Text("Eps:").SemiBold().FontSize(8);
-                            row.RelativeItem().Text(d.NombreEps).FontSize(8);
+                            row.RelativeItem().Text(d.NombreEps).FontSize(7);
                         });
 
                         col.Item().Row(row =>
                         {
                             row.RelativeItem().Text("Fondo Cesantías:").SemiBold().FontSize(8);
-                            row.RelativeItem().Text(d.NombreFondoCesantias).FontSize(8);
+                            row.RelativeItem().Text(d.NombreFondoCesantias).FontSize(7);
                             row.ConstantItem(20).PaddingHorizontal(5);
                             row.RelativeItem().Text("Fondo Pensión:").SemiBold().FontSize(8);
-                            row.RelativeItem().Text(d.NombreFondoPension).FontSize(8);
+                            row.RelativeItem().Text(d.NombreFondoPension).FontSize(7);
                         });
 
 
-                        col.Item().Text($"");
+                       
 
                         // Ejemplo: insertar una línea horizontal para separar secciones
-                        col.Item().LineHorizontal(1).LineColor(Colors.Black);
-                        col.Item().Text("");
+                        //col.Item().PaddingTop(10).PaddingBottom(5).LineHorizontal(1).LineColor(Colors.Black);
+                        
                         // Tabla de ingresos y descuentos
-                        col.Item().Row(row =>
+                        col.Item().PaddingTop(5).Row(row =>
                         {
                             // Ingresos: conceptos y valores
                             row.RelativeItem().Column(ing =>
                             {
+                                ing.Item().PaddingTop(10).PaddingBottom(5).LineHorizontal(1).LineColor(Colors.Black);
                                 ing.Item().Text("INGRESOS").SemiBold().FontSize(10).AlignCenter();
-                                ing.Item().Text("");
-                                ing.Item().LineHorizontal(1).LineColor(Colors.Black);
-                                ing.Item().Text("").SemiBold();
+                                ing.Item().PaddingTop(5).PaddingBottom(10).LineHorizontal(1).LineColor(Colors.Black);
                                 ing.Item().Row(r =>
                                 {
                                     r.RelativeItem().Text("Sueldo:").FontSize(9); r.RelativeItem().AlignRight().Text(
@@ -331,10 +334,10 @@ namespace App.Controllers
                                 ing.Item().Text("").SemiBold();
                                 ing.Item().Row(r =>
                                 {
-                                    r.RelativeItem().Text("Total ingresos:").SemiBold(); r.RelativeItem().AlignRight().Text(
+                                    r.RelativeItem().Text("Total Ingresos:").SemiBold().FontSize(10); r.RelativeItem().AlignRight().Text(
                                     decimal.TryParse(d.TotalIngresos, out var totalIngresosDecimal)
                                         ? totalIngresosDecimal.ToString("C0", cultura)
-                                        : d.TotalIngresos).SemiBold();
+                                        : d.TotalIngresos).SemiBold().FontSize(10);
                                 });
                             });
 
@@ -344,73 +347,72 @@ namespace App.Controllers
                             // Descuentos: conceptos y valores
                             row.RelativeItem().Column(desc =>
                             {
+                                desc.Item().PaddingTop(10).PaddingBottom(5).LineHorizontal(1).LineColor(Colors.Black);
                                 desc.Item().Text("DESCUENTOS").SemiBold().FontSize(10).AlignCenter();
-                                desc.Item().Text("").SemiBold();
-                                desc.Item().LineHorizontal(1).LineColor(Colors.Black);
-                                desc.Item().Text("").SemiBold();
+                                desc.Item().PaddingTop(5).PaddingBottom(10).LineHorizontal(1).LineColor(Colors.Black);
                                 desc.Item().Row(r =>
                                 {
-                                    r.RelativeItem().Text($"Eps {d.PorcentajeEps}%:").FontSize(10); r.RelativeItem().AlignRight().Text(
+                                    r.RelativeItem().Text($"Eps {d.PorcentajeEps}%:").FontSize(9); r.RelativeItem().AlignRight().Text(
                                     decimal.TryParse(d.Eps, out var epsDecimal)
                                         ? epsDecimal.ToString("C0", cultura)
                                         : d.Eps)
-                                        .FontSize(10);
+                                        .FontSize(9);
                                 });
                                 desc.Item().Row(r =>
                                 {
-                                    r.RelativeItem().Text($"Pensión {d.PorcentajePension}%:").FontSize(10); r.RelativeItem().AlignRight().Text(
+                                    r.RelativeItem().Text($"Pensión {d.PorcentajePension}%:").FontSize(9); r.RelativeItem().AlignRight().Text(
                                     decimal.TryParse(d.Pension, out var pensionDecimal)
                                         ? pensionDecimal.ToString("C0", cultura)
                                         : d.Pension)
-                                        .FontSize(10);
+                                        .FontSize(9);
                                 });
                                 desc.Item().Row(r =>
                                 {
-                                    r.RelativeItem().Text("Casino:").FontSize(10); r.RelativeItem().AlignRight().Text(
+                                    r.RelativeItem().Text("Casino:").FontSize(9); r.RelativeItem().AlignRight().Text(
                                     decimal.TryParse(d.Casino, out var casinoDecimal)
                                         ? casinoDecimal.ToString("C0", cultura)
                                         : d.Casino)
-                                    .FontSize(10);
+                                    .FontSize(9);
                                 });
                                 desc.Item().Row(r =>
                                 {
-                                    r.RelativeItem().Text("Cobro Préstamo:").FontSize(10); r.RelativeItem().AlignRight().Text(
+                                    r.RelativeItem().Text("Cobro Préstamo:").FontSize(9); r.RelativeItem().AlignRight().Text(
                                     decimal.TryParse(d.CobroPrestamo, out var cobroPrestamoDecimal)
                                         ? cobroPrestamoDecimal.ToString("C0", cultura)
                                         : d.CobroPrestamo)
-                                    .FontSize(10);
+                                    .FontSize(9);
                                 });
                                 desc.Item().Row(r =>
                                 {
-                                    r.RelativeItem().Text("Otros descuentos **:").FontSize(10); r.RelativeItem().AlignRight().Text(
+                                    r.RelativeItem().Text("Otros descuentos **:").FontSize(9); r.RelativeItem().AlignRight().Text(
                                     decimal.TryParse(d.OtrosDescuentos, out var otrosDescuentosDecimal)
                                         ? otrosDescuentosDecimal.ToString("C0", cultura)
                                         : d.OtrosDescuentos)
-                                    .FontSize(10);
+                                    .FontSize(9);
                                 });
                                 desc.Item().Text("");
                                 desc.Item().Text("");
                                 desc.Item().Row(r =>
                                 {
-                                    r.RelativeItem().Text("Total descuentos:").SemiBold(); r.RelativeItem().AlignRight().Text(
+                                    r.RelativeItem().Text("Total Descuentos:").SemiBold().FontSize(10); r.RelativeItem().AlignRight().Text(
                                     decimal.TryParse(d.TotalDescuentos, out var totalDescuentosDecimal)
                                         ? totalDescuentosDecimal.ToString("C0", cultura)
-                                        : d.TotalDescuentos).SemiBold();
+                                        : d.TotalDescuentos).SemiBold().FontSize(10);
                                 });
                             });
                         });
 
-                        col.Item().PaddingTop(12).Text($"Total a Pagar: {TotalPagarArreglo}").FontFamily("Lato").Bold().FontSize(14).AlignRight();
+                        col.Item().PaddingTop(12).Text($"Total a Pagar: {TotalPagarArreglo}").FontFamily("Lato").Bold().FontSize(11).AlignRight();
                         col.Item().Text("");
                         col.Item().LineHorizontal(1).LineColor(Colors.Black);
 
 
                         col.Item().PaddingTop(5).Text($"CANTIDAD HORAS EXTRAS REALIZADAS: Hora Extra Diurna {d.CantHED}, Hora Extra Nocturna {d.CantHEN}, Hora Extra Diurna Domical/Festiva {d.CantHEDDF}, Hora Extra Nocturna Domical/Festiva {d.CantHENDF}.").FontSize(7).Justify();
-                        col.Item().PaddingTop(2).Text($"HORAS EXTRAS: Los siguientes son los correspondientes valores para el cálculo de las horas extras. Hora Extra Diurna {ValorHEDArreglo}, Hora Extra Nocturna {ValorHENArreglo}, Hora Extra Diurna Domical/Festiva {ValorHEDDFArreglo}, Hora Extra Nocturna Domical/Festiva {ValorHENDFArreglo}.").FontSize(7).Justify();
-                        col.Item().PaddingTop(2).Text($"* OTROS INGRESOS: {d.ConceptoIngresosAdicionales}").FontSize(6).Justify();
-                        col.Item().PaddingTop(2).Text($"** OTROS DESCUENTOS: {d.ConceptoDescuentosAdicionales}").FontSize(6).Justify();
+                        col.Item().PaddingTop(5).Text($"HORAS EXTRAS: Los siguientes son los correspondientes valores para el cálculo de las horas extras. Hora Extra Diurna {ValorHEDArreglo}, Hora Extra Nocturna {ValorHENArreglo}, Hora Extra Diurna Domical/Festiva {ValorHEDDFArreglo}, Hora Extra Nocturna Domical/Festiva {ValorHENDFArreglo}.").FontSize(7).Justify();
+                        col.Item().PaddingTop(5).Text($"* OTROS INGRESOS: {d.ConceptoIngresosAdicionales}").FontSize(7).Justify();
+                        col.Item().PaddingTop(5).Text($"** OTROS DESCUENTOS: {d.ConceptoDescuentosAdicionales}").FontSize(7).Justify();
 
-                        col.Item().PaddingTop(80).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold(); r.RelativeItem().AlignCenter().Height(50).Image(firmaRLBytes).FitHeight(); });
+                        col.Item().PaddingTop(50).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold(); r.RelativeItem().AlignCenter().Height(50).Image(firmaRLBytes).FitHeight(); });
                         col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text("Firma Trabajador").SemiBold(); r.RelativeItem().AlignCenter().Text($"Firma o Sello Empresa").SemiBold(); });
                         col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text($"{d.Empleado}").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"{d.RLEmpresa}").SemiBold().FontSize(8); });
                         col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"Representante Legal").SemiBold().FontSize(8); });
@@ -437,7 +439,7 @@ namespace App.Controllers
 
             fontStream.Dispose();
 
-            return File(pdfBytes, "application/pdf", "Comprobante Nomina # " + consecutivocle + ".pdf");
+            return File(pdfBytes, "application/pdf", "Comprobante Nomina # " + consecutivocle + " " + d.Empleado + ".pdf");
         }
 
     }
