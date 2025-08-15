@@ -18,6 +18,12 @@ namespace SistemaGcs.Models
             public string FechaIngreso { get; set; }
             public string Permanencia { get; set; }
             public string Empresa { get; set; }
+            public string RLEmpresa { get; set; }
+            public string TipoDocumentoEmpresa { get; set; }
+            public string IdentificacionEmpresa { get; set; }
+            public string EmailEmpresa { get; set; }
+            public string TelefonoEmpresa { get; set; }
+            public string CelularEmpresa { get; set; }
             public string Sucursal { get; set; }
             public string InfoEmpresa { get; set; }
             public string Logo { get; set; }

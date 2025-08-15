@@ -5261,7 +5261,6 @@ GO
 CREATE PROCEDURE [dbo].[SP_DatosContratoLaboral] @Id INT
 AS
 BEGIN
-
 	SELECT	A.Id,
 			C.Nombre As Empresa,
 			dbo.Fun_BuscarNombreSucursal(A.IdSucursal) As Sucursal,
@@ -5280,9 +5279,7 @@ BEGIN
 			dbo.Fun_BuscarNombreCargo(A.IdCargo) As Cargo, 
 			CONVERT(varchar(255),A.SalarioMensual) As SalarioMensual,
 			dbo.Fun_BuscarNombreTipoContrato(A.IdTipoContrato) As TipoContrato,
-
 			CONVERT(varchar(255),DATEPART(DAY,A.FechaInicio)) As FechaDiaIngreso,
-
 			CASE DATEPART(MONTH,A.FechaInicio)
 			WHEN 1 THEN 'Enero'
 			WHEN 2 THEN 'Febrero'
@@ -5297,12 +5294,8 @@ BEGIN
 			WHEN 11 THEN 'Noviembre'
 			ELSE 'Diciembre'
 			END as FechaMesIngreso,
-
 			CONVERT(varchar(255),DATEPART(YEAR,A.FechaInicio)) As FechaYearIngreso,
-
-
 			CONVERT(varchar(255),DATEPART(DAY,A.FechaFin)) As FechaDiaFin,
-
 			CASE DATEPART(MONTH,A.FechaFin)
 			WHEN 1 THEN 'Enero'
 			WHEN 2 THEN 'Febrero'
@@ -5317,16 +5310,8 @@ BEGIN
 			WHEN 11 THEN 'Noviembre'
 			ELSE 'Diciembre'
 			END as FechaMesFin,
-
 			CONVERT(varchar(255),DATEPART(YEAR,A.FechaFin)) As FechaYearFin,
-
-
-
-
-
-
 			CONVERT(varchar(255), DATEPART(DAY, GETDATE())) As FechaDiaSistema,
-
 			CASE DATEPART(MONTH,GETDATE())
 			WHEN 1 THEN 'Enero'
 			WHEN 2 THEN 'Febrero'
@@ -5341,32 +5326,22 @@ BEGIN
 			WHEN 11 THEN 'Noviembre'
 			ELSE 'Diciembre'
 			END as FechaMesSistema,
-
-			CONVERT(varchar(255),DATEPART(YEAR,GETDATE())) As FechaYearSistema,
-
-
-		
+			CONVERT(varchar(255),DATEPART(YEAR,GETDATE())) As FechaYearSistema,		
 			CASE A.FechaFin
 			WHEN '1900-01-01 00:00:00.000' THEN ''
 			ELSE CONVERT(varchar(255),A.FechaFin,29)
-			END as FechaFin,	
-
-			
+			END as FechaFin,				
 			CASE A.FechaFin
 			WHEN '1900-01-01 00:00:00.000' THEN CONVERT(varchar(255),DATEDIFF(DAY,A.FechaInicio,GETDATE())+1) + ' Día(s)'
 			ELSE CONVERT(varchar(255),DATEDIFF(DAY,A.FechaInicio,A.FechaFin)+1) + ' Día(s)'
 			END AS Permanencia,	
-
 			C.Email As EmailEmpresa,
 			C.Telefono As TelefonoEmpresa,
 			C.Celular As CelularEmpresa,
-
+			A.IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,
-
-
 			C.Logo As Logo,
-			CONVERT(varchar(255),GETDATE(),105) As FechaFirmaContrato
-			
+			CONVERT(varchar(255),GETDATE(),105) As FechaFirmaContrato			
 	FROM	ContratoLaboral A,
 			Empleado B,
 			Empresa C,
@@ -7583,6 +7558,13 @@ DECLARE @IdCargo INT
 			D.NumeroCuenta As NumeroCuenta,
 
 			B.Nombre As Empresa,
+			B.Contacto AS RLEmpresa,
+			dbo.Fun_BuscarNombreTipoDocumento(B.IdTipoDocumento) As TipoDocumentoEmpresa,
+			B.Identificacion As IdentificacionEmpresa,
+			B.Email As EmailEmpresa,
+			B.Telefono As TelefonoEmpresa,
+			B.Celular As CelularEmpresa,
+
 			C.Nombre As Sucursal,
 			dbo.Fun_BuscarNombreTipoDocumento(B.IdTipoDocumento) + ': ' + B.Identificacion + ' / Telefono: ' + B.Celular + ' / Correo: ' + B.Email As InfoEmpresa,
 			B.Logo As Logo,
@@ -7608,10 +7590,13 @@ DECLARE @IdCargo INT
 			CONVERT(varchar(255),A.DesembolsoPrestamo) As DesembolsoPrestamo,
 			CONVERT(varchar(255),A.OtrosIngresos) As OtrosIngresos,
 			CONVERT(varchar(255),A.TotalIngresos) As TotalIngresos,
+			dbo.Fun_BuscarNombreEps(D.IdEps) As NombreEps,
 			CONVERT(varchar(255),A.Eps) As Eps,
 			CONVERT(varchar(255),A.PorcentajeEps) As PorcentajeEps,
+			dbo.Fun_BuscarNombreFondoPensiones(D.IdFondoPension) As NombreFondoPension,
 			CONVERT(varchar(255),A.Pension) As Pension,
 			CONVERT(varchar(255),A.PorcentajePension) As PorcentajePension,
+			dbo.Fun_BuscarNombreFondoCesantias(D.IdFondoCesantias) As NombreFondoCesantias,
 			CONVERT(varchar(255),A.Casino) As Casino,
 			CONVERT(varchar(255),A.CobroPrestamo) As CobroPrestamo,
 			CONVERT(varchar(255),A.OtrosDescuentos) As OtrosDescuentos,

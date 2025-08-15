@@ -2,6 +2,8 @@
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using SistemaGcs.Models;
+using System.Drawing;
 using System.Globalization;
 using System.Web.Mvc;
 
@@ -83,7 +85,7 @@ namespace App.Controllers
 
 
 
-
+        #region Plantilla Contrato Laboral
 
         public ActionResult DescargarContratoLaboral(int id)
         {
@@ -1044,7 +1046,6 @@ namespace App.Controllers
                                 text.Span(" El presente contrato reemplaza en su integridad y deja sin efecto cualquier otro contrato verbal o escrito celebrado entre las partes con anterioridad, no obstante, ").FontSize(8);
                                 text.Span("para todos los efectos legales se reconoce la antigüedad del contrato conforme la fecha de iniciación de labores que figura en la carátula del presente documento. Las modificaciones que se acuerden al presente contrato de trabajo deberán hacerse por escrito las que formarán parte integrante de este contrato.").FontSize(8);
                             });
-
                             col.Item().PaddingTop(5).Text(text =>
                             {
                                 text.Justify();
@@ -1057,18 +1058,13 @@ namespace App.Controllers
                                 text.Span(" en la ciudad de ").FontSize(8);
                                 text.Span($"{d.CiudadEmpresa}.").Bold().FontSize(8);
                             });
-
-
-
-
-                            col.Item().PaddingTop(80).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold(); r.RelativeItem().AlignCenter().Height(60).Image(firmaRLBytes).FitHeight();});
+                            col.Item().PaddingTop(80).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold(); r.RelativeItem().AlignCenter().Height(50).Image(firmaRLBytes).FitHeight();});
                             col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text("Firma Trabajador").SemiBold(); r.RelativeItem().AlignCenter().Text($"Firma o Sello Empresa").SemiBold(); });
                             col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text($"{d.Empleado}").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"{d.RLEmpresa}").SemiBold().FontSize(8); });
                             col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"Representante Legal").SemiBold().FontSize(8); });
                             col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"{d.Empresa}").SemiBold().FontSize(8); });
 
                         });
-
                         page.Footer()
                         .PaddingTop(5)
                             .AlignRight()
@@ -1078,34 +1074,17 @@ namespace App.Controllers
                                 x.Span(" Página ").FontSize(8);
                                 x.CurrentPageNumber().FontSize(8);
                             });
-
-
                     });
                 }).GeneratePdf();
-
             fontStream.Dispose();
-
             return File(pdfBytes, "application/pdf", "Contrato de Trabajo # " + consecutivocle + " " + d.Empleado + ".pdf");
         }
 
+        #endregion
 
+        #region Plantilla Certificacion laboral
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //FORMA PARA GENERAR CERTIFICACION LABORAL EMPLEADO
+        //FORMATO PARA GENERAR CERTIFICACION LABORAL EMPLEADO PDF
 
         public ActionResult DescargarCertificacionLaboralEmpleado(int id)
         {
@@ -1113,7 +1092,6 @@ namespace App.Controllers
             var fontPath = Server.MapPath("~/Content/Lato-Regular.ttf");
             var fontStream = System.IO.File.OpenRead(fontPath);
             var cultura = new CultureInfo("es-CO");
-            //QuestPDF.Infrastructure.FontManager.RegisterFont(fontStream);
 
             // Obtener los datos del comprobante
             var datos = dataContratoLaboral.DatosContratoLaboral(id);
@@ -1133,7 +1111,7 @@ namespace App.Controllers
             var SalarioMensualArreglo = decimal.TryParse(d.SalarioMensual, out var SalarioMensualArregloDecimal)
                                         ? SalarioMensualArregloDecimal.ToString("C0", cultura)
                                         : d.SalarioMensual;
-                       
+
             var pdfBytes = Document.Create(container =>
             {
                 container.Page(page =>
@@ -1156,33 +1134,73 @@ namespace App.Controllers
                         col.Spacing(0);
                         // Datos generales del empleado
                         col.Item().Text($"");
-                        col.Item().Text($"{d.Empresa}").FontSize(18).Bold().AlignCenter();
-                        col.Item().Text($"{d.TipoDocumentoEmpresa}: {d.IdentificacionEmpresa}").FontSize(7).AlignCenter();
-                        col.Item().Text($"Email: {d.EmailEmpresa}").FontSize(7).AlignCenter();
-                        col.Item().Text($"Telefono: {d.TelefonoEmpresa}").FontSize(7).AlignCenter();
-                        col.Item().Text($"Celular: {d.CelularEmpresa}").FontSize(7).AlignCenter();
+                        col.Item().Text($"{d.Empresa}").FontSize(18).Bold().AlignLeft();
+                        col.Item().Text($"{d.TipoDocumentoEmpresa}: {d.IdentificacionEmpresa}").FontSize(8).AlignLeft();
+                        col.Item().Text($"Email: {d.EmailEmpresa}").FontSize(8).AlignLeft();
+                        col.Item().Text($"Telefono: {d.TelefonoEmpresa}").FontSize(8).AlignLeft();
+                        col.Item().Text($"Celular: {d.CelularEmpresa}").FontSize(8).AlignLeft();
                         col.Item().PaddingTop(100).Text($"CERTIFICA QUE").AlignCenter().Bold();
 
-                        col.Item().PaddingTop(30).Text(text =>
+                        if (d.IdEstado == 1)
                         {
-                            text.Justify();                          
-                            text.Span("El(La) señor(a) ").FontSize(11);
-                            text.Span($"{d.Empleado}").SemiBold().FontSize(11);
-                            text.Span(", identificado(a) con ").FontSize(11);
-                            text.Span($"{d.TipoDocumentoEmpleado}").SemiBold().FontSize(11);
-                            text.Span(" número ").FontSize(11);
-                            text.Span($"{d.IdentificacionEmpleado}").SemiBold().FontSize(11);
-                            text.Span(" de ").FontSize(11);                           
-                            text.Span($"{d.CiudadExpedicionDocumentoEmpleado}").SemiBold().FontSize(11);
-                            text.Span(", se encuentra laborardo actualmente en nuestra Empresa desde el (día-mes-año) ").FontSize(11);
-                            text.Span($"{d.FechaIngreso}").SemiBold().FontSize(11);
-                            text.Span(" , desempeñando el cargo de ").FontSize(11);
-                            text.Span($"{d.Cargo}").SemiBold().FontSize(11);
-                            text.Span(", con un Salario Mensual de ").FontSize(11);
-                            text.Span($"{SalarioMensualArreglo}").SemiBold().FontSize(11);
-                            text.Span(", por medio de contrato ").FontSize(11);
-                            text.Span($"{d.TipoContrato}.").SemiBold().FontSize(11);
-                        });
+                            col.Item().PaddingTop(30).Text(text =>
+                            {
+                                text.Justify();
+                                text.Span("El(La) señor(a) ").FontSize(11);
+                                text.Span($"{d.Empleado}").SemiBold().FontSize(11);
+                                text.Span(", identificado(a) con ").FontSize(11);
+                                text.Span($"{d.TipoDocumentoEmpleado}").SemiBold().FontSize(11);
+                                text.Span(" número ").FontSize(11);
+                                text.Span($"{d.IdentificacionEmpleado}").SemiBold().FontSize(11);
+                                text.Span(" de ").FontSize(11);
+                                text.Span($"{d.CiudadExpedicionDocumentoEmpleado}").SemiBold().FontSize(11);
+                                text.Span(", se encuentra laborando actualmente en nuestra compañía desde el ").FontSize(11);
+                                text.Span($"{d.FechaDiaIngreso}").SemiBold().FontSize(11);
+                                text.Span(" de ").FontSize(11);
+                                text.Span($"{d.FechaMesIngreso}").SemiBold().FontSize(11);
+                                text.Span(" del año ").FontSize(11);
+                                text.Span($"{d.FechaYearIngreso}").SemiBold().FontSize(11);
+                                text.Span(", desempeñando el cargo de ").FontSize(11);
+                                text.Span($"{d.Cargo}").SemiBold().FontSize(11);
+                                text.Span(", con un Salario Mensual de ").FontSize(11);
+                                text.Span($"{SalarioMensualArreglo}").SemiBold().FontSize(11);
+                                text.Span(", por medio de contrato ").FontSize(11);
+                                text.Span($"{d.TipoContrato}.").SemiBold().FontSize(11);
+                            });
+                        }
+                        else if (d.IdEstado == 5)
+                        {
+                            col.Item().PaddingTop(30).Text(text =>
+                            {
+                                text.Justify();
+                                text.Span("El(La) señor(a) ").FontSize(11);
+                                text.Span($"{d.Empleado}").SemiBold().FontSize(11);
+                                text.Span(", identificado(a) con ").FontSize(11);
+                                text.Span($"{d.TipoDocumentoEmpleado}").SemiBold().FontSize(11);
+                                text.Span(" número ").FontSize(11);
+                                text.Span($"{d.IdentificacionEmpleado}").SemiBold().FontSize(11);
+                                text.Span(" de ").FontSize(11);
+                                text.Span($"{d.CiudadExpedicionDocumentoEmpleado}").SemiBold().FontSize(11);
+                                text.Span(", laboró en nuestra compañía desde el ").FontSize(11);
+                                text.Span($"{d.FechaDiaIngreso}").SemiBold().FontSize(11);
+                                text.Span(" de ").FontSize(11);
+                                text.Span($"{d.FechaMesIngreso}").SemiBold().FontSize(11);
+                                text.Span(" del año ").FontSize(11);
+                                text.Span($"{d.FechaYearIngreso}").SemiBold().FontSize(11);
+                                text.Span(", hasta el ").FontSize(11);
+                                text.Span($"{d.FechaDiaFin}").SemiBold().FontSize(11);
+                                text.Span(" de ").FontSize(11);
+                                text.Span($"{d.FechaMesFin}").SemiBold().FontSize(11);
+                                text.Span(" del año ").FontSize(11);
+                                text.Span($"{d.FechaYearFin}").SemiBold().FontSize(11);
+                                text.Span(", desempeñando el cargo de ").FontSize(11);
+                                text.Span($"{d.Cargo}").SemiBold().FontSize(11);
+                                text.Span(", con un Salario Mensual de ").FontSize(11);
+                                text.Span($"{SalarioMensualArreglo}").SemiBold().FontSize(11);
+                                text.Span(", por medio de contrato ").FontSize(11);
+                                text.Span($"{d.TipoContrato}.").SemiBold().FontSize(11);
+                            });
+                        }
 
                         col.Item().PaddingTop(15).Text(text =>
                         {
@@ -1192,7 +1210,7 @@ namespace App.Controllers
                             text.Span(" el(la) señor(a) ").FontSize(11);
                             text.Span($"{d.Empleado}").SemiBold().FontSize(11);
                             text.Span(" se ha destacado por su responsabilidad, honestidad, cumplimiento y ética en las labores asignadas. ").FontSize(11);
-                           
+
                         });
 
                         col.Item().PaddingTop(15).Text(text =>
@@ -1210,8 +1228,8 @@ namespace App.Controllers
                         col.Item().Text("Coordialmente,");
 
 
-                        col.Item().PaddingTop(100).Height(60).Image(firmaRLBytes).FitHeight();
-                        col.Item().Row(r => { r.RelativeItem().AlignLeft().Text($"Firma o Sello Empresa").SemiBold(); });                        
+                        col.Item().PaddingTop(100).Height(50).Image(firmaRLBytes).FitHeight();
+                        col.Item().Row(r => { r.RelativeItem().AlignLeft().Text($"Firma o Sello Empresa").SemiBold(); });
                         col.Item().Row(r => { r.RelativeItem().AlignLeft().Text($"{d.RLEmpresa}").SemiBold().FontSize(8); });
                         col.Item().Row(r => { r.RelativeItem().AlignLeft().Text($"Representante Legal").SemiBold().FontSize(8); });
                         col.Item().Row(r => { r.RelativeItem().AlignLeft().Text($"{d.Empresa}").SemiBold().FontSize(8); });
@@ -1223,9 +1241,7 @@ namespace App.Controllers
                         .AlignRight()
                         .Text(x =>
                         {
-                            x.Span("Certificación Laboral generada con Sofia Software Administrativo V 1.0  - ").FontSize(6);
-                            x.Span(" Página ").FontSize(8);
-                            x.CurrentPageNumber().FontSize(8);
+                            x.Span("Certificación Laboral generada con Sofia Software Administrativo V 1.0").FontSize(6);
                         });
 
 
@@ -1234,10 +1250,152 @@ namespace App.Controllers
 
             fontStream.Dispose();
 
-            return File(pdfBytes, "application/pdf", "Certificacion Laboral - " + d.Empleado + " - " + d.FechaDiaSistema +" "+ d.FechaMesSistema +" "+ d.FechaYearSistema+".pdf");
+            return File(pdfBytes, "application/pdf", "Certificacion Laboral - " + d.Empleado + " - " + d.FechaDiaSistema + " " + d.FechaMesSistema + " " + d.FechaYearSistema + ".pdf");
         }
 
+        #endregion
 
+        #region Plantilla Certificación Paz y Salvo Laboral
+
+        //FORMA PARA GENERAR PAZ Y SALVO EMPRESA - EMPLEADO
+
+        public ActionResult DescargarPazySalvoEmpleado(int id)
+        {
+            // Registrar la fuente Lato
+            var fontPath = Server.MapPath("~/Content/Lato-Regular.ttf");
+            var fontStream = System.IO.File.OpenRead(fontPath);
+            var cultura = new CultureInfo("es-CO");
+
+            // Obtener los datos del comprobante
+            var datos = dataContratoLaboral.DatosContratoLaboral(id);
+            if (datos == null || datos.Count == 0)
+                return HttpNotFound();
+
+            var d = datos[0];
+
+            // Ruta del logo
+            var logoPath = Server.MapPath($"~/Images/LogoEmpresa/{d.Logo}");
+            byte[] logoBytes = System.IO.File.ReadAllBytes(logoPath);
+
+            var firmaRLPath = Server.MapPath($"~/Images/FirmaRepresentanteLegal/Firma RL EG.jpeg");
+            byte[] firmaRLBytes = System.IO.File.ReadAllBytes(firmaRLPath);
+
+            var pdfBytes = Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    page.Size(PageSizes.A4);
+                    page.Margin(2, QuestPDF.Infrastructure.Unit.Centimetre);
+                    page.PageColor(Colors.White);
+                    page.DefaultTextStyle(x => x.FontFamily("Lato").FontSize(12));
+
+                    page.Header().PaddingBottom(10).Row(row =>
+                    {
+                        row.RelativeItem().Height(60).Image(logoBytes).FitHeight();
+                        row.RelativeItem().AlignMiddle().Text($"Paz y Salvo")
+                        .FontFamily("Lato").AlignRight().FontSize(10);
+                    });
+
+                    page.Content().Column(col =>
+                    {
+
+                        col.Spacing(0);
+                        // Datos generales del empleado
+                        col.Item().Text($"");
+                        col.Item().Text($"{d.Empresa}").FontSize(18).Bold().AlignLeft();
+                        col.Item().Text($"{d.TipoDocumentoEmpresa}: {d.IdentificacionEmpresa}").FontSize(8).AlignLeft();
+                        col.Item().Text($"Email: {d.EmailEmpresa}").FontSize(8).AlignLeft();
+                        col.Item().Text($"Telefono: {d.TelefonoEmpresa}").FontSize(8).AlignLeft();
+                        col.Item().Text($"Celular: {d.CelularEmpresa}").FontSize(8).AlignLeft();
+                        col.Item().PaddingTop(100).Text($"CERTIFICADO DE PAZ Y SALVO LABORAL").AlignCenter().Bold();
+
+                        if (d.IdEstado == 1)
+                        {
+                            col.Item().PaddingTop(100).Text($"NOTA: Este documento no contiene información o datos del empleado, el contrato seleccionado se encuentra aun Vigente o Activo, para la generación del correspondiente Certificado Paz y Zalvo Laboral el CONTRATO LABORAL debe estar finalizado.").AlignCenter().Bold();
+                        }
+                        else if (d.IdEstado == 5)
+                        {
+                            col.Item().PaddingTop(30).Text(text =>
+                            {
+                                text.Justify();
+                                text.Span("Por medio del presente documento, ").FontSize(11);
+                                text.Span($"{d.Empresa}").SemiBold().FontSize(11);
+                                text.Span(", identificada con ").FontSize(11);
+                                text.Span($" {d.TipoDocumentoEmpresa}").SemiBold().FontSize(11);
+                                text.Span(" número ").SemiBold().FontSize(11);
+                                text.Span($"{d.IdentificacionEmpresa}").SemiBold().FontSize(11);
+                                text.Span(", con domicilio en la ciudad de ").FontSize(11);
+                                text.Span($" {d.CiudadEmpresa}").SemiBold().FontSize(11);
+                                text.Span(", certifica que el(la) señor(a) ").FontSize(11);
+                                text.Span($"{d.Empleado}").SemiBold().FontSize(11);
+                                text.Span(", identificado(a) con ").FontSize(11);
+                                text.Span($"{d.TipoDocumentoEmpleado}").SemiBold().FontSize(11);
+                                text.Span(" número ").FontSize(11);
+                                text.Span($"{d.IdentificacionEmpleado}").SemiBold().FontSize(11);
+                                text.Span(" de ").FontSize(11);
+                                text.Span($"{d.CiudadExpedicionDocumentoEmpleado}").SemiBold().FontSize(11);
+                                text.Span(", ha terminado su contrato de trabajo con esta empresa el día ").FontSize(11);
+                                text.Span($"{d.FechaDiaFin}").SemiBold().FontSize(11);
+                                text.Span(" de ").FontSize(11);
+                                text.Span($"{d.FechaMesFin}").SemiBold().FontSize(11);
+                                text.Span(" del año ").FontSize(11);
+                                text.Span($"{d.FechaYearFin}.").SemiBold().FontSize(11);
+                            });
+
+                            //col.Item().PaddingTop(15).Text(text =>
+                            //{
+                            //    text.Justify();
+                            //    text.Span("El(la) señor(a) ").FontSize(11);
+                            //    text.Span($"{d.Empleado}").SemiBold().FontSize(11);
+                            //    text.Span(" declara que ha recibido a satisfación el pago correspondiente a sueldo, prestaciones, descuentos, etc., a que hubiere lugar, y que en el comprobante de pago de Nómina que se entrega junto a este documento se encuentran detallados los pagos o descuentos.").FontSize(11);
+                            //});
+
+                            col.Item().PaddingTop(15).Text(text =>
+                            {
+                                text.Justify();
+                                text.Span("El(la) señor(a) ").FontSize(11);
+                                text.Span($"{d.Empleado}").SemiBold().FontSize(11);
+                                text.Span(" declara que la Empresa ").FontSize(11);
+                                text.Span($"{d.Empresa}").SemiBold().FontSize(11);
+                                text.Span(" no le adeuda suma alguna por concepto de salarios, prestaciones sociales, indemnizaciones, horas extras, recargos, vacaciones, bonificaciones, comisiones, auxilios, préstamos o cualquier otro concepto derivado de la relación laboral que los vinculó.").FontSize(11);
+                            });
+
+                            col.Item().PaddingTop(15).Text(text =>
+                            {
+                                text.Justify();
+                                text.Span("En señal de conformidad con lo anterior, se firma el presente Certificado de Paz y Salvo Laboral en la ciudad de ").FontSize(11);
+                                text.Span($"{d.CiudadEmpresa}").SemiBold().FontSize(11);
+                                text.Span(" a los ").FontSize(11);
+                                text.Span($"{d.FechaDiaSistema}").SemiBold().FontSize(11);
+                                text.Span(" diás del mes de ").FontSize(11);
+                                text.Span($"{d.FechaMesSistema}").SemiBold().FontSize(11);
+                                text.Span(" del año ").FontSize(11);
+                                text.Span($"{d.FechaYearSistema}.").SemiBold().FontSize(11);
+                            });
+
+                            col.Item().PaddingTop(80).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold(); r.RelativeItem().AlignCenter().Height(50).Image(firmaRLBytes).FitHeight(); });
+                            col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text("Firma Trabajador").SemiBold(); r.RelativeItem().AlignCenter().Text($"Firma o Sello Empresa").SemiBold(); });
+                            col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text($"{d.Empleado}").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"{d.RLEmpresa}").SemiBold().FontSize(8); });
+                            col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"Representante Legal").SemiBold().FontSize(8); });
+                            col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"{d.Empresa}").SemiBold().FontSize(8); });
+                        } 
+                    });
+                    page.Footer()
+                    .PaddingTop(5)
+                        .AlignRight()
+                        .Text(x =>
+                        {
+                            x.Span("Certificado de Paz y Salvo Laboral generada con Sofia Software Administrativo V 1.0").FontSize(6);
+                        });
+                });
+            }).GeneratePdf();
+
+            fontStream.Dispose();
+
+            return File(pdfBytes, "application/pdf", "Certificado de Paz y Salvo Laboral - " + d.Empleado + " - " + d.FechaDiaSistema + " " + d.FechaMesSistema + " " + d.FechaYearSistema + ".pdf");
+        }
+
+        #endregion
 
 
     }

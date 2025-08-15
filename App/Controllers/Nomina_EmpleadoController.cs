@@ -85,6 +85,8 @@ namespace App.Controllers
             var logoPath = Server.MapPath($"~/Images/LogoEmpresa/{d.Logo}");
             byte[] logoBytes = System.IO.File.ReadAllBytes(logoPath);
 
+            var firmaRLPath = Server.MapPath($"~/Images/FirmaRepresentanteLegal/Firma RL EG.jpeg");
+            byte[] firmaRLBytes = System.IO.File.ReadAllBytes(firmaRLPath);
 
             var SalarioMensualArreglo = decimal.TryParse(d.SalarioMensual, out var SalarioMensualArregloDecimal)
                                         ? SalarioMensualArregloDecimal.ToString("C0", cultura)
@@ -170,77 +172,80 @@ namespace App.Controllers
 
                         // Datos generales del empleado
                         col.Item().Text($"");
-                        col.Item().Text($"{d.Empresa}").FontSize(18).Bold();
-                        col.Item().Text($"{d.InfoEmpresa}").FontSize(7);
+                        col.Item().Text($"{d.Empresa}").FontSize(18).Bold().AlignLeft();
+                        col.Item().Text($"{d.TipoDocumentoEmpresa}: {d.IdentificacionEmpresa}").FontSize(8).AlignLeft();
+                        col.Item().Text($"Email: {d.EmailEmpresa}").FontSize(8).AlignLeft();
+                        col.Item().Text($"Telefono: {d.TelefonoEmpresa}").FontSize(8).AlignLeft();
+                        col.Item().Text($"Celular: {d.CelularEmpresa}").FontSize(8).AlignLeft();
                         col.Item().Text($"");
-                        col.Item().LineHorizontal(1).LineColor(Colors.Black);
-                        col.Item().Text($"");
+                        //col.Item().LineHorizontal(1).LineColor(Colors.Black);
+                        //col.Item().Text($"");
                         col.Item().Row(row =>
                         {
-                            row.RelativeItem().Text("Empleado:").SemiBold().FontSize(9);
-                            row.RelativeItem().Text(d.Empleado).FontSize(9);
+                            row.RelativeItem().Text("Empleado:").SemiBold().FontSize(8);
+                            row.RelativeItem().Text(d.Empleado).FontSize(8);
                             row.ConstantItem(20).PaddingHorizontal(5);
-                            row.RelativeItem().Text("Identificación:").SemiBold().FontSize(9);
-                            row.RelativeItem().Text(d.Identificacion).FontSize(9);
+                            row.RelativeItem().Text("Identificación:").SemiBold().FontSize(8);
+                            row.RelativeItem().Text(d.Identificacion).FontSize(8);
                         });
 
                         col.Item().Row(row =>
                         {
-                            row.RelativeItem().Text("Cargo:").SemiBold().FontSize(9);
-                            row.RelativeItem().Text(d.Cargo).FontSize(9);
+                            row.RelativeItem().Text("Cargo:").SemiBold().FontSize(8);
+                            row.RelativeItem().Text(d.Cargo).FontSize(8);
                             row.ConstantItem(20).PaddingHorizontal(5);
-                            row.RelativeItem().Text("Tipo de Contrato:").SemiBold().FontSize(9);
-                            row.RelativeItem().Text(d.TipoContrato).FontSize(9);
+                            row.RelativeItem().Text("Tipo de Contrato:").SemiBold().FontSize(8);
+                            row.RelativeItem().Text(d.TipoContrato).FontSize(8);
                         });
                         col.Item().Row(row =>
                         {
-                            row.RelativeItem().Text("Fecha de Ingreso:").SemiBold().FontSize(9);
-                            row.RelativeItem().Text(d.FechaIngreso).FontSize(9);
+                            row.RelativeItem().Text("Fecha de Ingreso:").SemiBold().FontSize(8);
+                            row.RelativeItem().Text(d.FechaIngreso).FontSize(8);
                             row.ConstantItem(20).PaddingHorizontal(5);
-                            row.RelativeItem().Text("Permanencia:").SemiBold().FontSize(9);
-                            row.RelativeItem().Text(d.Permanencia).FontSize(9);
+                            row.RelativeItem().Text("Permanencia:").SemiBold().FontSize(8);
+                            row.RelativeItem().Text(d.Permanencia).FontSize(8);
                         });
                         col.Item().Row(row =>
                         {
-                            row.RelativeItem().Text("Salario Mensual:").SemiBold().FontSize(9);
-                            row.RelativeItem().Text(SalarioMensualArreglo).FontSize(9);
+                            row.RelativeItem().Text("Salario Mensual:").SemiBold().FontSize(8);
+                            row.RelativeItem().Text(SalarioMensualArreglo).FontSize(8);
                             row.ConstantItem(20).PaddingHorizontal(5);
-                            row.RelativeItem().Text("Sub Transporte Mensual:").SemiBold().FontSize(9);
-                            row.RelativeItem().Text(SubTransporteMesArreglo).FontSize(9);
+                            row.RelativeItem().Text("Sub Transporte Mensual:").SemiBold().FontSize(8);
+                            row.RelativeItem().Text(SubTransporteMesArreglo).FontSize(8);
                         });
                         col.Item().Row(row =>
                         {
-                            row.RelativeItem().Text("Periodo Nómina:").SemiBold().FontSize(9);
-                            row.RelativeItem().Text(d.PeriodoLiquidado).FontSize(9);
+                            row.RelativeItem().Text("Periodo Nómina:").SemiBold().FontSize(8);
+                            row.RelativeItem().Text(d.PeriodoLiquidado).FontSize(8);
                             row.ConstantItem(20).PaddingHorizontal(5);
-                            row.RelativeItem().Text("Días a Pagar:").SemiBold().FontSize(9);
-                            row.RelativeItem().Text(d.DiasPagar).FontSize(9);
+                            row.RelativeItem().Text("Días a Pagar:").SemiBold().FontSize(8);
+                            row.RelativeItem().Text(d.DiasPagar).FontSize(8);
                         });
                         col.Item().Row(row =>
                         {
-                            row.RelativeItem().Text("Banco:").SemiBold().FontSize(9);
-                            row.RelativeItem().Text(d.NombreBanco).FontSize(9);
+                            row.RelativeItem().Text("Banco:").SemiBold().FontSize(8);
+                            row.RelativeItem().Text(d.NombreBanco).FontSize(8);
                             row.ConstantItem(20).PaddingHorizontal(5);
-                            row.RelativeItem().Text("Numero Cuenta:").SemiBold().FontSize(9);
-                            row.RelativeItem().Text(d.NumeroCuenta).FontSize(9);
-                        });
-
-                        col.Item().Row(row =>
-                        {
-                            row.RelativeItem().Text("Sucursal Empleado:").SemiBold().FontSize(9);
-                            row.RelativeItem().Text(d.Sucursal).FontSize(9);
-                            row.ConstantItem(20).PaddingHorizontal(5);
-                            row.RelativeItem().Text("Eps:").SemiBold().FontSize(9);
-                            row.RelativeItem().Text(d.NombreEps).FontSize(9);
+                            row.RelativeItem().Text("Numero Cuenta:").SemiBold().FontSize(8);
+                            row.RelativeItem().Text(d.NumeroCuenta).FontSize(8);
                         });
 
                         col.Item().Row(row =>
                         {
-                            row.RelativeItem().Text("Fondo Cesantías:").SemiBold().FontSize(9);
-                            row.RelativeItem().Text(d.NombreFondoCesantias).FontSize(9);
+                            row.RelativeItem().Text("Sucursal Empleado:").SemiBold().FontSize(8);
+                            row.RelativeItem().Text(d.Sucursal).FontSize(8);
                             row.ConstantItem(20).PaddingHorizontal(5);
-                            row.RelativeItem().Text("Fondo Pensión:").SemiBold().FontSize(9);
-                            row.RelativeItem().Text(d.NombreFondoPension).FontSize(9);
+                            row.RelativeItem().Text("Eps:").SemiBold().FontSize(8);
+                            row.RelativeItem().Text(d.NombreEps).FontSize(8);
+                        });
+
+                        col.Item().Row(row =>
+                        {
+                            row.RelativeItem().Text("Fondo Cesantías:").SemiBold().FontSize(8);
+                            row.RelativeItem().Text(d.NombreFondoCesantias).FontSize(8);
+                            row.ConstantItem(20).PaddingHorizontal(5);
+                            row.RelativeItem().Text("Fondo Pensión:").SemiBold().FontSize(8);
+                            row.RelativeItem().Text(d.NombreFondoPension).FontSize(8);
                         });
 
 
@@ -261,67 +266,67 @@ namespace App.Controllers
                                 ing.Item().Text("").SemiBold();
                                 ing.Item().Row(r =>
                                 {
-                                    r.RelativeItem().Text("Sueldo:").FontSize(10); r.RelativeItem().AlignRight().Text(
+                                    r.RelativeItem().Text("Sueldo:").FontSize(9); r.RelativeItem().AlignRight().Text(
                                     decimal.TryParse(d.Sueldo, out var SueldoDecimal)
                                         ? SueldoDecimal.ToString("C0", cultura)
                                         : d.Sueldo
-                                        ).FontSize(10);
+                                        ).FontSize(9);
                                 });
                                 ing.Item().Row(r =>
                                 {
-                                    r.RelativeItem().Text("Auxilio transporte:").FontSize(10); r.RelativeItem().AlignRight().Text(
+                                    r.RelativeItem().Text("Auxilio transporte:").FontSize(9); r.RelativeItem().AlignRight().Text(
                                     decimal.TryParse(d.SubTransporte, out var auxTransporteDecimal)
                                         ? auxTransporteDecimal.ToString("C0", cultura)
                                         : d.SubTransporte
-                                        ).FontSize(10);
+                                        ).FontSize(9);
                                 });
                                 ing.Item().Row(r =>
                                 {
-                                    r.RelativeItem().Text($"HE Diurna:").FontSize(10); r.RelativeItem().AlignRight().Text(
+                                    r.RelativeItem().Text($"HE Diurna:").FontSize(9); r.RelativeItem().AlignRight().Text(
                                     decimal.TryParse(d.ValorTotalHED, out var ValorTotalHEDDecimal)
                                         ? ValorTotalHEDDecimal.ToString("C0", cultura)
                                         : d.ValorTotalHED
-                                        ).FontSize(10);
+                                        ).FontSize(9);
                                 });
                                 ing.Item().Row(r =>
                                 {
-                                    r.RelativeItem().Text("HE Nocturna:").FontSize(10); r.RelativeItem().AlignRight().Text(
+                                    r.RelativeItem().Text("HE Nocturna:").FontSize(9); r.RelativeItem().AlignRight().Text(
                                     decimal.TryParse(d.ValorTotalHEN, out var ValorTotalHENDecimal)
                                         ? ValorTotalHENDecimal.ToString("C0", cultura)
                                         : d.ValorTotalHEN
-                                        ).FontSize(10);
+                                        ).FontSize(9);
                                 });
                                 ing.Item().Row(r =>
                                 {
-                                    r.RelativeItem().Text("HE Diurna D/F:").FontSize(10); r.RelativeItem().AlignRight().Text(
+                                    r.RelativeItem().Text("HE Diurna D/F:").FontSize(9); r.RelativeItem().AlignRight().Text(
                                     decimal.TryParse(d.ValorTotalHEDDF, out var ValorTotalHEDDFDecimal)
                                         ? ValorTotalHEDDFDecimal.ToString("C0", cultura)
                                         : d.ValorTotalHEDDF
-                                        ).FontSize(10);
+                                        ).FontSize(9);
                                 });
                                 ing.Item().Row(r =>
                                 {
-                                    r.RelativeItem().Text("HE Nocturna D/F:").FontSize(10); r.RelativeItem().AlignRight().Text(
+                                    r.RelativeItem().Text("HE Nocturna D/F:").FontSize(9); r.RelativeItem().AlignRight().Text(
                                     decimal.TryParse(d.ValorTotalHENDF, out var ValorTotalHENDFDecimal)
                                         ? ValorTotalHENDFDecimal.ToString("C0", cultura)
                                         : d.ValorTotalHENDF
-                                        ).FontSize(10);
+                                        ).FontSize(9);
                                 });
                                 ing.Item().Row(r =>
                                 {
-                                    r.RelativeItem().Text("Desembolso Préstamo:").FontSize(10); r.RelativeItem().AlignRight().Text(
+                                    r.RelativeItem().Text("Desembolso Préstamo:").FontSize(9); r.RelativeItem().AlignRight().Text(
                                    decimal.TryParse(d.DesembolsoPrestamo, out var desembolsoDecimal)
                                        ? desembolsoDecimal.ToString("C0", cultura)
                                        : d.DesembolsoPrestamo
-                                       ).FontSize(10);
+                                       ).FontSize(9);
                                 });
                                 ing.Item().Row(r =>
                                 {
-                                    r.RelativeItem().Text("Otros ingresos *:").FontSize(10); r.RelativeItem().AlignRight().Text(
+                                    r.RelativeItem().Text("Otros ingresos *:").FontSize(9); r.RelativeItem().AlignRight().Text(
                                     decimal.TryParse(d.OtrosIngresos, out var otrosIngresosDecimal)
                                         ? otrosIngresosDecimal.ToString("C0", cultura)
                                         : d.OtrosIngresos
-                                        ).FontSize(10);
+                                        ).FontSize(9);
                                 });
                                 ing.Item().Text("").SemiBold();
                                 ing.Item().Row(r =>
@@ -405,8 +410,12 @@ namespace App.Controllers
                         col.Item().PaddingTop(2).Text($"* OTROS INGRESOS: {d.ConceptoIngresosAdicionales}").FontSize(6).Justify();
                         col.Item().PaddingTop(2).Text($"** OTROS DESCUENTOS: {d.ConceptoDescuentosAdicionales}").FontSize(6).Justify();
 
-                        col.Item().PaddingTop(80).Row(r => { r.RelativeItem().AlignCenter().Text("Firma Empleado").SemiBold(); r.RelativeItem().AlignCenter().Text($"Firma o Sello Empresa").SemiBold(); });
-                        col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text($"{d.Empleado}").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"{d.Empresa}").SemiBold().FontSize(8); });
+                        col.Item().PaddingTop(80).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold(); r.RelativeItem().AlignCenter().Height(50).Image(firmaRLBytes).FitHeight(); });
+                        col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text("Firma Trabajador").SemiBold(); r.RelativeItem().AlignCenter().Text($"Firma o Sello Empresa").SemiBold(); });
+                        col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text($"{d.Empleado}").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"{d.RLEmpresa}").SemiBold().FontSize(8); });
+                        col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"Representante Legal").SemiBold().FontSize(8); });
+                        col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"{d.Empresa}").SemiBold().FontSize(8); });
+
 
                         //col.Item().PaddingTop(10).Text("Comprobante de Nómina generado con Sofia Software Administrativo V 1.0").FontSize(6);
                     });

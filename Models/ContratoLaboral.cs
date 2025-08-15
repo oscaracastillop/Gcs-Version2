@@ -84,6 +84,7 @@
             public string TextoFechaFin { get; set; }
             public string Permanencia { get; set; }
             public string Observacion { get; set; }
+            public int IdEstado { get; set; }
             public string Estado { get; set; }           
             public string Imagen { get; set; }
             public string NumeroCuenta { get; set; }

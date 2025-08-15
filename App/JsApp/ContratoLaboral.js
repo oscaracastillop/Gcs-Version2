@@ -643,8 +643,8 @@ function DescargarDocCLE() {
         //alert('Descargar Certificación Laboral');
         descargarCertificacionLaboralEmpleado(IdCLE);
     } else if (opcion == 3) {
-        alert('Descargar Paz y Zalvo');
-        //descargarPazySalvoEmpleado(IdCLE);
+        //alert('Descargar Paz y Zalvo');
+        descargarPazySalvoEmpleado(IdCLE);
     } else {
         VentanaMensaje('Seleccione una opción válida para descargar el documento.')
     }
