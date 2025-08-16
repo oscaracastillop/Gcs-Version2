@@ -12,14 +12,14 @@
     $("#BotonesModalProducto").empty();
     if (tipo == 'C') {
         $("#ContenedorImagenHVProducto").hide();
-        $("#TituloModalProducto").empty().append('<label>Crear Producto</label>');
+        $("#TituloModalProducto").empty().append('<label>CREAR PRODUCTO</label>');
         $('#ModalProducto').modal('show');
         $("#SelectEstadoProducto").hide();
         $("#InputStockMinimo").val(0);
         $("#BotonesModalProducto").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearProducto()">Guardar</button>');
     } if (tipo == 'E') {
         $("#ContenedorImagenHVProducto").show();
-        $("#TituloModalProducto").empty().append('<label>Editar Producto</label>');
+        $("#TituloModalProducto").empty().append('<label>EDITAR PRODUCTO</label>');
         $('#ModalProducto').modal('show');
         $("#SelectEstadoProducto").show();
         $("#BotonesModalProducto").empty().append('<button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-modal-guardar btn-sm" onclick="ActualizarProducto()">Guardar Cambios</button>');
@@ -456,6 +456,36 @@ function ListaProducto() {
                     $("#SelectProducto").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
                     contador++;
                 });
+            }
+        },
+    });
+}
+
+
+function ListaProductoxIdCategoria(Id) {
+    $("#SelectProductoxIdCategoria").empty();
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '/Producto/ListaProductoxCategoria',
+        data: {
+            IdCategoria: Id
+        },
+        success: function (resultado) {
+            if (Id == -1) {
+                $("#SelectProductoxIdCategoria").prop("disabled", true);
+            } else {
+                $("#SelectProductoxIdCategoria").prop("disabled", false);
+                var contador = 0;
+                if (resultado.length === 0) {
+                    $("#SelectProductoxIdCategoria").append('<option value="">No hay Datos</option>');
+                } else {
+                    $("#SelectProductoxIdCategoria").empty().append('<option value="-1">Seleccione ...</option>');
+                    $.each(resultado, function () {
+                        $("#SelectProductoxIdCategoria").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
+                        contador++;
+                    });
+                }
             }
         },
     });

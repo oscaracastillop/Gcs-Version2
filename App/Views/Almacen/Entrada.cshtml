@@ -3,8 +3,89 @@
     ViewBag.Title = "Entrada";
 }
 
+
+
+
+<script src="~/JsApp/Categoria.js"></script>
+<script src="~/JsApp/Entrada.js"></script>
+<script src="~/JsApp/Producto.js"></script>
+<script src="~/JsApp/TipoEstado.js"></script>
+
+
 <div class="tituloPage">
     <label>MODULO ENTRADA ALMACEN</label>
 </div>
 
 
+<div class="modal fade" id="ModalEntrada" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header header-modal">
+                <div class="modal-title" id="TituloModalEntrada"></div>
+            </div>
+            <div class="modal-body">
+                <label id="LabelIdEntrada" hidden></label>
+                <div class="row g-2">
+                    <div class="col-6">
+                        <label><strong>Categoría</strong></label>
+                        <select class="form-control" id="SelectCategoria" style="min-width:100%" onchange="ListaProductoxIdCategoria($('#SelectCategoria').val())"></select>
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Producto</strong></label>
+                        <select class="form-control" id="SelectProductoxIdCategoria" style="min-width:100%"></select>
+                    </div>
+                </div>
+
+                <div class="row g-2">
+                    <div class="col-3">
+                        <label><strong>Lote</strong></label>
+                        <input class="form-control" type="text" id="InputLoteProducto" autocomplete="off" style="min-width:100%" placeholder="0" />
+                    </div>
+                    <div class="col-3">
+                        <label><strong>Cantidad</strong></label>
+                        <input class="form-control" type="number" id="InputCantidadProducto" autocomplete="off" style="min-width:100%" placeholder="0" />
+                    </div>
+                    <div class="col-3">
+                        <label><strong>Valor Unitario</strong></label>
+                        <input class="form-control" type="number" id="InputValorUnitarioCompraProducto" autocomplete="off" style="min-width:100%" placeholder="0" />
+                    </div>
+                    <div class="col-3">
+                        <label><strong>% Iva</strong></label>
+                        <input class="form-control" type="number" id="InputPorcentajeIvaProducto" autocomplete="off" style="min-width:100%" placeholder="0" />
+                    </div>
+                </div>
+
+                <div class="row g-2">
+                    <div class="col-6">
+                        <label><strong>Fecha Vencimiento Producto</strong><label style="color:red" id=""> *</label></label>
+                        <input class="form-control" type="date" id="InputFechaVencimientoProducto" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Fecha Ingreso Almacén</strong><label style="color:red" id=""> *</label></label>
+                        <input class="form-control" type="date" id="InputFechaIngresoAlmacen" name="name" autocomplete="off" style="min-width:100%" />
+                    </div>
+                </div>
+
+                <div class="col-3" id="SelectEstadoEntrada">
+                    <label><strong>Estado</strong></label>
+                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
+                </div>
+            </div>
+
+            <div class="modal-footer" id="BotonesModalEntrada">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        ValidarSesion('/Almacen/Entrada');
+        //GridCategoria();
+        ListaTipoEstado(1);
+        ListaCategoria();
+        ModalEntrada('C');
+    });
+</script>

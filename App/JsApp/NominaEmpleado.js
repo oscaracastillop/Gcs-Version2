@@ -384,7 +384,7 @@ function GridNominaEmpleado() {
                 "data": "null",
                 title: "Sueldo",
                 "render": function (data, type, row, meta) {
-                    return '<label style="color:green">$ ' + new Intl.NumberFormat('en-US').format(row.Sueldo) + '</label>';
+                    return '<label style="color:black">$ ' + new Intl.NumberFormat('en-US').format(row.Sueldo) + '</label>';
                 }
             },
 
@@ -392,84 +392,84 @@ function GridNominaEmpleado() {
                 "data": "null",
                 title: "Sub Transporte",
                 "render": function (data, type, row, meta) {
-                    return '<label style="color:green">$ ' + new Intl.NumberFormat('en-US').format(row.SubTransporte) + '</label>';
+                    return '<label style="color:black">$ ' + new Intl.NumberFormat('en-US').format(row.SubTransporte) + '</label>';
                 }
             },
             {
                 "data": "null",
                 title: "Total HE",
                 "render": function (data, type, row, meta) {
-                    return '<label style="color:green">$ ' + new Intl.NumberFormat('en-US').format(row.TotalHE) + '</label>';
+                    return '<label style="color:black">$ ' + new Intl.NumberFormat('en-US').format(row.TotalHE) + '</label>';
                 }
             },
             {
                 "data": "null",
                 title: "Desembolso Préstamo",
                 "render": function (data, type, row, meta) {
-                    return '<label style="color:green">$ ' + new Intl.NumberFormat('en-US').format(row.DesembolsoPrestamo) + '</label>';
+                    return '<label style="color:black">$ ' + new Intl.NumberFormat('en-US').format(row.DesembolsoPrestamo) + '</label>';
                 }
             },
             {
                 "data": "null",
                 title: "Otros Ingresos",
                 "render": function (data, type, row, meta) {
-                    return '<label style="color:green">$ ' + new Intl.NumberFormat('en-US').format(row.OtrosIngresos) + '</label>';
+                    return '<label style="color:black">$ ' + new Intl.NumberFormat('en-US').format(row.OtrosIngresos) + '</label>';
                 }
             },
             {
                 "data": "null",
                 title: "Total Ingresos",
                 "render": function (data, type, row, meta) {
-                    return '<label style="color:green; font-weight:bold">$ ' + new Intl.NumberFormat('en-US').format(row.TotalIngresos) + '</label>';
+                    return '<label style="color:black; font-weight:bold">$ ' + new Intl.NumberFormat('en-US').format(row.TotalIngresos) + '</label>';
                 }
             },
             {
                 "data": "null",
                 title: "Eps",
                 "render": function (data, type, row, meta) {
-                    return '<label style="color:orangered">$ ' + new Intl.NumberFormat('en-US').format(row.Eps) + '</label>';
+                    return '<label style="color:black">$ ' + new Intl.NumberFormat('en-US').format(row.Eps) + '</label>';
                 }
             },
             {
                 "data": "null",
                 title: "Pension",
                 "render": function (data, type, row, meta) {
-                    return '<label style="color:orangered">$ ' + new Intl.NumberFormat('en-US').format(row.Pension) + '</label>';
+                    return '<label style="color:black">$ ' + new Intl.NumberFormat('en-US').format(row.Pension) + '</label>';
                 }
             },
             {
                 "data": "null",
                 title: "Casino",
                 "render": function (data, type, row, meta) {
-                    return '<label style="color:orangered">$ ' + new Intl.NumberFormat('en-US').format(row.Casino) + '</label>';
+                    return '<label style="color:black">$ ' + new Intl.NumberFormat('en-US').format(row.Casino) + '</label>';
                 }
             },
             {
                 "data": "null",
                 title: "Cobro Préstamo",
                 "render": function (data, type, row, meta) {
-                    return '<label style="color:orangered">$ ' + new Intl.NumberFormat('en-US').format(row.CobroPrestamo) + '</label>';
+                    return '<label style="color:black">$ ' + new Intl.NumberFormat('en-US').format(row.CobroPrestamo) + '</label>';
                 }
             },
             {
                 "data": "null",
                 title: "Otros Descuentos",
                 "render": function (data, type, row, meta) {
-                    return '<label style="color:orangered">$ ' + new Intl.NumberFormat('en-US').format(row.OtrosDescuentos) + '</label>';
+                    return '<label style="color:black">$ ' + new Intl.NumberFormat('en-US').format(row.OtrosDescuentos) + '</label>';
                 }
             },
             {
                 "data": "null",
                 title: "Total Descuentos",
                 "render": function (data, type, row, meta) {
-                    return '<label style="color:orangered; font-weight:bold">$ ' + new Intl.NumberFormat('en-US').format(row.TotalDescuentos) + '</label>';
+                    return '<label style="color:black; font-weight:bold">$ ' + new Intl.NumberFormat('en-US').format(row.TotalDescuentos) + '</label>';
                 }
             },
             {
                 "data": "null",
                 title: "Total a Pagar",
                 "render": function (data, type, row, meta) {
-                    return '<label style="color:blue; font-weight:bold">$ ' + new Intl.NumberFormat('en-US').format(row.TotalPagar)+'</label>';
+                    return '<label style="color:black; font-weight:bold">$ ' + new Intl.NumberFormat('en-US').format(row.TotalPagar)+'</label>';
                 }
             },
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },

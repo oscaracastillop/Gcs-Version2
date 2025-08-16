@@ -15,12 +15,12 @@
     $("#SelectCiudad").val(-1);
     $("#BotonesModalProveedor").empty();
     if (tipo == 'C') {
-        $("#TituloModalProveedor").empty().append('<label>Crear Proveedor</label>');
+        $("#TituloModalProveedor").empty().append('<label>CREAR PROVEEDOR</label>');
         $('#ModalProveedor').modal('show');
         $("#SelectEstadoProveedor").hide();
         $("#BotonesModalProveedor").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearProveedor()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalProveedor").empty().append('<label>Editar Proveedor</label>');
+        $("#TituloModalProveedor").empty().append('<label>EDITAR PROVEEDOR</label>');
         $('#ModalProveedor').modal('show');
         $("#SelectEstadoProveedor").show();
         $("#BotonesModalProveedor").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="ActualizarProveedor()">Guardar Cambios</button>');

@@ -21,7 +21,7 @@
 
 <!-- Modal Proveedor-->
 <div class="modal fade" id="ModalProveedor" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header header-modal">
                 <div class="modal-title" id="TituloModalProveedor"></div>
@@ -32,7 +32,7 @@
                     <label><strong>Nombre </strong><label style="color:red"> *</label></label>
                     <input class="form-control" type="text" id="InputNombreProveedor" name="name" autocomplete="off" style="min-width:100%" />
                 </div>
-                <div class="row">
+                <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Documento </strong><label style="color:red"> *</label></label>
                         <select class="form-control" id="SelectTipoDocumento" style="min-width:100%"></select>
@@ -42,7 +42,7 @@
                         <input class="form-control" type="text" id="InputIdentificacionProveedor" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
                 </div>
-                <div class="row">
+                <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Email</strong></label>
                         <input class="form-control" type="text" id="InputEmailProveedor" name="name" autocomplete="off" style="min-width:100%" />
@@ -52,7 +52,7 @@
                         <input class="form-control" type="text" id="InputContactoProveedor" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
                 </div>
-                <div class="row">
+                <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Teléfono</strong></label>
                         <input class="form-control" type="text" id="InputTelefonoProveedor" name="name" autocomplete="off" style="min-width:100%" maxlength="13" placeholder="(ind ciudad) + # Telefónico" />
@@ -63,7 +63,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Forma de Pago</strong></label>
                         <select class="form-control" id="SelectFormaPago"></select>
@@ -73,7 +73,7 @@
                         <select class="form-control" id="SelectPlazoPago"></select>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Dirección</strong></label>
                         <input class="form-control" type="text" id="InputDireccionProveedor" name="name" autocomplete="off" style="min-width:100%" />
@@ -84,10 +84,10 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row g-2">
                     <div class="col-12">
                         <label><strong>Descripción</strong></label>
-                        <textarea id="InputDescripcionProveedor" class="form-control" style="min-width:100%" rows="3"></textarea>
+                        <input type="text" id="InputDescripcionProveedor" class="form-control" style="min-width:100%"/>
                     </div>
                 </div>
 

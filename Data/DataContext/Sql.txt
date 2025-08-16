@@ -5280,6 +5280,8 @@ BEGIN
 			dbo.Fun_BuscarNombreCargo(A.IdCargo) As Cargo, 
 			CONVERT(varchar(255),A.SalarioMensual) As SalarioMensual,
 			dbo.Fun_BuscarNombreTipoContrato(A.IdTipoContrato) As TipoContrato,
+			dbo.Fun_BuscarNombreBanco(A.IdBanco) As Banco,
+			A.NumeroCuenta As NumeroCuenta,
 			CONVERT(varchar(255),DATEPART(DAY,A.FechaInicio)) As FechaDiaIngreso,
 			CASE DATEPART(MONTH,A.FechaInicio)
 			WHEN 1 THEN 'Enero'

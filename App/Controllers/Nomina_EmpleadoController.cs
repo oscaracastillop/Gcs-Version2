@@ -54,8 +54,7 @@ namespace App.Controllers
         public ActionResult CargarDatosEmpleadoNomina(int IdEmpleado, string FechaInicio, string FechaFin, int DiasaPagar)
         {
             var resultado = dataNominaEmpleado.CargarDatosEmpleadoNomina(IdEmpleado, FechaInicio, FechaFin, DiasaPagar);
-            return Json(resultado);
-        }
+            return Json(resultado);    }
 
 
 
@@ -66,15 +65,13 @@ namespace App.Controllers
 
 
 
-
-
+        #region Plantilla Comprobante Nomina
         public ActionResult DescargarComprobanteNomina(int id)
         {
             // Registrar la fuente Lato
             var fontPath = Server.MapPath("~/Content/Lato-Regular.ttf");
             var fontStream = System.IO.File.OpenRead(fontPath);
             var cultura = new CultureInfo("es-CO");
-            //QuestPDF.Infrastructure.FontManager.RegisterFont(fontStream);
 
             // Obtener los datos del comprobante
             var datos = dataNominaEmpleado.DatosComprobanteNomina(id);
@@ -182,7 +179,7 @@ namespace App.Controllers
                         col.Item().PaddingTop(5).Text(text =>
                         {
                             text.Justify();
-                            text.Span("Empleado: ").SemiBold().FontSize(9);
+                            text.Span("Nombre: ").SemiBold().FontSize(9);
                             text.Span($"{d.Empleado}").FontSize(9);
                         });
 
@@ -252,12 +249,15 @@ namespace App.Controllers
                             row.RelativeItem().Text(d.NombreFondoPension).FontSize(7);
                         });
 
+                        col.Item().Row(row =>
+                        {
+                            row.RelativeItem().Text("Estado Nómina: ").SemiBold().FontSize(8);
+                            row.RelativeItem().Text(d.Estado).FontSize(7);
+                            row.ConstantItem(20).PaddingHorizontal(5);
+                            row.RelativeItem().Text("").SemiBold().FontSize(8);
+                            row.RelativeItem().Text("").FontSize(7);
+                        });
 
-                       
-
-                        // Ejemplo: insertar una línea horizontal para separar secciones
-                        //col.Item().PaddingTop(10).PaddingBottom(5).LineHorizontal(1).LineColor(Colors.Black);
-                        
                         // Tabla de ingresos y descuentos
                         col.Item().PaddingTop(5).Row(row =>
                         {
@@ -325,7 +325,7 @@ namespace App.Controllers
                                 });
                                 ing.Item().Row(r =>
                                 {
-                                    r.RelativeItem().Text("Otros ingresos *:").FontSize(9); r.RelativeItem().AlignRight().Text(
+                                    r.RelativeItem().Text("Otros Ingresos *:").FontSize(9); r.RelativeItem().AlignRight().Text(
                                     decimal.TryParse(d.OtrosIngresos, out var otrosIngresosDecimal)
                                         ? otrosIngresosDecimal.ToString("C0", cultura)
                                         : d.OtrosIngresos
@@ -384,7 +384,7 @@ namespace App.Controllers
                                 });
                                 desc.Item().Row(r =>
                                 {
-                                    r.RelativeItem().Text("Otros descuentos **:").FontSize(9); r.RelativeItem().AlignRight().Text(
+                                    r.RelativeItem().Text("Otros Descuentos **:").FontSize(9); r.RelativeItem().AlignRight().Text(
                                     decimal.TryParse(d.OtrosDescuentos, out var otrosDescuentosDecimal)
                                         ? otrosDescuentosDecimal.ToString("C0", cultura)
                                         : d.OtrosDescuentos)
@@ -418,29 +418,17 @@ namespace App.Controllers
                         col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"Representante Legal").SemiBold().FontSize(8); });
                         col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"{d.Empresa}").SemiBold().FontSize(8); });
 
-
-                        //col.Item().PaddingTop(10).Text("Comprobante de Nómina generado con Sofia Software Administrativo V 1.0").FontSize(6);
                     });
 
                     page.Footer()
                         .AlignRight()
-                        .Text("Comprobante de Nómina generado con Sofia Software Administrativo V 1.0").FontSize(6);
-
-                    //page.Footer()
-                    //    .AlignRight()
-                    //    .Text(x =>
-                    //    {
-                    //        x.Span("Página ");
-                    //        x.CurrentPageNumber();
-                    //    });
-
+                        .Text("Documento generado con Sofia Software Administrativo V 1.0").FontSize(6);
                 });
             }).GeneratePdf();
-
             fontStream.Dispose();
-
             return File(pdfBytes, "application/pdf", "Comprobante Nomina # " + consecutivocle + " " + d.Empleado + ".pdf");
         }
+        #endregion
 
     }
 

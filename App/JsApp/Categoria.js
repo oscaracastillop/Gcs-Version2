@@ -5,12 +5,12 @@ function ModalCategoria(tipo) {
     $("#InputNombreCategoria").empty().val('');
     $("#BotonesModalCategoria").empty();
     if (tipo == 'C') {
-        $("#TituloModalCategoria").empty().append('<label>Crear Categoria</label>');
+        $("#TituloModalCategoria").empty().append('<label>CREAR CATEGORIA</label>');
         $('#ModalCategoria').modal('show');
         $("#SelectEstadoCategoria").hide();
         $("#BotonesModalCategoria").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="CrearCategoria()">Guardar</button>');
     } if (tipo == 'E') {
-        $("#TituloModalCategoria").empty().append('<label>Editar Categoria</label>');
+        $("#TituloModalCategoria").empty().append('<label>EDITAR CATEGORIA</label>');
         $('#ModalCategoria').modal('show');
         $("#SelectEstadoCategoria").show();
         $("#BotonesModalCategoria").empty().append('<button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>' + '<button type="button" class="btn btn-sm btn-modal-guardar" onclick="ActualizarCategoria()">Guardar Cambios</button>');

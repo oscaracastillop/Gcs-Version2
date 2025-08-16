@@ -176,7 +176,7 @@ namespace App.Controllers
                             col.Item().PaddingTop(0).Text(text =>
                             {
                                 text.Justify();
-                                text.Span($"Nombre Trabajador: ").SemiBold().FontSize(10);
+                                text.Span($"Nombre: ").SemiBold().FontSize(10);
                                 text.Span($"{d.Empleado}").FontSize(10);
                             });
                             col.Item().PaddingTop(0).Text(text =>
@@ -206,7 +206,7 @@ namespace App.Controllers
                             {
                                 text.Justify();
                                 text.Span($"Forma de pago: ").SemiBold().FontSize(10);
-                                text.Span($"Cuenta Ahorros, Billetera Digital (Nequi, Daviplata, Ahorro a la Mano, etc.).").FontSize(10);
+                                text.Span($"Banco: {d.Banco} / Número Cuenta: {d.NumeroCuenta}").FontSize(10);
                             });
 
                             col.Item().PaddingTop(0).Text(text =>
@@ -286,7 +286,7 @@ namespace App.Controllers
                                 text.Span($" {d.TipoDocumentoEmpresa}").Bold().FontSize(8);
                                 text.Span($", número ").FontSize(8);
                                 text.Span($" {d.IdentificacionEmpresa}").Bold().FontSize(8);
-                                text.Span($", con domicilio en la ciudad de ").FontSize(8);
+                                text.Span($", con sede en ").FontSize(8);
                                 text.Span($" {d.CiudadEmpresa}").SemiBold().FontSize(8);
                                 text.Span($", quien en adelante y para los efectos del presente contrato se denomina como ").FontSize(8);
                                 text.Span($"EL EMPLEADOR").Bold().FontSize(8);
@@ -1049,13 +1049,13 @@ namespace App.Controllers
                             col.Item().PaddingTop(5).Text(text =>
                             {
                                 text.Justify();
-                                text.Span($"Para constancia y en señal de aceptación de las condiciones descritas en este documento, se firma por las partes que han intervenido en un ejemplar y copia, a los ").FontSize(8);
+                                text.Span($"Para constancia y en señal de aceptación de las condiciones descritas en este documento, se firma por las partes que han intervenido en un ejemplar y copia, el ").FontSize(8);
                                 text.Span($"{d.FechaDiaIngreso}").SemiBold().FontSize(8);
-                                text.Span(" diás del mes de ").FontSize(8);
+                                text.Span(" del mes de ").FontSize(8);
                                 text.Span($"{d.FechaMesIngreso}").SemiBold().FontSize(8);
                                 text.Span(" del año ").FontSize(8);
                                 text.Span($"{d.FechaYearIngreso}.").SemiBold().FontSize(8);
-                                text.Span(" en la ciudad de ").FontSize(8);
+                                text.Span(" en la sede ").FontSize(8);
                                 text.Span($"{d.CiudadEmpresa}.").Bold().FontSize(8);
                             });
                             col.Item().PaddingTop(80).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold(); r.RelativeItem().AlignCenter().Height(50).Image(firmaRLBytes).FitHeight();});
@@ -1070,7 +1070,7 @@ namespace App.Controllers
                             .AlignRight()
                             .Text(x =>
                             {
-                                x.Span("Contrato de Trabajo generado con Sofia Software Administrativo V 1.0  - ").FontSize(6);
+                                x.Span("Documento generado con Sofia Software Administrativo V 1.0  - ").FontSize(6);
                                 x.Span(" Página ").FontSize(8);
                                 x.CurrentPageNumber().FontSize(8);
                             });
@@ -1205,30 +1205,39 @@ namespace App.Controllers
                         col.Item().PaddingTop(15).Text(text =>
                         {
                             text.Justify();
-                            text.Span("Durante este tiempo transcurrido en la Empresa ").FontSize(11);
+                            text.Span("Durante este tiempo en la Empresa ").FontSize(11);
                             text.Span($"{d.Empresa}").SemiBold().FontSize(11);
                             text.Span(" el(la) señor(a) ").FontSize(11);
                             text.Span($"{d.Empleado}").SemiBold().FontSize(11);
-                            text.Span(" se ha destacado por su responsabilidad, honestidad, cumplimiento y ética en las labores asignadas. ").FontSize(11);
+                            if (d.IdEstado == 1)
+                            {
+                                text.Span(" se ha destacado por su responsabilidad, honestidad, cumplimiento y ética en las labores asignadas. ").FontSize(11);
+                            }
+                            else if (d.IdEstado == 5)
+                            {
+                                text.Span(" se destaco por su responsabilidad, honestidad, cumplimiento y ética en las labores asignadas. ").FontSize(11);
+                            }
+
+                               
 
                         });
 
                         col.Item().PaddingTop(15).Text(text =>
                         {
                             text.Justify();
-                            text.Span("La presente certificación se expide en la ciudad de ").FontSize(11);
+                            text.Span("La presente certificación se expide en la sede ").FontSize(11);
                             text.Span($"{d.CiudadEmpresa}").SemiBold().FontSize(11);
-                            text.Span(" a solicitud de la parte interesada a los ").FontSize(11);
+                            text.Span(" a solicitud de la parte interesada el ").FontSize(11);
                             text.Span($"{d.FechaDiaSistema}").SemiBold().FontSize(11);
-                            text.Span(" diás del mes de ").FontSize(11);
+                            text.Span(" del mes de ").FontSize(11);
                             text.Span($"{d.FechaMesSistema}").SemiBold().FontSize(11);
                             text.Span(" del año ").FontSize(11);
                             text.Span($"{d.FechaYearSistema}.").SemiBold().FontSize(11);
                         });
-                        col.Item().Text("Coordialmente,");
+                        col.Item().PaddingTop(15).Text("Coordialmente,");
 
 
-                        col.Item().PaddingTop(100).Height(50).Image(firmaRLBytes).FitHeight();
+                        col.Item().PaddingTop(85).Height(50).Image(firmaRLBytes).FitHeight();
                         col.Item().Row(r => { r.RelativeItem().AlignLeft().Text($"Firma o Sello Empresa").SemiBold(); });
                         col.Item().Row(r => { r.RelativeItem().AlignLeft().Text($"{d.RLEmpresa}").SemiBold().FontSize(8); });
                         col.Item().Row(r => { r.RelativeItem().AlignLeft().Text($"Representante Legal").SemiBold().FontSize(8); });
@@ -1241,7 +1250,7 @@ namespace App.Controllers
                         .AlignRight()
                         .Text(x =>
                         {
-                            x.Span("Certificación Laboral generada con Sofia Software Administrativo V 1.0").FontSize(6);
+                            x.Span("Documento generado con Sofia Software Administrativo V 1.0").FontSize(6);
                         });
 
 
@@ -1324,7 +1333,7 @@ namespace App.Controllers
                                 text.Span($" {d.TipoDocumentoEmpresa}").SemiBold().FontSize(11);
                                 text.Span(" número ").SemiBold().FontSize(11);
                                 text.Span($"{d.IdentificacionEmpresa}").SemiBold().FontSize(11);
-                                text.Span(", con domicilio en la ciudad de ").FontSize(11);
+                                text.Span(", con sede en").FontSize(11);
                                 text.Span($" {d.CiudadEmpresa}").SemiBold().FontSize(11);
                                 text.Span(", certifica que el(la) señor(a) ").FontSize(11);
                                 text.Span($"{d.Empleado}").SemiBold().FontSize(11);
@@ -1336,20 +1345,11 @@ namespace App.Controllers
                                 text.Span($"{d.CiudadExpedicionDocumentoEmpleado}").SemiBold().FontSize(11);
                                 text.Span(", ha terminado su contrato de trabajo con esta empresa el día ").FontSize(11);
                                 text.Span($"{d.FechaDiaFin}").SemiBold().FontSize(11);
-                                text.Span(" de ").FontSize(11);
+                                text.Span(" del mes de").FontSize(11);
                                 text.Span($"{d.FechaMesFin}").SemiBold().FontSize(11);
                                 text.Span(" del año ").FontSize(11);
                                 text.Span($"{d.FechaYearFin}.").SemiBold().FontSize(11);
                             });
-
-                            //col.Item().PaddingTop(15).Text(text =>
-                            //{
-                            //    text.Justify();
-                            //    text.Span("El(la) señor(a) ").FontSize(11);
-                            //    text.Span($"{d.Empleado}").SemiBold().FontSize(11);
-                            //    text.Span(" declara que ha recibido a satisfación el pago correspondiente a sueldo, prestaciones, descuentos, etc., a que hubiere lugar, y que en el comprobante de pago de Nómina que se entrega junto a este documento se encuentran detallados los pagos o descuentos.").FontSize(11);
-                            //});
-
                             col.Item().PaddingTop(15).Text(text =>
                             {
                                 text.Justify();
@@ -1363,11 +1363,11 @@ namespace App.Controllers
                             col.Item().PaddingTop(15).Text(text =>
                             {
                                 text.Justify();
-                                text.Span("En señal de conformidad con lo anterior, se firma el presente Certificado de Paz y Salvo Laboral en la ciudad de ").FontSize(11);
+                                text.Span("En señal de conformidad con lo anterior, se expide y se firma el presente Certificado de Paz y Salvo Laboral en la sede ").FontSize(11);
                                 text.Span($"{d.CiudadEmpresa}").SemiBold().FontSize(11);
-                                text.Span(" a los ").FontSize(11);
+                                text.Span(" el ").FontSize(11);
                                 text.Span($"{d.FechaDiaSistema}").SemiBold().FontSize(11);
-                                text.Span(" diás del mes de ").FontSize(11);
+                                text.Span(" del mes de ").FontSize(11);
                                 text.Span($"{d.FechaMesSistema}").SemiBold().FontSize(11);
                                 text.Span(" del año ").FontSize(11);
                                 text.Span($"{d.FechaYearSistema}.").SemiBold().FontSize(11);
@@ -1385,7 +1385,7 @@ namespace App.Controllers
                         .AlignRight()
                         .Text(x =>
                         {
-                            x.Span("Certificado de Paz y Salvo Laboral generada con Sofia Software Administrativo V 1.0").FontSize(6);
+                            x.Span("Documento generado con Sofia Software Administrativo V 1.0").FontSize(6);
                         });
                 });
             }).GeneratePdf();

@@ -87,6 +87,7 @@
             public int IdEstado { get; set; }
             public string Estado { get; set; }           
             public string Imagen { get; set; }
+            public string Banco { get; set; }
             public string NumeroCuenta { get; set; }
             public decimal SubTransporte { get; set; }
             public string FechaFirmaContrato { get; set; }
