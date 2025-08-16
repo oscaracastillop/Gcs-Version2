@@ -39,49 +39,40 @@ function CrearEntrada() {
     if (IdProducto == -1 || IdProducto == null || IdProducto == '') {
         $('#SelectProductoxIdCategoria').focus();
         VentanaMensaje('Seleccione el Producto', 'info');
-    } else if (Cantidad == null || Cantidad == '' || Cantidad == undefined) {
+    }
+    else if (Cantidad == null || Cantidad == '' || Cantidad == undefined) {
         $('#InputCantidadProducto').focus();
         VentanaMensaje('Ingrese la Cantidad', 'info');
-    } else if (ValorUnitarioCompra == null || ValorUnitarioCompra == '' || ValorUnitarioCompra == undefined) {
+    }
+    else if (ValorUnitarioCompra == null || ValorUnitarioCompra == '' || ValorUnitarioCompra == undefined) {
         $('#InputValorUnitarioCompraProducto').focus();
         VentanaMensaje('Ingrese el precio unitario de compra del producto', 'info');
-    } else if (Cantidad == null || Cantidad == '' || Cantidad == undefined) {
-        $('#InputCantidadProducto').focus();
-        VentanaMensaje('Ingrese la Cantidad', 'info');
-    } else {
+    }
+    else if (FechaIngresoAlmacen == null || FechaIngresoAlmacen == '' || FechaIngresoAlmacen == undefined) {
+        $('#InputFechaIngresoAlmacen').focus();
+        VentanaMensaje('Ingrese la fecha de ingreso al Almacén', 'info');
+    }
+    else {
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/Proveedor/CrearProveedor',
+            url: '/Entrada_Almacen/CrearEntradaAlmacen',
             data: {
                 IdUser: TokenUser,
-                NombreProveedor: NombreProveedor,
-                IdTipoDocumento: IdTipoDocumento,
-                Identificacion: Identificacion,
-                Email: Email,
-                Telefono: Telefono,
-                Celular: Celular,
-                Contacto: Contacto,
-                IdCiudad: IdCiudad,
-                Direccion: Direccion,
-                IdFormaPago: IdFormaPago,
-                IdPlazoPago: IdPlazoPago,
-                Descripcion: Descripcion,
+                IdProducto: IdProducto,
+                Lote: Lote,
+                Cantidad: Cantidad,
+                ValorUnitarioCompra: ValorUnitarioCompra,
+                PorcentajeIva: PorcentajeIva,
+                FechaVencimientoProducto: FechaVencimientoProducto,
+                FechaIngresoAlmacen: FechaIngresoAlmacen
             },
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });

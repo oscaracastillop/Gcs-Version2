@@ -4556,6 +4556,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BancoController.cs" />
+    <Compile Include="Controllers\Entrada_AlmacenController.cs" />
     <Compile Include="Controllers\Otros_Descuentos_EmpleadoController.cs" />
     <Compile Include="Controllers\Otros_Ingresos_EmpleadoController.cs" />
     <Compile Include="Controllers\Cargar_DocumentoController.cs" />
@@ -4694,6 +4695,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Entrada_Almacen\" />
     <Folder Include="Views\PlantillaComprobanteNominaEmpleado\" />
   </ItemGroup>
   <ItemGroup>

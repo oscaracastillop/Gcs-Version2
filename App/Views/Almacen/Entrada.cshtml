@@ -31,7 +31,7 @@
                         <select class="form-control" id="SelectCategoria" style="min-width:100%" onchange="ListaProductoxIdCategoria($('#SelectCategoria').val())"></select>
                     </div>
                     <div class="col-6">
-                        <label><strong>Producto</strong></label>
+                        <label><strong>Producto</strong><label style="color:red" id=""> *</label></label>
                         <select class="form-control" id="SelectProductoxIdCategoria" style="min-width:100%"></select>
                     </div>
                 </div>
@@ -39,14 +39,14 @@
                 <div class="row g-2">
                     <div class="col-3">
                         <label><strong>Lote</strong></label>
-                        <input class="form-control" type="text" id="InputLoteProducto" autocomplete="off" style="min-width:100%" placeholder="0" />
+                        <input class="form-control" type="text" id="InputLoteProducto" autocomplete="off" style="min-width:100%" />
                     </div>
                     <div class="col-3">
-                        <label><strong>Cantidad</strong></label>
+                        <label><strong>Cantidad</strong><label style="color:red" id=""> *</label></label>
                         <input class="form-control" type="number" id="InputCantidadProducto" autocomplete="off" style="min-width:100%" placeholder="0" />
                     </div>
                     <div class="col-3">
-                        <label><strong>Valor Unitario</strong></label>
+                        <label><strong>Precio Unit. Compra</strong><label style="color:red" id=""> *</label></label>
                         <input class="form-control" type="number" id="InputValorUnitarioCompraProducto" autocomplete="off" style="min-width:100%" placeholder="0" />
                     </div>
                     <div class="col-3">
@@ -57,7 +57,7 @@
 
                 <div class="row g-2">
                     <div class="col-6">
-                        <label><strong>Fecha Vencimiento Producto</strong><label style="color:red" id=""> *</label></label>
+                        <label><strong>Fecha Vencimiento Producto</strong></label>
                         <input class="form-control" type="date" id="InputFechaVencimientoProducto" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
                     <div class="col-6">

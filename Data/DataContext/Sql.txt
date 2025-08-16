@@ -7094,6 +7094,20 @@ END
 
 GO
 
+CREATE PROCEDURE [dbo].[SP_ListaProductoxCategoria] @IdCategoria INT
+AS
+BEGIN	
+	SELECT	A.Id, 
+			A.Nombre+' '+A.Marca+' '+A.Referencia+' -  '+B.Nombre AS Nombre
+	FROM	Producto A, 
+			UnidadMedida B 
+	WHERE	A.IdEstado = 1 AND
+			A.IdCategoria = @IdCategoria AND
+			A.IDUNIDADMEDIDA = B.ID ORDER BY Nombre
+END
+
+GO
+
 CREATE FUNCTION Fun_BuscarNombreProducto(@IdProducto INT)
 RETURNS VARCHAR(255)
 AS BEGIN
@@ -7866,6 +7880,65 @@ END
 
 GO
 
+/* TABLA ENTRADA ALMACEN */
 
+CREATE TABLE EntradaAlmacen 
+(Id int identity(1,1) Primary key ,
+IdProducto int,
+Lote varchar(255),
+Cantidad int default 0,
+ValorUnitarioCampra int default 0,
+PorcentajeIva int default 0,
+FechaVencimientoProducto date default '1900-01-01',
+FechaIngresoAlmacen date,
+IdEstado int default 1,
+CreateBy int,
+DateCreate datetime
+)
+GO
 
+ALTER TABLE EntradaAlmacen ADD CONSTRAINT FK_IdCreateByEntradaAlmacen FOREIGN KEY (CreateBy ) references Usuario(Id)
+ALTER TABLE EntradaAlmacen ADD CONSTRAINT FK_IdProductoEntradaAlmacen FOREIGN KEY (IdProducto ) references Producto(Id)
+ALTER TABLE EntradaAlmacen ADD CONSTRAINT FK_IdEstadoEntradaAlmacen FOREIGN KEY (IdEstado) references TipoEstado(Id)
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_CrearEntradaAlmacen] 
+				@IdUser varchar(255),  
+				@IdProducto int,
+				@Lote varchar(255),
+				@Cantidad int,
+				@ValorUnitarioCompra int,
+				@PorcentajeIva int,
+				@FechaVencimientoProducto varchar(255),
+				@FechaIngresoAlmacen varchar(255),		
+				@Resultado varchar(255) OUTPUT     
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Crear'
+SET @SubMenu = '/Almacen/Entrada'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN		
+		INSERT INTO EntradaAlmacen
+		(IdProducto, Lote, Cantidad, ValorUnitarioCampra, PorcentajeIva, FechaVencimientoProducto, FechaIngresoAlmacen, CreateBy, DateCreate) 
+		VALUES 
+		(@IdProducto, @Lote, @Cantidad, @ValorUnitarioCompra, @PorcentajeIva, @FechaVencimientoProducto, @FechaIngresoAlmacen, @IdUsuario, GETDATE()) 
+
+		SET @Resultado = 'OK*Se agrego el registro de entrada correctamente'
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
 
