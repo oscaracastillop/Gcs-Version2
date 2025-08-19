@@ -4304,6 +4304,7 @@
     <Content Include="Images\LogoEmpresa\default.png" />
     <Content Include="Images\LogoEmpresa\Imagen1.png" />
     <Content Include="JsApp\Banco.js" />
+    <Content Include="JsApp\Cotizacion.js" />
     <Content Include="JsApp\Entrada.js" />
     <Content Include="JsApp\OtrosDescuentosEmpleado.js" />
     <Content Include="JsApp\OtrosIngresosEmpleado.js" />
