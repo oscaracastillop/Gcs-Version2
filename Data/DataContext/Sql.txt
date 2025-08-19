@@ -1,5 +1,6 @@
 ﻿
 
+
 CREATE DATABASE SofiaDB  
 GO 
 
@@ -7113,7 +7114,7 @@ RETURNS VARCHAR(255)
 AS BEGIN
 DECLARE @NombreProducto VARCHAR(255)
 	SELECT	@NombreProducto = Nombre
-	FROM	Sucursal
+	FROM	Producto
 	WHERE	Id = @IdProducto
 	RETURN @NombreProducto
 END
@@ -7884,10 +7885,12 @@ GO
 
 CREATE TABLE EntradaAlmacen 
 (Id int identity(1,1) Primary key ,
+OrdenCompra varchar(255) default '',
+Factura varchar(255) default '',
 IdProducto int,
 Lote varchar(255),
 Cantidad int default 0,
-ValorUnitarioCampra int default 0,
+ValorUnitarioCompra int default 0,
 PorcentajeIva int default 0,
 FechaVencimientoProducto date default '1900-01-01',
 FechaIngresoAlmacen date,
@@ -7929,7 +7932,7 @@ SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
 IF @Permiso > 0
 	BEGIN		
 		INSERT INTO EntradaAlmacen
-		(IdProducto, Lote, Cantidad, ValorUnitarioCampra, PorcentajeIva, FechaVencimientoProducto, FechaIngresoAlmacen, CreateBy, DateCreate) 
+		(IdProducto, Lote, Cantidad, ValorUnitarioCompra, PorcentajeIva, FechaVencimientoProducto, FechaIngresoAlmacen, CreateBy, DateCreate) 
 		VALUES 
 		(@IdProducto, @Lote, @Cantidad, @ValorUnitarioCompra, @PorcentajeIva, @FechaVencimientoProducto, @FechaIngresoAlmacen, @IdUsuario, GETDATE()) 
 
@@ -7942,3 +7945,110 @@ ELSE
 	SELECT @Resultado
 END
 
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridEntradaAlmacen]
+AS
+BEGIN
+SELECT	A.Id,
+		'OC-00001' As OrdenCompra,
+		'FV-00001' As Factura,
+		B.Nombre As Categoria,
+		dbo.Fun_BuscarNombreProducto(A.IdProducto) AS Producto,
+		Lote As Lote,
+		Cantidad As Cantidad,
+		ValorUnitarioCompra As PrecioCompraUnidad,
+		PorcentajeIva,
+		Cantidad * (ValorUnitarioCompra + ((ValorUnitarioCompra * PorcentajeIva)/100)) As PrecioTotalCompra,
+		CASE A.FechaVencimientoProducto
+			WHEN '1900-01-01 00:00:00.000' THEN ''
+			ELSE CONVERT(varchar(255),A.FechaVencimientoProducto,23)
+			END as FechaVencimientoProducto,
+		CONVERT(varchar(255),A.FechaIngresoAlmacen,23) AS FechaIngresoAlmacen,
+		dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,
+		A.IdEstado,
+		dbo.Fun_BuscarNombreUsuario(A.CreateBy) As CreateBy,
+		CONVERT(varchar(255),A.DateCreate,105)+ ' ' + CONVERT(varchar(255),A.DateCreate,8) As DateCreate		
+
+FROM	EntradaAlmacen A,
+		Categoria B,
+		Producto C
+
+WHERE	A.IdProducto = C.Id AND
+		B.Id = C.IdCategoria
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_ActualizarEntradaAlmacen] 
+				@IdUser varchar(255),  
+				@IdEntradaAlmacen int,
+				@Lote varchar(255),
+				@Cantidad int,
+				@ValorUnitarioCompra int,
+				@PorcentajeIva int,
+				@FechaVencimientoProducto varchar(255),
+				@FechaIngresoAlmacen varchar(255),	
+				@IdEstado int,
+				@Resultado varchar(255) OUTPUT     
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Editar'
+SET @SubMenu = '/Almacen/Entrada'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN		
+		UPDATE	EntradaAlmacen
+		SET		Lote = @Lote,
+				Cantidad = @Cantidad,
+				ValorUnitarioCompra = @ValorUnitarioCompra,
+				PorcentajeIva = @PorcentajeIva,
+				FechaVencimientoProducto = @FechaVencimientoProducto,
+				FechaIngresoAlmacen = @FechaIngresoAlmacen,
+				IdEstado = @IdEstado
+		FROM	EntradaAlmacen
+
+		SET @Resultado = 'OK*El registro se actualizo correctamente'
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_EliminarEntradaAlmacen] @IdUser varchar(255), @IdEntradaAlmacen int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Almacen/Entrada'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE EntradaAlmacen WHERE Id = @IdEntradaAlmacen
+SET @Resultado = 'OK*Estimado Usuario el registro se elimino correctamente'	
+
+SELECT @Resultado
+END

@@ -16,8 +16,11 @@
     <label>MODULO ENTRADA ALMACEN</label>
 </div>
 
+<div class="grid">
+    <table id="gridEntradaAlmacen" class="table nowrap cell-border table-striped" style="width: 100%;"></table>
+</div>
 
-<div class="modal fade" id="ModalEntrada" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="ModalEntradaAlmacen" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header header-modal">
@@ -29,10 +32,12 @@
                     <div class="col-6">
                         <label><strong>Categoría</strong></label>
                         <select class="form-control" id="SelectCategoria" style="min-width:100%" onchange="ListaProductoxIdCategoria($('#SelectCategoria').val())"></select>
+                        <input class="form-control" type="text" name="name" id="Categoria" value="" disabled style="min-width:100%"/>
                     </div>
                     <div class="col-6">
                         <label><strong>Producto</strong><label style="color:red" id=""> *</label></label>
                         <select class="form-control" id="SelectProductoxIdCategoria" style="min-width:100%"></select>
+                        <input class="form-control" type="text" name="name" id="Producto" value="" disabled style="min-width:100%" />
                     </div>
                 </div>
 
@@ -83,7 +88,7 @@
 <script>
     $(document).ready(function () {
         ValidarSesion('/Almacen/Entrada');
-        //GridCategoria();
+        GridEntradaAlmacen();
         ListaTipoEstado(1);
         ListaCategoria();
         ModalEntrada('C');
