@@ -8052,3 +8052,143 @@ SET @Resultado = 'OK*Estimado Usuario el registro se elimino correctamente'
 
 SELECT @Resultado
 END
+
+
+
+
+
+GO
+
+/* DETALLE COTIZACION TEMPORAL */
+
+CREATE TABLE DetalleCotizacionTemporal 
+(Id int identity(1,1) Primary key ,
+IdProducto int,
+Cantidad int,
+PrecioUnitario int,
+PorcentajeIva int
+)
+
+GO
+
+ALTER TABLE DetalleCotizacionTemporal ADD CONSTRAINT FK_IdProductoDetalleCotizacionTemporal FOREIGN KEY (IdProducto ) references Producto(Id)
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_AgregarProductoDetCotTemporal] 
+				@IdUser varchar(255),  
+				@IdProducto int, 				
+				@Cantidad int, 
+				@PrecioUnitario int, 
+				@PorcentajeIva int, 
+				@Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+		
+SET @Accion = 'Crear'
+SET @SubMenu = '/Venta/Detalle_Cotizacion'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN		
+		INSERT INTO DetalleCotizacionTemporal
+		(IdProducto,Cantidad, PrecioUnitario, PorcentajeIva) 
+		VALUES 
+		(@IdProducto, @Cantidad, @PrecioUnitario, @PorcentajeIva)  
+
+		SET @Resultado = 'OK*Se agrego le registro Temporalmente a la lista de la Cotización'
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridTDetalleCotizacion]
+AS
+BEGIN
+	SELECT	B.Id, 
+			B.Idproducto,
+			dbo.Fun_BuscarNombreProducto(A.Id) As NombreProducto,
+			dbo.Fun_BuscarNombreUnidadMedida(A.IdUnidadMedida) As UnidadMedida,
+			B.Cantidad,
+			B.PrecioUnitario,
+			(B.Cantidad * B.PrecioUnitario) As SubTotal,
+			B.PorcentajeIva,
+			((B.PrecioUnitario * B.PorcentajeIva)/100) As ValorIva,
+			((B.PrecioUnitario + ((B.PrecioUnitario * B.PorcentajeIva)/100)) * B.Cantidad)  As Total
+	FROM	Producto A,
+			DetalleCotizacionTemporal B 
+			
+	WHERE	A.Id = B.IdProducto 			
+	ORDER BY Id DESC
+
+END
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_EliminarRegistroTDetalleCotizacion] @IdUser varchar(255), @IdTDetalleCotizacion int, @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@NombreCargo varchar(255),
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Venta/Detalle_Cotizacion'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE DetalleCotizacionTemporal WHERE Id = @IdTDetalleCotizacion
+SET @Resultado = 'OK*Estimado Usuario el producto y/o servicio se elimino correctamente de la cotización'	
+
+SELECT @Resultado
+END
+
+GO 
+
+
+CREATE PROCEDURE [dbo].[SP_BorrarTProductoListaDetCot] @IdUser varchar(255), @Resultado varchar(255) OUTPUT
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@NombreCargo varchar(255),
+		@Accion varchar(255), 
+		@SubMenu varchar(255)
+
+SET @Accion = 'Eliminar'
+SET @SubMenu = '/Venta/Detalle_Cotizacion'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+
+IF @Permiso != 1
+BEGIN
+	SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	RETURN
+END	
+
+DELETE DetalleCotizacionTemporal
+SET @Resultado = 'OK*Estimado Usuario el producto y/o servicio se elimino correctamente de la cotización'	
+
+SELECT @Resultado
+END

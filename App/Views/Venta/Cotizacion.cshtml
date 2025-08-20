@@ -3,20 +3,8 @@
     ViewBag.Title = "Cotización";
 }
 
-
-
-
-
-
-<script src="~/JsApp/Categoria.js"></script>
-<script src="~/JsApp/Cliente.js"></script>
 <script src="~/JsApp/Cotizacion.js"></script>
-<script src="~/JsApp/Producto.js"></script>
 <script src="~/JsApp/TipoEstado.js"></script>
-
-
-
-
 
 <div class="tituloPage">
     <label>MODULO COTIZACION</label>
@@ -25,104 +13,11 @@
 
 
 
-<div class="modal fade" id="ModalCotizacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header header-modal">
-                <div class="modal-title" id="TituloModalCotizacion"></div>
-            </div>
-            <div class="modal-body">
-                <label id="LabelIdCotizacion" hidden></label>
-                <div class="row g-2">
-                    <div class="col-6">
-                        <label><strong>Cliente </strong><label style="color:red"> *</label></label>
-                        <select class="form-control" id="SelectCliente" style="min-width:100%"></select>
-                    </div>
-                </div>
-
-                <div class="row g-2">
-                    <div class="col-6">
-                        <label><strong>Categoría</strong></label>
-                        <select class="form-control" id="SelectCategoria" style="min-width:100%" onchange="ListaProductoxIdCategoria($('#SelectCategoria').val())"></select>
-                        <input class="form-control" type="text" name="name" id="Categoria" value="" disabled style="min-width:100%" />
-                    </div>
-                    <div class="col-6">
-                        <label><strong>Producto y/o Servicio</strong><label style="color:red" id=""> *</label></label>
-                        <select class="form-control" id="SelectProductoxIdCategoria" style="min-width:100%"></select>
-                        <input class="form-control" type="text" name="name" id="Producto" value="" disabled style="min-width:100%" />
-                    </div>
-                </div>
-
-                <div class="row g-2">
-                    <div class="col-3">
-                        <label><strong>Cantidad</strong></label>
-                        <input class="form-control" type="text" id="InputEmailCliente" name="name" autocomplete="off" style="min-width:100%" />
-                    </div>
-                    <div class="col-3">
-                        <label><strong>Valor</strong></label>
-                        <input class="form-control" type="text" id="InputContactoCliente" name="name" autocomplete="off" style="min-width:100%" />
-                    </div>
-                    <div class="col-3">
-                        <label><strong>% Iva</strong></label>
-                        <input class="form-control" type="text" id="InputTelefonoCliente" name="name" autocomplete="off" style="min-width:100%"/>
-                    </div>
-                </div>
-
-                <div class="row g-2">
-                    
-                    <div class="col-6">
-                        <label><strong>Celular</strong></label>
-                        <input class="form-control" type="text" id="InputCelularCliente" name="name" autocomplete="off" style="min-width:100%" />
-                    </div>
-                </div>
-
-                <div class="row g-2">
-                    <div class="col-6">
-                        <label><strong>Forma de Pago</strong></label>
-                        <select class="form-control" id="SelectFormaPago"></select>
-                    </div>
-                    <div class="col-6">
-                        <label><strong>Plazo de Pago</strong></label>
-                        <select class="form-control" id="SelectPlazoPago"></select>
-                    </div>
-                </div>
-
-                <div class="row g-2">
-                    <div class="col-6">
-                        <label><strong>Dirección</strong></label>
-                        <input class="form-control" type="text" id="InputDireccionCliente" name="name" autocomplete="off" style="min-width:100%" />
-                    </div>
-                    <div class="col-6">
-                        <label><strong>Ciudad </strong><label style="color:red"> *</label></label>
-                        <select class="form-control" id="SelectCiudad" style="min-width:100%"></select>
-                    </div>
-                </div>
-                <div class="row g-2">
-                    <div class="col-12">
-                        <label><strong>Descripción</strong></label>
-                        <input type="text" id="InputDescripcionCliente" class="form-control" style="min-width:100%" rows="3" />
-                    </div>
-                </div>
-                <div class="col-3" id="SelectEstadoCliente">
-                    <label><strong>Estado</strong></label>
-                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
-                </div>
-            </div>
-
-            <div class="modal-footer" id="BotonesModalCliente">
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
 <script>
     $(document).ready(function () {
         ValidarSesion('/Venta/Cotizacion');
         //GridEntradaAlmacen();
         ListaTipoEstado(1);
-        ListaCategoria();
-        ModalCotizacion('C');
+      
     });
 </script>

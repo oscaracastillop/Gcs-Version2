@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "Crear Cotizacion";
+}
+
+<script src="~/JsApp/Categoria.js"></script>
+<script src="~/JsApp/Cliente.js"></script>
+<script src="~/JsApp/Cotizacion.js"></script>
+<script src="~/JsApp/DetalleCotizacion.js"></script>
+<script src="~/JsApp/Producto.js"></script>
+<script src="~/JsApp/TipoEstado.js"></script>
+
+
+
+
+<div class="tituloPage">
+    <label>MODULO CREAR COTIZACION</label>
+</div>
+
+
+<div>
+
+    <div class="row g-2">
+        <div class="col-6">
+            <label><strong>Cliente </strong><label style="color:red"> *</label></label>
+            <select class="form-control" id="SelectCliente" style="min-width:100%"></select>
+        </div>
+    </div>
+    <br />
+    <div class="row g-2">
+        <div class="col-6">
+            <label><strong>Categoría</strong></label>
+            <select class="form-control" id="SelectCategoria" style="min-width:100%" onchange="ListaProductoxIdCategoria($('#SelectCategoria').val())"></select>
+            @*<input class="form-control" type="text" name="name" id="Categoria" value="" disabled style="min-width:100%" />*@
+        </div>
+        <div class="col-6">
+            <label><strong>Producto y/o Servicio</strong><label style="color:red" id=""> *</label></label>
+            <select class="form-control" id="SelectProductoxIdCategoria" style="min-width:100%" disabled></select>
+            @*<input class="form-control" type="text" name="name" id="Producto" value="" disabled style="min-width:100%" />*@
+        </div>
+    </div>
+
+    <div class="row g-2">
+        <div class="col-2">
+            <label><strong>Cantidad</strong></label>
+            <input class="form-control" type="number" id="InputTCantidadProdDetCot" name="name" autocomplete="off" style="min-width:100%" />
+        </div>
+        <div class="col-2">
+            <label><strong>Precio Unitario</strong></label>
+            <input class="form-control" type="number" id="InputTPrecioUnitarioProdDetCot" name="name" autocomplete="off" style="min-width:100%" />
+        </div>
+        <div class="col-2">
+            <label><strong>% Iva</strong></label>
+            <input class="form-control" type="number" id="InputTPorcIvaProdDetCot" name="name" autocomplete="off" style="min-width:100%" />
+        </div>
+    </div>
+    <br />
+    <div>
+        <button class="btn btn-modal-Cancelar btn-sm" onclick="BorrarTProductoListaDetCot()">Borrar Registros</button>
+        <button class="btn btn-modal-guardar btn-sm" onclick="AgregarTProductoListaDetCot()">Agregar a Lista</button>
+    </div>
+
+    <br />
+    <label style="text-align:center; font-weight:bold">DETALLE COTIZACIÓN</label>
+    <br />
+    <div class="grid">
+        <table id="gridTemporalDetalleCotizacion" class="table nowrap cell-border table-striped" style="width: 100%;"></table>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        ValidarSesion('/Venta/Cotizacion');
+        //GridEntradaAlmacen();
+        ListaTipoEstado(1);
+        ListaCategoria();
+        ListaCliente();
+        //ModalCotizacion('C');
+        GridTDetalleCotizacion();
+    });
+</script>
