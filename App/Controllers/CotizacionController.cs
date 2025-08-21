@@ -17,5 +17,11 @@ namespace App.Controllers
 
             return Json(resultado);
         }
+
+        public ActionResult GridCotizacion()
+        {
+            var data = dataCotizacion.GridCotizacion();
+            return Json(new { data = data }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

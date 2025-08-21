@@ -8201,8 +8201,12 @@ GO
 
 CREATE TABLE Cotizacion 
 (Id int identity(1,1) Primary key ,
-IdCliente int,
 CodigoCotizacion varchar(255),
+IdCliente int,
+IdTipoDocumento int,
+Identificacion varchar(255),
+IdFormaPago int,
+IdPlazoPago int,
 IdEstado int default 1,
 CreateBy int,
 DateCreate datetime
@@ -8212,6 +8216,9 @@ GO
 
 ALTER TABLE Cotizacion ADD CONSTRAINT FK_IdClienteCotizacion FOREIGN KEY (IdCliente ) references Cliente(Id)
 ALTER TABLE Cotizacion ADD CONSTRAINT FK_IdEstadoCotizacion FOREIGN KEY (IdEstado) references TipoEstado(Id)
+ALTER TABLE Cotizacion ADD CONSTRAINT FK_IdTipoDocumentoCotizacion FOREIGN KEY (IdTipoDocumento) references TipoDocumento(Id)
+ALTER TABLE Cotizacion ADD CONSTRAINT FK_IdFormaPagoCotizacion FOREIGN KEY (IdFormaPago) references FormaPago(Id)
+ALTER TABLE Cotizacion ADD CONSTRAINT FK_IdPlazoPagoCotizacion FOREIGN KEY (IdPlazoPago) references PlazoPago(Id)
 ALTER TABLE Cotizacion ADD CONSTRAINT FK_IdCreateByCotizacion FOREIGN KEY (CreateBy ) references Usuario(Id)
 
 GO
@@ -8224,6 +8231,14 @@ AS
 BEGIN
 DECLARE @Permiso INT, 
 		@IdUsuario INT, 
+		@Year INT,
+		@CodigoCot VARCHAR(255),
+		@CantidadExistentes INT,
+		@cantDigitos INT,
+		@IdFormaPago INT,
+		@IdPlazoPago INT,
+		@IdTipoDocumento INT,
+		@Identificacion VARCHAR(255),
 		@Accion VARCHAR(255),
 		@SubMenu VARCHAR(255)
 	
@@ -8235,10 +8250,41 @@ SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
 
 IF @Permiso > 0
 	BEGIN	
+		SELECT @IdFormaPago = IdFormaPago FROM Cliente WHERE Id = @IdCliente
+		SELECT @IdpLAZOPago = IdPlazoPago FROM Cliente WHERE Id = @IdCliente
+		SELECT @IdTipoDocumento = IdTipoDocumento FROM Cliente WHERE Id = @IdCliente
+		SELECT @Identificacion = Identificacion FROM Cliente WHERE Id = @IdCliente
+		SELECT @IdpLAZOPago = IdPlazoPago FROM Cliente WHERE Id = @IdCliente
+		SELECT @CantidadExistentes = COUNT(1) FROM Cotizacion
+		SELECT @Year
+
+		SELECT @CantDigitos = LEN(@CantidadExistentes) 
+
+		IF @cantDigitos = 1
+			BEGIN
+				SET @CodigoCot = 'COT '+ CONVERT(VARCHAR(255), YEAR(GETDATE()))+'-0000'+CONVERT(varchar(255), @CantidadExistentes+1)
+			END
+		ELSE IF @cantDigitos = 2
+			BEGIN
+				SET @CodigoCot = 'COT '+ CONVERT(VARCHAR(255), YEAR(GETDATE()))+'-000'+CONVERT(varchar(255), @CantidadExistentes+1)
+			END
+		ELSE IF @cantDigitos = 3
+			BEGIN
+				SET @CodigoCot = 'COT '+ CONVERT(VARCHAR(255), YEAR(GETDATE()))+'-00'+CONVERT(varchar(255), @CantidadExistentes+1)
+			END
+		ELSE IF @cantDigitos = 4
+			BEGIN
+				SET @CodigoCot = 'COT '+ CONVERT(VARCHAR(255), YEAR(GETDATE()))+'-0'+CONVERT(varchar(255), @CantidadExistentes+1)
+			END
+		ELSE IF @cantDigitos = 5
+		BEGIN
+			SET @CodigoCot = 'COT '+ CONVERT(VARCHAR(255), YEAR(GETDATE()))+'-'+CONVERT(varchar(255), @CantidadExistentes+1)
+		END
+
 		INSERT INTO Cotizacion
-		(IdCliente, CodigoCotizacion, CreateBy, DateCreate) 
+		(CodigoCotizacion, IdCliente, IdTipoDocumento, Identificacion, IdFormaPago, IdPlazoPago, CreateBy, DateCreate) 
 		VALUES 
-		(@IdCliente, '',@IdUsuario, GETDATE()) 
+		(@CodigoCot, @IdCliente, @IdTipoDocumento, @Identificacion, @IdFormaPago, @IdPlazoPago, @IdUsuario, GETDATE()) 
 
 		UPDATE DetalleCotizacionTemporal SET IdCotizacion = @@IDENTITY
 
@@ -8259,6 +8305,7 @@ ELSE
 	END
 	SELECT @Resultado
 END
+
 
 GO
 
@@ -8299,10 +8346,10 @@ BEGIN
 	SELECT	A.Id, 
 			A.CodigoCotizacion,
 			B.Nombre,
-			dbo.Fun_BuscarNombreTipoDocumento(B.IdTipoDocumento) As Documento,
+			dbo.Fun_BuscarNombreTipoDocumento(A.IdTipoDocumento) As Documento,
 			B.Identificacion,
-			dbo.Fun_BuscarNombreFormaPago(B.IdFormaPago) As FormaPago,
-			dbo.Fun_BuscarNombrePlazoPago(B.IdPlazoPago) As PlazoPago,
+			dbo.Fun_BuscarNombreFormaPago(A.IdFormaPago) As FormaPago,
+			dbo.Fun_BuscarNombrePlazoPago(A.IdPlazoPago) As PlazoPago,
 			dbo.Fun_BuscarTotalProductosCotizacion(A.Id) As CantidadProductos,
 			dbo.Fun_BuscarSubTotalCotizacion(A.Id) As SubTotal,
 			dbo.Fun_BuscarTotalIvaCotizacion(A.Id) As ValorIva,

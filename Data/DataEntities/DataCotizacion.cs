@@ -7,6 +7,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Models.Cargo;
+using static Models.Cotizacion;
 
 namespace Data.DataEntities
 {
@@ -48,6 +50,20 @@ namespace Data.DataEntities
                 }
             }
             return resultado;
+        }
+
+
+        public List<GridCotizacion> GridCotizacion()
+        {
+            try
+            {
+                var response = _conection.Database.SqlQuery<GridCotizacion>("SP_GridCotizacion").ToList();
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

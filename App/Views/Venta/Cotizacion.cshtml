@@ -10,17 +10,17 @@
     <label>MODULO COTIZACION</label>
 </div>
 
-<br />
-<div>
-    <a href="/Venta/Crear_Cotizacion" class="btn btn-sm btn-modal-guardar">Crear Cotizacion</a>
-    
+<div class="">
+    <div class="grid">
+        <table id="gridCotizacion" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
+    </div>
 </div>
 
 
 <script>
     $(document).ready(function () {
         ValidarSesion('/Venta/Cotizacion');
-        //GridEntradaAlmacen();
+        GridCotizacion();
         ListaTipoEstado(1);
 
     });
