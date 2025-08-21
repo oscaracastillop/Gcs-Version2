@@ -20,5 +20,31 @@ function ModalCotizacion(tipo) {
 }
 
 
+function CrearCotizacion() {
+    let IdCliente = $('#SelectCliente').val();
+
+    if (IdCliente == -1 || IdCliente == '' || IdCliente == undefined) {
+        $('#SelectCliente').focus();
+        VentanaMensaje('Seleccione el Cliente');
+    } else {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/Cotizacion/CrearCotizacion',
+            data: {
+                IdUser: TokenUser,
+                IdCliente: IdCliente
+            },
+            success: function (resultado) {
+                valor = resultado.split('*');
+                if (valor[0] == 'OK') {
+                    VentanaMensajeOK(valor[1]);
+                } else {
+                    VentanaMensaje(valor[1]);
+                }
+            }
+        });
+    }
+}
 
 

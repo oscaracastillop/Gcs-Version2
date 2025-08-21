@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Banco.cs" />
+    <Compile Include="Cotizacion.cs" />
     <Compile Include="DetalleCotizacion.cs" />
     <Compile Include="EntradaAlmacen.cs" />
     <Compile Include="OtrosDescuentosEmpleado.cs" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.DataEntities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,13 @@ namespace App.Controllers
 {
     public class CotizacionController : Controller
     {
-        // GET: Cotizacion
-        public ActionResult Index()
+
+        private readonly DataCotizacion dataCotizacion = new DataCotizacion();
+        public JsonResult CrearCotizacion(string IdUser, int IdCliente)
         {
-            return View();
+            var resultado = dataCotizacion.CrearCotizacion(IdUser, IdCliente);
+
+            return Json(resultado);
         }
     }
 }

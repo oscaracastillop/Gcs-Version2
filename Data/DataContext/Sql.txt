@@ -8063,6 +8063,7 @@ GO
 
 CREATE TABLE DetalleCotizacionTemporal 
 (Id int identity(1,1) Primary key ,
+IdCotizacion int,
 IdProducto int,
 Cantidad int,
 PrecioUnitario int,
@@ -8188,7 +8189,160 @@ BEGIN
 END	
 
 DELETE DetalleCotizacionTemporal
-SET @Resultado = 'OK*Estimado Usuario el producto y/o servicio se elimino correctamente de la cotización'	
+SET @Resultado = 'OK*Estimado Usuario la lista de producto(s) y/o servicio(s) fueron eliminados correctamente de la cotización'	
 
 SELECT @Resultado
 END
+
+
+GO
+
+/* TABLA COTIZACION*/
+
+CREATE TABLE Cotizacion 
+(Id int identity(1,1) Primary key ,
+IdCliente int,
+CodigoCotizacion varchar(255),
+IdEstado int default 1,
+CreateBy int,
+DateCreate datetime
+)
+
+GO
+
+ALTER TABLE Cotizacion ADD CONSTRAINT FK_IdClienteCotizacion FOREIGN KEY (IdCliente ) references Cliente(Id)
+ALTER TABLE Cotizacion ADD CONSTRAINT FK_IdEstadoCotizacion FOREIGN KEY (IdEstado) references TipoEstado(Id)
+ALTER TABLE Cotizacion ADD CONSTRAINT FK_IdCreateByCotizacion FOREIGN KEY (CreateBy ) references Usuario(Id)
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_CrearCotizacion] 
+				@IdUser varchar(255),  
+				@IdCliente int,			
+				@Resultado varchar(255) OUTPUT     
+AS
+BEGIN
+DECLARE @Permiso INT, 
+		@IdUsuario INT, 
+		@Accion VARCHAR(255),
+		@SubMenu VARCHAR(255)
+	
+SET @Accion = 'Crear'
+SET @SubMenu = '/Venta/Cotizacion'
+
+SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
+SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+
+IF @Permiso > 0
+	BEGIN	
+		INSERT INTO Cotizacion
+		(IdCliente, CodigoCotizacion, CreateBy, DateCreate) 
+		VALUES 
+		(@IdCliente, '',@IdUsuario, GETDATE()) 
+
+		UPDATE DetalleCotizacionTemporal SET IdCotizacion = @@IDENTITY
+
+		INSERT INTO DetalleCotizacion(IdCotizacion, IdProducto, Cantidad, PrecioUnitario, PorcentajeIva, CreateBy, DateCreate)
+		SELECT IdCotizacion, IdProducto, Cantidad, PrecioUnitario, PorcentajeIva, @IdUsuario, GETDATE()
+		FROM	DetalleCotizacionTemporal 
+
+		DELETE FROM DetalleCotizacionTemporal
+		DBCC CHECKIDENT (DetalleCotizacionTemporal, RESEED, 0);
+
+
+
+		SET @Resultado = 'OK*Estimado Usuario la Cotización fue generada correctamente'
+	END	
+ELSE
+	BEGIN
+		SET @Resultado = 'Error*Estimado Usuario usted no tiene permisos para realizar esta Acción.'
+	END
+	SELECT @Resultado
+END
+
+GO
+
+CREATE FUNCTION [dbo].[Fun_BuscarTotalIvaCotizacion](@IdCotizacion INT)
+RETURNS INT
+AS BEGIN
+DECLARE @TotalIva INT
+	SELECT @TotalIva = SUM((PrecioUnitario*PorcentajeIva)/100) FROM DetalleCotizacion WHERE IdCotizacion = @IdCotizacion 
+	RETURN @TotalIva
+END
+
+GO
+
+CREATE FUNCTION [dbo].[Fun_BuscarTotalProductosCotizacion](@IdCotizacion INT)
+RETURNS INT
+AS BEGIN
+DECLARE @CantidadProductos INT
+	SELECT @CantidadProductos = COUNT(1) FROM DetalleCotizacion WHERE IdCotizacion = @IdCotizacion 
+	RETURN @CantidadProductos
+END
+
+GO
+
+CREATE FUNCTION [dbo].[Fun_BuscarSubTotalCotizacion](@IdCotizacion INT)
+RETURNS INT
+AS BEGIN
+DECLARE @SubTotalCotizacion INT
+	SELECT @SubTotalCotizacion = SUM((PrecioUnitario*Cantidad)) FROM DetalleCotizacion WHERE IdCotizacion = @IdCotizacion 
+	RETURN @SubTotalCotizacion
+END
+
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_GridCotizacion]
+AS
+BEGIN
+	SELECT	A.Id, 
+			A.CodigoCotizacion,
+			B.Nombre,
+			dbo.Fun_BuscarNombreTipoDocumento(B.IdTipoDocumento) As Documento,
+			B.Identificacion,
+			dbo.Fun_BuscarNombreFormaPago(B.IdFormaPago) As FormaPago,
+			dbo.Fun_BuscarNombrePlazoPago(B.IdPlazoPago) As PlazoPago,
+			dbo.Fun_BuscarTotalProductosCotizacion(A.Id) As CantidadProductos,
+			dbo.Fun_BuscarSubTotalCotizacion(A.Id) As SubTotal,
+			dbo.Fun_BuscarTotalIvaCotizacion(A.Id) As ValorIva,
+			dbo.Fun_BuscarSubTotalCotizacion(A.Id) + dbo.Fun_BuscarTotalIvaCotizacion(A.Id) As ValorTotal,
+			A.IdEstado,
+			dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,			
+			dbo.Fun_BuscarNombreUsuario(A.CreateBy) As CreateBy,
+			CONVERT(varchar(255),A.DateCreate,105)+ ' ' + CONVERT(varchar(255),A.DateCreate,8) As DateCreate
+			
+			
+	FROM	Cotizacion A,
+			Cliente B
+			
+	WHERE	A.IdCliente = B.Id
+
+	ORDER BY Id Desc
+END
+
+GO
+
+/* TABLA DETALLE COTIZACION*/
+
+
+CREATE TABLE DetalleCotizacion 
+(Id int identity(1,1) Primary key ,
+IdCotizacion int,
+IdProducto int,
+Cantidad int,
+PrecioUnitario int,
+PorcentajeIva int,
+IdEstado int default 1,
+CreateBy int,
+DateCreate datetime
+)
+
+GO
+
+ALTER TABLE DetalleCotizacion ADD CONSTRAINT FK_IdCotizacionDetalleCotizacion FOREIGN KEY (IdCotizacion) references Cotizacion(Id)
+ALTER TABLE DetalleCotizacion ADD CONSTRAINT FK_IdProductoDetalleCotizacion FOREIGN KEY (IdProducto ) references Producto(Id)
+ALTER TABLE DetalleCotizacion ADD CONSTRAINT FK_IdEstadoDetalleCotizacion FOREIGN KEY (IdEstado) references TipoEstado(Id)
+ALTER TABLE DetalleCotizacion ADD CONSTRAINT FK_IdCreateByDetalleCotizacion FOREIGN KEY (CreateBy ) references Usuario(Id)
+GO
+
