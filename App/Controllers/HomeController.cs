@@ -23,5 +23,10 @@ namespace App.Controllers
         {
             return View();
         }
+
+        public ActionResult Preguntas()
+        {
+            return View();
+        }
     }
 }

@@ -1,5 +1,89 @@
 ﻿
 
+function GridDetalleCotizacion() {
+    ;
+    let datatable = $('#gridDetalleCotizacion').DataTable({
+        responsive: false,
+        scrollCollapse: true,
+        scrollY: '800px',
+        scrollX: true,
+        searching: false,
+        bLengthChange: false,
+        bInfo: true,
+        columnDefs: [
+            { targets: [0], width: '200px', className: 'dt-head-center' },
+            { targets: [1], className: 'dt-head-center' },
+            { targets: [2], className: 'dt-head-center' },
+            { targets: [3], className: 'dt-head-center' },
+            { targets: [4], className: 'dt-head-center' },
+            { targets: [5], className: 'dt-head-center' },
+            { targets: [6], className: 'dt-head-center' },
+            { targets: [7], className: 'dt-head-center' },
+            { targets: [8], width: '10px', className: 'dt-center dt-head-center' },
+        ],
+        destroy: true,
+        "ajax": {
+            "url": '/Detalle_Cotizacion/GridDetalleCotizacion',
+            "type": "GET",
+            "datatype": "json"
+        },
+        columns: [
+            { "data": "NombreProducto", title: "Producto" },
+            { "data": "Cantidad", title: "Cantidad", visible: true },
+            { "data": "UnidadMedida", title: "Unidad Medida", visible: true },
+            {
+                "data": "null",
+                title: "Precio Unitario",
+                "render": function (data, type, row, meta) {
+                    return '$ ' + new Intl.NumberFormat('en-US').format(row.PrecioUnitario);
+                }
+            },
+            {
+                "data": "null",
+                title: "Sub Total",
+                "render": function (data, type, row, meta) {
+                    return '$ ' + new Intl.NumberFormat('en-US').format(row.SubTotal);
+                }
+            },
+            { "data": "PorcentajeIva", title: "% IVA", width: 'auto', visible: true },
+            {
+                "data": "null",
+                title: "Valor IVA",
+                "render": function (data, type, row, meta) {
+                    return '$ ' + new Intl.NumberFormat('en-US').format(row.ValorIva);
+                }
+            },
+
+            {
+                "data": "null",
+                title: "Total",
+                "render": function (data, type, row, meta) {
+                    return '$ ' + new Intl.NumberFormat('en-US').format(row.Total);
+                }
+            },
+            {
+                title: "",
+                data: null,
+                defaultContent:
+                    '<a class="EliminarDetalleCotizacion btn btn-eliminar-dt" title="Eliminar Registro"><i class="bi-trash-fill"></i></a>',
+                orderable: false,
+            },
+        ],
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.11.2/i18n/es_es.json"
+        },
+        lengthMenu: [
+            [5],
+        ],
+    });
+
+    $('#gridDetalleCotizacion').on('click', '.EliminarDetalleCotizacion', function () {
+        let data = datatable.row($(this).parents()).data();
+        EliminarDetalleCotizacion(data.Id);
+    })
+}
+
+
 function AgregarTProductoListaDetCot() {
     let Idproducto = $('#SelectProductoxIdCategoria').val();
     let Cantidad = $('#InputTCantidadProdDetCot').val();

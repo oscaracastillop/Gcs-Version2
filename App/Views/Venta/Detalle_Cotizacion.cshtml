@@ -3,9 +3,29 @@
     ViewBag.Title = "Detalle Cotización";
 }
 
+<script src="~/JsApp/DetalleCotizacion.js"></script>
+
+
 <div class="tituloPage">
     <label>MODULO DETALLE-COTIZACION</label>
 </div>
 
 
+<div class="">
+    <div class="grid">
+        <table id="gridDetalleCotizacion" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
+    </div>
+</div>
 
+
+
+<script>
+    $(document).ready(function () {
+        ValidarSesion('/Venta/Detalle_Cotizacion');
+        //ListaTipoEstado(1);
+        //ListaCategoria();
+        //ListaCliente();
+        //ModalCotizacion('C');
+        GridDetalleCotizacion();
+    });
+</script>

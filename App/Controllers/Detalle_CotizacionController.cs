@@ -7,6 +7,13 @@ namespace App.Controllers
     public class Detalle_CotizacionController : Controller
     {
         private readonly DataDetalleCotizacion dataDetalleCotizacion = new DataDetalleCotizacion();
+
+        public ActionResult GridDetalleCotizacion()
+        {
+            var data = dataDetalleCotizacion.GridDetalleCotizacion();
+            return Json(new { data = data }, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult AgregarProductoDetCotTemporal(string IdUser, int IdProducto, int Cantidad, int PrecioUnitario, int PorcentajeIva)
         {
             var resultado = dataDetalleCotizacion.AgregarProductoDetCotTemporal(IdUser, IdProducto, Cantidad, PrecioUnitario, PorcentajeIva);

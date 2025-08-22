@@ -17,6 +17,20 @@ namespace Data.DataEntities
         readonly GcsEntities _conection = new GcsEntities();
         private readonly DataRol dataRol = new DataRol();
 
+        public List<GridDetalleCotizacion> GridDetalleCotizacion()
+        {
+            try
+            {
+                var response = _conection.Database.SqlQuery<GridDetalleCotizacion>("SP_GridDetalleCotizacion").ToList();
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
         public string AgregarProductoDetCotTemporal(string IdUser, int IdProducto, int Cantidad, int PrecioUnitario, int PorcentajeIva)
         {
             string resultado = String.Empty;

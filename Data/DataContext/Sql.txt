@@ -8391,5 +8391,27 @@ ALTER TABLE DetalleCotizacion ADD CONSTRAINT FK_IdCotizacionDetalleCotizacion FO
 ALTER TABLE DetalleCotizacion ADD CONSTRAINT FK_IdProductoDetalleCotizacion FOREIGN KEY (IdProducto ) references Producto(Id)
 ALTER TABLE DetalleCotizacion ADD CONSTRAINT FK_IdEstadoDetalleCotizacion FOREIGN KEY (IdEstado) references TipoEstado(Id)
 ALTER TABLE DetalleCotizacion ADD CONSTRAINT FK_IdCreateByDetalleCotizacion FOREIGN KEY (CreateBy ) references Usuario(Id)
+
 GO
+
+CREATE PROCEDURE [dbo].[SP_GridDetalleCotizacion]
+AS
+BEGIN
+	SELECT	B.Id, 
+			B.Idproducto,
+			dbo.Fun_BuscarNombreProducto(A.Id) As NombreProducto,
+			dbo.Fun_BuscarNombreUnidadMedida(A.IdUnidadMedida) As UnidadMedida,
+			B.Cantidad,
+			B.PrecioUnitario,
+			(B.Cantidad * B.PrecioUnitario) As SubTotal,
+			B.PorcentajeIva,
+			((B.PrecioUnitario * B.PorcentajeIva)/100) As ValorIva,
+			((B.PrecioUnitario + ((B.PrecioUnitario * B.PorcentajeIva)/100)) * B.Cantidad)  As Total
+	FROM	Producto A,
+			DetalleCotizacion B 
+			
+	WHERE	A.Id = B.IdProducto 			
+	ORDER BY Id DESC
+
+END
 

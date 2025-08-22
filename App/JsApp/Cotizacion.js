@@ -212,14 +212,7 @@ function GridCotizacion() {
                 }
             },
             { "data": "CreateBy", title: "Creado Por", width: 'auto', visible: true },
-            { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },
-            {
-                title: "",
-                data: null,
-                defaultContent:
-                    '<a class="EditarCliente btn btn-editar-dt" title="editar registro"><i class="bi-pencil-fill"></i></a>',
-                orderable: false,
-            },
+            { "data": "DateCreate", title: "Fecha Creación", width: 'auto', visible: true },          
             {
                 title: "",
                 data: null,
