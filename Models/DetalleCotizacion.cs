@@ -28,6 +28,8 @@ namespace Models
         public class GridDetalleCotizacion
         {
             public int Id { get; set; }
+            public int IdCotizacion { get; set; }
+            public string CodigoCotizacion { get; set; }
             public int Idproducto { get; set; }
             public string NombreProducto { get; set; }
             public string UnidadMedida { get; set; }
@@ -37,7 +39,10 @@ namespace Models
             public int PorcentajeIva { get; set; }
             public int ValorIva { get; set; }
             public int Total { get; set; }
-
+            public int IdEstado { get; set; }
+            public string Estado { get; set; }
+            public string CreateBy { get; set; }
+            public string DateCreate { get; set; }
 
         }
     }

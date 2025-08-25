@@ -8398,6 +8398,8 @@ CREATE PROCEDURE [dbo].[SP_GridDetalleCotizacion]
 AS
 BEGIN
 	SELECT	B.Id, 
+			B.IdCotizacion,
+			C.CodigoCotizacion,
 			B.Idproducto,
 			dbo.Fun_BuscarNombreProducto(A.Id) As NombreProducto,
 			dbo.Fun_BuscarNombreUnidadMedida(A.IdUnidadMedida) As UnidadMedida,
@@ -8406,11 +8408,16 @@ BEGIN
 			(B.Cantidad * B.PrecioUnitario) As SubTotal,
 			B.PorcentajeIva,
 			((B.PrecioUnitario * B.PorcentajeIva)/100) As ValorIva,
-			((B.PrecioUnitario + ((B.PrecioUnitario * B.PorcentajeIva)/100)) * B.Cantidad)  As Total
+			((B.PrecioUnitario + ((B.PrecioUnitario * B.PorcentajeIva)/100)) * B.Cantidad)  As Total,
+			B.IdEstado,
+			dbo.Fun_BuscarNombreTipoEstado(B.IdEstado) As Estado,
+			dbo.Fun_BuscarNombreUsuario(B.CreateBy) As CreateBy,
+			CONVERT(varchar(255),B.DateCreate,105)+ ' ' + CONVERT(varchar(255),B.DateCreate,8) As DateCreate
 	FROM	Producto A,
-			DetalleCotizacion B 
-			
-	WHERE	A.Id = B.IdProducto 			
+			DetalleCotizacion B,
+			Cotizacion C
+	WHERE	A.Id = B.IdProducto AND	
+			C.Id = B.IdCotizacion
 	ORDER BY Id DESC
 
 END
