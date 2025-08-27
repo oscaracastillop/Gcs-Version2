@@ -6,6 +6,95 @@
 <script src="~/JsApp/Cotizacion.js"></script>
 <script src="~/JsApp/TipoEstado.js"></script>
 
+<style>
+    .dashboard-card {
+        border-radius: 1rem;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+        border: none;
+        transition: transform 0.2s, box-shadow 0.2s;
+        color: #fff;
+    }
+/*
+        .dashboard-card:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }*/
+
+        .dashboard-card .card-title {
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .dashboard-card .card-text {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .dashboard-card ul li {
+            color: #222 !important;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+    /* Esquema de colores específico */
+    .card-productos {
+        background: linear-gradient(135deg, #4e54c8 60%, #8f94fb 100%);
+    }
+
+    .card-cotizaciones {
+        background: linear-gradient(135deg, #11998e 60%, #38ef7d 100%);
+    }
+
+    .card-clientes {
+        background: linear-gradient(135deg, #f7971e 60%, #ffd200 100%);
+        color: #222 !important;
+    }
+
+    .card-estados {
+        background: linear-gradient(135deg, #43cea2 60%, #185a9d 100%);
+    }
+
+    .card-graficos{
+        padding:10px;
+    }
+
+    .card-cotizaciones-cliente {
+        background: linear-gradient(135deg, #ffecd2 60%, #fcb69f 100%);
+        border-radius: 1rem;
+        box-shadow: 0 4px 16px rgba(252,182,159,0.15);
+        color: #222 !important;
+    }
+
+        .card-cotizaciones-cliente .card-title {
+            color: #b3541e;
+            font-weight: 700;
+        }
+
+        .card-cotizaciones-cliente ul li {
+            color: #222 !important;
+        }
+
+    .row.mb-4 {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .dashboard-card {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+        .dashboard-card .card-body {
+            flex: 1 1 auto;
+            min-height: 140px; /* Ajusta este valor según lo que necesites */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+</style>
+
 <div class="tituloPage">
     <label>MODULO COTIZACION</label>
 </div>
@@ -16,12 +105,260 @@
     </div>
 </div>
 
+<br />
+
+<div class="row g-2">
+    <div class="col-md-3">
+        <div class="card dashboard-card card-productos mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Total Productos Cotizados</h5>
+                <p class="card-text" id="totalProductos">0</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card dashboard-card card-cotizaciones mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Cantidad Cotizaciones</h5>
+                <p class="card-text" id="totalCotizaciones">0</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card dashboard-card card-clientes mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Total Clientes</h5>
+                <p class="card-text" id="totalClientes">0</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card dashboard-card card-estados mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Estados de Cotización</h5>
+                <ul class="card-text list-unstyled mb-0" id="estadosCotizacion"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card dashboard-card card-cotizaciones-cliente">
+            <div class="card-body">
+                <h5 class="card-title">Top 5 Cotizaciones por Cliente</h5>
+                <ul class="card-text list-unstyled mb-0" id="cotizacionesPorClienteCard"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card card-graficos">
+            <div class="" style="background-color:white">
+                <canvas id="cotizacionesPorMes"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card card-graficos">
+            <div class="" style="background-color:white">
+                <canvas id="valorTotalPorMes"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    $(document).ready(function () {
-        ValidarSesion('/Venta/Cotizacion');
-        GridCotizacion();
-        ListaTipoEstado(1);
+$(document).ready(function () {
+    ValidarSesion('/Venta/Cotizacion');
+    GridCotizacion();
+    ListaTipoEstado(1);
 
+    $.getJSON('@Url.Action("GridCotizacion", "Cotizacion")', function (result) {
+        const data = result.data;
+
+        // Cards resumen
+        let totalProductos = 0;
+        let totalCotizaciones = data.length;
+        let clientes = {};
+        let estados = {};
+
+        data.forEach(item => {
+            // Suma productos cotizados
+            totalProductos += item.CantidadProductos || 0;
+
+            // Agrupa clientes
+            clientes[item.Nombre] = true;
+
+            // Agrupa estados
+            let estado = item.Estado || item.EstadoCotizacion || "Sin Estado";
+            estados[estado] = (estados[estado] || 0) + 1;
+        });
+
+        $('#totalProductos').text(totalProductos);
+        $('#totalCotizaciones').text(totalCotizaciones);
+        $('#totalClientes').text(Object.keys(clientes).length);
+
+        // Estados de cotización
+        let estadosHtml = '';
+        Object.keys(estados).forEach(e => {
+            estadosHtml += `<li>${e}: <b>${estados[e]}</b></li>`;
+        });
+        $('#estadosCotizacion').html(estadosHtml);
+
+        // Cotizaciones por cliente (para la card)
+        const cotizacionesPorCliente = {};
+        data.forEach(item => {
+            cotizacionesPorCliente[item.Nombre] = (cotizacionesPorCliente[item.Nombre] || 0) + 1;
+        });
+
+        // Ordenar y tomar top 5
+        const topClientes = Object.entries(cotizacionesPorCliente)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 5);
+
+        let clientesHtml = '';
+        topClientes.forEach(([nombre, cantidad]) => {
+            clientesHtml += `<li style="color:black">${nombre}: <b>${cantidad}</b></li>`;
+        });
+        $('#cotizacionesPorClienteCard').html(clientesHtml);
+
+        // Gráficos
+        // 1. Cotizaciones por mes
+        const meses = {};
+        const valorPorMes = {};
+        data.forEach(item => {
+            const mes = item.Fecha.substring(0, 7); // yyyy-MM
+            meses[mes] = (meses[mes] || 0) + 1;
+            valorPorMes[mes] = (valorPorMes[mes] || 0) + item.ValorTotal;
+        });
+
+
+        // 1. Obtener y ordenar los meses
+        const mesesKeys = Object.keys(meses).sort(); // formato yyyy-MM, orden ascendente
+        const ultimos12Meses = mesesKeys.slice(-12);
+
+        // 2. Lo mismo para valorPorMes (las claves deben coincidir)
+        const valorPorMesKeys = Object.keys(valorPorMes).sort();
+        const ultimos12MesesValor = valorPorMesKeys.slice(-12);
+
+        // 3. Gráfico 1: Cantidad de cotizaciones por mes
+        new Chart(document.getElementById('cotizacionesPorMes'), {
+            type: 'line',
+            data: {
+                labels: ultimos12Meses.map(formatearMes),
+                datasets: [{
+                    label: 'Cotizaciones por Mes',
+                    data: ultimos12Meses.map(m => meses[m]),
+                    borderColor: '#4e54c8',
+                    backgroundColor: 'rgba(142,148,251,0.15)',
+                    pointBackgroundColor: '#4e54c8',
+                    pointBorderColor: '#fff',
+                    pointRadius: 3,
+                    pointHoverRadius: 4,
+                    borderWidth: 1,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            color: '#2a4365',
+                            font: { size: 10, weight: 'bold' }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Top Ultimos 12 Meses',
+                        color: '#2a4365',
+                        font: { size: 14, weight: 'bold' }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: '#2a4365', font: { size: 10 } },
+                        grid: { color: '#e0e7ef' }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#2a4365', font: { size: 10 } },
+                        grid: { color: '#e0e7ef' }
+                    }
+                }
+            }
+        });
+
+        // 4. Gráfico 2: Valor total de cotizaciones por mes
+        new Chart(document.getElementById('valorTotalPorMes'), {
+            type: 'line',
+            data: {
+                labels: ultimos12MesesValor.map(formatearMes),
+                datasets: [{
+                    label: 'Valor Total por Mes',
+                    data: ultimos12MesesValor.map(m => valorPorMes[m]),
+                    borderColor: '#11998e',
+                    backgroundColor: 'rgba(56,239,125,0.15)',
+                    pointBackgroundColor: '#11998e',
+                    pointBorderColor: '#fff',
+                    pointRadius: 3,
+                    pointHoverRadius: 4,
+                    borderWidth: 1,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            color: '#185a9d',
+                            font: { size: 10, weight: 'bold' }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Top Ultimos 12 Meses',
+                        color: '#185a9d',
+                        font: { size: 14, weight: 'bold' }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: '#185a9d', font: { size: 10 } },
+                        grid: { color: '#e0e7ef' }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#185a9d', font: { size: 10 } },
+                        grid: { color: '#e0e7ef' }
+                    }
+                }
+            }
+        });
     });
+});
+
+    // Función para convertir "yyyy-MM" a "nombreMes aaaa"
+    function formatearMes(mes) {
+        const meses = [
+            "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+            "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+        ];
+        const [anio, mesNum] = mes.split("/");
+        return `${meses[parseInt(mesNum, 10) - 1]} ${anio}`;
+    }
 </script>

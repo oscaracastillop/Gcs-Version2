@@ -1,9 +1,13 @@
-﻿using System.Web.Mvc;
+﻿using Data.DataContext;
+using Data.DataEntities;
+using System.Web.Mvc;
 
 namespace App.Controllers
 {
     public class VentaController : Controller
     {
+
+        private readonly DataCotizacion datacotizacion = new DataCotizacion();
         // GET: Venta
         public ActionResult Index()
         {
@@ -29,5 +33,7 @@ namespace App.Controllers
         {
             return View();
         }
+
+        
     }
 }

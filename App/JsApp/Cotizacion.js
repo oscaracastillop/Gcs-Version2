@@ -189,6 +189,7 @@ function GridCotizacion() {
 
 
 
+
             { "data": "CantidadProductos", title: "Cant. Productos", width: 'auto' },
             {
                 "data": "null",
