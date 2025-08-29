@@ -6,7 +6,7 @@
 <script src="~/JsApp/ContratoLaboral.js"></script>
 <script src="~/JsApp/NominaEmpleado.js"></script>
 <script src="~/JsApp/TipoEstado.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 
 <div class="tituloPage">
@@ -16,32 +16,6 @@
 <div class="grid">
     <table id="gridNominaEmpleado" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
 </div>
-
-<div class="row" style="margin-top:20px;">
-    <div class="col-md-4">
-        <div class="card text-white bg-success mb-3">
-            <div class="card-header">Total Nóminas</div>
-            <div class="card-body">
-                <h5 class="card-title" id="dashboardTotalNominas">0</h5>
-            </div>
-        </div>
-    </div>
-    <!-- Puedes agregar más KPIs aquí -->
-</div>
-
-<div class="row" style="margin-top:30px;">
-    <div class="col-md-4">
-        <canvas id="graficoIngresos"></canvas>
-    </div>
-    <div class="col-md-4">
-        <canvas id="graficoDescuentos"></canvas>
-    </div>
-    <div class="col-md-4">
-        <canvas id="graficoTotalPago"></canvas>
-    </div>
-</div>
-
-
 
 <div class="modal fade" id="ModalNominaEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -272,75 +246,7 @@
     $(document).ready(function () {
         ValidarSesion('/Contabilidad/Nomina_Empleado');
         GridNominaEmpleado();
-        DGridNominaEmpleado();
         ListaTipoEstado(1);
         ListaContratoLaboralEmpleado();  
     });
-
-
-    function DGridNominaEmpleado() {
-        $.ajax({
-            url: '/Contabilidad/Nomina_Empleado/GridNominaEmpleado',
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                renderDashboard(data);
-                renderCharts(data);
-            }
-        });
-    }
-
-    function renderDashboard(data) {
-        // Aquí puedes mostrar totales, promedios, etc. según los datos recibidos
-        // Ejemplo: mostrar total de nóminas procesadas
-        $('#dashboardTotalNominas').text(data.length);
-    }
-
-    function renderCharts(data) {
-        // Procesar datos para los gráficos
-        const labels = data.map(x => x.NombreEmpleado);
-        const ingresos = data.map(x => x.TotalIngresos);
-        const descuentos = data.map(x => x.TotalDescuentos);
-        const totalPago = data.map(x => x.TotalPago);
-
-        // Gráfico de Ingresos
-        new Chart(document.getElementById('graficoIngresos'), {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Ingresos',
-                    data: ingresos,
-                    backgroundColor: 'rgba(40, 167, 69, 0.6)'
-                }]
-            }
-        });
-
-        // Gráfico de Descuentos
-        new Chart(document.getElementById('graficoDescuentos'), {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Descuentos',
-                    data: descuentos,
-                    backgroundColor: 'rgba(220, 53, 69, 0.6)'
-                }]
-            }
-        });
-
-        // Gráfico de Total a Pagar
-        new Chart(document.getElementById('graficoTotalPago'), {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Total a Pagar',
-                    data: totalPago,
-                    backgroundColor: 'rgba(0, 123, 255, 0.6)'
-                }]
-            }
-        });
-    }
-
 </script>

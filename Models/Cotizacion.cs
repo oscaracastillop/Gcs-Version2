@@ -25,7 +25,6 @@ namespace Models
             public string Estado { get; set; }
             public string CreateBy { get; set; }
             public string DateCreate { get; set; }
-
             public string Fecha { get; set; }
         }
        

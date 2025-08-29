@@ -67,7 +67,7 @@ function GridCotizacion() {
         dom: 'B<"clear">frtip',
         columnDefs: [
             { targets: [0], width: '10px', className: 'dt-center dt-head-center' },
-            { targets: [1], className: 'dt-head-center' },
+            { targets: [1], width: '10px', className: 'dt-center dt-head-center' },
             { targets: [2], className: 'dt-head-center' },
             { targets: [3], className: 'dt-head-center' },
             { targets: [4], className: 'dt-head-center' },
@@ -78,8 +78,9 @@ function GridCotizacion() {
             { targets: [9], className: 'dt-head-center' },
             { targets: [10], className: 'dt-head-center' },
             { targets: [11], className: 'dt-head-center' },
-            { targets: [12], width: '10px', className: 'dt-center dt-head-center' },
-            { targets: [13], width: '10px', className: 'dt-center dt-head-center' }
+            { targets: [12], className: 'dt-head-center' },
+            { targets: [13], className: 'dt-head-center' },
+            { targets: [14], width: '10px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -166,30 +167,34 @@ function GridCotizacion() {
         },
         columns: [
             {
-                title: "Estado",
+                title: "",
+                data: "",
+                "render": function (data, type, row) {
+                    return '<button class="btn btn-sm btn-pdf-grid-descarga" onclick="descargarCotizacion(' + row.Id + ')">Pdf</button>';
+                }
+            },
+            {
+                title: "",
                 data: "Estado",
                 "render": function (data, type, row) {
-
                     if (row.IdEstado == 1) {
                         return '<label class="label-estado-activo">' + data + '</label>';
                     }
                     else if (row.IdEstado == 2) {
                         return '<label class="label-estado-inactivo">' + data + '</label>';
                     }
+                    else if (row.IdEstado == 5) {
+                        return '<label class="label-estado-finalizado">' + data + '</label>';
+                    }
                 }
+            },//2
 
-            },
             { "data": "CodigoCotizacion", title: "Código", width: 'auto' },
             { "data": "Nombre", title: "Cliente", width: 'auto' },
             { "data": "Documento", title: "Documento", width: 'auto', visible: true },
             { "data": "Identificacion", title: "Identificación", width: 'auto', visible: true },
             { "data": "FormaPago", title: "Forma de Pago", width: 'auto' },
             { "data": "PlazoPago", title: "Plazo de Pago", width: 'auto' },
-
-
-
-
-
             { "data": "CantidadProductos", title: "Cant. Productos", width: 'auto' },
             {
                 "data": "null",

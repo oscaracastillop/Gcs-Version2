@@ -124,7 +124,7 @@
     color: black !important;
 }
 
-.btn-pdf-cle {
+.btn-pdf-grid-descarga {
     background-color: red !important;
     color: white !important;
     padding-top: 0px !important;
@@ -132,14 +132,6 @@
     border: solid 1px black !important;
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
-
-.btn-pdf-comprobantenomina {
-    background-color: red !important;
-    color: white !important;
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
-}
-
 
 .btnSubMenu {
     align-content: center;
@@ -189,8 +181,8 @@
 }
 
 .label-estado-activo {
-    align-content: center;
-    align-items: center;
+    align-content: center!important;
+    align-items: center!important;
     background-color: green;
     border: solid 1px black !important;
     border-radius: 5px !important;

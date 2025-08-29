@@ -342,7 +342,7 @@ function GridNominaEmpleado() {
                 title: "",
                 data: "",
                 "render": function (data, type, row) {
-                    return '<button class="btn btn-sm btn-pdf-comprobantenomina" onclick="descargarComprobanteNomina(' + row.Id + ')">PDF</button>';
+                    return '<button class="btn btn-sm btn-pdf-grid-descarga" onclick="descargarComprobanteNomina(' + row.Id + ')">PDF</button>';
                 }
             },
             {

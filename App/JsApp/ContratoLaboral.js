@@ -423,7 +423,7 @@ function GridCLE() {
                 title: "Documentos",
                 data: "",
                 "render": function (data, type, row) {
-                    return '<a class="ModalDocCLE btn btn-pdf-cle" title="Descargar Documentos en Pdf">Pdf</a>';
+                    return '<a class="ModalDocCLE btn btn-pdf-grid-descarga" title="Descargar Documentos en Pdf">Pdf</a>';
                 }
             },//0
             {
