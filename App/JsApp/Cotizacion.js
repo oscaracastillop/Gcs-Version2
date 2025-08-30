@@ -24,9 +24,14 @@ function VentanaCrearCotizacion(){
 }
 
 function CrearCotizacion() {
-    let IdCliente = $('#SelectCliente').val();
+    var IdEmpresa = $('#SelectEmpresa').val();
+    var IdCliente = $('#SelectCliente').val();
 
-    if (IdCliente == -1 || IdCliente == '' || IdCliente == undefined) {
+
+    if (IdEmpresa == -1 || IdEmpresa == '' || IdEmpresa == undefined) {
+        $('#SelectEmpresa').focus();
+        VentanaMensaje('Seleccione la Empresa');
+    } if (IdCliente == -1 || IdCliente == '' || IdCliente == undefined) {
         $('#SelectCliente').focus();
         VentanaMensaje('Seleccione el Cliente');
     } else {
@@ -36,8 +41,9 @@ function CrearCotizacion() {
             url: '/Cotizacion/CrearCotizacion',
             data: {
                 IdUser: TokenUser,
+                IdEmpresa: IdEmpresa,
                 IdCliente: IdCliente
-            },            
+            },
              success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
@@ -260,4 +266,8 @@ function GridCotizacion() {
         EliminarCliente(data.Id);
     })
 
+}
+
+function descargarCotizacion(id) {
+    window.open('/Cotizacion/descargarCotizacion?id=' + id, '_blank');
 }

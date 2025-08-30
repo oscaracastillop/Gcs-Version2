@@ -557,18 +557,18 @@ function PagarNominaEmpleado(IdNominaEmpleado) {
    
 }
 
-function PdfNominaEmpleado(IdNominaEmpleado) { 
-    $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        url: '/Nomina_Empleado/GenerarPdfEjemplo',
-        data: {
-            IdUser: TokenUser,
-            IdNominaEmpleado: IdNominaEmpleado,
-        },
-        contentType: "application/json; charset=utf-8",
-    });
-}
+//function PdfNominaEmpleado(IdNominaEmpleado) { 
+//    $.ajax({
+//        type: 'POST',
+//        dataType: 'json',
+//        url: '/Nomina_Empleado/GenerarPdfEjemplo',
+//        data: {
+//            IdUser: TokenUser,
+//            IdNominaEmpleado: IdNominaEmpleado,
+//        },
+//        contentType: "application/json; charset=utf-8",
+//    });
+//}
 
 function descargarComprobanteNomina(id) {
     window.open('/Nomina_Empleado/DescargarComprobanteNomina?id=' + id, '_blank');

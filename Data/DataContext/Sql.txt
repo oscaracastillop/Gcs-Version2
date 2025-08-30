@@ -8202,6 +8202,7 @@ GO
 CREATE TABLE Cotizacion 
 (Id int identity(1,1) Primary key ,
 CodigoCotizacion varchar(255),
+IdEmpresa int,
 IdCliente int,
 IdTipoDocumento int,
 Identificacion varchar(255),
@@ -8214,6 +8215,7 @@ DateCreate datetime
 
 GO
 
+ALTER TABLE Cotizacion ADD CONSTRAINT FK_IdEmpresaCotizacion FOREIGN KEY (IdEmpresa ) references Empresa(Id)
 ALTER TABLE Cotizacion ADD CONSTRAINT FK_IdClienteCotizacion FOREIGN KEY (IdCliente ) references Cliente(Id)
 ALTER TABLE Cotizacion ADD CONSTRAINT FK_IdEstadoCotizacion FOREIGN KEY (IdEstado) references TipoEstado(Id)
 ALTER TABLE Cotizacion ADD CONSTRAINT FK_IdTipoDocumentoCotizacion FOREIGN KEY (IdTipoDocumento) references TipoDocumento(Id)
@@ -8357,7 +8359,8 @@ BEGIN
 			A.IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,			
 			dbo.Fun_BuscarNombreUsuario(A.CreateBy) As CreateBy,
-			CONVERT(varchar(255),A.DateCreate,105)+ ' ' + CONVERT(varchar(255),A.DateCreate,8) As DateCreate
+			CONVERT(varchar(255),A.DateCreate,105)+ ' ' + CONVERT(varchar(255),A.DateCreate,8) As DateCreate,
+			CONVERT(VARCHAR(255),A.DateCreate,111) As Fecha
 			
 			
 	FROM	Cotizacion A,
