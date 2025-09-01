@@ -4,7 +4,6 @@
 
 
 <script src="~/JsApp/Ciudad.js"></script>
-<script src="~/JsApp/Empresa.js"></script>
 <script src="~/JsApp/Sucursal.js"></script>
 <script src="~/JsApp/TipoEstado.js"></script>
 
@@ -14,13 +13,8 @@
 </div>
 
 <div class="">
-    <div class="grid">        
+    <div class="grid">
         <table id="gridSucursal" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
-    </div>
-    <div style="clear:both"></div>
-    <div class="tituloPage">
-        <br />
-        <label>Sección Adicional</label>
     </div>
 </div>
 
@@ -35,11 +29,7 @@
             <div class="modal-body">
                 <label id="LabelIdSucursal" hidden></label>
                 <div class="row g-2">
-                    <div class="col-6">
-                        <label><strong>Empresa </strong><label style="color:red"> *</label></label>
-                        <select class="form-control" id="SelectEmpresa" style="min-width:100%"></select>
-                    </div>
-                    <div class="col-6">
+                    <div class="col-12">
                         <label><strong>Nombre </strong><label style="color:red"> *</label></label>
                         <input class="form-control" type="text" id="InputNombreSucursal" name="name" autocomplete="off" style="min-width:100%" />
                     </div>
@@ -62,7 +52,7 @@
                     </div>
                     <div class="col-6">
                         <label><strong>Celular</strong></label>
-                        <input class="form-control" type="text" id="InputCelularSucursal" name="name" autocomplete="off" style="min-width:100%" maxlength="10" placeholder=""/>
+                        <input class="form-control" type="text" id="InputCelularSucursal" name="name" autocomplete="off" style="min-width:100%" maxlength="10" placeholder="" />
                     </div>
                 </div>
                 <div class="row g-2">
@@ -98,7 +88,6 @@
     $(document).ready(function () {
         ValidarSesion('/Negocio/Sucursal');
         GridSucursal();
-        ListaEmpresa();
         ListaTipoEstado(1);
         ListaCiudad();
     });

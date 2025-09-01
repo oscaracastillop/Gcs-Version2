@@ -1,7 +1,6 @@
 ﻿function ModalSucursal(tipo) {
     $("#TituloModalSucursal").empty().val('');
     $("#LabelIdSucursal").empty().text('');
-    $("#SelectEmpresa").val(-1);
     $("#InputNombreSucursal").empty().val('');
     $("#InputEmailSucursal").empty().val('');
     $("#InputTelefonoSucursal").empty().val('');
@@ -27,7 +26,6 @@
 
 
 function CrearSucursal() {
-    let IdEmpresa = $('#SelectEmpresa').val();
     let NombreSucursal = $('#InputNombreSucursal').val();
     let Email = $('#InputEmailSucursal').val();
     let Telefono = $('#InputTelefonoSucursal').val();
@@ -37,10 +35,7 @@ function CrearSucursal() {
     let Direccion = $('#InputDireccionSucursal').val();
     let Descripcion = $('#InputDescripcionSucursal').val();   
 
-    if (IdEmpresa == -1 || IdEmpresa == null || IdEmpresa == '') {
-        $('#SelectEmpresa').focus();
-        VentanaMensaje('Seleccione la Empresa');
-    } else if (NombreSucursal == null || NombreSucursal == '' || NombreSucursal == undefined) {
+  if (NombreSucursal == null || NombreSucursal == '' || NombreSucursal == undefined) {
         $('#InputNombreSucursal').focus();
         VentanaMensaje('Ingrese nombre de la Sucursal');
     } else if (IdCiudad == -1 || IdCiudad == null || IdCiudad == '') {
@@ -53,7 +48,6 @@ function CrearSucursal() {
             url: '/Sucursal/CrearSucursal',
             data: {
                 IdUser: TokenUser,
-                IdEmpresa: IdEmpresa,
                 NombreSucursal: NombreSucursal,
                 Email: Email,
                 Telefono: Telefono,
@@ -77,7 +71,6 @@ function CrearSucursal() {
 
 function ActualizarSucursal() {
     let IdSucursal = $('#LabelIdSucursal').text();
-    let IdEmpresa = $('#SelectEmpresa').val();
     let NombreSucursal = $('#InputNombreSucursal').val();
     let Email = $('#InputEmailSucursal').val();
     let Telefono = $('#InputTelefonoSucursal').val();
@@ -88,10 +81,7 @@ function ActualizarSucursal() {
     let IdEstado = $('#SelectEstado').val();
     let Descripcion = $('#InputDescripcionSucursal').val();   
 
-    if (IdEmpresa == -1 || IdEmpresa == null || IdEmpresa == '') {
-        $('#SelectEmpresa').focus();
-        Swal.fire(TituloSwal, 'Seleccione la Empresa');
-    } else if (NombreSucursal == null || NombreSucursal == '' || NombreSucursal == undefined) {
+    if (NombreSucursal == null || NombreSucursal == '' || NombreSucursal == undefined) {
         $('#InputNombreSucursal').focus();
         Swal.fire(TituloSwal, 'Ingrese nombre de la Sucursal');
     } else if (IdCiudad == -1 || IdCiudad == null || IdCiudad == '') {
@@ -105,7 +95,6 @@ function ActualizarSucursal() {
             data: {
                 IdUser: TokenUser,
                 IdSucursal: IdSucursal,
-                IdEmpresa: IdEmpresa,
                 NombreSucursal: NombreSucursal,
                 Email: Email,
                 Telefono: Telefono,
@@ -182,9 +171,8 @@ function GridSucursal() {
             { targets: [8], className: 'dt-head-center' },
             { targets: [9], className: 'dt-head-center' },
             { targets: [10], className: 'dt-head-center' },
-            { targets: [11], className: 'dt-head-center' },
-            { targets: [12], width: '10px', className: 'dt-center dt-head-center' },
-            { targets: [13], width: '10px', className: 'dt-center dt-head-center' }
+            { targets: [11], width: '10px', className: 'dt-center dt-head-center' },
+            { targets: [12], width: '10px', className: 'dt-center dt-head-center' }
         ],
         buttons: [
 
@@ -195,7 +183,7 @@ function GridSucursal() {
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
                 text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                 },
             },
             {
@@ -205,7 +193,7 @@ function GridSucursal() {
                 orientation: 'landscape', //portrait
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                     search: 'applied',
                     order: 'applied',
                 },
@@ -292,7 +280,6 @@ function GridSucursal() {
 
             },
             { "data": "Nombre", title: "Sucursal", width: 'auto' },
-            { "data": "Empresa", title: "Empresa", width: 'auto' },
             { "data": "Email", title: "Email", width: 'auto' },
             { "data": "Telefono", title: "Teléfono", width: 'auto' },
             { "data": "Celular", title: "Celular", width: 'auto' },
@@ -330,7 +317,6 @@ function GridSucursal() {
         let data = datatable.row($(this).parents()).data();
         ModalSucursal('E');
         $('#LabelIdSucursal').text(data.Id);
-        $('#SelectEmpresa').val(data.IdEmpresa);
         $('#InputNombreSucursal').val(data.Nombre);
         $('#InputEmailSucursal').val(data.Email);
         $('#InputTelefonoSucursal').val(data.Telefono);
@@ -359,7 +345,7 @@ function ListaSucursal() {
             if (resultado.length === 0) {
                 $("#SelectSucursal").append('<option value="">No hay Datos</option>');
             } else {
-                $("#SelectSucursal").empty().append('<option value="-1">Seleccione ...</option>');
+                $("#SelectSucursal").empty().append('<option value="-1">- Escoge una Sucursal -</option>');
                 $.each(resultado, function () {
                     $("#SelectSucursal").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
                     contador++;
@@ -369,56 +355,56 @@ function ListaSucursal() {
     });
 }
 
-function ListaSucursalXIdEmpresa(Id) {
-    $("#SelectSucursalXIdEmpresa").empty();
-    $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        url: '/Sucursal/ListaSucursalXIdEmpresa', 
-        data: {
-            Id: Id
-        },
-        success: function (resultado) {
-            if (Id == -1) {
-                $("#SelectSucursalXIdEmpresa").prop("disabled", true);                
-            } else {
-                $("#SelectSucursalXIdEmpresa").prop("disabled", false);
-                var contador = 0;
-                if (resultado.length === 0) {
-                    $("#SelectSucursalXIdEmpresa").append('<option value="">No hay Datos</option>');
-                } else {
-                    $("#SelectSucursalXIdEmpresa").empty().append('<option value="-1">Seleccione ...</option>');
-                    $.each(resultado, function () {
-                        $("#SelectSucursalXIdEmpresa").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
-                        contador++;
-                    });
-                }
-            }            
-        },
-    });
-}
+//function ListaSucursalXIdEmpresa(Id) {
+//    $("#SelectSucursalXIdEmpresa").empty();
+//    $.ajax({
+//        type: 'POST',
+//        dataType: 'json',
+//        url: '/Sucursal/ListaSucursalXIdEmpresa', 
+//        data: {
+//            Id: Id
+//        },
+//        success: function (resultado) {
+//            if (Id == -1) {
+//                $("#SelectSucursalXIdEmpresa").prop("disabled", true);                
+//            } else {
+//                $("#SelectSucursalXIdEmpresa").prop("disabled", false);
+//                var contador = 0;
+//                if (resultado.length === 0) {
+//                    $("#SelectSucursalXIdEmpresa").append('<option value="">No hay Datos</option>');
+//                } else {
+//                    $("#SelectSucursalXIdEmpresa").empty().append('<option value="-1">Seleccione ...</option>');
+//                    $.each(resultado, function () {
+//                        $("#SelectSucursalXIdEmpresa").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
+//                        contador++;
+//                    });
+//                }
+//            }            
+//        },
+//    });
+//}
 
-function ListaSucursalXIdEmpresaXIdEmpleado(IdEmpleado) {
-    $("#SelectSucursalXIdEmpresaXIdEmpleado").empty();
-    $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        url: '/Sucursal/ListaSucursalXIdEmpresaXIdEmpleado',
-        data: {
-            IdEmpleado: IdEmpleado
-        },
-        success: function (resultado) {
-            var contador = 0;
-            if (resultado.length === 0) {
-                $("#SelectSucursalXIdEmpresaXIdEmpleado").append('<option value="">No hay Datos</option>');
-            } else {
-                $("#SelectSucursalXIdEmpresaXIdEmpleado").empty().append('<option value="-1">- Escoge una Sucursal -</option>');
-                $.each(resultado, function () {
-                    $("#SelectSucursalXIdEmpresaXIdEmpleado").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
-                    contador++;
-                });
-            }
-        },
-    });
-}
+//function ListaSucursalXIdEmpresaXIdEmpleado(IdEmpleado) {
+//    $("#SelectSucursalXIdEmpresaXIdEmpleado").empty();
+//    $.ajax({
+//        type: 'POST',
+//        dataType: 'json',
+//        url: '/Sucursal/ListaSucursalXIdEmpresaXIdEmpleado',
+//        data: {
+//            IdEmpleado: IdEmpleado
+//        },
+//        success: function (resultado) {
+//            var contador = 0;
+//            if (resultado.length === 0) {
+//                $("#SelectSucursalXIdEmpresaXIdEmpleado").append('<option value="">No hay Datos</option>');
+//            } else {
+//                $("#SelectSucursalXIdEmpresaXIdEmpleado").empty().append('<option value="-1">- Escoge una Sucursal -</option>');
+//                $.each(resultado, function () {
+//                    $("#SelectSucursalXIdEmpresaXIdEmpleado").append('<option value="' + resultado[contador].Id + '">' + resultado[contador].Nombre + '</option>');
+//                    contador++;
+//                });
+//            }
+//        },
+//    });
+//}
 

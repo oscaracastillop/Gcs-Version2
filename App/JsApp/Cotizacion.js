@@ -24,14 +24,9 @@ function VentanaCrearCotizacion(){
 }
 
 function CrearCotizacion() {
-    var IdEmpresa = $('#SelectEmpresa').val();
     var IdCliente = $('#SelectCliente').val();
 
-
-    if (IdEmpresa == -1 || IdEmpresa == '' || IdEmpresa == undefined) {
-        $('#SelectEmpresa').focus();
-        VentanaMensaje('Seleccione la Empresa');
-    } if (IdCliente == -1 || IdCliente == '' || IdCliente == undefined) {
+    if (IdCliente == -1 || IdCliente == '' || IdCliente == undefined) {
         $('#SelectCliente').focus();
         VentanaMensaje('Seleccione el Cliente');
     } else {
@@ -41,7 +36,6 @@ function CrearCotizacion() {
             url: '/Cotizacion/CrearCotizacion',
             data: {
                 IdUser: TokenUser,
-                IdEmpresa: IdEmpresa,
                 IdCliente: IdCliente
             },
              success: function (resultado) {

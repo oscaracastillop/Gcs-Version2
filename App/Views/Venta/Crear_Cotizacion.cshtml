@@ -9,7 +9,6 @@
 <script src="~/JsApp/DetalleCotizacion.js"></script>
 <script src="~/JsApp/Producto.js"></script>
 <script src="~/JsApp/TipoEstado.js"></script>
-<script src="~/JsApp/Empresa.js"></script>
 
 
 
@@ -22,10 +21,6 @@
 <div>
 
     <div class="row g-2">
-        <div class="col-6">
-            <label><strong>Empresa </strong><label style="color:red"> *</label></label>
-            <select class="form-control" id="SelectEmpresa" style="min-width:100%"></select>
-        </div>
         <div class="col-6">
             <label><strong>Cliente </strong><label style="color:red"> *</label></label>
             <select class="form-control" id="SelectCliente" style="min-width:100%"></select>
@@ -93,7 +88,6 @@
         ListaTipoEstado(1);
         ListaCategoria();
         ListaCliente();
-        ListaEmpresa();
         //ModalCotizacion('C');
         GridTDetalleCotizacion();
     });

@@ -31,19 +31,15 @@
                 </div>
                 <div class="row g-2">
                     <div class="col-6">
-                        <label><strong>Empresa Actual </strong><label style="color:red">*</label></label>
-                        <input class="form-control" type="text" id="InputCambiarSucursalEmpresaActual" name="name" autocomplete="off" style="min-width:100%" disabled />
-                    </div>
-                    <div class="col-6">
                         <label><strong>Sucursal Actual</strong><label style="color:red">*</label></label>
                         <input class="form-control" type="text" id="InputCambiarSucursalSucursalActual" autocomplete="off" style="min-width:100%" disabled />
                     </div>
-                </div>
-                <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Nueva Sucursal</strong><label style="color:red">*</label></label>
-                        <select class="form-control" id="SelectSucursalXIdEmpresa" style="min-width:100%"></select>
+                        <select class="form-control" id="SelectSucursal" style="min-width:100%"></select>
                     </div>
+                </div>
+                <div class="row g-2">                    
                     <div class="col-6">
                         <label><strong>Observación</strong></label>
                         <input class="form-control" type="text" id="InputObservacionSE" name="name" autocomplete="off" style="min-width:100%" />
@@ -64,5 +60,6 @@
     $(document).ready(function () {
         ValidarSesion('/Negocio/Sucursal_Empleado');
         GridSucursalEmpleado();
+        ListaSucursal();
     });
 </script>

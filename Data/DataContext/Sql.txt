@@ -2616,8 +2616,8 @@ GO
 
 INSERT INTO Empresa (Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdTipoDocumentoRL, IdentificacionRL, IdCiudadExpedicion, IdCiudad, Direccion, CreateBy, DateCreate) 
 VALUES 
-('E&G Contrucciones S.A.S', 6, '901.766.109-1','edwinfabiangarzon@hotmail.com', '601 0000000', '321 4208189', 'Edwin Fabian Garzón López', 1, '1073151004', 571, 571, 'Calle 19a # 1a - 25', 1, GETDATE()),
-('GCS Software', 1, '3167508','oscaracastillop@gmail.com', '601 0000000', '315 0014586', 'Oscar Antonio Castillo Peréz', 1, '3167508', 638, 574, 'Diagonal 18 # 5 - 44', 1, GETDATE())
+('E&G Contrucciones S.A.S', 6, '901.766.109-1','edwinfabiangarzon@hotmail.com', '601 0000000', '321 4208189', 'Edwin Fabian Garzón López', 1, '1073151004', 571, 571, 'Calle 19a # 1a - 25', 1, GETDATE())
+--('GCS Software', 1, '3167508','oscaracastillop@gmail.com', '601 0000000', '315 0014586', 'Oscar Antonio Castillo Peréz', 1, '3167508', 638, 574, 'Diagonal 18 # 5 - 44', 1, GETDATE())
 
 GO
 
@@ -2877,6 +2877,26 @@ END
 
 GO
 
+CREATE FUNCTION [dbo].[Fun_BuscarIdEmpresa]()
+RETURNS INT
+AS BEGIN
+DECLARE @IdEmpresa INT
+	SELECT @IdEmpresa = Id FROM Empresa WHERE IdEstado = 1
+	RETURN @IdEmpresa
+END
+
+GO
+
+CREATE FUNCTION [dbo].[Fun_NombreEmpresa]()
+RETURNS VARCHAR(255)
+AS BEGIN
+DECLARE @NombreEmpresa VARCHAR(255)
+	SELECT	@NombreEmpresa = Nombre	FROM Empresa WHERE IdEstado = 1
+	RETURN @NombreEmpresa
+END
+
+GO
+
 CREATE PROCEDURE [dbo].[SP_GuardarUrlLogoEmpresaBaseDatos] @IdUser varchar(255), @IdEmpresa int, @UrlLogoEmpresa varchar(255), @Resultado varchar(255) OUTPUT
 AS
 BEGIN
@@ -2934,14 +2954,13 @@ VALUES
 (1,'Sede Santo Domingo', 'eygconstruccionessas@gmail.com','321 4208189','Edwin Fabian Garzón Lopéz',571,'',1,GETDATE()),
 (1,'Sede Rosa Linda', 'eygconstruccionessas@gmail.com','321 4208189','Edwin Fabian Garzón Lopéz',542,'',1,GETDATE()),
 (1,'Sede Florencia', 'eygconstruccionessas@gmail.com','321 4208189','Edwin Fabian Garzón Lopéz',364,'',1,GETDATE()),
-(1,'Sede Chinauta', 'eygconstruccionessas@gmail.com','321 4208189','Edwin Fabian Garzón Lopéz',640,'',1,GETDATE()),
-(2,'Sede Mosquera (Principal)', 'oscaracastillop@gmail.com','315 0014586','Oscar Antonio Castillo Peréz',574,'Diagonal 18 # 5-44 Villa María III Etapa',1,GETDATE())
+(1,'Sede Chinauta', 'eygconstruccionessas@gmail.com','321 4208189','Edwin Fabian Garzón Lopéz',640,'',1,GETDATE())
+--(2,'Sede Mosquera (Principal)', 'oscaracastillop@gmail.com','315 0014586','Oscar Antonio Castillo Peréz',574,'Diagonal 18 # 5-44 Villa María III Etapa',1,GETDATE())
 
 GO
 
 CREATE PROCEDURE [dbo].[SP_CrearSucursal] 
 				@IdUser varchar(255), 	
-				@IdEmpresa int,
 				@NombreSucursal varchar(255), 
 				@Email varchar(255), 
 				@Telefono varchar(255),  
@@ -2969,7 +2988,7 @@ IF @Permiso > 0
 		INSERT INTO Sucursal
 		(IdEmpresa, Nombre, Email, Telefono, Celular, Contacto, IdCiudad, Direccion, Descripcion, CreateBy, DateCreate) 
 		VALUES 
-		(@IdEmpresa, @NombreSucursal, @Email, @Telefono, @Celular, @Contacto, @IdCiudad, @Direccion, @Descripcion, @IdUsuario, GETDATE()) 
+		(dbo.Fun_BuscarIdEmpresa(), @NombreSucursal, @Email, @Telefono, @Celular, @Contacto, @IdCiudad, @Direccion, @Descripcion, @IdUsuario, GETDATE()) 
 		
 		SET @Resultado = 'OK*La Sucursal ' + @NombreSucursal + ' a sido creada correctamente'
 	END	
@@ -2983,8 +3002,7 @@ END
 GO
 
 CREATE PROCEDURE [dbo].[SP_ActualizarSucursal]	@IdUser varchar(255),
-												@IdSucursal int,
-												@IdEmpresa int, 				
+												@IdSucursal int,			
 												@NombreSucursal varchar(255), 
 												@Email varchar(255), 
 												@Telefono varchar(255),  
@@ -3009,7 +3027,7 @@ SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
 
 IF @Permiso > 0
-	IF(exists(select * from Sucursal where Nombre = @NombreSucursal AND IdEmpresa = @IdEmpresa AND IdCiudad = @IdCiudad AND Id != @IdSucursal))  
+	IF(exists(select * from Sucursal where Nombre = @NombreSucursal AND IdCiudad = @IdCiudad AND Id != @IdSucursal))  
 	BEGIN  
 		SET @Resultado = 'Error*La Sucursal ' + @NombreSucursal +' ya existe.'
 		RETURN  
@@ -3074,8 +3092,6 @@ AS
 BEGIN
 	SELECT	Id, 
 			Nombre, 
-			IdEmpresa,
-			dbo.Fun_BuscarNombreEmpresa(IdEmpresa) AS Empresa,
 			ISNULL(Email,'') As Email,
 			ISNULL(Telefono,'') As Telefono,
 			ISNULL(Celular,'') As Celular,
@@ -3094,6 +3110,19 @@ END
 
 GO
 
+CREATE PROCEDURE [dbo].[SP_ListaSucursal]
+AS
+BEGIN
+		SELECT	Id,
+				Nombre
+		FROM	Sucursal
+		WHERE	IdEstado = 1 ORDER BY Nombre ASC
+END
+
+GO
+
+/*
+
 CREATE PROCEDURE [dbo].[SP_ListaSucursalXIdEmpresa] @Id INT
 AS
 BEGIN
@@ -3104,6 +3133,8 @@ BEGIN
 END
 
 GO
+
+*/
 
 CREATE PROCEDURE [dbo].[SP_ListaSucursalXIdEmpresaXIdEmpleado] @IdEmpleado INT
 AS
@@ -5172,8 +5203,7 @@ BEGIN
 SELECT	A.Id,	 
 			A.IdEmpleado,
 			dbo.Fun_BuscarNombreEmpleado(D.Id) AS Empleado,	
-			C.Id AS IdEmpresa,
-			dbo.Fun_BuscarNombreEmpresa(C.IdEmpresa) AS Empresa,
+			A.IdSucursal,
 			dbo.Fun_BuscarNombreSucursal(A.IdSucursal) AS Sucursal,
 			A.IdCargo,
 			dbo.Fun_BuscarNombreCargo(A.IdCargo) AS Cargo,
@@ -5442,8 +5472,6 @@ CREATE PROCEDURE [dbo].[SP_GridSucursalEmpleado]
 AS
 BEGIN
 SELECT	A.Id,
-		C.Id As IdEmpresa,
-		C.Nombre As Empresa,
 		dbo.Fun_BuscarNombreSucursal(A.IdSucursal) As Sucursal,
 		dbo.Fun_BuscarNombreEmpleado(B.IdEmpleado) As Empleado,
 		CONVERT(VARCHAR(255),B.Id) As NumeroCLE,
@@ -5623,7 +5651,7 @@ BEGIN
 SELECT	A.Id,	 
 		A.IdEmpleado,
 		dbo.Fun_BuscarNombreEmpleado(A.IdEmpleado) AS Empleado,	
-		B.Nombre + ' - ' + C.Nombre AS Sucursal,	
+		C.Nombre AS Sucursal,	
 		A.Valor As Valor,
 		CONVERT(varchar(255),A.Fecha,23) As Fecha,
 		CONVERT(varchar(255),A.Fecha,105) As TextoFecha,		
@@ -5784,7 +5812,7 @@ BEGIN
 SELECT	A.Id,	 
 		A.IdEmpleado,
 		dbo.Fun_BuscarNombreEmpleado(A.IdEmpleado) AS Empleado,	
-		B.Nombre + ' - ' + C.Nombre AS Sucursal,	
+		C.Nombre AS Sucursal,	
 		A.Valor As Valor,
 		CONVERT(varchar(255),A.FechaPago,23) As FechaPago,
 		CONVERT(varchar(255),A.FechaPago,105) As TextoFechaPago,		
@@ -5978,7 +6006,7 @@ BEGIN
 SELECT	A.Id,	 
 		A.IdEmpleado,
 		dbo.Fun_BuscarNombreEmpleado(A.IdEmpleado) AS Empleado,	
-		B.Nombre + ' - ' + C.Nombre AS Sucursal,	
+		C.Nombre AS Sucursal,	
 		A.Valor As Valor,
 		CONVERT(varchar(255),A.FechaCobro,23) As FechaCobro,
 		CONVERT(varchar(255),A.FechaCobro,105) As TextoFechaCobro,		
@@ -6178,7 +6206,7 @@ BEGIN
 SELECT	A.Id,
 		A.IdEmpleado,
 		dbo.Fun_BuscarNombreEmpleado(A.IdEmpleado) AS Empleado,	
-		B.Nombre + ' - ' + C.Nombre AS Sucursal,	
+		C.Nombre AS Sucursal,	
 		A.Valor As Valor,
 		CONVERT(varchar(255),A.FechaPrestamo,23) As FechaPrestamo,
 		CONVERT(varchar(255),A.FechaPrestamo,105) As TextoFechaPrestamo,		
@@ -7825,7 +7853,7 @@ BEGIN
 	SELECT	A.Id,  
 			A.IdEmpleado,
 			dbo.Fun_BuscarNombreEmpleado(A.IdEmpleado) AS Empleado,
-			D.Nombre + ' - ' + C.Nombre AS EmpresaSucursal,
+			C.Nombre AS EmpresaSucursal,
 			A.ValorHoraOrdinaria AS ValorHoraOrdinaria,
 			CONVERT(varchar(255),A.FechaHE,23) As FechaHoraExtra,
 			CONVERT(varchar(255),A.FechaHE,105) As TextoFechaHoraExtra,
@@ -8425,3 +8453,28 @@ BEGIN
 
 END
 
+GO
+
+CREATE PROCEDURE [dbo].[SP_DatosCabeceraCotizacionPdf] @Id INT
+AS
+BEGIN 
+
+SELECT	A.CodigoCotizacion,
+		B.Nombre As NombreCliente,
+		B.Identificacion As IdentificacionCliente,
+		B.Email As EmailCliente,
+		B.Contacto As ContactoCliente,
+		B.Telefono As TelefonoCliente,
+		B.Celular As CelularCliente,
+		dbo.Fun_BuscarNombreFormaPago(B.IdFormaPago) As FormaPagoCiente,
+		dbo.Fun_BuscarNombrePlazoPago(B.IdPlazoPago) As PlazoPagoCliente,
+		B.Direccion As DireccionCiente,
+		dbo.Fun_BuscarNombreCiudad(B.IdCiudad) As CiudadCliente
+
+FROM	Cotizacion A,
+		Cliente B
+
+WHERE	A.Id = @Id AND A.IdCliente = B.Id
+
+
+END

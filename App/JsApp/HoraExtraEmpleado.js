@@ -300,7 +300,7 @@ function GridHoraExtraEmpleado() {
 
             },
             { "data": "Empleado", title: "Empleado", width: 'auto' },
-            { "data": "EmpresaSucursal", title: "Empresa - Sucursal", width: 'auto' },
+            { "data": "EmpresaSucursal", title: "Sucursal", width: 'auto' },
             {
                 "data": "null",
                 title: "Valor HO",

@@ -13,13 +13,12 @@ namespace SistemaGcs.Data.DataEntities
         readonly GcsEntities _conection = new GcsEntities();
         private readonly DataRol dataRol = new DataRol();
                
-        public string CrearSucursal(string IdUser, int IdEmpresa, string NombreSucursal, string Email, string Telefono, string Celular, string Contacto, int IdCiudad, string Direccion, string Descripcion)
+        public string CrearSucursal(string IdUser, string NombreSucursal, string Email, string Telefono, string Celular, string Contacto, int IdCiudad, string Direccion, string Descripcion)
         {
             string resultado = String.Empty;
             try
             {
-                var varIdUser = new SqlParameter("@IdUser", SqlDbType.VarChar) { Value = IdUser };
-                var varIdEmpresa = new SqlParameter("@IdEmpresa", SqlDbType.Int) { Value = IdEmpresa };
+                var varIdUser = new SqlParameter("@IdUser", SqlDbType.VarChar) { Value = IdUser };                
                 var varNombreSucursal = new SqlParameter("@NombreSucursal", SqlDbType.VarChar) { Value = NombreSucursal };
                 var varEmail = new SqlParameter("@Email", SqlDbType.VarChar) { Value = Email };
                 var varTelefono = new SqlParameter("@Telefono", SqlDbType.VarChar) { Value = Telefono };
@@ -30,7 +29,7 @@ namespace SistemaGcs.Data.DataEntities
                 var varDescripcion = new SqlParameter("@Descripcion", SqlDbType.VarChar) { Value = Descripcion };
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
 
-                _conection.Database.ExecuteSqlCommand("SP_CrearSucursal @IdUser, @IdEmpresa, @NombreSucursal, @Email, @Telefono, @Celular, @Contacto, @IdCiudad, @Direccion, @Descripcion, @Resultado OUTPUT", varIdUser, varIdEmpresa, varNombreSucursal, varEmail, varTelefono, varCelular, varContacto, varIdCiudad, varDireccion, varDescripcion, varResultado);
+                _conection.Database.ExecuteSqlCommand("SP_CrearSucursal @IdUser, @NombreSucursal, @Email, @Telefono, @Celular, @Contacto, @IdCiudad, @Direccion, @Descripcion, @Resultado OUTPUT", varIdUser, varNombreSucursal, varEmail, varTelefono, varCelular, varContacto, varIdCiudad, varDireccion, varDescripcion, varResultado);
 
                 resultado = Convert.ToString(varResultado.Value);
             }
@@ -56,14 +55,13 @@ namespace SistemaGcs.Data.DataEntities
             return resultado;
         }
 
-        public string ActualizarSucursal(string IdUser, int IdSucursal, int IdEmpresa, string NombreSucursal, string Email, string Telefono, string Celular, string Contacto, int IdCiudad, string Direccion, string Descripcion, int IdEstado)
+        public string ActualizarSucursal(string IdUser, int IdSucursal, string NombreSucursal, string Email, string Telefono, string Celular, string Contacto, int IdCiudad, string Direccion, string Descripcion, int IdEstado)
         {
             string resultado = String.Empty;
             try
             {
                 var varIdUser = new SqlParameter("@IdUser", SqlDbType.VarChar) { Value = IdUser };
-                var varIdSucursal = new SqlParameter("@IdSucursal", SqlDbType.Int) { Value = IdSucursal };
-                var varIdEmpresa = new SqlParameter("@IdEmpresa", SqlDbType.Int) { Value = IdEmpresa };
+                var varIdSucursal = new SqlParameter("@IdSucursal", SqlDbType.Int) { Value = IdSucursal };                
                 var varNombreSucursal = new SqlParameter("@NombreSucursal", SqlDbType.VarChar) { Value = NombreSucursal };
                 var varEmail = new SqlParameter("@Email", SqlDbType.VarChar) { Value = Email };
                 var varTelefono = new SqlParameter("@Telefono", SqlDbType.VarChar) { Value = Telefono };
@@ -75,7 +73,7 @@ namespace SistemaGcs.Data.DataEntities
                 var varIdEstado = new SqlParameter("@IdEstado", SqlDbType.Int) { Value = IdEstado };
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
 
-                _conection.Database.ExecuteSqlCommand("SP_ActualizarSucursal @IdUser, @IdSucursal, @IdEmpresa, @NombreSucursal, @Email, @Telefono, @Celular, @Contacto, @IdCiudad, @Direccion, @Descripcion, @IdEstado, @Resultado OUTPUT", varIdUser, varIdSucursal, varIdEmpresa, varNombreSucursal, varEmail, varTelefono, varCelular, varContacto, varIdCiudad, varDireccion, varDescripcion, varIdEstado, varResultado);
+                _conection.Database.ExecuteSqlCommand("SP_ActualizarSucursal @IdUser, @IdSucursal, @NombreSucursal, @Email, @Telefono, @Celular, @Contacto, @IdCiudad, @Direccion, @Descripcion, @IdEstado, @Resultado OUTPUT", varIdUser, varIdSucursal, varNombreSucursal, varEmail, varTelefono, varCelular, varContacto, varIdCiudad, varDireccion, varDescripcion, varIdEstado, varResultado);
 
                 resultado = Convert.ToString(varResultado.Value);
             }

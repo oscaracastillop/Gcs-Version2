@@ -15,16 +15,16 @@ namespace SistemaGcs.App.Controllers
             return View();
         }
 
-        public JsonResult CrearSucursal(string IdUser, int IdEmpresa, string NombreSucursal, string Email, string Telefono, string Celular, string Contacto, int IdCiudad, string Direccion, string Descripcion)
+        public JsonResult CrearSucursal(string IdUser, string NombreSucursal, string Email, string Telefono, string Celular, string Contacto, int IdCiudad, string Direccion, string Descripcion)
         {
-            var resultado = dataSucursal.CrearSucursal(IdUser, IdEmpresa, NombreSucursal, Email, Telefono, Celular, Contacto, IdCiudad, Direccion, Descripcion);
+            var resultado = dataSucursal.CrearSucursal(IdUser, NombreSucursal, Email, Telefono, Celular, Contacto, IdCiudad, Direccion, Descripcion);
 
             return Json(resultado);
         }
 
-        public JsonResult ActualizarSucursal(string IdUser, int IdSucursal, int IdEmpresa, string NombreSucursal, string Email, string Telefono, string Celular, string Contacto, int IdCiudad, string Direccion, string Descripcion, int IdEstado)
+        public JsonResult ActualizarSucursal(string IdUser, int IdSucursal, string NombreSucursal, string Email, string Telefono, string Celular, string Contacto, int IdCiudad, string Direccion, string Descripcion, int IdEstado)
         {
-            var resultado = dataSucursal.ActualizarSucursal(IdUser, IdSucursal, IdEmpresa, NombreSucursal, Email, Telefono, Celular, Contacto, IdCiudad, Direccion, Descripcion, IdEstado);
+            var resultado = dataSucursal.ActualizarSucursal(IdUser, IdSucursal, NombreSucursal, Email, Telefono, Celular, Contacto, IdCiudad, Direccion, Descripcion, IdEstado);
             return Json(resultado);
         }
 

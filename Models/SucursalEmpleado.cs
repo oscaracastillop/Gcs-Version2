@@ -5,8 +5,6 @@
         public class GridSucursalEmpleado
         {
             public int Id { get; set; }
-            public int IdEmpresa { get; set; }
-            public string Empresa { get; set; }
             public int IdSucursal { get; set; }
             public string Sucursal { get; set; }
             public int IdEmpleado { get; set; }
@@ -22,7 +20,6 @@
             public string Estado { get; set; }
             public string CreateBy { get; set; }
             public string DateCreate { get; set; }
-            public string Imagen { get; set; }
         }
     }
 }

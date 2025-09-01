@@ -1,10 +1,10 @@
 ﻿function CambiarSucursalEmpleado() {
     let IdSucursalEmpleado = $('#LabelIdSucursalEmpleadoCambiarSucursal').text();
-    let IdSucursal = $('#SelectSucursalXIdEmpresa').val();
+    let IdSucursal = $('#SelectSucursal').val();
     let Observacion = $('#InputObservacionSE').val();
 
     if (IdSucursal == -1 || IdSucursal == null || IdSucursal == '') {
-        $('#SelectSucursalXIdEmpresa').focus();
+        $('#SelectSucursal').focus();
         VentanaMensaje('Seleccione la Nueva Sucursal');
     } else {
         $.ajax({
@@ -48,8 +48,7 @@ function GridSucursalEmpleado() {
             { targets: [6], className: 'dt-head-center' },//Fecha Fin
             { targets: [7], className: 'dt-head-center' },//Permanencia
             { targets: [8], className: 'dt-head-center' },//Observacion
-            { targets: [9], className: 'dt-head-center' },//Observacion            
-            { targets: [10], className: 'dt-head-center' },
+            { targets: [9], className: 'dt-head-center' },//Observacion     
         ],
         buttons: [
 
@@ -60,7 +59,7 @@ function GridSucursalEmpleado() {
                 filename: NameApp + ' - ' + tituloReporte + ' ' + jsDate + ' ' + hora,
                 text: '<i class="bi-file-earmark-excel-fill" style="color:green"></i> Descargar Excel',
                 exportOptions: {
-                    columns: [1,2, 3, 4, 5, 6, 7, 8, 9,10,11],
+                    columns: [1,2, 3, 4, 5, 6, 7, 8, 9,10],
                 },
             },
             {
@@ -70,7 +69,7 @@ function GridSucursalEmpleado() {
                 orientation: 'landscape', // landscape portrait
                 pageSize: 'letter', //A3 , A5 , A6 , legal , letter, A4
                 exportOptions: {
-                    columns: [1,2, 3, 4, 5, 6, 7, 8, 9,10,11],
+                    columns: [1,2, 3, 4, 5, 6, 7, 8, 9,10],
                     search: 'applied',
                     order: 'applied',
                 },
@@ -160,7 +159,6 @@ function GridSucursalEmpleado() {
 
             },
             { "data": "Empleado", title: "Empleado", width: 'auto' },
-            { "data": "Empresa", title: "Empresa", width: 'auto' },
             { "data": "Sucursal", title: "Sucursal", width: 'auto' },
             { "data": "NumeroCLE", title: "# Contrato Laboral", width: 'auto' },
             { "data": "TextoFechaInicio", title: "Fecha Inicio", width: 'auto' },
@@ -182,11 +180,9 @@ function GridSucursalEmpleado() {
     $('#gridSucursalEmpleado').on('click', '.ModalCambiarSucursal', function () {
         let data = datatable.row($(this).parents()).data();
         $("#InputObservacionSE").empty().val('');
-        ListaSucursalXIdEmpresa(data.IdEmpresa);
         $('#ModalCambiarSucursalEmpleado').modal('show');
         $('#LabelIdSucursalEmpleadoCambiarSucursal').text(data.Id);
         $("#InputCambiarSucursalNombreEmpleado").val(data.Empleado);
-        $("#InputCambiarSucursalEmpresaActual").val(data.Empresa);
         $("#InputCambiarSucursalSucursalActual").val(data.Sucursal);
         $("#InputObservacionSE").val(data.Observacion);
     })

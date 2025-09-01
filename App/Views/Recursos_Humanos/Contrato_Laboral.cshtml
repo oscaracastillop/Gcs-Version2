@@ -8,7 +8,6 @@
 <script src="~/JsApp/CCFamiliar.js"></script>
 <script src="~/JsApp/ContratoLaboral.js"></script>
 <script src="~/JsApp/Empleado.js"></script>
-<script src="~/JsApp/Empresa.js"></script>
 <script src="~/JsApp/Sucursal.js"></script>
 <script src="~/JsApp/Eps.js"></script>
 <script src="~/JsApp/FondoCesantias.js"></script>
@@ -58,35 +57,26 @@
 
                 <div class="row g-2">
                     <div class="col-6">
-                        <label><strong>Empresa</strong><label style="color:red" id=""> *</label></label>
-                        <select class="form-control" id="SelectEmpresa" style="min-width:100%" onchange="ListaSucursalXIdEmpresa($('#SelectEmpresa').val())"></select>
-                        <input class="form-control" type="text" id="InputEmpresaEmpleadoTexto" name="name" autocomplete="off" style="min-width:100% ; display:block" disabled />
-                    </div>
-                    <div class="col-6">
                         <label><strong>Sucursal</strong><label style="color:red" id=""> *</label></label>
-                        <select class="form-control" id="SelectSucursalXIdEmpresa" style="min-width:100%" disabled></select>
-                        <input class="form-control" type="text" id="InputSucursalEmpleadoTexto" name="name" autocomplete="off" style="min-width:100% ; display:block" disabled />
+                        <select class="form-control" id="SelectSucursal" style="min-width:100%"></select>
                     </div>
-                </div>
-
-                <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Cargo</strong><label style="color:red" id=""> *</label></label>
                         <select class="form-control" id="SelectCargo" style="min-width:100%"></select>
                     </div>
+                </div>
+
+               
+                <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Contrato</strong><label style="color:red" id=""> *</label></label>
                         <select class="form-control" id="SelectTipoContrato" style="min-width:100%"></select>
                     </div>
-                </div>
-
-                <div class="row g-2">
-                   
-                    <div class="col-6">
+                    <div class="col-3">
                         <label><strong>Salario Mensual</strong><label style="color:red" id=""> *</label></label>
                         <input class="form-control" type="number" id="InputSalarioCLE" name="name" autocomplete="off" style="min-width:100%" onchange="CalcularValorDia()" placeholder="0" />
                     </div>
-                    <div class="col-6">
+                    <div class="col-3">
                         <label><strong>Valor Día</strong></label>
                         <input class="form-control" type="text" id="InputValorDiaSalarioCLE" name="name" autocomplete="off" style="min-width:100%" disabled />
                     </div>
@@ -231,7 +221,6 @@
         ValidarSesion('/Recursos_Humanos/Contrato_Laboral');
         GridCLE();
         ListaEmpleado();
-        ListaEmpresa();
         ListaCargo();
         ListaTipoEstado(1);
         ListaTipoContrato();
@@ -239,5 +228,6 @@
         ListaFondoPensiones();
         ListaFondoCesantias();
         ListaBanco();
+        ListaSucursal();
     });
 </script>

@@ -18,17 +18,16 @@ namespace Data.DataEntities
         readonly GcsEntities _conection = new GcsEntities();
         private readonly DataRol dataRol = new DataRol();
 
-        public string CrearCotizacion(string IdUser, int IdEmpresa, int IdCliente)
+        public string CrearCotizacion(string IdUser, int IdCliente)
         {
             string resultado = String.Empty;
             try
             {
                 var varIdUser = new SqlParameter("@IdUser", SqlDbType.VarChar) { Value = IdUser };
-                var varIdEmpresa = new SqlParameter("@IdEmpresa", SqlDbType.Int) { Value = IdEmpresa };
                 var varIdCliente = new SqlParameter("@IdCliente", SqlDbType.Int) { Value = IdCliente };
                 var varResultado = new SqlParameter("@Resultado", SqlDbType.VarChar) { Direction = ParameterDirection.Output, Size = 255 };
 
-                _conection.Database.ExecuteSqlCommand("SP_CrearCotizacion @IdUser, @IdEmpresa, @IdCliente, @Resultado OUTPUT", varIdUser, varIdEmpresa, varIdCliente, varResultado);
+                _conection.Database.ExecuteSqlCommand("SP_CrearCotizacion @IdUser, @IdCliente, @Resultado OUTPUT", varIdUser, varIdCliente, varResultado);
 
                 resultado = Convert.ToString(varResultado.Value);
             }

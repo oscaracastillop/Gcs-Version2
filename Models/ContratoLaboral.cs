@@ -7,8 +7,7 @@
             public int Id { get; set; }
             public int IdEmpleado { get; set; }
             public string Empleado { get; set; }
-            public int IdEmpresa { get; set; }
-            public string Empresa { get; set; }
+            public int IdSucursal { get; set; }
             public string Sucursal { get; set; }
             public int IdCargo { get; set; }
             public string Cargo { get; set; }

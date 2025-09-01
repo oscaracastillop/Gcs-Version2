@@ -2,6 +2,7 @@
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using SistemaGcs.Data.DataEntities;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -19,9 +20,11 @@ namespace App.Controllers
         }
 
         private readonly DataCotizacion dataCotizacion = new DataCotizacion();
-        public JsonResult CrearCotizacion(string IdUser, int IdEmpresa,int IdCliente)
+        private readonly DataEmpresa dataEmpresa = new DataEmpresa();
+
+        public JsonResult CrearCotizacion(string IdUser, int IdCliente)
         {
-            var resultado = dataCotizacion.CrearCotizacion(IdUser, IdEmpresa, IdCliente);
+            var resultado = dataCotizacion.CrearCotizacion(IdUser, IdCliente);
 
             return Json(resultado);
         }
@@ -53,6 +56,13 @@ namespace App.Controllers
             var cultura = new CultureInfo("es-CO");
 
             // Obtener los datos del comprobante
+
+            var datosEmpresa = dataEmpresa.GridEmpresa();
+            if (datosEmpresa == null || datosEmpresa.Count == 0)
+                return HttpNotFound();
+
+            var a = datosEmpresa[0];
+
             var datos = dataCotizacion.DatosCabeceraCotizacionPdf(id);
             if (datos == null || datos.Count == 0)
                 return HttpNotFound();
@@ -117,11 +127,11 @@ namespace App.Controllers
                     {
                         col.Spacing(0);
                         // Datos generales del empleado
-                        col.Item().Text($"{d.NombreEmpresa}").FontSize(15).Bold().AlignLeft();
-                        col.Item().Text($"{d.TipoDocumentoEmpresa}: {d.IdentificacionEmpresa}").FontSize(6).AlignLeft();
-                        col.Item().Text($"Email: {d.EmailEmpresa}").FontSize(6).AlignLeft();
-                        col.Item().Text($"Telefono: {d.TelefonoEmpresa}").FontSize(6).AlignLeft();
-                        col.Item().Text($"Celular: {d.CelularEmpresa}").FontSize(6).AlignLeft();
+                        col.Item().Text($"{a.Nombre}").FontSize(15).Bold().AlignLeft();
+                        col.Item().Text($"{a.TipoDocumento}: {a.Identificacion}").FontSize(6).AlignLeft();
+                        col.Item().Text($"Email: {a.Email}").FontSize(6).AlignLeft();
+                        col.Item().Text($"Telefono: {a.Telefono}").FontSize(6).AlignLeft();
+                        col.Item().Text($"Celular: {a.Celular}").FontSize(6).AlignLeft();
                         col.Item().PaddingBottom(20).Text("");
 
                         col.Item().PaddingTop(0).Text("INFORMACION GENERAL").Bold().FontSize(10);
