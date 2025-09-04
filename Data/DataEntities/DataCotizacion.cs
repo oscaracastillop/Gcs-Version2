@@ -80,18 +80,6 @@ namespace Data.DataEntities
             }
         }
 
-        public List<DatosDetalleCotizacionPdf> DatosDetalleCotizacionPdf(int Id)
-        {
-            try
-            {
-                var response = _conection.Database.SqlQuery<DatosDetalleCotizacionPdf>("SP_DatosDetalleCotizacionPdf @Id", new SqlParameter("@Id", Id)).ToList();
-                return response;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
 
 
     }

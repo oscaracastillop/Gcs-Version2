@@ -139,5 +139,22 @@ namespace Data.DataEntities
             return resultado;
         }
 
+
+        public List<GridDetalleCotizacionPdf>GridDetalleCotizacionPdf(int Id)
+        {
+            try
+            {
+                var response = _conection.Database.SqlQuery<GridDetalleCotizacionPdf>("SP_DatosDetalleCotizacionPdf @Id", new SqlParameter("@Id", Id)).ToList();
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
+
     }
 }

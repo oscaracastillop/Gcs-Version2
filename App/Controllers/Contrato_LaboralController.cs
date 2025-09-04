@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Web.Mvc;
 
+
 namespace App.Controllers
 {
     public class Contrato_LaboralController : Controller

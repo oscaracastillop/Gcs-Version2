@@ -45,5 +45,19 @@ namespace Models
             public string DateCreate { get; set; }
 
         }
+
+
+        public class GridDetalleCotizacionPdf
+        {
+            public string CodigoProducto{ get; set; }
+            public string Nombre { get; set; }
+            public int Cantidad { get; set; }
+            public int PrecioUnitario { get; set; }
+            
+            public int PorcentajeIva { get; set; }
+            public int ValorIva { get; set; }
+            public int SubTotal { get; set; }
+            public int Total { get; set; }
+        }
     }
 }

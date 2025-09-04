@@ -13,13 +13,13 @@
 
 
 
+.modal-body {
+    background-color: #d8dfea;
+}
 
-
-
-
-
-
-
+.modal-footer {
+    background-color: #d8dfea;
+}
 
 .imagen-escalada-grid {
     width: 100% !important;
@@ -91,13 +91,20 @@
     }
 
 .btn-modal-Cancelar {
-    background-color: black !important;
-    color: white !important;
+     background-color: white !important;
+    /*color: white !important;*/
+    border: solid 1px gray !important;
+    font-weight:bold !important;
+    /*box-shadow: 0px 0px 2px 1px red;*/
 }
 
 .btn-modal-guardar {
-    background-color: green !important;
-    color: white !important;
+    background-color: white !important;
+    border: solid 1px gray !important;
+    font-weight: bold !important;
+    /* box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.75);*/
+    /*background-color: #3b5998 !important;
+    color: white !important;*/
 }
 
 .btn-modal-doc {
@@ -105,10 +112,10 @@
     color: white !important;
 }
 
-.btn-nuevo-datatable {
-    background-color: green !important;
-    color: white !important;
-}
+/*.btn-nuevo-datatable {
+    background-color:  !important;
+    color:  !important;
+}*/
 
 
 
@@ -154,19 +161,27 @@
 }
 
 .fondo {
+    /*background-color: #3b5998;*/
     background-color: #d8dfea;
+
+}
+
+.form-control {
+    border: solid 1px darkgray !important;
 }
 
 .grid {
+    border: solid 1px darkgray !important;
     background-color: white;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    /*box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);*/
     margin-bottom: 10px;
     margin-top: 10px;
     padding-bottom: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
     width: 100%;
+    border-radius: 5px;
 }
 
 .header-modal {

@@ -3,12 +3,10 @@ using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using SistemaGcs.Data.DataEntities;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+
 
 namespace App.Controllers
 {
@@ -20,6 +18,7 @@ namespace App.Controllers
         }
 
         private readonly DataCotizacion dataCotizacion = new DataCotizacion();
+        private readonly DataDetalleCotizacion dataDetalleCotizacion = new DataDetalleCotizacion();
         private readonly DataEmpresa dataEmpresa = new DataEmpresa();
 
         public JsonResult CrearCotizacion(string IdUser, int IdCliente)
@@ -50,60 +49,37 @@ namespace App.Controllers
         #region Plantilla Cotizacion PDF
         public ActionResult descargarCotizacion(int id)
         {
-            // Registrar la fuente Lato
+            // Registrar fuente
             var fontPath = Server.MapPath("~/Content/Lato-Regular.ttf");
             var fontStream = System.IO.File.OpenRead(fontPath);
             var cultura = new CultureInfo("es-CO");
 
-            // Obtener los datos del comprobante
-
+            // Datos empresa
             var datosEmpresa = dataEmpresa.GridEmpresa();
             if (datosEmpresa == null || datosEmpresa.Count == 0)
                 return HttpNotFound();
-
             var a = datosEmpresa[0];
 
+            // Datos cotización
             var datos = dataCotizacion.DatosCabeceraCotizacionPdf(id);
             if (datos == null || datos.Count == 0)
                 return HttpNotFound();
-
             var d = datos[0];
 
-            // Ruta del logo
-            //var logoPath = Server.MapPath($"~/Images/LogoEmpresa/{d.LogoEmpresa}");
-            //byte[] logoBytes = System.IO.File.ReadAllBytes(logoPath);
+            // Detalle
+            var listaProductos = dataDetalleCotizacion.GridDetalleCotizacionPdf(id);
+            if (listaProductos == null || listaProductos.Count == 0)
+                return HttpNotFound();
+
+            // Logo y firma
+            var logoPath = Server.MapPath($"~/Images/LogoEmpresa/{a.Logo}");
+            byte[] logoBytes = System.IO.File.Exists(logoPath) ? System.IO.File.ReadAllBytes(logoPath) : null;
 
             var firmaRLPath = Server.MapPath($"~/Images/FirmaRepresentanteLegal/Firma RL EG.jpeg");
-            byte[] firmaRLBytes = System.IO.File.ReadAllBytes(firmaRLPath);
+            byte[] firmaRLBytes = System.IO.File.Exists(firmaRLPath) ? System.IO.File.ReadAllBytes(firmaRLPath) : null;
 
-            //var SalarioMensualArreglo = decimal.TryParse(d.SalarioMensual, out var SalarioMensualArregloDecimal)
-            //                            ? SalarioMensualArregloDecimal.ToString("C0", cultura)
-            //                            : d.SalarioMensual;
-
-            //var SubTransporteMesArreglo = decimal.TryParse(d.SubTransporteMes, out var SubTransporteMesDecimal)
-            //                            ? SubTransporteMesDecimal.ToString("C0", cultura)
-            //                            : d.SubTransporteMes;
-
-            //var ValorHEDArreglo = decimal.TryParse(d.ValorHED, out var ValorHEDDecimal)
-            //                            ? ValorHEDDecimal.ToString("C0", cultura)
-            //                            : d.ValorHED;
-
-            //var ValorHENArreglo = decimal.TryParse(d.ValorHEN, out var ValorHENDecimal)
-            //                            ? ValorHENDecimal.ToString("C0", cultura)
-            //                            : d.ValorHEN;
-
-            //var ValorHEDDFArreglo = decimal.TryParse(d.ValorHEDDF, out var ValorHEDDFDecimal)
-            //                          ? ValorHEDDFDecimal.ToString("C0", cultura)
-            //                          : d.ValorHEDDF;
-
-            //var ValorHENDFArreglo = decimal.TryParse(d.ValorHENDF, out var ValorHENDFDecimal)
-            //                            ? ValorHENDFDecimal.ToString("C0", cultura)
-            //                            : d.ValorHENDF;
-
-            //var TotalPagarArreglo = decimal.TryParse(d.TotalPagar, out var TotalPagarDecimal)
-            //                           ? TotalPagarDecimal.ToString("C0", cultura)
-            //                           : d.TotalPagar;
-
+            // Paleta
+            var azul = Colors.Blue.Medium;
             
 
             var pdfBytes = Document.Create(container =>
@@ -113,300 +89,275 @@ namespace App.Controllers
                     page.Size(PageSizes.A4);
                     page.Margin(2, Unit.Centimetre);
                     page.PageColor(Colors.White);
-                    page.DefaultTextStyle(x => x.FontFamily("Lato").FontSize(12));
+                    page.DefaultTextStyle(x => x.FontFamily("Lato").FontSize(10));
 
-                    page.Header().PaddingTop(-20).Row(row =>
+                    // Header en todas las páginas, pero con contenido único
+                    page.Header().BorderBottom(1).BorderColor(Colors.Grey.Lighten2).PaddingBottom(5).Row(row =>
                     {
-                        //row.RelativeItem().Height(60).Image(logoBytes).FitHeight();
-                        row.RelativeItem().AlignTop().Text($"Cotización Número {d.CodigoCotizacion}")
-                        .FontFamily("Lato").AlignRight().FontSize(10);
-                        //.FontFamily("Lato").SemiBold().AlignRight().FontSize(10).FontColor(Colors.Blue.Darken1);
+                        // --- Logo a la izquierda ---
+                        row.ConstantItem(120).Height(60).Image(logoBytes).FitHeight();
+
+                        // --- Datos de la empresa en el centro ---
+                        row.RelativeItem().Column(col =>
+                        {
+                            col.Item().AlignCenter().Text(a.Nombre)
+                                .Bold().FontSize(14).FontColor(Colors.Blue.Darken2);
+
+                            col.Item().AlignCenter().Text($"NIT: {a.Identificacion}")
+                                .FontSize(9).FontColor(Colors.Grey.Darken2);
+
+                            col.Item().AlignCenter().Text($"{a.Direccion}, {a.Ciudad}")
+                                .FontSize(7).FontColor(Colors.Grey.Darken2);                            
+
+                            col.Item().AlignCenter().Text($"Email: {a.Email}")
+                                .FontSize(7).FontColor(Colors.Grey.Darken2);
+
+                            col.Item().AlignCenter().Text($"Tel: {a.Telefono}")
+                                .FontSize(7).FontColor(Colors.Grey.Darken2);
+                        });
+
+                        // --- Número de cotización a la derecha ---
+                        row.ConstantItem(180).AlignMiddle().Background("#F0F4FF").Border(1).BorderColor(Colors.Blue.Darken1).Padding(8).Column(col =>
+                        {
+                            col.Item().AlignCenter().Text("COTIZACIÓN").Bold().FontSize(9).FontColor(Colors.Blue.Darken2);
+                            col.Item().AlignCenter().Text($"N° {d.CodigoCotizacion}")
+                                .Bold().FontSize(10).FontColor(Colors.Red.Darken2);
+                            col.Item().AlignCenter().Text($"Fecha: {d.FechaCotizacion:dd/MM/yyyy}")
+                                .FontSize(8).FontColor(Colors.Grey.Darken2);
+                        }); // Solo en la primera página
                     });
 
-                    page.Content().PaddingTop(0).Column(col =>
+
+                    // CONTENIDO
+                    page.Content().PaddingTop(12).Column(col =>
                     {
-                        col.Spacing(0);
-                        // Datos generales del empleado
-                        col.Item().Text($"{a.Nombre}").FontSize(15).Bold().AlignLeft();
-                        col.Item().Text($"{a.TipoDocumento}: {a.Identificacion}").FontSize(6).AlignLeft();
-                        col.Item().Text($"Email: {a.Email}").FontSize(6).AlignLeft();
-                        col.Item().Text($"Telefono: {a.Telefono}").FontSize(6).AlignLeft();
-                        col.Item().Text($"Celular: {a.Celular}").FontSize(6).AlignLeft();
-                        col.Item().PaddingBottom(20).Text("");
+                        // Bloque cliente en columnas
+                        col.Item().Background("#FAFAFA") // Fondo gris muy suave
+                            .Border(1).BorderColor(Colors.Grey.Lighten1)
+                            .Padding(6).Column(c =>
+                            {
+                                // Título centrado con color
+                                c.Item().AlignCenter().Text("INFORMACIÓN DEL CLIENTE")
+                                .Bold().FontSize(11).FontColor(Colors.Blue.Darken2);
 
-                        col.Item().PaddingTop(0).Text("INFORMACION GENERAL").Bold().FontSize(10);
+                                c.Item().PaddingBottom(4);
+
+                                // Dividimos en 2 columnas
+                                c.Item().Row(r =>
+                                {
+                                    // Columna izquierda
+                                    r.RelativeItem().Column(colIzq =>
+                                    {
+                                        void InfoIzq(string etiqueta, string valor) =>
+                                        colIzq.Item().Row(rr =>
+                                        {
+                                            rr.RelativeItem(1)
+                                                .Background("#EAEAEA")
+                                                .Border(0.5f).BorderColor(Colors.Grey.Lighten2)
+                                                .Padding(3).Text(etiqueta).SemiBold().FontSize(7).FontColor(Colors.Black);
+
+                                            rr.RelativeItem(2)
+                                                .Border(0.5f).BorderColor(Colors.Grey.Lighten2)
+                                                .Padding(3).Text(valor).FontSize(7).FontColor(Colors.Grey.Darken3);
+                                        });
+
+                                        InfoIzq("Cliente:", d.NombreCliente);
+                                        InfoIzq("Identificación:", d.IdentificacionCliente);
+                                        InfoIzq("Email:", d.EmailCliente);
+                                        InfoIzq("Contacto:", d.ContactoCliente);
+                                        InfoIzq("Dirección:", d.DireccionCiente);
+                                    });
+
+                                    // Columna derecha
+                                    r.RelativeItem().Column(colDer =>
+                                    {
+                                        void InfoDer(string etiqueta, string valor) =>
+                    colDer.Item().Row(rr =>
+                                        {
+                                            rr.RelativeItem(1)
+                                                .Background("#EAEAEA")
+                                                .Border(0.5f).BorderColor(Colors.Grey.Lighten2)
+                                                .Padding(3).Text(etiqueta).SemiBold().FontSize(7).FontColor(Colors.Black);
+
+                                            rr.RelativeItem(2)
+                                                .Border(0.5f).BorderColor(Colors.Grey.Lighten2)
+                                                .Padding(3).Text(valor).FontSize(7).FontColor(Colors.Grey.Darken3);
+                                        });
+
+                                        InfoDer("Teléfono:", d.TelefonoCliente);
+                                        InfoDer("Celular:", d.CelularCliente);
+                                        InfoDer("Forma de Pago:", d.FormaPagoCiente);
+                                        InfoDer("Plazo de Pago:", d.PlazoPagoCliente);                                        
+                                        InfoDer("Ciudad:", d.CiudadCliente);
+                                    });
+                                });
+                            });
 
 
-                        col.Item().PaddingTop(5).Text(text =>
+
+                        // Texto introductorio ampliado y estilizado
+                        col.Item().PaddingTop(12).Text(text =>
                         {
                             text.Justify();
-                            text.Span("Cliente: ").SemiBold().FontSize(9);
-                            text.Span($"{d.NombreCliente}").FontSize(9);
+
+                            text.Span("A continuación, nos permitimos presentar la cotización solicitada por ").FontSize(8);
+                            text.Span($"{d.NombreCliente}").Bold().FontSize(8).FontColor(Colors.Blue.Darken2);
+                            text.Span(" a nuestra compañía ").FontSize(8);
+                            text.Span($"{d.NombreEmpresa}").Bold().FontSize(8).FontColor(Colors.Blue.Darken2);
+                            text.Span(", por lo anterior, anexamos los valores correspondientes a los servicios y/o productos solicitados. ").FontSize(8);
+                            text.Span("Nuestra empresa se compromete a ofrecer productos de alta calidad, cumplimiento en los tiempos de entrega y un servicio al cliente personalizado, asegurando que todas las necesidades de su empresa sean atendidas con la mayor eficiencia y responsabilidad. ").FontSize(8);
+                            text.Span("Agradecemos la confianza depositada en nosotros y quedamos atentos a cualquier consulta o aclaración adicional que requiera. ").FontSize(8);
+                            text.Span("Estamos seguros de que nuestra propuesta será de su interés y contribuirá al éxito de sus proyectos.").FontSize(8);
                         });
 
-                        col.Item().PaddingTop(0).Text(text =>
+
+                        // Título Detalle
+                        col.Item().PaddingTop(12)
+                            .Background("#E3F2FD")        // Fondo azul muy suave
+                            .Border(0.5f).BorderColor(Colors.Blue.Lighten3)
+                            .Padding(6).AlignCenter()
+                            .Text("DETALLE DE LA COTIZACIÓN")
+                            .Bold().FontSize(12).FontColor(Colors.Blue.Darken2);
+
+                        // Tabla de productos
+                        col.Item().PaddingTop(5).Border(1).BorderColor(Colors.Grey.Lighten2).Column(prod =>
                         {
-                            text.Justify();
-                            text.Span("Identificación: ").SemiBold().FontSize(9);
-                            text.Span($"{d.IdentificacionCliente}").FontSize(9);
+                            // Encabezado con fondo azul claro
+                            prod.Item().Background("#BBDEFB").Row(r =>
+                            {
+                                r.RelativeItem(0.5f).Padding(3).Text("N°").FontSize(8).Bold().AlignCenter();
+                                r.RelativeItem(1.2f).Padding(3).Text("Código").FontSize(8).Bold().AlignCenter();
+                                r.RelativeItem(2f).Padding(3).Text("Nombre").FontSize(8).Bold().AlignCenter();
+                                r.RelativeItem(1f).Padding(3).Text("Cant.").FontSize(8).Bold().AlignCenter();
+                                r.RelativeItem(1.2f).Padding(3).Text("Precio Unid").FontSize(8).Bold().AlignCenter();
+                                r.RelativeItem(1f).Padding(3).Text("% IVA").FontSize(8).Bold().AlignCenter();
+                                r.RelativeItem(1.2f).Padding(3).Text("Valor IVA").FontSize(8).Bold().AlignCenter();
+                                r.RelativeItem(1.2f).Padding(3).Text("Total").FontSize(8).Bold().AlignCenter();
+                            });
+
+                            // Filas de productos con zebra suave
+                            int cont = 1;
+                            foreach (var b in listaProductos)
+                            {
+                                var bg = cont % 2 == 0 ? Colors.White : Color.FromHex("#F1F8E9");
+
+                                prod.Item().Row(r =>
+                                {
+                                    r.RelativeItem(0.5f).Background(bg).Padding(3).Text($"{cont}").FontSize(7).AlignCenter();
+                                    r.RelativeItem(1.2f).Background(bg).Padding(3).Text(b.CodigoProducto).FontSize(7).AlignCenter();
+                                    r.RelativeItem(2f).Background(bg).Padding(3).Text(b.Nombre).FontSize(7);
+                                    r.RelativeItem(1f).Background(bg).Padding(3).Text($"{b.Cantidad:N0}").FontSize(7).AlignRight();
+                                    r.RelativeItem(1.2f).Background(bg).Padding(3).Text($"$ {b.PrecioUnitario:N0}").FontSize(7).AlignRight();
+                                    r.RelativeItem(1f).Background(bg).Padding(3).Text($"{b.PorcentajeIva}%").FontSize(7).AlignCenter();
+                                    r.RelativeItem(1.2f).Background(bg).Padding(3).Text($"$ {b.ValorIva:N0}").FontSize(7).AlignRight();
+                                    r.RelativeItem(1.2f).Background(bg).Padding(3).Text($"$ {b.Total:N0}").FontSize(7).AlignRight();
+                                });
+
+                                cont++;
+                            }
+
+                            // Totales destacados con fondo azul muy suave
+                            prod.Item().PaddingTop(5).Background("#E3F2FD").Row(r =>
+                            {
+                                r.RelativeItem(0.5f);
+                                r.RelativeItem(1f);
+                                r.RelativeItem(2f).Padding(3).Text("TOTAL:").FontSize(8).Bold().AlignRight();
+                                r.RelativeItem(1f).Padding(3).Text($"{listaProductos.Sum(p => p.Cantidad):N0}").FontSize(8).Bold().AlignRight();
+                                r.RelativeItem(1.2f);
+                                r.RelativeItem(1f);
+                                r.RelativeItem(1.2f).Padding(3).Text($"$ {listaProductos.Sum(p => p.ValorIva):N0}").FontSize(8).Bold().AlignRight();
+                                r.RelativeItem(1.2f).Padding(3).Text($"$ {listaProductos.Sum(p => p.Total):N0}").FontSize(8).Bold().AlignRight();
+                            });
                         });
 
-                        col.Item().PaddingTop(0).Text(text =>
+
+                        /// --- Políticas y condiciones ---
+                        col.Item()
+                           .PaddingTop(20)
+                           .Background("#F9F9F9")
+                           .Padding(10) // Solo padding interno, sin borde
+                           .Column(p =>
+                           {
+                               p.Spacing(4); // Espaciado vertical uniforme entre items
+
+                               // Políticas de cotización
+                               p.Item().Text("POLÍTICAS DE COTIZACIÓN")
+           .Bold().FontSize(10).FontColor(Colors.Blue.Darken2);
+
+                               p.Item().Text("1. La presente cotización tiene una validez de 30 días calendario a partir de la fecha de emisión.").FontSize(8);
+                               p.Item().Text("2. Los precios están expresados en pesos colombianos (COP) e incluyen los impuestos de ley.").FontSize(8);
+                               p.Item().Text("3. La disponibilidad de productos está sujeta a inventario en el momento de la aceptación.").FontSize(8);
+                               p.Item().Text("4. El tiempo de entrega será confirmado con el cliente una vez recibida la orden de compra.").FontSize(8);
+                               p.Item().Text("5. Cualquier modificación en cantidades o referencias generará una nueva cotización.").FontSize(8);
+
+                               // Condiciones de pago
+                               p.Item().Height(6);
+                               p.Item().Text("CONDICIONES DE PAGO").Bold().FontSize(10).FontColor(Colors.Blue.Darken2);
+                               p.Item().Text("1. Se podrá solicitar un anticipo mínimo del 50% para dar inicio al pedido.").FontSize(8);
+                               p.Item().Text("2. El saldo deberá ser cancelado contra entrega o según acuerdo comercial.").FontSize(8);
+                               p.Item().Text("3. En caso de mora en los pagos, se podrán generar intereses de financiación.").FontSize(8);
+
+                               // Entregas y garantías
+                               p.Item().Height(6);
+                               p.Item().Text("ENTREGAS Y GARANTÍAS").Bold().FontSize(10).FontColor(Colors.Blue.Darken2);
+                               p.Item().Text("1. Los tiempos de entrega empezarán a contarse a partir de la confirmación del pedido y el anticipo.").FontSize(8);
+                               p.Item().Text("2. La garantía de los productos será la establecida por el fabricante o la empresa.").FontSize(8);
+                               p.Item().Text("3. La garantía no cubre daños ocasionados por mal uso o instalación inadecuada.").FontSize(8);
+
+                               // Términos y condiciones generales
+                               p.Item().Height(6);
+                               p.Item().Text("TÉRMINOS Y CONDICIONES GENERALES").Bold().FontSize(10).FontColor(Colors.Blue.Darken2);
+                               p.Item().Text("1. Esta cotización no constituye un contrato hasta ser aceptada por el cliente y confirmada por la empresa.").FontSize(8);
+                               p.Item().Text("2. La empresa no se hace responsable por retrasos ocasionados por fuerza mayor.").FontSize(8);
+                               p.Item().Text("3. Cualquier reclamo deberá presentarse por escrito dentro de los 5 días hábiles siguientes a la entrega.").FontSize(8);
+                               p.Item().Text("4. Para efectos legales, ambas partes se someten a las leyes de la República de Colombia.").FontSize(8);
+
+                               // Notas finales
+                               p.Item().Height(6);
+                               p.Item().Text("NOTAS FINALES").Bold().FontSize(10).FontColor(Colors.Blue.Darken2);
+                               p.Item().Text($"Para dudas o aclaraciones comuníquese por medio del correo o el teléfono indicados en esta cotización.").FontSize(8);
+                           });
+
+
+
+
+                        // Firma
+                        if (firmaRLBytes != null)
                         {
-                            text.Justify();
-                            text.Span("Email: ").SemiBold().FontSize(9);
-                            text.Span($"{d.EmailCliente}").FontSize(9);
-                        });
+                            col.Item().PaddingTop(25).Row(r =>
+                            {
+                                r.RelativeItem().AlignCenter().Column(c =>
+                                {
+                                    c.Item().Height(50).Image(firmaRLBytes).FitHeight();
+                                    c.Item().Text("Firma Representante Legal").FontSize(8).AlignCenter();
+                                });
+                            });
+                        }
+                    });
+                    page.Footer().PaddingTop(5).Row(row =>
+                    {
+                        // Texto institucional a la izquierda
+                        row.RelativeItem().AlignLeft().Text("Documento generado con Sofia Software Administrativo V 1.0")
+                            .FontSize(7).FontColor(Colors.Grey.Medium);
 
-                        col.Item().PaddingTop(0).Text(text =>
+                        // Numeración de páginas a la derecha
+                        row.ConstantItem(120).AlignRight().Text(txt =>
                         {
-                            text.Justify();
-                            text.Span("Nombre Contacto: ").SemiBold().FontSize(9);
-                            text.Span($"{d.ContactoCliente}").FontSize(9);
+                            txt.Span("Página ").FontSize(7).FontColor(Colors.Grey.Darken2);
+                            txt.CurrentPageNumber().FontSize(7).FontColor(Colors.Grey.Darken2);
+                            txt.Span(" de ").FontSize(7).FontColor(Colors.Grey.Darken2);
+                            txt.TotalPages().FontSize(7).FontColor(Colors.Grey.Darken2);
                         });
-
-                        col.Item().PaddingTop(0).Text(text =>
-                        {
-                            text.Justify();
-                            text.Span("Teléfono: ").SemiBold().FontSize(9);
-                            text.Span($"{d.TelefonoCliente}").FontSize(9);
-                        });
-
-                        col.Item().PaddingTop(0).Text(text =>
-                        {
-                            text.Justify();
-                            text.Span("Celular: ").SemiBold().FontSize(9);
-                            text.Span($"{d.CelularCliente}").FontSize(9);
-                        });
-
-                        col.Item().PaddingTop(0).Text(text =>
-                        {
-                            text.Justify();
-                            text.Span("Forma de Pago: ").SemiBold().FontSize(9);
-                            text.Span($"{d.FormaPagoCiente}").FontSize(9);
-                        });
-
-                        col.Item().PaddingTop(0).Text(text =>
-                        {
-                            text.Justify();
-                            text.Span("Plazo de Pago: ").SemiBold().FontSize(9);
-                            text.Span($"{d.PlazoPagoCliente}").FontSize(9);
-                        });
-
-                        col.Item().PaddingTop(0).Text(text =>
-                        {
-                            text.Justify();
-                            text.Span("Dirección: ").SemiBold().FontSize(9);
-                            text.Span($"{d.DireccionCiente}").FontSize(9);
-                        });
-
-                        col.Item().PaddingTop(0).Text(text =>
-                        {
-                            text.Justify();
-                            text.Span("Ciudad: ").SemiBold().FontSize(9);
-                            text.Span($"{d.CiudadCliente}").FontSize(9);
-                        });
-                                                
-
-                        col.Item().PaddingTop(20).Text(text =>
-                        {
-                            text.Justify();
-                            text.Span("A continuación nos permitimos presentar la cotización solicitada por ").FontSize(8);
-                            text.Span($"{d.NombreCliente}").Bold().FontSize(8);
-                            text.Span($" a nuestra compañía ").FontSize(8);
-                            text.Span($"{d.NombreEmpresa}").Bold().FontSize(8);
-                            text.Span($", por lo anterior anexamos los valores correspondientes a los servicios y/o productos solicitados.").FontSize(8);
-                        });
-                        col.Item().PaddingTop(10).Text("DETALLE COTIZACION").Bold().FontSize(10).AlignCenter();
-
-                        //    col.Item().Row(row =>
-                        //    {
-                        //        row.RelativeItem().Text("Fondo Cesantías:").SemiBold().FontSize(8);
-                        //        row.RelativeItem().Text(d.NombreFondoCesantias).FontSize(7);
-                        //        row.ConstantItem(20).PaddingHorizontal(5);
-                        //        row.RelativeItem().Text("Fondo Pensión:").SemiBold().FontSize(8);
-                        //        row.RelativeItem().Text(d.NombreFondoPension).FontSize(7);
-                        //    });
-
-                        //    col.Item().Row(row =>
-                        //    {
-                        //        row.RelativeItem().Text("Estado Nómina: ").SemiBold().FontSize(8);
-                        //        row.RelativeItem().Text(d.Estado).FontSize(7);
-                        //        row.ConstantItem(20).PaddingHorizontal(5);
-                        //        row.RelativeItem().Text("").SemiBold().FontSize(8);
-                        //        row.RelativeItem().Text("").FontSize(7);
-                        //    });
-
-                        //    // Tabla de ingresos y descuentos
-                        //    col.Item().PaddingTop(5).Row(row =>
-                        //    {
-                        //        // Ingresos: conceptos y valores
-                        //        row.RelativeItem().Column(ing =>
-                        //        {
-                        //            ing.Item().PaddingTop(10).PaddingBottom(5).LineHorizontal(1).LineColor(Colors.Black);
-                        //            ing.Item().Text("INGRESOS").SemiBold().FontSize(10).AlignCenter();
-                        //            ing.Item().PaddingTop(5).PaddingBottom(10).LineHorizontal(1).LineColor(Colors.Black);
-                        //            ing.Item().Row(r =>
-                        //            {
-                        //                r.RelativeItem().Text("Sueldo:").FontSize(9); r.RelativeItem().AlignRight().Text(
-                        //                decimal.TryParse(d.Sueldo, out var SueldoDecimal)
-                        //                    ? SueldoDecimal.ToString("C0", cultura)
-                        //                    : d.Sueldo
-                        //                    ).FontSize(9);
-                        //            });
-                        //            ing.Item().Row(r =>
-                        //            {
-                        //                r.RelativeItem().Text("Auxilio transporte:").FontSize(9); r.RelativeItem().AlignRight().Text(
-                        //                decimal.TryParse(d.SubTransporte, out var auxTransporteDecimal)
-                        //                    ? auxTransporteDecimal.ToString("C0", cultura)
-                        //                    : d.SubTransporte
-                        //                    ).FontSize(9);
-                        //            });
-                        //            ing.Item().Row(r =>
-                        //            {
-                        //                r.RelativeItem().Text($"HE Diurna:").FontSize(9); r.RelativeItem().AlignRight().Text(
-                        //                decimal.TryParse(d.ValorTotalHED, out var ValorTotalHEDDecimal)
-                        //                    ? ValorTotalHEDDecimal.ToString("C0", cultura)
-                        //                    : d.ValorTotalHED
-                        //                    ).FontSize(9);
-                        //            });
-                        //            ing.Item().Row(r =>
-                        //            {
-                        //                r.RelativeItem().Text("HE Nocturna:").FontSize(9); r.RelativeItem().AlignRight().Text(
-                        //                decimal.TryParse(d.ValorTotalHEN, out var ValorTotalHENDecimal)
-                        //                    ? ValorTotalHENDecimal.ToString("C0", cultura)
-                        //                    : d.ValorTotalHEN
-                        //                    ).FontSize(9);
-                        //            });
-                        //            ing.Item().Row(r =>
-                        //            {
-                        //                r.RelativeItem().Text("HE Diurna D/F:").FontSize(9); r.RelativeItem().AlignRight().Text(
-                        //                decimal.TryParse(d.ValorTotalHEDDF, out var ValorTotalHEDDFDecimal)
-                        //                    ? ValorTotalHEDDFDecimal.ToString("C0", cultura)
-                        //                    : d.ValorTotalHEDDF
-                        //                    ).FontSize(9);
-                        //            });
-                        //            ing.Item().Row(r =>
-                        //            {
-                        //                r.RelativeItem().Text("HE Nocturna D/F:").FontSize(9); r.RelativeItem().AlignRight().Text(
-                        //                decimal.TryParse(d.ValorTotalHENDF, out var ValorTotalHENDFDecimal)
-                        //                    ? ValorTotalHENDFDecimal.ToString("C0", cultura)
-                        //                    : d.ValorTotalHENDF
-                        //                    ).FontSize(9);
-                        //            });
-                        //            ing.Item().Row(r =>
-                        //            {
-                        //                r.RelativeItem().Text("Desembolso Préstamo:").FontSize(9); r.RelativeItem().AlignRight().Text(
-                        //               decimal.TryParse(d.DesembolsoPrestamo, out var desembolsoDecimal)
-                        //                   ? desembolsoDecimal.ToString("C0", cultura)
-                        //                   : d.DesembolsoPrestamo
-                        //                   ).FontSize(9);
-                        //            });
-                        //            ing.Item().Row(r =>
-                        //            {
-                        //                r.RelativeItem().Text("Otros Ingresos *:").FontSize(9); r.RelativeItem().AlignRight().Text(
-                        //                decimal.TryParse(d.OtrosIngresos, out var otrosIngresosDecimal)
-                        //                    ? otrosIngresosDecimal.ToString("C0", cultura)
-                        //                    : d.OtrosIngresos
-                        //                    ).FontSize(9);
-                        //            });
-                        //            ing.Item().Text("").SemiBold();
-                        //            ing.Item().Row(r =>
-                        //            {
-                        //                r.RelativeItem().Text("Total Ingresos:").SemiBold().FontSize(10); r.RelativeItem().AlignRight().Text(
-                        //                decimal.TryParse(d.TotalIngresos, out var totalIngresosDecimal)
-                        //                    ? totalIngresosDecimal.ToString("C0", cultura)
-                        //                    : d.TotalIngresos).SemiBold().FontSize(10);
-                        //            });
-                        //        });
-
-                        //        // Separador visual (línea vertical y espacio)
-                        //        row.ConstantItem(20).PaddingHorizontal(10).BorderLeft(1).BorderColor(Colors.Grey.Lighten2);
-
-                        //        // Descuentos: conceptos y valores
-                        //        row.RelativeItem().Column(desc =>
-                        //        {
-                        //            desc.Item().PaddingTop(10).PaddingBottom(5).LineHorizontal(1).LineColor(Colors.Black);
-                        //            desc.Item().Text("DESCUENTOS").SemiBold().FontSize(10).AlignCenter();
-                        //            desc.Item().PaddingTop(5).PaddingBottom(10).LineHorizontal(1).LineColor(Colors.Black);
-                        //            desc.Item().Row(r =>
-                        //            {
-                        //                r.RelativeItem().Text($"Eps {d.PorcentajeEps}%:").FontSize(9); r.RelativeItem().AlignRight().Text(
-                        //                decimal.TryParse(d.Eps, out var epsDecimal)
-                        //                    ? epsDecimal.ToString("C0", cultura)
-                        //                    : d.Eps)
-                        //                    .FontSize(9);
-                        //            });
-                        //            desc.Item().Row(r =>
-                        //            {
-                        //                r.RelativeItem().Text($"Pensión {d.PorcentajePension}%:").FontSize(9); r.RelativeItem().AlignRight().Text(
-                        //                decimal.TryParse(d.Pension, out var pensionDecimal)
-                        //                    ? pensionDecimal.ToString("C0", cultura)
-                        //                    : d.Pension)
-                        //                    .FontSize(9);
-                        //            });
-                        //            desc.Item().Row(r =>
-                        //            {
-                        //                r.RelativeItem().Text("Casino:").FontSize(9); r.RelativeItem().AlignRight().Text(
-                        //                decimal.TryParse(d.Casino, out var casinoDecimal)
-                        //                    ? casinoDecimal.ToString("C0", cultura)
-                        //                    : d.Casino)
-                        //                .FontSize(9);
-                        //            });
-                        //            desc.Item().Row(r =>
-                        //            {
-                        //                r.RelativeItem().Text("Cobro Préstamo:").FontSize(9); r.RelativeItem().AlignRight().Text(
-                        //                decimal.TryParse(d.CobroPrestamo, out var cobroPrestamoDecimal)
-                        //                    ? cobroPrestamoDecimal.ToString("C0", cultura)
-                        //                    : d.CobroPrestamo)
-                        //                .FontSize(9);
-                        //            });
-                        //            desc.Item().Row(r =>
-                        //            {
-                        //                r.RelativeItem().Text("Otros Descuentos **:").FontSize(9); r.RelativeItem().AlignRight().Text(
-                        //                decimal.TryParse(d.OtrosDescuentos, out var otrosDescuentosDecimal)
-                        //                    ? otrosDescuentosDecimal.ToString("C0", cultura)
-                        //                    : d.OtrosDescuentos)
-                        //                .FontSize(9);
-                        //            });
-                        //            desc.Item().Text("");
-                        //            desc.Item().Text("");
-                        //            desc.Item().Row(r =>
-                        //            {
-                        //                r.RelativeItem().Text("Total Descuentos:").SemiBold().FontSize(10); r.RelativeItem().AlignRight().Text(
-                        //                decimal.TryParse(d.TotalDescuentos, out var totalDescuentosDecimal)
-                        //                    ? totalDescuentosDecimal.ToString("C0", cultura)
-                        //                    : d.TotalDescuentos).SemiBold().FontSize(10);
-                        //            });
-                        //        });
-                        //    });
-
-                        //    col.Item().PaddingTop(12).Text($"Total a Pagar: {TotalPagarArreglo}").FontFamily("Lato").Bold().FontSize(11).AlignRight();
-                        //    col.Item().Text("");
-                        //    col.Item().LineHorizontal(1).LineColor(Colors.Black);
-
-
-                        //    col.Item().PaddingTop(5).Text($"CANTIDAD HORAS EXTRAS REALIZADAS: Hora Extra Diurna {d.CantHED}, Hora Extra Nocturna {d.CantHEN}, Hora Extra Diurna Domical/Festiva {d.CantHEDDF}, Hora Extra Nocturna Domical/Festiva {d.CantHENDF}.").FontSize(7).Justify();
-                        //    col.Item().PaddingTop(5).Text($"HORAS EXTRAS: Los siguientes son los correspondientes valores para el cálculo de las horas extras. Hora Extra Diurna {ValorHEDArreglo}, Hora Extra Nocturna {ValorHENArreglo}, Hora Extra Diurna Domical/Festiva {ValorHEDDFArreglo}, Hora Extra Nocturna Domical/Festiva {ValorHENDFArreglo}.").FontSize(7).Justify();
-                        //    col.Item().PaddingTop(5).Text($"* OTROS INGRESOS: {d.ConceptoIngresosAdicionales}").FontSize(7).Justify();
-                        //    col.Item().PaddingTop(5).Text($"** OTROS DESCUENTOS: {d.ConceptoDescuentosAdicionales}").FontSize(7).Justify();
-
-                        //    col.Item().PaddingTop(50).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold(); r.RelativeItem().AlignCenter().Height(50).Image(firmaRLBytes).FitHeight(); });
-                        //    col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text("Firma Trabajador").SemiBold(); r.RelativeItem().AlignCenter().Text($"Firma o Sello Empresa").SemiBold(); });
-                        //    col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text($"{d.Empleado}").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"{d.RLEmpresa}").SemiBold().FontSize(8); });
-                        //    col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"Representante Legal").SemiBold().FontSize(8); });
-                        //    col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"{d.Empresa}").SemiBold().FontSize(8); });
-
                     });
 
-                    page.Footer()
-                        .AlignRight()
-                        .Text("Documento generado con Sofia Software Administrativo V 1.0").FontSize(6);
+
                 });
             }).GeneratePdf();
+
             fontStream.Dispose();
-            return File(pdfBytes, "application/pdf", "Cotizacion Número " + d.CodigoCotizacion + ".pdf");
+            return File(pdfBytes, "application/pdf", $"Cotizacion_{d.CodigoCotizacion}.pdf");
         }
+
         #endregion
 
 

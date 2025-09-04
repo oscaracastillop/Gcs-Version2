@@ -8230,7 +8230,6 @@ GO
 CREATE TABLE Cotizacion 
 (Id int identity(1,1) Primary key ,
 CodigoCotizacion varchar(255),
-IdEmpresa int,
 IdCliente int,
 IdTipoDocumento int,
 Identificacion varchar(255),
@@ -8243,7 +8242,6 @@ DateCreate datetime
 
 GO
 
-ALTER TABLE Cotizacion ADD CONSTRAINT FK_IdEmpresaCotizacion FOREIGN KEY (IdEmpresa ) references Empresa(Id)
 ALTER TABLE Cotizacion ADD CONSTRAINT FK_IdClienteCotizacion FOREIGN KEY (IdCliente ) references Cliente(Id)
 ALTER TABLE Cotizacion ADD CONSTRAINT FK_IdEstadoCotizacion FOREIGN KEY (IdEstado) references TipoEstado(Id)
 ALTER TABLE Cotizacion ADD CONSTRAINT FK_IdTipoDocumentoCotizacion FOREIGN KEY (IdTipoDocumento) references TipoDocumento(Id)
@@ -8401,6 +8399,31 @@ END
 
 GO
 
+CREATE PROCEDURE [dbo].[SP_DatosCabeceraCotizacionPdf] @Id INT
+AS
+BEGIN 
+
+SELECT	A.CodigoCotizacion,
+		B.Nombre As NombreCliente,
+		B.Identificacion As IdentificacionCliente,
+		B.Email As EmailCliente,
+		B.Contacto As ContactoCliente,
+		B.Telefono As TelefonoCliente,
+		B.Celular As CelularCliente,
+		dbo.Fun_BuscarNombreFormaPago(B.IdFormaPago) As FormaPagoCiente,
+		dbo.Fun_BuscarNombrePlazoPago(B.IdPlazoPago) As PlazoPagoCliente,
+		B.Direccion As DireccionCiente,
+		dbo.Fun_BuscarNombreCiudad(B.IdCiudad) As CiudadCliente,
+		CONVERT(varchar(255),A.DateCreate,105) As FechaCotizacion
+
+FROM	Cotizacion A,
+		Cliente B
+
+WHERE	A.Id = @Id AND A.IdCliente = B.Id
+END
+
+GO
+
 /* TABLA DETALLE COTIZACION*/
 
 
@@ -8455,26 +8478,25 @@ END
 
 GO
 
-CREATE PROCEDURE [dbo].[SP_DatosCabeceraCotizacionPdf] @Id INT
+CREATE PROCEDURE [dbo].[SP_DatosDetalleCotizacionPdf] @Id INT
 AS
 BEGIN 
 
-SELECT	A.CodigoCotizacion,
-		B.Nombre As NombreCliente,
-		B.Identificacion As IdentificacionCliente,
-		B.Email As EmailCliente,
-		B.Contacto As ContactoCliente,
-		B.Telefono As TelefonoCliente,
-		B.Celular As CelularCliente,
-		dbo.Fun_BuscarNombreFormaPago(B.IdFormaPago) As FormaPagoCiente,
-		dbo.Fun_BuscarNombrePlazoPago(B.IdPlazoPago) As PlazoPagoCliente,
-		B.Direccion As DireccionCiente,
-		dbo.Fun_BuscarNombreCiudad(B.IdCiudad) As CiudadCliente
+SELECT	C.CodigoProducto,
+		C.Nombre + ' '+ C.Marca + ' ' + C.Referencia As Nombre,
+		B.Cantidad,
+		B.PrecioUnitario,
+		B.PorcentajeIva,
+		((B.PorcentajeIva * B.PrecioUnitario)/100) * B.Cantidad As ValorIva,
+
+		(B.PrecioUnitario * B.Cantidad) As SubTotal,
+		(((B.PorcentajeIva * B.PrecioUnitario)/100) + B.PrecioUnitario) * B.Cantidad As Total
 
 FROM	Cotizacion A,
-		Cliente B
+		DetalleCotizacion B,
+		Producto C
 
-WHERE	A.Id = @Id AND A.IdCliente = B.Id
+WHERE	A.Id = @Id AND B.IdCotizacion = A.Id AND B.IdProducto = C.Id
 
 
 END
