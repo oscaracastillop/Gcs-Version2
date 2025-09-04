@@ -159,19 +159,26 @@ namespace App.Controllers
                 });
 
                 // --- Contenido principal ---
-                page.Content().Column(col =>
+                page.Content().PaddingTop(10).Column(col =>
                 {
 
+                    col.Item().Background("#FAFAFA") // Fondo gris muy suave
+                     .Border(1).BorderColor(Colors.Grey.Lighten1)
+                     .Padding(10).Column(c =>
+                     {
+                         // Título centrado con color
+                         c.Item().AlignCenter().Text("DATOS EMPLEADO")
+                         .Bold().FontSize(11).FontColor(Colors.Blue.Darken2);
+                     });
+
+                    col.Item().PaddingTop(5);
                     // Bloque cliente en columnas
                     col.Item().Background("#FAFAFA") // Fondo gris muy suave
                         .Border(1).BorderColor(Colors.Grey.Lighten1)
-                        .Padding(6).Column(c =>
+                        .Padding(10).Column(c =>
                         {
-                            // Título centrado con color
-                            c.Item().AlignCenter().Text("INFORMACIÓN DEL EMPLEADO")
-                            .Bold().FontSize(11).FontColor(Colors.Blue.Darken2);
 
-                            c.Item().PaddingBottom(4);
+                            //c.Item().PaddingBottom(4);
 
                             // Dividimos en 2 columnas
                             c.Item().Row(r =>
@@ -225,14 +232,25 @@ namespace App.Controllers
                                     InfoDer("Permanencia:", d.Permanencia);
                                     InfoDer("Salario Mensual:", SubTransporteMesDecimal.ToString("C0", cultura));
                                     InfoDer("# Cuenta:", d.NumeroCuenta);
-                                    InfoDer("Eps:", d.Eps);
+                                    InfoDer("Eps:", d.NombreEps);
                                     InfoDer("Fondo Pensión:", d.NombreFondoPension);
                                 });
                             });
                         });
+                    col.Item().PaddingTop(20);
+                    // Bloque cliente en columnas
+                    col.Item().Background("#FAFAFA") // Fondo gris muy suave
+                        .Border(1).BorderColor(Colors.Grey.Lighten1)
+                        .Padding(10).Column(c =>
+                        {
+                            // Título centrado con color
+                            c.Item().AlignCenter().Text("DATOS NÓMINA")
+                            .Bold().FontSize(11).FontColor(Colors.Blue.Darken2);
+                        });
+
 
                     // --- Tabla de Ingresos y Descuentos con padding horizontal y totales resaltados ---
-                    col.Item().PaddingTop(10).Row(row =>
+                    col.Item().PaddingTop(5).Row(row =>
                     {
                         // INGRESOS
                         row.RelativeItem().Column(ing =>
@@ -305,46 +323,93 @@ namespace App.Controllers
                         });
                     });
 
-                    // --- Total a Pagar con estilo de título de cotización ---
+                    // --- Total a Pagar con enfoque destacado ---
                     col.Item()
-                        .PaddingVertical(5) // solo padding vertical
-                        .Background(Colors.Grey.Lighten3) // fondo gris suave
+                        .PaddingVertical(8) // más separación vertical
+                        //.Background(Colors.Grey.Lighten2) // fondo más visible
                         .Row(r =>
                         {
                             r.RelativeItem()
                                 .Text("TOTAL A PAGAR:")
-                                .SemiBold()          // estilo similar a títulos de la cotización
-                                .FontSize(11)
+                                .SemiBold()           // estilo título
+                                .FontSize(13)         // más grande
                                 .FontColor(Colors.Black);
                             r.RelativeItem()
                                 .AlignRight()
                                 .Text(TotalPagarFormateado)
                                 .SemiBold()
-                                .FontSize(11)
+                                .FontSize(13)         // más grande
                                 .FontColor(Colors.Black);
                         });
 
-                    // Total en letras
+                    // Total en letras con más enfoque
                     col.Item()
-                        .PaddingTop(2)
-                        .Text($"({TotalPagarLetras})")
-                        .FontSize(9)
+                        .PaddingTop(3)
+                        .Text($"({TotalPagarLetras} COLOMBIANOS (COP))")
+                        .FontSize(10)
                         .Italic()
+                        .FontColor(Colors.Black)
                         .AlignRight();
 
-                    // Línea separadora final
+                    // Línea separadora reforzada
                     col.Item()
                         .PaddingTop(5)
-                        .LineHorizontal(1)
+                        .LineHorizontal(1.5f) // línea un poco más gruesa
                         .LineColor(Colors.Grey.Darken1);
 
 
 
-                    // --- Horas Extras ---
-                    col.Item().PaddingTop(5).Text($"CANTIDAD HORAS EXTRAS REALIZADAS: Hora Extra Diurna {d.CantHED}, Hora Extra Nocturna {d.CantHEN}, Hora Extra Diurna Domical/Festiva {d.CantHEDDF}, Hora Extra Nocturna Domical/Festiva {d.CantHENDF}.").FontSize(7).Justify();
-                    col.Item().PaddingTop(5).Text($"HORAS EXTRAS: Los siguientes son los correspondientes valores para el cálculo de las horas extras. Hora Extra Diurna {ValorHEDDecimal.ToString("C0", cultura)}, Hora Extra Nocturna {ValorHENDecimal.ToString("C0", cultura)}, Hora Extra Diurna Domical/Festiva {ValorHEDDFDecimal.ToString("C0", cultura)}, Hora Extra Nocturna Domical/Festiva {ValorHENDFDecimal.ToString("C0", cultura)}.").FontSize(7).Justify();
-                    col.Item().PaddingTop(5).Text($"* OTROS INGRESOS: {d.ConceptoIngresosAdicionales}").FontSize(7).Justify();
-                    col.Item().PaddingTop(5).Text($"** OTROS DESCUENTOS: {d.ConceptoDescuentosAdicionales}").FontSize(7).Justify();
+
+                    col.Item()
+     .Column(colHE =>
+     {
+         // Título de la sección
+         colHE.Item()
+             .Padding(5)
+             .Text("HORAS EXTRAS Y OTROS CONCEPTOS")
+             .Bold()
+             .FontSize(9)
+             .FontColor(Colors.Blue.Darken2);
+
+         // Cantidad de horas extras
+         colHE.Item()
+             .PaddingVertical(2)
+             .PaddingHorizontal(10)
+             .Text($"1. Realizadas: Hora Extra Diurna {d.CantHED}, Hora Extra Nocturna {d.CantHEN}, Hora Extra Diurna Domical/Festiva {d.CantHEDDF}, Hora Extra Nocturna Domical/Festiva {d.CantHENDF}.")
+             .FontSize(8)
+             .Justify();
+
+        
+
+         // Valores correspondientes de horas extras
+         colHE.Item()
+             .PaddingVertical(2)
+             .PaddingHorizontal(10)
+             .Text($"2. Valores: Hora Extra Diurna {ValorHEDDecimal.ToString("C0", cultura)}, Hora Extra Nocturna {ValorHENDecimal.ToString("C0", cultura)}, Hora Extra Diurna Domical/Festiva {ValorHEDDFDecimal.ToString("C0", cultura)}, Hora Extra Nocturna Domical/Festiva {ValorHENDFDecimal.ToString("C0", cultura)}.")
+             .FontSize(8)
+             .Justify();
+
+         // Otros ingresos
+         colHE.Item()
+             .PaddingVertical(2)
+             .PaddingHorizontal(10)
+             .Text($"3. *Otros Ingresos: {d.ConceptoIngresosAdicionales}")
+             .Justify()
+             .FontSize(8);
+
+         // Otros descuentos
+         colHE.Item()
+             .PaddingVertical(2)
+             .PaddingHorizontal(10)
+             .Text($"4. **Otros Descuentos: {d.ConceptoDescuentosAdicionales}")
+             .Justify()
+             .FontSize(8);
+     });
+
+
+
+
+
 
                     // --- Firmas ---
                     col.Item().PaddingTop(50).Row(r =>
@@ -374,11 +439,24 @@ namespace App.Controllers
                     });
                 });
 
-                // --- Footer ---
-                page.Footer()
-                    .AlignRight()
-                    .Text("Documento generado con Sofia Software Administrativo V 1.0").FontSize(6);
+                page.Footer().PaddingTop(5).Row(row =>
+                {
+                    // Texto institucional a la izquierda
+                    row.RelativeItem().AlignLeft().Text("Documento generado con Sofia Software Administrativo V 1.0")
+                        .FontSize(7).FontColor(Colors.Grey.Medium);
+
+                    // Numeración de páginas a la derecha
+                    row.ConstantItem(120).AlignRight().Text(txt =>
+                    {
+                        txt.Span("Página ").FontSize(7).FontColor(Colors.Grey.Darken2);
+                        txt.CurrentPageNumber().FontSize(7).FontColor(Colors.Grey.Darken2);
+                        txt.Span(" de ").FontSize(7).FontColor(Colors.Grey.Darken2);
+                        txt.TotalPages().FontSize(7).FontColor(Colors.Grey.Darken2);
+                    });
+                });
             });
+
+
             }).GeneratePdf();
 
             fontStream.Dispose();

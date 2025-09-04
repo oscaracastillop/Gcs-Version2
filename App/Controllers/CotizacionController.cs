@@ -282,7 +282,7 @@ namespace App.Controllers
 
                                // Políticas de cotización
                                p.Item().Text("POLÍTICAS DE COTIZACIÓN")
-           .Bold().FontSize(10).FontColor(Colors.Blue.Darken2);
+                                .Bold().FontSize(10).FontColor(Colors.Blue.Darken2);
 
                                p.Item().Text("1. La presente cotización tiene una validez de 30 días calendario a partir de la fecha de emisión.").FontSize(8);
                                p.Item().Text("2. Los precios están expresados en pesos colombianos (COP) e incluyen los impuestos de ley.").FontSize(8);
