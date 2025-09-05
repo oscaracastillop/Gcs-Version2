@@ -5375,7 +5375,8 @@ BEGIN
 			A.IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,
 			C.Logo As Logo,
-			CONVERT(varchar(255),GETDATE(),105) As FechaFirmaContrato			
+			CONVERT(varchar(255),GETDATE(),105) As FechaFirmaContrato	,
+			CONVERT(varchar(255),A.DateCreate,105) As FechaContrato
 	FROM	ContratoLaboral A,
 			Empleado B,
 			Empresa C,

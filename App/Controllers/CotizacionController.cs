@@ -94,25 +94,48 @@ namespace App.Controllers
                     // Header en todas las páginas, pero con contenido único
                     page.Header().BorderBottom(1).BorderColor(Colors.Grey.Lighten2).PaddingBottom(5).Row(row =>
                     {
+                        //// --- Logo a la izquierda ---
+                        //row.ConstantItem(120).Height(60).Image(logoBytes).FitHeight();
+
+                        //// --- Datos de la empresa en el centro ---
+                        //row.RelativeItem().Column(col =>
+                        //{
+                        //    col.Item().AlignCenter().Text(a.Nombre)
+                        //        .Bold().FontSize(14).FontColor(Colors.Blue.Darken2);
+
+                        //    col.Item().AlignCenter().Text($"NIT: {a.Identificacion}")
+                        //        .FontSize(9).FontColor(Colors.Grey.Darken2);
+
+                        //    col.Item().AlignCenter().Text($"{a.Direccion}, {a.Ciudad}")
+                        //        .FontSize(7).FontColor(Colors.Grey.Darken2);                            
+
+                        //    col.Item().AlignCenter().Text($"Email: {a.Email}")
+                        //        .FontSize(7).FontColor(Colors.Grey.Darken2);
+
+                        //    col.Item().AlignCenter().Text($"Tel: {a.Telefono}")
+                        //        .FontSize(7).FontColor(Colors.Grey.Darken2);
+                        //});
+
                         // --- Logo a la izquierda ---
-                        row.ConstantItem(120).Height(60).Image(logoBytes).FitHeight();
+                        row.ConstantItem(100).Height(60).Image(logoBytes).FitHeight();
 
                         // --- Datos de la empresa en el centro ---
                         row.RelativeItem().Column(col =>
                         {
-                            col.Item().AlignCenter().Text(a.Nombre)
-                                .Bold().FontSize(14).FontColor(Colors.Blue.Darken2);
+                            col.Item().AlignLeft().Text(a.Nombre)
+                                .Bold().FontSize(14);
+                            //.Bold().FontSize(14).FontColor(Colors.Blue.Darken2);
 
-                            col.Item().AlignCenter().Text($"NIT: {a.Identificacion}")
+                            col.Item().AlignLeft().Text($"NIT: {a.Identificacion}")
                                 .FontSize(9).FontColor(Colors.Grey.Darken2);
 
-                            col.Item().AlignCenter().Text($"{a.Direccion}, {a.Ciudad}")
-                                .FontSize(7).FontColor(Colors.Grey.Darken2);                            
-
-                            col.Item().AlignCenter().Text($"Email: {a.Email}")
+                            col.Item().AlignLeft().Text($"{a.Direccion}, {a.Ciudad}")
                                 .FontSize(7).FontColor(Colors.Grey.Darken2);
 
-                            col.Item().AlignCenter().Text($"Tel: {a.Telefono}")
+                            col.Item().AlignLeft().Text($"Email: {a.Email}")
+                                .FontSize(7).FontColor(Colors.Grey.Darken2);
+
+                            col.Item().AlignLeft().Text($"Tel: {a.Telefono}")
                                 .FontSize(7).FontColor(Colors.Grey.Darken2);
                         });
 

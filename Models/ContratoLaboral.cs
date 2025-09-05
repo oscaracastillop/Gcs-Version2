@@ -97,6 +97,7 @@
             public string EmailEmpresa { get; set; }
             public string TelefonoEmpresa { get; set; }
             public string CelularEmpresa { get; set; }
+            public string FechaContrato { get; set; }
 
         }
     }

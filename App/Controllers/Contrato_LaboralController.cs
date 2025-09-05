@@ -2,7 +2,9 @@
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using SistemaGcs.Data.DataEntities;
 using SistemaGcs.Models;
+using System;
 using System.Drawing;
 using System.Globalization;
 using System.Web.Mvc;
@@ -18,6 +20,7 @@ namespace App.Controllers
         }
 
         private readonly DataContratoLaboral dataContratoLaboral = new DataContratoLaboral();
+        private readonly DataEmpresa dataEmpresa = new DataEmpresa();
 
 
         public JsonResult CrearCLE(string IdUser, int IdEmpleado, int IdSucursal, int IdCargo, int IdTipoContrato, int SalarioMensual, string FechaInicio,
@@ -96,6 +99,13 @@ namespace App.Controllers
             var cultura = new CultureInfo("es-CO");
             //QuestPDF.Infrastructure.FontManager.RegisterFont(fontStream);
 
+            // Datos empresa
+            var datosEmpresa = dataEmpresa.GridEmpresa();
+            if (datosEmpresa == null || datosEmpresa.Count == 0)
+                return HttpNotFound();
+            var a = datosEmpresa[0];
+
+
             // Obtener los datos del comprobante
             var datos = dataContratoLaboral.DatosContratoLaboral(id);
             if (datos == null || datos.Count == 0)
@@ -154,24 +164,48 @@ namespace App.Controllers
                         page.PageColor(Colors.White);
                         page.DefaultTextStyle(x => x.FontFamily("Lato").FontSize(12));
 
-                        page.Header().PaddingTop(-20).Row(row =>
+                        // Header en todas las páginas, pero con contenido único
+                        page.Header().BorderBottom(1).BorderColor(Colors.Grey.Lighten2).PaddingBottom(3).Row(row =>
                         {
-                            row.RelativeItem().Height(60).Image(logoBytes).FitHeight();
-                            row.RelativeItem().AlignTop().Text($"Contrato Laboral - # {consecutivocle}")
-                            .FontFamily("Lato").AlignRight().FontSize(10);
+                            // --- Logo a la izquierda ---
+                            row.ConstantItem(100).Height(60).Image(logoBytes).FitHeight();
+
+                            // --- Datos de la empresa en el centro ---
+                            row.RelativeItem().Column(col =>
+                            {
+                                col.Item().AlignLeft().Text(a.Nombre)
+                                    .Bold().FontSize(14);
+                                //.Bold().FontSize(14).FontColor(Colors.Blue.Darken2);
+
+                                col.Item().AlignLeft().Text($"NIT: {a.Identificacion}")
+                                    .FontSize(9).FontColor(Colors.Grey.Darken2);
+
+                                col.Item().AlignLeft().Text($"{a.Direccion}, {a.Ciudad}")
+                                    .FontSize(7).FontColor(Colors.Grey.Darken2);
+
+                                col.Item().AlignLeft().Text($"Email: {a.Email}")
+                                    .FontSize(7).FontColor(Colors.Grey.Darken2);
+
+                                col.Item().AlignLeft().Text($"Tel: {a.Telefono}")
+                                    .FontSize(7).FontColor(Colors.Grey.Darken2);
+                            });
+
+                            // --- Número de cotización a la derecha ---
+                            row.ConstantItem(180).AlignTop().Column(col =>
+                            {
+                                col.Item().AlignRight().Text($"CONTRATO LABORAL N° {d.Id}").FontSize(8).FontColor(Colors.Grey.Darken2);
+                                //col.Item().AlignCenter().Text($"N° {d.Id}").Bold().FontSize(10).FontColor(Colors.Red.Darken2);
+                                col.Item().AlignRight().Text($"Fecha: {d.FechaContrato:dd/MM/yyyy}")
+                                    .FontSize(8).FontColor(Colors.Grey.Darken2);
+                            }); // Solo en la primera página
+                           
                         });
 
-                        page.Content().PaddingTop(0).Column(col =>
-                        {
+                           
 
-                            col.Spacing(0);
-                            // Datos generales del empleado
-                            col.Item().Text($"{d.Empresa}").FontSize(15).Bold().AlignLeft();
-                            col.Item().Text($"{d.TipoDocumentoEmpresa}: {d.IdentificacionEmpresa}").FontSize(6).AlignLeft();
-                            col.Item().Text($"Email: {d.EmailEmpresa}").FontSize(6).AlignLeft();
-                            col.Item().Text($"Telefono: {d.TelefonoEmpresa}").FontSize(6).AlignLeft();
-                            col.Item().Text($"Celular: {d.CelularEmpresa}").FontSize(6).AlignLeft();
-                            col.Item().PaddingBottom(30).Text("");
+                        page.Content().PaddingTop(10).Column(col =>
+                        {
+                            col.Item().PaddingBottom(5).Text("");
                             col.Item().PaddingTop(0).Text($"CONTRATO INDIVIDUAL DE TRABAJO").AlignCenter().Bold();
                             col.Item().PaddingTop(20).Text("DATOS TRABAJADOR").FontSize(10).Bold();
                             col.Item().PaddingTop(0).Text(text =>
@@ -1066,15 +1100,21 @@ namespace App.Controllers
                             col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"{d.Empresa}").SemiBold().FontSize(8); });
 
                         });
-                        page.Footer()
-                        .PaddingTop(5)
-                            .AlignRight()
-                            .Text(x =>
+                        page.Footer().PaddingTop(5).Row(row =>
+                        {
+                            // Texto institucional a la izquierda
+                            row.RelativeItem().AlignLeft().Text("Documento generado con Sofia Software Administrativo V 1.0")
+                                .FontSize(7).FontColor(Colors.Grey.Medium);
+
+                            // Numeración de páginas a la derecha
+                            row.ConstantItem(120).AlignRight().Text(txt =>
                             {
-                                x.Span("Documento generado con Sofia Software Administrativo V 1.0  - ").FontSize(6);
-                                x.Span(" Página ").FontSize(8);
-                                x.CurrentPageNumber().FontSize(8);
+                                txt.Span("Página ").FontSize(7).FontColor(Colors.Grey.Darken2);
+                                txt.CurrentPageNumber().FontSize(7).FontColor(Colors.Grey.Darken2);
+                                txt.Span(" de ").FontSize(7).FontColor(Colors.Grey.Darken2);
+                                txt.TotalPages().FontSize(7).FontColor(Colors.Grey.Darken2);
                             });
+                        });
                     });
                 }).GeneratePdf();
             fontStream.Dispose();
@@ -1093,6 +1133,12 @@ namespace App.Controllers
             var fontPath = Server.MapPath("~/Content/Lato-Regular.ttf");
             var fontStream = System.IO.File.OpenRead(fontPath);
             var cultura = new CultureInfo("es-CO");
+
+            // Datos empresa
+            var datosEmpresa = dataEmpresa.GridEmpresa();
+            if (datosEmpresa == null || datosEmpresa.Count == 0)
+                return HttpNotFound();
+            var a = datosEmpresa[0];
 
             // Obtener los datos del comprobante
             var datos = dataContratoLaboral.DatosContratoLaboral(id);
@@ -1122,23 +1168,46 @@ namespace App.Controllers
                     page.PageColor(Colors.White);
                     page.DefaultTextStyle(x => x.FontFamily("Lato").FontSize(12));
 
-                    page.Header().PaddingTop(-20).Row(row =>
+                    // Header en todas las páginas, pero con contenido único
+                    page.Header().BorderBottom(1).BorderColor(Colors.Grey.Lighten2).PaddingBottom(3).Row(row =>
                     {
-                        row.RelativeItem().Height(60).Image(logoBytes).FitHeight();
-                        row.RelativeItem().AlignTop().Text($"Certificación Laboral Empleado")
-                        .FontFamily("Lato").AlignRight().FontSize(10);
+                        // --- Logo a la izquierda ---
+                        row.ConstantItem(100).Height(60).Image(logoBytes).FitHeight();
+
+                        // --- Datos de la empresa en el centro ---
+                        row.RelativeItem().Column(col =>
+                        {
+                            col.Item().AlignLeft().Text(a.Nombre)
+                                .Bold().FontSize(14);
+                            //.Bold().FontSize(14).FontColor(Colors.Blue.Darken2);
+
+                            col.Item().AlignLeft().Text($"NIT: {a.Identificacion}")
+                                .FontSize(9).FontColor(Colors.Grey.Darken2);
+
+                            col.Item().AlignLeft().Text($"{a.Direccion}, {a.Ciudad}")
+                                .FontSize(7).FontColor(Colors.Grey.Darken2);
+
+                            col.Item().AlignLeft().Text($"Email: {a.Email}")
+                                .FontSize(7).FontColor(Colors.Grey.Darken2);
+
+                            col.Item().AlignLeft().Text($"Tel: {a.Telefono}")
+                                .FontSize(7).FontColor(Colors.Grey.Darken2);
+                        });
+
+                        // --- Número de cotización a la derecha ---
+                        row.ConstantItem(180).AlignTop().Column(col =>
+                        {
+                            col.Item().AlignRight().Text($"CERTIFICACIÓN LABORAL").FontSize(8).FontColor(Colors.Grey.Darken2);
+                            //col.Item().AlignCenter().Text($"N° {d.Id}").Bold().FontSize(10).FontColor(Colors.Red.Darken2);
+                            col.Item().AlignRight().Text($"Fecha: {DateTime.Now:dd/MM/yyyy}")  // Fecha actual del sistema
+                            .FontSize(8)
+                            .FontColor(Colors.Grey.Darken2);
+                        }); // Solo en la primera página
+
                     });
 
-                    page.Content().PaddingTop(0).Column(col =>
+                    page.Content().PaddingTop(10).Column(col =>
                     {
-
-                        col.Spacing(0);
-                        // Datos generales del empleado
-                        col.Item().Text($"{d.Empresa}").FontSize(15).Bold().AlignLeft();
-                        col.Item().Text($"{d.TipoDocumentoEmpresa}: {d.IdentificacionEmpresa}").FontSize(6).AlignLeft();
-                        col.Item().Text($"Email: {d.EmailEmpresa}").FontSize(6).AlignLeft();
-                        col.Item().Text($"Telefono: {d.TelefonoEmpresa}").FontSize(6).AlignLeft();
-                        col.Item().Text($"Celular: {d.CelularEmpresa}").FontSize(6).AlignLeft();
                         col.Item().PaddingBottom(30).Text("");
                         col.Item().PaddingTop(70).Text($"CERTIFICA QUE").AlignCenter().Bold();
 
@@ -1246,15 +1315,21 @@ namespace App.Controllers
 
                     });
 
-                    page.Footer()
-                    .PaddingTop(5)
-                        .AlignRight()
-                        .Text(x =>
+                    page.Footer().PaddingTop(5).Row(row =>
+                    {
+                        // Texto institucional a la izquierda
+                        row.RelativeItem().AlignLeft().Text("Documento generado con Sofia Software Administrativo V 1.0")
+                            .FontSize(7).FontColor(Colors.Grey.Medium);
+
+                        // Numeración de páginas a la derecha
+                        row.ConstantItem(120).AlignRight().Text(txt =>
                         {
-                            x.Span("Documento generado con Sofia Software Administrativo V 1.0").FontSize(6);
+                            txt.Span("Página ").FontSize(7).FontColor(Colors.Grey.Darken2);
+                            txt.CurrentPageNumber().FontSize(7).FontColor(Colors.Grey.Darken2);
+                            txt.Span(" de ").FontSize(7).FontColor(Colors.Grey.Darken2);
+                            txt.TotalPages().FontSize(7).FontColor(Colors.Grey.Darken2);
                         });
-
-
+                    });
                 });
             }).GeneratePdf();
 
@@ -1275,6 +1350,12 @@ namespace App.Controllers
             var fontPath = Server.MapPath("~/Content/Lato-Regular.ttf");
             var fontStream = System.IO.File.OpenRead(fontPath);
             var cultura = new CultureInfo("es-CO");
+
+            // Datos empresa
+            var datosEmpresa = dataEmpresa.GridEmpresa();
+            if (datosEmpresa == null || datosEmpresa.Count == 0)
+                return HttpNotFound();
+            var a = datosEmpresa[0];
 
             // Obtener los datos del comprobante
             var datos = dataContratoLaboral.DatosContratoLaboral(id);
@@ -1299,23 +1380,48 @@ namespace App.Controllers
                     page.PageColor(Colors.White);
                     page.DefaultTextStyle(x => x.FontFamily("Lato").FontSize(12));
 
-                    page.Header().PaddingTop(-20).Row(row =>
+                    // Header en todas las páginas, pero con contenido único
+                    page.Header().BorderBottom(1).BorderColor(Colors.Grey.Lighten2).PaddingBottom(3).Row(row =>
                     {
-                        row.RelativeItem().Height(60).Image(logoBytes).FitHeight();
-                        row.RelativeItem().AlignTop().Text($"Paz y Salvo")
-                        .FontFamily("Lato").AlignRight().FontSize(10);
+                        // --- Logo a la izquierda ---
+                        row.ConstantItem(100).Height(60).Image(logoBytes).FitHeight();
+
+                        // --- Datos de la empresa en el centro ---
+                        row.RelativeItem().Column(col =>
+                        {
+                            col.Item().AlignLeft().Text(a.Nombre)
+                                .Bold().FontSize(14);
+                            //.Bold().FontSize(14).FontColor(Colors.Blue.Darken2);
+
+                            col.Item().AlignLeft().Text($"NIT: {a.Identificacion}")
+                                .FontSize(9).FontColor(Colors.Grey.Darken2);
+
+                            col.Item().AlignLeft().Text($"{a.Direccion}, {a.Ciudad}")
+                                .FontSize(7).FontColor(Colors.Grey.Darken2);
+
+                            col.Item().AlignLeft().Text($"Email: {a.Email}")
+                                .FontSize(7).FontColor(Colors.Grey.Darken2);
+
+                            col.Item().AlignLeft().Text($"Tel: {a.Telefono}")
+                                .FontSize(7).FontColor(Colors.Grey.Darken2);
+                        });
+
+                        // --- Número de cotización a la derecha ---
+                        row.ConstantItem(180).AlignTop().Column(col =>
+                        {
+                            col.Item().AlignRight().Text($"PAZ Y SALVO").FontSize(8).FontColor(Colors.Grey.Darken2);
+                            //col.Item().AlignCenter().Text($"N° {d.Id}").Bold().FontSize(10).FontColor(Colors.Red.Darken2);
+                            col.Item().AlignRight().Text($"Fecha: {DateTime.Now:dd/MM/yyyy}")  // Fecha actual del sistema
+                            .FontSize(8)
+                            .FontColor(Colors.Grey.Darken2);
+                        }); // Solo en la primera página
+
                     });
 
-                    page.Content().PaddingTop(0).Column(col =>
-                    {
 
-                        col.Spacing(0);
-                        // Datos generales del empleado
-                        col.Item().Text($"{d.Empresa}").FontSize(15).Bold().AlignLeft();
-                        col.Item().Text($"{d.TipoDocumentoEmpresa}: {d.IdentificacionEmpresa}").FontSize(6).AlignLeft();
-                        col.Item().Text($"Email: {d.EmailEmpresa}").FontSize(6).AlignLeft();
-                        col.Item().Text($"Telefono: {d.TelefonoEmpresa}").FontSize(6).AlignLeft();
-                        col.Item().Text($"Celular: {d.CelularEmpresa}").FontSize(6).AlignLeft();
+
+                    page.Content().PaddingTop(10).Column(col =>
+                    {
                         col.Item().PaddingBottom(30).Text("");
                         col.Item().PaddingTop(70).Text($"CERTIFICADO DE PAZ Y SALVO LABORAL").AlignCenter().Bold();
 
@@ -1381,13 +1487,21 @@ namespace App.Controllers
                             col.Item().PaddingTop(0).Row(r => { r.RelativeItem().AlignCenter().Text("").SemiBold().FontSize(8); r.RelativeItem().AlignCenter().Text($"{d.Empresa}").SemiBold().FontSize(8); });
                         } 
                     });
-                    page.Footer()
-                    .PaddingTop(5)
-                        .AlignRight()
-                        .Text(x =>
+                    page.Footer().PaddingTop(5).Row(row =>
+                    {
+                        // Texto institucional a la izquierda
+                        row.RelativeItem().AlignLeft().Text("Documento generado con Sofia Software Administrativo V 1.0")
+                            .FontSize(7).FontColor(Colors.Grey.Medium);
+
+                        // Numeración de páginas a la derecha
+                        row.ConstantItem(120).AlignRight().Text(txt =>
                         {
-                            x.Span("Documento generado con Sofia Software Administrativo V 1.0").FontSize(6);
+                            txt.Span("Página ").FontSize(7).FontColor(Colors.Grey.Darken2);
+                            txt.CurrentPageNumber().FontSize(7).FontColor(Colors.Grey.Darken2);
+                            txt.Span(" de ").FontSize(7).FontColor(Colors.Grey.Darken2);
+                            txt.TotalPages().FontSize(7).FontColor(Colors.Grey.Darken2);
                         });
+                    });
                 });
             }).GeneratePdf();
 

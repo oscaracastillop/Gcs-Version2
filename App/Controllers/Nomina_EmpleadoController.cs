@@ -122,41 +122,49 @@ namespace App.Controllers
                 page.PageColor(Colors.White);
                 page.DefaultTextStyle(x => x.FontFamily("Lato").FontSize(12));
 
-                // Header en todas las páginas, pero con contenido único
-                page.Header().BorderBottom(1).BorderColor(Colors.Grey.Lighten2).PaddingBottom(5).Row(row =>
-                {
-                    // --- Logo a la izquierda ---
-                    row.ConstantItem(120).Height(60).Image(logoBytes).FitHeight();
+                page.Header()
+                    .Background(Colors.Grey.Lighten5)     // 🎨 Fondo del header
+                    .Border(1)                            // ⬅️ Borde completo alrededor del header
+                    .BorderColor(Colors.Grey.Darken1)     // Color del borde
+                    .Padding(10)                          // Espaciado interno
+                    .Row(row =>
+                    {
+                        
+                        // --- Logo a la izquierda ---
+                    row.ConstantItem(100).Height(60).Image(logoBytes).FitHeight();
 
                     // --- Datos de la empresa en el centro ---
                     row.RelativeItem().Column(col =>
                     {
-                        col.Item().AlignCenter().Text(a.Nombre)
-                            .Bold().FontSize(14).FontColor(Colors.Blue.Darken2);
+                        col.Item().AlignLeft().Text(a.Nombre).Bold().FontSize(14);
 
-                        col.Item().AlignCenter().Text($"NIT: {a.Identificacion}")
+                        col.Item().AlignLeft().Text($"NIT: {a.Identificacion}")
                             .FontSize(9).FontColor(Colors.Grey.Darken2);
 
-                        col.Item().AlignCenter().Text($"{a.Direccion}, {a.Ciudad}")
+                        col.Item().AlignLeft().Text($"{a.Direccion}, {a.Ciudad}")
                             .FontSize(7).FontColor(Colors.Grey.Darken2);
 
-                        col.Item().AlignCenter().Text($"Email: {a.Email}")
+                        col.Item().AlignLeft().Text($"Email: {a.Email}")
                             .FontSize(7).FontColor(Colors.Grey.Darken2);
 
-                        col.Item().AlignCenter().Text($"Tel: {a.Telefono}")
+                        col.Item().AlignLeft().Text($"Tel: {a.Telefono}")
                             .FontSize(7).FontColor(Colors.Grey.Darken2);
                     });
 
                     // --- Número de cotización a la derecha ---
-                    row.ConstantItem(180).AlignMiddle().Background("#F0F4FF").Border(1).BorderColor(Colors.Blue.Darken1).Padding(8).Column(col =>
+                    row.ConstantItem(180).AlignTop().Column(col =>
                     {
-                        col.Item().AlignCenter().Text("COMPROBANTE DE NÓMINA").Bold().FontSize(9).FontColor(Colors.Blue.Darken2);
-                        col.Item().AlignCenter().Text($"N° {d.Id}")
-                            .Bold().FontSize(10).FontColor(Colors.Red.Darken2);
-                        col.Item().AlignCenter().Text($"Periodo: {d.PeriodoLiquidado:dd/MM/yyyy}")
+                        col.Item().AlignRight()
+                            .Text($"COMPROBANTE DE NÓMINA N° {d.Id}")
                             .FontSize(8).FontColor(Colors.Grey.Darken2);
-                    }); // Solo en la primera página
+
+                        col.Item().AlignRight()
+                            .Text($"Periodo: {d.PeriodoLiquidado:dd/MM/yyyy}")
+                            .FontSize(8).FontColor(Colors.Grey.Darken2);
+                    });
                 });
+
+
 
                 // --- Contenido principal ---
                 page.Content().PaddingTop(10).Column(col =>
