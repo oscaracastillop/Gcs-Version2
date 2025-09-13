@@ -21,38 +21,41 @@
     </div>
 </div>
 
-<!-- Modal Cliente-->
-<div class="modal fade" id="ModalCliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- Modal Cliente -->
+<div class="modal fade" id="ModalCliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header header-modal">
+        <div class="modal-content shadow-sm rounded-3 border-0">
+
+            <!-- Header -->
+            <div class="modal-header text-white header-modal">
                 <div class="modal-title" id="TituloModalCliente"></div>
             </div>
-            <div class="modal-body">
+
+            <!-- Body -->
+            <div class="modal-body py-3 px-3" style="background-color: #f8f9fa;">
                 <label id="LabelIdCliente" hidden></label>
 
                 <!-- Nombre -->
                 <div>
-                    <label><strong>Nombre </strong><label style="color:red"> *</label></label>
+                    <label><strong>Nombre</strong><span class="text-danger">*</span></label>
                     <div class="input-group custom-input">
                         <span class="input-group-text icon-highlight"><i class="bi bi-person-fill"></i></span>
                         <input class="form-control" type="text" id="InputNombreCliente" autocomplete="off" />
                     </div>
                 </div>
 
+                <!-- Documento e Identificación -->
                 <div class="row g-2">
-                    <!-- Documento -->
                     <div class="col-6">
-                        <label><strong>Documento </strong><label style="color:red"> *</label></label>
+                        <label><strong>Documento</strong><span class="text-danger">*</span></label>
                         <div class="input-group custom-input">
                             <span class="input-group-text icon-highlight"><i class="bi bi-file-text"></i></span>
                             <select class="form-control" id="SelectTipoDocumento"></select>
                         </div>
                     </div>
-
-                    <!-- Identificación -->
                     <div class="col-6">
-                        <label><strong>Identificación </strong><label style="color:red"> *</label></label>
+                        <label><strong>Identificación</strong><span class="text-danger">*</span></label>
                         <div class="input-group custom-input">
                             <span class="input-group-text icon-highlight"><i class="bi bi-credit-card-2-front"></i></span>
                             <input class="form-control" type="text" id="InputIdentificacionCliente" autocomplete="off" />
@@ -60,8 +63,8 @@
                     </div>
                 </div>
 
+                <!-- Email y Contacto -->
                 <div class="row g-2">
-                    <!-- Email -->
                     <div class="col-6">
                         <label><strong>Email</strong></label>
                         <div class="input-group custom-input">
@@ -69,8 +72,6 @@
                             <input class="form-control" type="text" id="InputEmailCliente" autocomplete="off" />
                         </div>
                     </div>
-
-                    <!-- Contacto -->
                     <div class="col-6">
                         <label><strong>Nombre Contacto</strong></label>
                         <div class="input-group custom-input">
@@ -80,17 +81,16 @@
                     </div>
                 </div>
 
+                <!-- Teléfono y Celular -->
                 <div class="row g-2">
-                    <!-- Teléfono -->
                     <div class="col-6">
                         <label><strong>Teléfono</strong></label>
                         <div class="input-group custom-input">
                             <span class="input-group-text icon-highlight"><i class="bi bi-telephone-fill"></i></span>
-                            <input class="form-control" type="text" id="InputTelefonoCliente" maxlength="13" placeholder="(ind ciudad) + # Telefónico" autocomplete="off" />
+                            <input class="form-control" type="text" id="InputTelefonoCliente" maxlength="13"
+                                   placeholder="(ind ciudad) + # Telefónico" autocomplete="off" />
                         </div>
                     </div>
-
-                    <!-- Celular -->
                     <div class="col-6">
                         <label><strong>Celular</strong></label>
                         <div class="input-group custom-input">
@@ -100,8 +100,8 @@
                     </div>
                 </div>
 
+                <!-- Forma y Plazo de Pago -->
                 <div class="row g-2">
-                    <!-- Forma de Pago -->
                     <div class="col-6">
                         <label><strong>Forma de Pago</strong></label>
                         <div class="input-group custom-input">
@@ -109,8 +109,6 @@
                             <select class="form-control" id="SelectFormaPago"></select>
                         </div>
                     </div>
-
-                    <!-- Plazo de Pago -->
                     <div class="col-6">
                         <label><strong>Plazo de Pago</strong></label>
                         <div class="input-group custom-input">
@@ -120,53 +118,49 @@
                     </div>
                 </div>
 
+                <!-- Dirección y Ciudad -->
                 <div class="row g-2">
-                    <!-- Dirección -->
                     <div class="col-6">
                         <label><strong>Dirección</strong></label>
                         <div class="input-group custom-input">
-                            <span class="input-group-text icon-highlight"><i class="bi bi-house-door-fill"></i></span>
+                            <span class="input-group-text icon-highlight"><i class="bi bi-geo-alt"></i></span>
                             <input class="form-control" type="text" id="InputDireccionCliente" autocomplete="off" />
                         </div>
                     </div>
-
-                    <!-- Ciudad -->
                     <div class="col-6">
-                        <label><strong>Ciudad </strong><label style="color:red"> *</label></label>
+                        <label><strong>Ciudad</strong><span class="text-danger">*</span></label>
                         <div class="input-group custom-input">
-                            <span class="input-group-text icon-highlight"><i class="bi bi-geo-alt-fill"></i></span>
+                            <span class="input-group-text icon-highlight"><i class="bi bi-geo"></i></span>
                             <select class="form-control" id="SelectCiudad"></select>
                         </div>
                     </div>
                 </div>
 
-                <!-- Descripción -->
                 <div class="row g-2">
-                    <div class="col-12">
+                    <div class="col-9">
                         <label><strong>Descripción</strong></label>
                         <div class="input-group custom-input">
                             <span class="input-group-text icon-highlight"><i class="bi bi-card-text"></i></span>
                             <input type="text" id="InputDescripcionCliente" class="form-control" />
                         </div>
                     </div>
-                </div>
-
-                <!-- Estado -->
-                <div class="col-3" id="SelectEstadoCliente">
-                    <label><strong>Estado</strong></label>
-                    <div class="input-group custom-input">
-                        <span class="input-group-text icon-highlight"><i class="bi bi-toggle-on"></i></span>
-                        <select class="form-control" id="SelectEstado"></select>
+                    <div class="col-3" id="SelectEstadoCliente">
+                        <label><strong>Estado</strong></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-toggle-on"></i></span>
+                            <select class="form-control" id="SelectEstado"></select>
+                        </div>
                     </div>
-                </div>
+                </div>               
             </div>
 
-            <div class="modal-footer" id="BotonesModalCliente"></div>
+            <!-- Footer -->
+            <div class="modal-footer bg-light py-2" id="BotonesModalCliente"></div>
         </div>
     </div>
 </div>
 
-<div class="modal-dialog modal-lg" id="ModalVerCliente">...</div>
+
 
 <script>
     $(document).ready(function () {

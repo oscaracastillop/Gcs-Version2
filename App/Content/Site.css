@@ -215,41 +215,38 @@
     
 }
 
-/* Botón Cancelar */
-.btn-modal-Cancelar {
-    background: linear-gradient(135deg, #f8d7da, #f1b0b7) !important;
-    border: 1px solid #dc3545 !important;
-    color: #842029 !important;
-    font-weight: bold !important;
-    border-radius: 0.5rem !important;
-    padding: 0.2rem 1.0rem !important;
-    transition: all 0.8s ease-in-out;
-    box-shadow: 0 2px 6px rgba(220,53,69,.2);
-}
-
-    .btn-modal-Cancelar:hover {
-        background: linear-gradient(135deg, #dc3545, #bb2d3b) !important;
-        color: #fff !important;
-        box-shadow: 0 4px 10px rgba(220,53,69,.4);
-    }
-
-/* Botón Guardar */
+/* Botón Guardar (acción principal) */
 .btn-modal-guardar {
-    background: linear-gradient(135deg, #d1e7dd, #a3cfbb) !important;
-    border: 1px solid #198754 !important;
-    color: #0f5132 !important;
-    font-weight: bold !important;
-    border-radius: 0.5rem !important;
-    padding: 0.2rem 1.0rem !important;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 2px 6px rgba(25,135,84,.2);
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff !important;
+    font-weight: 600;
+    border-radius: 6px;
+    padding: 6px 18px;
+    transition: 0.3s;
+    border: none;
 }
 
     .btn-modal-guardar:hover {
-        background: linear-gradient(135deg, #198754, #146c43) !important;
-        color: #fff !important;
-        box-shadow: 0 4px 10px rgba(25,135,84,.4);
+        background: linear-gradient(135deg, #5a67d8, #6b46c1);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
+
+/* Botón Cancelar (con degradado en tonos rojos elegantes) */
+.btn-modal-Cancelar {
+    background: linear-gradient(135deg, #ff6a6a, #d63031);
+    color: #fff !important;
+    font-weight: 600;
+    border-radius: 6px;
+    padding: 6px 18px;
+    transition: 0.3s;
+    border: none;
+}
+
+    .btn-modal-Cancelar:hover {
+        background: linear-gradient(135deg, #e63946, #b71c1c);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
 
 
 .btn-modal-doc {
