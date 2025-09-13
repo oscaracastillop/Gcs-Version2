@@ -19,119 +19,238 @@
     <table id="gridEmpresa" class="table nowrap cell-border table-striped" style="width: 100%;"></table>
 </div>
 
+
 <!-- Modal Empresa-->
 <div class="modal fade" id="ModalEmpresa" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header header-modal">
-                <div class="modal-title" id="TituloModalEmpresa"></div>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content shadow-sm rounded-3 border-0">
+
+            <!-- Header -->
+            <div class="modal-header text-white header-modal">
+                <div class="modal-title" id="TituloModalEmpresa"></div> <!-- tamaño original -->
             </div>
-            <div class="modal-body">
+
+            <!-- Body -->
+            <div class="modal-body py-3 px-3" style="background-color: #f8f9fa;">
                 <label id="LabelIdEmpresa" hidden></label>
+
+                <!-- Nombre -->
                 <div>
-                    <label><strong>Nombre </strong><label style="color:red"> *</label></label>
-                    <input class="form-control" type="text" id="InputNombreEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                    <label><strong>Nombre Empresa</strong><span class="text-danger">*</span></label>
+                    <div class="input-group custom-input">
+                        <span class="input-group-text icon-highlight"><i class="bi bi-building"></i></span>
+                        <input class="form-control" type="text" id="InputNombreEmpresa" autocomplete="off" />
+                    </div>
                 </div>
+
+                <!-- Documento e Identificación -->
                 <div class="row g-2">
                     <div class="col-6">
-                        <label><strong>Documento Empresa</strong><label style="color:red"> *</label></label>
-                        <select class="form-control" id="SelectTipoDocumento" style="min-width:100%"></select>
+                        <label><strong>Documento Empresa</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-card-list"></i></span>
+                            <select class="form-control" id="SelectTipoDocumento"></select>
+                        </div>
                     </div>
                     <div class="col-6">
-                        <label><strong>Identificación </strong><label style="color:red"> *</label></label>
-                        <input class="form-control" type="text" id="InputIdentificacionEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                        <label><strong>Identificación</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-person-badge"></i></span>
+                            <input class="form-control" type="text" id="InputIdentificacionEmpresa" autocomplete="off" />
+                        </div>
                     </div>
                 </div>
+
+                <!-- Email, Teléfono, Celular -->
                 <div class="row g-2">
                     <div class="col-4">
                         <label><strong>Email</strong></label>
-                        <input class="form-control" type="text" id="InputEmailEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-envelope"></i></span>
+                            <input class="form-control" type="text" id="InputEmailEmpresa" autocomplete="off" />
+                        </div>
                     </div>
                     <div class="col-4">
                         <label><strong>Teléfono</strong></label>
-                        <input class="form-control" type="text" id="InputTelefonoEmpresa" name="name" autocomplete="off" style="min-width:100%" maxlength="13" placeholder="(ind ciudad) + # Telefónico" />
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-telephone"></i></span>
+                            <input class="form-control" type="text" id="InputTelefonoEmpresa" maxlength="13" placeholder="(ind ciudad) + # Telefónico" />
+                        </div>
                     </div>
                     <div class="col-4">
                         <label><strong>Celular</strong></label>
-                        <input class="form-control" type="text" id="InputCelularEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-phone"></i></span>
+                            <input class="form-control" type="text" id="InputCelularEmpresa" autocomplete="off" />
+                        </div>
                     </div>
                 </div>
+
+                <!-- Dirección y Ciudad -->
                 <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Dirección</strong></label>
-                        <input class="form-control" type="text" id="InputDireccionEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-geo-alt"></i></span>
+                            <input class="form-control" type="text" id="InputDireccionEmpresa" autocomplete="off" />
+                        </div>
                     </div>
                     <div class="col-6">
-                        <label><strong>Ciudad </strong><label style="color:red"> *</label></label>
-                        <select class="form-control" id="SelectCiudad" style="min-width:100%"></select>
+                        <label><strong>Ciudad </strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-geo"></i></span>
+                            <select class="form-control" id="SelectCiudad"></select>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Representante Legal -->
                 <div class="row g-2">
                     <div class="col-6">
-                        <label><strong>Representante Legal</strong><label style="color:red"> *</label></label>
-                        <input class="form-control" type="text" id="InputContactoEmpresa" name="name" autocomplete="off" style="min-width:100%" />
+                        <label><strong>Representante Legal</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-person"></i></span>
+                            <input class="form-control" type="text" id="InputContactoEmpresa" autocomplete="off" />
+                        </div>
                     </div>
                     <div class="col-6">
-                        <label><strong>Documento RL</strong><label style="color:red"> *</label></label>
-                        <select class="form-control" id="SelectTipoDocumentoRL" style="min-width:100%"></select>
+                        <label><strong>Documento RL</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-card-text"></i></span>
+                            <select class="form-control" id="SelectTipoDocumentoRL"></select>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Identificación RL y Ciudad Expedición -->
                 <div class="row g-2">
                     <div class="col-6">
-                        <label><strong>Identificación RL</strong><label style="color:red"> *</label></label>
-                        <input class="form-control" type="text" id="InputIdentificacionRL" name="name" autocomplete="off" style="min-width:100%" />
+                        <label><strong>Identificación RL</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-person-vcard"></i></span>
+                            <input class="form-control" type="text" id="InputIdentificacionRL" autocomplete="off" />
+                        </div>
                     </div>
                     <div class="col-6">
-                        <label><strong>Ciudad Expedición</strong><label style="color:red"> *</label></label>
-                        <select class="form-control" id="SelectCiudadExpedicionRL" style="min-width:100%"></select>
+                        <label><strong>Ciudad Expedición</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-geo"></i></span>
+                            <select class="form-control" id="SelectCiudadExpedicionRL"></select>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
+
+                <div class="row g-2">
+                    <div class="col-9">
                         <label><strong>Descripción Empresa</strong></label>
-                        <input type="text" id="InputDescripcionEmpresa" class="form-control" style="min-width:100%" rows="3" />
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-file-earmark-text"></i></span>
+                            <input type="text" id="InputDescripcionEmpresa" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-3" id="SelectEstadoEmpresa">
+                        <label><strong>Estado</strong></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-toggle-on"></i></span>
+                            <select class="form-control" id="SelectEstado"></select>
+                        </div>
                     </div>
                 </div>
-                <div class="col-3" id="SelectEstadoEmpresa">
-                    <label><strong>Estado</strong></label>
-                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
-                </div>
+
             </div>
 
-            <div class="modal-footer" id="BotonesModalEmpresa"></div>
+            <!-- Footer -->
+            <div class="modal-footer bg-light py-2" id="BotonesModalEmpresa"></div>
         </div>
     </div>
 </div>
 
 
-<!-- Modal logo Empresa-->
+<!-- Modal ImagenEmpleado-->
 <div class="modal fade" id="ModalLogoEmpresa" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+
+            <!-- Header -->
             <div class="modal-header header-modal">
-                <div class="modal-title"><label>LOGO EMPRESA</label></div>
+                <label class="modal-title fw-bold mb-0">LOGO EMPRESA</label>
             </div>
+
+            <!-- Hidden labels -->
             <label id="IdEmpresaLogo" hidden></label>
             <label id="NombreLogoActualEmpresa" hidden></label>
-            <div class="modal-body" style="text-align:center">
-                <div style="text-align:center">
-                    <label class="tituloPage"><strong id="NombreEmpresaLogo"></strong></label>
-                    <div class="contimg-cambiar-img" id="ImagenLogoEmpresa" style="margin-top:10px; text-align:center"></div>
-                    <br />
+
+            <!-- Body -->
+            <div class="modal-body bg-light p-4">
+                <!-- Nombre empleado -->
+                <div class="text-center mb-3">
+                    <h6 class="fw-bold mb-0" id="NombreEmpresaLogo"></h6>
                 </div>
-                <div style="margin-top:15px">
-                    <input type="file" class="form-control" id="inPhotoEmpresa" name="name" aria-describedby="inputGroupFileAddon04" aria-label="Upload" accept="image/*" style="min-width:100%">
+
+                <!-- Imagen actual -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header text-white fw-semibold py-2" style="background-color: #3b5998;">
+                        Imagen actual
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="contimg-cambiar-img" id="ImagenLogoEmpresa"></div>
+                    </div>
+                </div>
+
+                <!-- Nueva imagen -->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header text-white fw-semibold py-2" style="background-color: #3b5998;">
+                        Subir nueva imagen
+                    </div>
+                    <div class="card-body">
+                        <input type="file" class="form-control mb-3" id="inPhotoEmpresa"
+                               name="name" accept="image/*"
+                               aria-describedby="inputGroupFileAddon04"
+                               aria-label="Upload">
+                        <!-- Previsualización -->
+                        <div id="previewContainer" class="text-center d-none">
+                            <p class="fw-semibold">Vista previa:</p>
+                            <img id="previewImage" class="img-fluid rounded shadow-sm border" alt="Vista previa">
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
-                <button class="btn btn-modal-guardar btn-sm" type="button" onclick="GuardarLogoEmpresa()">Guardar Imagen</button>
+
+            <!-- Footer -->
+            <div class="modal-footer bg-light border-0 p-3 d-flex justify-content-between">
+                <button type="button" class="btn btn-modal-Cancelar btn-sm" data-bs-dismiss="modal">
+                    Cancelar
+                </button>
+                <button class="btn btn-modal-guardar btn-sm" type="button" onclick="GuardarLogoEmpresa()">
+                    Guardar Imagen
+                </button>
             </div>
         </div>
     </div>
 </div>
 
+
 <script>
+
+    // Previsualización de la nueva imagen
+    document.getElementById("inPhotoEmpresa").addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        const previewContainer = document.getElementById("previewContainer");
+        const previewImage = document.getElementById("previewImage");
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                previewImage.src = e.target.result;
+                previewContainer.classList.remove("d-none");
+            };
+            reader.readAsDataURL(file);
+        } else {
+            previewContainer.classList.add("d-none");
+            previewImage.src = "";
+        }
+    });
+
     $(document).ready(function () {
         ValidarSesion('/Negocio/Empresa');
         GridEmpresa();

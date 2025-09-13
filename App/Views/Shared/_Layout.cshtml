@@ -12,24 +12,16 @@
     <script src="~/Scripts/js-cookie/js.cookie.js"></script>
     <link href="~/Scripts/Sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
     <script src="~/Scripts/Sweetalert2/dist/sweetalert2.min.js"></script>
-    @*<link href="~/Content/bootstrap-icons-1.11.3/font/bootstrap-icons.css" rel="stylesheet" />*@
     <link href="~/Content/bootstrap-icons-1.13.1/font/bootstrap-icons.css" rel="stylesheet" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 
-    @*<link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Gidole&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">*@
-
-    @*<link href="~/Content/DataTables/datatables.min.css" rel="stylesheet" />
-        <script src="~/Content/DataTables/datatables.min.js"></script>*@
-
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/jszip-2.5.0/dt-1.13.2/af-2.5.2/b-2.3.4/b-colvis-2.3.4/b-html5-2.3.4/b-print-2.3.4/cr-1.6.1/fc-4.2.1/fh-3.3.1/kt-2.8.0/r-2.4.0/sc-2.0.7/sb-1.4.0/sp-2.1.1/datatables.min.css" />
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/jszip-2.5.0/dt-1.13.2/af-2.5.2/b-2.3.4/b-colvis-2.3.4/b-html5-2.3.4/b-print-2.3.4/cr-1.6.1/fc-4.2.1/fh-3.3.1/kt-2.8.0/r-2.4.0/sc-2.0.7/sb-1.4.0/sp-2.1.1/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/jszip-2.5.0/dt-1.13.2/af-2.5.2/b-2.3.4/b-colvis-2.3.4/b-html5-2.3.4/b-print-2.3.4/cr-1.6.1/fc-4.2.1/fh-3.3.1/kt-2.8.0/r-2.4.0/sc-2.0.7/sb-1.4.0/sp-2.1.1/datatables.min.js"></script>
 
 
 
@@ -45,31 +37,14 @@
 
 </head>
 <body class="fondo">
-    <nav class="navbar navbar-expand-lg navbar-dark scroll stilonavbar" style="background-color:#3b5998;">
+    <nav class="navbar navbar-expand-lg navbar-dark scroll stilonavbar" style="background-color:white;">
         <div class="container-fluid">
-            <a class="navbar-brand nameempresa" href="#" style="font-family: Pristina !important;">Sofia</a>
+            <a class="navbar-brand Titulo-Login" href="#">Sofia</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon" style="color:black"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent" style="color:white!important;">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="menu">
-
-                    @*<li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>*@
-                </ul>
-                @*<form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>*@
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="menu"></ul>
             </div>
         </div>
     </nav>
@@ -104,15 +79,30 @@
 
         if (TokenUser == '' || TokenUser == undefined || TokenUser == null) {
             Swal.fire({
-                title: TituloSwal,
-                text: "Su Sesión ya expiro, por favor vuelva a Ingresar",
+                title: `<span style="font-size:18px; font-weight:bold; color:#3b5998;">${TituloSwal}</span>`,
+                html: `<p style="font-size:14px; color:#444; margin:0; line-height:1.2;">
+                  Su sesión ha <strong>expirado</strong>, por favor vuelva a ingresar.
+               </p>`,
                 icon: 'info',
+                position: 'top',                
+                confirmButtonText: '<i class="bi bi-box-arrow-in-right"></i> Ir a Login',
+                confirmButtonColor: '#3b5998',
+                background: '#f9f9f9',
+                showClass: { popup: 'animate__animated animate__fadeInDown' },
+                hideClass: { popup: 'animate__animated animate__fadeOutUp' },
+                customClass: {
+                    popup: 'rounded-4 shadow-lg',
+                    confirmButton: 'px-3 py-1 rounded-pill fw-semibold',
+                    icon: 'swal2-icon-custom'
+                }
             }).then((result) => {
                 window.location.href = '/Login';
-            })
+            });
         } else {
             ListaMenu();
         }
+
+
         $('#NameApp').text(NameApp);
         $('#SloganEmpresa').text(SloganEmpresa);
     });

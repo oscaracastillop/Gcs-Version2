@@ -92,7 +92,7 @@ namespace App.Controllers
                     page.DefaultTextStyle(x => x.FontFamily("Lato").FontSize(10));
 
                     // Header en todas las páginas, pero con contenido único
-                    page.Header().BorderBottom(1).BorderColor(Colors.Grey.Lighten2).PaddingBottom(5).Row(row =>
+                    page.Header().BorderBottom(0).BorderColor(Colors.Grey.Lighten2).PaddingBottom(5).Row(row =>
                     {
                         //// --- Logo a la izquierda ---
                         //row.ConstantItem(120).Height(60).Image(logoBytes).FitHeight();
@@ -135,7 +135,7 @@ namespace App.Controllers
                             col.Item().AlignLeft().Text($"Email: {a.Email}")
                                 .FontSize(7).FontColor(Colors.Grey.Darken2);
 
-                            col.Item().AlignLeft().Text($"Tel: {a.Telefono}")
+                            col.Item().AlignLeft().Text($"Tel: {a.Telefono} | Cel: {a.Celular}")
                                 .FontSize(7).FontColor(Colors.Grey.Darken2);
                         });
 
@@ -224,9 +224,9 @@ namespace App.Controllers
                             text.Justify();
 
                             text.Span("A continuación, nos permitimos presentar la cotización solicitada por ").FontSize(8);
-                            text.Span($"{d.NombreCliente}").Bold().FontSize(8).FontColor(Colors.Blue.Darken2);
-                            text.Span(" a nuestra compañía ").FontSize(8);
-                            text.Span($"{d.NombreEmpresa}").Bold().FontSize(8).FontColor(Colors.Blue.Darken2);
+                            text.Span($"{d.NombreCliente}").Bold().FontSize(8);
+                            text.Span(" a nuestra compañía").FontSize(8);
+                            //text.Span($"{d.NombreEmpresa}").Bold().FontSize(8).FontColor(Colors.Blue.Darken2);
                             text.Span(", por lo anterior, anexamos los valores correspondientes a los servicios y/o productos solicitados. ").FontSize(8);
                             text.Span("Nuestra empresa se compromete a ofrecer productos de alta calidad, cumplimiento en los tiempos de entrega y un servicio al cliente personalizado, asegurando que todas las necesidades de su empresa sean atendidas con la mayor eficiencia y responsabilidad. ").FontSize(8);
                             text.Span("Agradecemos la confianza depositada en nosotros y quedamos atentos a cualquier consulta o aclaración adicional que requiera. ").FontSize(8);
@@ -250,7 +250,7 @@ namespace App.Controllers
                             {
                                 r.RelativeItem(0.5f).Padding(3).Text("N°").FontSize(8).Bold().AlignCenter();
                                 r.RelativeItem(1.2f).Padding(3).Text("Código").FontSize(8).Bold().AlignCenter();
-                                r.RelativeItem(2f).Padding(3).Text("Nombre").FontSize(8).Bold().AlignCenter();
+                                r.RelativeItem(2f).Padding(3).Text("Producto y/o Servicio").FontSize(8).Bold().AlignCenter();
                                 r.RelativeItem(1f).Padding(3).Text("Cant.").FontSize(8).Bold().AlignCenter();
                                 r.RelativeItem(1.2f).Padding(3).Text("Precio Unid").FontSize(8).Bold().AlignCenter();
                                 r.RelativeItem(1f).Padding(3).Text("% IVA").FontSize(8).Bold().AlignCenter();

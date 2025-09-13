@@ -16,58 +16,87 @@
 <div class="tituloPage">
     <label>MODULO CREAR COTIZACION</label>
 </div>
-
+<br />
 
 <div>
-
+    <!-- Cliente -->
     <div class="row g-2">
         <div class="col-6">
             <label><strong>Cliente </strong><label style="color:red"> *</label></label>
-            <select class="form-control" id="SelectCliente" style="min-width:100%"></select>
+            <div class="input-group custom-input">
+                <span class="input-group-text icon-highlight"><i class="bi bi-person-fill"></i></span>
+                <select class="form-control" id="SelectCliente"></select>
+            </div>
         </div>
     </div>
+
     <br />
+
+    <!-- Categoría y Producto -->
     <div class="row g-2">
         <div class="col-6">
             <label><strong>Categoría</strong></label>
-            <select class="form-control" id="SelectCategoria" style="min-width:100%" onchange="ListaProductoxIdCategoria($('#SelectCategoria').val())"></select>
-            @*<input class="form-control" type="text" name="name" id="Categoria" value="" disabled style="min-width:100%" />*@
+            <div class="input-group custom-input">
+                <span class="input-group-text icon-highlight"><i class="bi bi-tags-fill"></i></span>
+                <select class="form-control" id="SelectCategoria" onchange="ListaProductoxIdCategoria($('#SelectCategoria').val())"></select>
+            </div>
         </div>
         <div class="col-6">
-            <label><strong>Producto y/o Servicio</strong><label style="color:red" id=""> *</label></label>
-            <select class="form-control" id="SelectProductoxIdCategoria" style="min-width:100%" disabled></select>
-            @*<input class="form-control" type="text" name="name" id="Producto" value="" disabled style="min-width:100%" />*@
+            <label><strong>Producto y/o Servicio</strong><label style="color:red"> *</label></label>
+            <div class="input-group custom-input">
+                <span class="input-group-text icon-highlight"><i class="bi bi-basket-fill"></i></span>
+                <select class="form-control" id="SelectProductoxIdCategoria" disabled></select>
+            </div>
         </div>
     </div>
 
-    <div class="row g-2">
+    <!-- Cantidad / Precio / IVA -->
+    <div class="row g-2 mt-2">
         <div class="col-2">
             <label><strong>Cantidad</strong></label>
-            <input class="form-control" type="number" id="InputTCantidadProdDetCot" name="name" autocomplete="off" style="min-width:100%" />
+            <div class="input-group custom-input">
+                <span class="input-group-text icon-highlight"><i class="bi bi-123"></i></span>
+                <input class="form-control" type="number" id="InputTCantidadProdDetCot" autocomplete="off" />
+            </div>
         </div>
         <div class="col-2">
             <label><strong>Precio Unitario</strong></label>
-            <input class="form-control" type="number" id="InputTPrecioUnitarioProdDetCot" name="name" autocomplete="off" style="min-width:100%" />
+            <div class="input-group custom-input">
+                <span class="input-group-text icon-highlight"><i class="bi bi-currency-dollar"></i></span>
+                <input class="form-control" type="number" id="InputTPrecioUnitarioProdDetCot" autocomplete="off" />
+            </div>
         </div>
         <div class="col-2">
             <label><strong>% Iva</strong></label>
-            <input class="form-control" type="number" id="InputTPorcIvaProdDetCot" name="name" autocomplete="off" style="min-width:100%" />
+            <div class="input-group custom-input">
+                <span class="input-group-text icon-highlight"><i class="bi bi-percent"></i></span>
+                <input class="form-control" type="number" id="InputTPorcIvaProdDetCot" autocomplete="off" />
+            </div>
         </div>
     </div>
+
     <br />
+
+    <!-- Botones -->
     <div>
-        <button class="btn btn-modal-Cancelar btn-sm" onclick="BorrarTProductoListaDetCot()">Borrar Lista</button>
-        <button class="btn btn-modal-guardar btn-sm" onclick="AgregarTProductoListaDetCot()">Agregar a la Lista</button>
+        <button class="btn btn-modal-Cancelar btn-sm" onclick="BorrarTProductoListaDetCot()">
+            <i class="bi bi-x-circle"></i> Borrar Lista
+        </button>
+        <button class="btn btn-modal-guardar btn-sm" onclick="AgregarTProductoListaDetCot()">
+            <i class="bi bi-plus-circle"></i> Agregar a la Lista
+        </button>
     </div>
-
-    <br />
-    <label style="text-align:center; font-weight:bold">DETALLE COTIZACIÓN</label>
-    <br />
-    <div class="grid">
-        <table id="gridTemporalDetalleCotizacion" class="table nowrap cell-border table-striped" style="width: 100%;"></table>
-    </div>
-
 </div>
+
+
+<br />
+<label style="text-align:center; font-weight:bold">DETALLE COTIZACIÓN</label>
+<br />
+<div class="grid">
+    <table id="gridTemporalDetalleCotizacion" class="table nowrap cell-border table-striped" style="width: 100%;"></table>
+</div>
+
+
 
 
 <br />

@@ -4,52 +4,90 @@
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<div class="contenedor-principal" style="">
-    <div class="Centrar-Texto">
-        <label class="Titulo-Login Centrar-Texto"><strong style="">Sofia</strong></label>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    </div>
-    <div class="Centrar-Texto Titulo-Login2">
-        <label style="color:white; font-size:11px">Software Administrativo<span style="font-size:9px; color:white">&nbsp;&nbsp; V 1.0</span></label>
-    </div>
-    <div class="Tabla-Login">
-        <table class="table table-borderless">
-            <tr>
-                <td><h4 class="Centrar-Texto" style="color:white"><strong>Inicio Sesión</strong></h4></td>
-            </tr>
-            <tr>
-                <td><input class="form-control Centrar-Objeto" type="text" name="name" id="InputUsuario" value="" placeholder="Usuario" autocomplete="off" /></td>
-            </tr>
-            <tr>
-                <td><input class="form-control Centrar-Objeto" type="password" name="name" id="InputPassword" value="" placeholder="Contraseña" autocomplete="off" /></td>
-            </tr>
-            <tr>
-                <td align="center">
-                    <input type="checkbox" name="name" id="CheckMostrarPassword" value="" />
-                    <label style="color:white; font-size:10px">Mostrar Contraseña</label>
-                </td>
-            </tr>
-        </table>
-        <div class="Centrar-Texto">
-            <button class="btn btn-login-ingresar" style="min-width:180px!important;" onclick="Ingresar()"><i class="bi-person-workspace"></i> Ingresar</button>
+<style>
+
+</style>
+
+<div class="login-container">
+    <!-- Columna izquierda: Login -->
+    <div class="card-login">
+        <label class="Titulo-Login">Sofia</label>
+        <div class="Titulo-Login2">Software Administrativo <span style="font-size:10px;">V 1.0</span></div>
+
+        <h4>Inicio Sesión</h4>
+
+        <!-- Usuario -->
+        <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+            <input class="form-control" type="text" id="InputUsuario" placeholder="Usuario" autocomplete="off">
         </div>
-        @*<div class="Centrar-Texto" style="margin-top:10px;">            
-            <button class="btn btn-login-recuperarpass" disabled><i class="bi-exclamation-diamond"></i> Recuperar Contraseña</button>
-        </div>*@
+
+        <!-- Contraseña -->
+        <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+            <input class="form-control" type="password" id="InputPassword" placeholder="Contraseña" autocomplete="off">
+        </div>
+
+        <!-- Mostrar contraseña -->
+        <div class="form-check text-start mb-3">
+            <input class="form-check-input" type="checkbox" id="CheckMostrarPassword">
+            <label class="form-check-label" for="CheckMostrarPassword">Mostrar contraseña</label>
+        </div>
+
+        <!-- Botón Ingresar con spinner oculto -->
+        <button id="BtnIngresar" class="btn btn-login-ingresar" onclick="IniciarSesion()">
+            <span id="BtnIngresarText"><i class="bi bi-person-workspace"></i> Ingresar</span>
+            <span id="BtnIngresarSpinner" class="spinner-border spinner-border-sm ms-2" style="display:none;" role="status" aria-hidden="true"></span>
+        </button>
+
+
+        <button class="btn btn-login-recuperarpass" disabled>
+            <i class="bi bi-exclamation-diamond"></i> Recuperar Contraseña
+        </button>
+    </div>
+
+    <!-- Columna derecha: Introducción -->
+    <div class="card-intro">
+        <h3><i class="bi bi-info-circle"></i> Bienvenido a Sofia</h3>
+        <p style="text-align:justify">
+            Sofia es un software administrativo diseñado para optimizar la gestión de tu empresa.
+            Con herramientas intuitivas y seguras, podrás llevar el control de usuarios, procesos y reportes de manera eficiente.
+        </p>
+        <p style="text-align:justify">
+            Inicia sesión para acceder a todas las funcionalidades y simplificar tu gestión diaria.
+        </p>
     </div>
 </div>
 
-
-
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
     $(document).ready(function () {
         $('#CheckMostrarPassword').click(function () {
-            if ($('#CheckMostrarPassword').is(':checked')) {
-                $('#InputPassword').attr('type', 'text');
-            } else {
-                $('#InputPassword').attr('type', 'password');
-            }
+            $('#InputPassword').attr('type', this.checked ? 'text' : 'password');
         });
     });
+
+    function IniciarSesion() {
+        let btn = $("#BtnIngresar");
+        let text = $("#BtnIngresarText");
+        let spinner = $("#BtnIngresarSpinner");
+
+        // Deshabilitar botón y mostrar spinner
+        btn.prop("disabled", true);
+        spinner.show();
+        text.text(" Cargando...");
+
+        // Simulación de proceso (ej: petición AJAX)
+        setTimeout(() => {
+            Ingresar();
+            // Restaurar botón
+            btn.prop("disabled", false);
+            spinner.hide();
+            text.html('<i class="bi bi-person-workspace"></i> Ingresar');
+        }, 2000);
+    }
 </script>
+

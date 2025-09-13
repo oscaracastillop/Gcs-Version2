@@ -10,9 +10,10 @@
         success: function (resultado) {
             var contador = 0;
             $.each(resultado, function () {
-                $("#BotonesSubMenu").append('<a href="' + resultado[contador].Ruta + '" class="btn btnSubMenu" id="' + resultado[contador].Id + '">' +
-                    '' + resultado[contador].IconoCodigoHtml + '<br>' +
-                    '<label class="">' + resultado[contador].Nombre + '</label>' +
+                $("#BotonesSubMenu").append(
+                    '<a href="' + resultado[contador].Ruta + '" class="btn btnSubMenu" id="' + resultado[contador].Id + '">' +
+                    '<span class="icon-container">' + resultado[contador].IconoCodigoHtml + '</span>' +
+                    '<br><label>' + resultado[contador].Nombre + '</label>' +
                     '</a>'
                 );
                 contador++;

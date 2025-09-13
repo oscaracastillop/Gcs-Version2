@@ -21,68 +21,107 @@
 
 <!-- Modal Sucursal-->
 <div class="modal fade" id="ModalSucursal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header header-modal">
-                <div class="modal-title" id="TituloModalSucursal"></div>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content shadow-sm rounded-3 border-0">
+
+            <!-- Header -->
+            <div class="modal-header text-white header-modal">
+                <div class="modal-title" id="TituloModalSucursal"></div> <!-- tamaño original -->
             </div>
-            <div class="modal-body">
+
+            <!-- Body -->
+            <div class="modal-body py-3 px-3" style="background-color: #f8f9fa;">
                 <label id="LabelIdSucursal" hidden></label>
-                <div class="row g-2">
-                    <div class="col-12">
-                        <label><strong>Nombre </strong><label style="color:red"> *</label></label>
-                        <input class="form-control" type="text" id="InputNombreSucursal" name="name" autocomplete="off" style="min-width:100%" />
+
+                <!-- Nombre -->
+                <div>
+                    <label><strong>Nombre Sucursal</strong><span class="text-danger">*</span></label>
+                    <div class="input-group custom-input">
+                        <span class="input-group-text icon-highlight"><i class="bi bi-shop"></i></span>
+                        <input class="form-control" type="text" id="InputNombreSucursal" autocomplete="off" />
                     </div>
                 </div>
 
+
+                <!-- Email, Teléfono, Celular -->
                 <div class="row g-2">
-                    <div class="col-6">
+                    <div class="col-4">
                         <label><strong>Email</strong></label>
-                        <input class="form-control" type="text" id="InputEmailSucursal" name="name" autocomplete="off" style="min-width:100%" />
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-envelope"></i></span>
+                            <input class="form-control" type="text" id="InputEmailSucursal" autocomplete="off" />
+                        </div>
                     </div>
-                    <div class="col-6">
-                        <label><strong>Contacto</strong></label>
-                        <input class="form-control" type="text" id="InputContactoSucursal" name="name" autocomplete="off" style="min-width:100%" />
-                    </div>
-                </div>
-                <div class="row g-2">
-                    <div class="col-6">
+                    <div class="col-4">
                         <label><strong>Teléfono</strong></label>
-                        <input class="form-control" type="text" id="InputTelefonoSucursal" name="name" autocomplete="off" style="min-width:100%" maxlength="13" placeholder="(ind ciudad) + # Telefónico" />
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-telephone"></i></span>
+                            <input class="form-control" type="text" id="InputTelefonoSucursal" maxlength="13" placeholder="(ind ciudad) + # Telefónico" />
+                        </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                         <label><strong>Celular</strong></label>
-                        <input class="form-control" type="text" id="InputCelularSucursal" name="name" autocomplete="off" style="min-width:100%" maxlength="10" placeholder="" />
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-phone"></i></span>
+                            <input class="form-control" type="text" id="InputCelularSucursal" autocomplete="off" />
+                        </div>
                     </div>
                 </div>
+
+                <!-- Dirección y Ciudad -->
                 <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Dirección</strong></label>
-                        <input class="form-control" type="text" id="InputDireccionSucursal" name="name" autocomplete="off" style="min-width:100%" />
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-geo-alt"></i></span>
+                            <input class="form-control" type="text" id="InputDireccionSucursal" autocomplete="off" />
+                        </div>
                     </div>
                     <div class="col-6">
-                        <label><strong>Ciudad </strong><label style="color:red"> *</label></label>
-                        <select class="form-control" id="SelectCiudad" style="min-width:100%"></select>
+                        <label><strong>Ciudad </strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-geo"></i></span>
+                            <select class="form-control" id="SelectCiudad"></select>
+                        </div>
                     </div>
                 </div>
+
+
+                <!-- Descripción -->
                 <div class="row g-2">
-                    <div class="col-12">
-                        <label><strong>Descripción</strong></label>
-                        <input type="text" id="InputDescripcionSucursal" class="form-control" style="min-width:100%" rows="3" />
+                    <div class="col-5">
+                        <label><strong>Contacto</strong></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-person"></i></span>
+                            <input class="form-control" type="text" id="InputContactoSucursal" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <label><strong>Descripción Sucursal</strong></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-file-earmark-text"></i></span>
+                            <input type="text" id="InputDescripcionSucursal" class="form-control" />
+                        </div>
+                    </div>
+                    <!-- Estado -->
+                    <div class="col-3" id="SelectEstadoSucursal">
+                        <label><strong>Estado</strong></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-toggle-on"></i></span>
+                            <select class="form-control" id="SelectEstado"></select>
+                        </div>
                     </div>
                 </div>
-                <div class="col-3" id="SelectEstadoSucursal">
-                    <label><strong>Estado</strong></label>
-                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
-                </div>
+
+
+                
             </div>
-            <div class="modal-footer" id="BotonesModalSucursal">
-            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer bg-light py-2" id="BotonesModalSucursal"></div>
         </div>
     </div>
 </div>
-
-
 
 <script>
     $(document).ready(function () {

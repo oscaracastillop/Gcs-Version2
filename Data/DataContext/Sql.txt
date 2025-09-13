@@ -6484,6 +6484,7 @@ INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Ferretería',1, GET
 INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Cafetería',1, GETDATE())
 INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Materiales de Empaque',1, GETDATE())
 INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Drogería y Medicamentos',1, GETDATE())
+INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Drogería y Medicamentos',1, GETDATE())
 
 GO
 
@@ -8484,7 +8485,7 @@ AS
 BEGIN 
 
 SELECT	C.CodigoProducto,
-		C.Nombre + ' '+ C.Marca + ' ' + C.Referencia As Nombre,
+		C.Nombre + ' '+ C.Marca + ' ' + C.Referencia + ' '+ D.Nombre As Nombre,
 		B.Cantidad,
 		B.PrecioUnitario,
 		B.PorcentajeIva,
@@ -8495,9 +8496,10 @@ SELECT	C.CodigoProducto,
 
 FROM	Cotizacion A,
 		DetalleCotizacion B,
-		Producto C
+		Producto C,
+		UnidadMedida D
 
-WHERE	A.Id = @Id AND B.IdCotizacion = A.Id AND B.IdProducto = C.Id
+WHERE	A.Id = @Id AND B.IdCotizacion = A.Id AND B.IdProducto = C.Id AND D.Id = C.IdUnidadMedida
 
 
 END

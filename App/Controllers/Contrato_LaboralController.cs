@@ -165,7 +165,7 @@ namespace App.Controllers
                         page.DefaultTextStyle(x => x.FontFamily("Lato").FontSize(12));
 
                         // Header en todas las páginas, pero con contenido único
-                        page.Header().BorderBottom(1).BorderColor(Colors.Grey.Lighten2).PaddingBottom(3).Row(row =>
+                        page.Header().BorderBottom(0).BorderColor(Colors.Grey.Lighten2).PaddingBottom(3).Row(row =>
                         {
                             // --- Logo a la izquierda ---
                             row.ConstantItem(100).Height(60).Image(logoBytes).FitHeight();
@@ -186,7 +186,7 @@ namespace App.Controllers
                                 col.Item().AlignLeft().Text($"Email: {a.Email}")
                                     .FontSize(7).FontColor(Colors.Grey.Darken2);
 
-                                col.Item().AlignLeft().Text($"Tel: {a.Telefono}")
+                                col.Item().AlignLeft().Text($"Tel: {a.Telefono} | Cel: {a.Celular}")
                                     .FontSize(7).FontColor(Colors.Grey.Darken2);
                             });
 
@@ -1169,7 +1169,7 @@ namespace App.Controllers
                     page.DefaultTextStyle(x => x.FontFamily("Lato").FontSize(12));
 
                     // Header en todas las páginas, pero con contenido único
-                    page.Header().BorderBottom(1).BorderColor(Colors.Grey.Lighten2).PaddingBottom(3).Row(row =>
+                    page.Header().BorderBottom(0).BorderColor(Colors.Grey.Lighten2).PaddingBottom(3).Row(row =>
                     {
                         // --- Logo a la izquierda ---
                         row.ConstantItem(100).Height(60).Image(logoBytes).FitHeight();
@@ -1190,7 +1190,7 @@ namespace App.Controllers
                             col.Item().AlignLeft().Text($"Email: {a.Email}")
                                 .FontSize(7).FontColor(Colors.Grey.Darken2);
 
-                            col.Item().AlignLeft().Text($"Tel: {a.Telefono}")
+                            col.Item().AlignLeft().Text($"Tel: {a.Telefono} | Cel: {a.Celular}")
                                 .FontSize(7).FontColor(Colors.Grey.Darken2);
                         });
 
@@ -1381,7 +1381,7 @@ namespace App.Controllers
                     page.DefaultTextStyle(x => x.FontFamily("Lato").FontSize(12));
 
                     // Header en todas las páginas, pero con contenido único
-                    page.Header().BorderBottom(1).BorderColor(Colors.Grey.Lighten2).PaddingBottom(3).Row(row =>
+                    page.Header().BorderBottom(0).BorderColor(Colors.Grey.Lighten2).PaddingBottom(3).Row(row =>
                     {
                         // --- Logo a la izquierda ---
                         row.ConstantItem(100).Height(60).Image(logoBytes).FitHeight();
@@ -1402,14 +1402,14 @@ namespace App.Controllers
                             col.Item().AlignLeft().Text($"Email: {a.Email}")
                                 .FontSize(7).FontColor(Colors.Grey.Darken2);
 
-                            col.Item().AlignLeft().Text($"Tel: {a.Telefono}")
+                            col.Item().AlignLeft().Text($"Tel: {a.Telefono} | Cel: {a.Celular}")
                                 .FontSize(7).FontColor(Colors.Grey.Darken2);
                         });
 
                         // --- Número de cotización a la derecha ---
                         row.ConstantItem(180).AlignTop().Column(col =>
                         {
-                            col.Item().AlignRight().Text($"PAZ Y SALVO").FontSize(8).FontColor(Colors.Grey.Darken2);
+                            col.Item().AlignRight().Text($"PAZ Y SALVO LABORAL").FontSize(8).FontColor(Colors.Grey.Darken2);
                             //col.Item().AlignCenter().Text($"N° {d.Id}").Bold().FontSize(10).FontColor(Colors.Red.Darken2);
                             col.Item().AlignRight().Text($"Fecha: {DateTime.Now:dd/MM/yyyy}")  // Fecha actual del sistema
                             .FontSize(8)

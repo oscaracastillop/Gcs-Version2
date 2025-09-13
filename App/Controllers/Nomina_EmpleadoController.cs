@@ -122,21 +122,17 @@ namespace App.Controllers
                 page.PageColor(Colors.White);
                 page.DefaultTextStyle(x => x.FontFamily("Lato").FontSize(12));
 
-                page.Header()
-                    .Background(Colors.Grey.Lighten5)     // 🎨 Fondo del header
-                    .Border(1)                            // ⬅️ Borde completo alrededor del header
-                    .BorderColor(Colors.Grey.Darken1)     // Color del borde
-                    .Padding(10)                          // Espaciado interno
-                    .Row(row =>
-                    {
-                        
-                        // --- Logo a la izquierda ---
+                // Header en todas las páginas, pero con contenido único
+                page.Header().BorderBottom(0).BorderColor(Colors.Grey.Lighten2).PaddingBottom(5).Row(row =>
+                {
+                    // --- Logo a la izquierda ---
                     row.ConstantItem(100).Height(60).Image(logoBytes).FitHeight();
 
                     // --- Datos de la empresa en el centro ---
                     row.RelativeItem().Column(col =>
                     {
-                        col.Item().AlignLeft().Text(a.Nombre).Bold().FontSize(14);
+                        col.Item().AlignLeft().Text(a.Nombre)
+                            .Bold().FontSize(14);
 
                         col.Item().AlignLeft().Text($"NIT: {a.Identificacion}")
                             .FontSize(9).FontColor(Colors.Grey.Darken2);
@@ -147,24 +143,19 @@ namespace App.Controllers
                         col.Item().AlignLeft().Text($"Email: {a.Email}")
                             .FontSize(7).FontColor(Colors.Grey.Darken2);
 
-                        col.Item().AlignLeft().Text($"Tel: {a.Telefono}")
+                        col.Item().AlignLeft().Text($"Tel: {a.Telefono} | Cel: {a.Celular}")
                             .FontSize(7).FontColor(Colors.Grey.Darken2);
                     });
 
                     // --- Número de cotización a la derecha ---
                     row.ConstantItem(180).AlignTop().Column(col =>
                     {
-                        col.Item().AlignRight()
-                            .Text($"COMPROBANTE DE NÓMINA N° {d.Id}")
+                        col.Item().AlignRight().Text($"COMPROBANTE DE NÓMINA N° {d.Id}").FontSize(8).FontColor(Colors.Grey.Darken2);
+                        //col.Item().AlignCenter().Text($"N° {d.Id}").Bold().FontSize(10).FontColor(Colors.Red.Darken2);
+                        col.Item().AlignRight().Text($"Periodo: {d.PeriodoLiquidado:dd/MM/yyyy}")
                             .FontSize(8).FontColor(Colors.Grey.Darken2);
-
-                        col.Item().AlignRight()
-                            .Text($"Periodo: {d.PeriodoLiquidado:dd/MM/yyyy}")
-                            .FontSize(8).FontColor(Colors.Grey.Darken2);
-                    });
+                    }); // Solo en la primera página
                 });
-
-
 
                 // --- Contenido principal ---
                 page.Content().PaddingTop(10).Column(col =>
@@ -238,7 +229,7 @@ namespace App.Controllers
                                     InfoDer("Identificación:", d.Identificacion);
                                     InfoDer("Cargo:", d.Cargo);
                                     InfoDer("Permanencia:", d.Permanencia);
-                                    InfoDer("Salario Mensual:", SubTransporteMesDecimal.ToString("C0", cultura));
+                                    InfoDer("Sub Trans Mensual:", SubTransporteMesDecimal.ToString("C0", cultura));
                                     InfoDer("# Cuenta:", d.NumeroCuenta);
                                     InfoDer("Eps:", d.NombreEps);
                                     InfoDer("Fondo Pensión:", d.NombreFondoPension);

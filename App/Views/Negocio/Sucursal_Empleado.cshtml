@@ -15,46 +15,67 @@
     <table id="gridSucursalEmpleado" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
 </div>
 
+
+<!-- Modal Sucursal Empleado-->
 <div class="modal fade" id="ModalCambiarSucursalEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header header-modal">
-                <div class="modal-title">
-                    <label>CAMBIAR SUCURSAL EMPLEADO</label>
-                </div>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content shadow-sm rounded-3 border-0">
+
+            <!-- Header -->
+            <div class="modal-header text-white header-modal">
+                <div class="modal-title">CAMBIAR SUCURSAL EMPLEADO</div> <!-- tamaño original -->
             </div>
-            <div class="modal-body">
+
+            <!-- Body -->
+            <div class="modal-body py-3 px-3" style="background-color: #f8f9fa;">
                 <label id="LabelIdSucursalEmpleadoCambiarSucursal" hidden></label>
-                <div>
-                    <label><strong>Empleado </strong><label style="color:red" id="">*</label></label>
-                    <input class="form-control" type="text" id="InputCambiarSucursalNombreEmpleado" autocomplete="off" style="min-width:100%" disabled />
-                </div>
-                <div class="row g-2">
-                    <div class="col-6">
-                        <label><strong>Sucursal Actual</strong><label style="color:red">*</label></label>
-                        <input class="form-control" type="text" id="InputCambiarSucursalSucursalActual" autocomplete="off" style="min-width:100%" disabled />
-                    </div>
-                    <div class="col-6">
-                        <label><strong>Nueva Sucursal</strong><label style="color:red">*</label></label>
-                        <select class="form-control" id="SelectSucursal" style="min-width:100%"></select>
-                    </div>
-                </div>
-                <div class="row g-2">                    
-                    <div class="col-6">
-                        <label><strong>Observación</strong></label>
-                        <input class="form-control" type="text" id="InputObservacionSE" name="name" autocomplete="off" style="min-width:100%" />
+
+                <!-- Nombre -->
+                <div class="mb-2">
+                    <label><strong>Nombre Empleado</strong><span class="text-danger">*</span></label>
+                    <div class="input-group custom-input">
+                        <span class="input-group-text icon-highlight"><i class="bi bi-person"></i></span>
+                        <input class="form-control" type="text" id="InputCambiarSucursalNombreEmpleado" autocomplete="off" disabled/>
                     </div>
                 </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
-                <button type="button" class="btn btn-sm btn-modal-guardar" onclick="CambiarSucursalEmpleado()">Guardar Cambios</button>
+                <div class="row g-1 mt-1">
+                    <div class="col-6">
+                        <label><strong>Sucursal Actual</strong></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-shop"></i></span>
+                            <input class="form-control" type="text" id="InputCambiarSucursalSucursalActual" autocomplete="off" disabled/>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Nueva Sucursal</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-shop"></i></span>
+                            <select class="form-control" id="SelectSucursal"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Descripción -->
+                <div class="row g-1 mt-1">                   
+                    <div class="col-6">
+                        <label><strong>Observación</strong></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-file-earmark-text"></i></span>
+                            <input type="text" id="InputObservacionSE" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+            <!-- Footer -->
+                <div class="modal-footer bg-light py-2">
+                    <button type="button" class="btn btn-sm btn-modal-Cancelar" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    <button type="button" class="btn btn-sm btn-modal-guardar" onclick="CambiarSucursalEmpleado()">Guardar Cambios</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 
 <script>
     $(document).ready(function () {

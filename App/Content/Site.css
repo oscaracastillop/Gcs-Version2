@@ -1,16 +1,127 @@
-﻿
+﻿/* STILOS PARA LOS MODAL*/
+
+.custom-input .form-control {
+    border-radius: 0 .35rem .35rem 0;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.9rem;
+    height: 28px!important;
+}
+
+.custom-input .input-group-text {
+    background-color: #e9f2ff; /* fondo suave */
+    border-radius: .35rem 0 0 .35rem;
+    border: 1px solid #ced4da;
+    color: #0a58ca; /* íconos azules por defecto */
+    padding: 0.25rem 0.5rem;
+    height: 28px!important;
+    transition: all 0.2s ease-in-out;
+}
+
+.custom-input .form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 .15rem rgba(13,110,253,.25);
+}
+
+.custom-input .input-group-text i {
+    font-size: 1rem;
+}
+
+.custom-input:focus-within .input-group-text {
+    background-color: #0d6efd;
+    color: #fff; /* ícono blanco al enfocar */
+}
 
 
 
+/* STILOS MODAL CAMBIAR IMAGEN*/
 
+/* Imagen actual */
+#ImagenHVEmpleado img {
+    max-width: 100%;
+    height: auto;
+    border-radius: .5rem;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 6px rgba(0,0,0,.1);
+}
 
+/* Imagen nueva (preview) */
+#previewImage {
+    max-height: 250px;
+    object-fit: contain;
+}
 
+.imagen-escalada-cambiar {
+    width: 100% !important;
+    height: 100% !important;
+}
 
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 80px); 
+}
 
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 1rem 1rem 0.6rem; /* menos padding inferior para acercar el footer */
+    overflow: auto; /* scroll si el contenido excede la altura */
+}
 
+/* Reduce el espacio entre secciones y evita márgenes grandes al final */
+.section-logo {
+    margin-bottom: 0;
+    padding: 10px;
+}
 
+    .section-logo + .section-logo {
+        margin-top: 8px;
+    }
 
+    .section-logo:last-child {
+        margin-bottom: 0;
+    }
 
+/* Preview: controla el tamaño máximo de la imagen y el espaciado */
+#PreviewLogoEmpleado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 6px; /* separacion pequeña entre preview y input */
+}
+
+    #PreviewLogoEmpleado img,
+    .section-logo .logo-img {
+        max-width: 100%;
+        max-height: 140px; /* ajusta este valor si quieres preview más grande/pequeña */
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        border-radius: 8px;
+    }
+
+/* Input group: quita márgenes extra y mantiene la altura coherente */
+.contimg-cambiar-img {
+    margin-bottom: 4px;
+    padding: 6px;
+}
+
+.custom-input {
+    margin-bottom: 0;
+}
+
+    .custom-input .input-group-text,
+    .custom-input .form-control {
+        height: 28px; /* mantiene la altura que ya tienes */
+        padding: 0.25rem 0.5rem;
+    }
+
+/* Footer: pega un poco más al contenido */
+.modal-footer {
+    padding-top: .45rem;
+    padding-bottom: .45rem;
+}
 
 
 .modal-body {
@@ -20,6 +131,23 @@
 .modal-footer {
     background-color: #d8dfea;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .imagen-escalada-grid {
     width: 100% !important;
@@ -35,15 +163,14 @@
     margin-left: auto;
 }
 
-.imagen-escalada-cambiar {
-    width: 100% !important;
-    height: 100% !important;
-}
 
 
 #datosNominaEmpleado {
     display: none;
 }
+
+
+
 
 
 
@@ -80,44 +207,55 @@
 }
 
 .btnmenu {
-    color: white !important;
-    margin-left: 5px;
-    margin-right: 5px;
+    color: black !important;
+    margin: 0 3px;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    
 }
 
-    .btnmenu:hover {
-        background-color: black;
-        box-shadow: 0px 0px 5px 0px white;
+/* Botón Cancelar */
+.btn-modal-Cancelar {
+    background: linear-gradient(135deg, #f8d7da, #f1b0b7) !important;
+    border: 1px solid #dc3545 !important;
+    color: #842029 !important;
+    font-weight: bold !important;
+    border-radius: 0.5rem !important;
+    padding: 0.2rem 1.0rem !important;
+    transition: all 0.8s ease-in-out;
+    box-shadow: 0 2px 6px rgba(220,53,69,.2);
+}
+
+    .btn-modal-Cancelar:hover {
+        background: linear-gradient(135deg, #dc3545, #bb2d3b) !important;
+        color: #fff !important;
+        box-shadow: 0 4px 10px rgba(220,53,69,.4);
     }
 
-.btn-modal-Cancelar {
-     background-color: white !important;
-    /*color: white !important;*/
-    border: solid 1px gray !important;
-    font-weight:bold !important;
-    /*box-shadow: 0px 0px 2px 1px red;*/
+/* Botón Guardar */
+.btn-modal-guardar {
+    background: linear-gradient(135deg, #d1e7dd, #a3cfbb) !important;
+    border: 1px solid #198754 !important;
+    color: #0f5132 !important;
+    font-weight: bold !important;
+    border-radius: 0.5rem !important;
+    padding: 0.2rem 1.0rem !important;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 6px rgba(25,135,84,.2);
 }
 
-.btn-modal-guardar {
-    background-color: white !important;
-    border: solid 1px gray !important;
-    font-weight: bold !important;
-    /* box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.75);*/
-    /*background-color: #3b5998 !important;
-    color: white !important;*/
-}
+    .btn-modal-guardar:hover {
+        background: linear-gradient(135deg, #198754, #146c43) !important;
+        color: #fff !important;
+        box-shadow: 0 4px 10px rgba(25,135,84,.4);
+    }
+
 
 .btn-modal-doc {
     background-color: red !important;
     color: white !important;
 }
-
-/*.btn-nuevo-datatable {
-    background-color:  !important;
-    color:  !important;
-}*/
-
-
 
 .btn-pagar {
     background-color: blue !important;
@@ -142,11 +280,8 @@
 
 .btnSubMenu {
     align-content: center;
-    background-color:white !important;
-    /* color: white !important;*/
-    /*border-radius: 0px 25px 0px 25px !important;
-    box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,1);*/
-    border: solid 1px black !important;
+    background: white !important;
+    box-shadow:  0px 0px 3px 1px black;
 }
 
 .contenedor {
@@ -173,7 +308,6 @@
 .grid {
     border: solid 1px darkgray !important;
     background-color: white;
-    /*box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);*/
     margin-bottom: 10px;
     margin-top: 10px;
     padding-bottom: 10px;
@@ -195,65 +329,105 @@
     max-width: 200px!important;
 }
 
+/* Estado Activo */
 .label-estado-activo {
-    align-content: center!important;
-    align-items: center!important;
-    background-color: green;
-    border: solid 1px black !important;
-    border-radius: 5px !important;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    color: white;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-.label-estado-cobrado {
-    align-content: center;
+    display: inline-flex;
     align-items: center;
-    background-color: mediumpurple;
-    border: solid 1px black !important;
-    border-radius: 5px !important;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    color: white;
-    padding-left: 5px;
-    padding-right: 5px;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: #000; /* texto negro */
+    white-space: nowrap;
 }
 
-.label-estado-finalizado {
-    align-content: center;
-    align-items: center;
-    background-color: mediumpurple;
-    border: solid 1px black !important;
-    border-radius: 5px !important;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    color: white;
-    padding-left: 5px;
-    padding-right: 5px;
-}
+    .label-estado-activo::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #198754; /* verde */
+        box-shadow: 0 0 4px rgba(25,135,84,0.5);
+    }
 
+/* Estado Inactivo */
 .label-estado-inactivo {
-    align-content: center;
+    display: inline-flex;
     align-items: center;
-    background-color: red;
-    border: solid 1px black !important;
-    border-radius: 5px !important;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    color: white;
-    padding-left: 5px;
-    padding-right: 5px;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: #000;
+    white-space: nowrap;
 }
 
+    .label-estado-inactivo::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #6c757d; /* gris */
+        box-shadow: 0 0 4px rgba(108,117,125,0.5);
+    }
+
+/* Estado Pagado */
 .label-estado-pagado {
-    align-content: center;
+    display: inline-flex;
     align-items: center;
-    background-color: #3b5998;
-    border: solid 1px black !important;
-    border-radius: 5px !important;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    color: white;
-    padding-left: 5px;
-    padding-right: 5px;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: #000;
+    white-space: nowrap;
 }
+
+    .label-estado-pagado::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #0d6efd; /* azul */
+        box-shadow: 0 0 4px rgba(13,110,253,0.5);
+    }
+
+/* Estado Finalizado */
+.label-estado-finalizado {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: #000;
+    white-space: nowrap;
+}
+
+    .label-estado-finalizado::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #fd7e14; /* naranja */
+        box-shadow: 0 0 4px rgba(253,126,20,0.5);
+    }
+
+/* Estado Cobrado */
+.label-estado-cobrado {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: #000;
+    white-space: nowrap;
+}
+
+    .label-estado-cobrado::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #20c997; /* verde agua */
+        box-shadow: 0 0 4px rgba(32,201,151,0.5);
+    }
 
 
 .labelmodulo {
@@ -273,10 +447,12 @@ li {
     color: white !important;
 }
 
-.nameempresa {
+.Titulo-Login {
+    font-size: 28px!important;
+    font-weight: bold;
     font-family: Pristina !important;
-    text-shadow: 1px 1px 2px black;
-    padding: 0px !important;
+    color: #3b5998!important;
+    text-shadow: 2px 8px 2px rgba(0,0,0,0.25);
 }
 
 .scroll {
@@ -284,8 +460,6 @@ li {
     overflow-x: auto; /* [2] */
     overflow-y: hidden;
     overflow-y: clip;
-    /*-webkit-overflow-scrolling: touch;*/ /* [3] */
-    /*-ms-overflow-style: -ms-autohiding-scrollbar;*/ /* [4] */
 }
 
 .stilonavbar {
@@ -314,7 +488,8 @@ table.dataTable thead tr {
 
 
 @media screen and (min-width: 100px) {
-    body, .btn, .btn-editar-dt, .btn-eliminar-dt, .btn-excel-datatable, .btn-nuevo-datatable, .btn-pdf-datatable, button, .contenedor, .div.dataTables_wrapper div.dataTables_filter input, .grid, input, .label-estado-activo, .label-estado-inactivo, .label-estado-pagado, .modal, select, .swal2-popup, table.dataTable thead tr, textarea {
+    body, .btn, .btn-editar-dt, .btn-eliminar-dt, .btn-excel-datatable, .btn-nuevo-datatable, .btn-pdf-datatable, button, .contenedor, .div.dataTables_wrapper div.dataTables_filter input, .grid, input, .label-estado-activo, .label-estado-inactivo, .label-estado-pagado, .label-estado-cobrado,
+    .label-estado-finalizado, .modal, select, .swal2-popup, table.dataTable thead tr, textarea {
         font-size: 5px !important;
     }
 
@@ -370,6 +545,8 @@ table.dataTable thead tr {
     .label-estado-activo,
     .label-estado-inactivo,
     .label-estado-pagado,
+    .label-estado-cobrado,
+    .label-estado-finalizado,
     .modal,
     select,
     .swal2-popup,
@@ -426,6 +603,8 @@ table.dataTable thead tr {
     .label-estado-activo,
     .label-estado-inactivo,
     .label-estado-pagado,
+    .label-estado-cobrado,
+    .label-estado-finalizado,
     .modal,
     select,
     .swal2-popup,
@@ -462,5 +641,7 @@ table.dataTable thead tr {
         font-size: 30px !important;
     }
 
-
+    .btnmenu {
+        font-size: 12px !important;
+    }
 }

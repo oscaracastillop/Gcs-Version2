@@ -29,35 +29,48 @@ function ValidarSesion(Modulo) {
 
 function VentanaMensajeOK(texto) {
     Swal.fire({
-        title: TituloSwal,
-        text: valor[1],
+        title: `<span style="font-size:18px; font-weight:bold; color:green;">${TituloSwal}</span>`,
+        html: `<p style="font-size:14px; color:#444; margin-top:8px;">${texto}</p>`,
         icon: 'success',
         position: 'top',
-        confirmButtonColor: "green",
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+        },
+        confirmButtonText: '<i class="bi bi-check-circle-fill"></i> Aceptar',
+        confirmButtonColor: 'green',
+        background: '#f9f9f9',
+        customClass: {
+            popup: 'rounded-4 shadow-lg',
+            confirmButton: 'px-3 py-1 rounded-pill fw-semibold'
+        },
     }).then((result) => {
         window.location.reload();
-    })
+    });
 }
+
 
 function VentanaMensaje(texto) {
     Swal.fire({
-        title: TituloSwal,
-        text: texto,
+        title: `<span style="font-size:18px; font-weight:bold; color:#3b5998;">${TituloSwal}</span>`,
+        html: `<p style="font-size:14px; color:#444; margin-top:8px;">${texto}</p>`,
         icon: 'info',
         position: 'top',
-        confirmButtonColor: "#3b5998",
-    })
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+        },
+        confirmButtonText: '<i class="bi bi-check-circle"></i> Aceptar',
+        confirmButtonColor: '#3b5998',
+        background: '#f9f9f9',
+        customClass: {
+            popup: 'rounded-4 shadow-lg',
+            confirmButton: 'px-3 py-1 rounded-pill fw-semibold'
+        },
+    });
 }
-
-//function getBase64Image(img) {
-//    var img = document.getElementById("LogoEmpresa");
-//    var canvas = document.createElement("canvas");
-//    canvas.width = img.width;
-//    canvas.height = img.height;
-//    var ctx = canvas.getContext("2d");
-//    ctx.drawImage(img, 0, 0);    
-//    var dataURL = canvas.toDataURL("image/png");
-//    alert(dataURL);
-   
-//}
 
