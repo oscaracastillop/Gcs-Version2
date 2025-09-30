@@ -229,15 +229,9 @@ function AgregarTProductoListaDetCot() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                    }).then((result) => {
-                        $('#gridTemporalDetalleCotizacion').DataTable().ajax.reload();
-                    })
+                    VentanaMensajeDetCot(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -330,15 +324,29 @@ function GridTDetalleCotizacion() {   ;
 
 function EliminarRegistroTemporalDetalleCotizacion(IdTDetalleCotizacion) {
     Swal.fire({
-        title: TituloSwal,
-        text: "Esta seguro(a)?, No podrás revertir esta acción.!",
+        title: `<span style="font-size:18px; font-weight:bold; color:#d9534f;">${TituloSwal}</span>`,
+        html: `<p style="font-size:14px; color:#444; margin-top:8px;">
+                  ¿Está seguro(a)? <br> <strong>No podrás revertir esta acción.</strong>
+               </p>`,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "red",
-        cancelButtonColor: "#333",
-        confirmButtonText: "Si, eliminar!",
-        cancelButtonText: "Cancelar",
-        position: 'top'
+        confirmButtonColor: "#d9534f",
+        cancelButtonColor: "#6c757d",
+        confirmButtonText: '<i class="bi bi-trash-fill"></i> Sí, eliminar',
+        cancelButtonText: '<i class="bi bi-x-circle"></i> Cancelar',
+        position: 'top',
+        background: '#f9f9f9',
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+        },
+        customClass: {
+            popup: 'rounded-4 shadow-lg',
+            confirmButton: 'px-3 py-1 rounded-pill fw-semibold',
+            cancelButton: 'px-3 py-1 rounded-pill fw-semibold'
+        }
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -351,16 +359,10 @@ function EliminarRegistroTemporalDetalleCotizacion(IdTDetalleCotizacion) {
                 },
                 success: function (resultado) {
                     valor = resultado.split('*');
-                    if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                        }).then((result) => {
-                            $('#gridTemporalDetalleCotizacion').DataTable().ajax.reload();
-                        })
+                    if (valor[0] === 'OK') {
+                        VentanaMensajeDetCot(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });
@@ -369,17 +371,32 @@ function EliminarRegistroTemporalDetalleCotizacion(IdTDetalleCotizacion) {
 }
 
 
-function BorrarTProductoListaDetCot(){
+
+function BorrarTProductoListaDetCot() {
     Swal.fire({
-        title: TituloSwal,
-        text: "Esta seguro(a)?, No podrás revertir esta acción.! Se borraran todos los registros del detalle de la cotización",
+        title: `<span style="font-size:18px; font-weight:bold; color:#d9534f;">${TituloSwal}</span>`,
+        html: `<p style="font-size:14px; color:#444; margin-top:8px;">
+                  ¿Está seguro(a)? <br> <strong>No podrás revertir esta acción.</strong>
+               </p>`,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "red",
-        cancelButtonColor: "#333",
-        confirmButtonText: "Si, eliminar!",
-        cancelButtonText: "Cancelar",
-        position: 'top'
+        confirmButtonColor: "#d9534f",
+        cancelButtonColor: "#6c757d",
+        confirmButtonText: '<i class="bi bi-trash-fill"></i> Sí, eliminar',
+        cancelButtonText: '<i class="bi bi-x-circle"></i> Cancelar',
+        position: 'top',
+        background: '#f9f9f9',
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+        },
+        customClass: {
+            popup: 'rounded-4 shadow-lg',
+            confirmButton: 'px-3 py-1 rounded-pill fw-semibold',
+            cancelButton: 'px-3 py-1 rounded-pill fw-semibold'
+        }
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -387,23 +404,19 @@ function BorrarTProductoListaDetCot(){
                 dataType: 'json',
                 url: '/Detalle_Cotizacion/BorrarTProductoListaDetCot',
                 data: {
-                    IdUser: TokenUser,
+                    IdUser: TokenUser
                 },
                 success: function (resultado) {
                     valor = resultado.split('*');
-                    if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                        }).then((result) => {
-                            $('#gridTemporalDetalleCotizacion').DataTable().ajax.reload();
-                        })
+                    if (valor[0] === 'OK') {
+                        VentanaMensajeDetCot(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });
         }
     });
 }
+
+

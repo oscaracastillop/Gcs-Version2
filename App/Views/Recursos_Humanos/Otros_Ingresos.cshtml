@@ -20,44 +20,72 @@
     <table id="gridOtrosIngresosEmpleado" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
 </div>
 
+
+<!-- Modal Hora Extra-->
 <div class="modal fade" id="ModalOtrosIngresosEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header header-modal">
-                <div class="modal-title" id="TituloModalOtrosIngresosEmpleado"></div>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content shadow-sm rounded-3 border-0">
+
+            <!-- Header -->
+            <div class="modal-header text-white header-modal">
+                <div class="modal-title" id="TituloModalOtrosIngresosEmpleado"></div> <!-- tamaño original -->
             </div>
-            <div class="modal-body">
+
+            <!-- Body -->
+            <div class="modal-body py-3 px-3" style="background-color: #f8f9fa;">
                 <label id="LabelIdOtrosIngresosEmpleado" hidden></label>
-                <div>
-                    <label><strong>Empleado</strong><label style="color:red" id=""> *</label></label>
-                    <select class="form-control" id="SelectContratoLaboralEmpleado" style="min-width:100%"></select>
+
+                <div class="row g-2">
+                    <div>
+                        <label><strong>Empleado</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-person"></i></span>
+                            <select class="form-control" id="SelectContratoLaboralEmpleado"></select>
+                        </div>
+                    </div>
                 </div>
+
+
                 <div class="row g-2">
                     <div class="col-6">
-                        <label><strong>Valor</strong><label style="color:red" id=""> *</label></label>
-                        <input class="form-control" type="number" id="InputOtrosIngresosEmpleadoValor" name="name" autocomplete="off" style="min-width:100%" />
+                        <label><strong>Valor</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-coin"></i></span>
+                            <input class="form-control" type="number" id="InputOtrosIngresosEmpleadoValor" autocomplete="off" />
+                        </div>
                     </div>
                     <div class="col-6">
-                        <label><strong>Fecha Pago</strong><label style="color:red" id=""> *</label></label>
-                        <input class="form-control" type="date" id="InputOtrosIngresosEmpleadoFechaPago" name="name" autocomplete="off" style="min-width:100%" />
+                        <label><strong>Fecha Pago</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-calendar3"></i></span>
+                            <input class="form-control" type="date" id="InputOtrosIngresosEmpleadoFechaPago" autocomplete="off" />
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <label><strong>Concepto</strong><label style="color:red" id=""> *</label></label>
-                    <input class="form-control" type="text" id="InputOtrosIngresosEmpleadoObservacion" name="name" autocomplete="off" style="min-width:100%" />
-                </div>
-                <div class="col-3" id="SelectEstadoOtrosIngresosEmpleado">
-                    <label><strong>Estado</strong></label>
-                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
+
+                <div class="row g-2">
+                    <div class="col-9">
+                        <label><strong>Concepto</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-file-earmark-text"></i></span>
+                            <input class="form-control" type="text" id="InputOtrosIngresosEmpleadoObservacion" />
+                        </div>
+                    </div>
+                    <div class="col-3" id="SelectEstadoOtrosIngresosEmpleado">
+                        <label><strong>Estado</strong></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-toggle-on"></i></span>
+                            <select class="form-control" id="SelectEstado"></select>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="modal-footer" id="BotonesModalOtrosIngresosEmpleado">
-            </div>
+            <!-- Footer -->
+            <div class="modal-footer bg-light py-2" id="BotonesModalOtrosIngresosEmpleado"></div>
         </div>
     </div>
 </div>
-
 
 
 <script>

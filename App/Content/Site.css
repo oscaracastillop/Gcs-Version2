@@ -1,4 +1,27 @@
-﻿/* STILOS PARA LOS MODAL*/
+﻿
+/* Fieldset premium */
+.fieldset-floating {
+    position: relative;
+    border: 2px solid #3b5998; /* Borde más fuerte y elegante */
+    border-radius: 5px; /* Bordes suaves */
+    padding: 15px 15px 15px;
+    margin-bottom: 15px;
+    background: #ffffff;
+}
+
+    /* Legend integrado */
+    .fieldset-floating > legend {
+        position: absolute;
+        top: -0.45rem;
+        left: 18px;
+        padding: 0 10px;
+        font-weight: bold;       
+        background: #fff;
+        text-transform: uppercase;
+    }
+
+
+/* STILOS PARA LOS MODAL*/
 
 .custom-input .form-control {
     border-radius: 0 .35rem .35rem 0;
@@ -23,7 +46,7 @@
 }
 
 .custom-input .input-group-text i {
-    font-size: 1rem;
+    font-size: 0.8rem;
 }
 
 .custom-input:focus-within .input-group-text {
@@ -31,6 +54,9 @@
     color: #fff; /* ícono blanco al enfocar */
 }
 
+legend{
+    font-size:12px!important;
+}
 
 
 /* STILOS MODAL CAMBIAR IMAGEN*/
@@ -125,11 +151,11 @@
 
 
 .modal-body {
-    background-color: #d8dfea;
+   /* background-color: #d8dfea;*/
 }
 
 .modal-footer {
-    background-color: #d8dfea;
+    /*background-color: #d8dfea;*/
 }
 
 
@@ -197,14 +223,7 @@
     color: black !important;
 }
 
-.btn-fin-contrato {
-    background-color: white !important;
-    color: black !important;
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
-    border: solid 1px black !important;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-}
+
 
 .btnmenu {
     color: black !important;
@@ -266,14 +285,50 @@
     color: black !important;
 }
 
-.btn-pdf-grid-descarga {
-    background-color: red !important;
-    color: white !important;
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
-    border: solid 1px black !important;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+/* Estilos base para que ambos botones tengan el mismo tamaño */
+.btn-pdf-grid-descarga,
+.btn-fin-contrato {
+    font-weight: 600;
+    padding-left: 8px!important;
+    padding-right: 8px!important;
+    padding-top: 1px!important;
+    padding-bottom: 1px!important;
+    border: none !important; /* sin borde fijo */
+    border-radius: 8px; /* misma curva */
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
+
+/* Botón PDF elegante (rojo degradado) */
+.btn-pdf-grid-descarga {
+    background: linear-gradient(135deg, #ff4b2b, #d8341f);
+    color: #fff !important;
+}
+
+    .btn-pdf-grid-descarga:hover {
+        background: linear-gradient(135deg, #d8341f, #a82615);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    }
+
+
+/* Botón Fin de Contrato elegante (dorado degradado) */
+.btn-fin-contrato {
+    background: linear-gradient(135deg, #f6e05e, #d69e2e);
+    color: #222 !important;
+}
+
+    .btn-fin-contrato:hover {
+        background: linear-gradient(135deg, #d69e2e, #b7791f);
+        color: #000 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    }
+
 
 .btnSubMenu {
     align-content: center;
@@ -294,7 +349,7 @@
 
 .fondo {
     /*background-color: #3b5998;*/
-    background-color: #d8dfea;
+    /*background-color: #d8dfea;*/
 
 }
 
@@ -462,6 +517,7 @@ li {
 .stilonavbar {
     padding: 0px !important;
     height: auto !important;
+    box-shadow: 0px 0px 3px 1px black;
 }
 
 table.dataTable thead tr {
@@ -486,7 +542,7 @@ table.dataTable thead tr {
 
 @media screen and (min-width: 100px) {
     body, .btn, .btn-editar-dt, .btn-eliminar-dt, .btn-excel-datatable, .btn-nuevo-datatable, .btn-pdf-datatable, button, .contenedor, .div.dataTables_wrapper div.dataTables_filter input, .grid, input, .label-estado-activo, .label-estado-inactivo, .label-estado-pagado, .label-estado-cobrado,
-    .label-estado-finalizado, .modal, select, .swal2-popup, table.dataTable thead tr, textarea {
+    .label-estado-finalizado, .modal, select, .swal2-popup, table.dataTable thead tr, textarea, legend {
         font-size: 5px !important;
     }
 
@@ -548,7 +604,8 @@ table.dataTable thead tr {
     select,
     .swal2-popup,
     table.dataTable thead tr,
-    textarea {
+    textarea, 
+    legend {
         font-size: 7px !important;
     }
 
@@ -606,7 +663,8 @@ table.dataTable thead tr {
     select,
     .swal2-popup,
     .table.dataTable thead tr,
-    textarea {
+    textarea,
+    legend {
         font-size: 10px !important;
     }
 

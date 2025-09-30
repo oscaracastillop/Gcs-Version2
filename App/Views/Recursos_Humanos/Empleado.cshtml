@@ -19,53 +19,79 @@
     <table id="gridEmpleado" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
 </div>
 
-<!-- Modal Empleado-->
+
+<!-- Modal Empresa-->
 <div class="modal fade" id="ModalEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header header-modal">
-                <div class="modal-title" id="TituloModalEmpleado"></div>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content shadow-sm rounded-3 border-0">
+
+            <!-- Header -->
+            <div class="modal-header text-white header-modal">
+                <div class="modal-title" id="TituloModalEmpleado"></div> <!-- tamaño original -->
             </div>
-            <div class="modal-body">
+
+            <!-- Body -->
+            <div class="modal-body py-3 px-3" style="background-color: #f8f9fa;">
                 <label id="LabelIdEmpleado" hidden></label>
+
                 <div class="row g-2">
                     <div class="col-6">
-                        <label><strong>Nombres </strong><label style="color:red"> *</label></label>
-                        <input class="form-control" type="text" id="InputNombreEmpleado" name="name" autocomplete="off" style="min-width:100%" />
+                        <label><strong>Nombres</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-person"></i></span>
+                            <input class="form-control" type="text" id="InputNombreEmpleado" maxlength="13" placeholder="(ind ciudad) + # Telefónico" />
+                        </div>
                     </div>
                     <div class="col-6">
-                        <label><strong>Apellidos </strong><label style="color:red"> *</label></label>
-                        <input class="form-control" type="text" id="InputApellidosEmpleado" name="name" autocomplete="off" style="min-width:100%" />
-                    </div>
-                </div>
-                <div class="row g-2">
-                    <div class="col-6">
-                        <label><strong>Documento </strong><label style="color:red"> *</label></label>
-                        <select class="form-control" id="SelectTipoDocumento" style="min-width:100%"></select>
-                    </div>
-                    <div class="col-6">
-                        <label><strong>Identificación </strong><label style="color:red"> *</label></label>
-                        <input class="form-control" type="text" id="InputIdentificacionEmpleado" name="name" autocomplete="off" style="min-width:100%" />
+                        <label><strong>Apellidos</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-person"></i></span>
+                            <input class="form-control" type="text" id="InputApellidosEmpleado" autocomplete="off" />
+                        </div>
                     </div>
                 </div>
 
                 <div class="row g-2">
                     <div class="col-6">
-                        <label><strong>Ciudad Expedición </strong><label style="color:red"> *</label></label>
-                        <select class="form-control" id="SelectCiudad" style="min-width:100%"></select>
+                        <label><strong>Documento</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-card-text"></i></span>
+                            <select class="form-control" id="SelectTipoDocumento"></select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label><strong>Identificación</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-person-vcard"></i></span>
+                            <input class="form-control" type="text" id="InputIdentificacionEmpleado" autocomplete="off" />
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-3" id="SelectEstadoEmpleado">
-                    <label><strong>Estado</strong></label>
-                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
+                <div class="row g-2">
+                    <div class="col-6">
+                        <label><strong>Ciudad Expedición</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-geo"></i></span>
+                            <select class="form-control" id="SelectCiudad"></select>
+                        </div>
+                    </div>
+                    <div class="col-3" id="SelectEstadoEmpleado">
+                        <label><strong>Estado</strong></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-toggle-on"></i></span>
+                            <select class="form-control" id="SelectEstado"></select>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="modal-footer" id="BotonesModalEmpleado">
-            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer bg-light py-2" id="BotonesModalEmpleado"></div>
         </div>
     </div>
 </div>
+
 
 <!-- Modal ImagenEmpleado-->
 <div class="modal fade" id="ModalImagenEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -132,7 +158,6 @@
 </div>
 
 <style>
- 
 </style>
 
 <script>

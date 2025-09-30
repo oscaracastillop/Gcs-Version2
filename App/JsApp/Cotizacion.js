@@ -38,16 +38,10 @@ function CrearCotizacion() {
                 IdUser: TokenUser,
                 IdCliente: IdCliente
             },
-             success: function (resultado) {
+            success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                    }).then((result) => {
-                        window.location.href = '/Venta/Cotizacion';
-                    })
+                    VentanaMensajeCrearCot(valor[1]);
                 } else {
                     VentanaMensaje(valor[1]);
                 }
@@ -55,6 +49,8 @@ function CrearCotizacion() {
         });
     }
 }
+
+
 
 
 function GridCotizacion() {

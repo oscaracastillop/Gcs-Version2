@@ -39,13 +39,13 @@ function CrearPrestamoEmpleado() {
         VentanaMensaje('Seleccione el Empleado');
     } else if (Valor == null || Valor == '' || Valor == undefined) {
         $('#InputPrestamoEmpleadoValor').focus();
-        VentanaMensaje('Ingrese el Valor');
+        VentanaMensaje('Ingrese el Valor del préstamo');
     } else if (FechaPrestamo == null || FechaPrestamo == '' || FechaPrestamo == undefined) {
         $('#InputPrestamoEmpleadoFechaPrestamo').focus();
-        VentanaMensaje('Ingrese la Fecha');
+        VentanaMensaje('Ingrese la fecha a desembolsar el préstamo');
     } else if (FechaPago == null || FechaPago == '' || FechaPago == undefined) {
         $('#InputPrestamoEmpleadoFechaPago').focus();
-        VentanaMensaje('Ingrese la Fecha de Cobro');
+        VentanaMensaje('Ingrese la fecha en la cual se realizará el cobro del préstamo');
     } else if (Cuotas == null || Cuotas == '' || Cuotas == undefined) {
         $('#InputPrestamoEmpleadoNumeroCuotas').focus();
         VentanaMensaje('Ingrese el número de Cuotas');
@@ -125,15 +125,29 @@ function ActualizarPrestamoEmpleado() {
 
 function EliminarPrestamoEmpleado(IdPrestamoEmpleado) {
     Swal.fire({
-        title: TituloSwal,
-        text: "Esta seguro(a)?, No podrás revertir esta acción.!",
+        title: `<span style="font-size:18px; font-weight:bold; color:#d9534f;">${TituloSwal}</span>`,
+        html: `<p style="font-size:14px; color:#444; margin-top:8px;">
+                  ¿Está seguro(a)? <br> <strong>No podrás revertir esta acción.</strong>
+               </p>`,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "red",
-        cancelButtonColor: "#333",
-        confirmButtonText: "Si, eliminar!",
-        cancelButtonText: "Cancelar",
-        position: 'top'
+        confirmButtonColor: "#d9534f",
+        cancelButtonColor: "#6c757d",
+        confirmButtonText: '<i class="bi bi-trash-fill"></i> Sí, eliminar',
+        cancelButtonText: '<i class="bi bi-x-circle"></i> Cancelar',
+        position: 'top',
+        background: '#f9f9f9',
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+        },
+        customClass: {
+            popup: 'rounded-4 shadow-lg',
+            confirmButton: 'px-3 py-1 rounded-pill fw-semibold',
+            cancelButton: 'px-3 py-1 rounded-pill fw-semibold'
+        }
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -146,7 +160,7 @@ function EliminarPrestamoEmpleado(IdPrestamoEmpleado) {
                 },
                 success: function (resultado) {
                     valor = resultado.split('*');
-                    if (valor[0] == 'OK') {
+                    if (valor[0] === 'OK') {
                         VentanaMensajeOK(valor[1]);
                     } else {
                         VentanaMensaje(valor[1]);

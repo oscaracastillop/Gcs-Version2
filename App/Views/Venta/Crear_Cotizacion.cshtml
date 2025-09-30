@@ -17,14 +17,16 @@
     <label>MODULO CREAR COTIZACION</label>
 </div>
 <br />
+<div class="modal-body" style="background-color:white">
 
-<div>
     <!-- Cliente -->
     <div class="row g-2">
-        <div class="col-6">
-            <label><strong>Cliente </strong><label style="color:red"> *</label></label>
+        <div class="col-md-6">
+            <label class="fw-semibold">Cliente <span class="text-danger">*</span></label>
             <div class="input-group custom-input">
-                <span class="input-group-text icon-highlight"><i class="bi bi-person-fill"></i></span>
+                <span class="input-group-text">
+                    <i class="bi bi-person-fill"></i>
+                </span>
                 <select class="form-control" id="SelectCliente"></select>
             </div>
         </div>
@@ -32,17 +34,22 @@
 
     <!-- Categoría y Producto -->
     <div class="row g-2">
-        <div class="col-6">
-            <label><strong>Categoría</strong></label>
+        <div class="col-md-6">
+            <label class="fw-semibold">Categoría</label>
             <div class="input-group custom-input">
-                <span class="input-group-text icon-highlight"><i class="bi bi-tags-fill"></i></span>
-                <select class="form-control" id="SelectCategoria" onchange="ListaProductoxIdCategoria($('#SelectCategoria').val())"></select>
+                <span class="input-group-text">
+                    <i class="bi bi-tags-fill"></i>
+                </span>
+                <select class="form-control" id="SelectCategoria"
+                        onchange="ListaProductoxIdCategoria($('#SelectCategoria').val())"></select>
             </div>
         </div>
-        <div class="col-6">
-            <label><strong>Producto y/o Servicio</strong><label style="color:red"> *</label></label>
+        <div class="col-md-6">
+            <label class="fw-semibold">Producto y/o Servicio <span class="text-danger">*</span></label>
             <div class="input-group custom-input">
-                <span class="input-group-text icon-highlight"><i class="bi bi-basket-fill"></i></span>
+                <span class="input-group-text">
+                    <i class="bi bi-basket-fill"></i>
+                </span>
                 <select class="form-control" id="SelectProductoxIdCategoria" disabled></select>
             </div>
         </div>
@@ -50,56 +57,57 @@
 
     <!-- Cantidad / Precio / IVA -->
     <div class="row g-2">
-        <div class="col-2">
-            <label><strong>Cantidad</strong></label>
+        <div class="col-md-2">
+            <label class="fw-semibold">Cantidad</label>
             <div class="input-group custom-input">
-                <span class="input-group-text icon-highlight"><i class="bi bi-123"></i></span>
-                <input class="form-control" type="number" id="InputTCantidadProdDetCot" autocomplete="off" />
+                <span class="input-group-text">
+                    <i class="bi bi-123"></i>
+                </span>
+                <input class="form-control" type="number" id="InputTCantidadProdDetCot" autocomplete="off">
             </div>
         </div>
-        <div class="col-2">
-            <label><strong>Precio Unitario</strong></label>
+        <div class="col-md-2">
+            <label class="fw-semibold">Precio Unitario</label>
             <div class="input-group custom-input">
-                <span class="input-group-text icon-highlight"><i class="bi bi-currency-dollar"></i></span>
-                <input class="form-control" type="number" id="InputTPrecioUnitarioProdDetCot" autocomplete="off" />
+                <span class="input-group-text">
+                    <i class="bi bi-currency-dollar"></i>
+                </span>
+                <input class="form-control" type="number" id="InputTPrecioUnitarioProdDetCot" autocomplete="off">
             </div>
         </div>
-        <div class="col-2">
-            <label><strong>% Iva</strong></label>
+        <div class="col-md-2">
+            <label class="fw-semibold">% IVA</label>
             <div class="input-group custom-input">
-                <span class="input-group-text icon-highlight"><i class="bi bi-percent"></i></span>
-                <input class="form-control" type="number" id="InputTPorcIvaProdDetCot" autocomplete="off" />
+                <span class="input-group-text">
+                    <i class="bi bi-percent"></i>
+                </span>
+                <input class="form-control" type="number" id="InputTPorcIvaProdDetCot" autocomplete="off">
             </div>
         </div>
     </div>
 
-    <br />
-
-    <!-- Botones -->
-    <div>
-        <button class="btn btn-modal-Cancelar btn-sm" onclick="BorrarTProductoListaDetCot()">
-            Borrar Lista
+    <!-- Botones de lista -->
+    <div class="mb-2d-flex gap-2 mt-2">
+        <button class="btn btn-modal-Cancelar flex-fill" onclick="BorrarTProductoListaDetCot()">
+            <i class="bi bi-trash3 me-1"></i> Borrar Lista
         </button>
-        <button class="btn btn-modal-guardar btn-sm" onclick="AgregarTProductoListaDetCot()">
-            Agregar a la Lista
+        <button class="btn btn-modal-guardar flex-fill" onclick="AgregarTProductoListaDetCot()">
+            <i class="bi bi-plus-circle me-1"></i> Agregar a la Lista
         </button>
     </div>
+
+    <!-- Detalle Cotización -->
+    <label class="text-center fw-bold">DETALLE COTIZACIÓN</label>
+    <div class="grid">
+        <table id="gridTemporalDetalleCotizacion" class="table table-striped table-hover nowrap" style="width:100%;"></table>
+    </div>
+
+    <!-- Botones finales -->
+    <div class="d-flex justify-content-end gap-2">
+        <a href="/Venta/Cotizacion" class="btn btn-modal-Cancelar">Cancelar</a>
+        <button class="btn btn-modal-guardar" onclick="CrearCotizacion()">Crear Cotización</button>
+    </div>
 </div>
-
-<br />
-<label style="text-align:center; font-weight:bold">DETALLE COTIZACIÓN</label>
-<br />
-<div class="grid">
-    <table id="gridTemporalDetalleCotizacion" class="table nowrap cell-border table-striped" style="width: 100%;"></table>
-</div>
-
-<br />
-<div>
-    <a href="/Venta/Cotizacion" class="btn btn-sm btn-modal-Cancelar">Cancelar</a>
-    <button class="btn btn-modal-guardar btn-sm" onclick="CrearCotizacion()">Crear Cotización</button>
-</div>
-
-
 
 
 

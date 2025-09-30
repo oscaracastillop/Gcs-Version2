@@ -51,6 +51,53 @@ function VentanaMensajeOK(texto) {
     });
 }
 
+function VentanaMensajeCrearCot(texto) {
+    Swal.fire({
+        title: `<span style="font-size:18px; font-weight:bold; color:green;">${TituloSwal}</span>`,
+        html: `<p style="font-size:14px; color:#444; margin-top:8px;">${texto}</p>`,
+        icon: 'success',
+        position: 'top',
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+        },
+        confirmButtonText: '<i class="bi bi-check-circle-fill"></i> Aceptar',
+        confirmButtonColor: 'green',
+        background: '#f9f9f9',
+        customClass: {
+            popup: 'rounded-4 shadow-lg',
+            confirmButton: 'px-3 py-1 rounded-pill fw-semibold'
+        },
+    }).then((result) => {
+        window.location.href = '/Venta/Cotizacion';
+    });
+}
+
+function VentanaMensajeDetCot(texto) {
+    Swal.fire({
+        title: `<span style="font-size:18px; font-weight:bold; color:green;">${TituloSwal}</span>`,
+        html: `<p style="font-size:14px; color:#444; margin-top:8px;">${texto}</p>`,
+        icon: 'success',
+        position: 'top',
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+        },
+        confirmButtonText: '<i class="bi bi-check-circle-fill"></i> Aceptar',
+        confirmButtonColor: 'green',
+        background: '#f9f9f9',
+        customClass: {
+            popup: 'rounded-4 shadow-lg',
+            confirmButton: 'px-3 py-1 rounded-pill fw-semibold'
+        },
+    }).then((result) => {
+        $('#gridTemporalDetalleCotizacion').DataTable().ajax.reload();
+    });
+}
 
 function VentanaMensaje(texto) {
     Swal.fire({

@@ -398,19 +398,19 @@ function GridCLE() {
                 "render": function (data, type, row) {
 
                     if (row.IdEstado !== 1) {
-                        return '<button class="btn btn-sm btn-fin-contrato" disabled>Finalizar Contrato</button>';
+                        return '<button class="btn btn-sm btn-fin-contrato" disabled><Finalizar</button>';
                     }
                     else {
-                        return '<button class="btn btn-sm btn-fin-contrato ModalFinalizarCLE">Finalizar Contrato</button>';
+                        return '<button class="btn btn-sm btn-fin-contrato ModalFinalizarCLE">Finalizar</button>';
                     }
                 }
 
             },//1
             {
-                title: "Documentos",
+                title: "PDF's",
                 data: "",
                 "render": function (data, type, row) {
-                    return '<a class="ModalDocCLE btn btn-pdf-grid-descarga" title="Descargar Documentos en Pdf">Pdf</a>';
+                    return '<a class="ModalDocCLE btn btn-pdf-grid-descarga" title="Descargar Documentos en Pdf">PDF</a>';
                 }
             },//0
             {
