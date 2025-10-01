@@ -563,3 +563,186 @@ function CardDatosEmpresa() {
 
 
 
+
+
+
+
+/* 
+                        
+                        function ActualizarEmpresa() {
+    let IdEmpresa = $('#LabelIdEmpresa').text();
+    let NombreEmpresa = $('#InputNombreEmpresa').val();
+    let IdTipoDocumento = $('#SelectTipoDocumento').val();
+    let Identificacion = $('#InputIdentificacionEmpresa').val();
+    let Email = $('#InputEmailEmpresa').val();
+    let Telefono = $('#InputTelefonoEmpresa').val();
+    let Celular = $('#InputCelularEmpresa').val();
+    let Contacto = $('#InputContactoEmpresa').val();
+    let IdTipoDocumentoRL = $('#SelectTipoDocumentoRL').val();
+    let IdentificacionRL = $('#InputIdentificacionRL').val();
+    let IdCiudadExpedicionRL = $('#SelectCiudadExpedicionRL').val();
+    let IdCiudad = $('#SelectCiudad').val();
+    let Direccion = $('#InputDireccionEmpresa').val();
+    let Descripcion = $('#InputDescripcionEmpresa').val();    
+    let IdEstado = $('#SelectEstado').val();
+
+    if (NombreEmpresa == null || NombreEmpresa == '' || NombreEmpresa == undefined) {
+        $('#InputNombreEmpresa').focus();
+        Toast.fire({
+            icon: 'warning',
+            title: TituloSwal,
+            text: 'Ingrese nombre de la empresa'
+        })
+    } else if (IdTipoDocumento == -1 || IdTipoDocumento == null || IdTipoDocumento == '') {
+        $('#SelectTipoDocumento').focus();
+        Toast.fire({
+            icon: 'warning',
+            title: TituloSwal,
+            text: 'Seleccione tipo documento'
+        })
+    } else if (Identificacion == null || Identificacion == '' || Identificacion == undefined) {
+        $('#InputIdentificacionEmpresa').focus();
+        Toast.fire({
+            icon: 'warning',
+            title: TituloSwal,
+            text: 'Ingrese el núero de identificación de la empresa'
+        })
+    } else if (IdCiudad == -1 || IdCiudad == null || IdCiudad == '') {
+        $('#SelectCiudad').focus();
+        Toast.fire({
+            icon: 'warning',
+            title: TituloSwal,
+            text: 'Seleccione la ciudad de la empresa'
+        })
+    } else if (Contacto == null || Contacto == '' || Contacto == undefined) {
+        $('#InputContactoEmpresa').focus();
+        Toast.fire({
+            icon: 'warning',
+            title: TituloSwal,
+            text: 'Ingrese el Nombre del Representante Legal de la empresa'
+        })
+    } else if (IdTipoDocumentoRL == -1 || IdTipoDocumentoRL == null || IdTipoDocumentoRL == '') {
+        $('#SelectTipoDocumentoRL').focus();
+        Toast.fire({
+            icon: 'warning',
+            title: TituloSwal,
+            text: 'Seleccione tipo documento del Representante Legal'
+        });
+    } else if (IdentificacionRL == null || IdentificacionRL == '' || IdentificacionRL == undefined) {
+        $('#InputIdentificacionRL').focus();
+        Toast.fire({
+            icon: 'warning',
+            title: TituloSwal,
+            text: 'Ingrese el número de identificación del Representante Legal'
+        });
+    } else if (IdCiudadExpedicionRL == null || IdCiudadExpedicionRL == '' || IdCiudadExpedicionRL == -1) {
+        $('#SelectCiudadExpedicionRL').focus();
+        Toast.fire({
+            icon: 'warning',
+            title: TituloSwal,
+            text: 'Seleccione la ciudad de expedición del documento de identificación del Representante Legal'
+        });
+    } else {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/Empresa/ActualizarEmpresa',
+            data: {
+                IdUser: TokenUser,
+                IdEmpresa: IdEmpresa,
+                NombreEmpresa: NombreEmpresa,
+                IdTipoDocumento: IdTipoDocumento,
+                Identificacion: Identificacion,
+                Email: Email,
+                Telefono: Telefono,
+                Celular: Celular,
+                Contacto: Contacto,
+                IdTipoDocumentoRL: IdTipoDocumentoRL,
+                IdentificacionRL: IdentificacionRL,
+                IdCiudadExpedicion: IdCiudadExpedicionRL,
+                IdCiudad: IdCiudad,
+                Direccion: Direccion,
+                Descripcion: Descripcion,
+                IdEstado: IdEstado
+            },
+            success: function (resultado) {
+                valor = resultado.split('*');
+                if (valor[0] == 'OK') {                   
+                    Toast.fire({
+                        icon: 'success',
+                        title: TituloSwal,
+                        text: valor[1]
+                    })                    
+                    $('#gridEmpresa').DataTable().ajax.reload();
+                    $('#ModalEmpresa').modal('hide');
+                } else {
+                    Toast.fire({
+                        icon: 'error',
+                        title: TituloSwal,
+                        text: valor[1]
+                    })
+                }
+            }
+        });
+    }
+}
+
+function EliminarEmpresa(IdEmpresa) {
+    Swal.fire({
+        title: `<span style="font-size:18px; font-weight:bold; color:#d9534f;">${TituloSwal}</span>`,
+        html: `<p style="font-size:14px; color:#444; margin-top:8px;">
+                  ¿Está seguro(a)? <br> <strong>No podrás revertir esta acción.</strong>
+               </p>`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d9534f",
+        cancelButtonColor: "#6c757d",
+        confirmButtonText: '<i class="bi bi-trash-fill"></i> Sí, eliminar',
+        cancelButtonText: '<i class="bi bi-x-circle"></i> Cancelar',
+        position: 'top',
+        background: '#f9f9f9',
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+        },
+        customClass: {
+            popup: 'rounded-4 shadow-lg',
+            confirmButton: 'px-3 py-1 rounded-pill fw-semibold',
+            cancelButton: 'px-3 py-1 rounded-pill fw-semibold'
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/Empresa/EliminarEmpresa',
+                data: {
+                    IdUser: TokenUser,
+                    IdEmpresa: IdEmpresa
+                },
+                success: function (resultado) {
+                    valor = resultado.split('*');
+                    if (valor[0] === 'OK') {
+                        Toast.fire({
+                            icon: 'success',
+                            title: TituloSwal,
+                            text: valor[1]
+                        })
+                        $('#gridEmpresa').DataTable().ajax.reload();
+                    } else {
+                        Toast.fire({
+                            icon: 'error',
+                            title: TituloSwal,
+                            text: valor[1]
+                        })
+                    }
+                }
+            });
+        }
+    });
+}
+                        
+                        
+*/

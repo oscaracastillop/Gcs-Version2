@@ -161,7 +161,27 @@ function EliminarPrestamoEmpleado(IdPrestamoEmpleado) {
                 success: function (resultado) {
                     valor = resultado.split('*');
                     if (valor[0] === 'OK') {
-                        VentanaMensajeOK(valor[1]);
+                        Swal.fire({
+                            title: `<span style="font-size:18px; font-weight:bold; color:green;">${TituloSwal}</span>`,
+                            html: `<p style="font-size:14px; color:#444; margin-top:8px;">${valor[1]}</p>`,
+                            icon: 'success',
+                            position: 'top',
+                            showClass: {
+                                popup: 'animate__animated animate__fadeInDown'
+                            },
+                            hideClass: {
+                                popup: 'animate__animated animate__fadeOutUp'
+                            },
+                            confirmButtonText: '<i class="bi bi-check-circle-fill"></i> Aceptar',
+                            confirmButtonColor: 'green',
+                            background: '#f9f9f9',
+                            customClass: {
+                                popup: 'rounded-4 shadow-lg',
+                                confirmButton: 'px-3 py-1 rounded-pill fw-semibold'
+                            },
+                        }).then((result) => {
+                            $('#gridPrestamoEmpleado').DataTable().ajax.reload();
+                        });
                     } else {
                         VentanaMensaje(valor[1]);
                     }
