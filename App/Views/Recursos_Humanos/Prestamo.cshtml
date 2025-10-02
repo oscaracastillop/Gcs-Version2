@@ -18,7 +18,7 @@
     <table id="gridPrestamoEmpleado" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
 </div>
 
-<!-- Modal Ostros Descuentos-->
+<!-- Modal Prestamo-->
 <div class="modal fade" id="ModalPrestamoEmpleado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content shadow-sm rounded-3 border-0">
@@ -29,7 +29,7 @@
             </div>
 
             <!-- Body -->
-            <div class="modal-body py-3 px-3" style="background-color: #f8f9fa;">
+            <div class="modal-body py-3 px-3">
                 <label id="LabelIdPrestamoEmpleado" hidden></label>
 
                 <div class="row g-2">
@@ -65,14 +65,14 @@
                         <label><strong>Fecha Desembolso Préstamo</strong><span class="text-danger">*</span></label>
                         <div class="input-group custom-input">
                             <span class="input-group-text icon-highlight"><i class="bi bi-calendar3"></i></span>
-                            <input class="form-control" type="date" id="InputPrestamoEmpleadoFechaPrestamo" maxlength="13" placeholder="(ind ciudad) + # Telefónico" />
+                            <input class="form-control" type="date" id="InputPrestamoEmpleadoFechaPrestamo" />
                         </div>
                     </div>
                     <div class="col-6">
                         <label><strong>Fecha Cobro Préstamo</strong><span class="text-danger">*</span></label>
                         <div class="input-group custom-input">
                             <span class="input-group-text icon-highlight"><i class="bi bi-calendar3"></i></span>
-                            <input class="form-control" type="date" id="InputPrestamoEmpleadoFechaPago" autocomplete="off" />
+                            <input class="form-control" type="date" id="InputPrestamoEmpleadoFechaPago" />
                         </div>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
             </div>
 
             <!-- Footer -->
-            <div class="modal-footer bg-light py-2" id="BotonesModalPrestamoEmpleado"></div>
+            <div class="modal-footer py-2" id="BotonesModalPrestamoEmpleado"></div>
         </div>
     </div>
 </div>
