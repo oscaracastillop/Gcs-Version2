@@ -707,11 +707,11 @@ table.dataTable thead tr {
     .table.dataTable thead tr,
     textarea,
     legend {
-        font-size: 10px !important;
+        font-size: 12px !important;
     }
 
     .btnSubMenu {
-        font-size: 10px !important;
+        font-size: 12px !important;
         height: 100px;
         margin: 8px;
         width: 150px;
@@ -727,11 +727,11 @@ table.dataTable thead tr {
     }
 
     .tituloform, .header-modal, .swal2-title {
-        font-size: 11px !important;
+        font-size: 13px !important;
     }
 
     .tituloPage {
-        font-size: 13px !important;
+        font-size: 15px !important;
     }
 
     .sizeicono {
@@ -739,6 +739,6 @@ table.dataTable thead tr {
     }
 
     .btnmenu {
-        font-size: 12px !important;
+        font-size: 14px !important;
     }
 }

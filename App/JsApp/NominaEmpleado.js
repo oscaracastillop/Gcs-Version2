@@ -180,18 +180,31 @@ function CrearNominaEmpleado() {
     }
 }
 
-
 function EliminarNominaEmpleado(IdNominaEmpleado) {
     Swal.fire({
-        title: TituloSwal,
-        text: "Esta seguro(a)?, No podrás revertir esta acción.!",
+        title: `<span style="font-size:18px; font-weight:bold; color:#d9534f;">${TituloSwal}</span>`,
+        html: `<p style="font-size:14px; color:#444; margin-top:8px;">
+                  ¿Está seguro(a)? <br> <strong>No podrás revertir esta acción.</strong>
+               </p>`,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "red",
-        cancelButtonColor: "#333",
-        confirmButtonText: "Si, eliminar!",
-        cancelButtonText: "Cancelar",
-        position: 'top'
+        confirmButtonColor: "#d9534f",
+        cancelButtonColor: "#6c757d",
+        confirmButtonText: '<i class="bi bi-trash-fill"></i> Sí, eliminar',
+        cancelButtonText: '<i class="bi bi-x-circle"></i> Cancelar',
+        position: 'top',
+        background: '#f9f9f9',
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+        },
+        customClass: {
+            popup: 'rounded-4 shadow-lg',
+            confirmButton: 'px-3 py-1 rounded-pill fw-semibold',
+            cancelButton: 'px-3 py-1 rounded-pill fw-semibold'
+        }
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -204,8 +217,28 @@ function EliminarNominaEmpleado(IdNominaEmpleado) {
                 },
                 success: function (resultado) {
                     valor = resultado.split('*');
-                    if (valor[0] == 'OK') {
-                        VentanaMensajeOK(valor[1]);
+                    if (valor[0] === 'OK') {
+                        Swal.fire({
+                            title: `<span style="font-size:18px; font-weight:bold; color:green;">${TituloSwal}</span>`,
+                            html: `<p style="font-size:14px; color:#444; margin-top:8px;">${valor[1]}</p>`,
+                            icon: 'success',
+                            position: 'top',
+                            showClass: {
+                                popup: 'animate__animated animate__fadeInDown'
+                            },
+                            hideClass: {
+                                popup: 'animate__animated animate__fadeOutUp'
+                            },
+                            confirmButtonText: '<i class="bi bi-check-circle-fill"></i> Aceptar',
+                            confirmButtonColor: 'green',
+                            background: '#f9f9f9',
+                            customClass: {
+                                popup: 'rounded-4 shadow-lg',
+                                confirmButton: 'px-3 py-1 rounded-pill fw-semibold'
+                            },
+                        }).then((result) => {
+                            $('#gridNominaEmpleado').DataTable().ajax.reload();
+                        });
                     } else {
                         VentanaMensaje(valor[1]);
                     }
@@ -214,6 +247,7 @@ function EliminarNominaEmpleado(IdNominaEmpleado) {
         }
     });
 }
+
 
 
 function GridNominaEmpleado() {
@@ -524,15 +558,29 @@ function GridNominaEmpleado() {
 
 function PagarNominaEmpleado(IdNominaEmpleado) {
     Swal.fire({
-        title: TituloSwal,
-        text: "Esta seguro(a) de cambiar el estado de la Nómina del empleado a Pagada?, No podrás revertir esta acción.!",
+        title: `<span style="font-size:18px; font-weight:bold; color:#d9534f;">${TituloSwal}</span>`,
+        html: `<p style="font-size:14px; color:#444; margin-top:8px;">
+                  ¿Esta seguro(a) de cambiar el estado de la Nómina del empleado a Pagada? <br> <strong>No podrás revertir esta acción.</strong>
+               </p>`,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "green",
-        cancelButtonColor: "#333",
-        confirmButtonText: "Si, pagar!",
-        cancelButtonText: "Cancelar",
-        position: 'top'
+        cancelButtonColor: "#6c757d",
+        confirmButtonText: '<i class="bi bi-cash"></i> Sí, Pagar',
+        cancelButtonText: '<i class="bi bi-x-circle"></i> Cancelar',
+        position: 'top',
+        background: '#f9f9f9',
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+        },
+        customClass: {
+            popup: 'rounded-4 shadow-lg',
+            confirmButton: 'px-3 py-1 rounded-pill fw-semibold',
+            cancelButton: 'px-3 py-1 rounded-pill fw-semibold'
+        }
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -545,30 +593,37 @@ function PagarNominaEmpleado(IdNominaEmpleado) {
                 },
                 success: function (resultado) {
                     valor = resultado.split('*');
-                    if (valor[0] == 'OK') {
-                        VentanaMensajeOK(valor[1]);
+                    if (valor[0] === 'OK') {
+                        Swal.fire({
+                            title: `<span style="font-size:18px; font-weight:bold; color:green;">${TituloSwal}</span>`,
+                            html: `<p style="font-size:14px; color:#444; margin-top:8px;">${valor[1]}</p>`,
+                            icon: 'success',
+                            position: 'top',
+                            showClass: {
+                                popup: 'animate__animated animate__fadeInDown'
+                            },
+                            hideClass: {
+                                popup: 'animate__animated animate__fadeOutUp'
+                            },
+                            confirmButtonText: '<i class="bi bi-check-circle-fill"></i> Aceptar',
+                            confirmButtonColor: 'green',
+                            background: '#f9f9f9',
+                            customClass: {
+                                popup: 'rounded-4 shadow-lg',
+                                confirmButton: 'px-3 py-1 rounded-pill fw-semibold'
+                            },
+                        }).then((result) => {
+                            $('#gridNominaEmpleado').DataTable().ajax.reload();
+                        });
                     } else {
                         VentanaMensaje(valor[1]);
                     }
-                },
+                }
             });
         }
     });
-   
 }
 
-//function PdfNominaEmpleado(IdNominaEmpleado) { 
-//    $.ajax({
-//        type: 'POST',
-//        dataType: 'json',
-//        url: '/Nomina_Empleado/GenerarPdfEjemplo',
-//        data: {
-//            IdUser: TokenUser,
-//            IdNominaEmpleado: IdNominaEmpleado,
-//        },
-//        contentType: "application/json; charset=utf-8",
-//    });
-//}
 
 function descargarComprobanteNomina(id) {
     window.open('/Nomina_Empleado/DescargarComprobanteNomina?id=' + id, '_blank');

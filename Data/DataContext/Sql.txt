@@ -6045,7 +6045,7 @@ FROM	OtrosDescuentosEmpleado
 WHERE	IdEstado = 1 AND
 		IdEmpleado = @IdEmpleado
 
-SELECT @CANT = COUNT(1) FROM OtrosDescuentosEmpleado WHERE	IdEstado = 1 AND IdEmpleado = 4
+SELECT @CANT = COUNT(1) FROM OtrosDescuentosEmpleado WHERE	IdEstado = 1 AND IdEmpleado = @IdEmpleado
 
 WHILE @CONT <= @CANT
 	BEGIN
@@ -6484,7 +6484,8 @@ INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Ferretería',1, GET
 INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Cafetería',1, GETDATE())
 INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Materiales de Empaque',1, GETDATE())
 INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Drogería y Medicamentos',1, GETDATE())
-INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Drogería y Medicamentos',1, GETDATE())
+INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Alquiler Maquinaría y Equipo',1, GETDATE())
+INSERT INTO Categoria(Nombre, CreateBy, DateCreate) VALUES ('Transporte y/o Acarreo',1, GETDATE())
 
 GO
 
@@ -8149,19 +8150,19 @@ AS
 BEGIN
 	SELECT	B.Id, 
 			B.Idproducto,
-			dbo.Fun_BuscarNombreProducto(A.Id) As NombreProducto,
+			A.Nombre + ' '+ A.Marca + ' ' + A.Referencia As NombreProducto,
 			dbo.Fun_BuscarNombreUnidadMedida(A.IdUnidadMedida) As UnidadMedida,
 			B.Cantidad,
 			B.PrecioUnitario,
 			(B.Cantidad * B.PrecioUnitario) As SubTotal,
 			B.PorcentajeIva,
-			((B.PrecioUnitario * B.PorcentajeIva)/100) As ValorIva,
+			((B.PrecioUnitario * B.PorcentajeIva)/100)*b.Cantidad As ValorIva,
 			((B.PrecioUnitario + ((B.PrecioUnitario * B.PorcentajeIva)/100)) * B.Cantidad)  As Total
 	FROM	Producto A,
-			DetalleCotizacionTemporal B 
+			DetalleCotizacionTemporal B
 			
-	WHERE	A.Id = B.IdProducto 			
-	ORDER BY Id DESC
+	WHERE	A.Id = B.IdProducto 	
+	ORDER BY B.Id Desc
 
 END
 

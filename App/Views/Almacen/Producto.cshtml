@@ -19,68 +19,105 @@
     <table id="gridProducto" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
 </div>
 
-<!-- Modal Producto-->
-<div class="modal fade" id="ModalProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header header-modal">
+
+<!-- Modal Producto -->
+<div class="modal fade" id="ModalProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content shadow-sm rounded-3 border-0">
+
+            <!-- Header -->
+            <div class="modal-header text-white header-modal">
                 <div class="modal-title" id="TituloModalProducto"></div>
             </div>
-            <div class="modal-body">
+
+            <!-- Body -->
+            <div class="modal-body py-3 px-3">
                 <label id="LabelIdProducto" hidden></label>
+               
                 <div class="row g-2">
                     <div class="col-6">
-                        <label><strong>Categoría</strong><label style="color:red"> *</label></label>
-                        <select class="form-control" id="SelectCategoria" style="min-width:100%"></select>
+                        <label><strong>Categoría</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-tags-fill"></i></span>
+                            <select class="form-control" id="SelectCategoria"></select>
+                        </div>
                     </div>
                     <div class="col-6">
-                        <label><strong>Nombre </strong><label style="color:red"> *</label></label>
-                        <input class="form-control" type="text" id="InputNombreProducto" name="name" autocomplete="off" style="min-width:100%" />
+                        <label><strong>Nombre</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-box-seam"></i></span>
+                            <input class="form-control" type="text" id="InputNombreProducto" autocomplete="off" />
+                        </div>
                     </div>
                 </div>
+
+               
                 <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Marca</strong></label>
-                        <input class="form-control" type="text" id="InputMarcaProducto" name="name" autocomplete="off" style="min-width:100%" />
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-file-text"></i></span>
+                            <input class="form-control" type="text" id="InputMarcaProducto" autocomplete="off" />
+                        </div>
                     </div>
                     <div class="col-6">
                         <label><strong>Referencia</strong></label>
-                        <input class="form-control" type="text" id="InputReferenciaProducto" name="name" autocomplete="off" style="min-width:100%" />
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-file-text-fill"></i></span>
+                            <input class="form-control" type="text" id="InputReferenciaProducto" autocomplete="off" />
+                        </div>
                     </div>
                 </div>
 
                 <div class="row g-2">
                     <div class="col-4">
                         <label><strong>Código</strong></label>
-                        <input class="form-control" type="text" id="InputCodigoProducto" name="name" autocomplete="off" style="min-width:100%" />
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-qr-code"></i></span>
+                            <input class="form-control" type="text" id="InputCodigoProducto" autocomplete="off" />
+                        </div>
                     </div>
-                    <div class="col-5">
-                        <label><strong>Und. Medida</strong><label style="color:red"> *</label></label>
-                        <select class="form-control" id="SelectUnidadMedida" style="min-width:100%"></select>
+                    <div class="col-4">
+                        <label><strong>Und. Medida</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-basket2-fill"></i></span>
+                            <select class="form-control" id="SelectUnidadMedida"></select>
+                        </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-4">
                         <label><strong>Stock Mínimo</strong></label>
-                        <input class="form-control" type="number" id="InputStockMinimo" name="name" autocomplete="off" style="min-width:100%" />
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-123"></i></span>
+                            <input class="form-control" type="text" id="InputStockMinimo" autocomplete="off" />
+                        </div>
                     </div>
                 </div>
 
                 <div class="row g-2">
-                    <div class="col-12">
+                    <div class="col-9">
                         <label><strong>Descripción</strong></label>
-                        <input type="text" id="InputDescripcionProducto" class="form-control" style="min-width:100%" />
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-card-text"></i></span>
+                            <input type="text" id="InputDescripcionProducto" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-3" id="SelectEstadoProducto">
+                        <label><strong>Estado</strong></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-toggle-on"></i></span>
+                            <select class="form-control" id="SelectEstado"></select>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="col-3" id="SelectEstadoProducto">
-                    <label><strong>Estado</strong></label>
-                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
-                </div>
-            </div>
-            <div class="modal-footer" id="BotonesModalProducto">
-            </div>
+            <!-- Footer -->
+            <div class="modal-footer py-2" id="BotonesModalProducto"></div>
         </div>
     </div>
 </div>
+                
 
 <!-- Modal ImagenProducto-->
 <div class="modal fade" id="ModalImagenProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

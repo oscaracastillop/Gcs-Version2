@@ -229,6 +229,19 @@ function AgregarTProductoListaDetCot() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
+                    //Swal.fire({
+                    //    toast: true,
+                    //    position: 'top-end',   // 'top-start', 'top', 'center', etc.
+                    //    icon: 'success',       // 'success', 'error', 'info', 'warning', 'question'
+                    //    title: TituloSwal,
+                    //    text: valor[1],
+                    //    showConfirmButton: false,
+                    //    timer: 4000,
+                    //    timerProgressBar: true
+                    //});
+                    //$('#gridTemporalDetalleCotizacion').DataTable().ajax.reload();
+
+
                     VentanaMensajeDetCot(valor[1]);
                 } else {
                     VentanaMensaje(valor[1]);
@@ -258,7 +271,8 @@ function GridTDetalleCotizacion() {   ;
             { targets: [6], className: 'dt-head-center' },
             { targets: [7], className: 'dt-head-center' },
             { targets: [8], width: '10px', className: 'dt-center dt-head-center' },
-        ],       
+        ],   
+        "order": [[0, "desc"]],
         destroy: true,
         "ajax": {
             "url": '/Detalle_Cotizacion/GridTDetalleCotizacion',
@@ -266,6 +280,7 @@ function GridTDetalleCotizacion() {   ;
             "datatype": "json"
         },
         columns: [
+            { "data": "Id", visible: false }, 
             { "data": "NombreProducto", title: "Producto" },
             { "data": "Cantidad", title: "Cantidad", visible: true },
             { "data": "UnidadMedida", title: "Unidad Medida", visible: true },

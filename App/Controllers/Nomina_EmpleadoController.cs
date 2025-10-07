@@ -272,7 +272,7 @@ namespace App.Controllers
                             IngresoFila("HE Diurna:", decimal.Parse(d.ValorTotalHED));
                             IngresoFila("HE Nocturna:", decimal.Parse(d.ValorTotalHEN));
                             IngresoFila("HE Diurna D/F:", decimal.Parse(d.ValorTotalHEDDF));
-                            IngresoFila("HE Nocturna D/F:", decimal.Parse(d.ValorHENDF));
+                            IngresoFila("HE Nocturna D/F:", decimal.Parse(d.ValorTotalHENDF));
                             IngresoFila("Desembolso Préstamo:", decimal.Parse(d.DesembolsoPrestamo));
                             IngresoFila("Otros Ingresos *:", decimal.Parse(d.OtrosIngresos));
 

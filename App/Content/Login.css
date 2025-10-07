@@ -1,6 +1,6 @@
 ﻿body {
     font-family: "Open Sans", sans-serif !important;
-    background: linear-gradient(135deg, #4c6ef5, #3b5998, #1e2a47);
+    /*background: linear-gradient(135deg, #4c6ef5, #3b5998, #1e2a47);*/
     min-height: 100vh;
     display: flex;
     justify-content: center;
