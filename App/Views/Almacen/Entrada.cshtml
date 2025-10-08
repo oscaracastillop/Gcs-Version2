@@ -20,70 +20,105 @@
     <table id="gridEntradaAlmacen" class="table nowrap cell-border table-striped" style="width: 100%;"></table>
 </div>
 
-<div class="modal fade" id="ModalEntradaAlmacen" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header header-modal">
+<!-- Modal Producto -->
+<div class="modal fade" id="ModalEntradaAlmacen" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content shadow-sm rounded-3 border-0">
+
+            <!-- Header -->
+            <div class="modal-header text-white header-modal">
                 <div class="modal-title" id="TituloModalEntrada"></div>
             </div>
-            <div class="modal-body">
+
+            <!-- Body -->
+            <div class="modal-body py-3 px-3">
                 <label id="LabelIdEntrada" hidden></label>
+
                 <div class="row g-2">
                     <div class="col-6">
-                        <label><strong>Categoría</strong></label>
-                        <select class="form-control" id="SelectCategoria" style="min-width:100%" onchange="ListaProductoxIdCategoria($('#SelectCategoria').val())"></select>
-                        <input class="form-control" type="text" name="name" id="Categoria" value="" disabled style="min-width:100%"/>
+                        <label><strong>Categoría</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-tags-fill"></i></span>
+                            <select class="form-control" id="SelectCategoria" onchange="ListaProductoxIdCategoria($('#SelectCategoria').val())"></select>
+                            <input class="form-control" type="text" name="name" id="Categoria" value="" disabled />
+                        </div>
                     </div>
                     <div class="col-6">
-                        <label><strong>Producto</strong><label style="color:red" id=""> *</label></label>
-                        <select class="form-control" id="SelectProductoxIdCategoria" style="min-width:100%"></select>
-                        <input class="form-control" type="text" name="name" id="Producto" value="" disabled style="min-width:100%" />
+                        <label><strong>Producto</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-box-seam"></i></span>
+                            <select class="form-control" id="SelectProductoxIdCategoria"></select>
+                            <input class="form-control" type="text" name="name" id="Producto" value="" disabled />
+                        </div>
                     </div>
                 </div>
 
                 <div class="row g-2">
                     <div class="col-3">
                         <label><strong>Lote</strong></label>
-                        <input class="form-control" type="text" id="InputLoteProducto" autocomplete="off" style="min-width:100%" />
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-file-text"></i></span>
+                            <input class="form-control" type="text" id="InputLoteProducto" autocomplete="off" placeholder="ABCDFG-12345"/>
+                        </div>
                     </div>
                     <div class="col-3">
-                        <label><strong>Cantidad</strong><label style="color:red" id=""> *</label></label>
-                        <input class="form-control" type="number" id="InputCantidadProducto" autocomplete="off" style="min-width:100%" placeholder="0" />
+                        <label><strong>Cantidad</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-123"></i></span>
+                            <input class="form-control" type="number" id="InputCantidadProducto" autocomplete="off" placeholder="0"/>
+                        </div>
                     </div>
                     <div class="col-3">
-                        <label><strong>Precio Unit. Compra</strong><label style="color:red" id=""> *</label></label>
-                        <input class="form-control" type="number" id="InputValorUnitarioCompraProducto" autocomplete="off" style="min-width:100%" placeholder="0" />
+                        <label><strong>Precio Unit. Compra</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-coin"></i></span>
+                            <input class="form-control" type="number" id="InputValorUnitarioCompraProducto" autocomplete="off" placeholder="0"/>
+                        </div>
                     </div>
                     <div class="col-3">
                         <label><strong>% Iva</strong></label>
-                        <input class="form-control" type="number" id="InputPorcentajeIvaProducto" autocomplete="off" style="min-width:100%" placeholder="0" />
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-percent"></i></span>
+                            <input class="form-control" type="number" id="InputPorcentajeIvaProducto" autocomplete="off" placeholder="0"/>
+                        </div>
                     </div>
                 </div>
+
 
                 <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Fecha Vencimiento Producto</strong></label>
-                        <input class="form-control" type="date" id="InputFechaVencimientoProducto" name="name" autocomplete="off" style="min-width:100%" />
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-calendar3"></i></span>
+                            <input class="form-control" type="date" id="InputFechaVencimientoProducto" />
+                        </div>
                     </div>
                     <div class="col-6">
-                        <label><strong>Fecha Ingreso Almacén</strong><label style="color:red" id=""> *</label></label>
-                        <input class="form-control" type="date" id="InputFechaIngresoAlmacen" name="name" autocomplete="off" style="min-width:100%" />
+                        <label><strong>Fecha Ingreso Almacén</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-calendar3"></i></span>
+                            <input class="form-control" type="date" id="InputFechaIngresoAlmacen" />
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-3" id="SelectEstadoEntrada">
-                    <label><strong>Estado</strong></label>
-                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
+                <div class="row g-2">
+                    <div class="col-3" id="SelectEstadoEntrada">
+                        <label><strong>Estado</strong></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-toggle-on"></i></span>
+                            <select class="form-control" id="SelectEstado"></select>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="modal-footer" id="BotonesModalEntrada">
-            </div>
+            <!-- Footer -->
+            <div class="modal-footer py-2" id="BotonesModalEntrada"></div>
         </div>
     </div>
 </div>
-
-
 
 <script>
     $(document).ready(function () {

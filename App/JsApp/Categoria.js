@@ -36,17 +36,9 @@ function CrearCategoria() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -75,17 +67,9 @@ function ActualizarCategoria() {
             success: function (resultado) {
                 valor = resultado.split('*');
                 if (valor[0] == 'OK') {
-                    Swal.fire({
-                        title: TituloSwal,
-                        text: valor[1],
-                        icon: 'success',
-                        position: 'top',
-                        confirmButtonColor: "orangered",
-                    }).then((result) => {
-                        window.location.reload();
-                    })
+                    VentanaMensajeOK(valor[1]);
                 } else {
-                    Swal.fire(TituloSwal, valor[1], 'info');
+                    VentanaMensaje(valor[1]);
                 }
             }
         });
@@ -94,15 +78,29 @@ function ActualizarCategoria() {
 
 function EliminarCategoria(IdCategoria) {
     Swal.fire({
-        title: TituloSwal,
-        text: "Esta seguro(a)?, No podrás revertir esta acción.!",
+        title: `<span style="font-size:18px; font-weight:bold; color:#d9534f;">${TituloSwal}</span>`,
+        html: `<p style="font-size:14px; color:#444; margin-top:8px;">
+                  ¿Está seguro(a)? <br> <strong>No podrás revertir esta acción.</strong>
+               </p>`,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "orangered",
-        cancelButtonColor: "#333",
-        confirmButtonText: "Si, eliminar!",
-        cancelButtonText: "Cancelar",
-        position: 'top'
+        confirmButtonColor: "#d9534f",
+        cancelButtonColor: "#6c757d",
+        confirmButtonText: '<i class="bi bi-trash-fill"></i> Sí, eliminar',
+        cancelButtonText: '<i class="bi bi-x-circle"></i> Cancelar',
+        position: 'top',
+        background: '#f9f9f9',
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+        },
+        customClass: {
+            popup: 'rounded-4 shadow-lg',
+            confirmButton: 'px-3 py-1 rounded-pill fw-semibold',
+            cancelButton: 'px-3 py-1 rounded-pill fw-semibold'
+        }
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -115,25 +113,16 @@ function EliminarCategoria(IdCategoria) {
                 },
                 success: function (resultado) {
                     valor = resultado.split('*');
-                    if (valor[0] == 'OK') {
-                        Swal.fire({
-                            title: TituloSwal,
-                            text: valor[1],
-                            icon: 'success',
-                            position: 'top',
-                            confirmButtonColor: "orangered",
-                        }).then((result) => {
-                            location.reload();
-                        })
+                    if (valor[0] === 'OK') {
+                        VentanaMensajeOK(valor[1]);
                     } else {
-                        Swal.fire(TituloSwal, valor[1], 'info');
+                        VentanaMensaje(valor[1]);
                     }
                 }
             });
         }
     });
 }
-
 function GridCategoria() {
     var tituloReporte = 'LISTADO DE CATEGORIAS';
     let datatable = $('#gridCategoria').DataTable({

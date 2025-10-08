@@ -10,34 +10,50 @@
     <label>MODULO BANCO</label>
 </div>
 
+
 <div class="grid">
     <table id="gridBanco" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
 </div>
 
+
+<!-- Modal Banco-->
 <div class="modal fade" id="ModalBanco" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header header-modal">
-                <div class="modal-title" id="TituloModalBanco"></div>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content shadow-sm rounded-3 border-0">
+
+            <!-- Header -->
+            <div class="modal-header text-white header-modal">
+                <div class="modal-title" id="TituloModalBanco"></div> <!-- tamaño original -->
             </div>
-            <div class="modal-body">
-                <label id="LabelIdBanco" hidden></label>                
+
+            <!-- Body -->
+            <div class="modal-body py-3 px-3">
+                <label id="LabelIdBanco" hidden></label>
+
+                <div class="row g-2">
                     <div>
-                        <label><strong>Nombre </strong><label style="color:red"> *</label></label>
-                        <input class="form-control" type="text" id="InputNombreBanco" autocomplete="off" style="min-width:100%" />
+                        <label><strong>Nombre</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-file-text"></i></span>
+                            <input class="form-control" type="text" id="InputNombreBanco" autocomplete="off" />
+                        </div>
                     </div>
+                </div>
+                <div class="row g-2">
                     <div class="col-3" id="SelectEstadoBanco">
                         <label><strong>Estado</strong></label>
-                        <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
-                    </div>                              
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-toggle-on"></i></span>
+                            <select class="form-control" id="SelectEstado"></select>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-footer" id="BotonesModalBanco">
-            </div>
+            <!-- Footer -->
+            <div class="modal-footer py-2" id="BotonesModalBanco"></div>
         </div>
     </div>
 </div>
-
-
 
 <script>
     $(document).ready(function () {

@@ -287,10 +287,10 @@ legend{
     border: none;
 }
 
-    .btn-modal-guardar:hover {
+    /*.btn-modal-guardar:hover {
         background: linear-gradient(135deg, #5a67d8, #6b46c1);
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
+    }*/
 
 /* Botón Cancelar (con degradado en tonos rojos elegantes) */
 .btn-modal-Cancelar {
@@ -298,15 +298,16 @@ legend{
     color: #fff !important;
     font-weight: 600;
     border-radius: 6px;
-    padding: 6px 18px;
+    /*padding: 6px 18px;*/
+    margin-right:10px;
     transition: 0.3s;
     border: none;
 }
 
-    .btn-modal-Cancelar:hover {
+/*    .btn-modal-Cancelar:hover {
         background: linear-gradient(135deg, #e63946, #b71c1c);
         box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
+    }*/
 
 
 
@@ -391,7 +392,7 @@ legend{
 
 .fondo {
     /*background-color: #3b5998;*/
-    /*background-color: #d8dfea;*/
+    background-color: #d8dfea;
 
 }
 
@@ -578,6 +579,42 @@ table.dataTable thead tr {
     text-align:left;
 }
 
+.titulo-formulario-crear {
+    font-weight: bold;
+    background-color: green;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    margin-bottom: 10px !important;
+    letter-spacing:3px;
+}
+
+.titulo-formulario-editar {
+    font-weight: bold;
+    background-color: darkorange;
+    color: black;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    margin-bottom: 10px !important;
+    letter-spacing: 3px;
+    font-weight:bold;
+}
+
+.titulo-formulario {
+    font-weight: bold;
+    background-color: #3b5998;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    margin-bottom: 10px !important;
+    letter-spacing: 3px;
+}
+
+.formulario
 
 /*ADAPTACIONES A PANTALLAS*/
 

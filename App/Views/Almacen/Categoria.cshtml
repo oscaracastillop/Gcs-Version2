@@ -15,30 +15,43 @@
     <table id="gridCategoria" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
 </div>
 
+
+<!-- Modal Categoría-->
 <div class="modal fade" id="ModalCategoria" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header header-modal">
-                <div class="modal-title" id="TituloModalCategoria"></div>
-            </div>
-            <div class="modal-body">
-                <label id="LabelIdCategoria" hidden></label>
-                <div>
-                    <label><strong>Nombre </strong><label style="color:red"> *</label></label>
-                    <input class="form-control" type="text" id="InputNombreCategoria" autocomplete="off" style="min-width:100%" />
-                </div>
-                <div class="col-3" id="SelectEstadoCategoria">
-                    <label><strong>Estado</strong></label>
-                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
-                </div>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content shadow-sm rounded-3 border-0">
+
+            <!-- Header -->
+            <div class="modal-header text-white header-modal">
+                <div class="modal-title" id="TituloModalCategoria"></div> <!-- tamaño original -->
             </div>
 
-            <div class="modal-footer" id="BotonesModalCategoria">
+            <!-- Body -->
+            <div class="modal-body py-3 px-3">
+                <label id="LabelIdCategoria" hidden></label>
+                               
+                <div class="row g-2">
+                    <div class="col-9">
+                        <label><strong>Nombre</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-file-text"></i></span>
+                            <input class="form-control" type="text" id="InputNombreCategoria" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="col-3" id="SelectEstadoCategoria">
+                        <label><strong>Estado</strong></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-toggle-on"></i></span>
+                            <select class="form-control" id="SelectEstado"></select>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <!-- Footer -->
+            <div class="modal-footer py-2" id="BotonesModalCategoria"></div>
         </div>
     </div>
 </div>
-
 
 
 <script>
