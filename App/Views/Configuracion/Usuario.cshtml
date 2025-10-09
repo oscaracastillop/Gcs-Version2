@@ -15,47 +15,69 @@
 </div>
 
 <div class="modal fade" id="ModalUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header header-modal">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content shadow-sm rounded-3 border-0">
+
+            <div class="modal-header text-white header-modal">
                 <div class="modal-title" id="TituloModalUsuario"></div>
             </div>
-            <div class="modal-body">
+
+            <div class="modal-body py-3 px-3">
                 <label id="LabelIdUsuario" hidden></label>
+
                 <div class="row g-2">
                     <div class="col-6">
-                        <label><strong>Usuario / Login </strong><label style="color:red"> *</label></label>
-                        <input class="form-control" type="text" id="InputUsuario" name="name" autocomplete="off" style="min-width:100%" />
+                        <label><strong>Usuario / Login</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-person"></i></span>
+                            <input class="form-control" type="text" id="InputUsuario" autocomplete="off" />
+                        </div>
                     </div>
                     <div class="col-6">
-                        <label><strong>Password / Login </strong><label style="color:red"> *</label></label>
-                        <input class="form-control" type="password" id="InputPassword" name="name" autocomplete="off" style="min-width:100%" />
+                        <label><strong>Password / Login</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-key"></i></span>
+                            <input class="form-control" type="password" id="InputPassword" autocomplete="off" />
+                        </div>
                     </div>
                 </div>
+
                 <div class="row g-2">
                     <div class="col-6">
                         <label><strong>Email</strong></label>
-                        <input class="form-control" type="text" id="InputEmailUsuario" name="name" autocomplete="off" style="min-width:100%" />
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-envelope"></i></span>
+                            <input class="form-control" type="text" id="InputEmailUsuario" autocomplete="off" />
+                        </div>
                     </div>
                     <div class="col-6">
-                        <label><strong>Nombre</strong></label>
-                        <input class="form-control" type="text" id="InputNombreUsuario" name="name" autocomplete="off" style="min-width:100%" />
+                        <label><strong>Nombre Usuario</strong></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-file-person"></i></span>
+                            <input class="form-control" type="text" id="InputNombreUsuario" autocomplete="off" />
+                        </div>
                     </div>
                 </div>
+
                 <div class="row g-2">
                     <div class="col-6">
-                        <label><strong>Fecha Vigencia </strong><label style="color:red"> *</label></label>
-                        <input class="form-control" type="date" id="InputFechaVigencia" name="name" autocomplete="off" style="min-width:100%" />
+                        <label><strong>Fecha Vigencia</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-calendar"></i></span>
+                            <input class="form-control" type="date" id="InputFechaVigencia" autocomplete="off" />
+                        </div>
                     </div>
-                </div>
-                <div class="col-3" id="SelectEstadoUsuario">
-                    <label><strong>Estado</strong></label>
-                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
+                    <div class="col-3" id="SelectEstadoUsuario">
+                        <label><strong>Estado</strong></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-toggle-on"></i></span>
+                            <select class="form-control" id="SelectEstado"></select>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="modal-footer" id="BotonesModalUsuario">
-            </div>
+            <div class="modal-footer py-2" id="BotonesModalUsuario"></div>
         </div>
     </div>
 </div>

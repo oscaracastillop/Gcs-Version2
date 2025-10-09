@@ -295,12 +295,12 @@ IF @Permiso > 0
 
 			SET @IdUserCreado = @@IDENTITY
 
-			INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) Values (1,@IdUserCreado,1)
-			INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) Values (14,@IdUserCreado,1)
-			INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso) Values (13,@IdUserCreado,1)
+			INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) Values (1,@IdUserCreado,1, @IdUsuario, GETDATE())
+			INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) Values (10,@IdUserCreado,1, @IdUsuario, GETDATE())
+			INSERT INTO Permiso_Menu (IdMenu, IdUsuario, Permiso, CreateBy, DateCreate) Values (11,@IdUserCreado,1, @IdUsuario, GETDATE())
 
-			INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (43,@IdUserCreado,1,1,1,1)
-			INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (44,@IdUserCreado,1,0,0,0)
+			INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (51,@IdUserCreado,1,1,1,1)
+			INSERT INTO Permiso_SubMenu (IdSubMenu, IdUsuario, Permiso, Crear, Editar, Eliminar) VALUES (52,@IdUserCreado,1,0,0,0)
 
 		SET @Resultado = 'OK*El Usuario ' + @Usuario + ' a sido creado correctamente'
 	END	

@@ -14,30 +14,41 @@
     <table id="gridFondoCesantias" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
 </div>
 
-
 <div class="modal fade" id="ModalFondoCesantias" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header header-modal">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content shadow-sm rounded-3 border-0">
+
+            <div class="modal-header text-white header-modal">
                 <div class="modal-title" id="TituloModalFondoCesantias"></div>
             </div>
-            <div class="modal-body">
-                <label id="LabelIdFondoCesantias" hidden></label>                
+
+            <div class="modal-body py-3 px-3">
+                <label id="LabelIdFondoCesantias" hidden></label>
+
+                <div class="row g-2">
                     <div>
-                        <label><strong>Nombre </strong><label style="color:red"> *</label></label>
-                        <input class="form-control" type="text" id="InputNombreFondoCesantias" autocomplete="off" style="min-width:100%" />
+                        <label><strong>Nombre Fondo Cesantías</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-file-text"></i></span>
+                            <input class="form-control" type="text" id="InputNombreFondoCesantias" autocomplete="off" />
+                        </div>
                     </div>
+                </div>
+                <div class="row g-2">
                     <div class="col-3" id="SelectEstadoFondoCesantias">
                         <label><strong>Estado</strong></label>
-                        <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
-                    </div>                             
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-toggle-on"></i></span>
+                            <select class="form-control" id="SelectEstado"></select>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-footer" id="BotonesModalFondoCesantias"></div>
+
+            <div class="modal-footer py-2" id="BotonesModalFondoCesantias"></div>
         </div>
     </div>
 </div>
-
-
 
 <script>
     $(document).ready(function () {

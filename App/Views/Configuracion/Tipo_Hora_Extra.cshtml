@@ -15,36 +15,47 @@
 </div>
 
 <div class="modal fade" id="ModalTipoHoraExtra" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header header-modal">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content shadow-sm rounded-3 border-0">
+
+            <div class="modal-header text-white header-modal">
                 <div class="modal-title" id="TituloModalTipoHoraExtra"></div>
             </div>
-            <div class="modal-body">
-                <label id="LabelIdTipoHoraExtra" hidden></label>               
+
+            <div class="modal-body py-3 px-3">
+                <label id="LabelIdTipoHoraExtra" hidden></label>
+
                 <div class="row g-2">
-                    <div class="col-8">
-                        <label><strong>Nombre </strong><label style="color:red"> *</label></label>
-                        <input class="form-control" type="text" id="InputNombreTipoHoraExtra" autocomplete="off" style="min-width:100%" />
+                    <div class="col-9">
+                        <label><strong>Nombre Hora Extra</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-file-text"></i></span>
+                            <input class="form-control" type="text" id="InputNombreTipoHoraExtra" autocomplete="off" />
+                        </div>
                     </div>
-                    <div class="col-4">
-                        <label><strong>Porcentaje </strong><label style="color:red"> *</label></label>
-                        <input class="form-control" type="number" id="InputPorcentajeTipoHoraExtra" autocomplete="off" style="min-width:100%" />
+                    <div class="col-3">
+                        <label><strong>Porcentaje</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-percent"></i></span>
+                            <input class="form-control" type="number" id="InputPorcentajeTipoHoraExtra" autocomplete="off" placeholder="0"/>
+                        </div>
                     </div>
-                </div>                                
-                <div class="col-3" id="SelectEstadoTipoHoraExtra">
-                    <label><strong>Estado</strong></label>
-                    <select class="form-control" id="SelectEstado" style="min-width:100%"></select>
+                </div>
+                <div class="row g-2">
+                    <div class="col-3" id="SelectEstadoTipoHoraExtra">
+                        <label><strong>Estado</strong></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-toggle-on"></i></span>
+                            <select class="form-control" id="SelectEstado"></select>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="modal-footer" id="BotonesModalTipoHoraExtra">
-            </div>
+            <div class="modal-footer py-2" id="BotonesModalTipoHoraExtra"></div>
         </div>
     </div>
 </div>
-
-
 
 <script>
     $(document).ready(function () {

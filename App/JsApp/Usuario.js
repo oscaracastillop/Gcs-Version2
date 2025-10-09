@@ -108,13 +108,29 @@ function ActualizarUsuario() {
 
 function EliminarUsuario(IdUsuario) {
     Swal.fire({
-        title: 'Eliminar Usuario',
-        text: '¿Está seguro de eliminar el usuario seleccionado?',
-        icon: 'warning',
+        title: `<span style="font-size:18px; font-weight:bold; color:#d9534f;">${TituloSwal}</span>`,
+        html: `<p style="font-size:14px; color:#444; margin-top:8px;">
+                  ¿Está seguro(a)? <br> <strong>No podrás revertir esta acción.</strong>
+               </p>`,
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: 'red',
-        confirmButtonText: 'Si, eliminar',
-        cancelButtonText: 'Cancelar'
+        confirmButtonColor: "#d9534f",
+        cancelButtonColor: "#6c757d",
+        confirmButtonText: '<i class="bi bi-trash-fill"></i> Sí, eliminar',
+        cancelButtonText: '<i class="bi bi-x-circle"></i> Cancelar',
+        position: 'top',
+        background: '#f9f9f9',
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+        },
+        customClass: {
+            popup: 'rounded-4 shadow-lg',
+            confirmButton: 'px-3 py-1 rounded-pill fw-semibold',
+            cancelButton: 'px-3 py-1 rounded-pill fw-semibold'
+        }
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -127,7 +143,7 @@ function EliminarUsuario(IdUsuario) {
                 },
                 success: function (resultado) {
                     valor = resultado.split('*');
-                    if (valor[0] == 'OK') {
+                    if (valor[0] === 'OK') {
                         VentanaMensajeOK(valor[1]);
                     } else {
                         VentanaMensaje(valor[1]);
