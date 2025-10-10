@@ -22,126 +22,171 @@
         <i class="bi bi-clipboard-data"></i> DASHBOARD DE INVENTARIO
     </h6>
 
-    <style>
-    </style>
-
+    @*Seccion 1*@
     <div class="row g-3" id="cardsResumenInventario">
         <div class="col-md-3">
-            <div class="card-resumen bg-azul">
-                <div class="card-header">Total Productos</div>
+            <div class="card-resumen bg-general">
+                <div class="card-header">Cantidad Nóminas</div>
                 <div class="card-body">
                     <div class="card-texto">
-                        <h4 id="totalProductos">0</h4>
+                        <h4 id="totalCantidadNomina">0</h4>
                     </div>
                     <div class="card-icono">
-                        <i class="bi bi-box-seam"></i>
+                        <i class="bi bi-people-fill"></i>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="col-md-3">
-            <div class="card-resumen bg-verde">
-                <div class="card-header">Valor Total Inventario</div>
+            <div class="card-resumen bg-general">
+                <div class="card-header">Nómina x Pagar</div>
                 <div class="card-body">
                     <div class="card-texto">
-                        <h4 id="valorInventario">$ 0</h4>
+                        <h4 id="nominaPendiente">0</h4>
                     </div>
                     <div class="card-icono">
-                        <i class="bi bi-cash-stack"></i>
+                        <i class="bi bi-wallet2"></i>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="col-md-3">
-            <div class="card-resumen bg-rojo">
-                <div class="card-header">Productos Bajo Stock</div>
+            <div class="card-resumen bg-general">
+                <div class="card-header">Nómina Pagada</div>
                 <div class="card-body">
                     <div class="card-texto">
-                        <h4 id="productosBajoStock">0</h4>
+                        <h4 id="nominaPagada">0</h4>
                     </div>
                     <div class="card-icono">
-                        <i class="bi bi-exclamation-triangle"></i>
+                        <i class="bi bi-cash-coin"></i>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="col-md-3">
-            <div class="card-resumen bg-morado">
-                <div class="card-header">Más Días sin Movimiento</div>
+            <div class="card-resumen bg-general">
+                <div class="card-header">Valor Nómina x Pagar</div>
                 <div class="card-body">
                     <div class="card-texto">
-                        <h4 id="productoMasDias" class="fw-bold text-truncate">—</h4>
-                        <small id="diasMasSinMovimiento">— días</small>
+                        <h4 id="valorNominaPendiente">$ 0</h4>
                     </div>
                     <div class="card-icono">
-                        <i class="bi bi-stopwatch"></i>
+                        <i class="bi bi-currency-dollar"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    @*Seccion 2*@
     <div class="row g-3 mt-3">
         <div class="col-md-3">
-            <div class="card-resumen bg-cyan">
-                <div class="card-header">Stock Total</div>
+            <div class="card-resumen bg-general">
+                <div class="card-header">Valor Nómina Pagada</div>
                 <div class="card-body">
                     <div class="card-texto">
-                        <h4 id="stockTotal">0</h4>
+                        <h4 id="valorNominaPagada">$ 0</h4>
                     </div>
                     <div class="card-icono">
-                        <i class="bi bi-graph-up-arrow"></i>
+                        <i class="bi bi-bank2"></i>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="col-md-3">
-            <div class="card-resumen bg-amarillo">
-                <div class="card-header">Mayor Stock</div>
+            <div class="card-resumen bg-general">
+                <div class="card-header">Cantidad Horas Extras</div>
                 <div class="card-body">
                     <div class="card-texto">
-                        <h4 id="productoMayorStock" class="fw-bold text-truncate">—</h4>
+                        <h4 id="cantidadHorasExtras">0</h4>
                     </div>
                     <div class="card-icono">
-                        <i class="bi bi-arrow-up-circle"></i>
+                        <i class="bi bi-hourglass-split"></i>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="col-md-3">
-            <div class="card-resumen bg-naranja">
-                <div class="card-header">Menor Stock</div>
+            <div class="card-resumen bg-general">
+                <div class="card-header">Total Horas Extras</div>
                 <div class="card-body">
                     <div class="card-texto">
-                        <h4 id="productoMenorStock" class="fw-bold text-truncate">—</h4>
+                        <h4 id="valorHorasExtras">$ 0</h4>
                     </div>
                     <div class="card-icono">
-                        <i class="bi bi-arrow-down-circle"></i>
+                        <i class="bi bi-clock-fill"></i>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="col-md-3">
-            <div class="card-resumen bg-gris">
-                <div class="card-header">Más Reciente</div>
+            <div class="card-resumen bg-general">
+                <div class="card-header">Total Otros Ingresos</div>
                 <div class="card-body">
                     <div class="card-texto">
-                        <h4 id="productoMasReciente" class="fw-bold text-truncate">—</h4>
+                        <h4 id="valorOtrosIngresos">$ 0</h4>
                     </div>
                     <div class="card-icono">
-                        <i class="bi bi-clock-history"></i>
+                        <i class="bi bi-graph-up"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Seccion 3*@
+    <div class="row g-3 mt-3">
+        <div class="col-md-3">
+            <div class="card-resumen bg-general">
+                <div class="card-header">Total Otros Descuentos</div>
+                <div class="card-body">
+                    <div class="card-texto">
+                        <h4 id="valorOtrosDescuentos">$ 0</h4>
+                    </div>
+                    <div class="card-icono">
+                        <i class="bi bi-dash-circle"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-resumen bg-general">
+                <div class="card-header">Total Desembolso Préstamo</div>
+                <div class="card-body">
+                    <div class="card-texto">
+                        <h4 id="valorDesembolsoPrestamo">$ 0</h4>
+                    </div>
+                    <div class="card-icono">
+                        <i class="bi bi-cash"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-resumen bg-general">
+                <div class="card-header">Total Cobro Préstamo</div>
+                <div class="card-body">
+                    <div class="card-texto">
+                        <h4 id="valorCobroPrestamo">$ 0</h4>
+                    </div>
+                    <div class="card-icono">
+                        <i class="bi bi-receipt-cutoff"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 
 
 

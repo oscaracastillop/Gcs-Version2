@@ -559,31 +559,54 @@ function GridNominaEmpleado() {
 
 }
 
-
 function actualizarDashboard(data) {
     if (!data || data.length === 0) return;
 
-    const totalProductos = data.length;
-    const valorInventario = data.reduce((sum, x) => sum + (x.Cantidad * x.CostoPromedioCompra), 0);
-    const bajoStock = data.filter(x => x.Cantidad <= x.StockMinimo).length;
-    const stockTotal = data.reduce((sum, x) => sum + x.Cantidad, 0);
+    // 📊 Cálculos generales adaptados al contexto de nómina
+    const totalNominas = data.length;
+    const nominasPendientes = data.filter(x => x.IdEstado === 1).length;
+    const nominasPagadas = data.filter(x => x.IdEstado === 3).length;
 
-    const mayor = data.reduce((max, x) => x.Cantidad > max.Cantidad ? x : max);
-    const menor = data.reduce((min, x) => x.Cantidad < min.Cantidad ? x : min);
-    const masDias = data.reduce((max, x) => x.DiasSinMovimiento > max.DiasSinMovimiento ? x : max);
-    const masReciente = data.reduce((latest, x) => new Date(x.FechaUltimoMovimiento) > new Date(latest.FechaUltimoMovimiento) ? x : latest);
+    const valorNominaPendiente = data
+        .filter(x => x.IdEstado === 1)
+        .reduce((sum, x) => sum + (Number(x.TotalPagar) || 0), 0);
 
-    // Actualizar tarjetas
-    document.getElementById('totalProductos').innerText = totalProductos;
-    document.getElementById('valorInventario').innerText = '$ ' + valorInventario.toLocaleString('es-CO');
-    document.getElementById('productosBajoStock').innerText = bajoStock;
-    document.getElementById('productoMasDias').innerText = masDias.NombreProducto;
-    document.getElementById('diasMasSinMovimiento').innerText = masDias.DiasSinMovimiento + ' días';
-    document.getElementById('stockTotal').innerText = stockTotal.toLocaleString('es-CO');
-    document.getElementById('productoMayorStock').innerText = mayor.NombreProducto;
-    document.getElementById('productoMenorStock').innerText = menor.NombreProducto;
-    document.getElementById('productoMasReciente').innerText = masReciente.NombreProducto;
+    const valorNominaPagada = data
+        .filter(x => x.IdEstado === 3)
+        .reduce((sum, x) => sum + (Number(x.TotalPagar) || 0), 0);
+
+    const cantidadHorasExtras = data.reduce((sum, x) => sum + (Number(x.CantHED + x.CantHEN + x.CantHEDDF + x.CantHENDF) || 0), 0);
+    const totalHorasExtras = data.reduce((sum, x) => sum + (Number(x.TotalHE) || 0), 0);
+    const totalOtrosIngresos = data.reduce((sum, x) => sum + (Number(x.OtrosIngresos) || 0), 0);
+    const totalOtrosDescuentos = data.reduce((sum, x) => sum + (Number(x.OtrosDescuentos) || 0), 0);
+    const totalDesembolsoPrestamo = data.reduce((sum, x) => sum + (Number(x.DesembolsoPrestamo) || 0), 0);
+    const totalCobroPrestamo = data.reduce((sum, x) => sum + (Number(x.CobroPrestamo) || 0), 0);
+
+    // Función para formatear números sin ceros innecesarios
+    function formatoNumero(valor) {
+        return Number(valor).toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+    }
+
+    // 🧭 Actualizar tarjetas de cada sección del dashboard
+    // === Primera fila ===
+    document.getElementById('totalCantidadNomina').innerText = formatoNumero(totalNominas);
+    document.getElementById('nominaPendiente').innerText = formatoNumero(nominasPendientes);
+    document.getElementById('nominaPagada').innerText = formatoNumero(nominasPagadas);
+    document.getElementById('valorNominaPendiente').innerText = '$ ' + formatoNumero(valorNominaPendiente);
+    document.getElementById('valorNominaPagada').innerText = '$ ' + formatoNumero(valorNominaPagada);
+
+    // === Segunda fila ===
+    document.getElementById('cantidadHorasExtras').innerText = formatoNumero(cantidadHorasExtras);
+    document.getElementById('valorHorasExtras').innerText = '$ ' + formatoNumero(totalHorasExtras);
+    document.getElementById('valorOtrosIngresos').innerText = '$ ' + formatoNumero(totalOtrosIngresos);
+
+    // === Tercera fila ===
+    document.getElementById('valorOtrosDescuentos').innerText = '$ ' + formatoNumero(totalOtrosDescuentos);
+    document.getElementById('valorDesembolsoPrestamo').innerText = '$ ' + formatoNumero(totalDesembolsoPrestamo);
+    document.getElementById('valorCobroPrestamo').innerText = '$ ' + formatoNumero(totalCobroPrestamo);
 }
+
+
 
 function PagarNominaEmpleado(IdNominaEmpleado) {
     Swal.fire({
