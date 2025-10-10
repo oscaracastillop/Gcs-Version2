@@ -69,6 +69,7 @@
     <Compile Include="DataEntities\DataCotizacion.cs" />
     <Compile Include="DataEntities\DataDetalleCotizacion.cs" />
     <Compile Include="DataEntities\DataEntradaAlmacen.cs" />
+    <Compile Include="DataEntities\DataInventario.cs" />
     <Compile Include="DataEntities\DataOtrosDescuentosEmpleado.cs" />
     <Compile Include="DataEntities\DataOtrosIngresosEmpleado.cs" />
     <Compile Include="DataEntities\DataCargo.cs" />

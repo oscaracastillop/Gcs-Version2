@@ -18,66 +18,88 @@
 </div>
 
 <div class="modal fade" id="ModalPermisoSubMenu" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header header-modal">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content shadow-sm rounded-3 border-0">
+
+            <div class="modal-header text-white header-modal">
                 <div class="modal-title" id="TituloModalPermisoSubMenu"></div>
             </div>
-            <div class="modal-body">
+
+            <div class="modal-body py-3 px-3">
                 <label id="LabelIdPermisoSubMenu" hidden></label>
+
                 <div class="row g-2">
                     <div>
-                        <label><strong>Usuario </strong><label style="color:red"> *</label></label>
-                        <select class="form-control" id="SelectUsuario" style="min-width:100%"></select>
-                    </div>                    
+                        <label><strong>Usuario</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-file-person"></i></span>
+                            <select class="form-control" id="SelectUsuario"></select>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="row g-2">
                     <div class="col-6">
-                        <label><strong>Menú </strong><label style="color:red"> *</label></label>
-                        <select class="form-control" id="SelectMenu" style="min-width:100%" onchange="ListaSubMenuxIdMenu($('#SelectMenu').val())"></select>
+                        <label><strong>Menú</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-card-list"></i></span>
+                            <select class="form-control" id="SelectMenu" onchange="ListaSubMenuxIdMenu($('#SelectMenu').val())"></select>
+                        </div>
                     </div>
                     <div class="col-6">
-                        <label><strong>Sub Menú </strong><label style="color:red"> *</label></label>
-                        <select class="form-control" id="SelectSubMenu" style="min-width:100%"></select>
+                        <label><strong>Sub Menú</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-card-list"></i></span>
+                            <select class="form-control" id="SelectSubMenu"></select>
+                        </div>
                     </div>
                 </div>
-                
-                @*<br />
-                <label>Permisos Usuario</label>*@                
 
                 <div class="row g-2">
                     <div class="col-3">
                         <label><strong>Ver</strong></label>
-                        <select class="form-control" id="SelectEstadoPermisoSubMenu" style="min-width:100%">
-                            <option value="2">Inactivo</option>
-                            <option value="1" selected>Activo</option>
-                        </select>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-eye"></i></span>
+                            <select class="form-control" id="SelectEstadoPermisoSubMenu">
+                                <option value="2">Inactivo</option>
+                                <option value="1" selected>Activo</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="col-3">
                         <label><strong>Crear</strong></label>
-                        <select class="form-control" id="SelectEstadoCrearSubMenu" style="min-width:100%">
-                            <option value="2" selected>Inactivo</option>
-                            <option value="1">Activo</option>
-                        </select>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-plus"></i></span>
+                            <select class="form-control" id="SelectEstadoCrearSubMenu">
+                                <option value="2">Inactivo</option>
+                                <option value="1" selected>Activo</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="col-3">
                         <label><strong>Editar</strong></label>
-                        <select class="form-control" id="SelectEstadoEditarSubMenu" style="min-width:100%">
-                            <option value="2" selected>Inactivo</option>
-                            <option value="1">Activo</option>
-                        </select>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-pencil"></i></span>
+                            <select class="form-control" id="SelectEstadoEditarSubMenu">
+                                <option value="2">Inactivo</option>
+                                <option value="1" selected>Activo</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="col-3">
                         <label><strong>Eliminar</strong></label>
-                        <select class="form-control" id="SelectEstadoEliminarSubMenu" style="min-width:100%">
-                            <option value="2" selected>Inactivo</option>
-                            <option value="1">Activo</option>
-                        </select>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-trash"></i></span>
+                            <select class="form-control" id="SelectEstadoEliminarSubMenu">
+                                <option value="2">Inactivo</option>
+                                <option value="1" selected>Activo</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer" id="BotonesModalPermisoSubMenu">
-            </div>
+
+            <div class="modal-footer py-2" id="BotonesModalPermisoSubMenu"></div>
         </div>
     </div>
 </div>

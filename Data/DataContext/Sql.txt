@@ -7951,6 +7951,8 @@ AS
 BEGIN
 DECLARE @Permiso INT, 
 		@IdUsuario INT, 
+		@ExisteIdProductoInventario INT,
+		@CantidadInventario INT,
 		@Accion VARCHAR(255),
 		@SubMenu VARCHAR(255)
 	
@@ -7959,6 +7961,7 @@ SET @SubMenu = '/Almacen/Entrada'
 
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+SELECT @ExisteIdProductoInventario = COUNT(1) FROM Inventario WHERE IdProducto = @IdProducto
 
 IF @Permiso > 0
 	BEGIN		
@@ -7966,6 +7969,23 @@ IF @Permiso > 0
 		(IdProducto, Lote, Cantidad, ValorUnitarioCompra, PorcentajeIva, FechaVencimientoProducto, FechaIngresoAlmacen, CreateBy, DateCreate) 
 		VALUES 
 		(@IdProducto, @Lote, @Cantidad, @ValorUnitarioCompra, @PorcentajeIva, @FechaVencimientoProducto, @FechaIngresoAlmacen, @IdUsuario, GETDATE()) 
+
+		IF @ExisteIdProductoInventario = 1
+			BEGIN
+				SELECT @CantidadInventario = Cantidad FROM Inventario WHERE IdProducto = @IdProducto
+
+				UPDATE Inventario 
+				SET	Cantidad = @CantidadInventario + @Cantidad,
+					FechaUltimoMovimiento = GETDATE()
+					WHERE IdProducto = @IdProducto
+			END
+		ELSE
+			BEGIN
+				INSERT INTO Inventario
+				(IdProducto, Cantidad, FechaUltimoMovimiento)
+				VALUES
+				(@IdProducto, @Cantidad, GETDATE())
+			END
 
 		SET @Resultado = 'OK*Se agrego el registro de entrada correctamente'
 	END	
@@ -8026,6 +8046,9 @@ AS
 BEGIN
 DECLARE @Permiso INT, 
 		@IdUsuario INT, 
+		@IdProducto INT,
+		@CantidadInventario INT,
+		@CantidadOriginalEntradaAlmacen INT,
 		@Accion VARCHAR(255),
 		@SubMenu VARCHAR(255)
 	
@@ -8034,6 +8057,9 @@ SET @SubMenu = '/Almacen/Entrada'
 
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT @Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)
+SELECT @IdProducto = IdProducto FROM EntradaAlmacen WHERE Id = @IdEntradaAlmacen
+SELECT @CantidadOriginalEntradaAlmacen = Cantidad FROM EntradaAlmacen WHERE Id = @IdEntradaAlmacen
+SELECT @CantidadInventario = Cantidad FROM Inventario WHERE IdProducto = @IdProducto
 
 IF @Permiso > 0
 	BEGIN		
@@ -8046,6 +8072,15 @@ IF @Permiso > 0
 				FechaIngresoAlmacen = @FechaIngresoAlmacen,
 				IdEstado = @IdEstado
 		FROM	EntradaAlmacen
+		WHERE	Id = @IdEntradaAlmacen
+
+	
+
+		UPDATE Inventario 
+		SET	Cantidad = (@CantidadInventario - @CantidadOriginalEntradaAlmacen) + @Cantidad,
+			FechaUltimoMovimiento = GETDATE()
+			WHERE IdProducto = @IdProducto
+
 
 		SET @Resultado = 'OK*El registro se actualizo correctamente'
 	END	
@@ -8063,6 +8098,9 @@ AS
 BEGIN
 DECLARE @Permiso INT, 
 		@IdUsuario INT, 
+		@IdProducto INT,
+		@CantidadInventario INT,
+		@CantidadOriginalEntradaAlmacen INT,
 		@Accion varchar(255), 
 		@SubMenu varchar(255)
 
@@ -8071,6 +8109,10 @@ SET @SubMenu = '/Almacen/Entrada'
 
 SELECT @IdUsuario = Id FROM Usuario WHERE IdUser = @IdUser
 SELECT	@Permiso = dbo.Fun_PermisoUsuario(@Accion, @IdUsuario, @SubMenu)	
+SELECT @IdProducto = IdProducto FROM EntradaAlmacen WHERE Id = @IdEntradaAlmacen
+SELECT @CantidadOriginalEntradaAlmacen = Cantidad FROM EntradaAlmacen WHERE Id = @IdEntradaAlmacen
+SELECT @CantidadInventario = Cantidad FROM Inventario WHERE IdProducto = @IdProducto
+
 
 IF @Permiso != 1
 BEGIN
@@ -8078,15 +8120,20 @@ BEGIN
 	RETURN
 END	
 
+UPDATE Inventario 
+SET	Cantidad = (@CantidadInventario - @CantidadOriginalEntradaAlmacen),
+FechaUltimoMovimiento = GETDATE()
+WHERE IdProducto = @IdProducto
+
+
 DELETE EntradaAlmacen WHERE Id = @IdEntradaAlmacen
+
+
+
 SET @Resultado = 'OK*Estimado Usuario el registro se elimino correctamente'	
 
 SELECT @Resultado
 END
-
-
-
-
 
 GO
 
@@ -8503,4 +8550,55 @@ FROM	Cotizacion A,
 WHERE	A.Id = @Id AND B.IdCotizacion = A.Id AND B.IdProducto = C.Id AND D.Id = C.IdUnidadMedida
 
 
+END
+
+GO
+
+CREATE TABLE Inventario 
+(Id int identity(1,1) Primary key ,
+IdProducto int,
+Cantidad int,
+FechaUltimoMovimiento datetime
+)
+
+GO
+
+CREATE UNIQUE INDEX RegistroUnicoProductoInventario on Inventario (IdProducto)
+
+GO
+
+ALTER TABLE Inventario ADD CONSTRAINT FK_IdProductoInventario FOREIGN KEY (IdProducto) references Producto(Id)
+
+GO
+
+CREATE PROCEDURE [dbo].[SP_GridInventario]
+AS
+BEGIN
+SELECT	A.Id, 
+			B.Nombre + ' '+ B.Marca + ' ' + B.Referencia As NombreProducto,	
+			D.Nombre As UnidadMedida,
+			B.StockMinimo,
+			A.Cantidad,
+			dbo.Fun_BuscarCostoPromedioProducto(A.IdProducto) As CostoPromedioCompra,
+			CONVERT(varchar(255),A.FechaUltimoMovimiento,105)+ ' ' + CONVERT(varchar(255),A.FechaUltimoMovimiento,8) As FechaUltimoMovimiento,
+			DATEDIFF(DAY, A.FechaUltimoMovimiento, GETDATE()) AS DiasSinMovimiento
+			FROM	Inventario A,
+					Producto B,
+					UnidadMedida D
+			WHERE	A.IdProducto = B.Id AND
+					B.IdUnidadMedida = D.Id
+			ORDER BY A.Id Desc 
+END
+
+GO
+
+CREATE FUNCTION [dbo].[Fun_BuscarCostoPromedioProducto] (@IdProducto INT)
+RETURNS DECIMAL(10,2)
+AS BEGIN
+DECLARE @CostoPromedioProducto DECIMAL(10,2)
+
+SELECT @CostoPromedioProducto =  AVG(ValorUnitarioCompra) FROM EntradaAlmacen where IdProducto = @IdProducto
+
+
+	RETURN @CostoPromedioProducto
 END

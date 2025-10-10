@@ -45,6 +45,7 @@
     <Compile Include="Cotizacion.cs" />
     <Compile Include="DetalleCotizacion.cs" />
     <Compile Include="EntradaAlmacen.cs" />
+    <Compile Include="Inventario.cs" />
     <Compile Include="OtrosDescuentosEmpleado.cs" />
     <Compile Include="OtrosIngresosEmpleado.cs" />
     <Compile Include="Cargo.cs" />

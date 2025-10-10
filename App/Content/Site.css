@@ -460,7 +460,8 @@ legend{
         width: 10px;
         height: 10px;
         border-radius: 50%;
-        background-color: #6c757d; /* gris */
+        /*background-color: #6c757d; *//* gris */
+        background-color: red;
         box-shadow: 0 0 4px rgba(108,117,125,0.5);
     }
 

@@ -3,8 +3,159 @@
     ViewBag.Title = "Inventario";
 }
 
+<script src="~/JsApp/Inventario.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <div class="tituloPage">
     <label>MODULO INVENTARIO ALMACEN</label>
 </div>
 
+<div class="grid">
+    <table id="gridInventario" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
+</div>
 
+<style>
+    /* 🎨 Estilos elegantes para las tarjetas */
+    #cardsResumenInventario .card,
+    .row .card {
+        border: none;
+        border-radius: 1rem;
+        color: white;
+        height: 130px; /* 🔸 Mismo alto para todas las tarjetas */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        #cardsResumenInventario .card:hover,
+        .row .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+        }
+
+    /* Paleta de colores personalizada */
+    .bg-azul {
+        background: linear-gradient(135deg, #2b6cb0, #3182ce);
+    }
+
+    .bg-verde {
+        background: linear-gradient(135deg, #16a34a, #22c55e);
+    }
+
+    .bg-rojo {
+        background: linear-gradient(135deg, #b91c1c, #ef4444);
+    }
+
+    .bg-morado {
+        background: linear-gradient(135deg, #6b21a8, #9333ea);
+    }
+
+    .bg-amarillo {
+        background: linear-gradient(135deg, #ca8a04, #eab308);
+    }
+
+    .bg-cyan {
+        background: linear-gradient(135deg, #0891b2, #06b6d4);
+    }
+
+    .bg-naranja {
+        background: linear-gradient(135deg, #ea580c, #f97316);
+    }
+
+    .bg-gris {
+        background: linear-gradient(135deg, #374151, #6b7280);
+    }
+
+    /* 🔸 Tipografía unificada */
+    .card h6 {
+        font-size: 15px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 6px;
+    }
+
+    .card h4, .card h5 {
+        font-size: 20px;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .card small {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.85);
+    }
+</style>
+
+<div class="container-fluid my-4">
+
+    <h4 class="fw-bold text-center mb-4 text-secondary">
+        <i class="bi bi-clipboard-data"></i> DASHBOARD DE INVENTARIO
+    </h4>
+
+    <!-- 🔹 Primera fila -->
+    <div class="row g-3 text-center" id="cardsResumenInventario">
+        <div class="col-md-3">
+            <div class="card bg-azul">
+                <h6>Total Productos</h6>
+                <h4 id="totalProductos">0</h4>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-verde">
+                <h6>Valor Total Inventario</h6>
+                <h4 id="valorInventario">$ 0</h4>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-rojo">
+                <h6>Productos Bajo Stock</h6>
+                <h4 id="productosBajoStock">0</h4>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-morado">
+                <h6>Producto con Más Días sin Movimiento</h6>
+                <h5 id="productoMasDias" class="fw-bold text-truncate">—</h5>
+                <small id="diasMasSinMovimiento">— días</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🔹 Segunda fila -->
+    <div class="row g-3 text-center mt-3">
+        <div class="col-md-3">
+            <div class="card bg-cyan">
+                <h6>Stock Total</h6>
+                <h4 id="stockTotal">0</h4>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-amarillo">
+                <h6>Producto con Mayor Stock</h6>
+                <h5 id="productoMayorStock" class="fw-bold text-truncate">—</h5>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-naranja">
+                <h6>Producto con Menor Stock</h6>
+                <h5 id="productoMenorStock" class="fw-bold text-truncate">—</h5>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-gris">
+                <h6>Producto Más Reciente</h6>
+                <h5 id="productoMasReciente" class="fw-bold text-truncate">—</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        ValidarSesion('/Almacen/Inventario');
+        GridInventario();
+    });
+</script>

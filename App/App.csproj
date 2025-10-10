@@ -4310,6 +4310,7 @@
     <Content Include="JsApp\Cotizacion.js" />
     <Content Include="JsApp\DetalleCotizacion.js" />
     <Content Include="JsApp\Entrada.js" />
+    <Content Include="JsApp\Inventario.js" />
     <Content Include="JsApp\OtrosDescuentosEmpleado.js" />
     <Content Include="JsApp\OtrosIngresosEmpleado.js" />
     <Content Include="JsApp\Cargo.js" />
@@ -4562,6 +4563,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BancoController.cs" />
     <Compile Include="Controllers\Entrada_AlmacenController.cs" />
+    <Compile Include="Controllers\InventarioController.cs" />
     <Compile Include="Controllers\Otros_Descuentos_EmpleadoController.cs" />
     <Compile Include="Controllers\Otros_Ingresos_EmpleadoController.cs" />
     <Compile Include="Controllers\Cargar_DocumentoController.cs" />
@@ -4703,6 +4705,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Entrada_Almacen\" />
+    <Folder Include="Views\Inventario\" />
     <Folder Include="Views\PlantillaComprobanteNominaEmpleado\" />
   </ItemGroup>
   <ItemGroup>
