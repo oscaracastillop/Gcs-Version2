@@ -354,7 +354,11 @@ function GridNominaEmpleado() {
         "ajax": {
             "url": '/Nomina_Empleado/GridNominaEmpleado',
             "type": "GET",
-            "datatype": "json"
+            "datatype": "json",
+            dataSrc: function (json) {
+                actualizarDashboard(json.data);
+                return json.data;
+            }
         },
         columns: [
             {
@@ -555,6 +559,31 @@ function GridNominaEmpleado() {
 
 }
 
+
+function actualizarDashboard(data) {
+    if (!data || data.length === 0) return;
+
+    const totalProductos = data.length;
+    const valorInventario = data.reduce((sum, x) => sum + (x.Cantidad * x.CostoPromedioCompra), 0);
+    const bajoStock = data.filter(x => x.Cantidad <= x.StockMinimo).length;
+    const stockTotal = data.reduce((sum, x) => sum + x.Cantidad, 0);
+
+    const mayor = data.reduce((max, x) => x.Cantidad > max.Cantidad ? x : max);
+    const menor = data.reduce((min, x) => x.Cantidad < min.Cantidad ? x : min);
+    const masDias = data.reduce((max, x) => x.DiasSinMovimiento > max.DiasSinMovimiento ? x : max);
+    const masReciente = data.reduce((latest, x) => new Date(x.FechaUltimoMovimiento) > new Date(latest.FechaUltimoMovimiento) ? x : latest);
+
+    // Actualizar tarjetas
+    document.getElementById('totalProductos').innerText = totalProductos;
+    document.getElementById('valorInventario').innerText = '$ ' + valorInventario.toLocaleString('es-CO');
+    document.getElementById('productosBajoStock').innerText = bajoStock;
+    document.getElementById('productoMasDias').innerText = masDias.NombreProducto;
+    document.getElementById('diasMasSinMovimiento').innerText = masDias.DiasSinMovimiento + ' días';
+    document.getElementById('stockTotal').innerText = stockTotal.toLocaleString('es-CO');
+    document.getElementById('productoMayorStock').innerText = mayor.NombreProducto;
+    document.getElementById('productoMenorStock').innerText = menor.NombreProducto;
+    document.getElementById('productoMasReciente').innerText = masReciente.NombreProducto;
+}
 
 function PagarNominaEmpleado(IdNominaEmpleado) {
     Swal.fire({

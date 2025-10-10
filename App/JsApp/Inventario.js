@@ -84,7 +84,7 @@ function GridInventario() {
     });
 }
 
-/* ==================== FUNCIONES DASHBOARD ==================== */
+
 function actualizarDashboard(data) {
     if (!data || data.length === 0) return;
 

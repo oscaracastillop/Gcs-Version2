@@ -3,90 +3,10 @@
     ViewBag.Title = "Nómina Empleado";
 }
 
+<link href="~/Content/nomina.css" rel="stylesheet" />
 <script src="~/JsApp/ContratoLaboral.js"></script>
 <script src="~/JsApp/NominaEmpleado.js"></script>
 <script src="~/JsApp/TipoEstado.js"></script>
-
-<style>
-    /* Contenedor general */
-    #datosNominaEmpleado {
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-        padding: 20px 25px;
-        border: 1px solid #ddd;
-    }
-
-        /* Encabezado */
-        #datosNominaEmpleado > div:first-child {
-            text-align: center;
-            font-weight: bold;
-            background-color: #3b5998;
-            color: white;
-            padding: 8px 0;
-            border-radius: 6px;
-        }
-
-    /* Cuadricula general */
-    .grid-nomina {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-        margin-top: 10px;
-    }
-
-    /* Secciones */
-    .panel-nomina {
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        background-color: #fafafa;
-        padding: 10px 15px;
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-    }
-
-    /* Filas tipo tabla */
-    .fila-nomina {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        border-bottom: 1px dashed #e0e0e0;
-        padding: 2px 0;
-        align-items: center;
-    }
-
-        .fila-nomina:last-child {
-            border-bottom: none;
-        }
-
-    /* Totales */
-    .fila-total {
-        border-top: 1px solid #ccc;
-        margin-top: 6px;
-        padding-top: 4px;
-        font-weight: bold;
-    }
-
-    /* Total final */
-    .total-final {
-        text-align: right;
-        font-weight: bold;
-        border-top: 2px dashed #888;
-        margin-top: 15px;
-        padding-top: 8px;
-    }
-
-    /* Footer */
-    #BotonesModalNominaEmpleado {
-        border-top: 1px solid #ddd;
-        margin-top: 12px;
-        padding-top: 8px;
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-    }
-</style>
-
 
 <div class="tituloPage">
     <label>NOMINA EMPLEADO</label>
@@ -95,6 +15,136 @@
 <div class="grid">
     <table id="gridNominaEmpleado" class="table nowrap cell-border table-striped" cellspacing="0" style="width: 100%;"></table>
 </div>
+
+<div class="container-fluid my-4">
+
+    <h6 class="fw-bold text-center mb-4 text-dark">
+        <i class="bi bi-clipboard-data"></i> DASHBOARD DE INVENTARIO
+    </h6>
+
+    <style>
+    </style>
+
+    <div class="row g-3" id="cardsResumenInventario">
+        <div class="col-md-3">
+            <div class="card-resumen bg-azul">
+                <div class="card-header">Total Productos</div>
+                <div class="card-body">
+                    <div class="card-texto">
+                        <h4 id="totalProductos">0</h4>
+                    </div>
+                    <div class="card-icono">
+                        <i class="bi bi-box-seam"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-resumen bg-verde">
+                <div class="card-header">Valor Total Inventario</div>
+                <div class="card-body">
+                    <div class="card-texto">
+                        <h4 id="valorInventario">$ 0</h4>
+                    </div>
+                    <div class="card-icono">
+                        <i class="bi bi-cash-stack"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-resumen bg-rojo">
+                <div class="card-header">Productos Bajo Stock</div>
+                <div class="card-body">
+                    <div class="card-texto">
+                        <h4 id="productosBajoStock">0</h4>
+                    </div>
+                    <div class="card-icono">
+                        <i class="bi bi-exclamation-triangle"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-resumen bg-morado">
+                <div class="card-header">Más Días sin Movimiento</div>
+                <div class="card-body">
+                    <div class="card-texto">
+                        <h4 id="productoMasDias" class="fw-bold text-truncate">—</h4>
+                        <small id="diasMasSinMovimiento">— días</small>
+                    </div>
+                    <div class="card-icono">
+                        <i class="bi bi-stopwatch"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3 mt-3">
+        <div class="col-md-3">
+            <div class="card-resumen bg-cyan">
+                <div class="card-header">Stock Total</div>
+                <div class="card-body">
+                    <div class="card-texto">
+                        <h4 id="stockTotal">0</h4>
+                    </div>
+                    <div class="card-icono">
+                        <i class="bi bi-graph-up-arrow"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-resumen bg-amarillo">
+                <div class="card-header">Mayor Stock</div>
+                <div class="card-body">
+                    <div class="card-texto">
+                        <h4 id="productoMayorStock" class="fw-bold text-truncate">—</h4>
+                    </div>
+                    <div class="card-icono">
+                        <i class="bi bi-arrow-up-circle"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-resumen bg-naranja">
+                <div class="card-header">Menor Stock</div>
+                <div class="card-body">
+                    <div class="card-texto">
+                        <h4 id="productoMenorStock" class="fw-bold text-truncate">—</h4>
+                    </div>
+                    <div class="card-icono">
+                        <i class="bi bi-arrow-down-circle"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-resumen bg-gris">
+                <div class="card-header">Más Reciente</div>
+                <div class="card-body">
+                    <div class="card-texto">
+                        <h4 id="productoMasReciente" class="fw-bold text-truncate">—</h4>
+                    </div>
+                    <div class="card-icono">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 
 <!-- Modal Nomina Empleado-->
@@ -244,12 +294,12 @@
             </div>
         </div>
     </div>
-
-    <script>
-        $(document).ready(function () {
-            ValidarSesion('/Contabilidad/Nomina_Empleado');
-            GridNominaEmpleado();
-            ListaTipoEstado(1);
-            ListaContratoLaboralEmpleado();
-        });
-    </script>
+</div>
+<script>
+    $(document).ready(function () {
+        ValidarSesion('/Contabilidad/Nomina_Empleado');
+        GridNominaEmpleado();
+        ListaTipoEstado(1);
+        ListaContratoLaboralEmpleado();
+    });
+</script>

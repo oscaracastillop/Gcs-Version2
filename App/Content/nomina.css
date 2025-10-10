@@ -1,0 +1,77 @@
+﻿/* Contenedor general */
+#datosNominaEmpleado {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    padding: 20px 25px;
+    border: 1px solid #ddd;
+}
+
+    /* Encabezado */
+    #datosNominaEmpleado > div:first-child {
+        text-align: center;
+        font-weight: bold;
+        background-color: #3b5998;
+        color: white;
+        padding: 8px 0;
+        border-radius: 6px;
+    }
+
+/* Cuadricula general */
+.grid-nomina {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+/* Secciones */
+.panel-nomina {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* Filas tipo tabla */
+.fila-nomina {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    border-bottom: 1px dashed #e0e0e0;
+    padding: 2px 0;
+    align-items: center;
+}
+
+    .fila-nomina:last-child {
+        border-bottom: none;
+    }
+
+/* Totales */
+.fila-total {
+    border-top: 1px solid #ccc;
+    margin-top: 6px;
+    padding-top: 4px;
+    font-weight: bold;
+}
+
+/* Total final */
+.total-final {
+    text-align: right;
+    font-weight: bold;
+    border-top: 2px dashed #888;
+    margin-top: 15px;
+    padding-top: 8px;
+}
+
+/* Footer */
+#BotonesModalNominaEmpleado {
+    border-top: 1px solid #ddd;
+    margin-top: 12px;
+    padding-top: 8px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}

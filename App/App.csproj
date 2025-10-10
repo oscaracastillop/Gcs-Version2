@@ -4261,6 +4261,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\dashboard.css" />
     <Content Include="Content\DataTables\datatables.css" />
     <Content Include="Content\DataTables\datatables.js" />
     <Content Include="Content\DataTables\datatables.min.css" />
@@ -4294,6 +4295,7 @@
     <Content Include="Content\gijgo\modular\tree.min.css" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\logo.png" />
+    <Content Include="Content\nomina.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Images\FirmaRepresentanteLegal\Firma RL EG.jpeg" />
