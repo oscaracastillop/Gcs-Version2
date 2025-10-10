@@ -575,7 +575,9 @@ function actualizarDashboard(data) {
         .filter(x => x.IdEstado === 3)
         .reduce((sum, x) => sum + (Number(x.TotalPagar) || 0), 0);
 
-    const cantidadHorasExtras = data.reduce((sum, x) => sum + (Number(x.CantHED + x.CantHEN + x.CantHEDDF + x.CantHENDF) || 0), 0);
+    const cantidadHorasExtras = data.reduce((sum, x) =>
+        sum + (Number(x.CantHED || 0) + Number(x.CantHEN || 0) + Number(x.CantHEDDF || 0) + Number(x.CantHENDF || 0)), 0
+    );
     const totalHorasExtras = data.reduce((sum, x) => sum + (Number(x.TotalHE) || 0), 0);
     const totalOtrosIngresos = data.reduce((sum, x) => sum + (Number(x.OtrosIngresos) || 0), 0);
     const totalOtrosDescuentos = data.reduce((sum, x) => sum + (Number(x.OtrosDescuentos) || 0), 0);
