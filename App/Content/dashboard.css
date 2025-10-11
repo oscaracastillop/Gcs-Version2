@@ -17,7 +17,7 @@
     background: #f3f4f6;
     color: #111827;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 12px;
     padding: 8px 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
@@ -37,7 +37,7 @@
 }
 
     .card-texto h4 {
-        font-size: 1.1rem;
+        font-size: 13px!important;
         font-weight: 700;
         margin: 2px 0;
         color: #1f2937;
@@ -60,51 +60,127 @@
 }
 
 .bg-azul .card-header {
-    background-color:cornflowerblue ;
-    color: white;
+    background-color: #1E40AF;
+    color: #ffffff;
 }
 
 .bg-verde .card-header {
-    background-color: green;
-    color: white;
+    background-color: #047857;
+    color: #ffffff;
 }
 
 .bg-rojo .card-header {
-    background: #fee2e2;
-    color: #991b1b;
+    background-color: #B91C1C;
+    color: #fef2f2;
 }
 
 .bg-morado .card-header {
-    background: #ede9fe;
-    color: #5b21b6;
+    background-color: #7C3AED;
+    color: #f3e8ff;
 }
 
 .bg-cyan .card-header {
-    background: #cffafe;
-    color: #0e7490;
+    background-color: #0891B2;
+    color: #cffafe;
 }
 
 .bg-amarillo .card-header {
-    background: #fef9c3;
-    color: #854d0e;
+    background-color: #CA8A04;
+    color: #fefce8;
 }
 
 .bg-naranja .card-header {
-    background: #ffedd5;
-    color: #9a3412;
+    background-color: #EA580C;
+    color: #fff7ed;
 }
 
 .bg-gris .card-header {
-    background: #e5e7eb;
-    color: #374151;
+    background-color: #6B7280;
+    color: #f9fafb;
 }
 
 .bg-general .card-header {
-    background-color: #3b5998;
-    color: white;
+    background-color: #3B5998;
+    color: #ffffff;
 }
 
-.bg-gris .card-header {
-    background: #e5e7eb;
-    color: #374151;
+.bg-rosa .card-header {
+    background-color: #DB2777;
+    color: #fff1f2;
 }
+
+.bg-menta .card-header {
+    background-color: #10B981;
+    color: #d1fae5;
+}
+
+.bg-lila .card-header {
+    background-color: #C084FC;
+    color: #f5f3ff;
+}
+
+.bg-coral .card-header {
+    background-color: #F97316;
+    color: #fff7ed;
+}
+
+.bg-oliva .card-header {
+    background-color: #717F1A;
+    color: #f7f7e0;
+}
+
+.bg-turquesa .card-header {
+    background-color: #06B6D4;
+    color: #e0f7fa;
+}
+
+.bg-fucsia .card-header {
+    background-color: #BE185D;
+    color: #ffe4f0;
+}
+
+.bg-azul-claro .card-header {
+    background-color: #3B82F6;
+    color: #eff6ff;
+}
+
+.bg-verde-claro .card-header {
+    background-color: #22C55E;
+    color: #ecfdf5;
+}
+
+.bg-rojo-claro .card-header {
+    background-color: #F87171;
+    color: #fef2f2;
+}
+
+.bg-morado-claro .card-header {
+    background-color: #A78BFA;
+    color: #f5f3ff;
+}
+
+.bg-cyan-claro .card-header {
+    background-color: #67E8F9;
+    color: #0E7490;
+}
+
+.bg-amarillo-claro .card-header {
+    background-color: #FACC15;
+    color: #713F12;
+}
+
+.bg-naranja-claro .card-header {
+    background-color: #FDBA74;
+    color: #7C2D12;
+}
+
+.bg-gris-claro .card-header {
+    background-color: #D1D5DB;
+    color: #111827;
+}
+
+.bg-general-claro .card-header {
+    background-color: #4C51BF;
+    color: #E0E7FF;
+}
+

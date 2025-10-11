@@ -71,7 +71,8 @@ namespace SistemaGcs.Models
             public int IdEstado { get; set; } 
             public string Estado { get; set; } 
             public string CreateBy { get; set; }
-            public string DateCreate { get; set; } 
+            public string DateCreate { get; set; }
+            public string FechaChart { get; set; }
 
 
 

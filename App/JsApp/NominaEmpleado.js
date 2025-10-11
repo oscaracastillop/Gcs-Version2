@@ -559,10 +559,96 @@ function GridNominaEmpleado() {
 
 }
 
+
+// ===  GRAFICO TOTAL NÓMINA PAGADA POR MES (ULTIMOS 12 MESES) ===
+function generarGraficoNominaPagada(data) {
+    if (!data || data.length === 0) return;
+
+    // Obtener los últimos 12 meses
+    const meses = [];
+    const hoy = new Date();
+    for (let i = 11; i >= 0; i--) {
+        const fecha = new Date(hoy.getFullYear(), hoy.getMonth() - i, 1);
+        const nombreMes = fecha.toLocaleString('es-ES', { month: 'short' }).toUpperCase();
+        meses.push({ etiqueta: nombreMes + ' ' + fecha.getFullYear(), mes: fecha.getMonth() + 1, anio: fecha.getFullYear() });
+    }
+
+    // Calcular total de nómina pagada por mes
+    const totalesPorMes = meses.map(m => {
+        const total = data
+            .filter(x => {
+                //if (x.IdEstado == 3) return false; 
+                if (!x.FechaChart) return false;
+                const fecha = new Date(x.FechaChart);
+                return fecha.getMonth() + 1 === m.mes && fecha.getFullYear() === m.anio;
+            })
+            .reduce((sum, x) => sum + (Number(x.TotalPagar) || 0), 0);
+        return total;
+    });
+
+    // Destruir gráfico previo si existe
+    if (window.chartNominaPagada) {
+        window.chartNominaPagada.destroy();
+    }
+
+    // Crear nuevo gráfico
+    const ctx = document.getElementById('graficoNominaPagada').getContext('2d');
+    window.chartNominaPagada = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: meses.map(m => m.etiqueta),
+            datasets: [{
+                label: 'Total Nómina Pagada ($)',
+                data: totalesPorMes,
+                borderColor: '#2563eb',
+                backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                tension: 0.4, // curva suave
+                fill: true,
+                pointBackgroundColor: '#1d4ed8',
+                pointBorderColor: '#fff',
+                pointRadius: 4,
+                borderWidth: 2,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: true, position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        label: function (ctx) {
+                            return ' $ ' + Number(ctx.parsed.y).toLocaleString('es-CO');
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: value => '$ ' + value.toLocaleString('es-CO')
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Llamamos el gráfico después de actualizar el dashboard
+const originalActualizarDashboard = actualizarDashboard;
+actualizarDashboard = function (data) {
+    originalActualizarDashboard(data);
+    generarGraficoNominaPagada(data);
+};
+
+
+
+
 function actualizarDashboard(data) {
     if (!data || data.length === 0) return;
 
-    // 📊 Cálculos generales adaptados al contexto de nómina
+    // Cálculos generales adaptados al contexto de nómina
     const totalNominas = data.length;
     const nominasPendientes = data.filter(x => x.IdEstado === 1).length;
     const nominasPagadas = data.filter(x => x.IdEstado === 3).length;
@@ -589,7 +675,7 @@ function actualizarDashboard(data) {
         return Number(valor).toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
     }
 
-    // 🧭 Actualizar tarjetas de cada sección del dashboard
+    // Actualizar tarjetas de cada sección del dashboard
     // === Primera fila ===
     document.getElementById('totalCantidadNomina').innerText = formatoNumero(totalNominas);
     document.getElementById('nominaPendiente').innerText = formatoNumero(nominasPendientes);

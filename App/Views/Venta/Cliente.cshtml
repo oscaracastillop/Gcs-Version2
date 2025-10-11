@@ -22,7 +22,101 @@
 </div>
 
 
-<i class="bi-file-pdf"></i>
+<div class="container-fluid my-4">
+
+    <h6 class="fw-bold text-center mb-4 text-dark">
+        <i class="bi bi-clipboard-data"></i> DASHBOARD DE CLIENTES
+    </h6>
+
+    @*Seccion 1*@
+    <div class="row g-3" id="cardsResumenInventario">
+        <div class="col-md-3">
+            <div class="card-resumen bg-azul">
+                <div class="card-header">Total Clientes</div>
+                <div class="card-body">
+                    <div class="card-texto">
+                        <h4 id="totalClientes">0</h4>
+                    </div>
+                    <div class="card-icono">
+                        <i class="bi bi-people-fill"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-resumen bg-verde">
+                <div class="card-header">Clientes Activos</div>
+                <div class="card-body">
+                    <div class="card-texto">
+                        <h4 id="clientesActivos">0</h4>
+                    </div>
+                    <div class="card-icono">
+                        <i class="bi bi-person-check"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-resumen bg-rojo">
+                <div class="card-header">Clientes In-activos</div>
+                <div class="card-body">
+                    <div class="card-texto">
+                        <h4 id="clientesInactivos">0</h4>
+                    </div>
+                    <div class="card-icono">
+                        <i class="bi bi-person-fill-x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card-resumen bg-morado">
+                <div class="card-header">Clientes Contado</div>
+                <div class="card-body">
+                    <div class="card-texto">
+                        <h4 id="clientesContado">0</h4>
+                    </div>
+                    <div class="card-icono">
+                        <i class="bi bi-cash-coin"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Seccion 2*@
+    <div class="row g-3 mt-3">
+        <div class="col-md-3">
+            <div class="card-resumen bg-morado">
+                <div class="card-header">Clientes Crédito</div>
+                <div class="card-body">
+                    <div class="card-texto">
+                        <h4 id="clientesCredito">0</h4>
+                    </div>
+                    <div class="card-icono">
+                        <i class="bi bi-credit-card"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card-resumen bg-gris">
+                <div class="card-header">Más Reciente</div>
+                <div class="card-body">
+                    <div class="card-texto">
+                        <h4 id="clienteMasReciente" class="fw-bold text-truncate">—</h4>
+                    </div>
+                    <div class="card-icono">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!-- Modal Cliente -->
@@ -155,7 +249,7 @@
                             <select class="form-control" id="SelectEstado"></select>
                         </div>
                     </div>
-                </div>               
+                </div>
             </div>
 
             <!-- Footer -->

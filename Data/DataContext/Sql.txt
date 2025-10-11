@@ -24,6 +24,8 @@ INSERT INTO TipoEstado (Nombre) VALUES ('Inactivo')
 INSERT INTO TipoEstado (Nombre) VALUES ('Pagada')
 INSERT INTO TipoEstado (Nombre) VALUES ('Cobrado')
 INSERT INTO TipoEstado (Nombre) VALUES ('Finalizado')
+INSERT INTO TipoEstado (Nombre) VALUES ('Aceptada')
+INSERT INTO TipoEstado (Nombre) VALUES ('Anulada')
 
 GO
 
@@ -7563,7 +7565,11 @@ BEGIN
 			CONVERT(varchar(255),A.FechaInicioCorte,105)+ ' al ' + CONVERT(varchar(255),A.FechaFinCorte,105) As PeriodoLiquidado,
 			CONVERT(varchar(255),A.DiasaPagar) As DiasPagar,
 			CONVERT(varchar(255),A.Sueldo) As Sueldo,			
-			CONVERT(varchar(255),A.SubTransporte) As SubTransporte,			 
+			CONVERT(varchar(255),A.SubTransporte) As SubTransporte,		
+			CONVERT(varchar(255),A.CantHED) As CantHED,
+			CONVERT(varchar(255),A.CantHEN) As CantHEN,
+			CONVERT(varchar(255),A.CantHEDDF) As CantHEDDF,
+			CONVERT(varchar(255),A.CantHENDF) As CantHENDF,
 			CONVERT(varchar(255),A.TotalHE) As TotalHE,
 			CONVERT(varchar(255),A.DesembolsoPrestamo) As DesembolsoPrestamo,
 			CONVERT(varchar(255),A.OtrosIngresos) As OtrosIngresos,
@@ -7578,7 +7584,8 @@ BEGIN
 			A.IdEstado,
 			dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,			
 			dbo.Fun_BuscarNombreUsuario(A.CreateBy) As CreateBy,
-			CONVERT(varchar(255),A.DateCreate,105)+ ' ' + CONVERT(varchar(255),A.DateCreate,8) As DateCreate
+			CONVERT(varchar(255),A.DateCreate,105)+ ' ' + CONVERT(varchar(255),A.DateCreate,8) As DateCreate,
+			CONVERT(varchar(255),A.DateCreate,6) As FechaChart
 			FROM NominaEmpleado A,
 			Empresa B,
 			Sucursal C
@@ -8436,6 +8443,7 @@ BEGIN
 			dbo.Fun_BuscarNombreTipoEstado(A.IdEstado) As Estado,			
 			dbo.Fun_BuscarNombreUsuario(A.CreateBy) As CreateBy,
 			CONVERT(varchar(255),A.DateCreate,105)+ ' ' + CONVERT(varchar(255),A.DateCreate,8) As DateCreate,
+			CONVERT(varchar(255),A.DateCreate,6) As FechaChart,
 			CONVERT(VARCHAR(255),A.DateCreate,111) As Fecha
 			
 			

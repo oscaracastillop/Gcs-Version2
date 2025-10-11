@@ -1,47 +1,55 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <link rel="shortcut icon" type="image/png" href="~/Images/ImagesApp/Favicon.png" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sofia - @ViewBag.Title</title>
+    <link rel="shortcut icon" type="image/png" href="~/Images/ImagesApp/Favicon.png" />
+
+    <!-- CSS propios -->
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/dashboard.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/jquery-3.7.1.min.js"></script>
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
-    <script src="~/Scripts/js-cookie/js.cookie.js"></script>
-    <link href="~/Scripts/Sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
-    <script src="~/Scripts/Sweetalert2/dist/sweetalert2.min.js"></script>
     <link href="~/Content/bootstrap-icons-1.13.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="~/Scripts/Sweetalert2/dist/sweetalert2.min.css" rel="stylesheet" />
 
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Fuente -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 
+    <!-- DataTables (CSS) - URL en UNA sola línea -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/jszip-2.5.0/dt-1.13.2/af-2.5.2/b-2.3.4/b-colvis-2.3.4/b-html5-2.3.4/b-print-2.3.4/cr-1.6.1/fc-4.2.1/fh-3.3.1/kt-2.8.0/r-2.4.0/sc-2.0.7/sb-1.4.0/sp-2.1.1/datatables.min.css" />
+
+    <!-- jQuery (una sola vez, antes de plugins que lo usan) -->
+    <script src="~/Scripts/jquery-3.7.1.min.js"></script>
+
+    <!-- Modernizr / Cookies / SweetAlert (scripts que usas) -->
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/js-cookie/js.cookie.js"></script>
+    <script src="~/Scripts/Sweetalert2/dist/sweetalert2.min.js"></script>
+
+    <!-- pdfmake + DataTables (JS) - URL en UNA sola línea -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/jszip-2.5.0/dt-1.13.2/af-2.5.2/b-2.3.4/b-colvis-2.3.4/b-html5-2.3.4/b-print-2.3.4/cr-1.6.1/fc-4.2.1/fh-3.3.1/kt-2.8.0/r-2.4.0/sc-2.0.7/sb-1.4.0/sp-2.1.1/datatables.min.js"></script>
 
-
-
-    @*  Scripts App *@
+    <!-- Tus scripts de la app (mismo nombre/orden que original) -->
     <script src="~/JsApp/Goblal.js"></script>
     <script src="~/JsApp/Menu.js"></script>
     <script src="~/JsApp/SubMenu.js"></script>
-
-
     <script src="~/JsApp/ContratoLaboral.js"></script>
-
-
 
 </head>
 <body class="fondo">
     <nav class="navbar navbar-expand-lg navbar-dark scroll stilonavbar" style="background-color:white;">
         <div class="container-fluid">
             <a class="navbar-brand Titulo-Login" href="#">Sofia</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon" style="color:black"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent" style="color:white!important;">
@@ -54,63 +62,51 @@
         <div style="margin-top:0px;">
             @RenderBody()
         </div>
-
-
     </section>
-    @*<footer>
-            <p>&copy; @DateTime.Now.Year - Sofia Software Administrativo</p>
-        </footer>*@
 
-    <script src="~/Scripts/jquery-3.7.1.min.js"></script>
+    <!-- bootstrap.js (al final) -->
     <script src="~/Scripts/bootstrap.min.js"></script>
 
-    @*<link href="~/Content/DataTables/datatables.min.css" rel="stylesheet" />
-        <script src="~/Content/DataTables/datatables.min.js"></script>*@
+    <!-- NOTA: NO volver a cargar jQuery aquí ni duplicar DataTables -->
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/jszip-2.5.0/dt-1.13.2/af-2.5.2/b-2.3.4/b-colvis-2.3.4/b-html5-2.3.4/b-print-2.3.4/cr-1.6.1/fc-4.2.1/fh-3.3.1/kt-2.8.0/r-2.4.0/sc-2.0.7/sb-1.4.0/sp-2.1.1/datatables.min.css" />
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/jszip-2.5.0/dt-1.13.2/af-2.5.2/b-2.3.4/b-colvis-2.3.4/b-html5-2.3.4/b-print-2.3.4/cr-1.6.1/fc-4.2.1/fh-3.3.1/kt-2.8.0/r-2.4.0/sc-2.0.7/sb-1.4.0/sp-2.1.1/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // debug rápido recomendado (borra luego)
+            // console.log('jQuery v:', $.fn ? $.fn.jquery : 'NO CARGADO');
 
+            if (TokenUser == '' || TokenUser == undefined || TokenUser == null) {
+                Swal.fire({
+                    title: `<span style="font-size:18px; font-weight:bold; color:#3b5998;">${TituloSwal}</span>`,
+                    html: `<p style="font-size:14px; color:#444; margin:0; line-height:1.2;">
+                          Su sesión ha <strong>expirado</strong>, por favor vuelva a ingresar.
+                       </p>`,
+                    icon: 'info',
+                    position: 'top',
+                    confirmButtonText: '<i class="bi bi-box-arrow-in-right"></i> Ir a Login',
+                    confirmButtonColor: '#3b5998',
+                    background: '#f9f9f9',
+                    showClass: { popup: 'animate__animated animate__fadeInDown' },
+                    hideClass: { popup: 'animate__animated animate__fadeOutUp' },
+                    customClass: {
+                        popup: 'rounded-4 shadow-lg',
+                        confirmButton: 'px-3 py-1 rounded-pill fw-semibold',
+                        icon: 'swal2-icon-custom'
+                    }
+                }).then((result) => {
+                    window.location.href = '/Login';
+                });
+            } else {
+                ListaMenu();
+            }
+
+            $('#NameApp').text(NameApp);
+            $('#SloganEmpresa').text(SloganEmpresa);
+        });
+
+        function CerrarSesion() {
+            Cookies.remove('TokenUser');
+            window.location.href = '/Login';
+        }
+    </script>
 </body>
 </html>
-
-<script>
-    $(document).ready(function () {        
-
-        if (TokenUser == '' || TokenUser == undefined || TokenUser == null) {
-            Swal.fire({
-                title: `<span style="font-size:18px; font-weight:bold; color:#3b5998;">${TituloSwal}</span>`,
-                html: `<p style="font-size:14px; color:#444; margin:0; line-height:1.2;">
-                  Su sesión ha <strong>expirado</strong>, por favor vuelva a ingresar.
-               </p>`,
-                icon: 'info',
-                position: 'top',                
-                confirmButtonText: '<i class="bi bi-box-arrow-in-right"></i> Ir a Login',
-                confirmButtonColor: '#3b5998',
-                background: '#f9f9f9',
-                showClass: { popup: 'animate__animated animate__fadeInDown' },
-                hideClass: { popup: 'animate__animated animate__fadeOutUp' },
-                customClass: {
-                    popup: 'rounded-4 shadow-lg',
-                    confirmButton: 'px-3 py-1 rounded-pill fw-semibold',
-                    icon: 'swal2-icon-custom'
-                }
-            }).then((result) => {
-                window.location.href = '/Login';
-            });
-        } else {
-            ListaMenu();
-        }
-
-
-        $('#NameApp').text(NameApp);
-        $('#SloganEmpresa').text(SloganEmpresa);
-    });
-
-    function CerrarSesion() {
-        Cookies.remove('TokenUser');
-        window.location.href = '/Login';
-    }
-</script>
-

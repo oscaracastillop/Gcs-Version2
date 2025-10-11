@@ -3,6 +3,9 @@
     ViewBag.Title = "Nómina Empleado";
 }
 
+
+
+
 <link href="~/Content/nomina.css" rel="stylesheet" />
 <script src="~/JsApp/ContratoLaboral.js"></script>
 <script src="~/JsApp/NominaEmpleado.js"></script>
@@ -25,7 +28,7 @@
     @*Seccion 1*@
     <div class="row g-3" id="cardsResumenInventario">
         <div class="col-md-3">
-            <div class="card-resumen bg-general">
+            <div class="card-resumen bg-azul">
                 <div class="card-header">Cantidad Nóminas</div>
                 <div class="card-body">
                     <div class="card-texto">
@@ -39,7 +42,7 @@
         </div>
 
         <div class="col-md-3">
-            <div class="card-resumen bg-general">
+            <div class="card-resumen bg-verde">
                 <div class="card-header">Nómina x Pagar</div>
                 <div class="card-body">
                     <div class="card-texto">
@@ -53,7 +56,7 @@
         </div>
 
         <div class="col-md-3">
-            <div class="card-resumen bg-general">
+            <div class="card-resumen bg-morado">
                 <div class="card-header">Nómina Pagada</div>
                 <div class="card-body">
                     <div class="card-texto">
@@ -67,7 +70,7 @@
         </div>
 
         <div class="col-md-3">
-            <div class="card-resumen bg-general">
+            <div class="card-resumen bg-cyan">
                 <div class="card-header">Valor Nómina x Pagar</div>
                 <div class="card-body">
                     <div class="card-texto">
@@ -84,7 +87,7 @@
     @*Seccion 2*@
     <div class="row g-3 mt-3">
         <div class="col-md-3">
-            <div class="card-resumen bg-general">
+            <div class="card-resumen bg-amarillo">
                 <div class="card-header">Valor Nómina Pagada</div>
                 <div class="card-body">
                     <div class="card-texto">
@@ -98,7 +101,7 @@
         </div>
 
         <div class="col-md-3">
-            <div class="card-resumen bg-general">
+            <div class="card-resumen bg-naranja">
                 <div class="card-header">Cantidad Horas Extras</div>
                 <div class="card-body">
                     <div class="card-texto">
@@ -112,7 +115,7 @@
         </div>
 
         <div class="col-md-3">
-            <div class="card-resumen bg-general">
+            <div class="card-resumen bg-gris">
                 <div class="card-header">Total Horas Extras</div>
                 <div class="card-body">
                     <div class="card-texto">
@@ -143,7 +146,7 @@
     @*Seccion 3*@
     <div class="row g-3 mt-3">
         <div class="col-md-3">
-            <div class="card-resumen bg-general">
+            <div class="card-resumen bg-rosa">
                 <div class="card-header">Total Otros Descuentos</div>
                 <div class="card-body">
                     <div class="card-texto">
@@ -157,7 +160,7 @@
         </div>
 
         <div class="col-md-3">
-            <div class="card-resumen bg-general">
+            <div class="card-resumen bg-menta">
                 <div class="card-header">Total Desembolso Préstamo</div>
                 <div class="card-body">
                     <div class="card-texto">
@@ -171,7 +174,7 @@
         </div>
 
         <div class="col-md-3">
-            <div class="card-resumen bg-general">
+            <div class="card-resumen bg-lila">
                 <div class="card-header">Total Cobro Préstamo</div>
                 <div class="card-body">
                     <div class="card-texto">
@@ -187,7 +190,12 @@
 </div>
 
 
-
+<div class="card mt-4 mb-3">
+    <div class="card-header bg-azul">Gráfico: Total Nómina Pagada Últimos 12 Meses</div>
+    <div class="card-body">
+        <canvas id="graficoNominaPagada" height="100"></canvas>
+    </div>
+</div>
 
 
 
@@ -340,6 +348,8 @@
         </div>
     </div>
 </div>
+
+
 <script>
     $(document).ready(function () {
         ValidarSesion('/Contabilidad/Nomina_Empleado');

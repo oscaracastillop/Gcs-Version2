@@ -4310,6 +4310,7 @@
     <Content Include="Images\LogoEmpresa\Imagen1.png" />
     <Content Include="JsApp\Banco.js" />
     <Content Include="JsApp\Cotizacion.js" />
+    <Content Include="JsApp\Dashboard.js" />
     <Content Include="JsApp\DetalleCotizacion.js" />
     <Content Include="JsApp\Entrada.js" />
     <Content Include="JsApp\Inventario.js" />
@@ -4696,6 +4697,7 @@
     <Content Include="Views\Recursos_Humanos\Labor_Realizada_Contratista.cshtml" />
     <Content Include="Views\Venta\Crear_Cotizacion.cshtml" />
     <Content Include="Views\Home\Preguntas.cshtml" />
+    <Content Include="Views\Home\Dashboard.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

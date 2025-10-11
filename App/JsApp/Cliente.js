@@ -321,7 +321,11 @@ function GridCliente() {
         "ajax": {
             "url": '/Cliente/GridCliente',
             "type": "GET",
-            "datatype": "json"
+            "datatype": "json",
+            dataSrc: function (json) {
+                actualizarDashboard(json.data);
+                return json.data;
+            }
         },
         columns: [
             {
@@ -401,6 +405,36 @@ function GridCliente() {
     })
 
 }
+
+function actualizarDashboard(data) {
+    if (!data || data.length === 0) return;
+
+    // 📊 Cálculos generales adaptados al contexto de nómina
+    const totalClientes = data.length;
+    const clientesActivos = data.filter(x => x.IdEstado === 1).length;
+    const clientesInactivos = data.filter(x => x.IdEstado === 2).length;
+    const clientesContado = data.filter(x => x.TextoFormaPago === 'Contado').length;
+    const clientesCredito = data.filter(x => x.TextoFormaPago === 'Crédito').length;
+    const masReciente = data.reduce((latest, x) => new Date(x.DateCreate) > new Date(latest.DateCreate) ? x : latest);
+
+    // Función para formatear números sin ceros innecesarios
+    function formatoNumero(valor) {
+        return Number(valor).toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+    }
+
+    // 🧭 Actualizar tarjetas de cada sección del dashboard
+    // === Primera fila ===
+    document.getElementById('totalClientes').innerText = formatoNumero(totalClientes);
+    document.getElementById('clientesActivos').innerText = formatoNumero(clientesActivos);
+    document.getElementById('clientesInactivos').innerText = formatoNumero(clientesInactivos);
+    document.getElementById('clientesContado').innerText = formatoNumero(clientesContado);
+    document.getElementById('clientesCredito').innerText = formatoNumero(clientesCredito);
+    document.getElementById('clienteMasReciente').innerText = masReciente.Nombre;
+
+}
+
+
+
 
 function ListaCliente() {
     $.ajax({
