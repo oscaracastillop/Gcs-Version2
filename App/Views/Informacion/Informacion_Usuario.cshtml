@@ -70,37 +70,49 @@
 <div style="text-align:justify" id="ModulosActivosUsuario"></div>
 
 
-
-
+<!-- Modal Banco-->
 <div class="modal fade" id="ModalActualizarPass" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header header-modal">
-                <div class="modal-title" id="TituloModalActualizarPass"></div>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content shadow-sm rounded-3 border-0">
+
+            <!-- Header -->
+            <div class="modal-header text-white header-modal">
+                <div class="modal-title" id="TituloModalActualizarPass"></div> <!-- tamaño original -->
             </div>
-            <div class="modal-body">
+
+            <!-- Body -->
+            <div class="modal-body py-3 px-3">
+                <label id="LabelIdBanco" hidden></label>
+
                 <div class="row g-2">
-                    <div class="col-6">
-                        <label><strong>Contraseña Actual </strong><label style="font-size:9px!important; color:red"> *</label></label>
-                        <input class="form-control" type="text" name="name" value="" id="PasswordActual" autocomplete="off" style="min-width:100%!important" />
+                    <div class="col-4">
+                        <label><strong>Contraseña Actual</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-key"></i></span>
+                            <input class="form-control" type="text" id="PasswordActual" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <label><strong>Nueva Contraseña</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-key"></i></span>
+                            <input class="form-control" type="text" id="PasswordNuevo" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <label><strong>Confirmar Contraseña</strong><span class="text-danger">*</span></label>
+                        <div class="input-group custom-input">
+                            <span class="input-group-text icon-highlight"><i class="bi bi-key-fill"></i></span>
+                            <input class="form-control" type="text" id="PasswordNuevoConfirmar" autocomplete="off" />
+                        </div>
                     </div>
                 </div>
-                <div class="row g-2">
-                    <div class="col-6">
-                        <label><strong>Nueva Contraseña </strong><label style="font-size:9px!important; color:red"> *</label></label>
-                        <input class="form-control" type="text" name="name" value="" id="PasswordNuevo" autocomplete="off" style="min-width:100%!important" />
-                    </div>
-                    <div class="col-6">
-                        <label><strong>Confirmar Contraseña </strong><label style="font-size:9px!important; color:red"> *</label></label>
-                        <input class="form-control" type="text" name="name" value="" id="PasswordNuevoConfirmar" autocomplete="off" style="min-width:100%!important" />
-                    </div>
-                </div>
             </div>
-            <div class="modal-footer" id="BotonesModalActualizarPass"></div>
+            <!-- Footer -->
+            <div class="modal-footer py-2" id="BotonesModalActualizarPass"></div>
         </div>
     </div>
 </div>
-
 
 <script>
     $(document).ready(function () {

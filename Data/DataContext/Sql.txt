@@ -2618,7 +2618,8 @@ GO
 
 INSERT INTO Empresa (Nombre, IdTipoDocumento, Identificacion, Email, Telefono, Celular, Contacto, IdTipoDocumentoRL, IdentificacionRL, IdCiudadExpedicion, IdCiudad, Direccion, CreateBy, DateCreate) 
 VALUES 
-('E&G Contrucciones S.A.S', 6, '901.766.109-1','edwinfabiangarzon@hotmail.com', '601 0000000', '321 4208189', 'Edwin Fabian Garzón López', 1, '1073151004', 571, 571, 'Calle 19a # 1a - 25', 1, GETDATE())
+('E&G Contrucciones S.A.S', 6, '900.000.000-1','edwinfabian@hotmail.com', '601 0000000', '321 1234567', 'Edwin Fabian Garzón', 1, '123456789', 571, 571, 'Calle 198a # 19a - 250', 1, GETDATE())
+--('E&G Contrucciones S.A.S', 6, '901.766.109-1','edwinfabiangarzon@hotmail.com', '601 0000000', '321 4208189', 'Edwin Fabian Garzón López', 1, '1073151004', 571, 571, 'Calle 19a # 1a - 25', 1, GETDATE())
 --('GCS Software', 1, '3167508','oscaracastillop@gmail.com', '601 0000000', '315 0014586', 'Oscar Antonio Castillo Peréz', 1, '3167508', 638, 574, 'Diagonal 18 # 5 - 44', 1, GETDATE())
 
 GO
@@ -3182,12 +3183,19 @@ CREATE UNIQUE INDEX RegistroUnicoEmpleado on Empleado (Nombre, Apellidos, IdTipo
 GO
 
 INSERT INTO Empleado(Nombre, Apellidos, IdTipoDocumento, Identificacion, IdCiudadExpedicion, CreateBy, DateCreate) VALUES 
-('Oscar Antonio','Castillo Perez',1,'3167508', 638, 1, GETDATE()),
-('Yulisa Jarleidy','Garzón Lopez',1,'1073527268', 548, 1, GETDATE()),
-('Edwin Fabian','Garzón Lopez',1,'10735241256', 571, 1, GETDATE()),
-('Adriana Marlen','Garzón Lopez',1,'1073527266',548, 1, GETDATE()),
-('Yimi Fermando','Garzón Lopez',1,'1073963584', 548, 1, GETDATE()),
-('Michelle Sofia','Castillo Garzón',1,'125425632', 167, 1, GETDATE())
+('Oscar','Castillo',1,'253696952', 638, 1, GETDATE()),
+('Yulisa','Garzón',1,'102574825', 548, 1, GETDATE()),
+('Edwin','Garzón',1,'10253698', 571, 1, GETDATE()),
+('Adriana','Garzón',1,'10245875',548, 1, GETDATE()),
+('Yimi','Garzón',1,'362598', 548, 1, GETDATE()),
+('Michelle','Castillo',1,'89652365', 167, 1, GETDATE())
+
+--('Oscar Antonio','Castillo Perez',1,'3167508', 638, 1, GETDATE()),
+--('Yulisa Jarleidy','Garzón Lopez',1,'1073527268', 548, 1, GETDATE()),
+--('Edwin Fabian','Garzón Lopez',1,'10735241256', 571, 1, GETDATE()),
+--('Adriana Marlen','Garzón Lopez',1,'1073527266',548, 1, GETDATE()),
+--('Yimi Fermando','Garzón Lopez',1,'1073963584', 548, 1, GETDATE()),
+--('Michelle Sofia','Castillo Garzón',1,'125425632', 167, 1, GETDATE())
 
 GO
 

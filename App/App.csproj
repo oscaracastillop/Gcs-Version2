@@ -4696,8 +4696,7 @@
     <Content Include="Views\Recursos_Humanos\Prestamo_Contratista.cshtml" />
     <Content Include="Views\Recursos_Humanos\Labor_Realizada_Contratista.cshtml" />
     <Content Include="Views\Venta\Crear_Cotizacion.cshtml" />
-    <Content Include="Views\Home\Preguntas.cshtml" />
-    <Content Include="Views\Home\Dashboard.cshtml" />
+    <Content Include="Views\Contabilidad\Liquidacion_Empleado.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

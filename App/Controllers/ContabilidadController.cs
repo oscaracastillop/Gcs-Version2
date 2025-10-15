@@ -15,10 +15,14 @@ namespace App.Controllers
             return View();
         }
 
-        public ActionResult Nomina_Contratista()
+        public ActionResult Nomina_Contratista() 
         {
             return View();
         }
 
+        public ActionResult Liquidacion_Empleado() 
+        {
+            return View();
+}
     }
 }
