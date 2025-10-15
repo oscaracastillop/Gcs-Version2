@@ -101,91 +101,7 @@ legend{
 }
 
 
-/* STILOS MODAL CAMBIAR IMAGEN*/
 
-/* Imagen actual */
-#ImagenHVEmpleado img {
-    max-width: 100%;
-    height: auto;
-    border-radius: .5rem;
-    border: 1px solid #dee2e6;
-    box-shadow: 0 2px 6px rgba(0,0,0,.1);
-}
-
-/* Imagen nueva (preview) */
-#previewImage {
-    max-height: 250px;
-    object-fit: contain;
-}
-
-.imagen-escalada-cambiar {
-    width: 100% !important;
-    height: 100% !important;
-}
-
-.modal-content {
-    display: flex;
-    flex-direction: column;
-    max-height: calc(100vh - 80px); 
-}
-
-.modal-body {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 1rem 1rem 0.6rem; /* menos padding inferior para acercar el footer */
-    overflow: auto; /* scroll si el contenido excede la altura */
-}
-
-/* Reduce el espacio entre secciones y evita márgenes grandes al final */
-.section-logo {
-    margin-bottom: 0;
-    padding: 10px;
-}
-
-    .section-logo + .section-logo {
-        margin-top: 8px;
-    }
-
-    .section-logo:last-child {
-        margin-bottom: 0;
-    }
-
-/* Preview: controla el tamaño máximo de la imagen y el espaciado */
-#PreviewLogoEmpleado {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 6px; /* separacion pequeña entre preview y input */
-}
-
-    #PreviewLogoEmpleado img,
-    .section-logo .logo-img {
-        max-width: 100%;
-        max-height: 140px; /* ajusta este valor si quieres preview más grande/pequeña */
-        height: auto;
-        display: block;
-        margin: 0 auto;
-        border-radius: 8px;
-    }
-
-/* Input group: quita márgenes extra y mantiene la altura coherente */
-.contimg-cambiar-img {
-    margin-bottom: 4px;
-    padding: 6px;
-}
-
-.custom-input {
-    margin-bottom: 0;
-}
-
-    .custom-input .input-group-text,
-    .custom-input .form-control {
-        height: 28px; /* mantiene la altura que ya tienes */
-        padding: 0.25rem 0.5rem;
-    }
-
-/* Footer: pega un poco más al contenido */
 .modal-footer {
     padding-top: .45rem;
     padding-bottom: .45rem;
@@ -216,20 +132,6 @@ legend{
 
 
 
-
-.imagen-escalada-grid {
-    width: 100% !important;
-    height: 100% !important;
-    padding: 0px !important;
-    border-radius: 50% !important;
-}
-
-.contimg-grid {
-    width: 25px;
-    height: 25px;
-    margin-right: auto;
-    margin-left: auto;
-}
 
 
 

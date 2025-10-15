@@ -1,0 +1,84 @@
+﻿
+.imagen-escalada-grid {
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0px !important;
+    border-radius: 50% !important;
+}
+
+.contimg-grid {
+    width: 25px;
+    height: 25px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+.contimg-cambiar-img {
+    margin-bottom: 4px;
+    padding: 6px;
+}
+
+
+/* === Estilo modal imagen empleado === */
+#ModalImagenEmpleado .modal-content {
+    background-color: #fff;
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+}
+
+#ModalImagenEmpleado .modal-header {
+    background: linear-gradient(90deg, #3b5998 0%, #4c70ba 100%);
+    color: white;
+    border-bottom: none;
+    text-align: center;
+    justify-content: center;
+}
+
+#ModalImagenEmpleado .card {
+    border-radius: 0.8rem;
+    border: 2px solid #e6e6e6 !important;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+/* Espacio inferior para que la imagen no quede pegada */
+#ModalImagenEmpleado .card-body {
+    padding-bottom: 1.5rem !important;
+}
+
+#ModalImagenEmpleado .contimg-cambiar-img img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+#ModalImagenEmpleado .preview-img {
+    max-height: 230px;
+    object-fit: contain;
+}
+
+#ModalImagenEmpleado .btn-modal-Cancelar {
+    background-color: #e0e0e0;
+    border: none;
+    color: #333;
+    font-weight: 600;
+    border-radius: 0.4rem;
+}
+
+#ModalImagenEmpleado .btn-modal-guardar {
+    background-color: #3b5998;
+    border: none;
+    color: white;
+    font-weight: 600;
+    border-radius: 0.4rem;
+}
+
+    #ModalImagenEmpleado .btn-modal-guardar:hover {
+        background-color: #2f477d;
+    }
+
+#ModalImagenEmpleado .btn-modal-Cancelar:hover {
+    background-color: #d5d5d5;
+}

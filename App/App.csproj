@@ -4293,6 +4293,7 @@
     <Content Include="Content\gijgo\modular\timepicker.min.css" />
     <Content Include="Content\gijgo\modular\tree.css" />
     <Content Include="Content\gijgo\modular\tree.min.css" />
+    <Content Include="Content\ImgCambioImagen.css" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\logo.png" />
     <Content Include="Content\nomina.css" />
